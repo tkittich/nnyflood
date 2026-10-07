@@ -7,18 +7,22 @@
 #   น้ำท่วม  = ฟ้าสด (vivid cyan)  B-R > 150   -> ใช้เป็นชั้น "flood"
 #   ชั้นฟ้าอ่อน (B-R 60..150) อยู่นอกจังหวัดเกือบทั้งหมด (26 km^2) = คนละชั้น ไม่นับ
 import json
+from pathlib import Path
+
 import numpy as np
 import cv2
 
-ROOT = "data/08_dem_topography/satellite_gistda_28sep02oct"
-DER = "data/13_sentinel1_copernicus/derived"
-IMGP = f"{ROOT}/S__5980182_gistda_28sep02oct.jpg"
+# อิง __file__ ไม่ใช่ cwd — รันจากโฟลเดอร์ไหนก็ได้ (ตาม convention สคริปต์อื่นใน analysis/)
+PROJ = Path(__file__).resolve().parent.parent
+ROOT = PROJ / "data" / "08_dem_topography" / "satellite_gistda_28sep02oct"
+DER = PROJ / "data" / "13_sentinel1_copernicus" / "derived"
+IMGP = ROOT / "S__5980182_gistda_28sep02oct.jpg"
 
 
 def gistda_flood_on_grid():
     """คืน bool array (ny,nx) ว่าช่อง grid ไหนเป็นน้ำท่วมตามแผนที่ GISTDA"""
-    g = json.load(open(f"{DER}/grid.json", encoding="utf-8"))
-    p = json.load(open(f"{ROOT}/_georef_gistda.json", encoding="utf-8"))
+    g = json.load(open(DER / "grid.json", encoding="utf-8"))
+    p = json.load(open(ROOT / "_georef_gistda.json", encoding="utf-8"))
     cx, cy = p["affine_x"], p["affine_y"]
     nx, ny = g["nx"], g["ny"]
     x0, x1, y0, y1 = g["x0"], g["x1"], g["y0"], g["y1"]

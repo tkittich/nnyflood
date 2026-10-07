@@ -1,10 +1,15 @@
 """Assemble the self-contained public HTML report (images embedded base64)."""
 import base64
+import json
 from pathlib import Path
 
 # ROOT อิงตำแหน่งไฟล์สคริปต์ ไม่ใช่ cwd — รันจากโฟลเดอร์ไหนก็ได้
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "report" / "assets"
+
+# สัญญาตัวเลข canonical: ตรวจว่า HTML ที่ได้มีตัวเลขหัวใจครบตามผลวิเคราะห์จริง
+# (ถ้ารันวิเคราะห์ใหม่แล้วผลเปลี่ยน จะล้มที่บรรทัดนี้ ไม่ปล่อยรายงานเก่าออกไปเงียบ ๆ)
+CANON = json.loads((ROOT / "analysis" / "canonical_numbers.json").read_text(encoding="utf-8"))
 
 def b64(p):
     mime = "image/jpeg" if str(p).lower().endswith((".jpg", ".jpeg")) else "image/png"
@@ -403,6 +408,14 @@ r.addEventListener('click', function(){ if(timer){clearInterval(timer);timer=nul
 
 for k, v in imgs.items():
     html = html.replace(f"__{k}__", v)
+
+missing = [s for s in CANON["checks"]["public"] if s not in html]
+if missing:
+    raise SystemExit(
+        f"!! HTML ฉบับประชาชนขาดตัวเลข canonical: {missing}\n"
+        "   analysis เปลี่ยนผลแล้วหรือ template ยังพิมพ์เลขเก่า — ดู analysis/canonical_numbers.json"
+    )
+print(f"canonical check: {len(CANON['checks']['public'])}/{len(CANON['checks']['public'])} OK")
 
 out = ROOT / "report" / "น้ำท่วมนครนายก2569_ประชาชน.html"
 out.write_text(html, encoding="utf-8")

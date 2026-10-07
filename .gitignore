@@ -64,3 +64,6 @@ _tmp_*
 
 # --- config ภายในของ ZCode (ไม่ publish) ---
 .zcodeignore
+
+# --- รีวิวภายใน (ไม่ publish — เก็บไว้ในเครื่อง) ---
+REVIEW.md

@@ -46,3 +46,16 @@ def test_attribution_shares_match_headline():
     # ตัวเลขปริมาตรที่รายงานวิชาการ §4B อ้าง
     assert 38 <= p1["total_measured_mcm"] <= 40
     assert 69 <= p2["total_measured_mcm"] <= 71.5
+
+
+def test_reports_contain_canonical_numbers():
+    """HTML ที่ commit อยู่ต้องมีตัวเลข canonical ครบตาม analysis/canonical_numbers.json
+    — กันกรณีรันวิเคราะห์ใหม่แล้วลืม build รายงาน (builders ตรวจตอน build ด้วย นี่คือชั้นที่ 2)"""
+    canon = _load("analysis/canonical_numbers.json")["checks"]
+    for fname, key in (
+        ("น้ำท่วมนครนายก2569_ประชาชน.html", "public"),
+        ("น้ำท่วมนครนายก2569_วิชาการ.html", "expert"),
+    ):
+        html = (ROOT / "report" / fname).read_text(encoding="utf-8")
+        missing = [s for s in canon[key] if s not in html]
+        assert not missing, f"{fname} ขาดตัวเลข canonical: {missing}"

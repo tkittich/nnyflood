@@ -1,0 +1,107 @@
+{
+ "meta": {
+  "generated_by": "analysis/build_canonical_numbers.py",
+  "note": "ตัวเลข canonical ของโครงการ — builders และ tests อ่านจากไฟล์นี้ ห้ามแก้มือ",
+  "sources": {
+   "s1": "data/13_sentinel1_copernicus/derived/flood_*.npy + analysis/s1_flood_series.json",
+   "gistda": "analysis/gistda_pass_areas_nn.json",
+   "dam_share": "analysis/attribution_share.json (อินทิกราล 15 นาที)",
+   "counterfactual": "analysis/goal4_counterfactual_summary.json",
+   "model_v1": "analysis/goal4_model_v1_results.json",
+   "backtest": "analysis/goal4_model_backtest_long.json",
+   "levels": "โทรมาตร กช. + ภาคตัดขวาง data/19 (recorded constants)"
+  }
+ },
+ "values": {
+  "s1": {
+   "peak_km2": 509.3,
+   "oct2_ours_km2": 436.3,
+   "sep27_am_ours_km2": 62.2,
+   "sep27_am_coverage_pct": 34.3
+  },
+  "gistda": {
+   "sep24_km2": 11.8,
+   "sep27_am_km2": 8.3,
+   "oct2_km2": 306.9
+  },
+  "dam_share": {
+   "p1_pct": 11.8,
+   "p2_pct": 58.9,
+   "p1_total_mcm": 39.0,
+   "p2_total_mcm": 70.3,
+   "p2_dam_mcm": 41.4
+  },
+  "counterfactual": {
+   "actual": {
+    "overflow_mcm": 11.89,
+    "hours_above_bankfull": 65
+   },
+   "R1": {
+    "overflow_mcm": 5.39,
+    "hours_above_bankfull": 18
+   },
+   "M1": {
+    "overflow_mcm": 5.39,
+    "hours_above_bankfull": 18
+   },
+   "M2": {
+    "overflow_mcm": 0.83,
+    "hours_above_bankfull": 8
+   },
+   "M3": {
+    "overflow_mcm": 0.83,
+    "hours_above_bankfull": 9
+   },
+   "m4_drain_mcm": 5.18,
+   "m4_peak_drop_m": 0.0102
+  },
+  "model_v1": {
+   "rmse6_all_cm": 24.71,
+   "rmse6_event_cm": 26.6,
+   "rmse24_all_cm": 75.04,
+   "rmse24_event_cm": 108.57,
+   "rmse48_all_cm": 116.88,
+   "rmse48_event_cm": 159.45
+  },
+  "backtest_beats_persistence_every_season": true,
+  "levels": {
+   "peak_gauge_m": 9.23,
+   "datum_offset_m": 1.59,
+   "bankfull_gauge_m": 8.45,
+   "bankfull_msl_m": 8.21,
+   "floodplain_onset_msl_m": 6.86
+  }
+ },
+ "checks": {
+  "public": [
+   "509.3",
+   "436.3",
+   "306.9",
+   "62.2",
+   "12%",
+   "59%",
+   "65 ชม.",
+   "9.23",
+   "8.45",
+   "6.86",
+   "0.75 ม.",
+   "1.09"
+  ],
+  "expert": [
+   "509.3",
+   "436.3",
+   "306.9",
+   "62.2",
+   "12%",
+   "59%",
+   "65 ชม.",
+   "9.23",
+   "8.45",
+   "7.64",
+   "6.86",
+   "8.21",
+   "11.89",
+   "108.6"
+  ]
+ }
+}

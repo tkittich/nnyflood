@@ -9,6 +9,8 @@
 >
 > **🟩 ฉบับวิชาการ (ตรวจสอบย้อนกลับได้ทุกตัวเลข):** [อ่านออนไลน์](<https://tkittich.github.io/nnyflood/report/น้ำท่วมนครนายก2569_วิชาการ.html>) · [ดาวน์โหลดไฟล์เดียวจบ](report/น้ำท่วมนครนายก2569_วิชาการ.html)
 
+**TL;DR (ไทย):** ตัวจุดชนวนคือ**ฝน 18 วัน 1,058–1,416 มม. บนลุ่มที่อิ่มตัวแล้ว** — แม้เขื่อนไม่ปล่อยน้ำเลย น้ำก็ท่วมคืน 26 ก.ย. · แต่การปล่อยน้ำช่วงพีคคือตัว**ยืดเวลาท่วมขัง**: น้ำเขื่อนคิดเป็น **59% ของน้ำที่ไหลผ่านเมืองช่วงน้ำขัง** และถ้า "หยุดปล่อยผ่านช่วงพีคเมือง 48–72 ชม." น้ำล้นตลิ่งลดได้ **55–93%** · ทุกตัวเลขทำซ้ำได้จากข้อมูลสาธารณะล้วน (Sentinel-1 SAR · โทรมาตร กช. · Copernicus DEM)
+
 **English TL;DR:** The flood was triggered by 18 days of orographic rain (1,058–1,416 mm) on an already-saturated basin — rain alone put the city gauge past its flooding threshold. The dam's releases did not create the flood peak, but they *extended* the ponding: dam water made up **59% of all water passing the city** during the flood, and "stop releasing through the 48–72 h city-peak window" scenarios cut overbank volume by **55–93%**. Every number is reproducible from public data alone (Sentinel-1 SAR, RID telemetry, Copernicus DEM) — reports are in Thai; scripts, evidence and tests are in this repo.
 
 <img src="analysis/s1_peak_flood_map_27sep1828.png" width="680" alt="แผนที่น้ำท่วมพีค 27 กันยายน 2569 เวลา 18:28 น.">

@@ -18,6 +18,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+from common import cell_km2
 import rasterio
 from rasterio.transform import from_bounds
 from scipy.interpolate import RectBivariateSpline
@@ -130,7 +131,7 @@ def main():
     x0, y0, x1, y1, RES = g["x0"], g["y0"], g["x1"], g["y1"], g["res"]
     nx, ny = g["nx"], g["ny"]
     tr = from_bounds(x0, y0, x1, y1, nx, ny)
-    cell = RES * 111.32 * RES * 111.32 * np.cos(np.radians(14.2))
+    cell = cell_km2(RES)
 
     prov_mask = np.load(DER / "mask_province.npy")
     lowland = np.load(DER / "mask_lowland.npy")

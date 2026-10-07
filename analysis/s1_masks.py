@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 import numpy as np
+from common import cell_km2
 import rasterio
 from rasterio.features import rasterize
 from rasterio.merge import merge
@@ -49,7 +50,7 @@ tr = from_bounds(x0, y0, x1, y1, nx, ny)
 print(f"grid {nx}x{ny} bounds ({x0:.4f},{y0:.4f},{x1:.4f},{y1:.4f})")
 
 prov_mask = rasterize([(geom, 1)], out_shape=(ny, nx), transform=tr, fill=0, dtype="uint8").astype(bool)
-print("province area:", round(prov_mask.sum() * RES * 111.32 * RES * 111.32 * np.cos(np.radians(14.2)), 1), "km2")
+print("province area:", round(prov_mask.sum() * cell_km2(RES), 1), "km2")
 
 # districts
 districts = json.load(open(DER / "osm_nakhonnayok_districts.json", encoding="utf-8"))
@@ -58,7 +59,7 @@ for name, d in districts.items():
     m = rasterize([(d["geojson"], 1)], out_shape=(ny, nx), transform=tr, fill=0, dtype="uint8").astype(bool)
     key = d["display"].split(",")[0]
     dist_masks[key] = m
-    print(key, round(m.sum() * RES * 111.32 * RES * 111.32 * np.cos(np.radians(14.2)), 1), "km2")
+    print(key, round(m.sum() * cell_km2(RES), 1), "km2")
 
 # DEM lowland
 tiles = list(DEM_DIR.glob("Copernicus_DSM_COG_10_*_DEM.tif"))
@@ -79,7 +80,7 @@ reproject(
     resampling=Resampling.bilinear,
 )
 lowland = (dst < 60) & prov_mask
-print("lowland(<60m) area:", round(lowland.sum() * RES * 111.32 * RES * 111.32 * np.cos(np.radians(14.2)), 1), "km2")
+print("lowland(<60m) area:", round(lowland.sum() * cell_km2(RES), 1), "km2")
 
 np.save(DER / "mask_province.npy", prov_mask)
 np.save(DER / "mask_lowland.npy", lowland)

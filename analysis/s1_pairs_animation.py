@@ -11,12 +11,13 @@ from pathlib import Path
 
 import numpy as np
 from scipy.ndimage import binary_opening
+from common import cell_km2
 
 DER = Path(__file__).resolve().parent.parent / "data" / "13_sentinel1_copernicus" / "derived"  # อิง __file__
 g = json.load(open(DER / "grid.json"))
 RES = g["res"]
 nx, ny = g["nx"], g["ny"]
-cell = RES * 111.32 * RES * 111.32 * math.cos(math.radians(14.2))
+cell = cell_km2(RES)
 lowland = np.load(DER / "mask_lowland.npy")
 prov = np.load(DER / "mask_province.npy")
 

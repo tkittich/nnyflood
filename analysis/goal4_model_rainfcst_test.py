@@ -8,6 +8,7 @@ from pathlib import Path
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from rain_window import windows_for_grid
+from common import BANKFULL_MSL
 
 A = Path(__file__).resolve().parent
 D16 = A.parent / "data" / "16_training_data"
@@ -118,7 +119,7 @@ def build(daily):
 Xobs, Y, T = build(rain_sources["ฝนสังเกต (POWER)"])      # ฐานสำหรับฝึก (ฝนสังเกตเสมอ)
 tr = np.array([t < dt.datetime(2026, 9, 20) for t in T])
 te = ~tr
-BANK_H = 6.86
+BANK_H = BANKFULL_MSL
 ev = np.array([dt.datetime(2026, 9, 25) <= t <= dt.datetime(2026, 9, 30) for t in T[te]])
 p_pers = Xobs[te, 0]
 print(f"ฝึก {tr.sum()} ชม. | ทดสอบ {te.sum()} ชม. | ปีที่ใช้: {sorted(H7y)}")

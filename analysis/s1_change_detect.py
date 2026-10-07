@@ -11,6 +11,7 @@ import numpy as np
 import shapefile
 from rasterio.features import rasterize
 from rasterio.transform import from_bounds
+from common import cell_km2
 
 PROJ = Path(__file__).resolve().parent.parent   # อิง __file__ ไม่ใช่ cwd (ไม่ hardcode พาธ)
 DER = PROJ / "data" / "13_sentinel1_copernicus" / "derived"
@@ -19,7 +20,7 @@ g = json.load(open(DER / "grid.json"))
 x0, y0, x1, y1, RES = g["x0"], g["y0"], g["x1"], g["y1"], g["res"]
 nx, ny = g["nx"], g["ny"]
 tr = from_bounds(x0, y0, x1, y1, nx, ny)
-cell = RES * 111.32 * RES * 111.32 * np.cos(np.radians(14.2))
+cell = cell_km2(RES)
 prov = np.load(DER / "mask_province.npy")
 lowland = np.load(DER / "mask_lowland.npy")
 

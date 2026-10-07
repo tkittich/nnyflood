@@ -1,10 +1,14 @@
 """Assemble the EXPERT/technical HTML report (verifiable methods & data)."""
 import base64
+import json
 from pathlib import Path
 
 # ROOT อิงตำแหน่งไฟล์สคริปต์ ไม่ใช่ cwd — รันจากโฟลเดอร์ไหนก็หา asset เจอ
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "report" / "assets"
+
+# สัญญาตัวเลข canonical (ดูคำอธิบายใน build_report_html.py)
+CANON = json.loads((ROOT / "analysis" / "canonical_numbers.json").read_text(encoding="utf-8"))
 
 def b64(p):
     return "data:image/png;base64," + base64.b64encode(Path(p).read_bytes()).decode()
@@ -464,6 +468,15 @@ sha256sum data/13_sentinel1_copernicus/*.zip   # เทียบ data/13_.../man
 
 for k, v in imgs.items():
     html = html.replace(f"__{k}__", v)
+
+missing = [s for s in CANON["checks"]["expert"] if s not in html]
+if missing:
+    raise SystemExit(
+        f"!! HTML ฉบับวิชาการขาดตัวเลข canonical: {missing}\n"
+        "   analysis เปลี่ยนผลแล้วหรือ template ยังพิมพ์เลขเก่า — ดู analysis/canonical_numbers.json"
+    )
+print(f"canonical check: {len(CANON['checks']['expert'])}/{len(CANON['checks']['expert'])} OK")
+
 out = ROOT / "report" / "น้ำท่วมนครนายก2569_วิชาการ.html"
 out.write_text(html, encoding="utf-8")
 print("saved", out, f"{out.stat().st_size/1e6:.1f} MB")

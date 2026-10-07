@@ -409,6 +409,10 @@ r.addEventListener('click', function(){ if(timer){clearInterval(timer);timer=nul
 for k, v in imgs.items():
     html = html.replace(f"__{k}__", v)
 
+hits = [w for w in html.split('"') if w.startswith("__") and w.endswith("__")]
+if hits:
+    raise SystemExit(f"!! placeholder ตกค้างใน HTML: {hits[:5]} — ภาพหายจาก imgs dict")
+
 missing = [s for s in CANON["checks"]["public"] if s not in html]
 if missing:
     raise SystemExit(

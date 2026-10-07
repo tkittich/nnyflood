@@ -7,6 +7,7 @@
 import csv, json, datetime as dt
 from pathlib import Path
 import numpy as np
+from common import RATING_A, RATING_B, RATING_C
 
 BASE = Path(__file__).resolve().parent
 D16 = BASE.parent / "data" / "16_training_data"
@@ -21,15 +22,12 @@ for r in csv.reader(open(D16 / "khundan_15min_Ny7_Jun-Oct2026.csv", encoding="ut
     q_meas[dt.datetime.fromisoformat(r[0])] = float(r[2])
 
 # ---------- Q จาก rating: ระดับ 15 นาที → เกจ−1.59 → rating ----------
-q_rating = {}
-for t, v in q_meas.items():
-    pass
 lvl = {}
 for r in csv.reader(open(D16 / "khundan_15min_Ny7_Jun-Oct2026.csv", encoding="utf-8")):
     if r[0] == "datetime" or not r[0] or r[1] in ("", "-"):
         continue
     h = float(r[1])                     # ไฟล์นี้เป็น ม.รทก. อยู่แล้ว
-    lvl[dt.datetime.fromisoformat(r[0])] = 242 * (h - 4.55) ** 0.66 if h > 4.55 else 0.0
+    lvl[dt.datetime.fromisoformat(r[0])] = RATING_A * (h - RATING_B) ** RATING_C if h > RATING_B else 0.0
 q_rating = lvl
 
 # ---------- ปล่อยรายวัน (ลลบ.ม./วัน) → อัตรารายชั่วโมง เลื่อน lag 12 ชม. ----------

@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import HistGradientBoostingRegressor
+from common import BANKFULL_MSL
 
 BASE = Path(__file__).resolve().parent
 D16 = BASE.parent / "data" / "16_training_data"
@@ -141,7 +142,7 @@ print(f"ตัวอย่าง: ฝึก {tr.sum()} ชม. | ทดสอบ
 print(f"ท้ายน้ำหาย (ใช้ default): {TWmiss[tr].mean()*100:.0f}% (ฝึก) / {TWmiss[te].mean()*100:.0f}% (ทดสอบ)")
 
 # ---------- โมเดล ----------
-BANKFULL = 6.86          # ม.รทก. ≈ เกจ 8.45 ม. (ล้นตลิ่งเมือง) จาก datum 1.59 ม.
+BANKFULL = BANKFULL_MSL  # ม.รทก. ≈ เกจ 8.45 ม. (ล้นตลิ่งเมือง) จาก datum 1.59 ม.
 results = {}
 preds = {}
 for k, h in enumerate(HORIZONS):

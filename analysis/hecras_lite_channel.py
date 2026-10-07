@@ -4,6 +4,7 @@
 # ข้อจำกัด: DEM = DSM (ผิวน้ำขณะถ่าย ไม่ใช่ท้องน้ำจริง) — ใช้เป็นตัวแทนผิวน้ำและธนาคารลำน้ำ ประมาณการอันดับแรก
 # ผู้จัดทำ: AI — ควรตรวจทานโดยผู้เชี่ยวชาญ
 import json
+import math
 import numpy as np
 import rasterio
 from pathlib import Path
@@ -62,7 +63,6 @@ def cross_section(i, half=350.0, n=35):
     zs = np.array([dem_at(x, y) for x, y in zip(xs, ys)])
     return ds, zs
 
-import math
 sections = []
 for i in sec_idx:
     ds, zs = cross_section(i)

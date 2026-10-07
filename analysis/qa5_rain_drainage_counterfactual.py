@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 import numpy as np
+from common import GAUGE_OFFSET, RATING_A, RATING_B, RATING_C
 
 # อิง __file__ ไม่ใช่ cwd (ไม่ hardcode พาธ จะได้พอร์ตเครื่องอื่นได้)
 A = Path(__file__).resolve().parent
@@ -70,10 +71,10 @@ ny7 = parse_lv("Ny7_เมือง")
 ny1b = parse_lv("Ny1B_เขานางบวช")
 
 def q_ny7(gauge):
-    h = gauge - 1.59
-    if h <= 4.55:
+    h = gauge - GAUGE_OFFSET
+    if h <= RATING_B:
         return 0.0
-    return 242.0 * (h - 4.55) ** 0.66
+    return RATING_A * (h - RATING_B) ** RATING_C
 
 # ---------- baselevel rise before the event ----------
 def daily_min(series, d0="2026-09-01", d1="2026-09-25"):
@@ -120,7 +121,11 @@ print(f"  late  19-25 Sep: {slope(late)*100:.2f} cm/mm (n={len(late)})")
 onset = [v for t, v in ny7 if t == datetime(2026, 9, 26, 22, 0)]
 onset2 = [v for t, v in ny7 if t == datetime(2026, 9, 26, 23, 0)]
 print("\n== onset 26 Sep: Ny.7 gauge 22:00 =", onset, "23:00 =", onset2)
-L_flood = (onset[0] + onset2[0]) / 2 if onset and onset2 else 7.4
+if onset and onset2:
+    L_flood = (onset[0] + onset2[0]) / 2
+else:
+    L_flood = 7.4
+    print("!! WARNING: ไม่พบแถว onset 26 ก.ย. 22:00/23:00 — ใช้ค่าสมมุติ 7.4 ม. (ตรวจข้อมูลก่อนเชื่อผล)")
 print(f"   flood-onset gauge ~{L_flood:.2f} m -> Q~{q_ny7(L_flood):.0f} m3/s (bankfull-ish)")
 
 peak7 = max(ny7, key=lambda x: x[1])

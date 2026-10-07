@@ -18,7 +18,7 @@ imgs = {
     "C2": b64(ASSETS / "c2_level_release.png"),
     "C3": b64(ASSETS / "c3_storage_urc.png"),
     "C4": b64(ASSETS / "c4_scenarios.png"),
-    "X1": b64(ASSETS / "x1_rating.png"),
+    "X1R": b64(ASSETS / "x1_rating.png"),
     "X2": b64(ASSETS / "x2_hydro3.png"),
     "MAP": b64(ASSETS / "frame_PEAK_OURS.jpg"),
     "ZONE": b64(ASSETS / "zone_scenario.png"),
@@ -134,7 +134,7 @@ html = r"""<!DOCTYPE html>
 <p>เทียบอนุกรมรายชั่วโมง 218 คู่ (เกจ thaiwater ↔ ม.รทก. จากโทรมาตรโครงการ ส.ค.–ต.ค. 69): <b>offset เฉลี่ย +1.59 ม. (SD 0.02)</b> — ใช้แปลงทุกจุดในรายงาน: <code>MSL = เกจ − 1.59</code> · Ny.1B เกจ ≈ ม.รทก. โดยตรง</p>
 <h3>3.2 Rating curve Ny.7</h3>
 <div class="eq">Q = 242 · (h − 4.55)<sup>0.66</sup> &nbsp;&nbsp; [h = ระดับ ม.รทก. · สร้างจากคู่ข้อมูลจริง 235 คู่ (รายชั่วโมง) ช่วง h 4.25–7.68]</div>
-<img class="chart" src="__X1__" alt="rating curve">
+<img class="chart" src="__X1R__" alt="rating curve">
 <div class="cap">ความแม่: ช่วงกลางดี (h=7.45 → ทำนาย 487 เทียบจริง 520) · ช่วงพีคต่ำกว่าจริง ~18% (512 vs 626.6 — overbank/hysteresis) → การใช้งาน: แปลงระดับเป็น Q โดยกำกับ ±20% ช่วงน้ำสูง · ใช้ทิศเดียว (ระดับ→Q) ในการอินทิเกรต</div>
 <h3>3.3 ระดับล้นตลิ่ง (bankfull) ที่ใช้อ้างอิง</h3>
 <p>กำหนดเชิงประจักษ์จากชั่วโมงที่ระดับข้ามค่า "เริ่มท่วมบ้านเรือน" ตามข่าว/ประชาชน (26 ก.ย. 22:30–23:00) → <b>เกจ 8.45 ม. (= 6.86 ม.รทก.) ≈ Q 420 ม³/วิ</b> — ใช้เป็นเส้นตัดสิน "ท่วม/ไม่ท่วม" ตลอดรายงาน (ตรวจแล้วข้ามค่านี้เพียงครั้งเดียวในเหตุการณ์ ณ 26 ก.ย. 23:00)</p>
@@ -468,6 +468,10 @@ sha256sum data/13_sentinel1_copernicus/*.zip   # เทียบ data/13_.../man
 
 for k, v in imgs.items():
     html = html.replace(f"__{k}__", v)
+
+hits = [w for w in html.split('"') if w.startswith("__") and w.endswith("__")]
+if hits:
+    raise SystemExit(f"!! placeholder ตกค้างใน HTML: {hits[:5]} — ภาพหายจาก imgs dict")
 
 missing = [s for s in CANON["checks"]["expert"] if s not in html]
 if missing:

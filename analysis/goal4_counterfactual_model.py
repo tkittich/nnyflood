@@ -9,6 +9,7 @@
 import csv, json, datetime as dt
 from pathlib import Path
 import numpy as np
+from common import RATING_A, RATING_B, RATING_C, BANKFULL_MSL, GAUGE_OFFSET
 
 A = Path(__file__).resolve().parent
 ev = json.load(open(A / "khundan_tele_event_data.json", encoding="utf-8"))
@@ -23,7 +24,7 @@ for key in ("Ny7_peak", "Ny7_rec"):
         if lv not in ("", None):
             h = float(lv)
             Hobs[t] = h
-            Qbase[t] = 242.0 * max(h - 4.55, 0.01) ** 0.66
+            Qbase[t] = RATING_A * max(h - RATING_B, 0.01) ** RATING_C
 ts_all = sorted(Hobs)
 print(f"อนุกรม: {ts_all[0]} -> {ts_all[-1]} ({len(ts_all)} ชม.)")
 
@@ -133,9 +134,9 @@ assert max(v[0] for v in TR1.values()) <= CAP + 0.01 and max(v[0] for v in TM1.v
 
 # ---------- ประเมินผล ----------
 BANK_Q = 425.0                      # ตาม qa5
-BANK_H = 6.86                       # ม.รทก. = เกจ 8.45
+BANK_H = BANKFULL_MSL              # ม.รทก. = เกจ 8.45
 def rating_h(Q):
-    return 4.55 + (max(Q, 0) / 242.0) ** (1 / 0.66)
+    return RATING_B + (max(Q, 0) / RATING_A) ** (1 / RATING_C)
 
 def q_series(R):
     out = {}
@@ -155,7 +156,7 @@ def evaluate_q(qs, name):
         if q > peakQ:
             peakQ, peakT = q, t
         peakH = max(peakH, h)
-    print(f"{name:<34} ล้น {over:5.2f} ลลบ.ม. | เหนือตลิ่ง {hrs:3d} ชม. | พีค Q {peakQ:5.1f} | พีคระดับ {peakH:.2f} ม.รทก. (เกจ {peakH+1.59:.2f})")
+    print(f"{name:<34} ล้น {over:5.2f} ลลบ.ม. | เหนือตลิ่ง {hrs:3d} ชม. | พีค Q {peakQ:5.1f} | พีคระดับ {peakH:.2f} ม.รทก. (เกจ {peakH+GAUGE_OFFSET:.2f})")
     return over, hrs, peakQ, peakH, peakT
 
 def evaluate(R, name):
@@ -207,7 +208,7 @@ RATING_PCT = 0.18
 LAG_H = 6
 def dh_per_dQ(h):
     """ม. ต่อ ลบ.ม./วิ ที่ระดับ h — กลับด้านจาก dQ/dh = 242·0.66·(h−4.55)^−0.34"""
-    return (max(h - 4.55, 0.01) ** 0.34) / (242.0 * 0.66)
+    return (max(h - RATING_B, 0.01) ** 0.34) / (RATING_A * RATING_C)
 peak_env_m = r_act[2] * RATING_PCT * dh_per_dQ(r_act[3])   # ± ม. ที่พีค
 peak_diff_m = r_r1[3] - r_act[3]
 peak_reliable = abs(peak_diff_m) >= peak_env_m
@@ -218,7 +219,7 @@ print(f"    R1/M1 พีค {r_r1[3]:.2f} เทียบจริง {r_act[3]:
 print(f"    สรุปที่ควรใช้: จริง ล้น ~{r_act[0]:.0f} ลลบ.ม. · เหนือตลิ่ง {r_act[1]}±{LAG_H} ชม. | "
       f"R1/M1 ~{r_r1[0]:.0f} ลลบ.ม. · {r_r1[1]}±{LAG_H} ชม. | M2/M3 ~{r_m2[0]:.1f} ลลบ.ม. · {r_m2[1]}–{r_m3[1]}±{LAG_H} ชม.")
 print(f"M2: สตอเรจต่ำสุด {minS_m2:.1f} ลลบ.ม. (LRC ~96, อ่างเต็ม 225.4) | เบิกลึกเพิ่มก่อนพายุ {extra_pre:.1f} ลลบ.ม.")
-print(f"M3: ล้น {r_m3[0]:.2f} ({100*(1-r_m3[0]/r_act[0]):.0f}%) ชม. {r_m3[1]} พีค {r_m3[3]+1.59:.2f} | สตอเรจต่ำสุด {min(v[0] for v in TM3.values()):.1f}")
+print(f"M3: ล้น {r_m3[0]:.2f} ({100*(1-r_m3[0]/r_act[0]):.0f}%) ชม. {r_m3[1]} พีค {r_m3[3]+GAUGE_OFFSET:.2f} | สตอเรจต่ำสุด {min(v[0] for v in TM3.values()):.1f}")
 
 json.dump({**{k: [round(v[0], 2), v[1], round(v[2], 1), round(v[3], 2), str(v[4])]
               for k, v in [("actual", r_act), ("R1", r_r1), ("M1", r_m1), ("M2", r_m2), ("M3", r_m3)]},

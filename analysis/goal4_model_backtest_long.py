@@ -11,6 +11,7 @@ import csv, json, re, datetime as dt
 from pathlib import Path
 import numpy as np
 from sklearn.linear_model import LinearRegression
+from common import BANKFULL_MSL
 
 BASE = Path(__file__).resolve().parent
 D16 = BASE.parent / "data" / "16_training_data"
@@ -135,7 +136,7 @@ X_all, Y_all, T_all, YR_s = X_all[plaus], Y_all[plaus], T_all[plaus], YR_s[plaus
 print(f"ตัวอย่างรวม {len(T_all)} ชม. จาก {sorted(set(YR_s))}")
 
 # ---------- leave-one-season-out + โฟลด์เหตุการณ์ 69 (เงื่อนไขเดียวกับ v1) ----------
-BANKFULL = 6.86
+BANKFULL = BANKFULL_MSL
 folds = {}
 for y in [2021, 2022, 2024, 2025]:
     folds[str(y)] = {"train": YR_s != y, "test": YR_s == y, "label": f"ฤดู {y}"}

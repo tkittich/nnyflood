@@ -52,7 +52,7 @@ for n_id, name in ((62, "Ny7"), (61, "Ny1B")):
     try:
         obs[name] = khundan(n_id, (now - dt.timedelta(days=2)).strftime("%Y-%m-%d"), now.strftime("%Y-%m-%d"))[:200]
     except Exception as e:
-        obs[name] = {"error": str(e)[:200]}
+        obs[name] = {"status": "error", "error": str(e)[:200]}
 json.dump({"fetched_at": now.isoformat(timespec="seconds"),
            "source": "http://khundan-tele.rid.go.th/station_detail.php", "rows_newest_first": obs},
           open(snap / "observed_ny7_ny1b_48h.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)

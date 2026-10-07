@@ -170,6 +170,11 @@ def build_index(d):
     return idx
 
 
+# รายการที่ resolve ด้วย basename แล้ว "ชนกันหลายไฟล์" — ใช้ไฟล์แรกต่อไปแต่ต้องเตือน
+# (เพราะอาจแฮชผิดไฟล์แบบเงียบ ๆ — ทางแก้ถาวรคือให้ manifest ระบุ path ให้ตรง)
+AMBIGUOUS = []  # [(dir, relpath, [Path, ...])]
+
+
 def resolve(d, relpath, index):
     if relpath is None:
         return None
@@ -179,6 +184,8 @@ def resolve(d, relpath, index):
             return cand
     hits = index.get(Path(rel).name)
     if hits:
+        if len(hits) > 1:
+            AMBIGUOUS.append((str(d), rel, hits))
         return hits[0]
     return None
 
@@ -198,10 +205,19 @@ def verify(target_dirs, max_bytes=None):
     rows = []
     for d in target_dirs:
         index = build_index(d)
+        # ชื่อ directory ที่ใช้แสดง (โฟลเดอร์นอก ROOT เช่น --only ไปที่อื่น = ใช้ path เต็ม)
+        try:
+            dd_root = d.relative_to(ROOT).as_posix()
+        except ValueError:
+            dd_root = str(d)
         for dd, src, rel, sha in collect([d]):
             path = resolve(dd, rel, index)
             name = rel or "(path ไม่ทราบ)"
-            key = (dd.relative_to(ROOT) / rel).as_posix() if rel else ""
+            try:
+                key = (dd.relative_to(ROOT) / rel).as_posix() if rel else ""
+            except ValueError:
+                # โฟลเดอร์เป้าหมายอยู่นอก ROOT (เช่น --only ชี้ไปที่อื่น) — ใช้ key เต็มแทน
+                key = (dd / rel).as_posix() if rel else ""
             reason = exc.get(key) or exc.get(Path(rel).name if rel else "")
             if path is None:
                 if is_deleted(name):
@@ -210,13 +226,13 @@ def verify(target_dirs, max_bytes=None):
                     status = "EXPLAINED"
                 else:
                     status = "MISSING"
-                rows.append((str(dd.relative_to(ROOT)), src, name, status, None))
+                rows.append((dd_root, src, name, status, None))
                 continue
             if max_bytes is not None and path.stat().st_size > max_bytes:
-                rows.append((str(dd.relative_to(ROOT)), src, name, "SKIPPED", path.stat().st_size))
+                rows.append((dd_root, src, name, "SKIPPED", path.stat().st_size))
                 continue
             got = sha256_file(path)
-            rows.append((str(dd.relative_to(ROOT)), src, name,
+            rows.append((dd_root, src, name,
                          "OK" if got == sha else "MISMATCH", path.stat().st_size))
     return rows
 
@@ -266,6 +282,12 @@ def main(argv=None):
                                  for d, s, n, st, sz in rows]},
                        ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"  -> {args.json}")
+
+    if AMBIGUOUS:
+        print(f"\n!! resolve ด้วย basename ที่ชนกัน {len(AMBIGUOUS)} รายการ — ใช้ไฟล์แรกต่อไป "
+              "แต่ควรแก้ manifest ให้ระบุ path เต็ม (อาจแฮชผิดไฟล์แบบเงียบ ๆ):", file=sys.stderr)
+        for d, rel, hits in AMBIGUOUS[:10]:
+            print(f"   {d} :: {rel}  ->  {len(hits)} ตัวเลือก", file=sys.stderr)
 
     if counts.get("MISMATCH"):
         print("\n!! มีแฮชไม่ตรง — ไฟล์ถูกแก้หรือเสียหาย", file=sys.stderr)

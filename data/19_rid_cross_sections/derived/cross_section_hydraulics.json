@@ -1,0 +1,34 @@
+{
+  "Ny.7": {
+    "offset_range_m": [
+      -60.0,
+      150.0
+    ],
+    "bed_min_msl": -2.3959999999999995,
+    "crest_max_msl": 8.918999999999999,
+    "peak_stage_msl": 7.64,
+    "peak_gauge_m": 9.23,
+    "peak_width_m": 139.5,
+    "peak_area_m2": 524.3,
+    "peak_perimeter_m": 143.8,
+    "peak_hydraulic_radius_m": 3.65,
+    "project_rating_q_cms": 509.6,
+    "manning_n_fitted": 0.0437
+  },
+  "Ny.1B": {
+    "offset_range_m": [
+      -60.0,
+      160.0
+    ],
+    "bed_min_msl": 2.233,
+    "crest_max_msl": 10.835999999999995,
+    "peak_stage_msl": 11.07,
+    "peak_gauge_m": 11.0,
+    "peak_width_m": 220.2,
+    "peak_area_m2": 561.8,
+    "peak_perimeter_m": 224.3,
+    "peak_hydraulic_radius_m": 2.51,
+    "project_rating_q_cms": 834.1,
+    "manning_n_fitted": 0.0223
+  }
+}

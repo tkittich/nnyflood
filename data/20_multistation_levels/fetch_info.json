@@ -1,0 +1,146 @@
+{
+ "fetched_at": "2026-10-06T16:05:19",
+ "source": "http://khundan-tele.rid.go.th/station_detail.php (POST n_id/date_from/date_to)",
+ "resolution": "15-min",
+ "window": {
+  "from": "2026-09-01",
+  "to": "2026-09-30"
+ },
+ "chunk_days": 6,
+ "stations": {
+  "16": {
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.0+970",
+   "file": "st16.csv",
+   "rows": 2791,
+   "raw_rows": 2791,
+   "sha256": "f5f7e96bdb7bd7683d3fcd95189617bd2df3b77d6c1e5d02c3392c65659b07e4"
+  },
+  "17": {
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.1+830",
+   "file": "st17.csv",
+   "rows": 2796,
+   "raw_rows": 2796,
+   "sha256": "8f44e9c6f52f97643d6ccd21f8f2f28f090db86c6be8f6150e5c88b9085cff13"
+  },
+  "18": {
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.4+896",
+   "file": "st18.csv",
+   "rows": 2780,
+   "raw_rows": 2780,
+   "sha256": "03120d9b8c89c05403320324d5a0ade16674412f7453b07f775ac7e5f251fd2f"
+  },
+  "19": {
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.6+745",
+   "file": "st19.csv",
+   "rows": 2517,
+   "raw_rows": 2517,
+   "sha256": "bc9ad94add8fc85638404aefb7da9197d7ff3ddb1166b6a02d2e8029c6d23538"
+  },
+  "20": {
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.8+550",
+   "file": "st20.csv",
+   "rows": 2785,
+   "raw_rows": 2785,
+   "sha256": "2cdf825e0ceeed4ce276c30b8370467ed08776d39271b469cac3fc44aec8e5cf"
+  },
+  "21": {
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.11+740",
+   "file": "st21.csv",
+   "rows": 2790,
+   "raw_rows": 2790,
+   "sha256": "906105ca0ac16fbdcd5701bcc47c71fb68f280e7b56e94a64b6e76690178b81d"
+  },
+  "23": {
+   "name": "NY.4 คลองสมอปูน",
+   "file": "st23.csv",
+   "rows": 2880,
+   "raw_rows": 2880,
+   "sha256": "d0172329eb62b0910f5042b35c1d278f8f83aeecff40ee6a5ecdcfcb395217db"
+  },
+  "26": {
+   "name": "ปตร.คลองสีเสียด2",
+   "file": "st26.csv",
+   "rows": 1459,
+   "raw_rows": 1462,
+   "sha256": "bac06d0eddc77d0567b7c513e2f605109c9b94d642aade6f380e656a0b8dbddb"
+  },
+  "28": {
+   "name": "ปตร.ท่าซุง",
+   "file": "st28.csv",
+   "rows": 2795,
+   "raw_rows": 2796,
+   "sha256": "f27be87bee74809cb2c66a3407618a2e16ba6f66e732e7168662e43af3c30435"
+  },
+  "30": {
+   "name": "ปตร.สบกเขียว",
+   "file": "st30.csv",
+   "rows": 2797,
+   "raw_rows": 2797,
+   "sha256": "4172fa2cb95b4a6035137bdbfe07375cecdedbe0fe3fae30451b7b16cb7fa4b0"
+  },
+  "61": {
+   "name": "NY.1B แม่น้ำนครนายก บ้านเขานางบวช",
+   "file": "st61.csv",
+   "rows": 2880,
+   "raw_rows": 2883,
+   "sha256": "457780a7c9ad3781600fd5ee1821a838e46ff3cbabe20ade1f1f5f0fdd4cfabf"
+  },
+  "62": {
+   "name": "NY.7 แม่น้ำนครนายก (หลังจวนผู้ว่าฯ)",
+   "file": "st62.csv",
+   "rows": 2880,
+   "raw_rows": 2880,
+   "sha256": "b8067197f36bc75d4623fb72aaefb686bacbf6da241f654e78363438e3a4b663"
+  },
+  "63": {
+   "name": "ท้ายน้ำ ปตร.ท่าช้าง",
+   "file": "st63.csv",
+   "rows": 2059,
+   "raw_rows": 2059,
+   "sha256": "32b42957b62be5043a200c0953b7ea59f6e18d700124a1ab5f92fbc91df41321"
+  },
+  "69": {
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.5+980",
+   "file": "st69.csv",
+   "rows": 0,
+   "raw_rows": 0,
+   "sha256": "b7d9f590c1675498bdd3bcd72222c51998d14876e15c428a601dfc13e10987b4"
+  },
+  "72": {
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.14+118",
+   "file": "st72.csv",
+   "rows": 2858,
+   "raw_rows": 2858,
+   "sha256": "21c6db6b19bc89b4b3572a21ad106115fe0ce8a9786012984b33c3993988a65a"
+  },
+  "74": {
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.17+313",
+   "file": "st74.csv",
+   "rows": 0,
+   "raw_rows": 0,
+   "sha256": "b7d9f590c1675498bdd3bcd72222c51998d14876e15c428a601dfc13e10987b4"
+  },
+  "80": {
+   "name": "บ้านคิริวัน",
+   "file": "st80.csv",
+   "rows": 2853,
+   "raw_rows": 2853,
+   "sha256": "256d410fa37f71e15a5b52dcf883b7dc6e2d586f43fb82b315ebe6175f6e3975"
+  },
+  "84": {
+   "name": "บุ้งเข้ 2",
+   "file": "st84.csv",
+   "rows": 2060,
+   "raw_rows": 2060,
+   "sha256": "69cfe07b3d3b317b24c29dbd44cb648a13711fdc0f0caefdce280518bb1217d4"
+  },
+  "105": {
+   "name": "NY.3 คลองบ้านนาตอนล่าง บ้านป่าขะ",
+   "file": "st105.csv",
+   "rows": 0,
+   "raw_rows": 0,
+   "sha256": "b7d9f590c1675498bdd3bcd72222c51998d14876e15c428a601dfc13e10987b4"
+  }
+ },
+ "note": "P0 ของ analysis/ALL_STATIONS_IMPLEMENTATION_PLAN.md — raw-first + hash ตาม protocol โครงการ"
+}

@@ -1,0 +1,31 @@
+# โปรเจคนี้เป็น "ชุดสคริปต์วิเคราะห์" ไม่ใช่แพ็กเกจที่ติดตั้งได้
+# สคริปต์ทั้งหมดรันจากรากโปรเจค เช่น `python analysis/goal4_model_v1.py`
+# ไฟล์นี้จึงมีไว้ 3 อย่าง ไม่ได้มีไว้ให้ `pip install .`:
+#   1) บันทึกข้อกำหนดรันไทม์ (requires-python + dependencies) ให้เครื่องมืออ่านได้
+#   2) ตั้งค่า pytest ให้ `python -m pytest` จากรากโปรเจคทำงานได้ตรง ๆ
+#   3) ประกาศ metadata ของโปรเจค
+# เวอร์ชันที่ "ปักหมุดและผ่านเทสต์จริง" อยู่ใน requirements.txt (ไฟล์นี้ระบุแค่ขอบล่าง)
+# จึงไม่ใส่ [build-system] โดยตั้งใจ — ไม่มีแพ็กเกจให้ build
+
+[project]
+name = "flood-nakhonnayok-2569"
+version = "0.1.0"
+description = "วิเคราะห์น้ำท่วม อ.เมือง นครนายก ปลาย ก.ย. 2569 — หลักฐาน 4 เป้าหมาย รวมโมเดลทำนายระดับน้ำ Ny.7"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.14",
+    "rasterio>=1.4",
+    "shapely>=2.0",
+    "matplotlib>=3.9",
+    "pyshp>=2.3",
+    "scikit-learn>=1.5",
+    "openpyxl>=3.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

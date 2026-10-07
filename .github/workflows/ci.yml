@@ -1,0 +1,24 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run test suite
+        run: python -m pytest tests/ -q
+      - name: Data integrity (fail only on MISMATCH — MISSING = ไฟล์ใหญ่นอก git เป็นเรื่องปกติ)
+        run: |
+          code=0
+          python analysis/verify_data_integrity.py --quick || code=$?
+          if [ "$code" -eq 1 ]; then exit 1; fi
+          if [ "$code" -gt 2 ]; then exit "$code"; fi

@@ -1,0 +1,23 @@
+# แกนหลักของโปรเจค (ติดตั้ง: pip install -r requirements.txt)
+#
+# เวอร์ชันปักหมุดตามที่ "รันจริงและผ่านเทสต์" บน Windows + CPython 3.14.5 (ดู docs/ENVIRONMENT.md)
+#
+# ทำไมต้องปักหมุด: ตัวเลข RMSE ของโมเดลทำนายในรายงานขึ้นกับเวอร์ชันของ
+# scikit-learn/numpy (ตัวแก้สมการกำลังสองน้อยที่สุด + การสุ่มภายใน GBDT)
+# ถ้าอัปเกรดแล้วตัวเลขขยับ รายงานจะไม่ตรงกับ artifact อีก
+# -> อัปเกรดเมื่อไร ให้รัน `python -m pytest tests/ -q` (มีเทสต์เทียบข้อสรุปกับ
+#    goal4_model_v1_results.json) และ `python analysis/goal4_model_v1.py` เทียบผลก่อนเผยแพร่
+numpy==2.5.1
+scipy==1.18.1
+rasterio==1.5.2
+shapely==2.1.2
+matplotlib==3.11.2
+pyshp==3.1.6
+scikit-learn==1.9.1
+openpyxl==3.1.5      # อ่านไฟล์สำรวจรูปตัดขวาง .xlsx ของกรมชลประทาน (rid_cross_section_extract)
+pytest==9.1.1        # รันชุดทดสอบ: python -m pytest tests/ -q
+
+# --- ตัวเลือก (ไม่บังคับ) — เฉพาะสคริปต์ทดลอง georef_*.py ---
+# 3 สคริปต์ (georef_gistda / georef_fit / georef_corner_match) import cv2 (opencv-python)
+# แต่เป็น "การทดลองที่สรุปผลไม่ได้" (สเกล ~14–16 ม./px, ตำแหน่ง ±1 กม.) ไม่ใช่ไปป์ไลน์หลัก
+# จึงไม่ปักหมุดในรายการหลัก · ถ้าต้องรัน: pip install opencv-python

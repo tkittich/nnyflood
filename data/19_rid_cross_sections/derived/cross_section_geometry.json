@@ -1,0 +1,209 @@
+{
+  "Kgt.18": {
+    "n_points": 48,
+    "offset_min": -55.0,
+    "offset_max": 100.0,
+    "thalweg": {
+      "row": 24,
+      "offset_m": 28.0,
+      "elev_msl_m": 34.766,
+      "label": "ท้องน้ำ"
+    },
+    "left_crest": {
+      "row": 3,
+      "offset_m": -47.0,
+      "elev_msl_m": 42.35300000000001,
+      "label": ""
+    },
+    "right_crest": {
+      "row": 24,
+      "offset_m": 95.0,
+      "elev_msl_m": 40.928000000000004,
+      "label": ""
+    }
+  },
+  "Kgt.1": {
+    "n_points": 63,
+    "offset_min": -50.0,
+    "offset_max": 130.0,
+    "thalweg": {
+      "row": 7,
+      "offset_m": 47.0,
+      "elev_msl_m": -6.2139999999999995,
+      "label": "ท้องน้ำ"
+    },
+    "left_crest": {
+      "row": 7,
+      "offset_m": 0.0,
+      "elev_msl_m": 5.163,
+      "label": "R1   บน"
+    },
+    "right_crest": {
+      "row": 11,
+      "offset_m": 100.0,
+      "elev_msl_m": 5.3420000000000005,
+      "label": "R2   บน"
+    }
+  },
+  "Kgt.30": {
+    "n_points": 49,
+    "offset_min": -100.0,
+    "offset_max": 280.7,
+    "thalweg": {
+      "row": 27,
+      "offset_m": 114.0,
+      "elev_msl_m": -12.734,
+      "label": "ท้องน้ำ"
+    },
+    "left_crest": {
+      "row": 3,
+      "offset_m": -90.0,
+      "elev_msl_m": 2.7199999999999998,
+      "label": ""
+    },
+    "right_crest": {
+      "row": 23,
+      "offset_m": 280.7,
+      "elev_msl_m": 2.6630000000000003,
+      "label": ""
+    }
+  },
+  "Kgt.3": {
+    "n_points": 74,
+    "offset_min": -50.0,
+    "offset_max": 170.0,
+    "thalweg": {
+      "row": 12,
+      "offset_m": 62.0,
+      "elev_msl_m": -1.597,
+      "label": "ท้องน้ำ"
+    },
+    "left_crest": {
+      "row": 7,
+      "offset_m": 0.0,
+      "elev_msl_m": 11.244,
+      "label": "R1    บน"
+    },
+    "right_crest": {
+      "row": 19,
+      "offset_m": 170.0,
+      "elev_msl_m": 11.665000000000003,
+      "label": ""
+    }
+  },
+  "Ny.1B": {
+    "n_points": 66,
+    "offset_min": -60.0,
+    "offset_max": 160.0,
+    "thalweg": {
+      "row": 9,
+      "offset_m": 50.0,
+      "elev_msl_m": 2.233,
+      "label": "ท้องน้ำ"
+    },
+    "left_crest": {
+      "row": 8,
+      "offset_m": 0.0,
+      "elev_msl_m": 10.825999999999999,
+      "label": "R1"
+    },
+    "right_crest": {
+      "row": 11,
+      "offset_m": 100.0,
+      "elev_msl_m": 10.835999999999995,
+      "label": "R2    บน"
+    }
+  },
+  "Ny.3": {
+    "n_points": 34,
+    "offset_min": -50.0,
+    "offset_max": 90.0,
+    "thalweg": {
+      "row": 20,
+      "offset_m": 24.0,
+      "elev_msl_m": 5.57,
+      "label": "ท้องน้ำ"
+    },
+    "left_crest": {
+      "row": 7,
+      "offset_m": 0.0,
+      "elev_msl_m": 12.649999999999999,
+      "label": "R1      บน"
+    },
+    "right_crest": {
+      "row": 6,
+      "offset_m": 40.0,
+      "elev_msl_m": 12.663,
+      "label": "R2     บน"
+    }
+  },
+  "Ny.4": {
+    "n_points": 46,
+    "offset_min": -70.0,
+    "offset_max": 120.0,
+    "thalweg": {
+      "row": 3,
+      "offset_m": 26.0,
+      "elev_msl_m": 375.48699999999997,
+      "label": "ท้องน้ำ"
+    },
+    "left_crest": {
+      "row": 2,
+      "offset_m": -70.0,
+      "elev_msl_m": 384.55899999999997,
+      "label": ""
+    },
+    "right_crest": {
+      "row": 24,
+      "offset_m": 120.0,
+      "elev_msl_m": 386.6940000000001,
+      "label": ""
+    }
+  },
+  "Ny.6": {
+    "n_points": 37,
+    "offset_min": -50.0,
+    "offset_max": 90.0,
+    "thalweg": {
+      "row": 18,
+      "offset_m": 18.0,
+      "elev_msl_m": 28.987,
+      "label": "ท้องน้ำ"
+    },
+    "left_crest": {
+      "row": 2,
+      "offset_m": -50.0,
+      "elev_msl_m": 33.725,
+      "label": ""
+    },
+    "right_crest": {
+      "row": 16,
+      "offset_m": 90.0,
+      "elev_msl_m": 34.16900000000001,
+      "label": ""
+    }
+  },
+  "Ny.7": {
+    "n_points": 66,
+    "offset_min": -60.0,
+    "offset_max": 150.0,
+    "thalweg": {
+      "row": 10,
+      "offset_m": 50.0,
+      "elev_msl_m": -2.3959999999999995,
+      "label": "ท้องน้ำ"
+    },
+    "left_crest": {
+      "row": 8,
+      "offset_m": 0.0,
+      "elev_msl_m": 8.213,
+      "label": "R1    บน"
+    },
+    "right_crest": {
+      "row": 12,
+      "offset_m": 100.0,
+      "elev_msl_m": 8.918999999999999,
+      "label": "R2    บน"
+    }
+  }
+}

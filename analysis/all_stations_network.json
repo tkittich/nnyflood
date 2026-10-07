@@ -1,0 +1,676 @@
+{
+ "generated_from": "data/20_multistation_levels/ (analysis/fetch_multistation_levels.py)",
+ "window": {
+  "from": "2026-09-01T00:00:00",
+  "to": "2026-09-30T23:45:00"
+ },
+ "baseline_day": "2026-09-25",
+ "definitions": {
+  "hydro_rise_m": "peak − median(level on 25 Sep) — การขึ้นที่ฝนทำ",
+  "max_1h_drop_m": "การดิ่งลงมากสุดภายใน ~60 นาที — ขั้นที่การเดินเครื่องทำ",
+  "flat_pct": "สัดส่วนช่วง 15 นาทีที่ระดับไม่เปลี่ยน (|Δ| < 0.01)"
+ },
+ "stations": {
+  "16": {
+   "id": "16",
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.0+970",
+   "group": "คลองสายใหญ่",
+   "rows": 2791,
+   "coverage_pct": 96.9,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 0.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "near-constant",
+    "datum shift ×1 (ใช้ segment ช่วงเหตุการณ์)"
+   ],
+   "level": {
+    "median": 1.23,
+    "min": 1.1,
+    "max": 13.89,
+    "distinct_2dp": 50,
+    "flat_pct": 96.5,
+    "zero_frac": 0.0,
+    "p95_step": 0.01
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 1,
+   "segment_rows": 1395,
+   "event": {
+    "baseline_25sep": 13.84,
+    "peak": 13.89,
+    "peak_time": "2026-09-28 05:15",
+    "hydro_rise_m": 0.05,
+    "max_1h_drop_m": 1.39,
+    "max_1h_drop_from": "2026-09-26 19:45"
+   }
+  },
+  "17": {
+   "id": "17",
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.1+830",
+   "group": "คลองสายใหญ่",
+   "rows": 2796,
+   "coverage_pct": 97.1,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 0.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "near-constant",
+    "datum shift ×1 (ใช้ segment ช่วงเหตุการณ์)"
+   ],
+   "level": {
+    "median": 12.585,
+    "min": 1.41,
+    "max": 13.57,
+    "distinct_2dp": 158,
+    "flat_pct": 91.7,
+    "zero_frac": 0.0,
+    "p95_step": 0.01
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 1,
+   "segment_rows": 1467,
+   "event": {
+    "baseline_25sep": 13.43,
+    "peak": 13.57,
+    "peak_time": "2026-09-26 15:15",
+    "hydro_rise_m": 0.14,
+    "max_1h_drop_m": 0.71,
+    "max_1h_drop_from": "2026-09-26 18:45"
+   }
+  },
+  "18": {
+   "id": "18",
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.4+896",
+   "group": "คลองสายใหญ่",
+   "rows": 2780,
+   "coverage_pct": 96.5,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 0.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "near-constant",
+    "datum shift ×1 (ใช้ segment ช่วงเหตุการณ์)"
+   ],
+   "level": {
+    "median": 12.51,
+    "min": 2.25,
+    "max": 13.53,
+    "distinct_2dp": 122,
+    "flat_pct": 93.9,
+    "zero_frac": 0.0,
+    "p95_step": 0.01
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 1,
+   "segment_rows": 1465,
+   "event": {
+    "baseline_25sep": 12.65,
+    "peak": 13.53,
+    "peak_time": "2026-09-26 21:45",
+    "hydro_rise_m": 0.88,
+    "max_1h_drop_m": 0.09,
+    "max_1h_drop_from": "2026-09-26 22:15"
+   }
+  },
+  "19": {
+   "id": "19",
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.6+745",
+   "group": "คลองสายใหญ่",
+   "rows": 2517,
+   "coverage_pct": 87.4,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 0.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "near-constant",
+    "4 spikes filtered",
+    "datum shift ×1 (ใช้ segment ช่วงเหตุการณ์)"
+   ],
+   "level": {
+    "median": 12.58,
+    "min": 0.76,
+    "max": 17.08,
+    "distinct_2dp": 107,
+    "flat_pct": 97.1,
+    "zero_frac": 0.0,
+    "p95_step": 0.01
+   },
+   "spikes_removed": 4,
+   "datum_shifts": 1,
+   "segment_rows": 1464,
+   "event": {
+    "baseline_25sep": 13.06,
+    "peak": 14.01,
+    "peak_time": "2026-09-26 15:15",
+    "hydro_rise_m": 0.95,
+    "max_1h_drop_m": 0.98,
+    "max_1h_drop_from": "2026-09-26 20:15"
+   }
+  },
+  "20": {
+   "id": "20",
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.8+550",
+   "group": "คลองสายใหญ่",
+   "rows": 2785,
+   "coverage_pct": 96.7,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 0.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "near-constant",
+    "datum shift ×1 (ใช้ segment ช่วงเหตุการณ์)"
+   ],
+   "level": {
+    "median": 12.79,
+    "min": -0.42,
+    "max": 13.83,
+    "distinct_2dp": 79,
+    "flat_pct": 97.8,
+    "zero_frac": 0.0,
+    "p95_step": 0.01
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 1,
+   "segment_rows": 1464,
+   "event": {
+    "baseline_25sep": 13.02,
+    "peak": 13.83,
+    "peak_time": "2026-09-26 18:15",
+    "hydro_rise_m": 0.81,
+    "max_1h_drop_m": 0.61,
+    "max_1h_drop_from": "2026-09-26 20:30"
+   }
+  },
+  "21": {
+   "id": "21",
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.11+740",
+   "group": "คลองสายใหญ่",
+   "rows": 2790,
+   "coverage_pct": 96.9,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 0.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "3 spikes filtered",
+    "datum shift ×1 (ใช้ segment ช่วงเหตุการณ์)"
+   ],
+   "level": {
+    "median": 13.09,
+    "min": 1.36,
+    "max": 14.5,
+    "distinct_2dp": 165,
+    "flat_pct": 71.8,
+    "zero_frac": 0.0,
+    "p95_step": 0.26
+   },
+   "spikes_removed": 3,
+   "datum_shifts": 1,
+   "segment_rows": 1463,
+   "event": {
+    "baseline_25sep": 13.14,
+    "peak": 14.5,
+    "peak_time": "2026-09-26 21:00",
+    "hydro_rise_m": 1.36,
+    "max_1h_drop_m": 0.87,
+    "max_1h_drop_from": "2026-09-26 21:00"
+   }
+  },
+  "23": {
+   "id": "23",
+   "name": "NY.4 คลองสมอปูน",
+   "group": "ปตร./สาขา",
+   "rows": 2880,
+   "coverage_pct": 100.0,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 99.8,
+    "q_positive_pct": 12.6,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "different datum (msl offset)"
+   ],
+   "level": {
+    "median": 376.38,
+    "min": 375.958,
+    "max": 380.215,
+    "distinct_2dp": 290,
+    "flat_pct": 74.3,
+    "zero_frac": 0.0,
+    "p95_step": 0.042
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 0,
+   "segment_rows": 2880,
+   "event": {
+    "baseline_25sep": 377.464,
+    "peak": 380.215,
+    "peak_time": "2026-09-26 15:45",
+    "hydro_rise_m": 2.751,
+    "max_1h_drop_m": 0.244,
+    "max_1h_drop_from": "2026-09-27 02:45"
+   }
+  },
+  "26": {
+   "id": "26",
+   "name": "ปตร.คลองสีเสียด2",
+   "group": "ปตร./สาขา",
+   "rows": 1459,
+   "coverage_pct": 50.7,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 100.0,
+    "q_positive_pct": 95.0,
+    "rain_nonnull_pct": 100.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "coverage 50.7%",
+    "negative Q present",
+    "5 spikes filtered",
+    "datum shift ×1 (ใช้ segment ช่วงเหตุการณ์)"
+   ],
+   "level": {
+    "median": 1.36,
+    "min": -3.74,
+    "max": 12.81,
+    "distinct_2dp": 137,
+    "flat_pct": 76.6,
+    "zero_frac": 0.0,
+    "p95_step": 0.02
+   },
+   "spikes_removed": 5,
+   "datum_shifts": 1,
+   "segment_rows": 1271,
+   "event": {
+    "baseline_25sep": 1.62,
+    "peak": 2.06,
+    "peak_time": "2026-09-26 23:15",
+    "hydro_rise_m": 0.44,
+    "max_1h_drop_m": 0.12,
+    "max_1h_drop_from": "2026-09-29 08:30"
+   }
+  },
+  "28": {
+   "id": "28",
+   "name": "ปตร.ท่าซุง",
+   "group": "ปตร./สาขา",
+   "rows": 2795,
+   "coverage_pct": 97.0,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 100.0,
+    "q_positive_pct": 100.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "ok"
+   ],
+   "level": {
+    "median": 8.28,
+    "min": 7.74,
+    "max": 9.58,
+    "distinct_2dp": 168,
+    "flat_pct": 77.4,
+    "zero_frac": 0.0,
+    "p95_step": 0.03
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 0,
+   "segment_rows": 2795,
+   "event": {
+    "baseline_25sep": 8.36,
+    "peak": 9.58,
+    "peak_time": "2026-09-27 07:59",
+    "hydro_rise_m": 1.22,
+    "max_1h_drop_m": 0.4,
+    "max_1h_drop_from": "2026-09-06 10:14"
+   }
+  },
+  "30": {
+   "id": "30",
+   "name": "ปตร.สบกเขียว",
+   "group": "ปตร./สาขา",
+   "rows": 2797,
+   "coverage_pct": 97.1,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 100.0,
+    "q_positive_pct": 71.6,
+    "rain_nonnull_pct": 100.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "negative Q present",
+    "datum shift ×2 (ใช้ segment ช่วงเหตุการณ์)"
+   ],
+   "level": {
+    "median": 3.07,
+    "min": -4.99,
+    "max": 4.05,
+    "distinct_2dp": 146,
+    "flat_pct": 82.9,
+    "zero_frac": 0.0,
+    "p95_step": 0.02
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 2,
+   "segment_rows": 728,
+   "event": {
+    "baseline_25sep": 3.29,
+    "peak": 4.05,
+    "peak_time": "2026-09-28 00:15",
+    "hydro_rise_m": 0.76,
+    "max_1h_drop_m": 0.23,
+    "max_1h_drop_from": "2026-09-23 10:15"
+   }
+  },
+  "61": {
+   "id": "61",
+   "name": "NY.1B แม่น้ำนครนายก บ้านเขานางบวช",
+   "group": "แม่น้ำหลัก",
+   "rows": 2880,
+   "coverage_pct": 100.0,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 100.0,
+    "q_positive_pct": 100.0,
+    "rain_nonnull_pct": 100.0,
+    "rain_positive_pct": 11.2
+   },
+   "health": [
+    "1 spikes filtered"
+   ],
+   "level": {
+    "median": 5.32,
+    "min": 0.0,
+    "max": 11.0,
+    "distinct_2dp": 468,
+    "flat_pct": 62.6,
+    "zero_frac": 0.0,
+    "p95_step": 0.04
+   },
+   "spikes_removed": 1,
+   "datum_shifts": 0,
+   "segment_rows": 2879,
+   "event": {
+    "baseline_25sep": 6.915,
+    "peak": 11.0,
+    "peak_time": "2026-09-27 01:00",
+    "hydro_rise_m": 4.085,
+    "max_1h_drop_m": 0.16,
+    "max_1h_drop_from": "2026-09-29 17:45"
+   }
+  },
+  "62": {
+   "id": "62",
+   "name": "NY.7 แม่น้ำนครนายก (หลังจวนผู้ว่าฯ)",
+   "group": "แม่น้ำหลัก",
+   "rows": 2880,
+   "coverage_pct": 100.0,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 100.0,
+    "q_positive_pct": 99.9,
+    "rain_nonnull_pct": 100.0,
+    "rain_positive_pct": 10.3
+   },
+   "health": [
+    "2 spikes filtered"
+   ],
+   "level": {
+    "median": 4.28,
+    "min": 0.0,
+    "max": 7.68,
+    "distinct_2dp": 325,
+    "flat_pct": 80.9,
+    "zero_frac": 0.001,
+    "p95_step": 0.02
+   },
+   "spikes_removed": 2,
+   "datum_shifts": 0,
+   "segment_rows": 2878,
+   "event": {
+    "baseline_25sep": 4.955,
+    "peak": 7.68,
+    "peak_time": "2026-09-27 10:00",
+    "hydro_rise_m": 2.725,
+    "max_1h_drop_m": 0.09,
+    "max_1h_drop_from": "2026-09-10 12:15"
+   }
+  },
+  "63": {
+   "id": "63",
+   "name": "ท้ายน้ำ ปตร.ท่าช้าง",
+   "group": "แม่น้ำหลัก",
+   "rows": 2059,
+   "coverage_pct": 71.5,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 100.0,
+    "q_positive_pct": 9.1,
+    "rain_nonnull_pct": 100.0,
+    "rain_positive_pct": 11.3
+   },
+   "health": [
+    "coverage 71.5%",
+    "21 spikes filtered"
+   ],
+   "level": {
+    "median": 3.53,
+    "min": 0.0,
+    "max": 5.35,
+    "distinct_2dp": 261,
+    "flat_pct": 86.2,
+    "zero_frac": 0.01,
+    "p95_step": 0.01
+   },
+   "spikes_removed": 21,
+   "datum_shifts": 0,
+   "segment_rows": 2038,
+   "event": {
+    "baseline_25sep": 3.57,
+    "peak": 5.35,
+    "peak_time": "2026-09-29 04:15",
+    "hydro_rise_m": 1.78,
+    "max_1h_drop_m": 0.05,
+    "max_1h_drop_from": "2026-09-06 10:15"
+   }
+  },
+  "69": {
+   "id": "69",
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.5+980",
+   "group": "คลองสายใหญ่",
+   "rows": 0,
+   "coverage_pct": 0.0,
+   "capability": {
+    "level_nonnull_pct": 0.0,
+    "q_nonnull_pct": 0.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "no level data"
+   ],
+   "event": null
+  },
+  "72": {
+   "id": "72",
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.14+118",
+   "group": "คลองสายใหญ่",
+   "rows": 2858,
+   "coverage_pct": 99.2,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 100.0,
+    "q_positive_pct": 100.0,
+    "rain_nonnull_pct": 100.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "ok"
+   ],
+   "level": {
+    "median": 0.61,
+    "min": 0.2,
+    "max": 1.66,
+    "distinct_2dp": 102,
+    "flat_pct": 64.6,
+    "zero_frac": 0.0,
+    "p95_step": 0.01
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 0,
+   "segment_rows": 2858,
+   "event": {
+    "baseline_25sep": 0.73,
+    "peak": 1.66,
+    "peak_time": "2026-09-26 22:00",
+    "hydro_rise_m": 0.93,
+    "max_1h_drop_m": 0.23,
+    "max_1h_drop_from": "2026-09-26 22:15"
+   }
+  },
+  "74": {
+   "id": "74",
+   "name": "อาคารน้ำตก คลองสายใหญ่ฝั่งซ้าย กม.17+313",
+   "group": "คลองสายใหญ่",
+   "rows": 0,
+   "coverage_pct": 0.0,
+   "capability": {
+    "level_nonnull_pct": 0.0,
+    "q_nonnull_pct": 0.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "no level data"
+   ],
+   "event": null
+  },
+  "80": {
+   "id": "80",
+   "name": "บ้านคิริวัน",
+   "group": "อื่น ๆ",
+   "rows": 2853,
+   "coverage_pct": 99.1,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 100.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 100.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "constant (dead sensor)"
+   ],
+   "level": {
+    "median": 0.0,
+    "min": 0.0,
+    "max": 0.0,
+    "distinct_2dp": 1,
+    "flat_pct": 100.0,
+    "zero_frac": 1.0,
+    "p95_step": 0.0
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 0,
+   "segment_rows": 2853,
+   "event": {
+    "baseline_25sep": 0.0,
+    "peak": 0.0,
+    "peak_time": "2026-09-01 00:00",
+    "hydro_rise_m": 0.0,
+    "max_1h_drop_m": 0.0,
+    "max_1h_drop_from": null
+   }
+  },
+  "84": {
+   "id": "84",
+   "name": "บุ้งเข้ 2",
+   "group": "ปตร./สาขา",
+   "rows": 2060,
+   "coverage_pct": 71.5,
+   "capability": {
+    "level_nonnull_pct": 100.0,
+    "q_nonnull_pct": 100.0,
+    "q_positive_pct": 95.8,
+    "rain_nonnull_pct": 0.3,
+    "rain_positive_pct": 0.2
+   },
+   "health": [
+    "near-constant",
+    "coverage 71.5%",
+    "negative Q present",
+    "datum shift ×1 (ใช้ segment ช่วงเหตุการณ์)"
+   ],
+   "level": {
+    "median": 4.02,
+    "min": -4.99,
+    "max": 4.32,
+    "distinct_2dp": 40,
+    "flat_pct": 94.9,
+    "zero_frac": 0.0,
+    "p95_step": 0.01
+   },
+   "spikes_removed": 0,
+   "datum_shifts": 1,
+   "segment_rows": 2054,
+   "event": {
+    "baseline_25sep": 4.06,
+    "peak": 4.32,
+    "peak_time": "2026-09-26 16:14",
+    "hydro_rise_m": 0.26,
+    "max_1h_drop_m": 0.06,
+    "max_1h_drop_from": "2026-09-26 18:00"
+   }
+  },
+  "105": {
+   "id": "105",
+   "name": "NY.3 คลองบ้านนาตอนล่าง บ้านป่าขะ",
+   "group": "แม่น้ำหลัก",
+   "rows": 0,
+   "coverage_pct": 0.0,
+   "capability": {
+    "level_nonnull_pct": 0.0,
+    "q_nonnull_pct": 0.0,
+    "q_positive_pct": 0.0,
+    "rain_nonnull_pct": 0.0,
+    "rain_positive_pct": 0.0
+   },
+   "health": [
+    "no level data"
+   ],
+   "event": null
+  }
+ }
+}

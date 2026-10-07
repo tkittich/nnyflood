@@ -1,0 +1,63 @@
+{
+ "method": "leave-one-season-out (ปีที่ทดสอบถูกถอดออกจากชุดฝึก) · สูตรเส้นตรง 8 ตัวแปร: ระดับตัวเอง t/t−3/t−24/Δ6h + ระดับ Ny.7 ณ t + ฝน POWER 1/3/7 วัน · ทำนาย +24 ชม.",
+ "stations": {
+  "Ny1B": {
+   "label": "Ny.1B บ้านเขานางบวช (ใกล้เขื่อน)",
+   "folds": {
+    "2021": {
+     "n_test": 8544,
+     "rmse24_all": 34.1,
+     "rmse24_wet": 42.3,
+     "persistence24_wet": 44.5
+    },
+    "2022": {
+     "n_test": 8544,
+     "rmse24_all": 38.8,
+     "rmse24_wet": 53.6,
+     "persistence24_wet": 57.5
+    },
+    "2024": {
+     "n_test": 8568,
+     "rmse24_all": 41.7,
+     "rmse24_wet": 56.2,
+     "persistence24_wet": 60.1
+    },
+    "2025": {
+     "n_test": 8544,
+     "rmse24_all": 32.4,
+     "rmse24_wet": 37.7,
+     "persistence24_wet": 40.6
+    },
+    "2026": {
+     "n_test": 336,
+     "rmse24_all": 122.5,
+     "rmse24_wet": 122.5,
+     "persistence24_wet": 125.8
+    }
+   }
+  },
+  "ThaChang_tail": {
+   "label": "ท้ายน้ำ ปตร.ท่าช้าง (ท้ายลุ่ม)",
+   "folds": {
+    "2024": {
+     "n_test": 8568,
+     "rmse24_all": 17.0,
+     "rmse24_wet": 21.5,
+     "persistence24_wet": 17.4
+    },
+    "2025": {
+     "n_test": 8544,
+     "rmse24_all": 14.2,
+     "rmse24_wet": 13.3,
+     "persistence24_wet": 12.4
+    },
+    "2026": {
+     "n_test": 336,
+     "rmse24_all": 30.3,
+     "rmse24_wet": 30.3,
+     "persistence24_wet": 30.6
+    }
+   }
+  }
+ }
+}

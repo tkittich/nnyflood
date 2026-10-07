@@ -1,0 +1,66 @@
+# นโยบาย: git ใช้ควบคุมเวอร์ชัน "โค้ด/สคริปต์/ผลวิเคราะห์/รายงาน/manifest"
+# ส่วนต้นฉบับข้อมูลขนาดใหญ่ (ดาวเทียนดิบ 17 GB, PDF/ภาพสแกน, อัลบั้มรูป) เก็บบนดิสก์
+# พร้อมรหัส SHA-256 ใน manifest.md ของแต่ละโฟลเดอร์ — ไม่บรรจุใน git
+
+# --- Python ---
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# --- รายงาน HTML: เก็บใน git โดยเจตนา ---
+# เป็น "ชิ้นงานส่งมอบ" ตัวจริง ผู้รับได้จาก repo โดยไม่ต้องรันไปป์ไลน์ข้อมูล 6 GB
+# (นโยบายหัวไฟล์ระบุให้ git คุม "รายงาน" อยู่แล้ว)
+# ต้นทุนที่ยอมรับ: ไฟล์รวม ~7.8 MB ต่อการสร้างใหม่ 1 ครั้ง (ฉบับวิชาการ + ฉบับประชาชน)
+# ถ้าอนาคต repo หนักเกิน ทางเลือกคือ git rm --cached แล้วแจกผ่าน Releases/Drive แทน
+
+# --- OS ---
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# --- ไบนารีขนาดใหญ่ (ทุกที่) ---
+*.zip
+*.rar
+*.7z
+*.kmz
+*.KMZ
+*.tif
+*.npy
+*.pdf
+*.jpg
+*.jpeg
+*.bin
+
+# --- Sentinel-1 Copernicus (17 GB): เก็บเฉพาะ manifest ---
+data/13_sentinel1_copernicus/*
+!data/13_sentinel1_copernicus/manifest.md
+
+# --- โฟลเดอร์ดาวน์โหลดของผู้ใช้ (สำเนาจัดระเบียบอยู่แล้วใน data/ ลำดับอื่น) ---
+# ต้องเขียน data/manual/* ไม่ใช่ data/manual/ — git ยกเว้นไฟล์ย่อยไม่ได้ถ้าตัวโฟลเดอร์แม่ถูกตัดออกทั้งอัน
+data/manual/*
+# ยกเว้น manifest: ตัวข้อมูลหลาย GB ไม่เข้า git แต่ต้องเหลือบันทึกไฟล์+SHA-256 ไว้ตรวจย้อน (F-05)
+!data/manual/manifest.md
+
+# --- DEM ต้นฉบับ ---
+data/08_dem_topography/raw/
+
+# --- ภาพสแกนหน้า PDF ผังน้ำบางปะกง (ฉบับ text สกัดแล้วถูกเก็บ) ---
+data/09_plans_standards/*.png
+
+# --- ข้อยกเว้น: ภาพหลักฐานเล็กที่ต้องการใน git ---
+!data/08_dem_topography/satellite_gistda_28sep02oct/*.jpg
+
+# Sentinel-2 SAFE แตกไฟล์ (หนักเกิน git — เก็บ zip + hash ตามนโยบาย)
+data/18_sentinel2_copernicus/*.SAFE/
+*.jp2
+.workbuddy-ai/
+
+# --- archive: ของสำคัญที่ดึงมาจากประวัติ git ก่อนลบ .git (ไม่ publish) ---
+archive/
+
+# --- ไฟล์ตรวจสอบชั่วคราว ---
+_tmp_*
+.ov_*
+
+# --- config ภายในของ ZCode (ไม่ publish) ---
+.zcodeignore

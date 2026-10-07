@@ -1,0 +1,5 @@
+{
+ "fetched_at": "2026-10-05T22:09:54.878342",
+ "source": "http://khundan-tele.rid.go.th/station_detail.php (POST n_id/date_from/date_to)",
+ "resolution": "15-min (<=7d chunks), 2026-06-01..2026-10-04"
+}

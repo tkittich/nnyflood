@@ -1,0 +1,60 @@
+{
+ "method": "leave-one-season-out (ปีที่ทดสอบถูกถอดออกจากชุดฝึก) · โมเดลเส้นตรง 12 ตัวแปร เดียวกับ goal4_model_v1.py · ปี 2026 ใช้เงื่อนไขเดียวกับรายงานหลัก",
+ "folds": {
+  "2021": {
+   "n_train": 28368,
+   "n_test": 8520,
+   "rmse6_all": 10.7,
+   "rmse6_wet": 12.9,
+   "rmse24_all": 22.2,
+   "rmse24_wet": 24.6,
+   "rmse24_persistence_wet": 25.2,
+   "rmse48_all": 28.7,
+   "rmse48_wet": 30.4
+  },
+  "2022": {
+   "n_train": 28368,
+   "n_test": 8520,
+   "rmse6_all": 9.9,
+   "rmse6_wet": 12.4,
+   "rmse24_all": 23.7,
+   "rmse24_wet": 28.2,
+   "rmse24_persistence_wet": 30.3,
+   "rmse48_all": 29.1,
+   "rmse48_wet": 33.7
+  },
+  "2024": {
+   "n_train": 28344,
+   "n_test": 8544,
+   "rmse6_all": 13.7,
+   "rmse6_wet": 19.3,
+   "rmse24_all": 29.0,
+   "rmse24_wet": 35.4,
+   "rmse24_persistence_wet": 38.4,
+   "rmse48_all": 34.7,
+   "rmse48_wet": 36.3
+  },
+  "2025": {
+   "n_train": 28368,
+   "n_test": 8520,
+   "rmse6_all": 9.8,
+   "rmse6_wet": 10.6,
+   "rmse24_all": 25.5,
+   "rmse24_wet": 24.0,
+   "rmse24_persistence_wet": 26.4,
+   "rmse48_all": 32.9,
+   "rmse48_wet": 25.5
+  },
+  "2026": {
+   "n_train": 36576,
+   "n_test": 312,
+   "rmse6_all": 17.9,
+   "rmse6_wet": 17.9,
+   "rmse24_all": 68.3,
+   "rmse24_wet": 68.3,
+   "rmse24_persistence_wet": 70.0,
+   "rmse48_all": 112.8,
+   "rmse48_wet": 112.8
+  }
+ }
+}

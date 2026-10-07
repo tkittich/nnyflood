@@ -1,0 +1,29 @@
+{
+ "method": "อินทิกราลข้อมูล 15 นาทีของ Q ที่ Ny.7 · เขื่อน = ปล่อยรายวัน×lag 12 ชม. (ไม่รวมการอุปโภค/ท่อส่งน้ำ) · หน้าต่าง P1 = 26 ก.ย. 12:00–27 ก.ย. 12:00 · P2 = 27 ก.ย. 12:00–29 ก.ย. 00:00",
+ "windows": {
+  "P1_onset": {
+   "window": [
+    "2026-09-26T12:00:00",
+    "2026-09-27T12:00:00"
+   ],
+   "total_measured_mcm": 39.0,
+   "total_rating_mcm": 36.2,
+   "dam_release_mcm": 4.6,
+   "dam_hours_counted": 24,
+   "dam_share_measured_pct": 11.8,
+   "dam_share_rating_pct": 12.7
+  },
+  "P2_sustained": {
+   "window": [
+    "2026-09-27T12:00:00",
+    "2026-09-29T00:00:00"
+   ],
+   "total_measured_mcm": 70.3,
+   "total_rating_mcm": 63.2,
+   "dam_release_mcm": 41.4,
+   "dam_hours_counted": 36,
+   "dam_share_measured_pct": 58.9,
+   "dam_share_rating_pct": 65.5
+  }
+ }
+}

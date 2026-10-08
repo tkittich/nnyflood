@@ -71,9 +71,16 @@ PY=python
 
 ### 4.A — ทำซ้ำได้จาก clone เปล่า (อินพุตทั้งหมดอยู่ใน git)
 
+รันทีเดียวจบ (pipeline ครบ — ขั้นที่ต้องมีข้อมูลดิบใหญ่จะ SKIP อัตโนมัติ):
+```bash
+"$PY" analysis/run_all.py        # หรือ --fast เพื่อข้าม backtest ยาว (~25 นาที)
+```
+
+หรือรันทีละขั้น:
+
 ```bash
 "$PY" analysis/goal4_model_v1.py
-#   -> analysis/goal4_model_v1_results.json  (ตาราง RMSE 12 ตัวแปร vs persistence/GBDT)
+#   -> analysis/goal4_model_v1_results.json  (ตาราง RMSE 11 ตัวแปร vs persistence/GBDT)
 #   -> analysis/goal4_linear_coeffs_full.json, goal4_model_v1_ablation.json
 #   -> analysis/goal4_model_v1_event.png, report/assets/m_simple24.png
 

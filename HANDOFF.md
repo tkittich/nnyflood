@@ -82,8 +82,9 @@ commit ปกติแล้วหลัง `git init` ใหม่ — จะ p
 | `report/น้ำท่วมนครนายก2569_ประชาชน.html` | ชิ้นงานหลัก (ไฟล์เดียวจบ) |
 | `report/น้ำท่วมนครนายก2569_วิชาการ.html` | ฉบับตรวจสอบย้อนกลับ |
 | `docs/LEGAL_REVIEW.md` | ตรวจหมิ่นประมาท/PDPA ก่อน publish |
-| `docs/reviews/` | รีวิวอิสระรอบใหม่ 2 ฉบับ (8 ต.ค.) |
+| `docs/reviews/` | รีวิวอิสระ 3 ฉบับ (DeepSeek · Gemini ×2 รอบ · Qwen — 8 ต.ค.) |
 | `archive/` (gitignored) | ประวัติเก่าทั้งหมด (bundle) + ต้นฉบับที่ถูกถอดจาก repo |
 | `analysis/attribution_share.py` | สคริปต์สัดส่วนเขื่อน/ฝน (12% · 59%) — ตัวเลขหัวใจ |
+| `analysis/run_all.py` | รัน pipeline ทั้งระบบทีเดียว (10 ขั้น) |
 | `analysis/goal4_model_*.py` | โมเดลทำนาย (v1) / backtest หลายฤดู / หลายจุดวัด |
 | `analysis/goal5_policy_proposals.md` | ข้อเสนอต่อภาครัฐ (เป้าหมาย 5 — E1–E7) |

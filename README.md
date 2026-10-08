@@ -39,6 +39,7 @@ docs/                ← มาตรฐานวิธีการ + พจน�
 analysis/            ← สคริปต์ประมวลผล + ผลสังเคราะห์ (CSV/JSON/PNG/MD)
 data/                ← หลักฐานต้นฉบับ 21 ชุด (ทุกชุดมี manifest + SHA-256)
 tests/               ← ชุดทดสอบ 26 ตัว (กัน regression)
+analysis/run_all.py  ← รัน pipeline ทั้งระบบทีเดียวจบ (skip อัตโนมัติเมื่อไม่มีข้อมูลดิบ)
 index.html           ← หน้ารวมลิงก์รายงาน (เสิร์ฟโดย GitHub Pages)
 ```
 

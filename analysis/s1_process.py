@@ -142,7 +142,12 @@ def main():
     invert, err = build_geocode(ann)
     print(f"[{tag}] geocode roundtrip error {err:.2f} px")
 
-    glon, glat = np.meshgrid(np.linspace(x0, x1, nx), np.linspace(y1, y0, ny))
+    # สุ่มจุด geolocation ที่ **จุดกึ่งกลางเซลล์** ให้ตรง convention ของ from_bounds
+    # (เดิม linspace ที่ขอบกริด → backscatter คลาดมาสก์ −res/2 ≈ 15 ม. คงที่ — GL-12 แก้ 9 ต.ค. 69)
+    glon, glat = np.meshgrid(
+        x0 + (np.arange(nx) + 0.5) * (x1 - x0) / nx,
+        y1 - (np.arange(ny) + 0.5) * (y1 - y0) / ny,
+    )
     lr, pr = invert(glon, glat)
 
     for pol in ("vh", "vv"):
@@ -168,8 +173,17 @@ def main():
         )
         db = (10.0 * np.log10(sig)).astype(np.float32)
         fill = np.nanmedian(db[valid]) if valid.any() else -20.0
-        db_s = uniform_filter(np.where(valid, db, fill), size=5)
+        # บั๊กที่เคยพบ (s1_flood_extent_findings): ฉากลงดิ่งมีช่อง DN=0 กระจายใน valid
+        # → uniform_filter เจอ NaN แม้จุดเดียวแล้วแพร่ทั้งภาพจนว่าง — เติมค่ากลาง "ใน valid"
+        # ก่อนกรองด้วย (9 ต.ค. 69: ครึ่งพิกเซลที่ขยับทำให้บั๊กนี้กลับมาโผล่ที่ pass 06:00)
+        n_bad = int((valid & ~np.isfinite(db)).sum())
+        # เติม fill ทุกจุดที่ไม่มีค่า (รวมนอก valid — ถูก mask ทิ้งหลังกรองอยู่แล้ว)
+        # ไม่งั้น uniform_filter ดึง NaN จากหน้าต่างชายแถบเข้ามาจนภาพว่าง (GL-12 rerun)
+        db_f = np.where(np.isfinite(db), db, fill)
+        db_s = uniform_filter(db_f, size=5)
         db_s = np.where(valid, db_s, np.nan).astype(np.float32)
+        if n_bad:
+            print(f"[{tag}] {pol} เติมค่ากลาง {n_bad} px ใน valid ก่อนกรอง (DN=0 กระจาย)")
         np.save(DER / f"{tag}_{pol}_db.npy", db_s)
         prof = dict(
             driver="GTiff", height=ny, width=nx, count=1, dtype="float32",

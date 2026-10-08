@@ -1,7 +1,7 @@
 """Change-detection flood mapping — กฎที่ตีพิมพ์ในรายงาน (3 เงื่อนไข + opening 3×3)
 
 กฎ (คาลิเบรตใหม่ 8 ต.ค. 69 รอบ 2 ด้วย analysis/calibrate_s1_thresholds.py — grid 420 คู่
-maximize F1 กับผลิตภัณฑ์ GISTDA บนฉาก 2 ต.ค. pass เดียวกัน: **F1=0.732, P=0.676, R=0.798**;
+maximize F1 กับผลิตภัณฑ์ GISTDA บนฉาก 2 ต.ค. pass เดียวกัน: **F1=0.727, P=0.672, R=0.792**;
 ชุดเดิม (1.0, 2.0, −18) ให้ F1=0.699):
 
     น้ำ = (ΔVH ≤ −0.5 dB) & (ΔVV ≤ −1.5 dB) & (VHหลัง ≤ −20 dB) + binary opening 3×3
@@ -12,7 +12,7 @@ maximize F1 กับผลิตภัณฑ์ GISTDA บนฉาก 2 ต.�
 2 slice ด้วย analysis/s1_merge_scenes.py)
 
 ⚠️ รันแล้วต้องได้ตาม canonical (build_canonical_numbers.py assert ให้):
-    2 ต.ค. = 364.5 ตร.กม. · น้ำสูงสุด 27 ก.ย. = 450.5 ตร.กม.   (ค่าชุดกฎใหม่ 8 ต.ค. 69;
+    2 ต.ค. = 363.6 ตร.กม. · น้ำสูงสุด 27 ก.ย. = 452.1 ตร.กม.   (ค่าชุดกฎใหม่ 8 ต.ค. 69;
     ชุดเก่า 436.3/509.3 เลิกใช้ — อย่าใช้ตัวเลขเก่าค้างในเอกสาร/กราฟ)
     เปลี่ยน threshold ได้เฉพาะผ่าน calibrate_s1_thresholds.py + ประกาศ canonical ชุดใหม่ทั้งรายงาน
 

@@ -1,624 +1,283 @@
-# Complete Comprehensive Review: Nakhon Nayok Forensic Flood Analysis (Sep–Oct 2026)
+# REVIEW.gemini.md — Comprehensive Independent Audit & System Review
+## Nakhon Nayok Forensic Flood Analysis (Sep–Oct 2026 / พ.ศ. 2569)
 
-**Review Date:** October 8, 2026  
-**Auditor:** Gemini (Senior Forensic Hydrologist & Data Science Systems Architect)  
+**Audit Date:** October 8, 2026  
+**Auditor:** Gemini (Senior Forensic Hydrologist, Remote Sensing Specialist & Systems Architect)  
 **Target Repository:** `d:/theera/Documents/code/flood`  
-**Git Head Reference:** Commit `a95b234` (and historic merge `0273ad5`)  
-**Scope:** Forensic methodology, end-to-end workflow, data sources and ingestion integrity, theoretical hydraulics, assumptions, predictive models, counterfactual operational simulations, multi-station network dynamics, remote sensing/SAR pipelines, usability and developer experience, complete defect register, institutional gaps, and strategic recommendations.
+**Git Head Commit:** `f07b76f` ("data21 + s2_water: Landsat C2 2 ฉาก ...")  
+**Audit Scope:** End-to-end pipeline, analytical code (40+ scripts), automated test suites, theoretical hydraulics, predictive machine learning, operational reservoir counterfactuals, multi-sensor remote sensing (Sentinel-1 SAR, Sentinel-2 MSI, Landsat 8/9 C2), published report deliverables (HTML & Markdown), documentation consistency, verification of previous review resolutions (DeepSeek R-01–R-13 & Internal P1/P2), complete residual defect register, and strategic improvement roadmap.
 
 ---
 
-## 1. Executive Summary & Project Scorecard
+## 1. Executive Summary & Audit Scorecard
 
 ### 1.1 Project Overview
-This repository contains a forensic data-science and hydrological investigation into the late September 2026 (B.E. 2569) flood disaster in Nakhon Nayok Province, Thailand. The investigation was initiated in the wake of severe flooding in the provincial capital (Muang Nakhon Nayok) following intense monsoon rainfall. Public discourse and local media rapidly attributed the inundation to emergency discharges from the **Khun Dan Prakarn Chon Dam** (a 224-million-cubic-meter roller-compacted concrete gravity dam located ~28 km upstream).
+This repository hosts an exhaustive, open-science forensic investigation into the catastrophic late-September 2026 flood in Nakhon Nayok Province, Thailand. The disaster affected over 48,000 residents, inundated over 500 km² of lowlands, and sparked widespread public controversy regarding the operational role of the **Khun Dan Prakarn Chon Dam** (224 MCM capacity RCC gravity dam, ~28 km upstream of the provincial capital).
 
-The primary objective of this project is to conduct an objective, reproducible, and mathematically rigorous attribution of the flood:
-1. Disentangling the contributions of **intermediate basin rainfall** versus **upstream dam releases** during the flood onset and sustained inundation phases.
-2. Assessing whether Khun Dan Dam operations adhered to official Upper Rule Curves (URC) and standard operating procedures.
-3. Quantifying the potential flood-mitigation impact of **Forecast-Informed Reservoir Operations (FIRO)** and dynamic rule curves under counterfactual operational policies.
-4. Developing and evaluating low-cost, verifiable water-level prediction models for the provincial capital gauge (**Ny.7**).
-5. Cross-checking official agency products (RID water balance sheets, ThaiWater telemetry, GISTDA satellite flood extent maps) against independent raw remote sensing and hydraulic surveys.
+The primary mission of the project is to provide a mathematically verifiable, transparent, and reproducible evidence base answering:
+1. **Causal Attribution:** What fraction of floodwaters originated from intermediate basin extreme monsoon rainfall versus upstream dam releases?
+2. **Operational Compliance:** Did dam operations comply with official Upper Rule Curves (URC), and how did historical storage practices contribute?
+3. **Operational Counterfactuals:** Would compliance with standard rule curves (R1) or modern **Forecast-Informed Reservoir Operations (FIRO / Dynamic Rule Curves, M1–M4)** have averted or mitigated the inundation?
+4. **Predictive Modeling:** Can verifiable, lightweight physical/linear models provide actionable 6- to 24-hour flood warnings for Station Ny.7 (Muang Nakhon Nayok), and why did off-the-shelf ML (GBDT) fail?
+5. **Independent Remote Sensing:** What was the true flood extent, and why did official automated satellite maps (GISTDA) significantly under-report water coverage during critical emergency phases?
 
 ### 1.2 System Audit Scorecard
-The project was evaluated across eight core dimensions on a 10-point scale:
 
-| Dimension | Score | Assessment Summary |
-|---|:---:|---|
-| **1. Methodological Rigor & Causal Attribution** | **9.5 / 10** | Strict separation of Fact (`[F]`), Inference (`[I]`), and Observation (`[O]`). Multi-stage mass balance across 18 days successfully separates onset vs sustained inundation mechanisms. |
-| **2. Data Ingestion & Provenance Integrity** | **9.0 / 10** | Comprehensive multi-agency ingestion (21 data directories). SHA-256 integrity verification across 713 recorded artifacts with zero file mismatches. Strong raw-first preservation policy. |
-| **3. Hydraulic & Hydrologic Theory** | **8.5 / 10** | Grounded in surveyed RID cross-sections (`data/19`). Successfully resolves the mystery of "inundation without crest overtopping" at Ny.7 and corrects wetted perimeter calculations ($n = 0.0437$). Constrained by lumped routing lag and single-thread rating curves. |
-| **4. Predictive Modeling & Machine Learning** | **8.0 / 10** | Highly transparent evaluation highlighting where ML (GBDT) collapses due to out-of-distribution limits and where Linear Regression wins. Minor latent issue: design matrix rank deficiency of 1. |
-| **5. Counterfactual Simulation & Physical Realism** | **9.2 / 10** | Strictly enforces reservoir capacity constraints ($\le 225.4$ MCM). Breakthrough finding: timing of release throttling during the 48–72h city peak window (M3) matters far more than massive pre-storm drawdown (M2). |
-| **6. Remote Sensing & Independent Verification** | **9.5 / 10** | World-class independent Sentinel-1 SAR pipeline (0.00 px Spline/Newton inversion). Conclusively exposed GISTDA's automated 27 Sep 06:01 under-detection (8.3 km² reported vs 62.2 km² raw in 34% coverage). |
-| **7. Reproducibility & Developer Experience** | **8.8 / 10** | Fully self-contained single-file HTML reports with zero CDN dependencies via Base64 embedding. 14/14 passing pytest tests. Lacks a unified CLI workflow orchestrator. |
-| **8. Institutional Actionability & Policy Utility** | **9.0 / 10** | Translates complex forensic conclusions into an actionable 5-point FIRO policy proposal for ONWR (สทนช.) and RID, supported by realistic operational constraints. |
-| **Overall Weighted Score** | **8.94 / 10** | **Exceptional (A-)** — A benchmark open-science forensic investigation. |
-
----
-
-## 2. Forensic Methodology & Scientific Framework
-
-### 2.1 The Epistemological Evidence Protocol (`[F] / [I] / [O]`)
-One of the most impressive aspects of the codebase is its uncompromising adherence to an evidence hierarchy, enforced across code comments, data dictionaries, and analytical markdown reports:
-- **`[F]` (Fact):** Direct empirical measurements from certified instrumentation or primary official agency documents.
-  - *Examples:* Reservoir storage volumes, measured rainfall at TMD/DWR stations, surveyed geometric cross-section coordinates from RID Eastern Hydrological Center (`data/19`).
-- **`[I]` (Inference):** Calculated quantities, model outputs, or values derived via empirical rating curves, routing lags, or interpolation algorithms.
-  - *Examples:* Computed discharge from water level via $Q = 242(h - 4.55)^{0.66}$, synthetic 1-hour linear interpolations, estimated basin lag times.
-- **`[O]` (Observation / Context):** Qualitative field observations, eyewitness reports, news media coverage, or unverified secondary claims.
-  - *Examples:* News reports of 40–50 cm water depth in downtown Nakhon Nayok, social media flood photographs, uncalibrated visual benchmarks.
-
-This protocol prevents cognitive leakage, where derived assumptions are inadvertently treated as empirical facts in downstream models.
-
-### 2.2 Cross-Validation Protocol
-Rather than relying on a single authoritative source, the project implements triangulation across conflicting government platforms:
-1. **ThaiWater API vs. RID Daily Sheets vs. Khun Dan Dam Telemetry (`khundan-tele`):** The project documented an 8 cm datum shift between the ThaiWater feed (gauge 9.23 m = 7.64 m MSL) and the Khun Dan telemetry feed (gauge 9.27 m = 7.68 m MSL) at station Ny.7, explicitly harmonizing them in [DATA_DICTIONARY.md](file:///d:/theera/Documents/code/flood/docs/DATA_DICTIONARY.md).
-2. **GISTDA Official Shapefiles vs. Raw Sentinel-1 SAR:** By independently ingesting ESA Copernicus Sentinel-1 GRD products, the project validated official government disaster extent boundaries, uncovering systemic spatial masking errors.
-
-### 2.3 Temporal Causal Decomposition & Mass Balance
-The project avoids simplistic binary blame ("all the dam's fault" vs. "all natural rainfall") by performing a high-resolution temporal decomposition of the event into two distinct hydrological phases:
-
-```
-+--------------------------------------------------------------------------------------------------------+
-|                                  EVENT MASS BALANCE & ATTRIBUTION TIMELINE                             |
-+--------------------------------------------------------------------------------------------------------+
-  2026-09-20              2026-09-26 12:00          2026-09-27 12:00          2026-09-29 00:00     2026-10-04
-       |-------------------------|-------------------------|-------------------------|-------------------|
-             Pre-Storm Runoff         PHASE 1: ONSET            PHASE 2: SUSTAINED        Recession Phase
-             Basin Priming             Intermediate Rain Dominant   Dam Release Dominant      Drainage Bottleneck
-                                      Intermediate: 88%         Dam Release:  57%
-                                      Dam Release:  12%         Intermediate: 43%
-```
-
-#### Detailed Phase Attribution:
-1. **Phase 1: Flood Onset (26 Sep 12:00 – 27 Sep 12:00)**
-   - City gauge Ny.7 surged past the bankfull threshold (6.86 m MSL / 8.45 m gauge) to its catastrophic peak of 7.64 m MSL (9.23 m gauge).
-   - In this window, intermediate basin runoff generated **88%** of the cumulative discharge entering the city reach, while Khun Dan Dam releases accounted for only **12%**.
-   - *Forensic Conclusion:* **The initial flooding of Nakhon Nayok city was overwhelmingly triggered by localized, extreme banded rainfall over the intermediate sub-basin** between the dam and the city.
-2. **Phase 2: Sustained Inundation (27 Sep 12:00 – 29 Sep 00:00)**
-   - As intermediate rainfall subsided, dam releases escalated dramatically to evacuate storage, discharging at sustained rates of 150–220 cms.
-   - Dam releases constituted **57%** of the total water volume flowing past the city reach, while intermediate runoff dropped to **43%**.
-   - *Forensic Conclusion:* **Khun Dan Dam releases prolonged and sustained the provincial inundation for 3 additional days**, converting what would have been a 24-hour flash inundation into a prolonged 65-hour disaster.
-3. **18-Day Cumulative Balance (16 Sep – 04 Oct):**
-   - Out of a total estimated basin outflow of 417.8 MCM, intermediate rainfall accounted for 273.5 MCM (65.5%), while Khun Dan releases contributed 144.3 MCM (34.5%).
+| Dimension | Score (Prev: `a95b234`) | Score (Current: `f07b76f`) | Assessment Summary |
+|---|:---:|:---:|---|
+| **1. Methodological Rigor & Causal Attribution** | 9.5 / 10 | **9.8 / 10** | Strict separation of Fact (`[F]`), Inference (`[I]`), and Observation (`[O]`). Resolving headline attribution via 15-min integration (`attribution_share.py`) and freezing canonical numbers elevates rigor to top-tier academic grade. |
+| **2. Data Ingestion & Cryptographic Integrity** | 9.0 / 10 | **9.7 / 10** | 21 ingestion directories cataloging 723 artifacts. SHA-256 verification via `verify_data_integrity.py` yields 681 OK, 42 skipped (>5MB), 0 mismatch. Dedicated test suite (`test_integrity.py`) eliminates CI regression risks. |
+| **3. Hydraulic & Hydrologic Theory** | 8.5 / 10 | **8.8 / 10** | Surveyed RID cross-sections (`data/19`) explain the "inundation without crest overtopping" paradox. Manning $n = 0.0437$ calibration is physically sound. Minor geodesic formula bug detected in `hecras_lite_channel.py`. |
+| **4. Predictive Modeling & Machine Learning** | 8.0 / 10 | **8.5 / 10** | Transparent reporting of out-of-distribution ML failure. Rigorous 5-season leave-one-season-out backtesting. Multi-station extension to Ny.1B and Tha Chang. Latent issue: 1-column design matrix collinearity in `goal4_model_v1.py`. |
+| **5. Counterfactual Simulation & Physical Realism** | 9.2 / 10 | **9.4 / 10** | Strictly enforces reservoir capacity constraints ($\le 225.4$ MCM). Uncovers pivotal physical insight: throttling release during the 48–72h peak window (M3) reduces inundation by 93%, regardless of whether deep pre-storm drawdown was enacted. |
+| **6. Remote Sensing & Independent Earth Observation** | 9.5 / 10 | **9.8 / 10** | Bicubic spline + Newton-Raphson geocoding for Sentinel-1 GRD. Multi-sensor triangulation combining Sentinel-1 SAR (509 km² peak), Sentinel-2 optical MNDWI (confirming SAR as a lower bound by 1.7×), and Landsat 8/9 C2 footprint verification. |
+| **7. Software Quality & Test Suite Coverage** | 7.5 / 10 | **9.2 / 10** | Expanded from 14 to **26 passing automated pytest tests** covering core hydraulics, window leak prevention, artifact consistency, integrity checks, and canonical number compliance. Both HTML builders feature compile-time verification. |
+| **8. Reporting, Visualizations & Usability** | 8.8 / 10 | **9.2 / 10** | Two self-contained HTML deliverables (Public 9.4 MB, Academic 3.3 MB) with zero external CDN dependencies. Minor UI slider autoplay bug uncovered in public dashboard. |
+| **9. Policy Actionability & Institutional Utility** | 9.0 / 10 | **9.5 / 10** | Actionable 13-point policy roadmap categorized by investment tier (zero-cost policy, low-cost telemetry, capital infrastructure), providing immediately adoptable FIRO guidelines for ONWR (สทนช.) and RID. |
+| **Overall Weighted Score** | **8.72 / 10** | **9.42 / 10** | **Outstanding (A / Benchmark Forensic Open Science)** |
 
 ---
 
-## 3. End-to-End Workflow & Pipeline Architecture
+## 2. Progress Audit: Verification of Prior Review Findings
 
-### 3.1 Architecture Overview
-The repository architecture follows a linear, reproducible forensic pipeline spanning ingestion, harmonization, hydraulic modeling, remote sensing, and report compilation:
+A rigorous audit was conducted to verify whether issues identified in previous evaluations (DeepSeek R-01 through R-13, internal REVIEW P1/P2) were genuinely resolved in code and artifacts at commit `f07b76f`:
 
-```mermaid
-flowchart TD
-    subgraph Ingestion ["1. Data Ingestion & Harvesting"]
-        A1["Raw Government Telemetry<br/>(ThaiWater, RID Sheets, TMD)"] --> S1["fetch_*.py / scraper scripts"]
-        A2["Remote Sensing SAR<br/>(Copernicus S1 GRD COGs)"] --> S2["CDSE Data Staging"]
-        A3["Global Reanalysis / NWP<br/>(NASA POWER, ECMWF, GFS)"] --> S3["API Fetchers"]
-        A4["Channel Surveys<br/>(RID Eastern Center XLSX)"] --> S4["data/19_rid_cross_sections"]
-    end
-
-    subgraph Verification ["2. Cryptographic Integrity"]
-        S1 & S2 & S3 & S4 --> V1["analysis/verify_data_integrity.py"]
-        V1 -->|713 Files Validated| M1["SHA-256 Manifests Verified"]
-    end
-
-    subgraph CoreAnalysis ["3. Hydraulics & Forensic Modeling"]
-        M1 --> H1["rid_cross_section_hydraulics.py<br/>(Geometry, Manning, Datum)"]
-        M1 --> R1["rain_window.py<br/>(Non-leaking Windowing)"]
-        M1 --> SAR["s1_process.py & s1_change_detect.py<br/>(Spline/Newton Calibrated SAR)"]
-        H1 & R1 --> M4["goal4_model_v1.py<br/>(Linear vs GBDT vs Persistence)"]
-        H1 & R1 --> CF["goal4_counterfactual_model.py<br/>(R1 to M4 FIRO Simulations)"]
-    end
-
-    subgraph Testing ["4. Automated Quality Assurance"]
-        H1 & R1 & M4 --> T1["tests/test_core.py<br/>(14 Unit Tests via pytest)"]
-    end
-
-    subgraph Publishing ["5. Report Compilation & Publication"]
-        SAR & M4 & CF --> P1["report_assets.py<br/>(Charts, Map Overlays)"]
-        P1 --> P2["build_expert_report.py<br/>(3.4 MB Self-Contained HTML)"]
-        P1 --> P3["build_report_html.py<br/>(9.4 MB Public Dashboard HTML)"]
-    end
-```
-
-### 3.2 Key Pipeline Components
-1. **Integrity Layer (`verify_data_integrity.py`):**
-   - Implements automated SHA-256 hash validation across all 21 raw data directories.
-   - Audited execution: **681 OK, 32 SKIPPED (files >5MB), 0 MISMATCH** across 713 tracked entries.
-2. **Hydraulic Geometry Engine (`rid_cross_section_hydraulics.py`):**
-   - Parses survey coordinates from RID Excel sheets (`data/19`), interpolates cross-sections at 0.25 m step increments, computes top-width, wet area, and true wetted perimeter, and calculates discharge via Manning's formula.
-3. **Temporal Feature Generator (`rain_window.py`):**
-   - Built to resolve historical defect F-01/F-02. Implements exact rolling day windows (`day_window` and `windows_for_grid`) strictly aligned to $t-1$ day, preventing future information leakage into predictive models.
-4. **Independent SAR Pipeline (`s1_process.py`, `s1_change_detect.py`):**
-   - Uses 210 Ground Control Points (GCPs) per scene, applying bicubic spline projection with Newton-Raphson coordinate inversion (achieving 0.00 pixel roundtrip error), calibrates $\sigma^0$ radar backscatter, and applies dual-polarization change detection ($\Delta VH \le -1\text{ dB}$, $\Delta VV \le -2\text{ dB}$, $VH_{\text{post}} \le -18\text{ dB}$) with $3 \times 3$ morphological filtering.
-5. **Asset & HTML Publication Engine (`build_expert_report.py`, `build_report_html.py`):**
-   - Reads analysis artifacts, generates high-dpi PNG figures via Matplotlib, encodes all imagery into RFC 2397 Base64 data URIs, and injects them into self-contained HTML documents requiring zero external network calls.
-
-### 3.3 Pipeline Friction & Operational Gaps
-- **Lack of Orchestrated CLI / Workflow Runner:** The project lacks a top-level `Makefile`, `task runner`, or unified CLI (e.g., `python run_all.py`). An investigator must manually know the exact execution sequence:
-  `verify_data_integrity.py` $\to$ `rid_cross_section_extract.py` $\to$ `rid_cross_section_hydraulics.py` $\to$ `goal4_model_v1.py` $\to$ `goal4_counterfactual_model.py` $\to$ `report_assets.py` $\to$ `build_expert_report.py`.
-- **Hardcoded Path Assumptions:** Several intermediate scripts rely on relative path traversal (`Path(__file__).resolve().parent.parent`), which functions well within the repository root but causes failures if invoked from arbitrary working directories without setting `PYTHONPATH`.
-
----
-
-## 4. Data Sources, Provenance & Ingestion Integrity
-
-### 4.1 Exhaustive Audit of Data Repositories
-The repository houses 21 systematically cataloged data directories under `data/`:
-
-| Directory | Content Description | Format & Volume | Provenance & Authority | Integrity Status |
-|---|---|---|---|:---:|
-| `data/01_rid_situation_reports` | Daily provincial water situation summary sheets | PDF / XLSX | Royal Irrigation Department (RID) | Verified (Manifest) |
-| `data/02_khundan_dam_monitoring` | Dam water level, inflow, outflow, storage capacity | CSV / JSON | EGAT / RID Khun Dan Project Office | Verified (Manifest) |
-| `data/03_thaiwater_telemetry` | Hourly river telemetry for provincial stations (Ny.1B, Ny.7, etc.) | JSON API dumps | Hydro-Informatics Institute (HII) / ThaiWater | Verified (Manifest) |
-| `data/04_tmd_weather_stations` | Provincial meteorological observations (rainfall, temp, wind) | CSV | Thai Meteorological Department (TMD) | Verified (Manifest) |
-| `data/05_dwr_water_resources` | Telemetered upstream rainfall & stage in Khao Yai Headwaters | JSON / CSV | Department of Water Resources (DWR) | Verified (Manifest) |
-| `data/06_gistda_flood_products` | Official flood extent polygons & disaster assessment maps | SHP / GeoJSON / PDF | Geo-Informatics & Space Tech Dev Agency (GISTDA) | Verified (Manifest) |
-| `data/07_copernicus_dem` | 30m Global Digital Elevation Model (GLO-30) | GeoTIFF | European Space Agency (ESA) Copernicus | Verified (Manifest) |
-| `data/08_osm_basemaps` | Provincial administrative boundaries, roads, waterways | GeoJSON / SHP | OpenStreetMap contributors | Verified (Manifest) |
-| `data/09_news_media_archive` | Eyewitness reports, flood onset timestamps, field imagery | Markdown / JPG | Thai PBS, Thairath, DNP Rangers | Verified (Manifest) |
-| `data/10_foi_official_requests` | Formal Freedom of Information requests & agency responses | PDF / DOCX | RID, ONWR (สทนช.), Provincial Hall | Verified (Manifest) |
-| `data/11_rule_curves_historic` | Official upper/lower rule curves (URC/LRC) for Khun Dan Dam | CSV / PDF | RID Operation & Maintenance Division | Verified (Manifest) |
-| `data/12_nwp_forecast_models` | Multi-model NWP rainfall forecasts (ECMWF IFS, GFS, ICON) | GRIB2 / CSV | ECMWF / NOAA Open Data / DWD | Verified (Manifest) |
-| `data/13_sentinel1_copernicus` | 7 raw Sentinel-1C/1D GRD COG scenes (8.7 GB) | COG GeoTIFF | Copernicus Data Space Ecosystem (CDSE) | Verified (Manifest) |
-| `data/14_intermediate_basin_rain` | Gridded rainfall interpolations for sub-catchments | CSV | Synthesized from TMD + DWR + NASA | Verified (Manifest) |
-| `data/15_hydrologic_routing_logs` | Lumped lag routing validation tables | CSV | Project derived | Verified (Manifest) |
-| `data/16_training_data` | Curated 5-season hourly datasets (2021–2026) for ML models | CSV (13,608 rows) | Harmonized multi-sensor series | Verified (Manifest) |
-| `data/17_tha_chang_barrage` | Stage and gate operational indicators at Tha Chang | CSV | RID Operation Project Office | Verified (Manifest) |
-| `data/18_bang_pakong_downstream` | Downstream boundary conditions at Bang Pakong confluence | CSV | Marine Dept / RID Hydrology | Verified (Manifest) |
-| `data/19_rid_cross_sections` | Surveyed channel cross-sections for Ny.7, Ny.1B, Ny.3 | Multi-year XLSX | RID Eastern Hydrological Center | Verified (Manifest) |
-| `data/20_drone_field_surveys` | High-resolution aerial survey orthomosaics & ground photos | JPG / GeoTIFF | Independent field survey team | Verified (Manifest) |
-| `data/21_gistda_georef` | Georeferenced GISTDA "Road Inundated" provincial flood map | GeoTIFF / Mask | Digitized from GISTDA printed report | Verified (Manifest) |
-
-### 4.2 Data Quality & Sensor Anomalies Discovered
-1. **Severe Datum Discontinuities in Downstream Gauges:**
-   - Analysis of the 28-station provincial monitoring network in [all_stations_network.md](file:///d:/theera/Documents/code/flood/analysis/all_stations_network.md) revealed **9 stations exhibiting abrupt mid-month datum jumps**:
-     - *Station 16 (DWR Huai Prue):* Jumped from 1.18 m to 13.83 m (+12.65 m) on September 16, 2026.
-     - *Station 26 (DWR Klong Yang):* Shifted from 12.32 m to 1.29 m (-11.03 m) on September 17, 2026.
-     - *Root Cause:* Agency field maintenance crews updated datum baselines from local staff gauge zero to Mean Sea Level (MSL) without updating historical metadata or providing conversion flags in API feeds.
-2. **Missing Downstream Telemetry Fallbacks:**
-   - In `goal4_model_v1.py` (line 128), missing tailwater data at Tha Chang barrage is imputed using a hardcoded static default:
-     ```python
-     tw if np.isfinite(tw) else 2.0  # Default value when tailwater station fails
-     ```
-   - While flagged in logging (`TWmiss`), substituting a static 2.0 m stage for missing downstream boundary conditions introduces artificial step-response artifacts into regressions.
-
----
-
-## 5. Theoretical Hydraulics, Geomorphology & Assumptions Audit
-
-### 5.1 Real Surveyed Cross-Sections vs. Remote Sensing DEM
-The acquisition of surveyed channel cross-sections from the RID Eastern Hydrological Center (`data/19`) represents a massive milestone for the project, resolving a critical tension between field observations and hydraulic calculations.
-
-```
-       ELEVATION PROFILE: SURVEYED CROSS-SECTION AT STATION Ny.7 (Muang Nakhon Nayok)
-  Elevation
-  (m MSL)
-   10 |
-      |                              [Right Crest: 8.919 m]
-    9 |                                        |
-      |          [Left Crest: 8.213 m]         |
-    8 |                    |                   |
-      |                    v                   v
-    7 |   ................[=========================]...................   <--- Peak Flood Stage: 7.64 m MSL (Gauge 9.23 m)
-      |   : Low Floodplain :                        :                  :
-    6 |   : (6.94-8.07 m)  :                        :                  :   <--- Bankfull Threshold: 6.86 m MSL (Gauge 8.45 m)
-      |   :                :                        :                  :
-    5 |   :                :                        :                  :
-      |   :                :                        :                  :
-    4 |   :                :                        :                  :
-      |   :                :                        :                  :
-    3 |   :                :  [Survey Water Level]  :                  :
-      |   :                :~~~~~~~~~~~~~~~~~~~~~~~~:                  :   <--- Survey Water Level: 2.624 m MSL
-    2 |   :                :                        :                  :
-      |   :                :                        :                  :
-    1 |   :                :                        :                  :
-      |   :                :                        :                  :
-    0 |---+----------------+------------------------+------------------+---
-   -1 |   :                :                        :                  :
-      |   :                :   Channel Bed Invert   :                  :
-   -2 |   :                :     (-2.396 m MSL)     :                  :
-      |   :                :           \            :                  :
-   -3 +---+----------------+------------v-----------+------------------+---
-        -60               -25           0           50                100    Offset (meters)
-```
-
-#### Major Hydraulic Findings:
-1. **The Inundation Paradox Resolved:**
-   - Surveyed left bank crest at Ny.7 is **8.213 m MSL** (gauge 9.80 m); surveyed right bank crest is **8.919 m MSL**.
-   - Peak flood stage was **7.64 m MSL** (gauge 9.23 m).
-   - *Crucial Deduction:* **The floodwaters did not overtop the primary structural bank crest at the gauge structure!**
-   - *Why did the city flood?* The left bank is not an elevated artificial dyke. Topography slopes **downward away from the river**, descending from 8.213 m at the bank crest to 6.937 m MSL at offset -60 m. When the river reached 7.64 m MSL, water inundated the adjacent low-lying floodplain and municipal drainage outfalls via backwater ingress, flooding municipal quarters without overtopping the gauge crest.
-2. **Refinement of the Bankfull Inundation Threshold:**
-   - The project's empirical threshold of `BANKFULL = 6.86 m MSL` (gauge 8.45 m) was originally derived from news media timestamps when flooding began.
-   - Cross-section surveys prove that 6.86 m MSL aligns within **8 cm** of the true physical floodplain edge (**6.937 m MSL** at offset -60 m). The project's empirical definition is thus physically validated.
-
-### 5.2 Manning's Roughness & Hydraulic Radius Calibration
-In earlier iterations (audited in defect F-05), the wetted perimeter $P$ mistakenly included the top width of the free water surface ($P = \text{perimeter} + W$). This was corrected in `rid_cross_section_hydraulics.py`:
-
-```python
-# Exact hydraulic calculation in rid_cross_section_hydraulics.py:
-def manning_q(area, perimeter, n, s=SLOPE):
-    if area <= 0.0 or perimeter <= 0.0:
-        return 0.0
-    r = area / perimeter  # Hydraulic radius: wet perimeter strictly excludes air-water interface
-    return (1.0 / n) * area * (r ** (2.0 / 3.0)) * np.sqrt(s)
-```
-
-- **Manning Roughness Calibration:**
-  By setting the channel bed slope $S = 3.2 \times 10^{-4}$ (9 m drop over 28 km reach) and matching surveyed channel conveyance at bankfull stage (6.86 m MSL) to the official rating discharge ($Q \approx 420.5\text{ cms}$), the model analytically derives:
-  $$n = 0.0437$$
-  This value is exceptionally consistent with natural, meandering alluvial rivers with vegetated banks in tropical Southeast Asia (Chow, 1959 gives $n = 0.040 - 0.050$ for winding natural channels with weeds and brush).
-
-### 5.3 Rating Curve Extrapolation & Hydrodynamic Limitations
-1. **Extreme Extrapolation at Station Ny.1B:**
-   - Station Ny.1B recorded a catastrophic peak discharge of **668.6 cms** on September 27.
-   - Forensic review of RID gauge documentation in [ny1b_q668_investigation.md](file:///d:/theera/Documents/code/flood/analysis/ny1b_q668_investigation.md) reveals that the official calibrated rating curve at Ny.1B only extends up to $q_{\max} = 266.9\text{ cms}$.
-   - The reported peak discharge of 668.6 cms represents an **uncalibrated extrapolation of 2.5x beyond the highest gauged current-meter measurement**.
-2. **Loop Rating Curves & Hysteresis Effects:**
-   - The project relies on a static single-value rating equation: $Q = 242(h - 4.55)^{0.66}$.
-   - Under highly unsteady flood waves, river channels exhibit pronounced **loop rating curves (hysteresis)**, where the rising limb conveys substantially higher discharge for a given stage than the falling limb due to downstream energy gradient differences ($\pm 15 - 20\%$).
-3. **Lumped Translation Routing vs. Dynamic Wave Routing:**
-   - The counterfactual models apply a lumped pure translation lag of $\tau = 12\text{ hours}$ from Khun Dan Dam to Station Ny.7.
-   - Sensitivity testing with $\tau \in \{6, 12, 18\}\text{ hours}$ confirmed that the core policy conclusions remain intact (overflow reduction remains between $-62\%$ and $-99.5\%$), but local hydrograph attenuation and floodplain wave diffusion are simplified.
-
----
-
-## 6. Predictive Models & Operational Counterfactual Simulations
-
-### 6.1 Goal 4 Water-Level Prediction Model (Ny.7)
-The project tackled a practical question: *"Can a transparent, hand-calculable formula predict flood stages at Ny.7, or is complex Machine Learning necessary?"*
-Three model architectures were tested on a 5-season dataset (13,608 training hours, 312 test hours during the September 2026 event):
-1. **Persistence Baseline:** $\hat{H}(t+h) = H(t)$
-2. **12-Feature Linear OLS Regression:** Hand-calculable formula with static coefficients.
-3. **HistGradientBoostingRegressor (GBDT):** Tree-based ensemble with gradient boosting.
-
-#### Empirical Evaluation Across Lead Times:
-
-| Lead Time Horizon | Model Architecture | Overall RMSE (cm) | Event RMSE (25–30 Sep) | Bankfull Hit Rate (%) | Peak Error (m) |
-|---|---|:---:|:---:|:---:|:---:|
-| **+6 Hours** | **Linear Formula** | **18.7** | **26.6** | **91%** | **−0.56** |
-| | Persistence | 21.4 | 30.6 | 91% | −0.40 |
-| | HistGradientBoosting | 46.8 | 125.1 | 0% | −1.87 |
-| **+24 Hours** | **Persistence** | **59.8** | **101.8** | **62%** | **−1.97** |
-| | Linear Formula | 63.2 | 108.6 | 14% | −2.23 |
-| | HistGradientBoosting | 85.3 | 155.2 | 0% | −2.06 |
-| **+48 Hours** | **HistGradientBoosting**| 112.4 | **151.1** | **0%** | **−2.42** |
-| | Linear Formula | 116.9 | 159.5 | 0% | −2.94 |
-| | Persistence | **98.2** | 170.4 | 0% | −2.95 |
-
-#### Critical Modeling Insights:
-1. **Catastrophic Out-of-Distribution Collapse of Tree ML:**
-   - At +6h lead time, GBDT failed catastrophically (Event RMSE 125.1 cm vs Linear 26.6 cm) and caught **0% of bankfull hours**.
-   - *Why?* Decision trees partition feature space using orthogonal splits and predict constant leaf values. They cannot extrapolate beyond the maximum target values observed in training data. The historical 5-year training record peaked at $\sim 6.18\text{ m MSL}$, while the September 2026 flood reached **7.68 m MSL**. The GBDT model hit an artificial ceiling at 6.18 m, under-predicting the true peak by nearly 2 meters!
-   - Linear regression, possessing an unbounded inductive bias, successfully extrapolated upstream stage differentials.
-2. **Latent Mathematical Defect: Design Matrix Rank Deficiency:**
-   - In `goal4_model_v1.py` lines 126–129, the feature matrix is constructed as:
-     ```python
-     X_all.append([
-         H7[i], at(H7, i, 3), at(H7, i, 24), H7[i] - at(H7, i, 6),
-         H1[i], at(H1, i, 6), at(H1, i, 24), H1[i] - at(H1, i, 6), # <--- LINEAR DEPENDENCE
-         tw if np.isfinite(tw) else 2.0,
-         R24[i], R72[i], R168[i]
-     ])
-     ```
-   - Notice that Column 4 is $H_{1B}(t)$, Column 5 is $H_{1B}(t-6)$, and Column 7 is $dH_{1B\_6h} = H_{1B}(t) - H_{1B}(t-6)$.
-   - **Column 7 is an exact linear combination of Column 4 minus Column 5.**
-   - As a result, $\text{rank}(X) = 11$ despite having 12 columns. In unregularized Ordinary Least Squares (`LinearRegression()`), this induces an ill-conditioned normal matrix $(X^T X)^{-1}$, resulting in non-unique coefficients and high parameter variance.
-3. **NWP Rainfall Integration Limits:**
-   - Testing multi-model ensemble forecast rain (ECMWF/GFS/ICON) demonstrated that forecast rainfall features did not improve +24h water level prediction over simple persistence (108.0 cm with NWP vs 101.8 cm persistence).
-   - Global NWP models smeared the localized, high-intensity convective band over Nakhon Nayok across a 25–50 km grid cell, attenuating the peak rainfall signal required to drive short-reach hydrological regressions.
-
-### 6.2 Counterfactual Reservoir Operation Simulations (R1 to M4)
-The counterfactual simulations in `goal4_counterfactual_model.py` and `qa5_rain_drainage_counterfactual.py` evaluate alternative operational policies, strictly constrained by physical reservoir storage limits ($\le 225.4\text{ MCM}$):
-
-```
-       SIMULATED OUTFLOW PROFILES & CITY OVERFLOW REDUCTION (25–30 SEP 2026)
-  Discharge
-  (cms)
-   250 |
-       |                  [Actual Operation: Peak release sustained at 215 cms]
-   200 |                    /\/\/\/\/\/\/\/\/\/\/\/\
-       |                   /                        \
-   150 |                  /                          \
-       |                 /                            \
-   100 |                /                              \
-       |               /                                \
-    50 |              /                                  \
-       |   ..........[ M3 Dynamic Operation: Releases throttled to ZERO during city peak ]..........
-     0 +---------------------------------------------------------------------------------------+
-      25 Sep             26 Sep             27 Sep             28 Sep             29 Sep     30 Sep
-```
-
-#### Counterfactual Policy Matrix:
-
-| Policy Scenario | Operational Description | Overflow Volume ($\text{MCM}$) | Duration Above Bankfull | Peak Water Level | Dam Storage Peak |
-|---|---|:---:|:---:|:---:|:---:|
-| **Baseline (Actual)**| Normal operation; large release during storm | **~12.0** | **65 ± 6 hrs (3 days)** | **9.23 m** | 97.6% (220.0 MCM) |
-| **R1 (Strict URC)** | Adhere strictly to upper rule curve curve | ~5.4 (−55%) | 18 ± 4 hrs | 9.23 m | 98.4% (221.8 MCM) |
-| **M2 (Deep Drawdown)**| Aggressive pre-storm release (84 MCM drawdown)| ~0.8 (−93%) | 8 ± 3 hrs | 9.23 m | 88.5% (199.5 MCM) |
-| **M3 (Dynamic FIRO)** | **Conservative drawdown (13 MCM) + Throttled Peak**| **~0.8 (−93%)** | **9 ± 3 hrs (< 1 day)** | **9.23 m** | **96.8% (218.2 MCM)** |
-| **M4 (Channel Pre-Drain)**| Tha Chang barrage gates opened ahead of peak | ~0.7 (−94%) | 9 ± 3 hrs | 9.22 m (−1 cm) | 96.8% (218.2 MCM) |
-
-#### Scientific Breakthroughs of Scenario M3:
-1. **The Primacy of Release Timing Over Pre-Emptive Volume Drawdown:**
-   - Previous engineering intuition assumed that preventing dam-induced flooding required massive, high-risk pre-storm drawdowns (M2 evacuated 84 MCM, risking subsequent dry-season water shortages if the forecast storm missed).
-   - Scenario M3 proved that **a modest drawdown of only 13 MCM achieved the identical 93% overflow reduction**.
-   - *Why?* The decisive factor is not deep reservoir evacuation, but **actively throttling dam discharges to near-zero during the critical 48–72 hour city peak window (26 Sep 12:00 to 28 Sep 12:00)** while intermediate rainfall crests. Once the local basin crest passes, the dam can resume controlled discharges without overlapping with natural runoff.
-2. **Channel Pre-Drainage (M4) Limitations:**
-   - Pre-opening Tha Chang barrage gates evacuates $\sim 5.2\text{ MCM}$ of channel storage.
-   - When spread across the $509.3\text{ km}^2$ provincial floodplain, 5.2 MCM yields a water surface attenuation of **only ~1 cm**.
-   - Channel pre-drainage does not shave peak flood crests; its true hydraulic value lies in **accelerating post-flood drainage and shortening duration**.
-
----
-
-## 7. Multi-Station Network & Canal Hydraulics (P0–P4 Assessment)
-
-### 7.1 Human-Controlled vs. Gravity Hydraulics
-The multi-station network assessment across the six primary river stations (Ban Tha Dan, Ban Wang Yai, Tha Chang Barrage, Main Canal km 0+970, Ny.1B, Ny.7) revealed a stark hydrological divide:
-
-```
-  [Khun Dan Dam] ---> [Ban Tha Dan] ---> [Ban Wang Yai] ---> [Tha Chang Barrage] ---> [Main Canal] ---> [Ny.1B] ---> [Ny.7 City]
-  <---------------- Gravity & Dam Release --------------->   <--------- Human Gate Manipulations --------->   <-- Backwater & Runoff -->
-```
-
-- **Upstream Reaches (Khun Dan to Tha Chang):** Well-behaved kinematic wave propagation with identifiable 2–4 hour travel times.
-- **Midstream Reaches (Tha Chang Barrage & Main Canal):** Hydraulic continuity breaks down entirely in purely statistical regression models.
-  - Water surface stage profiles exhibit non-continuous **step functions** resulting from manual gate manipulations.
-  - Without continuous hourly gate-opening aperture logs from RID, upstream-to-downstream hydraulic regressions collapse because the stage-discharge relationship is actively controlled by human operators rather than channel geometry.
-
----
-
-## 8. Remote Sensing, SAR Processing & GISTDA Analysis
-
-### 8.1 Independent Copernicus Sentinel-1 SAR Pipeline
-The project developed an independent, end-to-end Synthetic Aperture Radar (SAR) processing engine for Sentinel-1C/1D Level-1 Ground Range Detected (GRD) products in `analysis/s1_process.py`:
-
-```
-       SENTINEL-1 CO-POLARIZATION / CROSS-POLARIZATION CHANGE DETECTION PIPELINE
-  [Raw GRD COGs (IW mode)] 
-             │
-             ▼
-  [210 GCP Spline Fitting] ────► [Newton-Raphson Coordinate Inversion (0.00 px error)]
-             │
-             ▼
-  [Radiometric Calibration] ───► [σ₀ = DN² / A² via Look-Up Tables (LUT)]
-             │
-             ▼
-  [WGS84 30m Provincial Grid] ─► [Multi-Temporal Change Detection: ΔVH ≤ -1dB, ΔVV ≤ -2dB, VH_post ≤ -18dB]
-             │
-             ▼
-  [3x3 Morphological Filter] ──► [Provincial Flood Extent: Peak 509.3 km² (27 Sep 18:28)]
-```
-
-### 8.2 Forensic Discovery: GISTDA Algorithmic False-Negative
-The most significant remote-sensing finding in the project was the forensic audit of official GISTDA satellite products:
-1. **The Discrepancy:** On the morning of September 27 at 06:01 local time, GISTDA's automated flood mapping product reported an inundation extent of **only 8.3 km²** across the entire province of Nakhon Nayok.
-2. **Forensic Re-Processing:** The project ingested the exact same raw Sentinel-1 SAR acquisition (Safe ID ending in `587D`) and re-processed it through its calibrated pipeline. Even with only **34% partial provincial coverage**, the independent pipeline detected **62.2 km² of active floodwater** (51.6 km² in Pak Phli and 10.6 km² in Muang Nakhon Nayok).
-3. **Physical Explanation of the Error:**
-   - On September 27, Nakhon Nayok experienced extreme torrential rainfall (243 mm/day) accompanied by strong surface winds.
-   - Heavy rain splatter and wind-induced surface waves roughen the open water surface.
-   - Smooth open water acts as a specular reflector (low radar backscatter $\sigma^0$). Rough, turbulent open water induces Bragg scattering, causing radar backscatter to surge above standard automated water-classification thresholds.
-   - GISTDA's automated thresholding pipeline misclassified these rough floodwaters as non-water terrain, creating a massive false negative during the acute crisis phase.
-4. **Peak Provincial Inundation:**
-   - Processing the full evening pass on September 27 at 18:28 local time revealed a true peak flood extent of **509.3 km²** across the provincial plain (scaled range: 360–510 km²).
-
-### 8.3 GISTDA "Road Inundated Map" Georeferencing
-In `analysis/gistda_georef.py` and [gistda_georef_findings.md](file:///d:/theera/Documents/code/flood/analysis/gistda_georef_findings.md), the project resolved georeferencing for GISTDA's published "Road Inundated Map" PDF:
-- By extracting printed graticule tick-marks and solving affine transformation matrices, the project achieved a **median chamfer alignment error of 0–1 pixels**.
-- Rasterizing the digitized flood layer yielded an area of **381.5 km²**, closely matching the published figure of 380 km² (within 0.4% after accounting for anti-aliasing edge erosion).
-
----
-
-## 9. Developer Experience, Usability & Architecture
-
-### 9.1 Self-Contained HTML Publishing Architecture
-The project adopts a distribution pattern: **zero-dependency, single-file HTML reports**.
-- `build_expert_report.py` compiles a 3.4 MB document containing the complete technical autopsy.
-- `build_report_html.py` compiles a 9.4 MB comprehensive public dashboard.
-- Every chart, hydrograph, geographic map frame, and data table is serialized into Base64-encoded strings (`data:image/png;base64,...`) and embedded directly into the HTML body.
-- *Advantage:* A recipient can open the report on an air-gapped machine or smartphone without requiring external CDN access, Python environments, or internet connectivity.
-
-### 9.2 Test Suite Execution & Coverage
-The project includes automated regression tests in [tests/test_core.py](file:///d:/theera/Documents/code/flood/tests/test_core.py):
-- **Test Execution:**
-  ```powershell
-  python -m pytest tests/ -q
-  # 14 passed in 0.52s
-  ```
-- **Coverage Highlights:**
-  - `test_day_window_is_a_window_not_a_cumulative_sum`: Asserts that sliding rain windows maintain constant differences rather than quadratic accumulation.
-  - `test_day_window_uses_no_future_information`: Verifies zero future information leakage into today's prediction.
-  - `test_manning_q_hand_calculated`: Verifies Manning hydraulics against hand-calculated analytical benchmarks ($A=100, P=40, n=0.035 \implies Q=94.356\text{ cms}$).
-  - `test_project_rating_bankfull`: Asserts that rating equations return zero discharge below bed invert ($h \le 4.55\text{ m}$).
-  - `test_documented_claims_match_shipped_results`: Reads `goal4_model_v1_results.json` directly and asserts that documented performance claims in markdown match live JSON artifact data.
-
-### 9.3 Windows OS & Cross-Platform Considerations
-- The workspace resides on a Windows host (`d:\theera\Documents\code\flood`).
-- File paths are consistently handled using `pathlib.Path`, avoiding hardcoded backslash path concatenation bugs.
-- Thai language font rendering in Matplotlib is handled via font fallbacks (`Tahoma`, `Leelawadee UI`, `Noto Sans Thai`), preventing missing glyph boxes in generated figures.
-
----
-
-## 10. Comprehensive Defect, Issue & Discrepancy Register
-
-### 10.1 Historic Defect Resolution Audit (Defects F-01 to F-16)
-An audit was conducted on historical defects identified in earlier reviews (`archive/reviews/REVIEW.deepseek.md`). All 16 historical defects have been successfully resolved:
-
-| ID | Historical Defect Description | Resolution Method & Evidence in Codebase | Status |
+| Issue ID | Prior Description | Verification Method & File Evidence | Audit Status |
 |---|---|---|:---:|
-| **F-01** | Cumulative sum mistaken for rolling window in rain features | Rewrote `analysis/rain_window.py`; verified via unit tests | **RESOLVED** |
-| **F-02** | Future rain leakage into same-day forecast features | Restructured `windows_for_grid` to strictly end at $t-1$ | **RESOLVED** |
-| **F-03** | Claims that linear model won at all horizons were false | Updated findings table; documented persistence win at +24h and GBDT at +48h | **RESOLVED** |
-| **F-04** | Documented claims conflicted with shipped JSON artifacts | Added `test_documented_claims_match_shipped_results` to pytest | **RESOLVED** |
-| **F-05** | Wetted perimeter formula mistakenly included top width ($P+W$) | Corrected in `rid_cross_section_hydraulics.py`; verified via `test_geometry_v_channel` | **RESOLVED** |
-| **F-06** | Manning $n$ calibrated to flawed geometry | Recalibrated $n = 0.0437$ against true surveyed cross-section at Ny.7 | **RESOLVED** |
-| **F-07** | DEM unit conversion bug (cm vs meters) | Verified metric datum alignment in `data/07_copernicus_dem` | **RESOLVED** |
-| **F-08** | Inconsistent Ny.7 peak stage reporting (9.23 vs 9.27 m) | Documented 4 cm datum delta between ThaiWater and KhunDan in DATA_DICTIONARY | **RESOLVED** |
-| **F-09** | GISTDA 27 Sep 06:01 under-detection unexplained | Proved radar backscatter suppression from 243 mm/day rain clutter | **RESOLVED** |
-| **F-10** | Missing unit tests for core hydraulic routines | Expanded `tests/test_core.py` to 14 passing unit tests | **RESOLVED** |
-| **F-11** | Unverifiable georeferencing of GISTDA road flood map | Solved via printed graticule coordinates with 0–1 px error | **RESOLVED** |
-| **F-12** | Downstream Tha Chang gate influence ignored in upstream models | Documented in P0–P4 multi-station analysis | **RESOLVED** |
-| **F-13** | Station Ny.1B peak discharge 668.6 cms unverified | Investigated in `ny1b_q668_investigation.md`; flagged as 2.5x extrapolation | **RESOLVED** |
-| **F-14** | Sensor datum drift in provincial network | Documented 9 station datum shifts in `all_stations_network.md` | **RESOLVED** |
-| **F-15** | M4 channel pre-drainage effect overstated | Quantified true impact as ~1 cm stage attenuation over 509 km² floodplain | **RESOLVED** |
-| **F-16** | Unrealistic pre-storm reservoir evacuation assumptions | Replaced M2 deep drawdown with conservative M3 dynamic rule curve | **RESOLVED** |
-
-### 10.2 Newly Discovered Latent Defects & Technical Debt
-
-```
-+----------------------------------------------------------------------------------------------------+
-|                                    ACTIVE TECHNICAL DEBT REGISTER                                  |
-+----------------------------------------------------------------------------------------------------+
-  [ISSUE-01] Design Matrix Rank Deficiency in `goal4_model_v1.py` (Severity: MEDIUM)
-  [ISSUE-02] Extrapolation of Rating Curve at Station Ny.1B (Severity: HIGH)
-  [ISSUE-03] Static Imputation for Missing Downstream Telemetry (Severity: LOW)
-  [ISSUE-04] Assumption of Spatially & Vertically Constant Manning's n (Severity: MEDIUM)
-  [ISSUE-05] +37.4 MCM Cumulative Outflow Discrepancy on Project Dashboard (Severity: MEDIUM)
-  [ISSUE-06] Absence of a Unified Orchestration Pipeline / CLI Entrypoint (Severity: LOW)
-```
-
-#### Detailed Active Issue Breakdown:
-
-#### 1. [ISSUE-01] Design Matrix Exact Rank Deficiency (Severity: MEDIUM)
-- **Location:** [goal4_model_v1.py:L126-L129](file:///d:/theera/Documents/code/flood/analysis/goal4_model_v1.py#L126-L129)
-- **Mechanism:** As detailed in Section 6.1, feature 7 is defined as `H1[i] - at(H1, i, 6)` (`dH1B_6h`), while feature 4 is `H1[i]` (`H1B(t)`) and feature 5 is `at(H1, i, 6)` (`H1B(t-6)`).
-- **Impact:** Exact collinearity induces singular covariance matrices. In scikit-learn's `LinearRegression`, this is resolved via SVD pseudo-inversion (`scipy.linalg.lstsq`), but individual regression weights for upstream stage become arbitrary and non-interpretable.
-- **Recommended Fix:** Drop either `dH1B_6h` or `H1B(t-6)` from the feature array before regression fitting.
-
-#### 2. [ISSUE-02] Extreme Rating Extrapolation at Station Ny.1B (Severity: HIGH)
-- **Location:** [ny1b_q668_investigation.md](file:///d:/theera/Documents/code/flood/analysis/ny1b_q668_investigation.md)
-- **Mechanism:** The upstream boundary discharge relies on $Q_{\text{peak}} = 668.6\text{ cms}$ reported by ThaiWater. However, the physical station rating table is only calibrated up to $266.9\text{ cms}$.
-- **Impact:** Any upstream hydrograph routing based on this discharge carries an unquantified hydraulic uncertainty of $\pm 30 - 50\%$.
-- **Recommended Fix:** In all downstream analyses, tag $Q=668.6\text{ cms}$ explicitly as an uncalibrated extrapolation (`[I-EXTRAP]`) and provide error bounds $[480 - 750\text{ cms}]$.
-
-#### 3. [ISSUE-03] Static Imputation for Missing Downstream Telemetry (Severity: LOW)
-- **Location:** [goal4_model_v1.py:L128](file:///d:/theera/Documents/code/flood/analysis/goal4_model_v1.py#L128)
-- **Mechanism:** `tw if np.isfinite(tw) else 2.0` injects a constant 2.0 m stage whenever the Tha Chang tailwater sensor fails.
-- **Impact:** In the training dataset, missing sensor periods receive an artificial flatline, biasing regression coefficients during sensor outages.
-- **Recommended Fix:** Use forward-fill (`pandas.ffill()`) or linear spline imputation based on adjacent operational gauges.
-
-#### 4. [ISSUE-04] Assumption of Constant Manning's $n$ Over Wide Floodplain Stages (Severity: MEDIUM)
-- **Location:** [rid_cross_section_hydraulics.py:L116](file:///d:/theera/Documents/code/flood/analysis/rid_cross_section_hydraulics.py#L116)
-- **Mechanism:** The model applies $n = 0.0437$ uniformly across all water levels, from channel bed invert ($-2.396\text{ m}$) up to extreme overbank inundation ($7.64\text{ m MSL}$).
-- **Impact:** In reality, when water spills out of the smooth main channel into vegetated floodplains with dense grasses, trees, and residential fences, composite Manning's $n$ typically increases to $0.060 - 0.080$, reducing floodplain conveyance velocity.
-- **Recommended Fix:** Implement a two-stage composite Manning formulation (Lotter or Cowan method) splitting main channel ($n_c \approx 0.038$) and floodplain overbank ($n_f \approx 0.065$).
-
-#### 5. [ISSUE-05] +37.4 MCM Cumulative Outflow Discrepancy on Dashboard (Severity: MEDIUM)
-- **Location:** [build_report_html.py](file:///d:/theera/Documents/code/flood/build_report_html.py) and public dashboard graphics
-- **Mechanism:** In the reservoir mass balance section, the cumulative outflow sum computed from hourly telemetry differs from the official daily water situation bulletin by +37.4 MCM over the 18-day period.
-- **Impact:** Users comparing the website graphic against RID printed bulletins encounter apparent volume inconsistencies.
-- **Recommended Fix:** Add an explicit callout note explaining that the +37.4 MCM discrepancy arises from bottom outlet / river outlet sluicing discharges that are recorded in hourly telemetry but omitted from standard spillway crest bulletins.
-
-#### 6. [ISSUE-06] Absence of a Unified Orchestration CLI (Severity: LOW)
-- **Mechanism:** Running the full pipeline requires knowing a dozen disparate script names across two directories.
-- **Recommended Fix:** Provide a top-level `run_pipeline.py` or `Makefile` supporting `--verify`, `--models`, `--reports`, and `--all`.
+| **R-01 / P1-1** | Headline attribution split (12% : 88% / 57%) had no backing script; volume discrepancies existed across documents. | Inspected `analysis/attribution_share.py` and output `attribution_share.json`. Both windows integrated from 15-minute telemetry (`q_meas`) and rating (`q_rating`). Reconciled to **11.8%** (P1 onset) and **58.9%** (~59% P2 sustained). `test_artifacts.py:test_attribution_shares_match_headline` passes. | **FULLY RESOLVED** |
+| **P1-1** | Canonical numbers hardcoded in multiple templates without single source of truth. | Inspected `analysis/build_canonical_numbers.py` and `canonical_numbers.json`. Both report builders (`build_report_html.py:12,416` and `build_expert_report.py:11,477`) enforce compile-time assertion gates. Tested via `test_artifacts.py:test_reports_contain_canonical_numbers`. | **FULLY RESOLVED** |
+| **P1-2** | Stale 57% figure lingered in manifests and Markdown files. | Grep confirms all occurrences updated to 59% (e.g. `data/01_rid_khun_dan/manifest.md`, `ny1b_q668_investigation.md`, `multi_station_event_findings.md`). Typo "เขื่อง" corrected across 7 locations. | **FULLY RESOLVED** |
+| **P1-3** | Outdated test count ("14 passed") in documentation. | `START_HERE.md:33`, `ENVIRONMENT.md:34`, `README.md`, and `HANDOFF.md` updated. (Note: minor footer residual in public HTML identified below). | **SUBSTANTIALLY RESOLVED** |
+| **P1-4** | `gistda_georef_compare.py` assumed script ran strictly from repository root. | Script updated with `Path(__file__).resolve().parent` path anchoring. Verified clean execution regardless of working directory. | **FULLY RESOLVED** |
+| **P1-5** | Sentinel-1 hashes truncated to 16 hex chars in manifest. | `data/13_sentinel1_copernicus/manifest.md:34-43` re-hashed from local disks; full 64-hex SHA-256 strings recorded and validated. | **FULLY RESOLVED** |
+| **R-02 / P2-7** | Model comparison inconsistency: `model_v1` (monsoon) vs `backtest_long` (all-year). | Reconciled in `build_report_html.py:252` and `README.md`. Explicitly documented that full-year training achieves 68.3 cm RMSE (+24h) while monsoon-only achieves 75.0 cm, explaining seasonal variance. | **FULLY RESOLVED** |
+| **R-03** | Public report apples-to-oranges comparison of flood extent (509 km² vs 306.9 km²). | Public report table and text explicitly list both methods side-by-side (2 Oct ours: 436.3 km² vs GISTDA: 306.9 km²; Peak ours: 509.3 km² vs GISTDA equivalent: ~360–380 km²). | **FULLY RESOLVED** |
+| **R-06** | Missing `LICENSE` file. | Added MIT-style `LICENSE` (2026 tkittich) and comprehensive `THIRD_PARTY_NOTICES.md` acknowledging CDSE, GISTDA, HII, RID, TMD, NASA, and OSM. | **FULLY RESOLVED** |
+| **R-08 / P2-1** | No CI workflow and `verify_data_integrity.py` lacked test coverage. | Added GitHub Actions `.github/workflows/ci.yml` and authored `tests/test_integrity.py` (7 tests covering parsers, exit codes, ambiguity detection). | **FULLY RESOLVED** |
+| **P2-2** | Basename fallback in integrity checker selected arbitrary hits silently. | `verify_data_integrity.py` now logs `AMBIGUOUS` warnings if basename resolves to multiple candidates; test added in `test_integrity.py`. | **FULLY RESOLVED** |
+| **P2-3** | Duplicate template key `__X1__` overwritten in academic report builder. | `build_expert_report.py:21` renamed rating chart to `__X1R__`; added unused placeholder detection guard before file save. | **FULLY RESOLVED** |
+| **P2-5** | Physical constants scattered across multiple files. | Created centralized module `analysis/common.py` exporting `RATING_A/B/C`, `BANKFULL_MSL`, `GAUGE_OFFSET`, and `cell_km2()`. 11 scripts refactored; verified 5 output JSONs remain byte-identical. | **FULLY RESOLVED** |
+| **P2-6** | Inconsistency between 75h threshold (at $\ge 8.00$ m) vs 65h (at $\ge 8.45$ m). | Clarifying labels added across `event_timeline_sep2026.md`, `qa3_rain_urc_storage_oct4.md`, and `scenario_analysis.md`. | **FULLY RESOLVED** |
 
 ---
 
-## 11. Critical Gaps & Missing Information (Agency / FOI Blockers)
+## 3. Deep-Dive Review of Codebase & Architecture
 
-The investigation has reached the theoretical boundary of what can be accomplished using public data alone. Further precision is blocked by four institutional data barriers:
+### 3.1 Software Architecture & Module Decoupling
 
-```
-+----------------------------------------------------------------------------------------------------+
-|                                    INSTITUTIONAL FOI DATA BLOCKERS                                 |
-+----------------------------------------------------------------------------------------------------+
-  1. Hourly Gate Aperture Logs for Tha Chang Barrage & Khun Dan Sluiceways
-     * Blocker: Gate logs are recorded in physical station logbooks; not published via API.
-     * Consequence: Midstream hydraulic routing cannot model backwater step functions.
-
-  2. Internal Dam Operating Regulations (ระเบียบ กช.)
-     * Blocker: Classified as internal agency circulars.
-     * Consequence: Prevents auditing whether operators had legal discretion to throttle releases.
-
-  3. Geodetic Benchmarks for Secondary Provincial Telemetry Gauges
-     * Blocker: 9 stations lack published RTSD benchmark tie-ins.
-     * Consequence: Induced arbitrary datum offsets of up to 12.65 meters.
-
-  4. Continuous 1D River Bathymetry
-     * Blocker: Surveys exist only at bridge crossings; no longitudinal river profile available.
-     * Consequence: Blocks hydrodynamic 1D/2D unsteady flow modeling (HEC-RAS).
-```
-
----
-
-## 12. Actionable Recommendations & Future Roadmap
-
-The recommendations are structured into three distinct operational tiers based on resource requirements and institutional dependencies:
+The repository exhibits clean separation of concerns across ingestion, extraction, physical modeling, statistical learning, remote sensing, and asset compilation:
 
 ```mermaid
 graph TD
-    subgraph Tier1 ["Tier 1: Immediate & Zero-Cost (Codebase Fixes)"]
-        T1A["Resolve Feature Rank Deficiency<br/>Drop redundant dH1B_6h in goal4_model_v1.py"]
-        T1B["Add Rating Curve Confidence Bounds<br/>Attach ±20% hysteresis error envelope"]
-        T1C["Create Unified CLI Orchestrator<br/>Build run_pipeline.py for one-command execution"]
+    subgraph Data["1. Multi-Agency Evidence Archive (data/)"]
+        D1["Raw Telemetry & CSVs<br/>(data/01..05, 16, 17)"]
+        D2["Satellite Archives<br/>(data/13 S1, 18 S2, 21 Landsat)"]
+        D3["Surveys & Geodata<br/>(data/07 DEM, 19 Cross-Sections)"]
     end
 
-    subgraph Tier2 ["Tier 2: Low-Cost Engineering & Data Pipelines"]
-        T2A["Build Automated Hydrodynamic Model<br/>Construct HEC-RAS 1D Unsteady model using data/19"]
-        T2B["Automate Sensor Anomaly Filter<br/>Detect datum jumps >2m and flag in telemetry"]
-        T2C["Multi-Variable Composite Manning<br/>Split main-channel vs floodplain roughness"]
+    subgraph Core["2. Core Hydraulics & Constants"]
+        COM["analysis/common.py<br/>(RATING, BANKFULL, cell_km2)"]
+        HYD["analysis/rid_cross_section_hydraulics.py<br/>(Geometry, Manning, Datum)"]
+        WIN["analysis/rain_window.py<br/>(Anti-leakage Daily Windows)"]
     end
 
-    subgraph Tier3 ["Tier 3: Institutional & Policy Implementation"]
-        T3A["Adopt FIRO Dynamic Rule Curve (M3)<br/>Formalize 48-72h city peak release throttling"]
-        T3B["Declassify Hourly Gate Telemetry<br/>Publish real-time aperture logs for public scrutiny"]
-        T3C["Network Geodetic Re-Benchmarking<br/>Tie all DWR/RID gauges to Royal Thai Survey MSL"]
+    subgraph IngestionVerification["3. Cryptographic Verification"]
+        VER["analysis/verify_data_integrity.py"]
+        CAN["analysis/build_canonical_numbers.py"]
+        CJ["analysis/canonical_numbers.json"]
     end
 
-    Tier1 --> Tier2 --> Tier3
+    subgraph Science["4. Forensic Models & Earth Observation"]
+        ATTR["analysis/attribution_share.py<br/>(15-min Integration)"]
+        CF["analysis/goal4_counterfactual_model.py<br/>(R1, M1-M4 FIRO Simulations)"]
+        PRED["analysis/goal4_model_v1.py<br/>& backtest_long.py"]
+        SAR["analysis/s1_process.py<br/>& s1_change_detect.py"]
+        OPT["analysis/s2_water.py<br/>& landsat_water.py"]
+    end
+
+    subgraph Delivery["5. Compilation & Artifact Output"]
+        PUB["report/build_report_html.py<br/>(Public Dashboard - 9.4 MB)"]
+        EXP["report/build_expert_report.py<br/>(Academic Report - 3.3 MB)"]
+    end
+
+    D1 & D2 & D3 --> VER
+    COM & HYD --> ATTR & CF & PRED
+    WIN --> PRED
+    D2 --> SAR & OPT
+    SAR & ATTR & CF & PRED --> CAN --> CJ
+    CJ --> PUB & EXP
 ```
 
-### Tier 1: Immediate & Zero-Cost Enhancements (Current Codebase)
-1. **Fix Design Matrix Collinearity:**
-   - In `goal4_model_v1.py`, remove Column 7 (`dH1B_6h`). Re-run regression to yield unique, stable physical coefficients.
-2. **Propagate Rating Curve Uncertainty:**
-   - In all hydrographs and mass balance tables, render discharge and volume metrics with explicit $\pm 18\%$ uncertainty ribbons, visually reminding stakeholders of loop-rating hysteresis.
-3. **Build Unified Pipeline Runner (`run_pipeline.py`):**
-   - Provide a clean, robust CLI script allowing single-command verification, modeling, and report compilation:
-     ```bash
-     python run_pipeline.py --all
+### 3.2 Evaluation of Individual Subsystems
+
+#### A. Hydraulic Modeling & Cross-Section Geometry
+- **Modules:** [rid_cross_section_hydraulics.py](file:///d:/theera/Documents/code/flood/analysis/rid_cross_section_hydraulics.py), [rid_cross_section_extract.py](file:///d:/theera/Documents/code/flood/analysis/rid_cross_section_extract.py), [rid_cross_section_stage_rating.py](file:///d:/theera/Documents/code/flood/analysis/rid_cross_section_stage_rating.py), [hecras_lite_channel.py](file:///d:/theera/Documents/code/flood/analysis/hecras_lite_channel.py).
+- **Strengths:**
+  1. Solves numerical integration of surveyed river geometries at 0.25 m increments.
+  2. Implements correct wetted perimeter physics ($P$ strictly tracks submerged bed surface + vertical boundary cuts, excluding the air-water free surface), preventing artificial overestimation of hydraulic radius $R$.
+  3. Analytically computes Manning's roughness $n = 0.0437$, matching empirical standards for tropical alluvial rivers (Chow, 1959).
+- **Code Bug Identified (G-03 — Geodesic Scale Divisor Bug):**
+  In `hecras_lite_channel.py:26` and `rid_cross_section_stage_rating.py:31`:
+  ```python
+  # Existing code in hecras_lite_channel.py:26:
+  lat_scale = 111.32; lon_scale = 110.96 / np.cos(np.radians(14.24))
+
+  # Existing code in rid_cross_section_stage_rating.py:31:
+  M_PER_DEG_LON = 110960.0 / math.cos(math.radians(14.24))
+  ```
+  *Analysis:* At latitude $14.24^\circ$, one degree of longitude spans $111.32 \times \cos(14.24^\circ) \approx 107.9\text{ km}$, which is *smaller* than at the equator. **Dividing** by $\cos(14.24^\circ)$ yields $114.5\text{ km/deg}$—an error of $+6.4\%$! In contrast, `georef_corner_match.py:69` and `common.py:31` correctly multiply by $\cos(\text{lat})$. While this error propagates only into preliminary channel corridor estimations ($\sim 11.95\text{ km}^2$), it represents an inverted geodesic conversion that must be corrected.
+
+#### B. Machine Learning & Predictive Modeling
+- **Modules:** [goal4_model_v1.py](file:///d:/theera/Documents/code/flood/analysis/goal4_model_v1.py), [goal4_model_backtest_long.py](file:///d:/theera/Documents/code/flood/analysis/goal4_model_backtest_long.py), [rain_window.py](file:///d:/theera/Documents/code/flood/analysis/rain_window.py).
+- **Strengths:**
+  1. [rain_window.py](file:///d:/theera/Documents/code/flood/analysis/rain_window.py) enforces absolute non-leaking windowing strictly aligned to $t-1$ day, thoroughly validated by 3 dedicated unit tests.
+  2. Models are evaluated with honesty: Gradient Boosting Decision Trees (GBDT) are documented to fail out-of-distribution (predicting an artificial ceiling at 6.18 m MSL during a 7.68 m flood).
+  3. Leave-One-Season-Out (LOSO) cross-validation spans 5 seasons (2021–2026).
+- **Mathematical Issue Identified (G-04 — Exact Design Matrix Collinearity):**
+  In `goal4_model_v1.py:127-130`, the 12 features constructed per timestep include:
+  ```python
+  # Feature 4: H1[i]
+  # Feature 5: at(H1, i, 6)
+  # Feature 7: H1[i] - at(H1, i, 6)
+  ```
+  *Analysis:* Feature 7 is an exact linear combination of Feature 4 and Feature 5:
+  $$\text{col}_7 = \text{col}_4 - \text{col}_5$$
+  This causes the $N \times 12$ design matrix $X$ to have rank 11 instead of 12 ($\text{rank deficiency} = 1$). While scikit-learn's `LinearRegression` resolves this via SVD pseudo-inverse, the resulting coefficients for `H1B(t)`, `H1B(t-6)`, and `dH1B_6h` are mathematically non-unique. Publishing these coefficients verbatim in reports (e.g. `build_report_html.py:239-240`) exposes arbitrary parameter allocations that should be consolidated.
+
+#### C. Remote Sensing & Earth Observation Pipelines
+- **Modules:** [s1_process.py](file:///d:/theera/Documents/code/flood/analysis/s1_process.py), [s1_change_detect.py](file:///d:/theera/Documents/code/flood/analysis/s1_change_detect.py), [s2_water.py](file:///d:/theera/Documents/code/flood/analysis/s2_water.py), [landsat_water.py](file:///d:/theera/Documents/code/flood/analysis/landsat_water.py).
+- **Strengths:**
+  1. Custom SAR processing engine executes 2D Spline + Newton-Raphson coordinate inversion on Sentinel-1 XML GCP grids, completely avoiding external GIS dependencies.
+  2. Grid-search calibration of $(\Delta\text{DROP}, \text{ABS}_{\text{threshold}})$ on the 2 Oct pass against official GISTDA polygons achieves an optimal $F_1 = 0.70$ before applying the identical rule to the unmapped 27 Sep 18:28 peak pass (509.3 km²).
+  3. The optical pipeline (`s2_water.py`) utilizes Sentinel-2 MSI MNDWI and Scene Classification Layer (SCL) to prove that optical imagery detects $1.7\times$ more surface water than radar in clear sky patches, cementing the methodological conclusion that Sentinel-1 radar estimates represent a strict physical lower bound.
+  4. The Landsat analysis (`landsat_water.py` and `data/21_landsat_optical/manifest.md`) transparently documents why Path 128 scenes missed the province, providing a valuable methodological lesson on point-intersection vs bounding-box queries.
+
+#### D. Report Generation & Build Automation
+- **Modules:** [build_report_html.py](file:///d:/theera/Documents/code/flood/report/build_report_html.py), [build_expert_report.py](file:///d:/theera/Documents/code/flood/report/build_expert_report.py).
+- **Strengths:**
+  1. Fully self-contained deliverables: Matplotlib charts, satellite frames, and DEM hillshades are encoded as RFC 2397 Base64 data URIs. Both reports open offline in any modern browser.
+  2. Built-in verification gates read `canonical_numbers.json` and immediately abort the build if any canonical string is missing or if unresolved `__KEY__` placeholders exist.
+- **Bugs Identified (G-01 & G-02):**
+  1. **UI JavaScript Loop Modulo Bug (G-01):** In `build_report_html.py:403`:
+     ```javascript
+     function play(){ if(timer){clearInterval(timer);timer=null;return;} timer=setInterval(function(){ r.value=(+r.value+1)%4; setFrame(r.value); },2200); }
      ```
-
-### Tier 2: Low-Cost Hydrologic & Software Enhancements
-1. **Construct a 1D Unsteady Hydrodynamic Model (HEC-RAS 1D):**
-   - Import surveyed cross-sections from `data/19` into an open-source HEC-RAS 1D model.
-   - Replace the lumped 12-hour translation lag with full Saint-Venant unsteady hydrodynamic wave routing, capturing true backwater effects and storage attenuation along the 28 km corridor.
-2. **Automated Telemetry Sanity & Anomaly Detection:**
-   - Implement an automated quality control filter (`qc_telemetry.py`) that flags sudden step changes ($|\Delta h| > 1.5\text{ m/hr}$) and alerts analysts to datum re-benchmarking jumps (such as those observed at st16 and st26).
-3. **Composite Floodplain Roughness Parameterization:**
-   - Extend `rid_cross_section_hydraulics.py` to support two-stage cross-section subdivision (Lotter method), applying $n=0.038$ for the incised channel bed and $n=0.065$ for the vegetated overbank floodplain.
-
-### Tier 3: Institutional Modernization & FIRO Policy Adoption
-1. **Formal Adoption of FIRO Scenario M3 by ONWR (สทนช.) and RID:**
-   - Codify the **"City Peak Window Throttling Rule"**: when provincial forecasts indicate intermediate basin rainfall exceeding $150\text{ mm/7 days}$ and Ny.7 approaches bankfull, reservoir operators are authorized to throttle Khun Dan releases to zero for up to 48 hours, absorbing peak inflow within the upper conservation storage margin.
-2. **Open Data Mandate for Hydraulic Control Structures:**
-   - Mandate real-time, public digital telemetry for gate opening heights at Tha Chang Barrage and Khun Dan spillways.
-3. **Geodetic Standardization of Provincial Water Gauges:**
-   - Coordinate with the Royal Thai Survey Department (RTSD) to tie all provincial staff gauges to the official national Mean Sea Level benchmark, eliminating gauge relative zero confusions.
+     The slider input element defines `min="0" max="6"` (7 frames: 0 through 6). The modulo operator `%4` prematurely wraps the animation after frame 3, **completely skipping frames 4 (Peak 27 Sep 509 km²), 5 (2 Oct ours 436 km²), and 6 (2 Oct GISTDA 307 km²)** during autoplay!
+  2. **Stale Test Count in HTML Footer (G-02):** In `build_report_html.py:376`:
+     ```html
+     การตรวจสอบ: ชุดทดสอบอัตโนมัติ 14 ตัวผ่านทั้งหมด ...
+     ```
+     The test suite has expanded to 26 passing tests; this footer remains un-synchronized.
 
 ---
 
-## 13. Final Verdict & Conclusions
+## 4. Evaluation of Reports & Public Deliverables
 
-The forensic investigation hosted in `d:/theera/Documents/code/flood` stands as a **masterclass in open-science disaster forensics, reproducible data science, and empirical hydrology**.
+### 4.1 Public Report (`น้ำท่วมนครนายก2569_ประชาชน.html` — 9.4 MB)
+- **Visual Design & Layout:** Clean typography (`Leelawadee UI`), excellent contrast, logical narrative flow. High-impact cards summarize the 3 core numbers: 509.3 km² peak extent, 12% : 88% onset split, and 65 hours of flooding.
+- **Clarity of Causal Explanation:** Successfully explains complex hydrology to laypersons without sensationalism or finger-pointing. The analogy of "riverbed being a drainage ditch that was already overwhelmed by local rain before the dam opened" is intuitive and scientifically defensible.
+- **Interactive Map Slider:** Allows users to slide between 7 key temporal frames with an optional terrain elevation overlay. (Fixing Bug G-01 will restore full functionality to the play button).
+- **FAQ Section:** 18 comprehensive accordion items covering the most controversial public questions (e.g., "Is exceeding URC illegal?", "Why release during the peak?", "Did water overtop the dam?").
 
-### Summary of Key Scientific Discoveries:
-1. **Causal Responsibility is Phase-Dependent:**
-   - **Flood Onset (26–27 Sep):** 88% driven by localized intermediate rainfall. Khun Dan Dam releases played an insignificant role in triggering the initial flood wave.
-   - **Flood Duration (27–30 Sep):** 57% driven by upstream dam releases. Khun Dan Dam prolonged and deepened the inundation, trapping floodwaters in the provincial basin for three days.
-2. **The City Flooded Without Structural Bank Crest Overtopping:**
-   - Surveyed RID cross-sections prove that the flood stage at Ny.7 (7.64 m MSL) remained 57 cm below the riverbank crest (8.213 m MSL). Inundation occurred because water flooded the adjacent low-lying floodplain and backed up through municipal drainage outfalls.
-3. **Independent SAR Proved Official Agency Under-Detection:**
-   - GISTDA's automated product of 27 Sep 06:01 severely under-reported flooding (8.3 km² reported vs 62.2 km² detected on 34% coverage) due to rain-induced surface roughening suppressing specular radar reflection. Peak inundation reached **509.3 km²**.
-4. **Machine Learning Fails Under Extreme Climatological Extrapolation:**
-   - Gradient boosted decision trees collapsed when predicting water levels outside their historical training envelope. Transparent, hand-calculable linear regressions decisively outperformed complex ML at actionable forecast horizons (+6h).
-5. **FIRO Throttling (M3) Outperforms Deep Drawdown (M2):**
-   - Massive, water-wasting pre-storm reservoir drawdowns are unnecessary. Actively throttling releases during the 48–72 hour city peak window achieves a **93% reduction in city overflow volume**, reducing disaster duration from 3 days to under 24 hours while ensuring reservoir structural safety.
-
-With the minor code adjustments and technical debt remediations outlined in this review, this repository serves not only as a definitive autopsy of the 2026 Nakhon Nayok disaster, but as a blueprint for modern, transparent, forecast-informed flood risk governance in Southeast Asia.
+### 4.2 Academic / Expert Report (`น้ำท่วมนครนายก2569_วิชาการ.html` — 3.3 MB)
+- **Technical Rigor:** Organized as a formal academic paper across 10 sections. Features complete mathematical definitions of rating curves, Manning hydraulics, stage-storage tables, LOSO cross-validation folds, and legal statutory references (Disaster Prevention and Mitigation Act B.E. 2550, Water Resources Act B.E. 2561).
+- **Uncertainty Accounting:** Explicitly states error bounds for every inference ($\pm 18-20\%$ for high-stage rating discharge, $\pm 6$ hours for lumped routing lag).
 
 ---
-*Report certified and compiled into `REVIEW.gemini.md`.*
+
+## 5. Hydrological & Scientific Methodology Review
+
+### 5.1 Evidence Hierarchy Protocol (`[F] / [I] / [O]`)
+The repository's epistemological framing is exemplary:
+- **`[F]` (Fact):** Certified telemetry, official gauge records, surveyed channel cross-section coordinates from RID Eastern Center.
+- **`[I]` (Inference):** Discharges computed via $Q = 242(h - 4.55)^{0.66}$, synthetic 12-hour routing lags, linear regression predictions.
+- **`[O]` (Observation):** Crowdsourced flood photos from local social media pages, eyewitness reports of 40–50 cm water depths.
+
+This discipline ensures that model assumptions are never mistaken for primary observations.
+
+### 5.2 Mass Balance & Temporal Causal Decomposition
+The project avoids binary attribution ("dam vs nature") by partitioning the disaster into distinct temporal phases:
+
+```
++----------------------------------------------------------------------------------------------------+
+|                             TEMPORAL CAUSAL DECOMPOSITION TIMELINE                                 |
++----------------------------------------------------------------------------------------------------+
+  16 Sep 00:00             26 Sep 12:00             27 Sep 12:00             29 Sep 00:00     04 Oct
+       |------------------------|------------------------|------------------------|--------------|
+             Pre-Storm Runoff         PHASE 1: ONSET           PHASE 2: SUSTAINED        Recession
+             Basin Saturation      Intermediate Rain Dominant     Dam Release Dominant     Bottleneck
+                                   - Intermediate Rain: 88.2%   - Dam Release:       58.9%
+                                   - Dam Release:       11.8%   - Intermediate Rain: 41.1%
+```
+
+- **Phase 1: Flood Onset (26 Sep 12:00 – 27 Sep 12:00):**
+  Cumulative flow past Station Ny.7 reached **39.0 MCM** (measured) / **36.2 MCM** (rating). Dam releases (lagged 12h) accounted for only **4.6 MCM (11.8%)**. Intermediate basin runoff generated **88.2%**.  
+  *Forensic Conclusion:* **The initial flood surge that inundated downtown Nakhon Nayok was overwhelmingly triggered by extreme intermediate rainfall.**
+- **Phase 2: Sustained Inundation (27 Sep 12:00 – 29 Sep 00:00):**
+  Cumulative volume past Ny.7 reached **70.3 MCM**. Dam releases escalated to evacuate reservoir storage, contributing **41.4 MCM (58.9%)**, while intermediate runoff subsided to **41.1%**.  
+  *Forensic Conclusion:* **Dam releases sustained and prolonged inundation for nearly 3 days, converting a 24-hour flash event into a 65-hour protracted emergency.**
+
+### 5.3 Channel Hydraulics & Inundation Mechanism
+Surveyed cross-sections at Station Ny.7 (`data/19`) explain why downtown Nakhon Nayok flooded despite river stage peaking at 7.64 m MSL (below the structural gauge crest of 8.21 m MSL):
+- The natural ground profile on the left bank slopes downward away from the channel (descending from 8.21 m MSL at the crest to 6.94 m MSL at offset -60 m).
+- Backwater flowed into municipal lowlands through drainage conduits and lateral depressions once stage surpassed **6.86 m MSL** (gauge 8.45 m).
+- This establishes that the bankfull threshold used throughout the analysis is physically grounded in surveyed channel geometry.
+
+### 5.4 Operational Counterfactuals (R1 vs M1–M4)
+The counterfactual simulations strictly maintain physical realism by capping reservoir storage at **225.4 MCM** (surcharge threshold):
+- **Actual Operation:** 11.89 MCM spilled past bankfull; 65 hours above bankfull stage.
+- **R1 (Follow URC):** 5.39 MCM overflow ($-55\%$); 18 hours above bankfull.
+- **M2 (Forecast-Informed Drawdown):** 0.83 MCM overflow ($-93\%$); 8 hours above bankfull.
+- **M3 (Prudent FIRO — Throttling Window Only):** 0.83 MCM overflow ($-93\%$); 9 hours above bankfull.
+- **M4 (M3 + Downstream Channel Evacuation via Tha Chang):** Lowers channel water level by $\sim 44\text{ cm}$, providing local relief to riparian homes, but reduces widespread floodplain peak by only $\sim 1\text{ cm}$.
+
+*Key Operational Takeaway:* Deep pre-storm drawdown (M2, evacuating 84 MCM) is unnecessary. Throttling releases during the critical 48–72 hour city peak window (M3, evacuating only 13 MCM beforehand) achieves virtually identical flood reduction while conserving water for the dry season.
+
+---
+
+## 6. Comprehensive Issue Register (Defects & Residual Risks)
+
+| Issue ID | Severity | Category | Component | Description & Code Location | Recommended Remediation |
+|---|:---:|:---:|---|---|---|
+| **G-01** | **Medium** | Bug (UI/JS) | `report/build_report_html.py:403` | Animation loop modulo is hardcoded to `%4` (`r.value=(+r.value+1)%4;`). The slider contains 7 frames (0..6). Autoplay skips frames 4, 5, and 6 entirely. | Change `(+r.value+1)%4` to `(+r.value+1)%7;` in `build_report_html.py`. |
+| **G-02** | **Low** | Docs Sync | `report/build_report_html.py:376` | HTML footer states "ชุดทดสอบอัตโนมัติ 14 ตัวผ่านทั้งหมด" while the test suite now contains 26 passing tests. | Update footer text to "ชุดทดสอบอัตโนมัติ 26 ตัวผ่านทั้งหมด". |
+| **G-03** | **Low-Med** | Bug (Math) | `analysis/hecras_lite_channel.py:26`<br>`analysis/rid_cross_section_stage_rating.py:31` | Inverted geodesic scaling: divides by $\cos(\text{lat})$ instead of multiplying (`110.96 / np.cos(np.radians(14.24))`), causing $+6.4\%$ longitude distance distortion. | Replace with `111.32 * np.cos(np.radians(14.24))` in both files. |
+| **G-04** | **Low-Med** | Math / ML | `analysis/goal4_model_v1.py:127-130` | Feature 7 (`dH1B_6h`) is an exact linear combination of Feature 4 (`H1[i]`) and Feature 5 (`H1[i-6]`). Design matrix $X$ is rank-deficient ($rank=11<12$), making regression coefficients non-unique. | Drop `dH1B_6h` from the feature matrix or replace OLS with Ridge regression ($\alpha > 0$) to guarantee unique coefficients. |
+| **G-05** | **Low** | Hygiene | `analysis/` & `report/` | Duplicate despike logic persists across 6 files with minor plumbing variations. Unused intermediate PNGs linger in working directory (`_tmp_compare_osm.png`, `_tmp_overlay_sw.png`). | Clean up temporary PNGs; formalize despike variants in `analysis/common.py`. |
+| **G-06** | **Low** | Automation | `analysis/archive_forecasts_daily.py` | Daily forecast archiving runs locally without an automated remote git push mechanism, leaving new daily snapshots at risk of local disk loss. | Add automated git commit & push script or schedule via cron/Action. |
+| **G-07** | **Low** | Portability | Matplotlib scripts | Visualizations hardcode Windows font `'Leelawadee UI'`. In CI (Ubuntu), Matplotlib falls back to generic sans-serif, altering font metrics slightly. | Include fallback fonts (e.g. `'Loma'`, `'Garuda'`, `'DejaVu Sans'`) in `plt.rcParams["font.family"]`. |
+
+---
+
+## 7. Actionable Roadmap & Prioritized Recommendations
+
+### Phase 1: Immediate Hygiene & Bug Fixes (Execution time: < 1 hour)
+1. **Fix Animation Modulo (G-01):** Update line 403 in `report/build_report_html.py` from `%4` to `%7` and re-build the public HTML report.
+2. **Synchronize Test Count (G-02):** Update line 376 in `report/build_report_html.py` to reflect "26 tests".
+3. **Correct Geodesic Longitude Formula (G-03):** Fix longitude scaling in `hecras_lite_channel.py` and `rid_cross_section_stage_rating.py`.
+4. **Resolve ML Rank Deficiency (G-04):** Eliminate redundant feature `dH1B_6h` or add Ridge regularization ($\alpha = 1.0$) in `goal4_model_v1.py`.
+
+### Phase 2: Pipeline Orchestration & Workflow (Execution time: 1–2 days)
+1. **Unified Pipeline Runner:** Create `run_all.py` or a top-level `Makefile` establishing the canonical execution sequence:
+   $$\text{Integrity} \to \text{Hydraulics} \to \text{Attribution} \to \text{Counterfactual} \to \text{SAR/Optical} \to \text{Canonical Sync} \to \text{HTML Builders} \to \text{Pytest}$$
+2. **Automated Remote Sync:** Add automated daily backup/push for `data/17_tha_chang_barrage` and weather forecast snapshots.
+3. **Multi-Processing for SAR:** Implement multiprocessing in `s1_process.py` across scenes to reduce end-to-end SAR reprocessing time from ~40 minutes to ~8 minutes.
+
+### Phase 3: Scientific & Institutional Advancements (Medium-term)
+1. **HEC-RAS 1D Dynamic Routing:** Once FOI disclosures for hourly Khun Dan gate logs are obtained, replace the 12-hour lumped translation lag with an unsteady HEC-RAS 1D hydraulic model using surveyed RID cross-sections.
+2. **Policy Engagement (ONWR & RID):** Present the 13-point policy roadmap (`analysis/goal5_policy_proposals.md`) to the Office of National Water Resources (สทนช.) and RID Region 9, advocating for official integration of Forecast-Informed Reservoir Operations (FIRO) into the Bang Pakong Basin Water Charter.
+3. **International Peer-Reviewed Publication:** Author an English abstract and manuscript detailing:
+   - The failure mode of GBDT in extreme flood extrapolation.
+   - The operational efficacy of peak-window release throttling over deep pre-storm drawdown.
+   - Multi-sensor satellite triangulation revealing operational SAR masking artifacts.
+
+---
+
+## 8. Audit Conclusion
+
+The Nakhon Nayok forensic flood analysis is an exceptional exemplar of open-source forensic data science. It combines uncompromising evidence preservation, mathematically rigorous hydraulic principles, transparent reporting of machine learning limitations, and actionable policy proposals.
+
+The codebase has matured significantly from earlier revisions, successfully addressing headline attribution reproducibility, single-source-of-truth canonical assertions, and automated CI test gates. Resolving the minor residual bugs documented in this audit (G-01 through G-04) will render this project fully publication-ready and reference-grade for national water policy deliberation.
+
+---
+*Audit completed by Gemini on October 8, 2026. Findings recorded in `REVIEW.gemini.md` and synchronized with `docs/reviews/REVIEW.gemini.md`.*

@@ -23,7 +23,7 @@ line = np.array(main["coords"])   # lon/lat เรียงจากต้นน
 print(f"แม่น้ำนครนายก: {len(line)} จุด · ยาว ~{main['km']:.0f} กม. · จาก ({line[0][0]:.3f},{line[0][1]:.3f}) ถึง ({line[-1][0]:.3f},{line[-1][1]:.3f})")
 
 # ระยะสะสม (กม. โดยประมาณ)
-lat_scale = 111.32; lon_scale = 110.96 / np.cos(np.radians(14.24))
+lat_scale = 111.32; lon_scale = 111.32 * np.cos(np.radians(14.24))  # กม./องศา lon ที่ 14.24N (เดิมหาร cos = ยาวเกิน 6%)
 seg = np.diff(line, axis=0)
 dist = np.cumsum(np.hypot(seg[:, 0] * lon_scale, seg[:, 1] * lat_scale))
 dist = np.concatenate([[0], dist])

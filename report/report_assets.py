@@ -24,7 +24,7 @@ import numpy as np
 import shapefile
 from shapely.geometry import shape as shp_shape
 
-plt.rcParams["font.family"] = ["Leelawadee UI", "Tahoma"]
+plt.rcParams["font.family"] = ["Leelawadee UI", "Tahoma", "Loma", "Garuda", "Norasi", "DejaVu Sans"]
 # พาธ A/OUT/DER และ shapefile อิง ROOT ทั้งหมด — รันจากโฟลเดอร์ไหนก็ได้
 ROOT = Path(__file__).resolve().parent.parent
 A = ROOT / "analysis"
@@ -87,7 +87,7 @@ ax2.annotate("เร่งปล่อย 366 ม³/วิ", xy=(datetime(2026, 
 ax.annotate("เริ่มท่วม\n26 ก.ย. 23:00", xy=(datetime(2026, 9, 26, 23), 8.49), xytext=(-80, 42),
             textcoords="offset points", fontsize=9, fontweight="bold",
             arrowprops=dict(arrowstyle="->", lw=1.2))
-ax.annotate("พีค 9.23 ม.\n27 ก.ย. 10:00", xy=(datetime(2026, 9, 27, 10), 9.23), xytext=(14, 8),
+ax.annotate("น้ำสูงสุด 9.23 ม.\n27 ก.ย. 10:00", xy=(datetime(2026, 9, 27, 10), 9.23), xytext=(14, 8),
             textcoords="offset points", fontsize=9, fontweight="bold", color="#0d47a1",
             arrowprops=dict(arrowstyle="->", color="#0d47a1"))
 ax.annotate("ลดการปล่อย\nน้ำลดเร็ว", xy=(datetime(2026, 9, 30, 6), 7.6), xytext=(10, 35),
@@ -146,13 +146,13 @@ def scenario(cap=None, zero_until=None):
     return out
 
 fig, ax = plt.subplots(figsize=(10, 4.8), dpi=150)
-ax.plot(ts, gs, color=BLUE, lw=2.4, label="ที่เกิดจริง (พีค 9.23 ม. · ท่วมขัง 65 ชม.)")
+ax.plot(ts, gs, color=BLUE, lw=2.4, label="ที่เกิดจริง (น้ำสูงสุด 9.23 ม. · ท่วมขัง 65 ชม.)")
 s1 = scenario(cap=12.0)
 s2 = scenario(zero_until="2026-09-30")
 ax.plot([t for t, _ in s1], [g for _, g in s1], color=ORANGE, lw=1.8, ls="--",
         label="ทำตาม URC + กะปล่อย ≤140 ม³/วิ ตั้งแต่ 27 ก.ย. (ล้นตลิ่งเหลือ 12 ชม.)")
 ax.plot([t for t, _ in s2], [g for _, g in s2], color=GREEN, lw=1.8, ls="-.",
-        label="URC + กักน้ำไว้ช่วงพีค (พีค 8.75 ม. · เหลือ 8 ชม.)")
+        label="URC + กักน้ำไว้ช่วงน้ำสูงสุด (น้ำสูงสุด 8.75 ม. · เหลือ 8 ชม.)")
 ax.fill_between(ts, 8.45, gs, where=np.array(gs) > 8.45, color=RED, alpha=0.14)
 ax.axhline(8.45, color=RED, ls=":", lw=1.2)
 ax.text(datetime(2026, 9, 25), 8.5, "ระดับล้นตลิ่ง", color=RED, fontsize=9)
@@ -381,7 +381,7 @@ ax.legend(handles=[
     Patch(fc=(0.85, 0.75, 0.55), label="ภูมิประเทศ: น้ำตาลเข้ม = สูง (DEM 30 ม.)")],
     loc="upper center", bbox_to_anchor=(0.5, -0.004), ncol=2, fontsize=8.4,
     framealpha=0.95, columnspacing=1.3, handlelength=1.7, borderpad=0.55)
-ax.text(0.985, 0.988, "สมมติฐาน: พีค 9.23 → 8.75 ม. (−0.48) · เหนือตลิ่ง 65 → 8 ชม.", transform=ax.transAxes, ha="right", va="top",
+ax.text(0.985, 0.988, "สมมติฐาน: น้ำสูงสุด 9.23 → 8.75 ม. (−0.48) · เหนือตลิ่ง 65 → 8 ชม.", transform=ax.transAxes, ha="right", va="top",
         fontsize=9, color="#0d47a1", fontweight="bold",
         bbox=dict(fc="white", ec="#0d47a1", alpha=0.9, boxstyle="round,pad=0.35"))
 fig.tight_layout()
@@ -399,7 +399,7 @@ ours = [
     (datetime(2026, 9, 19, 6, 9), 0.0, "ฐานก่อนน้ำท่วม (คู่วงโคจร)"),
     (datetime(2026, 9, 22, 18, 20), 0.0, "ก่อนเหตุการณ์ (แถบครอบ 9%)"),
     (datetime(2026, 9, 27, 6, 0), 62.2, "แถบครอบ 34%"),
-    (datetime(2026, 9, 27, 18, 28), 509.3, "พีค"),
+    (datetime(2026, 9, 27, 18, 28), 509.3, "น้ำสูงสุด"),
     (datetime(2026, 10, 2, 6, 9), 436.3, ""),
 ]
 gistda = [
@@ -414,11 +414,11 @@ ax.plot([d for d, v, n in gistda], [v for d, v, n in gistda], "s--", color="#ef6
 ax.annotate("62.2 ตร.กม. (ภาพครอบเพียง 34% — ฉากเดียวกับที่ GISTDA รายงาน 8.3 ทั้งจังหวัด)",
             xy=ours[3][:2], xytext=(-4, 60), textcoords="offset points", fontsize=7.8, color="#1565c0",
             ha="right", va="bottom", arrowprops=dict(arrowstyle="->", color="#1565c0", lw=0.8))
-ax.annotate("พีค 509.3 · 27 ก.ย. 18:28", xy=ours[4][:2], xytext=(12, 2), textcoords="offset points",
+ax.annotate("น้ำสูงสุด 509.3 · 27 ก.ย. 18:28", xy=ours[4][:2], xytext=(12, 2), textcoords="offset points",
             fontsize=8.5, color="#0d47a1", fontweight="bold", va="center")
 ax.annotate("2 ต.ค.: เรา 436.3 · GISTDA 306.9", xy=(ours[5][0], 395), xytext=(-16, -4),
             textcoords="offset points", fontsize=8, color="#37474f", ha="right", va="top")
-ax.annotate("8.3 — ต่ำกว่าพื้นที่จริงมาก (น้ำขณะถ่าย ≈ ระดับพีค)", xy=gistda[1][:2], xytext=(10, 10),
+ax.annotate("8.3 — ต่ำกว่าพื้นที่จริงมาก (น้ำขณะถ่าย ≈ ระดับน้ำสูงสุด)", xy=gistda[1][:2], xytext=(10, 10),
             textcoords="offset points", fontsize=7.5, color="#ef6c00", va="bottom")
 ax.annotate("28 ก.ย. 18:19 = 0 ในแถบครอบ 9% ตะวันออก (ส่วนใหญ่เป็นป่าเขา ไม่ใช่พื้นที่ท่วมหลัก จึงไม่จุด)",
             xy=(datetime(2026, 9, 29, 6), 432), fontsize=7.5, color="#78909c", ha="right")

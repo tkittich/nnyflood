@@ -295,6 +295,11 @@ def main(argv=None):
     if counts.get("MISMATCH"):
         print("\n!! มีแฮชไม่ตรง — ไฟล์ถูกแก้หรือเสียหาย", file=sys.stderr)
         return 1
+    if AMBIGUOUS:
+        # GLM GL-18: เดิม "เตือนแล้วคืน 0" — เคสแฮชบังเอิญตรงไฟล์แรกผ่านเงียบ ๆ ทั้งที่
+        # ผลตรวจของรายการนั้นใช้ยืนยันไม่ได้ → exit 3 (CI/run_all ล้มที่ code>2)
+        print("\n!! มีรายการ resolve ด้วย basename ที่ชนกัน — ผลตรวจรายการนั้นใช้ยืนยันไม่ได้ (exit 3)", file=sys.stderr)
+        return 3
     if counts.get("MISSING"):
         print("\n(มี MISSING — ส่วนใหญ่คือไฟล์ที่ไม่อยู่ใน git ไม่ใช่ไฟล์เสีย)", file=sys.stderr)
         return 2

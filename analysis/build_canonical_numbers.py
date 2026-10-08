@@ -44,6 +44,10 @@ s1 = {
     "peak_km2": round(float(np.load(DER / "flood_peak_27sep1828.npy").sum() * cell), 1),
     "oct2_ours_km2": round(float(np.load(DER / "flood_2oct_validated.npy").sum() * cell), 1),
 }
+# ประกาศ canonical ที่ตีพิมพ์ — มาสก์ใหม่ต้องให้ค่าเดิม (ต่าง = หยุด ประกาศ canonical ชุดใหม่ก่อน ห้ามไหลผ่านเงียบ ๆ)
+for _k, _exp in (("peak_km2", 509.3), ("oct2_ours_km2", 436.3)):
+    assert abs(s1[_k] - _exp) <= 0.05, f"S1 {_k} = {s1[_k]} ≠ canonical {_exp} — มาสก์/กฎเปลี่ยน? ประกาศ canonical ใหม่ก่อน"
+
 series = jload(ANA / "s1_flood_series.json")
 s1["sep27_am_ours_km2"] = series["2026-09-27 06:00"]["area_km2"]
 s1["sep27_am_coverage_pct"] = series["2026-09-27 06:00"]["coverage_pct"]
@@ -95,6 +99,9 @@ levels = {
     "bankfull_gauge_m": 8.45,    # เริ่มล้นเมือง (เกจ)
     "bankfull_msl_m": 8.21,      # สันตลิ่งจริง (ภาคตัดขวาง data/19)
     "floodplain_onset_msl_m": 6.86,  # ระดับเริ่มท่วมที่ราบ (ม.รทก.)
+    # GL-28: 8.45 เกจ ≡ 6.86 ม.รทก. = "เริ่มท่วมที่ราบย่านเมือง" — ต่างจาก bankfull_msl 8.21
+    # (สันตลิ่งจริงจากภาคตัดขวาง) · ค่าคงที่ BANKFULL_MSL=6.86 ใน common.py หมายถึงตัว 6.86 ตัวนี้
+    "note": "bankfull_gauge 8.45 = ระดับเริ่มท่วมที่ราบย่านเมือง (≡ 6.86 ม.รทก.) · bankfull_msl 8.21 = สันตลิ่งจริง (เกจ 9.80) — คนละความหมาย",
 }
 assert abs((levels["peak_gauge_m"] - GAUGE_OFFSET) - 7.64) < 0.005
 assert abs((levels["bankfull_gauge_m"] - GAUGE_OFFSET) - 6.86) < 0.005
@@ -103,15 +110,20 @@ assert abs((levels["bankfull_gauge_m"] - GAUGE_OFFSET) - 6.86) < 0.005
 # regex ที่มีจุดไปแมตช์ base64 ขยะได้) สองฉบับเลือกนำเสนอคนละหน่วยโดยดีไซน์:
 # ประชาชนใช้เกจ 9.80/9.23 + RMSE เป็นเมตร (1.09) · วิชาการใช้ ม.รทก. (7.64/8.21) + 11.89 ----------
 checks = {
-    "public": ["509.3", "436.3", "306.9", "62.2", "12%", "59%", "65 ชม.",
+    "public": ["509.3", "436.3", "306.9", "62.2", "12%", "60%", "65 ชม.",
                "9.23", "8.45", "6.86", "0.75 ม.", "1.09",
                "1,058–1,416", "242"],
-    "expert": ["509.3", "436.3", "306.9", "62.2", "12%", "59%", "65 ชม.",
+    "expert": ["509.3", "436.3", "306.9", "62.2", "12%", "60%", "65 ชม.",
                "9.23", "8.45", "7.64", "6.86", "8.21", "11.89", "108.6",
                "1,058–1,416", "242(h−4.55)", "4.55"],
 }
 
+# ค่า/คำที่เลิกใช้ — ห้ามปรากฏใน HTML ที่ build (builders/tests ตรวจ absence — GL-10)
+FORBIDDEN = ["1,050", "1,420", "11.95", "44 ซม", "57%", "564.4", "14 passed", "12 ตัวแปร",
+             "น้ำสูงสุดสูงสุด", "น้ำสูงสุดสุด", "ทำนายทำนาย", "น้ำน้ำ", "ผู้ว้าฯ"]
+
 out = {
+    "forbidden": FORBIDDEN,
     "meta": {
         "generated_by": "analysis/build_canonical_numbers.py",
         "note": "ตัวเลข canonical ของโครงการ — builders และ tests อ่านจากไฟล์นี้ ห้ามแก้มือ",

@@ -230,7 +230,7 @@ json.dump({**{k: [round(v[0], 2), v[1], round(v[2], 1), round(v[3], 2), str(v[4]
                "area_corridor_km2": AREA_CORRIDOR,
                "peak_drop_m": round(dh_peak, 4),
                "corridor_drop_m": round(dh_corridor, 3),
-               f"note": "ปริมาตรเดียวกันกระจายบน {AREA_FLOOD:.0f} ตร.กม. (ที่ราบท่วม) = น้ำสูงสุดลด {dh_peak*100:.0f} ซม.; บนกรอบลำน้ำ {AREA_CORRIDOR:.1f} ตร.กม. = ระดับลด {dh_corridor*100:.0f} ซม. · ไม่ประเมินด้วยวิธี \"ลบออกจาก Q ที่ Ny.7\" (rating เส้นเดียวแสดงผลการเปิดท้ายน้ำไม่ได้) จึงใช้ปริมาตร — ห้ามใช้ค่า CHAN_STORE_MAX=2.0 ลลบ.ม. ที่อ้างจาก hecras_lite_channel.py เมื่อคำนวณผิดหน่วย — ค่าที่ได้จาก DSM เป็นของที่ราบในกรอบลำน้ำ ไม่ใช่ bathymetry ร่องน้ำ"},
+               "note": f"ปริมาตรเดียวกันกระจายบน {AREA_FLOOD:.0f} ตร.กม. (ที่ราบท่วม) = น้ำสูงสุดลด {dh_peak*100:.0f} ซม.; บนกรอบลำน้ำ {AREA_CORRIDOR:.1f} ตร.กม. = ระดับลด {dh_corridor*100:.0f} ซม. · ไม่ประเมินด้วยวิธี \"ลบออกจาก Q ที่ Ny.7\" (rating เส้นเดียวแสดงผลการเปิดท้ายน้ำไม่ได้) จึงใช้ปริมาตร — ห้ามใช้ค่า CHAN_STORE_MAX=2.0 ลลบ.ม. ที่อ้างจาก hecras_lite_channel.py เมื่อคำนวณผิดหน่วย — ค่าที่ได้จาก DSM เป็นของที่ราบในกรอบลำน้ำ ไม่ใช่ bathymetry ร่องน้ำ"},
            "envelope": {
                "rating_pct": RATING_PCT, "lag_h": LAG_H,
                "peak_env_m": round(peak_env_m, 2),

@@ -9,9 +9,9 @@
 >
 > **🟩 ฉบับวิชาการ (ตรวจสอบย้อนกลับได้ทุกตัวเลข):** [อ่านออนไลน์](<https://tkittich.github.io/nnyflood/report/น้ำท่วมนครนายก2569_วิชาการ.html>) · [ดาวน์โหลดไฟล์เดียวจบ](report/น้ำท่วมนครนายก2569_วิชาการ.html)
 
-**TL;DR (ไทย):** ตัวจุดชนวนคือ**ฝน 18 วัน 1,058–1,416 มม. บนลุ่มที่อิ่มตัวแล้ว** — แม้เขื่อนไม่ปล่อยน้ำเลย น้ำก็ท่วมคืน 26 ก.ย. · แต่การปล่อยน้ำช่วงน้ำสูงสุดคือตัว**ยืดเวลาท่วมขัง**: น้ำเขื่อนคิดเป็น **59% ของน้ำที่ไหลผ่านเมืองช่วงน้ำขัง** และถ้า "หยุดปล่อยผ่านช่วงน้ำสูงสุดเมือง 48–72 ชม." น้ำล้นตลิ่งลดได้ **55–93%** · ทุกตัวเลขทำซ้ำได้จากข้อมูลสาธารณะล้วน (Sentinel-1 SAR · โทรมาตร กช. · Copernicus DEM)
+**TL;DR (ไทย):** ตัวจุดชนวนคือ**ฝน 18 วัน 1,058–1,416 มม. บนลุ่มที่อิ่มตัวแล้ว** — แม้เขื่อนไม่ปล่อยน้ำเลย น้ำก็ท่วมคืน 26 ก.ย. · แต่การปล่อยน้ำช่วงน้ำสูงสุดคือตัว**ยืดเวลาท่วมขัง**: น้ำเขื่อนคิดเป็น **60% ของน้ำที่ไหลผ่านเมืองช่วงน้ำขัง** และถ้า "หยุดปล่อยผ่านช่วงน้ำสูงสุดเมือง 48–72 ชม." น้ำล้นตลิ่งลดได้ **55–93%** · ทุกตัวเลขทำซ้ำได้จากข้อมูลสาธารณะล้วน (Sentinel-1 SAR · โทรมาตร กช. · Copernicus DEM)
 
-**English TL;DR:** The flood was triggered by 18 days of orographic rain (1,058–1,416 mm) on an already-saturated basin — rain alone put the city gauge past its flooding threshold. The dam's releases did not create the flood peak, but they *extended* the ponding: dam water made up **59% of all water passing the city** during the flood, and "stop releasing through the 48–72 h city-peak window" scenarios cut overbank volume by **55–93%**. Every number is reproducible from public data alone (Sentinel-1 SAR, RID telemetry, Copernicus DEM) — reports are in Thai; scripts, evidence and tests are in this repo.
+**English TL;DR:** The flood was triggered by 18 days of orographic rain (1,058–1,416 mm) on an already-saturated basin — rain alone put the city gauge past its flooding threshold. The dam's releases did not create the flood peak, but they *extended* the ponding: dam water made up **60% of all water passing the city** during the flood, and "stop releasing through the 48–72 h city-peak window" scenarios cut overbank volume by **55–93%**. Every number is reproducible from public data alone (Sentinel-1 SAR, RID telemetry, Copernicus DEM) — reports are in Thai; scripts, evidence and tests are in this repo.
 
 <img src="analysis/s1_peak_flood_map_27sep1828.png" width="680" alt="แผนที่น้ำท่วมน้ำสูงสุด 27 กันยายน 2569 เวลา 18:28 น.">
 
@@ -24,7 +24,7 @@
 | คำถาม | คำตอบ (สรุป) | หลักฐาน |
 |---|---|---|
 | ทำไมน้ำท่วม? | ฝน 18 วัน 1,058–1,416 มม. **ตกเชิงเขา+ที่ราบ** ไม่ใช่ในเขาใหญ่ · ลุ่มอิ่มน้ำ 19 ก.ย. (ฝน 1 มม. ให้ผลเพิ่ม 5 เท่า) | ฝน 12 สถานี + ระดับน้ำรายชั่วโมง |
-| เขื่อนมีส่วนไหม? | **ฝนเป็นตัวจุดชนวน (88%) · การปล่อยน้ำยืดเวลาท่วมขัง (59% ในช่วงน้ำขัง)** — วัดจากไฮโดรกราฟจริง | โทรมาตรเขื่อน 15 นาที |
+| เขื่อนมีส่วนไหม? | **ฝนเป็นตัวจุดชนวน (88%) · การปล่อยน้ำยืดเวลาท่วมขัง (60% ในช่วงน้ำขัง)** — วัดจากไฮโดรกราฟจริง | โทรมาตรเขื่อน 15 นาที |
 | ท่วมกว้างเท่าไร? | น้ำสูงสุด 27 ก.ย. เย็น **509 ตร.กม.** (ประมวลผล Sentinel-1 เอง; เทียบเท่านิยาม GISTDA ~360) | 17 ฉาก Sentinel-1 |
 | เขื่อนทำตามมาตรฐานไหม? | เก็บน้ำเหนือเส้นควบคุมบน (URC) 36 วันต่อเนื่องก่อนพายุ · ตารางระบายของโครงการไม่มีกลไก URC | ข้อมูลอ่าง 14 ปี + ผังน้ำ สทนช. |
 | ถ้าบริหารดีที่สุดจะดีกว่าไหม? | **ทำตาม URC = น้ำล้น −55% ท่วม 65→18 ชม.** · ใช้พยากรณ์ปรับระดับล่วงหน้า = **−93% ท่วมข้ามคืนเดียว** | จำลองคุมความจุอ่างทุกแผน |
@@ -38,7 +38,7 @@ report/              ← รายงานส่งมอบ 2 ฉบับ (�
 docs/                ← มาตรฐานวิธีการ + พจนานุกรมข้อมูล + แหล่งข้อมูล
 analysis/            ← สคริปต์ประมวลผล + ผลสังเคราะห์ (CSV/JSON/PNG/MD)
 data/                ← หลักฐานต้นฉบับ 21 ชุด (ทุกชุดมี manifest + SHA-256)
-tests/               ← ชุดทดสอบ 26 ตัว (กัน regression)
+tests/               ← ชุดทดสอบ 29 ตัว (กัน regression)
 analysis/run_all.py  ← รัน pipeline ทั้งระบบทีเดียวจบ (skip อัตโนมัติเมื่อไม่มีข้อมูลดิบ)
 index.html           ← หน้ารวมลิงก์รายงาน (เสิร์ฟโดย GitHub Pages)
 ```
@@ -47,7 +47,7 @@ index.html           ← หน้ารวมลิงก์รายงาน 
 
 1. **ฝนคือตัวจุดชนวน เขื่อนคือตัวยืดเวลา** — ฝน 18 วัน 1,058–1,416 มม. ตกเชิงเขาและที่ราบ
    (ไม่ใช่เขาใหญ่) บนลุ่มที่อิ่มตัวแล้วตั้งแต่ 19 ก.ย. แม้เขื่อนกักน้ำได้มากที่สุด ระดับน้ำเมืองก็ข้าม
-   เกณฑ์เริ่มท่วมคืน 26 ก.ย. แล้ว (ฝนอย่างเดียวให้น้ำสูงสุด 8.75 > 8.45 ม.) · แต่น้ำปล่อยเขื่อนคิดเป็น **59% ของน้ำ
+   เกณฑ์เริ่มท่วมคืน 26 ก.ย. แล้ว (ฝนอย่างเดียวให้น้ำสูงสุด 8.75 > 8.45 ม.) · แต่น้ำปล่อยเขื่อนคิดเป็น **60% ของน้ำ
    ที่ไหลผ่านเมืองช่วงน้ำขัง** (12% ช่วงน้ำขึ้น) และทำให้ท่วมขังยาวถึง 65 ชม. — วัดจากโทรมาตร
    ทุก 15 นาที
 2. **ปัจจัยชี้ขาดของการบริหารคือ "หน้าต่างเวลา" ไม่ใช่ "ปริมาตร"** — ทำตามเส้นควบคุมบน (URC)
@@ -75,12 +75,12 @@ index.html           ← หน้ารวมลิงก์รายงาน 
 
 ```bash
 pip install -r requirements.txt
-python -m pytest tests/ -q                       # 26 passed
+python -m pytest tests/ -q                       # 29 passed
 python analysis/goal4_model_v1.py                # โมเดลทำนายหลัก
 python analysis/verify_data_integrity.py --quick # ตรวจแฮชข้อมูล
 ```
 
-การตรวจสอบคุณภาพที่ทำไว้กับชุดข้อมูลนี้: ชุดทดสอบอัตโนมัติ 26 ตัวผ่านทั้งหมด (รวมตรวจตัวเลขหัวใจใน artifact) ·
+การตรวจสอบคุณภาพที่ทำไว้กับชุดข้อมูลนี้: ชุดทดสอบอัตโนมัติ 29 ตัวผ่านทั้งหมด (รวมตรวจตัวเลขหัวใจใน artifact) ·
 ตรวจความครบถ้วนข้อมูลต้นฉบับ 681 ไฟล์ด้วย SHA-256 ผ่านทั้งหมด ·
 ตัวเลขสำคัญทุกตัวข้ามสอบอย่างน้อย 2 แหล่งอิสระ (เมทริกซ์ในฉบับวิชาการ §5)
 
@@ -118,9 +118,9 @@ python analysis/verify_data_integrity.py --quick # ตรวจแฮชข้�
 | `docs/METHODS.md` | มาตรฐานหลักฐาน `[F]/[I]/[O]` + วิธีประมวลผล S1 + โมเดลทำนาย |
 | `docs/DATA_SOURCES.md` | แหล่งข้อมูล 21 ชุด + สถานะการเข้าถึง |
 | `docs/DATA_DICTIONARY.md` | นิยามตัวเลขทางการทุกตัว (canonical) + ฟิลด์ข้อมูล |
-| `docs/ANALYSIS_PLAN.md` | คำถามวิเคราะห์ A–D + สถานะ |
+| `docs/ANALYSIS_PLAN.md` | คำถามวิเคราะห์ A–E + สถานะ |
 | `docs/ENVIRONMENT.md` | สภาพแวดล้อม Python ที่ตัวเลขผลิตด้วยจริง |
-| `docs/reviews/` | รีวิวอิสระรอบใหม่ (DeepSeek R-01..R-13 · Gemini) + สถานะการตอบ |
+| `docs/reviews/` | รีวิวอิสระรอบใหม่ (DeepSeek R-01..R-13 · Gemini · Qwen) + สถานะการตอบ |
 | `HANDOFF.md` | สถานะโครงการล่าสุด (publish แล้ว 8 ต.ค. 69) + บทเรียนเทคนิคที่เจอ |
 | `analysis/*_findings.md` | บทวิเคราะห์เชิงลึกแต่ละหัวข้อ |
 

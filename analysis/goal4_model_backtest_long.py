@@ -107,7 +107,7 @@ def at(a, i, back):
     j = i - back
     return a[j] if j >= 0 else np.nan
 
-# ---------- สร้างตัวอย่าง (ฟีเจอร์ 12 ตัว โครงสร้างเดียวกับ v1 (ต่าง preprocessing — ดู note ใน JSON)) ----------
+# ---------- สร้างตัวอย่าง (ฟีเจอร์ 11 ตัว โครงสร้างเดียวกับ v1 — ตัด dH1B_6h ตาม v1 แล้ว; ต่าง preprocessing ดู note ใน JSON) ----------
 X_all, Y_all, T_all = [], [], []
 seg_ok = np.zeros(len(grid), bool)
 for _, s, e in SEGS:
@@ -117,7 +117,7 @@ for i in range(len(grid)):
         continue
     tw = TW[i]
     X_all.append([H7[i], at(H7, i, 3), at(H7, i, 24), H7[i] - at(H7, i, 6),
-                  H1[i], at(H1, i, 6), at(H1, i, 24), H1[i] - at(H1, i, 6),
+                  H1[i], at(H1, i, 6), at(H1, i, 24),
                   tw if np.isfinite(tw) else 2.0,
                   R24[i], R72[i], R168[i]])
     _, s, e = next((ys, ss, ee) for ys, ss, ee in SEGS if ss <= i < ee)
@@ -144,7 +144,7 @@ folds["2026"] = {"train": T_all < dt.datetime(2026, 9, 20),
                  "test": (T_all >= dt.datetime(2026, 9, 20)) & (YR_s == 2026),
                  "label": "เหตุการณ์ 2569 (ฝึกทุกฤดูก่อน 19 ก.ย.)"}
 
-out = {"method": "leave-one-season-out (ปีที่ทดสอบถูกถอดออกจากชุดฝึก) · โมเดลเส้นตรง 12 ตัวแปร (ฟีเจอร์ชุดเดียวกับ v1) · ฝึกจากข้อมูลทั้งปี 4 ฤดู — ต่างจาก v1 ที่ใช้ มิ.ย.–ต.ค. · ปี 2026 ใช้เงื่อนไขเดียวกับรายงานหลัก",
+out = {"method": "leave-one-season-out (ปีที่ทดสอบถูกถอดออกจากชุดฝึก) · โมเดลเส้นตรง 11 ตัวแปร (ฟีเจอร์ชุดเดียวกับ v1 — ตัด dH1B_6h ตาม v1 แล้ว) · ฝึกจากข้อมูลทั้งปี 4 ฤดู — ต่างจาก v1 ที่ใช้ มิ.ย.–ต.ค. · ปี 2026 ใช้เงื่อนไขเดียวกับรายงานหลัก",
        "folds": {}}
 for y, fl in folds.items():
     tr, te = fl["train"], fl["test"]

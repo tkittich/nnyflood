@@ -173,3 +173,70 @@ def test_event_rain_total_matches_documented_value():
     total = sum(rows[d] for d in days)
     assert abs(total - 247.9) < 1.0
     assert total > 150.0
+
+
+# ---------- s1_change_detect: กฎน้ำท่วม 3 เงื่อนไข + opening (ผลรีวิว GLM GL-03) ----------
+
+def test_s1_flood_rule_conditions_and_opening():
+    """กฎ canonical: ΔVH≤−1 & ΔVV≤−2 & VHหลัง≤−18 + opening 3×3 —
+    แต่ละเงื่อนไขต้อง gate จริง · พิกเซลโดดเดี่ยวถูก opening กลืน · บล็อก 3×3 รอด ·
+    NaN/นอก lowland ไม่นับ (เทสนี้จะจับกรณี F-01 ซ้ำ: สคริปต์ committed ต่างจากกฎที่ตีพิมพ์)"""
+    from s1_change_detect import detect
+    n = 9
+    pre_vh = np.full((n, n), -20.0)
+    pre_vv = np.full((n, n), -20.0)
+    post_vv = np.full((n, n), -23.0)          # ΔVV = −3 ✓ ทุกจุด
+    lowland = np.ones((n, n), bool)
+    post_vh = np.full((n, n), -17.5)          # ฐาน: VHหลัง > −18 = ไม่ผ่านเพดาน absolute
+
+    # (ก) เพดาน VH + opening: พิกเซลเดียวที่ผ่านทุกเงื่อนไขแต่โดดเดี่ยว = ถูกกลืน
+    lone = post_vh.copy()
+    lone[4, 4] = -22.0                        # ΔVH = −2 ✓ · VH = −22 ≤ −18 ✓
+    assert detect(pre_vh, lone, pre_vv, post_vv, lowland).sum() == 0
+
+    # (ข) บล็อก 3×3 ที่ผ่านทุกเงื่อนไข = รอดครบ 9 px
+    block = post_vh.copy()
+    block[3:6, 3:6] = -22.0
+    w = detect(pre_vh, block, pre_vv, post_vv, lowland)
+    assert w.sum() == 9 and w[3:6, 3:6].all()
+
+    # (ค) ΔVH = −0.5 ไม่ถึงเกณฑ์ (แม้ VH ต่ำ) = ไม่เป็นน้ำ
+    dh = pre_vh.copy()
+    dh[3:6, 3:6] = -21.5
+    assert detect(dh, block, pre_vv, post_vv, lowland).sum() == 0
+
+    # (ง) ΔVV = −1 ไม่ถึงเกณฑ์ = ไม่เป็นน้ำ
+    dv = pre_vv.copy()
+    dv[3:6, 3:6] = -22.0
+    assert detect(pre_vh, block, dv, post_vv, lowland).sum() == 0
+
+    # (จ) นอก lowland = ไม่นับแม้สัญญาณผ่าน
+    low2 = lowland.copy()
+    low2[3:6, 3:6] = False
+    assert detect(pre_vh, block, pre_vv, post_vv, low2).sum() == 0
+
+    # (ฟ) NaN กลางบล็อก = ไม่นับ + opening กัดบล็อกที่มีรูออกทั้งบล็อก
+    nanv = post_vv.copy()
+    nanv[4, 4] = np.nan
+    assert detect(pre_vh, block, pre_vv, nanv, lowland).sum() == 0
+
+
+# ---------- attribution_share: อินทิกราลราย 15 นาที (ผลรีวิว GLM GL-01) ----------
+
+def test_attribution_integrate_is_15min_and_captures_subhourly_peak():
+    """อินทิกราลต้องก้าวราย 15 นาที — รุ่นก่อนแก้ (8 ต.ค. 69) ก้าวรายชั่วโมงทั้งที่ป้ายบอก
+    15 นาที ทำให้พีคที่เกิดนาที 15/30/45 หลุดทั้งหมดบนไฮโดรกราฟคม"""
+    from attribution_share import integrate
+    t0 = dt.datetime(2026, 9, 27, 10)
+    series = {}
+    for i in range(8):                        # ครอบหน้าต่าง 2 ชม.
+        t = t0 + dt.timedelta(minutes=15 * i)
+        series[t] = 500.0 if t == t0 + dt.timedelta(minutes=30) else 100.0
+    total15, n15 = integrate(series, (t0, t0 + dt.timedelta(hours=2)), step_min=15)
+    assert n15 == 8
+    # ไรมันน์: (7×100 + 500) ม³/วิ × 900 วิ = 1.08 ล้าน ลบ.ม. — พีคนาที 30 ถูกนับครบ
+    assert abs(total15 - 1.08) < 1e-9
+    # การก้าวรายชั่วโมง (บั๊กรุ่นเดิม) มองไม่เห็นพีคนาที 30: 2×100×3600 = 0.72 ล้าน ลบ.ม.
+    total60, n60 = integrate(series, (t0, t0 + dt.timedelta(hours=2)), step_min=60)
+    assert n60 == 2 and abs(total60 - 0.72) < 1e-9
+    assert total15 > total60

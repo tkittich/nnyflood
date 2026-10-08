@@ -99,3 +99,14 @@ def test_full_path_resolves_without_ambiguity(tmp_path):
     md.write_text(f"| `sub1/x.dat` | 9 B | `{_sha(a)}` |\n", encoding="utf-8")
     assert vi.main(["--only", str(tmp_path)]) == 0
     assert vi.AMBIGUOUS == []
+
+
+def test_ambiguous_basename_silent_match_is_exit_3(tmp_path):
+    """basename ชนกันแต่แฮช "ตรง" กับไฟล์แรกที่เจอ = เดิมผ่านเงียบ ๆ (exit 0)
+    → GLM GL-18: ผลตรวจของรายการนั้นใช้ยืนยันไม่ได้ ต้อง exit 3 (CI ล้มที่ code > 2)"""
+    a = _mk(tmp_path, "sub1/x.dat", b"content-A")
+    _mk(tmp_path, "sub2/x.dat", b"content-B")
+    md = tmp_path / "manifest.md"
+    md.write_text(f"| `x.dat` | 9 B | `{_sha(a)}` |\n", encoding="utf-8")
+    assert vi.main(["--only", str(tmp_path)]) == 3
+    assert len(vi.AMBIGUOUS) == 1

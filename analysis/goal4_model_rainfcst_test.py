@@ -88,6 +88,8 @@ ens = {}
 for k in list(fc_rain("gfs_seamless")):
     vals = [fc_rain(m).get(k) for m in MODELS]
     avail = [v for v in vals if v is not None]
+    if not avail:                     # GLM GL-25: ทุกโมเดลไม่มีค่าวันนั้น — ข้าม (กัน ZeroDivisionError)
+        continue
     ens[k] = sum(avail) / len(avail)  # F-06: หารด้วยจำนวนโมเดลที่มีค่าวันนั้น ไม่ใช่ len(MODELS)
 rain_sources["ฝนพยากรณ์ ensemble 5 โมเดล"] = ens
 

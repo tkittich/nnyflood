@@ -44,6 +44,8 @@ def chunk_15min():
                 except Exception as e:
                     print(f"{rng} st{n_id}: retry {attempt} ({e})", flush=True)
                     time.sleep(5)
+            else:
+                print(f"{rng} st{n_id}: FAIL ×3 — chunk นี้จะหายจาก CSV โดยไม่มีป้าย (ตรวจ log ก่อนใช้ข้อมูล)", flush=True)
             time.sleep(1)
         d = d2 + dt.timedelta(days=1)
     return allrows

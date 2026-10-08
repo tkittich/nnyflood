@@ -84,6 +84,9 @@ PY=python
 #   -> analysis/goal4_linear_coeffs_full.json, goal4_model_v1_ablation.json
 #   -> analysis/goal4_model_v1_event.png, report/assets/m_simple24.png
 
+"$PY" report/make_x_charts_thai.py
+#   -> report/assets/x1_rating.png, x2_hydro3.png  (กราฟ rating/ไฮโดร 3 สถานี ภาษาไทย)
+
 "$PY" analysis/goal4_counterfactual_model.py
 #   -> analysis/goal4_counterfactual_summary.json  (R1/M1–M4 + envelope ความไม่แน่นอน ±18 %)
 #   -> analysis/goal4_counterfactual_model.png

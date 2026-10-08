@@ -249,7 +249,8 @@ cc = [np.corrcoef(d7[:len(d7) - L], d1[L:])[0, 1] for L in range(0, 37, 3)]
 best = int(np.nanargmax(cc)) * 3
 print(f"\ncross-correlation Ny.1B→Ny.7 (ก.ค.–ก.ย.): lag ที่ดีสุด ~{best} ชม. (r={np.nanmax(cc):.2f})")
 
-json.dump({str(h): [[nm, round(a, 2), round(b, 2), round(c, 2), round(d, 3), round(e, 3)]
+_j = lambda x: None if isinstance(x, float) and x != x else x   # NaN → null (JSON มาตรฐาน)
+json.dump({str(h): [[nm] + [_j(v) for v in (round(a, 2), round(b, 2), round(c, 2), round(d, 3), round(e, 3))]
                     for nm, a, b, c, d, e in rows] for h, rows in results.items()},
           open(BASE / "goal4_model_v1_results.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 

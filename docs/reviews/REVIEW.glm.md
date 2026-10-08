@@ -251,3 +251,15 @@ GL-16 (ภาพฝังครั้งเดียว + บีบ JPEG + media
 - ตัวเลขชุดใหม่: **2 ต.ค. = 364.5** (GISTDA 306.9 = กว้างกว่า ~19%, F1 0.732) · **น้ำสูงสุด 27 ก.ย. = 450.5** · รายอำเภอ peak: องครักษ์ 202.3 / เมือง 104.4 / บ้านนา 75.8 / ปากพลี 68.1 · 2 ต.ค.: 176.0/51.9/50.5/86.1 · 27 เช้า = 50.0 (ปากพลี 44.1+เมือง 5.9) · โซนยังท่วม/รอด = 242/209 (46% รอด) · S2 เทียบ S1 ในหน้าต่างโปร่ง = 7.4 vs 1.4 (~5.3 เท่า) · พิสัยเทียบเท่า GISTDA = ≈380–450 (สเกล 0.842) · M4 บนที่ราบ 450.5 = ลด ~1 ซม. (0.0115 ม.)
 - sync ครบ: canonical (asserts/checks/FORBIDDEN += ค่าเก่า) · รายงาน 2 ฉบับ rebuild (14/14, 17/17) · hero map/slider frames/โซนแผนที่ regen · georef findings (F1 0.700/0.645, 362.0/447.4) · s2_water_findings · README/HANDOFF/START_HERE/DICTIONARY/PLAN/METHODS/K3/hecras/firo/qa5/รายงาน.md
 - **บทเรียนใหม่ ×2**: (1) sweep ตัวเลขต้องเรียงกฎ "ยาวก่อนสั้น" และตรวจ substring ย้อนกลับ — กฎ "50 ตร.กม."→"48" กลืนท้ายของ "450 ตร.กม."→"448" 31 จุด (จับได้ด้วย residual scan + git diff) (2) เทสกฎควรอ้าง constants จากโมดูล ไม่ hardcode ตัวเลข threshold
+
+## 11. รอบแก้ชุดที่ 3 (8 ต.ค. 69 รอบค่ำ) — GL-16/08/13 + เศษ LOW
+
+- **GL-16 ✓**: รายงานประชาชน **9.4MB → 6.7MB** — (1) TERR ใน JS ดึง src จาก `<img>` ที่มีอยู่ (ไม่ฝัง base64 ซ้ำ 7 เฟรม) (2) fr4 (ภาพพีคในสไลเดอร์) ดึงจาก hero `#peakHero` ตอนโหลด (peak 3 สำเนา→2) (3) เพิ่ม `@media (max-width:720px)` (padding/ตาราง scroll) · ฝั่งวิชาการเพิ่ม `@media print` (ไม่มีเลยเดิม) · **ตรวจ JS จริงด้วย node + DOM stub: setFrame(4) ให้ fr4 = hero src และ TERR ครบ ✓**
+- **GL-08 ✓**: `rid_cross_section_hydraulics.py` ข้าม fit n ของ Ny.1B (datum ยังไม่ยืนยัน รอ FOI) — JSON ใหม่ `manning_n_fitted: null` + note · ค่า 0.0223 หายจาก artifact ที่ publish
+- **GL-13 ✓**: `gistda_georef_compare.py` ใช้ `common.cell_km2` (สูตรเดียวกับ canonical) — พื้นที่ในตาราง = **364.5/450.5 ตรง canonical เป๊ะ** (GISTDA-extraction 442.7→445.7 จากการปรับสูตร lat-axis) · โน้ตใน findings แล้ว · (ส่วน F1-vs-eroded-mask ยัง defer)
+- **GL-29 ✓**: `georef_fit.py`/`georef_corner_match.py` ย้าย `analysis/archive/` · ลบ dead assets `s2_20260927/0929/1002.png`
+- **GL-30 ✓**: `) แสดงว่า` · `ม.รทก.` · font fallback `'Loma','Garuda','Norasi'` ทั้งสอง builder · gloss `สทนช.` ที่ใช้ครั้งแรก
+- **GL-31 ✓**: v1 results `NaN→null` (`allow_nan` ปลอดภัย) + rerun · "681 ไฟล์" → ไม่ผูกตัวเลข (CI ตรวจทุกรอบ) · checks public เพิ่ม `9.80`
+- **GL-27 (ส่วน)**: `test_core` ใช้ `with open(...)`
+- **คงเหลือตามจริง**: GL-11 (ฉีดตัวเลขจาก canonical — ชั้นกัน drift = assert+FORBIDDEN+absence test ทำงานอยู่) · GL-12 (ครึ่งพิกเซล — รอ re-download ฉากดิบ) · GL-15 (cap การเติมช่องใน hourly() — ต้อง rerun โมเดล) · GL-25 (dB-mean ในโมเสก — second-order) · F1-vs-eroded ใน georef
+- **บทเรียน**: (1) patch script ต้องใส่ tag ครบทุก call (พังกลางทาง = รู้สถานะยาก) และกฎ replace ต้อง idempotent (รันซ้ำซ้อนเป็น 2 ชั้น) (2) สูตรพื้นที่เปลี่ยนหน่วยทีเดียว ต้องตามไปแก้ `/1e6` คู่กัน (3) ตรวจ JS บน HTML จริงด้วย node + DOM stub = ถูกและเร็วกว่าเชื่อมั่นว่า "โค้ดดูถูก"

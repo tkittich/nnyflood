@@ -59,21 +59,21 @@ def confusion(a, b, mask):
 def main():
     g = json.load(open(f"{DER}/grid.json", encoding="utf-8"))
     nx, ny = g["nx"], g["ny"]
-    lat_mid = 14.24
-    cell = (g["res"] * 111320 * np.cos(np.radians(lat_mid))) * (g["res"] * 110574)
+    from common import cell_km2  # noqa: E402  (GL-13: สูตรพื้นที่เดียวกับ canonical)
+    cell = cell_km2(g["res"])
     prov = np.load(f"{DER}/mask_province.npy")
 
     gflood = gistda_flood_on_grid()
-    print(f"GISTDA flood px = {int(gflood.sum())} -> {gflood.sum()*cell/1e6:.1f} km^2 (ทั้งแผนที่)")
-    print(f"   ในจังหวัด = {(gflood&prov).sum()*cell/1e6:.1f} km^2")
+    print(f"GISTDA flood px = {int(gflood.sum())} -> {gflood.sum()*cell:.1f} km^2 (ทั้งแผนที่)")
+    print(f"   ในจังหวัด = {(gflood&prov).sum()*cell:.1f} km^2")
 
     for name, f in [("S1 2 ต.ค.", "flood_2oct_validated.npy"),
                     ("S1 peak 27 ก.ย.", "flood_peak_27sep1828.npy")]:
         ours = np.load(f"{DER}/{f}")
         tp, fp, fn, pr, rc, f1, iou = confusion(ours, gflood, prov)
         print(f"\n{name} (ในจังหวัด) vs GISTDA:")
-        print(f"  ของเรา = {ours[prov].sum()*cell/1e6:.1f} km^2 | GISTDA = {(gflood&prov).sum()*cell/1e6:.1f} km^2")
-        print(f"  TP={tp*cell/1e6:.1f}  FP={fp*cell/1e6:.1f}  FN={fn*cell/1e6:.1f} km^2")
+        print(f"  ของเรา = {ours[prov].sum()*cell:.1f} km^2 | GISTDA = {(gflood&prov).sum()*cell:.1f} km^2")
+        print(f"  TP={tp*cell:.1f}  FP={fp*cell:.1f}  FN={fn*cell:.1f} km^2")
         print(f"  precision={pr:.3f} recall={rc:.3f} F1={f1:.3f} IoU={iou:.3f}")
 
     np.save(f"{ROOT}/gistda_flood_mask_grid.npy", gflood)

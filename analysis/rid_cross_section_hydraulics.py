@@ -91,15 +91,22 @@ def main():
         print(f"    Q จาก rating curve ของโปรเจค = {qp:.0f} ม³/วิ")
         for n in (0.030, 0.035, 0.040, 0.045):
             print(f"    Q จาก Manning (n={n}) = {manning_q(a, p, n):7.1f} ม³/วิ")
-        # n ที่ทำให้ Manning ตรงกับ rating ของโปรเจค
-        lo, hi = 0.015, 0.20
-        for _ in range(80):
-            mid = (lo + hi) / 2
-            if manning_q(a, p, mid) > qp:
-                lo = mid
-            else:
-                hi = mid
-        print(f"    -> n ที่ทำให้ Manning = rating curve: {lo:.4f}")
+        # n ที่ทำให้ Manning ตรงกับ rating ของโปรเจค — fit เฉพาะสถานีที่ datum ยืนยันแล้ว
+        # GL-08: Ny.1B ยังไม่มี datum ที่ยืนยัน (11.07 ต่อเกจ 11.0 = offset −0.07 ขัด convention
+        # +1.59 ของ Ny.7; METHODS §5) → n ที่ fit ได้เดิม (0.0223) ใช้ไม่ได้ จึงไม่ fit
+        if stem == "Ny.7":
+            lo, hi = 0.015, 0.20
+            for _ in range(80):
+                mid = (lo + hi) / 2
+                if manning_q(a, p, mid) > qp:
+                    lo = mid
+                else:
+                    hi = mid
+            print(f"    -> n ที่ทำให้ Manning = rating curve: {lo:.4f}")
+            n_fit = round(lo, 4)
+        else:
+            print("    -> (ข้าม fit n — datum ของสถานียังไม่ยืนยัน รอ FOI สช.9)")
+            n_fit = None
         report[stem] = {
             "offset_range_m": [float(xs.min()), float(xs.max())],
             "bed_min_msl": float(ys.min()),
@@ -111,7 +118,8 @@ def main():
             "peak_perimeter_m": round(p, 1),
             "peak_hydraulic_radius_m": round(a / p, 2),
             "project_rating_q_cms": round(qp, 1),
-            "manning_n_fitted": round(lo, 4),
+            "manning_n_fitted": n_fit,
+            "manning_n_note": None if n_fit is not None else "ข้าม — datum สถานียังไม่ยืนยัน (GL-08)",
         }
 
     out = DER / "cross_section_hydraulics.json"

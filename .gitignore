@@ -67,3 +67,6 @@ _tmp_*
 
 # --- รีวิวภายใน (ไม่ publish — เก็บไว้ในเครื่อง) ---
 REVIEW.md
+
+# --- Landsat raw bands (GB-ระดับ — เก็บบนดิสก์ + แฮชใน manifest เท่านั้น) ---
+data/manual/LC0*

@@ -88,7 +88,7 @@
 
 | ไฟล์/ฟิลด์ | ความหมาย |
 |---|---|
-| data/16_training_data/khundan_15min_*.csv | ระดับ+Q+ฝน ราย 15 นาที 5 ปี · คอลัมน์ datetime,level_msl_m (ม.รทก. — Ny.7 เทียบเกจ thaiwater = ม.รทก.+1.59),q_cms (สถานีรายงานเอง ช่วงน้ำสูงสุดสูงกว่า rating เรา ~18%),rain_mm (ใช้ไม่ได้-เซนเซอร์พัง) · แถวเรียงใหม่→เก่า |
+| data/16_training_data/khundan_15min_*.csv | ระดับ+Q+ฝน ราย 15 นาที 5 ปี · คอลัมน์ datetime,level_msl_m (ม.รทก. — Ny.7 เทียบเกจ thaiwater = ม.รทก.+1.59),q_cms (สถานีรายงานเอง ช่วงน้ำสูงสุดสูงกว่า rating เรา ~18% — เมื่ออ้างในบริบททั่วไปใช้ ±20% (ปัดขึ้นครอบคลุม)),rain_mm (ใช้ไม่ได้-เซนเซอร์พัง) · แถวเรียงใหม่→เก่า |
 | power_rain_daily_3pts_2021_2026.csv | date(YYYYMMDD),west_foothill,mid_plain,town_east — ฝน POWER มม./วัน · โมเดลใช้เฉลี่ย west+town (mid แม็ปเซลล์เดียวกับ west) |
 | model_rain_histforecast_sep2026.json | ฝนพยากรณ์ชุดเก็บถาวร: key "จุด\|โมเดล" → {วัน: มม.} · 5 โมเดล × 3 จุด · 13 ก.ย.–4 ต.ค. 69 |
 | data/17_forecast_archive/YYYYMMDD_HHMM/ | forecast_models_7d.json (พยากรณ์ฉบับจริง 7 วัน 5 โมเดล×2 จุด) + observed_ny7_ny1b_48h.json (ระดับจริงแนบไปด้วย) — เก็บอัตโนมัติ 09:15/21:15 |

@@ -6,7 +6,7 @@
 ## สถานะ: publish แล้ว — github.com/tkittich/nnyflood (8 ต.ค. 2569)
 
 งานวิเคราะห์/รายงาน **เสร็จสมบูรณ์** และผ่านการตรวจ 4 ชั้นแล้ว:
-1. pytest **29/29** (test_core 14 + test_artifacts 5 + test_integrity 7 — ผูก HTML กับ canonical_numbers.json + ทดสอบตัวตรวจ integrity ที่เป็น CI gate)
+1. pytest **31/31** (test_core 16 + test_artifacts 5 + test_integrity 10 — ผูก HTML กับ canonical_numbers.json + ทดสอบตัวตรวจ integrity ที่เป็น CI gate)
 2. ความครบถ้วนข้อมูลต้นฉบับ: SHA-256 **OK 681 / MISMATCH 0** (`verify_data_integrity.py --quick`)
 3. รีวิวอิสระ 3 ชุด (`docs/reviews/` — DeepSeek R-01..R-13 · Gemini · Qwen ×2 รอบ · Qwen 61 findings) — **แก้/ตอบครบแล้ว**
 4. ตรวจกฎหมายก่อนเผยแพร่: `docs/LEGAL_REVIEW.md` (หมิ่นประมาท + PDPA — ความเสี่ยงรวมต่ำ)

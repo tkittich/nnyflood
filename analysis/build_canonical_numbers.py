@@ -83,9 +83,13 @@ counterfactual["m4_peak_drop_m"] = cf["M4_volume_budget"]["peak_drop_m"]
 v1 = jload(ANA / "goal4_model_v1_results.json")
 model_v1 = {}
 for h in ("6", "24", "48"):
-    row = {r[0]: r for r in v1[h]}["linear"]
-    model_v1[f"rmse{h}_all_cm"] = row[1]
-    model_v1[f"rmse{h}_event_cm"] = row[3]
+    rows = {r[0]: r for r in v1[h]}
+    model_v1[f"rmse{h}_all_cm"] = rows["linear"][1]
+    model_v1[f"rmse{h}_event_cm"] = rows["linear"][3]
+    model_v1[f"pers{h}_event_cm"] = rows["persistence"][3]
+    model_v1[f"gbdt{h}_event_cm"] = rows["GBDT"][3]
+model_v1["train_h"] = v1["samples"]["train_h"]
+model_v1["test_h"] = v1["samples"]["test_h"]
 
 bt = jload(ANA / "goal4_model_backtest_long.json")
 backtest_beats_persistence_every_season = all(
@@ -125,8 +129,36 @@ FORBIDDEN = ["1,050", "1,420", "11.95", "44 ซม", "57%", "564.4", "14 passed"
              "176.0", "50.5", "≈380–450", "0.732", "0.676", "0.798",
              "13,608", "26.6 ซม", "108.6", "159.5", "120.3", "153.5", "153.8"]
 
+# ---------- GL-11: ค่าแสดงผลสำหรับ builders (token @@R:ชื่อ@@ — คำนวณจากข้อมูลจริง ไม่ใช่พิมพ์มือ) ----------
+peak_m = np.load(DER / "flood_peak_27sep1828.npy")
+oct2_m = np.load(DER / "flood_2oct_validated.npy")
+dpk, do2 = {}, {}
+for f in sorted(DER.glob("mask_district_*.npy")):
+    m = np.load(f)
+    nm = f.stem.replace("mask_district_", "")
+    dpk[nm] = round(float((peak_m & m).sum() * cell), 1)
+    do2[nm] = round(float((oct2_m & m).sum() * cell), 1)
+K = {"อำเภอองครักษ์": "ong", "อำเภอเมืองนครนายก": "mueang", "อำเภอบ้านนา": "bn", "อำเภอปากพลี": "pk"}
+render = {
+    "peak": f"{s1['peak_km2']}", "oct2": f"{s1['oct2_ours_km2']}",
+    "am27": f"{s1['sep27_am_ours_km2']}",
+    **{f"d_{v}": f"{dpk[k]}" for k, v in K.items()},
+    **{f"d2_{v}": f"{do2[k]}" for k, v in K.items()},
+    "rmse6": f"{model_v1['rmse6_event_cm']:.1f}",
+    "rmse24": f"{model_v1['rmse24_event_cm']:.1f}",
+    "rmse48": f"{model_v1['rmse48_event_cm']:.1f}",
+    "pers24": f"{model_v1['pers24_event_cm']:.1f}",
+    "gbdt48": f"{model_v1['gbdt48_event_cm']:.1f}",
+    "all24m": f"{model_v1['rmse24_all_cm'] / 100:.2f} ม.",
+    "ev24m": f"{model_v1['rmse24_event_cm'] / 100:.2f} ม.",
+    "m4drop": f"{cf['M4_volume_budget']['corridor_drop_m']}",
+    "trainh": f"{model_v1['train_h']:,}",
+    "pisai": f"≈{round(s1['peak_km2'] * 306.9 / s1['oct2_ours_km2'])}–{pk_short if False else round(s1['peak_km2'])}",
+}
+
 out = {
     "forbidden": FORBIDDEN,
+    "render": render,
     "meta": {
         "generated_by": "analysis/build_canonical_numbers.py",
         "note": "ตัวเลข canonical ของโครงการ — builders และ tests อ่านจากไฟล์นี้ ห้ามแก้มือ",

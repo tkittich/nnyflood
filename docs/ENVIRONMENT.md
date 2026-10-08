@@ -31,7 +31,7 @@
 
 ```bash
 pip install -r requirements.txt
-python -m pytest tests/ -q          # ต้องได้ 29 passed
+python -m pytest tests/ -q          # ต้องได้ 31 passed
 ```
 
 ## กับดักสภาพแวดล้อมที่เจอจริงในโปรเจคนี้

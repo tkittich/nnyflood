@@ -37,6 +37,29 @@
   "153.5",
   "153.8"
  ],
+ "render": {
+  "peak": "452.1",
+  "oct2": "363.6",
+  "am27": "51.5",
+  "d_ong": "203.1",
+  "d_mueang": "104.8",
+  "d_bn": "75.7",
+  "d_pk": "68.4",
+  "d2_ong": "175.4",
+  "d2_mueang": "51.9",
+  "d2_bn": "50.3",
+  "d2_pk": "86.1",
+  "rmse6": "30.0",
+  "rmse24": "117.6",
+  "rmse48": "163.7",
+  "pers24": "101.8",
+  "gbdt48": "140.6",
+  "all24m": "0.78 ม.",
+  "ev24m": "1.18 ม.",
+  "m4drop": "0.522",
+  "trainh": "11,221",
+  "pisai": "≈382–452"
+ },
  "meta": {
   "generated_by": "analysis/build_canonical_numbers.py",
   "note": "ตัวเลข canonical ของโครงการ — builders และ tests อ่านจากไฟล์นี้ ห้ามแก้มือ",
@@ -96,10 +119,18 @@
   "model_v1": {
    "rmse6_all_cm": 26.14,
    "rmse6_event_cm": 30.03,
+   "pers6_event_cm": 30.65,
+   "gbdt6_event_cm": 127.69,
    "rmse24_all_cm": 78.22,
    "rmse24_event_cm": 117.56,
+   "pers24_event_cm": 101.77,
+   "gbdt24_event_cm": 159.79,
    "rmse48_all_cm": 117.56,
-   "rmse48_event_cm": 163.7
+   "rmse48_event_cm": 163.7,
+   "pers48_event_cm": 170.37,
+   "gbdt48_event_cm": 140.55,
+   "train_h": 11221,
+   "test_h": 312
   },
   "backtest_beats_persistence_every_season": true,
   "levels": {

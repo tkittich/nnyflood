@@ -67,10 +67,14 @@ def main():
     print(f"GISTDA flood px = {int(gflood.sum())} -> {gflood.sum()*cell:.1f} km^2 (ทั้งแผนที่)")
     print(f"   ในจังหวัด = {(gflood&prov).sum()*cell:.1f} km^2")
 
+    from scipy import ndimage
+    gflood_er = ndimage.binary_erosion(gflood)   # ตัดขอบภาพที่ฟุ้ง (anti-aliasing) 1 px — ค่าหลักตาม findings §6
     for name, f in [("S1 2 ต.ค.", "flood_2oct_validated.npy"),
                     ("S1 peak 27 ก.ย.", "flood_peak_27sep1828.npy")]:
         ours = np.load(f"{DER}/{f}")
         tp, fp, fn, pr, rc, f1, iou = confusion(ours, gflood, prov)
+        print(f"{name} vs GISTDA ตัดขอบ: TP={tp*cell:.1f} FP={fp*cell:.1f} FN={fn*cell:.1f} | P={pr:.3f} R={rc:.3f} F1={f1:.3f} IoU={iou:.3f}")
+        tp, fp, fn, pr, rc, f1, iou = confusion(ours, gflood_er, prov)
         print(f"\n{name} (ในจังหวัด) vs GISTDA:")
         print(f"  ของเรา = {ours[prov].sum()*cell:.1f} km^2 | GISTDA = {(gflood&prov).sum()*cell:.1f} km^2")
         print(f"  TP={tp*cell:.1f}  FP={fp*cell:.1f}  FN={fn*cell:.1f} km^2")

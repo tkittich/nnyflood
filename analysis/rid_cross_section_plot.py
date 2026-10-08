@@ -1,4 +1,4 @@
-# วาดรูปตัดขวางลำน้ำจริง เทียบระดับน้ำพีคเหตุการณ์ (Ny.7) + หน้าตัดท้ายน้ำ (Kgt.30 บางปะกง)
+# วาดรูปตัดขวางลำน้ำจริง เทียบระดับน้ำน้ำสูงสุดเหตุการณ์ (Ny.7) + หน้าตัดท้ายน้ำ (Kgt.30 บางปะกง)
 import json
 from pathlib import Path
 
@@ -43,7 +43,7 @@ xs, ys = p[:, 0], p[:, 1]
 ax1.fill_between(xs, ys, ys.min() - 1.2, color="#4b7fd6", alpha=0.16)
 ax1.plot(xs, ys, color="#7fb3ff", lw=1.7, label="เส้นสำรวจหน้าตัด (RID 2568)")
 ax1.axhline(7.64, color="#ff5c5c", lw=1.9, ls="--",
-            label="ระดับพีคเหตุการณ์ 7.64 ม.รทก. (เกจ 9.23)")
+            label="ระดับสูงสุดเหตุการณ์ 7.64 ม.รทก. (เกจ 9.23)")
 ax1.axhline(6.86, color="#ffd54f", lw=1.4, ls=":",
             label="ค่า BANKFULL ที่โปรเจคใช้ 6.86 (เกจ 8.45)")
 ax1.axhline(8.213, color="#7ee787", lw=1.5, ls="-.",
@@ -52,13 +52,13 @@ ax1.axhline(2.624, color="#9aa4b5", lw=1.0, ls="-",
             label="ผิวน้ำ ณ วันสำรวจ 2.624 (ราบสองฝั่ง = ตรวจ datum ผ่าน)")
 ax1.annotate("", xy=(-40, 7.64), xytext=(-40, 8.213),
              arrowprops=dict(arrowstyle="<->", color="#7ee787", lw=1.2))
-ax1.annotate("พีค 7.64 ต่ำกว่าสันตลิ่ง 0.57 ม.\n→ น้ำไม่ล้นสันที่หน้าตัดนี้ แต่ท่วมที่ราบ",
+ax1.annotate("น้ำสูงสุด 7.64 ต่ำกว่าสันตลิ่ง 0.57 ม.\n→ น้ำไม่ล้นสันที่หน้าตัดนี้ แต่ท่วมที่ราบ",
              xy=(-38, 7.93), xytext=(8, 9.15), color="#7ee787", fontsize=8.4,
              arrowprops=dict(arrowstyle="->", color="#7ee787", lw=1.0))
 ax1.annotate("พื้นตลิ่งลาดลงจากสัน (8.21) เหลือ 6.94 → น้ำท่วมที่ราบก่อนถึงสัน",
              xy=(-55, 6.94), xytext=(-58, 4.6), color="#ffd54f", fontsize=8.2,
              arrowprops=dict(arrowstyle="->", color="#ffd54f", lw=1.0))
-ax1.set_title("Ny.7 แม่น้ำนครนายก (สะพานหน้าบ้านผู้ว่าฯ) — พีคไม่ล้นสันตลิ่ง แต่ท่วมที่ราบ",
+ax1.set_title("Ny.7 แม่น้ำนครนายก (สะพานหน้าบ้านผู้ว่าฯ) — น้ำสูงสุดไม่ล้นสันตลิ่ง แต่ท่วมที่ราบ",
               color="#f0f3f8", fontsize=10.5)
 ax1.legend(facecolor="#171a21", edgecolor="#3a3f4a", labelcolor="#cfd3da",
            fontsize=7.6, loc="lower right")

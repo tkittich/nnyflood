@@ -4,7 +4,7 @@
 #   1) แต่ละจุด "มีอะไร" (ระดับ / Q / ฝน) — ตรวจรายจุดจริง ไม่อ้างว่า "19 จุดมีครบ"
 #   2) คุณภาพข้อมูล (coverage / flat / dropout / distinct / เซนเซอร์เสีย)
 #   3) ตารางเหตุการณ์ Δ **2 คอลัมน์** — แยก "การขึ้นเชิงอุทกวิทยา" ออกจาก "ขั้นปฏิบัติการ"
-#      (ห้ามใช้ พีค − ต่ำสุด เพราะปนการปิดบานเข้าไป ทำให้ Δ ถูก artifact ครอบงำ)
+#      (ห้ามใช้ น้ำสูงสุด − ต่ำสุด เพราะปนการปิดบานเข้าไป ทำให้ Δ ถูก artifact ครอบงำ)
 #
 # ใช้: python analysis/all_stations_network.py
 # ออก: analysis/all_stations_network.json + analysis/all_stations_network.md
@@ -23,7 +23,7 @@ REGISTRY = json.loads((ROOT / "analysis" / "khundan_station_registry.json").read
 W_START = dt.datetime(2026, 9, 1)
 W_END = dt.datetime(2026, 9, 30, 23, 45)
 EXPECTED_ROWS = 30 * 96                     # 15 นาที × 30 วัน
-BASELINE_DAY = dt.date(2026, 9, 25)         # วันก่อนเหตุการณ์ (พีค 26–29 ก.ย.)
+BASELINE_DAY = dt.date(2026, 9, 25)         # วันก่อนเหตุการณ์ (น้ำสูงสุด 26–29 ก.ย.)
 STEP_MIN = 15
 FLAT_EPS = 0.01                             # นิยาม "ไม่เปลี่ยน"
 ZERO_EPS = 0.005                            # ค่าที่ถือเป็น 0.00 (dropout)
@@ -69,7 +69,7 @@ def despike(vals, win=9, k=5.0, floor=0.5):
     """หา spike เทียบ rolling median — คืน (mask ที่ True = ใช้ได้, จำนวน spike).
 
     จำเป็น: บางจุดมีค่ากระโดดครั้งเดียว (เช่น st19 -> 17.08 จากฐาน 13.06,
-    st26 -> 12.81 จากฐาน 1.62) ถ้าไม่กรอง 'พีค' จะเป็น spike ไม่ใช่พีคน้ำท่วม
+    st26 -> 12.81 จากฐาน 1.62) ถ้าไม่กรอง 'น้ำสูงสุด' จะเป็น spike ไม่ใช่น้ำสูงสุดท่วม
     """
     n = len(vals)
     if n < win:
@@ -163,7 +163,7 @@ def analyse(sid, rows):
     if q and min(q) < -0.5:
         out["health"].append("negative Q present")
 
-    # --- กรอง spike ก่อนคำนวณเหตุการณ์ (spike เดี่ยว ไม่ใช่พีคน้ำท่วม) ---
+    # --- กรอง spike ก่อนคำนวณเหตุการณ์ (spike เดี่ยว ไม่ใช่น้ำสูงสุดท่วม) ---
     lv_rows = [(t, v) for t, v, _, _ in rows if v is not None]
     vals = [v for _, v in lv_rows]
     keep, n_spike = despike(vals)
@@ -177,7 +177,7 @@ def analyse(sid, rows):
     #   st16 09-16 10:45  1.18 -> 13.83 · st19 09-15 17:30  0.76 -> 17.08
     #   st26 09-17 16:45 12.32 ->  1.29 · st30 09-22 18:00  3.26 -> -4.99 (sentinel)
     #   st84 09-08 17:29 -4.99 ->  4.00
-    # => เทียบ baseline กับพีค "ข้าม" segment ไม่มีความหมาย ต้องใช้ segment ที่ครอบช่วงเหตุการณ์
+    # => เทียบ baseline กับน้ำสูงสุด "ข้าม" segment ไม่มีความหมาย ต้องใช้ segment ที่ครอบช่วงเหตุการณ์
     SHIFT = 3.0
     segs, cur = [], ([clean[0]] if clean else [])
     for prev, nxt in zip(clean, clean[1:]):
@@ -215,7 +215,7 @@ def analyse(sid, rows):
         "baseline_25sep": round(baseline, 3) if baseline is not None else None,
         "peak": round(peak_v, 3) if peak_v is not None else None,
         "peak_time": peak_t.strftime("%Y-%m-%d %H:%M") if peak_t else None,
-        # คอลัมน์ที่ 1: การขึ้นเชิงอุทกวิทยา (พีค − baseline) — สิ่งที่ฝนทำ
+        # คอลัมน์ที่ 1: การขึ้นเชิงอุทกวิทยา (น้ำสูงสุด − baseline) — สิ่งที่ฝนทำ
         "hydro_rise_m": round(peak_v - baseline, 3) if (peak_v is not None and baseline is not None) else None,
         # คอลัมน์ที่ 2: ขั้นปฏิบัติการ (ดิ่งเร็วสุดใน 1 ชม.) — สิ่งที่คนทำ (ปิดบาน)
         "max_1h_drop_m": round(drop, 3),
@@ -246,11 +246,11 @@ def main():
     L = []
     L.append("# มุมมองเครือข่าย — ความสามารถ + คุณภาพรายจุด (P1)\n")
     L.append(f"สร้างจาก `data/20_multistation_levels/` · ช่วง {W_START:%d %b}–{W_END:%d %b %Y} · baseline = {BASELINE_DAY:%d %b}\n")
-    L.append("นิยาม: **การขึ้นเชิงอุทกวิทยา** = พีค − ระดับมัธยฐานวันที่ 25 ก.ย. (สิ่งที่ฝนทำ) · "
+    L.append("นิยาม: **การขึ้นเชิงอุทกวิทยา** = น้ำสูงสุด − ระดับมัธยฐานวันที่ 25 ก.ย. (สิ่งที่ฝนทำ) · "
              "**ขั้นปฏิบัติการ** = การดิ่งเร็วสุดใน ~1 ชม. (สิ่งที่การปิดบานทำ)\n")
 
     L.append("## 1. ตารางเหตุการณ์ (Δ 2 คอลัมน์ — แยกอุทกวิทยา ออกจากปฏิบัติการ)\n")
-    L.append("| กลุ่ม | id | จุด | baseline 25 ก.ย. | พีค | **การขึ้น (อุทกวิทยา)** | **ขั้นปฏิบัติการ (1 ชม.)** |")
+    L.append("| กลุ่ม | id | จุด | baseline 25 ก.ย. | น้ำสูงสุด | **การขึ้น (อุทกวิทยา)** | **ขั้นปฏิบัติการ (1 ชม.)** |")
     L.append("|---|---:|---|---:|---:|---:|---:|")
     for g in ("คลองสายใหญ่", "ปตร./สาขา", "แม่น้ำหลัก", "อื่น ๆ"):
         for sid, s in stations.items():
@@ -298,7 +298,7 @@ def main():
     L.append(f"- **ไม่มีข้อมูลระดับเลย:** {', '.join(dead) or '—'}")
     L.append(f"- **เซนเซอร์ค้าง (ค่าคงที่):** {', '.join(const) or '—'}")
     L.append(f"- **datum/calibration เปลี่ยนกลางเดือน:** {', '.join(shifted) or '—'}  "
-             f"→ ห้ามเทียบ baseline–พีคข้ามรอยนี้")
+             f"→ ห้ามเทียบ baseline–น้ำสูงสุดข้ามรอยนี้")
     L.append(f"- **มี spike ที่ต้องกรอง:** {', '.join(spiky) or '—'}")
     L.append(f"- **มีข้อมูลฝน (>0):** {', '.join(rainy) or '—'}")
     L.append(f"- **มีแค่ระดับ ไม่มี Q:** {', '.join(levelonly) or '—'}  → ตัดสัดส่วนรายสายไม่ได้")

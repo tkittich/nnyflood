@@ -90,7 +90,7 @@ backtest_beats_persistence_every_season = all(
 
 # ---------- ระดับน้ำ (recorded constants + ตรวจความสอดคล้อง datum) ----------
 levels = {
-    "peak_gauge_m": 9.23,        # Ny.7 พีค 27 ก.ย. 10:00 (โทรมาตร กช.)
+    "peak_gauge_m": 9.23,        # Ny.7 น้ำสูงสุด 27 ก.ย. 10:00 (โทรมาตร กช.)
     "datum_offset_m": GAUGE_OFFSET,  # เกจ = ม.รทก. + 1.59 (khundan_tele_findings)
     "bankfull_gauge_m": 8.45,    # เริ่มล้นเมือง (เกจ)
     "bankfull_msl_m": 8.21,      # สันตลิ่งจริง (ภาคตัดขวาง data/19)

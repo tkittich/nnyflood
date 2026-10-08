@@ -115,7 +115,7 @@ def test_geometry_dry_channel():
 def test_datum_offset_ny7():
     """datum Ny.7: ม.รทก. = เกจ − 1.59 (ค่าคงที่ของโปรเจค)"""
     assert abs(hyd.GAUGE_OFFSET - 1.59) < 1e-9
-    assert abs((9.23 - hyd.GAUGE_OFFSET) - 7.64) < 0.01    # พีคเหตุการณ์
+    assert abs((9.23 - hyd.GAUGE_OFFSET) - 7.64) < 0.01    # น้ำสูงสุดเหตุการณ์
     assert abs((8.45 - hyd.GAUGE_OFFSET) - 6.86) < 0.01    # ระดับล้นตลิ่ง
 
 

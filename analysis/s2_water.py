@@ -98,7 +98,7 @@ out = {
     "threshold_sensitivity_km2": sens,
     "note": "S2 ผ่าน 10:35 น. หลัง S1 (06:09) 4.5 ชม. — น้ำลดระหว่างวันทำให้ S2 อาจน้อยกว่านิดหน่อย",
 }
-Path("analysis/s2_water.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+(PROJ / "analysis" / "s2_water.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
 np.save(DER / "flood_s2_20261002.npy", (water & clear & prov).astype(np.uint8))
 
 print(f"โปร่งบนจังหวัด {clear_prov_pct:.1f}% · น้ำ (lowland) {area_low:.1f} ตร.กม. (ทั้งจังหวัด {area_prov:.1f})")

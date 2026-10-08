@@ -11,7 +11,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.13"   # production ใช้ 3.14.5 (docs/ENVIRONMENT.md) — 3.13 = เวอร์ชันที่ wheel ครบบน runner
+          cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run test suite
@@ -19,6 +20,6 @@ jobs:
       - name: Data integrity (fail only on MISMATCH — MISSING = ไฟล์ใหญ่นอก git เป็นเรื่องปกติ)
         run: |
           code=0
-          python analysis/verify_data_integrity.py --quick || code=$?
+          python analysis/verify_data_integrity.py --quick --max-bytes 50000000 || code=$?  # 50MB: hash ไฟล์ tracked ใหญ่ด้วย (เดิม --quick ตัดที่ 5MB ทำให้ evidence ไฟล์ใหญ่รอดจาก gate)
           if [ "$code" -eq 1 ]; then exit 1; fi
           if [ "$code" -gt 2 ]; then exit "$code"; fi

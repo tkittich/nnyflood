@@ -180,7 +180,7 @@ DRAIN_WINDOW_H = 36.0                              # 25 ก.ย. 00:00 - 26 ก.
 #   มาจากหน่วยถูกต้อง: 11 ภาคตัดขวาง · ความกว้างจริง 82–412 ม. · ผิวกรอบลำน้ำ ~12 ตร.กม.
 #   ⚠️ ค่าที่ได้เป็นของ **ที่ราบน้ำท่วมถึงในกรอบลำน้ำ (DSM)** ไม่ใช่ bathymetry ของร่องน้ำ
 #   จึงไม่ใช้เป็น "ความจุร่องน้ำ" ตรง ๆ — ใช้รายงานระดับที่ลดในกรอบลำน้ำเทียบกับที่ราบท่วมแทน
-AREA_FLOOD = 509.0                                 # ตร.กม. พื้นที่น้ำน้ำสูงสุด (S1 27 ก.ย. 18:28)
+AREA_FLOOD = json.load(open(A / "canonical_numbers.json", encoding="utf-8"))["values"]["s1"]["peak_km2"]  # 509.3 จาก canonical (เดิม hardcode 509.0)
 AREA_CORRIDOR = json.load(open(A / "river_cross_sections.json", encoding="utf-8"))["corridor_area_km2_at_1p5m"]  # 9.94 ตร.กม. จาก hecras_lite (แก้ lon-scale แล้ว — เดิม hardcode 11.95 จากสูตรผิด +6.1%)
 drain_vol = DRAIN_Q * DRAIN_WINDOW_H * 3600 / 1e6  # ลลบ.ม. ที่ระบายเพิ่มก่อนน้ำสูงสุด
 dh_peak = drain_vol / AREA_FLOOD                   # ม. น้ำสูงสุดลดบนที่ราบน้ำท่วม (509 ตร.กม.)

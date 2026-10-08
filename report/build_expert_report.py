@@ -11,7 +11,8 @@ ASSETS = ROOT / "report" / "assets"
 CANON = json.loads((ROOT / "analysis" / "canonical_numbers.json").read_text(encoding="utf-8"))
 
 def b64(p):
-    return "data:image/png;base64," + base64.b64encode(Path(p).read_bytes()).decode()
+    mime = "image/jpeg" if str(p).lower().endswith((".jpg", ".jpeg")) else "image/png"
+    return f"data:{mime};base64," + base64.b64encode(Path(p).read_bytes()).decode()
 
 imgs = {
     "C1": b64(ASSETS / "c1_rain.png"),

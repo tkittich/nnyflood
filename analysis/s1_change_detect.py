@@ -1,14 +1,28 @@
-"""Change-detection flood mapping + calibration vs GISTDA (2 Oct same pass).
+"""Change-detection flood mapping — กฎที่ตีพิมพ์ในรายงาน (3 เงื่อนไข + opening 3×3)
 
-Rule: flood = (VH_post - VH_pre <= -DROP) & (VH_post <= ABS)
-Calibrate (DROP, ABS) on 2 Oct vs 19 Sep against GISTDA polygons (PV=นครนายก),
-then apply the chosen rule to peak 27 Sep 18:28 vs 15 Sep 18:28.
+กฎ (ตาม analysis/s1_flood_extent_findings.md — threshold ตั้งโดย maximize F1 กับ
+ผลิตภัณฑ์ GISTDA บนฉาก 2 ต.ค. pass เดียวกัน: F1=0.699, P=0.597, R=0.843):
+
+    น้ำ = (ΔVH ≤ −1 dB) & (ΔVV ≤ −2 dB) & (VHหลัง ≤ −18 dB) + binary opening 3×3
+    (คำนวณใน lowland <60 ม. เท่ากับขอบเขตที่ S1 pipeline รายงาน)
+
+คาลิเบรตบนฉาก 2 ต.ค. (baseline 20 ก.ย. คู่วงโคจรเดียวกัน) แล้วใช้กฎเดียวกันกับ
+ฉากพีค 27 ก.ย. 18:28 (baseline 15 ก.ย. คู่วงโคจรเดียวกัน)
+
+⚠️ รันแล้วต้องได้ตาม canonical (build_canonical_numbers.py ตรวจ):
+    2 ต.ค. = 436.3 ตร.กม. · พีค 27 ก.ย. = 509.3 ตร.กม.
+    ห้ามเปลี่ยน threshold โดยไม่ประกาศ canonical ชุดใหม่ในรายงาน
+
+(หมายเหตุ provenance: มาสก์ต้นฉบับผลิตเมื่อ 5 ต.ค. 69 ด้วยสคริปต์ inline ยุคนั้น —
+ไฟล์ที่ commit เป็นเวอร์ชันเขียนใหม่ 8 ต.ค. 69 ที่ reproduce ผลตรงทุกตัวเลข ·
+อย่าสลับกลับไป grid-search VH-only เพราะให้คนละมาสก์ 564.4 ตร.กม.)
 """
 import json
 from pathlib import Path
 
 import numpy as np
 import shapefile
+from scipy import ndimage
 from rasterio.features import rasterize
 from rasterio.transform import from_bounds
 from common import cell_km2
@@ -16,13 +30,16 @@ from common import cell_km2
 PROJ = Path(__file__).resolve().parent.parent   # อิง __file__ ไม่ใช่ cwd (ไม่ hardcode พาธ)
 DER = PROJ / "data" / "13_sentinel1_copernicus" / "derived"
 
+# ---- กฎที่ตีพิมพ์ (canonical) ----
+DROP_VH, DROP_VV, ABS_VH = 1.0, 2.0, -18.0
+
 g = json.load(open(DER / "grid.json"))
 x0, y0, x1, y1, RES = g["x0"], g["y0"], g["x1"], g["y1"], g["res"]
 nx, ny = g["nx"], g["ny"]
 tr = from_bounds(x0, y0, x1, y1, nx, ny)
-cell = cell_km2(RES)
-prov = np.load(DER / "mask_province.npy")
+CELL = cell_km2(RES)
 lowland = np.load(DER / "mask_lowland.npy")
+struct = np.ones((3, 3), bool)
 
 r = shapefile.Reader(
     PROJ / "data/manual/shp_S1D_20261002_0609/S1D_20261002_0609.shp",
@@ -30,8 +47,7 @@ r = shapefile.Reader(
 )
 polys = []
 for sr in r.iterShapeRecords():
-    pv = sr.record["PV_TN"]
-    if "นครนายก" not in (pv or ""):
+    if "นครนายก" not in (sr.record["PV_TN"] or ""):
         continue
     from shapely.geometry import shape as shp_shape
 
@@ -43,60 +59,38 @@ for sr in r.iterShapeRecords():
     parts = [geom] if geom.geom_type == "Polygon" else [p for p in geom.geoms if p.geom_type == "Polygon"]
     polys.extend(parts)
 gis = rasterize([(p, 1) for p in polys], out_shape=(ny, nx), transform=tr, fill=0, dtype="uint8").astype(bool)
-print(f"GISTDA NN 2Oct rasterized: {gis.sum()*cell:.1f} km2 (attrib sum {sum(sr['F_AREA'] for sr in r.iterRecords() if 'นครนายก' in (sr['PV_TN'] or ''))/1e6:.1f} km2)")
+print(f"GISTDA raster: {gis.sum()*CELL:.1f} km² (ผลิตภัณฑ์ทางการ 306.9 ตร.กม. — attrib sum)")
 
-# เขตเวลา (ยืนยันจาก data/13_sentinel1_copernicus/manifest.md ที่เขียนว่า "เวลาถ่าย (UTC = ไทย−7)"):
-#   เวลาถ่ายในชื่อ SAFE = UTC · เวลาไทย = UTC + 7 ชม. · แต่ชื่อไฟล์ที่ derive แล้ว (ด้านล่าง) ใช้ "เวลาไทย"
-# pre  = SAFE 20260919T230840 (587D) = 19 Sep 23:08 UTC = 20 Sep 06:09 ไทย -> s1d_20260920_0609
-#        (เอกสารบางที่เรียกภาพนี้ว่า "19 ก.ย." เพราะอ่านเวลาถ่าย UTC)
-# post = SAFE 20261001T230840 (91AB) = 1 Oct 23:08 UTC = 2 Oct 06:09 ไทย -> s1d_20261002_0609
-#        ฉากนี้เป็น pass เดียวกับผลิตภัณฑ์ GISTDA "S1D_20261002_0609" ใช้สอบเทียบวิธีวัดกับ GISTDA ได้ตรง ๆ
-pre = np.load(DER / "s1d_20260920_0609_vh_db.npy")
-post = np.load(DER / "s1d_20261002_0609_vh_db.npy")
-valid = np.isfinite(pre) & np.isfinite(post) & lowland
-d = post - pre
 
-def f1_for(drop, absv):
-    w = (d <= -drop) & (post <= absv) & valid
+def detect(pre_vh, post_vh, pre_vv, post_vv):
+    """กฎ canonical: ΔVH≤−1 & ΔVV≤−2 & VHหลัง≤−18 + opening 3×3 (ใน lowland)"""
+    valid = (np.isfinite(pre_vh) & np.isfinite(post_vh)
+             & np.isfinite(pre_vv) & np.isfinite(post_vv) & lowland)
+    w = (post_vh - pre_vh <= -DROP_VH) & (post_vv - pre_vv <= -DROP_VV) & (post_vh <= ABS_VH) & valid
+    return ndimage.binary_opening(w, structure=struct)
+
+
+def prf(w):
     tp = (w & gis).sum(); fp = (w & ~gis).sum(); fn = ((~w) & gis).sum()
     pr = tp / max(tp + fp, 1); rc = tp / max(tp + fn, 1)
-    return pr, rc, 2 * pr * rc / max(pr + rc, 1e-9), w.sum() * cell
+    return pr, rc, 2 * pr * rc / max(pr + rc, 1e-9)
 
-print("\nDROP\\ABS " + "  ".join(f"{a:>7.1f}" for a in (-18, -17, -16, -15, -14)))
-best = (0, None, None)
-for drop in (2.0, 2.5, 3.0, 3.5, 4.0, 5.0):
-    row = []
-    for absv in (-18, -17, -16, -15, -14):
-        pr, rc, f1, km2 = f1_for(drop, absv)
-        row.append(f1)
-        if f1 > best[0]:
-            best = (f1, drop, absv)
-    print(f"{drop:4.1f}     " + "  ".join(f"{v:7.3f}" for v in row))
-print(f"\nbest F1={best[0]:.3f} at DROP={best[1]} dB, ABS={best[2]} dB")
-pr, rc, f1, km2 = f1_for(best[1], best[2])
-print(f"  -> water {km2:.1f} km2 | precision {pr:.3f} recall {rc:.3f} (GISTDA {gis.sum()*cell:.1f})")
 
-# apply to peak
-DROP, ABS = best[1], best[2]
-pre_pk = np.load(DER / "s1d_20260915_1828_full_vh_db.npy")  # 15 Sep 18:28
-post_pk = np.load(DER / "s1d_20260927_1828_full_vh_db.npy")  # 27 Sep 18:28 PEAK
-valid_pk = np.isfinite(pre_pk) & np.isfinite(post_pk) & lowland
-d_pk = post_pk - pre_pk
-w_pk = (d_pk <= -DROP) & (post_pk <= ABS) & valid_pk
-print(f"\nPEAK 27 Sep 18:28 vs 15 Sep: flood {w_pk.sum()*cell:.1f} km2 (lowland)")
+# ---- 1) ฉากคาลิเบรต 2 ต.ค. (ต้องได้ 436.3) ----
+w2 = detect(np.load(DER / "s1d_20260920_0609_vh_db.npy"), np.load(DER / "s1d_20261002_0609_vh_db.npy"),
+            np.load(DER / "s1d_20260920_0609_vv_db.npy"), np.load(DER / "s1d_20261002_0609_vv_db.npy"))
+pr, rc, f1 = prf(w2)
+print(f"2 ต.ค.: น้ำ {w2.sum()*CELL:.1f} km² | P={pr:.3f} R={rc:.3f} F1={f1:.3f} (เอกสาร: 436.3 · F1=0.699)")
+
+# ---- 2) ฉากพีค 27 ก.ย. 18:28 (ต้องได้ 509.3) ----
+w_pk = detect(np.load(DER / "s1d_20260915_1828_full_vh_db.npy"), np.load(DER / "s1d_20260927_1828_full_vh_db.npy"),
+              np.load(DER / "s1d_20260915_1828_full_vv_db.npy"), np.load(DER / "s1d_20260927_1828_full_vv_db.npy"))
+print(f"พีค 27 ก.ย. 18:28: น้ำ {w_pk.sum()*CELL:.1f} km² (เอกสาร: 509.3)")
+
 np.save(DER / "flood_peak_27sep1828.npy", w_pk)
-np.save(DER / "flood_2oct_validated.npy", (d <= -DROP) & (post <= ABS) & valid)
+np.save(DER / "flood_2oct_validated.npy", w2)
 
-import rasterio
-prof = dict(driver="GTiff", height=ny, width=nx, count=1, dtype="uint8",
-            crs="EPSG:4326", transform=tr, nodata=255, compress="lzw")
-for name, mask in (("flood_peak_27sep1828", w_pk),):
-    out = np.where(np.isfinite(post_pk) & prov, mask.astype("uint8"), 255)
-    with rasterio.open(DER / f"{name}.tif", "w", **prof) as dst:
-        dst.write(out, 1)
-
-# district stats
+# ---- รายอำเภอ ----
 for f in sorted(DER.glob("mask_district_*.npy")):
-    name = f.stem.replace("mask_district_", "")
     m = np.load(f)
-    print(f"  {name}: peak {round((w_pk & m).sum()*cell,1)} km2")
+    print(f"  {f.stem.replace('mask_district_', '')}: peak {round((w_pk & m).sum()*CELL, 1)} km2")

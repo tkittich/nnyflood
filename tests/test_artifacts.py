@@ -21,11 +21,11 @@ def test_counterfactual_headline_rows():
 
 
 def test_counterfactual_m4_volume_budget():
-    """M4: ระบายก่อนพีค 5.2 ลลบ.ม. → พีคลด ~1 ซม. บนที่ราบ / ~44 ซม. ในกรอบลำน้ำ"""
+    """M4: ระบายก่อนน้ำสูงสุด 5.2 ลลบ.ม. → น้ำสูงสุดลด ~1 ซม. บนที่ราบ / ~52 ซม. ในกรอบลำน้ำ (corridor 9.94 ตร.กม. จาก hecras_lite หลังแก้ lon-scale)"""
     j = _load("analysis/goal4_counterfactual_summary.json")["M4_volume_budget"]
     assert abs(j["drain_mcm"] - 5.18) < 0.1
     assert abs(j["peak_drop_m"] - 0.01) < 0.005
-    assert abs(j["corridor_drop_m"] - 0.44) < 0.02
+    assert abs(j["corridor_drop_m"] - 0.52) < 0.02
 
 
 def test_backtest_model_beats_persistence_every_season():

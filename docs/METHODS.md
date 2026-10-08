@@ -70,7 +70,7 @@
 1. ต้นฉบับ GRDH COG 7 ฉากจาก CDSE (ผู้ใช้ดาวน์โหลดเองด้วยบัญชีฟรี — ผู้ช่วยไม่แตะข้อมูลส่วนตัว) ทะเบียน+SHA-256 ใน `data/13_sentinel1_copernicus/manifest.md`
 2. Geocode: GCP 210 จุด/ฉาก (annotation XML) → forward cubic spline + Newton inversion (ค่าเริ่มจาก GCP ใกล้สุด กันหลุดโดเมน) — **roundtrip 0.00 px ทุกฉาก** · ไม่มี terrain correction (พื้นที่เป้าหมายคือที่ราบ)
 3. Calibrate: σ₀ = DN²/A² จาก sigmaNought LUT · speckle filter 5×5 · กริด WGS84 30 ม. ทั้งจังหวัด (ขอบเขต OSM province relation 1908787)
-4. Change detection คู่วงโคจรเดียวกัน (12 วัน): พีค 27 ก.ย. 18:28 vs 15 ก.ย. 18:28 · สอบเทียบ 2 ต.ค. vs 19 ก.ย.
+4. Change detection คู่วงโคจรเดียวกัน (12 วัน): น้ำสูงสุด 27 ก.ย. 18:28 vs 15 ก.ย. 18:28 · สอบเทียบ 2 ต.ค. vs 19 ก.ย.
 5. กฎน้ำท่วม: ΔVH≤−1 dB & ΔVV≤−2 dB & VHหลัง≤−18 dB + opening 3×3 — **ตั้งค่าโดย maximize F1 กับผล GISTDA บนฉาก 2 ต.ค. pass เดียวกัน**
 
 **ผลตรวจไขว้เพิ่ม**:

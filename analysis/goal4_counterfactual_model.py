@@ -181,7 +181,7 @@ DRAIN_WINDOW_H = 36.0                              # 25 ก.ย. 00:00 - 26 ก.
 #   ⚠️ ค่าที่ได้เป็นของ **ที่ราบน้ำท่วมถึงในกรอบลำน้ำ (DSM)** ไม่ใช่ bathymetry ของร่องน้ำ
 #   จึงไม่ใช้เป็น "ความจุร่องน้ำ" ตรง ๆ — ใช้รายงานระดับที่ลดในกรอบลำน้ำเทียบกับที่ราบท่วมแทน
 AREA_FLOOD = 509.0                                 # ตร.กม. พื้นที่น้ำน้ำสูงสุด (S1 27 ก.ย. 18:28)
-AREA_CORRIDOR = 11.95                              # ตร.กม. ผิวน้ำกรอบลำน้ำ @+1.5 ม. จาก DEM
+AREA_CORRIDOR = json.load(open(A / "river_cross_sections.json", encoding="utf-8"))["corridor_area_km2_at_1p5m"]  # 9.94 ตร.กม. จาก hecras_lite (แก้ lon-scale แล้ว — เดิม hardcode 11.95 จากสูตรผิด +6.1%)
 drain_vol = DRAIN_Q * DRAIN_WINDOW_H * 3600 / 1e6  # ลลบ.ม. ที่ระบายเพิ่มก่อนน้ำสูงสุด
 dh_peak = drain_vol / AREA_FLOOD                   # ม. น้ำสูงสุดลดบนที่ราบน้ำท่วม (509 ตร.กม.)
 dh_corridor = drain_vol / AREA_CORRIDOR            # ม. ระดับในกรอบลำน้ำลด (เฉพาะกรอบ ~12 ตร.กม.)
@@ -230,7 +230,7 @@ json.dump({**{k: [round(v[0], 2), v[1], round(v[2], 1), round(v[3], 2), str(v[4]
                "area_corridor_km2": AREA_CORRIDOR,
                "peak_drop_m": round(dh_peak, 4),
                "corridor_drop_m": round(dh_corridor, 3),
-               "note": "ปริมาตรเดียวกันกระจายบน 509 ตร.กม. (ที่ราบท่วม) = น้ำสูงสุดลด ~1 ซม.; บนกรอบลำน้ำ ~12 ตร.กม. = ระดับลด ~44 ซม. · ไม่ประเมินด้วยวิธี \"ลบออกจาก Q ที่ Ny.7\" (rating เส้นเดียวแสดงผลการเปิดท้ายน้ำไม่ได้) จึงใช้ปริมาตร — ห้ามใช้ค่า CHAN_STORE_MAX=2.0 ลลบ.ม. ที่อ้างจาก hecras_lite_channel.py เมื่อคำนวณผิดหน่วย — ค่าที่ได้จาก DSM เป็นของที่ราบในกรอบลำน้ำ ไม่ใช่ bathymetry ร่องน้ำ"},
+               f"note": "ปริมาตรเดียวกันกระจายบน {AREA_FLOOD:.0f} ตร.กม. (ที่ราบท่วม) = น้ำสูงสุดลด {dh_peak*100:.0f} ซม.; บนกรอบลำน้ำ {AREA_CORRIDOR:.1f} ตร.กม. = ระดับลด {dh_corridor*100:.0f} ซม. · ไม่ประเมินด้วยวิธี \"ลบออกจาก Q ที่ Ny.7\" (rating เส้นเดียวแสดงผลการเปิดท้ายน้ำไม่ได้) จึงใช้ปริมาตร — ห้ามใช้ค่า CHAN_STORE_MAX=2.0 ลลบ.ม. ที่อ้างจาก hecras_lite_channel.py เมื่อคำนวณผิดหน่วย — ค่าที่ได้จาก DSM เป็นของที่ราบในกรอบลำน้ำ ไม่ใช่ bathymetry ร่องน้ำ"},
            "envelope": {
                "rating_pct": RATING_PCT, "lag_h": LAG_H,
                "peak_env_m": round(peak_env_m, 2),

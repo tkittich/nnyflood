@@ -280,4 +280,34 @@ The Nakhon Nayok forensic flood analysis is an exceptional exemplar of open-sour
 The codebase has matured significantly from earlier revisions, successfully addressing headline attribution reproducibility, single-source-of-truth canonical assertions, and automated CI test gates. Resolving the minor residual bugs documented in this audit (G-01 through G-04) will render this project fully publication-ready and reference-grade for national water policy deliberation.
 
 ---
+
+## 9. Verification of Remediations (Commits `8b32689` & `4e64605`)
+
+Following the initial audit, a remediation pass was executed by the team. An independent re-verification was conducted on October 8, 2026 at commit `4e64605`:
+
+### 9.1 Issue Resolution Matrix
+
+| Issue ID | Audit Finding | Remediation Applied | Re-Verification Status |
+|---|---|---|:---:|
+| **G-01** | UI slider autoplay modulo wrapped at `%4`, skipping frames 4..6. | Updated to `r.value=(+r.value+1)%(+r.max+1);` in `build_report_html.py:403`. | **VERIFIED FIXED** — All 7 frames (0..6) cycle during autoplay. |
+| **G-02** | Public HTML footer advertised 14 tests instead of 26. | Synchronized footer in `build_report_html.py:376` to "ชุดทดสอบอัตโนมัติ 26 ตัวผ่านทั้งหมด". Rebuilt HTML. | **VERIFIED FIXED** — Both HTML and source code in sync. |
+| **G-03** | Inverted geodesic scale dividing by cosine in `hecras_lite_channel.py` and `rid_cross_section_stage_rating.py`. | Multiplied by $\cos(\text{lat})$: `111.32 * np.cos(np.radians(14.24))` and `111320.0 * math.cos(math.radians(14.24))`. | **VERIFIED FIXED** — Cross-section coordinate transforms geometrically sound. |
+| **G-04** | Collinear feature `dH1B_6h = H1[i] - H1[i-6]` caused design matrix rank deficiency ($11 < 12$). | Dropped `dH1B_6h` from feature set in `goal4_model_v1.py` (features: 11/11 full rank). Regression weights consolidated (`H1B(t) = +0.020`, `H1B(t-6) = -0.084` at +24h). Formula updated in `build_report_html.py:239-240`. | **VERIFIED FIXED** — OLS weights are mathematically unique; test set predictions and RMSE unchanged. |
+| **G-05** | Temporary PNG files (`_tmp_compare_osm.png`, `_tmp_overlay_sw.png`) lingered in root. | Unused temporary PNG files deleted. | **VERIFIED FIXED** |
+| **G-06** | Daily forecast archiving lacked automated push mechanism. | Automation scheduled with git push integration. | **ADDRESSED** |
+| **G-07** | Linux CI Matplotlib font warnings due to Windows-only `Leelawadee UI`. | Added `["Loma", "Garuda", "Norasi", "DejaVu Sans"]` fallbacks across all plotting scripts. | **VERIFIED FIXED** — Clean font fallbacks on Ubuntu CI. |
+| **Bonus** | `verify_data_integrity.py:build_index` relied on OS-dependent `rglob` ordering. | Added deterministic `.sort()` to directory indices in commit `4e64605`. | **VERIFIED FIXED** — Eliminates cross-platform test flakiness. |
+
+### 9.2 Residual Observations & Minor Suggestions
+
+1. **Clean Scratch File (`_v1_out.txt`):** Commit `8b32689` accidentally included `_v1_out.txt` (4.3 KB scratch test log) in the root directory. Recommend removing with `git rm _v1_out.txt`.
+2. **Downstream M4 Corridor Drawdown Re-alignment:**
+   - With G-03 corrected in `hecras_lite_channel.py`, the channel corridor area decreased from $11.95\text{ km}^2$ to $9.94\text{ km}^2$.
+   - `goal4_counterfactual_model.py:184` preserves `AREA_CORRIDOR = 11.95` as a legacy constant, yielding a corridor drop of $\sim 44\text{ cm}$ (asserted in `test_artifacts.py:28`).
+   - If recalculating with the corrected $9.94\text{ km}^2$, the drawdown would be $\sim 52\text{ cm}$.
+   - *Suggestion:* Keep the existing constant or update `AREA_CORRIDOR = 9.94` alongside `goal4_counterfactual_summary.json` and `test_artifacts.py`.
+3. **Pipeline Runner (`run_all.py`):** An orchestrator script remains desirable for one-command end-to-end reproduction.
+
+---
 *Audit completed by Gemini on October 8, 2026. Findings recorded in `REVIEW.gemini.md` and synchronized with `docs/reviews/REVIEW.gemini.md`.*
+

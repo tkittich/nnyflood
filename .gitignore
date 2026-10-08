@@ -71,3 +71,4 @@ REVIEW.md
 # --- Landsat raw bands (GB-ระดับ — เก็บบนดิสก์ + แฮชใน manifest เท่านั้น) ---
 data/manual/LC0*
 _v1_out.txt
+_oldhist/

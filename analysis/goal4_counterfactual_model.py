@@ -180,10 +180,10 @@ DRAIN_WINDOW_H = 36.0                              # 25 ก.ย. 00:00 - 26 ก.
 #   มาจากหน่วยถูกต้อง: 11 ภาคตัดขวาง · ความกว้างจริง 82–412 ม. · ผิวกรอบลำน้ำ ~12 ตร.กม.
 #   ⚠️ ค่าที่ได้เป็นของ **ที่ราบน้ำท่วมถึงในกรอบลำน้ำ (DSM)** ไม่ใช่ bathymetry ของร่องน้ำ
 #   จึงไม่ใช้เป็น "ความจุร่องน้ำ" ตรง ๆ — ใช้รายงานระดับที่ลดในกรอบลำน้ำเทียบกับที่ราบท่วมแทน
-AREA_FLOOD = json.load(open(A / "canonical_numbers.json", encoding="utf-8"))["values"]["s1"]["peak_km2"]  # 509.3 จาก canonical (เดิม hardcode 509.0)
+AREA_FLOOD = json.load(open(A / "canonical_numbers.json", encoding="utf-8"))["values"]["s1"]["peak_km2"]  # 450.5 จาก canonical (เดิม hardcode 509.0)
 AREA_CORRIDOR = json.load(open(A / "river_cross_sections.json", encoding="utf-8"))["corridor_area_km2_at_1p5m"]  # 9.94 ตร.กม. จาก hecras_lite (แก้ lon-scale แล้ว — เดิม hardcode 11.95 จากสูตรผิด +6.1%)
 drain_vol = DRAIN_Q * DRAIN_WINDOW_H * 3600 / 1e6  # ลลบ.ม. ที่ระบายเพิ่มก่อนน้ำสูงสุด
-dh_peak = drain_vol / AREA_FLOOD                   # ม. น้ำสูงสุดลดบนที่ราบน้ำท่วม (509 ตร.กม.)
+dh_peak = drain_vol / AREA_FLOOD                   # ม. น้ำสูงสุดลดบนที่ราบน้ำท่วม (450 ตร.กม.)
 dh_corridor = drain_vol / AREA_CORRIDOR            # ม. ระดับในกรอบลำน้ำลด (เฉพาะกรอบ ~12 ตร.กม.)
 print(f"\n  M4 = M3 + ระบายลำน้ำออกปลายน้ำล่วงหน้า {DRAIN_Q:.0f} ลบ.ม./วิ × {DRAIN_WINDOW_H:.0f} ชม. = {drain_vol:.1f} ลลบ.ม.")
 print("  ประเมินด้วยปริมาตร (rating เส้นเดียวแสดงผลการเปิดท้ายน้ำไม่ได้):")
@@ -285,7 +285,7 @@ ax2.plot(ts_all, [Q3[t] for t in ts_all], ":", color="#9467bd", lw=1.5, label="M
 # -> กำกับผลที่ประเมินด้วยปริมาตรไว้แทน
 ax2.text(0.985, 0.035,
          f"M4 (ระบายลำน้ำออกปลายน้ำล่วงหน้า) ประเมินแยกด้วยปริมาตร:\n"
-         f"ระบาย {drain_vol:.1f} ลลบ.ม. · น้ำสูงสุดลด ~{dh_peak * 100:.1f} ซม. (บน 509 ตร.กม.)"
+         f"ระบาย {drain_vol:.1f} ลลบ.ม. · น้ำสูงสุดลด ~{dh_peak * 100:.1f} ซม. (บน 450 ตร.กม.)"
          f" · ระดับในกรอบลำน้ำลด ~{dh_corridor * 100:.0f} ซม.\n"
          f"— ไม่แสดงเป็นเส้น Q (rating เส้นเดียวแสดงผลการเปิดท้ายน้ำไม่ได้)",
          transform=ax2.transAxes, fontsize=7.5, ha="right", va="bottom",

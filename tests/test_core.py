@@ -178,36 +178,39 @@ def test_event_rain_total_matches_documented_value():
 # ---------- s1_change_detect: กฎน้ำท่วม 3 เงื่อนไข + opening (ผลรีวิว GLM GL-03) ----------
 
 def test_s1_flood_rule_conditions_and_opening():
-    """กฎ canonical: ΔVH≤−1 & ΔVV≤−2 & VHหลัง≤−18 + opening 3×3 —
+    """กฎ canonical (จาก constants จริงใน s1_change_detect — คาลิเบรตรอบใหม่ค่าขยับเทสต้องตาม):
+    ΔVH≤−DROP_VH & ΔVV≤−DROP_VV & VHหลัง≤ABS_VH + opening 3×3 —
     แต่ละเงื่อนไขต้อง gate จริง · พิกเซลโดดเดี่ยวถูก opening กลืน · บล็อก 3×3 รอด ·
     NaN/นอก lowland ไม่นับ (เทสนี้จะจับกรณี F-01 ซ้ำ: สคริปต์ committed ต่างจากกฎที่ตีพิมพ์)"""
-    from s1_change_detect import detect
+    from s1_change_detect import ABS_VH, DROP_VH, DROP_VV, detect
     n = 9
-    pre_vh = np.full((n, n), -20.0)
-    pre_vv = np.full((n, n), -20.0)
-    post_vv = np.full((n, n), -23.0)          # ΔVV = −3 ✓ ทุกจุด
+    pre_base = -20.0
+    pre_vh = np.full((n, n), pre_base)
+    pre_vv = np.full((n, n), pre_base)
+    post_vv = np.full((n, n), pre_base - (DROP_VV + 1.0))   # ΔVV = −(DROP_VV+1) ✓ ทุกจุด
     lowland = np.ones((n, n), bool)
-    post_vh = np.full((n, n), -17.5)          # ฐาน: VHหลัง > −18 = ไม่ผ่านเพดาน absolute
+    post_vh = np.full((n, n), ABS_VH + 0.5)   # ฐาน: เหนือเพดาน absolute = ไม่ผ่าน
 
     # (ก) เพดาน VH + opening: พิกเซลเดียวที่ผ่านทุกเงื่อนไขแต่โดดเดี่ยว = ถูกกลืน
     lone = post_vh.copy()
-    lone[4, 4] = -22.0                        # ΔVH = −2 ✓ · VH = −22 ≤ −18 ✓
+    lone[4, 4] = ABS_VH - 2.0                 # ΔVH = |pre_base−(ABS_VH−2)| ≥ DROP_VH ✓
+    assert lone[4, 4] - pre_base <= -DROP_VH
     assert detect(pre_vh, lone, pre_vv, post_vv, lowland).sum() == 0
 
     # (ข) บล็อก 3×3 ที่ผ่านทุกเงื่อนไข = รอดครบ 9 px
     block = post_vh.copy()
-    block[3:6, 3:6] = -22.0
+    block[3:6, 3:6] = ABS_VH - 2.0
     w = detect(pre_vh, block, pre_vv, post_vv, lowland)
     assert w.sum() == 9 and w[3:6, 3:6].all()
 
-    # (ค) ΔVH = −0.5 ไม่ถึงเกณฑ์ (แม้ VH ต่ำ) = ไม่เป็นน้ำ
+    # (ค) ΔVH ไม่ถึงเกณฑ์ (ΔVH = −DROP_VH+0.2 แม้ VH ต่ำ) = ไม่เป็นน้ำ
     dh = pre_vh.copy()
-    dh[3:6, 3:6] = -21.5
+    dh[3:6, 3:6] = (ABS_VH - 2.0) + DROP_VH - 0.2
     assert detect(dh, block, pre_vv, post_vv, lowland).sum() == 0
 
-    # (ง) ΔVV = −1 ไม่ถึงเกณฑ์ = ไม่เป็นน้ำ
+    # (ง) ΔVV ไม่ถึงเกณฑ์ (ΔVV = −DROP_VV+0.2) = ไม่เป็นน้ำ
     dv = pre_vv.copy()
-    dv[3:6, 3:6] = -22.0
+    dv[3:6, 3:6] = post_vv[3, 3] + DROP_VV - 0.2
     assert detect(pre_vh, block, dv, post_vv, lowland).sum() == 0
 
     # (จ) นอก lowland = ไม่นับแม้สัญญาณผ่าน

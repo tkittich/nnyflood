@@ -310,14 +310,14 @@ def npy_frame(npy, title, area, outname=None):
     print("frame npy", npy)
 
 npy_frame("flood_20260922_1820.npy", "22 ก.ย. 2569 18:20 น. (Sentinel-1 · ประมวลผลเอง)", "0 ตร.กม. — ก่อนเหตุการณ์")
-npy_frame("flood_20260927_0600.npy", "27 ก.ย. 2569 06:00 น. (Sentinel-1 · ประมวลผลเอง)", "62.2 ตร.กม. (แถบครอบ 34%)", outname="ours_27sep0600")
+npy_frame("flood_20260927_0600.npy", "27 ก.ย. 2569 06:00 น. (Sentinel-1 · ประมวลผลเอง)", "50.0 ตร.กม. (แถบครอบ 34%)", outname="ours_27sep0600")
 npy_frame("flood_20260928_1819.npy", "28 ก.ย. 2569 18:19 น. (Sentinel-1 · ประมวลผลเอง)", "แถบครอบ 9% ตะวันออก = 0")
-npy_frame("flood_2oct_validated.npy", "2 ต.ค. 2569 06:09 น. (Sentinel-1 · ประมวลผลเอง)", "436.3 ตร.กม.")
+npy_frame("flood_2oct_validated.npy", "2 ต.ค. 2569 06:09 น. (Sentinel-1 · ประมวลผลเอง)", "364.5 ตร.กม.")
 
 frames = [
     ("rd2_20260924_1815", "24 ก.ย. 2569 18:15 น. (RADARSAT-2 · GISTDA)", "11.8 ตร.กม."),
     ("S1D_20260927_0601", "27 ก.ย. 2569 06:01 น. (Sentinel-1 · GISTDA)", "8.3 ตร.กม."),
-    ("PEAK_OURS", "27 ก.ย. 2569 18:28 น. (Sentinel-1 · ประมวลผลเอง)", "509.3 ตร.กม."),
+    ("PEAK_OURS", "27 ก.ย. 2569 18:28 น. (Sentinel-1 · ประมวลผลเอง)", "450.5 ตร.กม."),
     ("S1D_20261002_0609", "2 ต.ค. 2569 06:09 น. (Sentinel-1 · GISTDA)", "306.9 ตร.กม."),
 ]
 for name, title, area in frames:
@@ -372,8 +372,8 @@ for mask, color in ((both_m, (0.85, 0.20, 0.13, 0.75)), (only_m, (0.20, 0.60, 0.
               aspect="auto", zorder=1.2)
 ax.set_title("โซนผลกระทบภายใต้ 'การบริหารสมบูรณ์แบบ' (ประมาณการจากดาวเทียบ 2 ช่วงเวลา)", fontsize=12.5, fontweight="bold")
 ax.legend(handles=[
-    Patch(fc=(0.20, 0.60, 0.25, 0.75), label="รอด — แห้งโดย 2 ต.ค. (~219 ตร.กม.)"),
-    Patch(fc=(0.85, 0.20, 0.13, 0.75), label="ยังมีน้ำ ระบายใน ~1–2 วัน (~291 ตร.กม. · แถบริมน้ำ/คลอง)"),
+    Patch(fc=(0.20, 0.60, 0.25, 0.75), label="รอด — แห้งโดย 2 ต.ค. (~209 ตร.กม.)"),
+    Patch(fc=(0.85, 0.20, 0.13, 0.75), label="ยังมีน้ำ ระบายใน ~1–2 วัน (~242 ตร.กม. · แถบริมน้ำ/คลอง)"),
     Line2D([0], [0], color="#17457e", lw=1.6, label="แม่น้ำ (OSM)"),
     Line2D([0], [0], color="#a8cbe8", lw=1.2, label="คลองสายใหญ่ (OSM)"),
     Line2D([0], [0], color="#b26a00", lw=1.5, label="ถนนสายหลัก (OSM)"),
@@ -398,9 +398,9 @@ ours = [
     (datetime(2026, 9, 15, 18, 28), 0.0, "ฐานก่อนน้ำท่วม (คู่วงโคจร)"),
     (datetime(2026, 9, 19, 6, 9), 0.0, "ฐานก่อนน้ำท่วม (คู่วงโคจร)"),
     (datetime(2026, 9, 22, 18, 20), 0.0, "ก่อนเหตุการณ์ (แถบครอบ 9%)"),
-    (datetime(2026, 9, 27, 6, 0), 62.2, "แถบครอบ 34%"),
-    (datetime(2026, 9, 27, 18, 28), 509.3, "น้ำสูงสุด"),
-    (datetime(2026, 10, 2, 6, 9), 436.3, ""),
+    (datetime(2026, 9, 27, 6, 0), 50.0, "แถบครอบ 34%"),
+    (datetime(2026, 9, 27, 18, 28), 450.5, "น้ำสูงสุด"),
+    (datetime(2026, 10, 2, 6, 9), 364.5, ""),
 ]
 gistda = [
     (datetime(2026, 9, 24, 18, 15), 11.8, ""),
@@ -411,12 +411,12 @@ ax.plot([d for d, v, n in ours], [v for d, v, n in ours], "o-", color="#1565c0",
         ms=6, label="ประมวลผลเองจาก Sentinel-1 (COPERNICUS)")
 ax.plot([d for d, v, n in gistda], [v for d, v, n in gistda], "s--", color="#ef6c00", lw=1.6,
         ms=6, label="ผลิตภัณฑ์ทางการ GISTDA")
-ax.annotate("62.2 ตร.กม. (ภาพครอบเพียง 34% — ฉากเดียวกับที่ GISTDA รายงาน 8.3 ทั้งจังหวัด)",
+ax.annotate("50.0 ตร.กม. (ภาพครอบเพียง 34% — ฉากเดียวกับที่ GISTDA รายงาน 8.3 ทั้งจังหวัด)",
             xy=ours[3][:2], xytext=(-4, 60), textcoords="offset points", fontsize=7.8, color="#1565c0",
             ha="right", va="bottom", arrowprops=dict(arrowstyle="->", color="#1565c0", lw=0.8))
-ax.annotate("น้ำสูงสุด 509.3 · 27 ก.ย. 18:28", xy=ours[4][:2], xytext=(12, 2), textcoords="offset points",
+ax.annotate("น้ำสูงสุด 450.5 · 27 ก.ย. 18:28", xy=ours[4][:2], xytext=(12, 2), textcoords="offset points",
             fontsize=8.5, color="#0d47a1", fontweight="bold", va="center")
-ax.annotate("2 ต.ค.: เรา 436.3 · GISTDA 306.9", xy=(ours[5][0], 395), xytext=(-16, -4),
+ax.annotate("2 ต.ค.: เรา 364.5 · GISTDA 306.9", xy=(ours[5][0], 395), xytext=(-16, -4),
             textcoords="offset points", fontsize=8, color="#37474f", ha="right", va="top")
 ax.annotate("8.3 — ต่ำกว่าพื้นที่จริงมาก (น้ำขณะถ่าย ≈ ระดับน้ำสูงสุด)", xy=gistda[1][:2], xytext=(10, 10),
             textcoords="offset points", fontsize=7.5, color="#ef6c00", va="bottom")

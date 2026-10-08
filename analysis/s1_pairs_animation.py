@@ -1,17 +1,17 @@
-"""Paired same-orbit change detection for the 3 new dates + stats + frames.
+"""Paired same-orbit change detection for the 3 new dates + stats + frame npys.
 
-Pairs (12-day same orbit, locked rule: dVH<=-1 & dVV<=-2 & VH<=-18 & lowland & opening 3x3):
+Pairs (12-day same orbit) ใช้กฎ canonical ตรงจาก s1_change_detect.detect() — import อย่างเดียว
+ไม่พิมพ์ threshold ซ้ำ (กันกฎหลุด sync ตอนคาลิเบรตใหม่ — ผลรีวิว GLM):
   27 Sep 06:00 local (26 Sep 23 UTC a+b) vs 15 Sep 06:00 (14 Sep 23 UTC a+b)  -> frame-2 verdict
   28 Sep 18:19 (S1C)  vs 16 Sep 18:19 (S1C)
   22 Sep 18:20 (a+b)  vs 10 Sep 18:20 (a+b)
 """
 import json
-import math
 from pathlib import Path
 
 import numpy as np
-from scipy.ndimage import binary_opening
 from common import cell_km2
+from s1_change_detect import detect
 
 DER = Path(__file__).resolve().parent.parent / "data" / "13_sentinel1_copernicus" / "derived"  # อิง __file__
 g = json.load(open(DER / "grid.json"))
@@ -44,9 +44,7 @@ for label, pa, pb, qa, qb in PAIRS:
     vh_pre, _ = merged(qa, qb, "vh")
     vv_post, _ = merged(pa, pb, "vv")
     vv_pre, _ = merged(qa, qb, "vv")
-    ok = np.isfinite(vh_pre) & np.isfinite(vh_post) & np.isfinite(vv_pre) & np.isfinite(vv_post) & lowland
-    w = (vh_post - vh_pre <= -1.0) & (vv_post - vv_pre <= -2.0) & (vh_post <= -18.0) & ok
-    w = binary_opening(w, structure=np.ones((3, 3)))
+    w = detect(vh_pre, vh_post, vv_pre, vv_post, lowland)
     cov = float((valid & prov).sum() / prov.sum() * 100)
     area = float(w.sum() * cell)
     results[label] = {"area_km2": round(area, 1), "coverage_pct": round(cov, 1), "mask": w}
@@ -58,7 +56,11 @@ for label, pa, pb, qa, qb in PAIRS:
     results[label]["districts"] = dist
     print(f"{label}: {area:.1f} km2 | coverage {cov:.0f}% | {dist}")
 
-json.dump({k: {"area_km2": v["area_km2"], "coverage_pct": v["coverage_pct"], "districts": v["districts"]}
-           for k, v in results.items()},
-          open(DER / "flood_series_ours.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-print("saved flood_series_ours.json")
+series = {k: {"area_km2": v["area_km2"], "coverage_pct": v["coverage_pct"], "districts": v["districts"]}
+          for k, v in results.items()}
+# เขียนสองที่ตรงกัน (เดิมต้องคัดลอกด้วยมือ — GLM GL-25): DER สำหรับสคริปต์ในชุดเดียวกัน,
+# analysis/s1_flood_series.json คือตัวที่ build_canonical_numbers.py อ่าน
+for dest in (DER / "flood_series_ours.json",
+             p := Path(__file__).resolve().parent / "s1_flood_series.json"):
+    json.dump(series, open(dest, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("saved", dest.name)

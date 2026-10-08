@@ -1,10 +1,10 @@
 """Change-detection flood mapping — กฎที่ตีพิมพ์ในรายงาน (3 เงื่อนไข + opening 3×3)
 
-กฎ (ตาม analysis/s1_flood_extent_findings.md — threshold ตั้งโดย maximize F1 กับ
-ผลิตภัณฑ์ GISTDA บนฉาก 2 ต.ค. pass เดียวกัน: F1=0.699, P=0.597, R=0.843;
-สคริปต์ค้น threshold อยู่ที่ analysis/calibrate_s1_thresholds.py):
+กฎ (คาลิเบรตใหม่ 8 ต.ค. 69 รอบ 2 ด้วย analysis/calibrate_s1_thresholds.py — grid 420 คู่
+maximize F1 กับผลิตภัณฑ์ GISTDA บนฉาก 2 ต.ค. pass เดียวกัน: **F1=0.732, P=0.676, R=0.798**;
+ชุดเดิม (1.0, 2.0, −18) ให้ F1=0.699):
 
-    น้ำ = (ΔVH ≤ −1 dB) & (ΔVV ≤ −2 dB) & (VHหลัง ≤ −18 dB) + binary opening 3×3
+    น้ำ = (ΔVH ≤ −0.5 dB) & (ΔVV ≤ −1.5 dB) & (VHหลัง ≤ −20 dB) + binary opening 3×3
     (คำนวณใน lowland <60 ม. เท่ากับขอบเขตที่ S1 pipeline รายงาน)
 
 คาลิเบรตบนฉาก 2 ต.ค. (baseline 20 ก.ย. คู่วงโคจรเดียวกัน) แล้วใช้กฎเดียวกันกับ
@@ -12,12 +12,13 @@
 2 slice ด้วย analysis/s1_merge_scenes.py)
 
 ⚠️ รันแล้วต้องได้ตาม canonical (build_canonical_numbers.py assert ให้):
-    2 ต.ค. = 436.3 ตร.กม. · น้ำสูงสุด 27 ก.ย. = 509.3 ตร.กม.
-    ห้ามเปลี่ยน threshold โดยไม่ประกาศ canonical ชุดใหม่ในรายงาน
+    2 ต.ค. = 364.5 ตร.กม. · น้ำสูงสุด 27 ก.ย. = 450.5 ตร.กม.   (ค่าชุดกฎใหม่ 8 ต.ค. 69;
+    ชุดเก่า 436.3/509.3 เลิกใช้ — อย่าใช้ตัวเลขเก่าค้างในเอกสาร/กราฟ)
+    เปลี่ยน threshold ได้เฉพาะผ่าน calibrate_s1_thresholds.py + ประกาศ canonical ชุดใหม่ทั้งรายงาน
 
 (หมายเหตุ provenance: มาสก์ต้นฉบับผลิตเมื่อ 5 ต.ค. 69 ด้วยสคริปต์ inline ยุคนั้น —
-ไฟล์ที่ commit เป็นเวอร์ชันเขียนใหม่ 8 ต.ค. 69 ที่ reproduce ผลตรงทุกตัวเลข ·
-อย่าสลับกลับไป grid-search VH-only เพราะให้คนละมาสก์ 564.4 ตร.กม.)
+อย่าสลับกลับไป grid-search VH-only เพราะให้คนละมาสก์ 564.4 ตร.กม.
+สคริปต์เก่าเก็บที่ analysis/archive/)
 
 โครงสร้าง: ฟังก์ชันบริสุทธิ์ (detect/prf) import ได้โดยไม่อ่านไฟล์ —
 tests/test_core.py เทสกฎบนอาร์เรย์สังเคราะห์; รันวิเคราะห์จริง = `python s1_change_detect.py`
@@ -36,8 +37,8 @@ from common import cell_km2
 PROJ = Path(__file__).resolve().parent.parent   # อิง __file__ ไม่ใช่ cwd (ไม่ hardcode พาธ)
 DER = PROJ / "data" / "13_sentinel1_copernicus" / "derived"
 
-# ---- กฎที่ตีพิมพ์ (canonical) ----
-DROP_VH, DROP_VV, ABS_VH = 1.0, 2.0, -18.0
+# ---- กฎ canonical (คาลิเบรต 8 ต.ค. 69 รอบ 2 — ดู docstring) ----
+DROP_VH, DROP_VV, ABS_VH = 0.5, 1.5, -20.0
 STRUCT3 = np.ones((3, 3), bool)
 
 

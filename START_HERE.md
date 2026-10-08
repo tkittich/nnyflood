@@ -56,7 +56,7 @@ PY=python
 **ไฟล์ findings ที่สำคัญ** (เรียงตามความสำคัญ):
 
 - `analysis/khundan_tele_findings.md` — datum Ny.7, rating curve, สัดส่วนเขื่อน/ฝน
-- `analysis/s1_flood_extent_findings.md` — แผนที่ช่วงสูงสุด 509 ตร.กม. + การสอบเทียบกับ GISTDA
+- `analysis/s1_flood_extent_findings.md` — แผนที่ช่วงสูงสุด 450 ตร.กม. + การสอบเทียบกับ GISTDA
 - `analysis/goal4_model_v1_findings.md` — โมเดลทำนาย + วินิจฉัยฟีเจอร์ฝน (หน้าต่างรายวัน กันข้อมูลอนาคตรั่ว)
 - `analysis/goal4_counterfactual_model_vs_nomodel.md` — สถานการณ์บริหาร R1/M1–M4
 - `analysis/rid_cross_section_findings.md` — รูปตัดขวางจริง + ตรวจไขว้ BANKFULL
@@ -108,7 +108,7 @@ PY=python
 ```bash
 "$PY" analysis/s1_process.py          # geocode + calibrate ฉาก S1 ดิบ -> derived/*.npy/.tif
 "$PY" analysis/s1_change_detect.py    # -> derived/flood_peak_27sep1828.npy, flood_2oct_validated.npy
-"$PY" analysis/s1_peak_flood_map.py   # -> analysis/s1_peak_flood_map_27sep1828.png  (น้ำสูงสุด 509 ตร.กม.)
+"$PY" analysis/s1_peak_flood_map.py   # -> analysis/s1_peak_flood_map_27sep1828.png  (น้ำสูงสุด 450 ตร.กม.)
 ```
 
 > ⚠️ `data/13_sentinel1_copernicus/` เก็บเฉพาะ `manifest.md` ใน git — ฉากดิบ 17 ฉาก (~21 GB)
@@ -136,11 +136,11 @@ PY=python
 |---|---|---|
 | น้ำสูงสุดระดับน้ำ Ny.7 | **9.23 ม. เกจ = 7.64 ม.รทก. ±0.05** | thaiwater (9.23) · khundan-tele (7.68 รทก.) — ต่างกัน ≤5 ซม. |
 | ระยะเวลาเหนือตลิ่ง | **65 ชม.** | thaiwater ขาด 3 แถวเที่ยงคืน · khundan ยืนยัน |
-| พื้นที่น้ำท่วมน้ำสูงสุด 27 ก.ย. 18:28 | **509 ตร.กม.** | ประมวลผล S1 เอง (GISTDA ไม่ได้ทำ pass นี้) |
+| พื้นที่น้ำท่วมน้ำสูงสุด 27 ก.ย. 18:28 | **450 ตร.กม.** | ประมวลผล S1 เอง (GISTDA ไม่ได้ทำ pass นี้) |
 | BANKFULL | **6.86 ม.รทก. = เกจ 8.45 ≈ Q 420–425** | ตรวจไขว้กับหน้าตัดจริงแล้ว |
 | สัดส่วนเขื่อน : ฝน (ช่วงเริ่มท่วม) | **12 % : 88 %** | `khundan_tele_findings.md` |
 | โมเดล Ny.7 RMSE เหตุการณ์ (+6/+24/+48 ชม.) | **สูตร 26.6/108.6/159.5 · persistence 30.6/101.8/170.4 · GBDT 120.3/153.5/153.8 ซม.** | `goal4_model_v1_results.json` (สร้างใหม่ด้วยสคริปต์ — มีเทสตรงค่าใน tests/) |
-| M4 ระบายล่วงหน้า 5.2 ลลบ.ม. | **ระดับสูงสุดลด ~1 ซม.** (บนที่ราบ 509 ตร.กม.) | `goal4_counterfactual_model.py` |
+| M4 ระบายล่วงหน้า 5.2 ลลบ.ม. | **ระดับสูงสุดลด ~1 ซม.** (บนที่ราบ 450 ตร.กม.) | `goal4_counterfactual_model.py` |
 | Manning n ที่สอดคล้อง rating curve | **0.0437** (ปกติที่ราบลุ่ม) | `rid_cross_section_stage_rating.md` |
 
 ---

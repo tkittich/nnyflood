@@ -45,7 +45,7 @@ s1 = {
     "oct2_ours_km2": round(float(np.load(DER / "flood_2oct_validated.npy").sum() * cell), 1),
 }
 # ประกาศ canonical ที่ตีพิมพ์ — มาสก์ใหม่ต้องให้ค่าเดิม (ต่าง = หยุด ประกาศ canonical ชุดใหม่ก่อน ห้ามไหลผ่านเงียบ ๆ)
-for _k, _exp in (("peak_km2", 509.3), ("oct2_ours_km2", 436.3)):
+for _k, _exp in (("peak_km2", 450.5), ("oct2_ours_km2", 364.5)):
     assert abs(s1[_k] - _exp) <= 0.05, f"S1 {_k} = {s1[_k]} ≠ canonical {_exp} — มาสก์/กฎเปลี่ยน? ประกาศ canonical ใหม่ก่อน"
 
 series = jload(ANA / "s1_flood_series.json")
@@ -110,17 +110,18 @@ assert abs((levels["bankfull_gauge_m"] - GAUGE_OFFSET) - 6.86) < 0.005
 # regex ที่มีจุดไปแมตช์ base64 ขยะได้) สองฉบับเลือกนำเสนอคนละหน่วยโดยดีไซน์:
 # ประชาชนใช้เกจ 9.80/9.23 + RMSE เป็นเมตร (1.09) · วิชาการใช้ ม.รทก. (7.64/8.21) + 11.89 ----------
 checks = {
-    "public": ["509.3", "436.3", "306.9", "62.2", "12%", "60%", "65 ชม.",
+    "public": ["450.5", "364.5", "306.9", "50.0", "12%", "60%", "65 ชม.",
                "9.23", "8.45", "6.86", "0.75 ม.", "1.09",
                "1,058–1,416", "242"],
-    "expert": ["509.3", "436.3", "306.9", "62.2", "12%", "60%", "65 ชม.",
+    "expert": ["450.5", "364.5", "306.9", "50.0", "12%", "60%", "65 ชม.",
                "9.23", "8.45", "7.64", "6.86", "8.21", "11.89", "108.6",
                "1,058–1,416", "242(h−4.55)", "4.55"],
 }
 
 # ค่า/คำที่เลิกใช้ — ห้ามปรากฏใน HTML ที่ build (builders/tests ตรวจ absence — GL-10)
 FORBIDDEN = ["1,050", "1,420", "11.95", "44 ซม", "57%", "564.4", "14 passed", "12 ตัวแปร",
-             "น้ำสูงสุดสูงสุด", "น้ำสูงสุดสุด", "ทำนายทำนาย", "น้ำน้ำ", "ผู้ว้าฯ"]
+             "น้ำสูงสุดสูงสุด", "น้ำสูงสุดสุด", "ทำนายทำนาย", "น้ำน้ำ", "ผู้ว้าฯ",
+             "509.3", "436.3", "62.2", "241.7", "111.8", "85.9", "69.9", "360–509"]
 
 out = {
     "forbidden": FORBIDDEN,
@@ -128,7 +129,7 @@ out = {
         "generated_by": "analysis/build_canonical_numbers.py",
         "note": "ตัวเลข canonical ของโครงการ — builders และ tests อ่านจากไฟล์นี้ ห้ามแก้มือ",
         "sources": {
-            "s1": "data/13_sentinel1_copernicus/derived/flood_*.npy + analysis/s1_flood_series.json",
+            "s1": "data/13_sentinel1_copernicus/derived/flood_*.npy + analysis/s1_flood_series.json (กฎคาลิเบรตใหม่ 8 ต.ค. 69: 0.5/1.5/−20 · F1=0.732)",
             "gistda": "analysis/gistda_pass_areas_nn.json",
             "dam_share": "analysis/attribution_share.json (อินทิกราล 15 นาที)",
             "counterfactual": "analysis/goal4_counterfactual_summary.json",

@@ -12,13 +12,21 @@
   "น้ำสูงสุดสุด",
   "ทำนายทำนาย",
   "น้ำน้ำ",
-  "ผู้ว้าฯ"
+  "ผู้ว้าฯ",
+  "509.3",
+  "436.3",
+  "62.2",
+  "241.7",
+  "111.8",
+  "85.9",
+  "69.9",
+  "360–509"
  ],
  "meta": {
   "generated_by": "analysis/build_canonical_numbers.py",
   "note": "ตัวเลข canonical ของโครงการ — builders และ tests อ่านจากไฟล์นี้ ห้ามแก้มือ",
   "sources": {
-   "s1": "data/13_sentinel1_copernicus/derived/flood_*.npy + analysis/s1_flood_series.json",
+   "s1": "data/13_sentinel1_copernicus/derived/flood_*.npy + analysis/s1_flood_series.json (กฎคาลิเบรตใหม่ 8 ต.ค. 69: 0.5/1.5/−20 · F1=0.732)",
    "gistda": "analysis/gistda_pass_areas_nn.json",
    "dam_share": "analysis/attribution_share.json (อินทิกราล 15 นาที)",
    "counterfactual": "analysis/goal4_counterfactual_summary.json",
@@ -29,9 +37,9 @@
  },
  "values": {
   "s1": {
-   "peak_km2": 509.3,
-   "oct2_ours_km2": 436.3,
-   "sep27_am_ours_km2": 62.2,
+   "peak_km2": 450.5,
+   "oct2_ours_km2": 364.5,
+   "sep27_am_ours_km2": 50.0,
    "sep27_am_coverage_pct": 34.3
   },
   "gistda": {
@@ -90,10 +98,10 @@
  },
  "checks": {
   "public": [
-   "509.3",
-   "436.3",
+   "450.5",
+   "364.5",
    "306.9",
-   "62.2",
+   "50.0",
    "12%",
    "60%",
    "65 ชม.",
@@ -106,10 +114,10 @@
    "242"
   ],
   "expert": [
-   "509.3",
-   "436.3",
+   "450.5",
+   "364.5",
    "306.9",
-   "62.2",
+   "50.0",
    "12%",
    "60%",
    "65 ชม.",

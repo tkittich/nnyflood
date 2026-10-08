@@ -7,7 +7,7 @@
 <style>
   :root { --blue:#0d47a1; --red:#b71c1c; --ink:#1a2530; --soft:#f4f7fa; --line:#cfd9e2; }
   * { box-sizing:border-box; }
-  body { font-family:'Leelawadee UI','Segoe UI',Tahoma,sans-serif; color:var(--ink); background:#eef1f4; margin:0; line-height:1.7; font-size:15px; }
+  body { font-family:'Leelawadee UI','Segoe UI',Tahoma,'Loma','Garuda','Norasi',sans-serif; color:var(--ink); background:#eef1f4; margin:0; line-height:1.7; font-size:15px; }
   .page { max-width:1020px; margin:0 auto; background:#fff; padding:34px 48px 60px; box-shadow:0 0 16px rgba(0,0,0,.08); }
   header.cover { background:linear-gradient(135deg,#14212e,#0d47a1); color:#fff; border-radius:12px; padding:30px 36px; margin-bottom:24px; }
   header.cover h1 { margin:0 0 8px; font-size:1.7em; }
@@ -33,6 +33,8 @@
   details { background:var(--soft); border-radius:6px; padding:8px 16px; margin:10px 0; }
   summary { cursor:pointer; font-weight:bold; color:#123c6e; }
   footer { margin-top:40px; padding-top:14px; border-top:2px solid var(--line); font-size:.82em; color:#5a6b78; }
+  @media print { body { background:#fff; } .page { box-shadow:none; margin:0; padding:12mm 10mm; max-width:100%; }
+    tr, .note, .eq { page-break-inside:avoid; } h2 { page-break-after:avoid; } }
 </style>
 </head>
 <body>

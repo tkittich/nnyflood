@@ -166,8 +166,9 @@ def test_event_rain_total_matches_documented_value():
     """ฝนสะสม 7 วัน 23–29 ก.ย. 69 (เฉลี่ย 2 เซลล์กริด) ต้องได้ ~248 มม. ตามที่รายงานอ้าง
     และต้องเกินเกณฑ์เฝ้าระวัง 150 มม./7 วัน"""
     p = ROOT / "data" / "16_training_data" / "power_rain_daily_3pts_2021_2026.csv"
-    rows = {r[0]: (float(r[1]) + float(r[3])) / 2
-            for r in csv.reader(open(p, encoding="utf-8")) if r[0] != "date"}
+    with open(p, encoding="utf-8", newline="") as fh:
+        rows = {r[0]: (float(r[1]) + float(r[3])) / 2
+                for r in csv.reader(fh) if r[0] != "date"}
     days = [f"202609{d:02d}" for d in range(23, 30)]
     assert all(d in rows for d in days), "ข้อมูลฝนช่วงเหตุการณ์หายไป"
     total = sum(rows[d] for d in days)

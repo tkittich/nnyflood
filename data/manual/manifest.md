@@ -3,7 +3,8 @@
 > **โฟลเดอร์นี้ถูก `.gitignore`** (`data/manual/`) เพราะเป็นไบนารีใหญ่
 > แต่ **manifest นี้ถูกยกเว้นให้เข้า git** (ดู `!data/manual/manifest.md` ใน `.gitignore`) เพื่อให้รายการ
 > ไฟล์+แฮชยังตรวจย้อนได้โดยไม่ต้องบรรจุข้อมูลหลาย GB
-> รวม **61 ไฟล์ · 3.18 GB**
+> รวม **61 รายการ · 3.18 GB** (ตามที่บันทึกไว้ตอนดึงข้อมูล)
+> · **สถานะบนดิสก์ 9 ต.ค. 69:** ผู้ใช้ลบไฟล์ใหญ่ที่ไม่มีสคริปต์อ่านแล้ว — S2 SAFE zips (กลุ่ม B, 2.9GB · แตกแล้วอยู่ `data/18_sentinel2_copernicus/` · โหลดใหม่ได้จาก Copernicus Data Space ฟรี) และ Landsat `LC0*.TIF` (~1GB · ฉากไม่ครอบจังหวัด — แฮชยังอยู่ที่ `data/21_landsat_optical/_rows.json`) รวมทั้ง mitrearth GIS pack `18 นครนายก (NAKHON NAYOK)/` 1.8GB (basemap ชั้นดิบ ไม่มีสคริปต์อ่าน — โหลดใหม่ได้จาก mitrearth) · **รายการที่ยังอยู่บนดิสก์ = กลุ่ม A/C ทั้งหมด (~300MB) ซึ่งเป็นอินพุตของ s1_change_detect / gistda_pass_areas / report_assets** · รายการที่ลบแล้วใช้ prefix `manual-deleted/` (ตัวตรวจจัดเป็น DELETED ไม่นับ MISSING)
 > · แฮชเป็น SHA-256 เต็ม 64 หลัก (สแกนทั้งไฟล์)
 
 ## กลุ่ม A — GISTDA / Sentinel-1 (KMZ + ZIP + shapefile ที่แตกแล้ว)
@@ -38,11 +39,13 @@
 
 | ไฟล์ | ไบต์ | SHA-256 |
 |---|---:|---|
-| `S2A_MSIL2A_20260929T034201_N0513_R061_T47PQR_20260929T081020.SAFE.zip` | 1,108,476,999 | `53c3b512c794ec5965b3d68cee4cd57ee9e5753a51d7b79fc3fa92736efe8be0` |
-| `S2B_MSIL2A_20261002T033549_N0513_R061_T47PQR_20261002T072410.SAFE.zip` | 1,129,556,033 | `3cecd3537e9280c5653e065dfd786cd5daa5333113d8e82d46bc9655d85a8463` |
-| `S2C_MSIL2A_20260927T033541_N0513_R061_T47PQR_20260927T084310.SAFE.zip` | 674,741,212 | `9d0705825a9347cf3818236ff83e2ce33e5e10ebc84eff55c5c3d34d7aeec9c0` |
+| `manual-deleted/S2A_MSIL2A_20260929T034201_N0513_R061_T47PQR_20260929T081020.SAFE.zip` | 1,108,476,999 | `53c3b512c794ec5965b3d68cee4cd57ee9e5753a51d7b79fc3fa92736efe8be0` |
+| `manual-deleted/S2B_MSIL2A_20261002T033549_N0513_R061_T47PQR_20261002T072410.SAFE.zip` | 1,129,556,033 | `3cecd3537e9280c5653e065dfd786cd5daa5333113d8e82d46bc9655d85a8463` |
+| `manual-deleted/S2C_MSIL2A_20260927T033541_N0513_R061_T47PQR_20260927T084310.SAFE.zip` | 674,741,212 | `9d0705825a9347cf3818236ff83e2ce33e5e10ebc84eff55c5c3d34d7aeec9c0` |
 
 > แฮชของ zip ทั้ง 7 ไฟล์ (PQR + PPS) บันทึกเพิ่มเติมที่ `data/18_sentinel2_hashes.txt`
+>
+> **ลบแล้ว 9 ต.ค. 69** — สคริปต์ทุกตัวอ่านจากโฟลเดอร์ที่แตกแล้ว (`data/18_sentinel2_copernicus/`) ไม่ใช่ zip
 
 ## กลุ่ม C — shapefile ที่แตกจาก KMZ
 

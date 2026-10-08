@@ -86,7 +86,7 @@ def main():
 
         w, a, p = geometry(xs, ys, peak_msl)
         qp = project_rating(peak_msl)
-        print(f"\n  --- ณ ระดับพีคเหตุการณ์ {peak_msl} ม.รทก. (เกจ {peak_gauge}) ---")
+        print(f"\n  --- ณ ระดับสูงสุดเหตุการณ์ {peak_msl} ม.รทก. (เกจ {peak_gauge}) ---")
         print(f"    กว้างผิวน้ำ {w:.1f} ม. · พื้นที่เปียก {a:.1f} ตร.ม. · รอบเปียก {p:.1f} ม. · R {a/p:.2f} ม.")
         print(f"    Q จาก rating curve ของโปรเจค = {qp:.0f} ม³/วิ")
         for n in (0.030, 0.035, 0.040, 0.045):

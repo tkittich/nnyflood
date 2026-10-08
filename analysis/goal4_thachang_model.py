@@ -203,7 +203,7 @@ def main():
 
     results = {}
     event_results = {}
-    EV0 = dt.datetime(2026, 9, 26)   # พีคเหตุการณ์ ก.ย. 69 (Ny.7 พีค 27 ก.ย.)
+    EV0 = dt.datetime(2026, 9, 26)   # น้ำสูงสุดเหตุการณ์ ก.ย. 69 (Ny.7 น้ำสูงสุด 27 ก.ย.)
     for L in LEADS:
         F, Y, S = te[L]
         if not F:

@@ -107,7 +107,7 @@ ax.plot(101.0653, 14.3147, marker="^", ms=9, color="black", mec="white", zorder=
 ax.annotate("เขื่อนขุนด่านปราการชล", (101.0653, 14.3147), xytext=(-8, 8),
             textcoords="offset points", ha="right", fontsize=9.5, fontweight="bold", zorder=8)
 ax.plot(101.2148, 14.2079, marker="o", ms=6, color="#c10000", mec="white", zorder=8)
-ax.annotate("สถานี Ny.7 (พีค 9.23 ม.)", (101.2148, 14.2079), xytext=(8, -12),
+ax.annotate("สถานี Ny.7 (น้ำสูงสุด 9.23 ม.)", (101.2148, 14.2079), xytext=(8, -12),
             textcoords="offset points", ha="left", fontsize=9, color="#7a0000", zorder=8)
 
 # scale bar (lon deg at 14.2N)
@@ -119,7 +119,7 @@ ax.annotate("N", (x1 - 0.015, y0 + 0.052), fontsize=12, fontweight="bold", ha="c
             arrowprops=dict(arrowstyle="-|>", color="black"), xytext=(x1 - 0.015, y0 + 0.036), zorder=8)
 
 leg = [
-    Patch(fc=(0.13, 0.44, 0.86, 0.62), ec="#0b3d91", label="น้ำท่วมช่วงพีค 27 ก.ย. 2569 18:28 น. (509 ตร.กม.)"),
+    Patch(fc=(0.13, 0.44, 0.86, 0.62), ec="#0b3d91", label="น้ำท่วมช่วงน้ำสูงสุด 27 ก.ย. 2569 18:28 น. (509 ตร.กม.)"),
     Line2D([0], [0], color="#e07b00", lw=1.2, ls="--", label="น้ำค้าง 2 ต.ค. (วิธีเดียวกัน, 436 ตร.กม. · GISTDA=306.9)"),
     Line2D([0], [0], color="0.15", lw=1.4, label="เขตจังหวัดนครนายก (OSM)"),
 ]
@@ -129,7 +129,7 @@ ax.set_xlim(x0, x1)
 ax.set_ylim(y0, y1)
 ax.set_xlabel("ลองจิจูด (E)")
 ax.set_ylabel("ลัติจูด (N)")
-ax.set_title("ขอบเขตน้ำท่วมช่วงพีค — อ.เมืองนครนายกและพื้นที่ใกล้เคียง 27 ก.ย. 2569 เวลา 18:28 น.",
+ax.set_title("ขอบเขตน้ำท่วมช่วงน้ำสูงสุด — อ.เมืองนครนายกและพื้นที่ใกล้เคียง 27 ก.ย. 2569 เวลา 18:28 น.",
              fontsize=13, fontweight="bold")
 fig.text(0.5, 0.012,
          "ที่มา: Sentinel-1 S1D (27 ก.ย. vs 15 ก.ย. คู่วงโคจรเดียวกัน) ประมวลผลเอง — ΔVH≤−1 dB & ΔVV≤−2 dB & VH≤−18 dB "

@@ -46,7 +46,7 @@ BACKTICK = re.compile(r"`([^`]+)`")
 # (เช่น "... เก็บต้นฉบับไว้ที่ raw/FLOOD.rar") โดยไม่ไปโดนโดเมนอย่าง facebook.com/mitrearth
 SLASH_PATH = re.compile(r"[A-Za-z0-9_.\-]+(?:/[A-Za-z0-9_.\-]+)+\.[A-Za-z0-9]{2,5}")
 # ไฟล์ที่ "ไม่มีใน repo โดยเจตนา" — ลบแล้ว/ไทล์ผิด (ดู data/manual/manifest.md)
-DELETED_MARKERS = ("T47PPS",)
+DELETED_MARKERS = ("T47PPS", "manual-deleted")   # manual-deleted = ไฟล์ใหญ่ data/manual ที่ผู้ใช้ลบแล้ว (SHA คงอยู่ใน manifest)
 # รายการ "หายโดยอธิบายได้" (เปลี่ยนชื่อ/ถูกแทนที่/เป็นไฟล์เครื่องมือ) — อ่านจาก
 # data/INTEGRITY_EXCEPTIONS.md ถ้าไม่มีไฟล์นี้ก็ไม่เป็นไร (ว่าง)
 EXCEPTIONS_FILE = DATA / "INTEGRITY_EXCEPTIONS.md"

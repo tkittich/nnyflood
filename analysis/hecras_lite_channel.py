@@ -106,5 +106,8 @@ print(f"  M4 ระบายล่วงหน้า {dv} ลลบ.ม.: ลำ
 print(f"  → ระบาย 5.2 ลลบ.ม.: ~{min(dv, v200):.1f} ลลบ.ม. ลดระดับลำน้ำ (~{min(dv, v200)*1e6/(w_avg*L_total)*100:.0f} ซม.) ส่วนที่เหลือ {max(0, dv-v200):.1f} ลลบ.ม. ไหลออกปลายน้ำต่อ")
 print("  → ข้อสรุป M4: ผลหลักคือ 'ส่งน้ำออกจากระบบลุ่มก่อนพีค' + ลำน้ำต่ำลงชั่วคราว ไม่ใช่เก็บในลำน้ำได้มาก")
 
-json.dump(sections, open(ROOT / "analysis" / "river_cross_sections.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+json.dump({"corridor_area_km2_at_1p5m": round(surf_km2, 2),  # aggregate สำหรับ M4 (goal4_counterfactual_model.py อ่าน)
+           "sections": sections},
+          open(ROOT / "analysis" / "river_cross_sections.json", "w", encoding="utf-8"),
+          ensure_ascii=False, indent=1)
 print("\nบันทึก: analysis/river_cross_sections.json")

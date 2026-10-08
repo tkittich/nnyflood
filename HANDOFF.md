@@ -70,7 +70,7 @@ commit ปกติแล้วหลัง `git init` ใหม่ — จะ p
   + ไฮโดรกราฟ 15 นาที) — ทำแล้วจะยกระดับ M4/สถานการณ์จาก lumped → วิศวกรรม
   · รวมถึง composite Manning n ฝั่งที่ราบ (Gemini ISSUE-04 — ทำตอนนี้ถึงจะคุ้ม)
 - **ช่องทางติดต่อ PDPA** หลัง publish (issue ของ repo — ดู docs/LEGAL_REVIEW.md)
-- จุเล็ก: R-12 ปรับ presentation พื้นที่พีคให้ canonical ทุกจุด · R-13 ลบ PQR ซ้ำ 2.9 GB
+- จุเล็ก: R-12 ปรับ presentation พื้นที่น้ำสูงสุดให้ canonical ทุกจุด · R-13 ลบ PQR ซ้ำ 2.9 GB
   (ผู้ใช้ตัดสินใจ) · แฮชใน `data/manifest.md` ให้ครบ · English abstract ใน README (ถ้า
   ต้องการคนนอกอ่าน)
 

@@ -37,7 +37,7 @@ START_HERE.md        ← อ่านก่อน: ลำดับการอ�
 report/              ← รายงานส่งมอบ 2 ฉบับ (ไฟล์ HTML เดียวจบ)
 docs/                ← มาตรฐานวิธีการ + พจนานุกรมข้อมูล + แหล่งข้อมูล
 analysis/            ← สคริปต์ประมวลผล + ผลสังเคราะห์ (CSV/JSON/PNG/MD)
-data/                ← หลักฐานต้นฉบับ 20 ชุด (ทุกชุดมี manifest + SHA-256)
+data/                ← หลักฐานต้นฉบับ 21 ชุด (ทุกชุดมี manifest + SHA-256)
 tests/               ← ชุดทดสอบ 26 ตัว (กัน regression)
 index.html           ← หน้ารวมลิงก์รายงาน (เสิร์ฟโดย GitHub Pages)
 ```
@@ -115,7 +115,7 @@ python analysis/verify_data_integrity.py --quick # ตรวจแฮชข้�
 |---|---|
 | `START_HERE.md` | ทางเข้า + คำสั่งทำซ้ำ + กับดักที่เจอ |
 | `docs/METHODS.md` | มาตรฐานหลักฐาน `[F]/[I]/[O]` + วิธีประมวลผล S1 + โมเดลทำนาย |
-| `docs/DATA_SOURCES.md` | แหล่งข้อมูล 20 ชุด + สถานะการเข้าถึง |
+| `docs/DATA_SOURCES.md` | แหล่งข้อมูล 21 ชุด + สถานะการเข้าถึง |
 | `docs/DATA_DICTIONARY.md` | นิยามตัวเลขทางการทุกตัว (canonical) + ฟิลด์ข้อมูล |
 | `docs/ANALYSIS_PLAN.md` | คำถามวิเคราะห์ A–D + สถานะ |
 | `docs/ENVIRONMENT.md` | สภาพแวดล้อม Python ที่ตัวเลขผลิตด้วยจริง |

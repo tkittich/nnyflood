@@ -87,7 +87,8 @@ for m in MODELS:
 ens = {}
 for k in list(fc_rain("gfs_seamless")):
     vals = [fc_rain(m).get(k) for m in MODELS]
-    ens[k] = sum(v for v in vals if v is not None) / len(MODELS)
+    avail = [v for v in vals if v is not None]
+    ens[k] = sum(avail) / len(avail)  # F-06: หารด้วยจำนวนโมเดลที่มีค่าวันนั้น ไม่ใช่ len(MODELS)
 rain_sources["ฝนพยากรณ์ ensemble 5 โมเดล"] = ens
 
 def at(a, i, back):

@@ -107,7 +107,7 @@ def at(a, i, back):
     j = i - back
     return a[j] if j >= 0 else np.nan
 
-# ---------- สร้างตัวอย่าง (ฟีเจอร์ 12 ตัว เหมือน v1 ทุกประการ) ----------
+# ---------- สร้างตัวอย่าง (ฟีเจอร์ 12 ตัว โครงสร้างเดียวกับ v1 (ต่าง preprocessing — ดู note ใน JSON)) ----------
 X_all, Y_all, T_all = [], [], []
 seg_ok = np.zeros(len(grid), bool)
 for _, s, e in SEGS:

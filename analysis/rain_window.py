@@ -23,6 +23,8 @@ def day_window(daily, days):
     รับ `daily` = อนุกรมรายวัน (np.array ของฝน มม./วัน) เรียงตามเวลา
     คืน array ยาวเท่ากัน โดยช่องที่ยังไม่มีวันก่อนหน้าเต็มจะได้ผลรวมเท่าที่มี
     """
+    # F-08: NASA POWER ใช้ −999 เป็น missing sentinel — กรองก่อนรวม (ค่า < −90 มม./วัน = ไม่ใช่ฝนจริง)
+    daily = np.where(np.asarray(daily, dtype=float) < -90.0, 0.0, np.asarray(daily, dtype=float))
     c = np.concatenate([[0.0], np.cumsum(daily)])
     return np.array([c[i] - c[max(0, i - days)] for i in range(len(daily))])
 

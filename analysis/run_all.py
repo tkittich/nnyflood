@@ -58,6 +58,7 @@ steps.append((have("data/13_sentinel1_copernicus/derived/dem_30m.npy",
 steps.append((bool(list((PROJ / "data/18_sentinel2_copernicus").glob("S2B_MSIL2A_20261002*")))
               if (PROJ / "data/18_sentinel2_copernicus").exists() else False,
               [PY, "analysis/s2_water.py"]))
+steps.append((True, [PY, "report/make_x_charts_thai.py"]))
 steps.append((True, [PY, "analysis/build_canonical_numbers.py"]))
 steps.append((True, [PY, "report/build_report_html.py"]))
 steps.append((True, [PY, "report/build_expert_report.py"]))

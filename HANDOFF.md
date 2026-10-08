@@ -1,14 +1,14 @@
 # HANDOFF — สถานะส่งมอบ (8 ต.ค. 2569)
 
 > เอกสารสำหรับ session ถัดไป · อ่านจบ 3 นาทีแล้วทำงานต่อได้ · ตัวเลข canonical อยู่ที่
-> `docs/DATA_DICTIONARY.md` · ขั้นตอนทำซ้ำอยู่ที่ `START_HERE.md §4`
+> `analysis/canonical_numbers.json` (builders/tests อ่านจากไฟล์นี้ · เอกสาร prose = `docs/DATA_DICTIONARY.md`) · ขั้นตอนทำซ้ำอยู่ที่ `START_HERE.md §4`
 
 ## สถานะ: publish แล้ว — github.com/tkittich/nnyflood (8 ต.ค. 2569)
 
 งานวิเคราะห์/รายงาน **เสร็จสมบูรณ์** และผ่านการตรวจ 4 ชั้นแล้ว:
-1. pytest **26/26** (test_core 14 + test_artifacts 5 + test_integrity 7 — ผูก HTML กับ canonical_numbers.json + ทดสอบตัวตรวจ integrity ที่เป็น CI gate)
+1. pytest **29/29** (test_core 14 + test_artifacts 5 + test_integrity 7 — ผูก HTML กับ canonical_numbers.json + ทดสอบตัวตรวจ integrity ที่เป็น CI gate)
 2. ความครบถ้วนข้อมูลต้นฉบับ: SHA-256 **OK 681 / MISMATCH 0** (`verify_data_integrity.py --quick`)
-3. รีวิวอิสระ 3 ชุด (`docs/reviews/` — DeepSeek R-01..R-13 · Gemini ×2 รอบ · Qwen 61 findings) — **แก้/ตอบครบแล้ว**
+3. รีวิวอิสระ 3 ชุด (`docs/reviews/` — DeepSeek R-01..R-13 · Gemini · Qwen ×2 รอบ · Qwen 61 findings) — **แก้/ตอบครบแล้ว**
 4. ตรวจกฎหมายก่อนเผยแพร่: `docs/LEGAL_REVIEW.md` (หมิ่นประมาท + PDPA — ความเสี่ยงรวมต่ำ)
 
 **Publish แล้วจริง**: ประวัติเก่าถูกลบ (insurance: `archive/flood-history-20261007.bundle`)
@@ -16,7 +16,7 @@
 ดูบทเรียนข้างล่าง) · CI บน GitHub รันเขียว (pytest + integrity ยอมรับ exit 2) ·
 description + topics ตั้งแล้วผ่าน API
 
-ตัวเลข canonical ล่าสุด: สัดส่วนเขื่อน/ฝน = **12% เริ่มท่วม · 59% น้ำขัง**
+ตัวเลข canonical ล่าสุด: สัดส่วนเขื่อน/ฝน = **12% เริ่มท่วม · 60% น้ำขัง**
 (คำนวณโดย `analysis/attribution_share.py`) · ตัวอื่นคงเดิม
 (9.23 ม. = 7.64 ม.รทก. ±0.05 · 65 ชม. · 509.3 ตร.กม. · RMSE backtest ชนะ persistence ทุกฤดู)
 
@@ -52,9 +52,10 @@ commit ปกติแล้วหลัง `git init` ใหม่ — จะ p
    ไฟล์ชั่วคราวต้องขึ้นต้น `_tmp_` หรือ `.ov_` (ignore แล้ว)
 3. **archive/ ถูก gitignore** — เอกสาร/ภาพต้นฉบับที่ย้ายเข้าไปจะไม่ถูก publish (ตั้งใจ)
    และมีแค่สำเนาเดียวบนดิสก์ D: — ถ้าสำคัญให้ copy สำรองที่อื่นด้วย
-4. **อย่าแก้ `goal4_model_v1.py` ตามข้อแนะนำ Gemini ISSUE-01/03** (ตัด dH1B_6h / เปลี่ยน
-   imputation TW=2.0) — จะทำให้ตัวเลขโมเดลทุกตัวในรายงานเปลี่ยนหมด (ผ่านการตรวจแล้วว่า
-   ผลกระทบถูกจำกัดด้วย diagnostics — ทำเฉพาะเมื่อทำคู่กับ HEC-RAS รอบใหญ่)
+4. **อย่าแก้ `goal4_model_v1.py` ตามข้อแนะนำ Gemini ISSUE-03** (เปลี่ยน imputation
+   TW=2.0) — จะทำให้ตัวเลขโมเดลทุกตัวในรายงานเปลี่ยนหมด (ส่วน ISSUE-01 ตัด dH1B_6h
+   **ทำไปแล้ว 8 ต.ค. 69** — v1 ปัจจุบันใช้ 11 ตัวแปร และรายงานอิงตัวเลขชุด 11 ตัว;
+   อย่าตัดอะไรเพิ่มเอง — ทำเฉพาะเมื่อทำคู่กับ HEC-RAS รอบใหญ่)
 5. **requirements.txt ปักหมุดตามเครื่องพัฒนา** (Windows/CPython 3.14) — CI ใช้ ubuntu
    + Python 3.13 ถ้า install พังให้ปรับ version ใน workflow
 6. REVIEW.gemini.md มีบางส่วน**หลอมข้อมูล** (ตาราง data/01–21 ชื่อไม่ตรงจริง, ตัวเลข
@@ -84,7 +85,7 @@ commit ปกติแล้วหลัง `git init` ใหม่ — จะ p
 | `docs/LEGAL_REVIEW.md` | ตรวจหมิ่นประมาท/PDPA ก่อน publish |
 | `docs/reviews/` | รีวิวอิสระ 3 ฉบับ (DeepSeek · Gemini ×2 รอบ · Qwen — 8 ต.ค.) |
 | `archive/` (gitignored) | ประวัติเก่าทั้งหมด (bundle) + ต้นฉบับที่ถูกถอดจาก repo |
-| `analysis/attribution_share.py` | สคริปต์สัดส่วนเขื่อน/ฝน (12% · 59%) — ตัวเลขหัวใจ |
+| `analysis/attribution_share.py` | สคริปต์สัดส่วนเขื่อน/ฝน (12% · 60%) — ตัวเลขหัวใจ |
 | `analysis/run_all.py` | รัน pipeline ทั้งระบบทีเดียว (10 ขั้น) |
 | `analysis/goal4_model_*.py` | โมเดลทำนาย (v1) / backtest หลายฤดู / หลายจุดวัด |
 | `analysis/goal5_policy_proposals.md` | ข้อเสนอต่อภาครัฐ (เป้าหมาย 5 — E1–E7) |

@@ -37,7 +37,7 @@ def test_backtest_model_beats_persistence_every_season():
 
 
 def test_attribution_shares_match_headline():
-    """สัดส่วนเขื่อน/ฝน: P1 ~12% · P2 ~59% (±2 จุด) — ตัวเลขที่ README/รายงานอ้าง"""
+    """สัดส่วนเขื่อน/ฝน: P1 ~12% · P2 ~60% (±2 จุด) — ตัวเลขที่ README/รายงานอ้าง (อินทิกราล 15 นาที รุ่นแก้ GL-01)"""
     j = _load("analysis/attribution_share.json")["windows"]
     p1 = j["P1_onset"]
     p2 = j["P2_sustained"]
@@ -45,7 +45,7 @@ def test_attribution_shares_match_headline():
     assert 55 <= p2["dam_share_measured_pct"] <= 63
     # ตัวเลขปริมาตรที่รายงานวิชาการ §4B อ้าง
     assert 38 <= p1["total_measured_mcm"] <= 40
-    assert 69 <= p2["total_measured_mcm"] <= 71.5
+    assert 68 <= p2["total_measured_mcm"] <= 71.5
 
 
 def test_reports_contain_canonical_numbers():
@@ -59,3 +59,6 @@ def test_reports_contain_canonical_numbers():
         html = (ROOT / "report" / fname).read_text(encoding="utf-8")
         missing = [s for s in canon[key] if s not in html]
         assert not missing, f"{fname} ขาดตัวเลข canonical: {missing}"
+        # ชั้นกลับ: ค่า/คำที่เลิกใช้ห้ามกลับเข้ามา (GL-10 — จับ "ค่าเก่าค้างคู่ค่าใหม่")
+        present = [t for t in canon.get("forbidden", []) if t in html]
+        assert not present, f"{fname} มีค่า/คำที่เลิกใช้: {present}"

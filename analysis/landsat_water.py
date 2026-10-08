@@ -1,11 +1,13 @@
 """ตรวจน้ำท่วมด้วย Landsat optical 30 ม. (MNDWI) เทียบกับ S1 ของเรา + GISTDA บนกริดเดียวกัน
 
-ทำไมต้องมี: S1 เป็นเรดาร์ — มองไม่เห็นน้ำตื้น/ขุ่น/ไหลแรง/ใต้ไม้ ค่า 509.3/436.3 ตร.กม.
-จึงเป็น **ขอบล่าง** Landsat optical (30 ม. ฟรี T1) เห็นผิวน้ำด้วยฟิสิกส์คนละแบบ
-(MNDWI: SWIR1 ดูดกลืนในน้ำ) ฉาก 2 ต.ค. 69 = วันเดียวกับ GISTDA (306.9) และ S1 (436.3)
-จึงเป็นการตรวจสอบอิสระแบบ 3 เซนเซอร์/2 ฟิสิกส์ในวันเดียว
+สถานะ (8 ต.ค. 69): **ฉากใน repo ทั้งสองฉาก (path 128/row 50) ไม่ครอบจังหวัดนครนายก**
+(อยู่ตะวันออกของ ~101.6°E ที่ 14.2°N — ดู data/21_landsat_optical/manifest.md) สคริปต์นี้
+จึง **หยุดทันทีเมื่อเช็คแล้วไม่ครอบกริด** (เดิมพิมพ์เตือนแล้วคำนวณต่อ ได้ JSON f1=0.0
+ที่ไร้ความหมาย — แก้ตามผลรีวิว GLM GL-05; landsat_water.json เดิมถูกลบแล้ว)
+จะใช้จริงต้องเปลี่ยนไปฉากที่ครอบจังหวัด: path 129/row 50 ล่าสุดก่อนน้ำสูงสุด = 23 ก.ย. 69
+(65.3% เมฆ, Tier 1) — ค้นฉากใหม่ต้อง point-intersect ที่ AOI เสมอ อย่าเชื่อ bbox-search
 
-วิธี:
+วิธี (ตรวจแล้วถูกต้อง เตรียมไว้ใช้กับฉากที่ครอบ):
 - SR B3 (green) + B6 (SWIR1): scale จาก MTL (Collection 2 = ×2.75e-05 − 0.2)
 - MNDWI = (G − S1) / (G + S1) · น้ำ = MNDWI > 0
 - QA_PIXEL: ตัด fill/dilated-cloud/cirrus/cloud/shadow/snow (bits 0–5)
@@ -65,7 +67,11 @@ def read_on_grid(src_path, band_index=1, dtype="float32"):
         src_bounds_4326 = transform_bounds(src.crs, "EPSG:4326", *bounds, densify_pts=21)
         if (src_bounds_4326[0] > x0 or src_bounds_4326[2] < x1
                 or src_bounds_4326[1] > y0 or src_bounds_4326[3] < y1):
-            print(f"    (bounds ต้นทางไม่ครอบกริด: {tuple(round(b, 3) for b in src_bounds_4326)})")
+            # ไม่ครอบกริด = ค่าที่คำนวณต่อจะไร้ความหมาย (เคยให้ f1=0.0 หลอก) — หยุดเสมอ (GL-05)
+            raise SystemExit(
+                f"ฉากนี้ไม่ครอบกริดจังหวัด — หยุด (bounds ต้นทาง {tuple(round(b, 3) for b in src_bounds_4326)}; "
+                f"กริดเรา x {x0:.3f}..{x1:.3f} · y {y0:.3f}..{y1:.3f}) — ดู data/21_landsat_optical/manifest.md"
+            )
         with WarpedVRT(src, crs="EPSG:4326", transform=transform, width=nx, height=ny,
                        resampling=Resampling.bilinear if dtype == "float32" else Resampling.nearest,
                        nodata=src.nodata) as vrt:

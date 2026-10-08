@@ -32,6 +32,8 @@ for year in (2021, 2022, 2024, 2025):
                 except Exception as e:
                     print(f"{year} {d} st{n_id}: retry {attempt} ({e})", flush=True)
                     time.sleep(5)
+            else:
+                print(f"{year} {d} st{n_id}: FAIL ×3 — chunk นี้จะหายจาก CSV โดยไม่มีป้าย (ตรวจ log ก่อนใช้ข้อมูล)", flush=True)
             time.sleep(0.7)
         d = d2 + dt.timedelta(days=1)
     for n_id, name in STATIONS.items():

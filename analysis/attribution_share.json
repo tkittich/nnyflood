@@ -1,29 +1,51 @@
 {
- "method": "อินทิกราลข้อมูล 15 นาทีของ Q ที่ Ny.7 · เขื่อน = ปล่อยรายวัน×lag 12 ชม. (ไม่รวมการอุปโภค/ท่อส่งน้ำ) · หน้าต่าง P1 = 26 ก.ย. 12:00–27 ก.ย. 12:00 · P2 = 27 ก.ย. 12:00–29 ก.ย. 00:00",
+ "method": "อินทิกราลข้อมูล 15 นาทีของ Q ที่ Ny.7 (ผลรวมไรมันน์ q×900 วิ) · เขื่อน = ปล่อยรายวัน×lag 12 ชม. (ไม่รวมการอุปโภค/ท่อส่งน้ำ; ความอ่อนไหวต่อ lag ดูคีย์ lag_sensitivity) · หน้าต่าง P1 = 26 ก.ย. 12:00–27 ก.ย. 12:00 · P2 = 27 ก.ย. 12:00–29 ก.ย. 00:00",
  "windows": {
   "P1_onset": {
    "window": [
     "2026-09-26T12:00:00",
     "2026-09-27T12:00:00"
    ],
-   "total_measured_mcm": 39.0,
-   "total_rating_mcm": 36.2,
+   "total_measured_mcm": 38.8,
+   "total_rating_mcm": 36.5,
    "dam_release_mcm": 4.6,
    "dam_hours_counted": 24,
-   "dam_share_measured_pct": 11.8,
-   "dam_share_rating_pct": 12.7
+   "dam_share_measured_pct": 11.9,
+   "dam_share_rating_pct": 12.6
   },
   "P2_sustained": {
    "window": [
     "2026-09-27T12:00:00",
     "2026-09-29T00:00:00"
    ],
-   "total_measured_mcm": 70.3,
-   "total_rating_mcm": 63.2,
+   "total_measured_mcm": 68.9,
+   "total_rating_mcm": 63.1,
    "dam_release_mcm": 41.4,
    "dam_hours_counted": 36,
-   "dam_share_measured_pct": 58.9,
-   "dam_share_rating_pct": 65.5
+   "dam_share_measured_pct": 60.1,
+   "dam_share_rating_pct": 65.6
+  }
+ },
+ "lag_sensitivity": {
+  "unit": "dam_share_measured_pct",
+  "note": "lag วัดจริง 9–18 ชม. — สัดส่วน P1 แกว่งตาม lag เพราะปล่อยรายวันถูกตัดที่ขอบหน้าต่าง 27 ก.ย. 12:00; P2 แข็งแรง",
+  "pct_by_lag_h": {
+   "6": {
+    "P1_onset": 29.3,
+    "P2_sustained": 55.6
+   },
+   "9": {
+    "P1_onset": 20.6,
+    "P2_sustained": 57.9
+   },
+   "12": {
+    "P1_onset": 11.9,
+    "P2_sustained": 60.1
+   },
+   "18": {
+    "P1_onset": 10.3,
+    "P2_sustained": 54.7
+   }
   }
  }
 }

@@ -111,8 +111,10 @@ def at(a, i, back):
     j = i - back
     return a[j] if j >= 0 else np.nan
 
+# dH1B_6h ถูกตัด (8 ต.ค. 69) — เป็น H1B(t)-H1B(t-6) เป๊ะ = rank-deficient
+# (predictions ไม่เปลี่ยน: column space เดิม) — ดู REVIEW.gemini.md G-04
 FEATS = ["H7(t)", "H7(t-3)", "H7(t-24)", "dH7_6h", "H1B(t)", "H1B(t-6)", "H1B(t-24)",
-         "dH1B_6h", "TW(t)", "R24", "R72", "R168"]
+         "TW(t)", "R24", "R72", "R168"]
 HORIZONS = [6, 24, 48]
 split = grid.index(dt.datetime(2026, 9, 20, 0, 0))
 
@@ -125,7 +127,7 @@ for i in range(len(grid)):
         continue
     tw = TW[i]
     X_all.append([H7[i], at(H7, i, 3), at(H7, i, 24), H7[i] - at(H7, i, 6),
-                  H1[i], at(H1, i, 6), at(H1, i, 24), H1[i] - at(H1, i, 6),
+                  H1[i], at(H1, i, 6), at(H1, i, 24),
                   tw if np.isfinite(tw) else 2.0,      # ค่า default ตอนท้ายน้ำไม่ส่ง
                   R24[i], R72[i], R168[i]])
     TWmiss.append(0 if np.isfinite(tw) else 1)
@@ -172,8 +174,8 @@ for k, h in enumerate(HORIZONS):
     results[h] = rows
     preds[h] = (yte, p_pers, p_lin, p_gb, T_all[te])
     ipk = int(np.argmax(yte))
-    print(f"\n== ทำนาย +{h} ชม. ==  พีคจริง {yte[ipk]:.2f} ม. ({T_all[te][ipk]:%d %b %H:%M})")
-    print(f"{'โมเดล':<12}{'RMSE ชม.(ซม.)':>14}{'MAE(ซม.)':>10}{'RMSE เหตุการณ์':>15}{'จับ>ตลิ่ง':>11}{'ระวังผิด':>10}{'พีคผิด(ซม.)':>12}")
+    print(f"\n== ทำนาย +{h} ชม. ==  น้ำสูงสุดจริง {yte[ipk]:.2f} ม. ({T_all[te][ipk]:%d %b %H:%M})")
+    print(f"{'โมเดล':<12}{'RMSE ชม.(ซม.)':>14}{'MAE(ซม.)':>10}{'RMSE เหตุการณ์':>15}{'จับ>ตลิ่ง':>11}{'ระวังผิด':>10}{'น้ำสูงสุดผิด(ซม.)':>12}")
     for nm, rmse, mae, rmse_ev, hit, far in rows:
         pk_err = ({"persistence": p_pers, "linear": p_lin, "GBDT": p_gb}[nm][ipk] - yte[ipk]) * 100
         print(f"{nm:<12}{rmse:>14.1f}{mae:>10.1f}{rmse_ev:>15.1f}{hit*100:>10.0f}%{far*100:>9.0f}%{pk_err:>12.1f}")
@@ -195,7 +197,7 @@ for h, k in zip(HORIZONS, range(len(HORIZONS))):
                             "const": round(float(m.intercept_), 5)}
 json.dump(coeffs_full, open(BASE / "goal4_linear_coeffs_full.json", "w", encoding="utf-8"),
           ensure_ascii=False, indent=1)
-print("\nบันทึก: goal4_linear_coeffs_full.json (12 ตัวแปร × 3 ระยะ)")
+print("\nบันทึก: goal4_linear_coeffs_full.json (11 ตัวแปร × 3 ระยะ)")
 
 # ---------- ตัวอย่างคำนวณมือ (ใช้ในรายงานฉบับประชาชน) ----------
 # พิมพ์ค่าฟีเจอร์จริง + ผลแทนสูตร เพื่อให้คัดลอกลงรายงานได้ และเป็น self-check
@@ -204,7 +206,7 @@ EX = dt.datetime(2026, 9, 25, 12, 0)
 _i = grid.index(EX)
 _exf = {"H7(t)": H7[_i], "H7(t-3)": at(H7, _i, 3), "H7(t-24)": at(H7, _i, 24),
         "dH7_6h": H7[_i] - at(H7, _i, 6), "H1B(t)": H1[_i], "H1B(t-6)": at(H1, _i, 6),
-        "H1B(t-24)": at(H1, _i, 24), "dH1B_6h": H1[_i] - at(H1, _i, 6),
+        "H1B(t-24)": at(H1, _i, 24),
         "TW(t)": TW[_i] if np.isfinite(TW[_i]) else 2.0,
         "R24": R24[_i], "R72": R72[_i], "R168": R168[_i]}
 _manual = float(sum(c * _exf[f] for f, c in zip(FEATS, lin24.coef_)) + lin24.intercept_)
@@ -215,12 +217,13 @@ for f in FEATS:
 print(f"   แทนสูตรได้ {_manual:.3f} ม.รทก. | ระดับจริง {_actual:.3f} | ต่าง {( _manual - _actual) * 100:+.0f} ซม.")
 
 # ---------- Ablation: แยกดูว่า "บล็อกไหน" แบกสัญญาณ ----------
-# รายงานวิชาการอ้างว่า "ฉบับย่อ 4 ตัวแปร = 119.3 ซม. แย่กว่าฉบับเต็ม 103.0 อย่างมีนัยสำคัญ
+# รายงานวิชาการอ้าง ablation นี้ (ตัวเลข rerun หลังตัด dH1B_6h 8 ต.ค. 69)
+# ฉบับย่อ 4 ตัวแปร แย่กว่าฉบับเต็มอย่างมีนัยสำคัญ
 # -> ข้อมูลต้นน้ำ+ฝนมีสัญญาณจริง" — ตัวเลขนั้นไม่มีสคริปต์รองรับ และไม่แยกสองบล็อกออกจากกัน
 # ตรวจซ้ำตรงนี้เป็น 3 แขน: เต็ม 12 / ตัดฝน (เหลือ 9) / ตัด Ny.1B+ฝน (เหลือ 4)
 COMPACT = [0, 1, 2, 3]                      # H7(t), H7(t-3), H7(t-24), dH7_6h
-NO_RAIN = list(range(9))                    # ตัด R24, R72, R168 ออก
-ARMS = [("เต็ม 12 ตัว", None), ("ตัดฝน (9)", NO_RAIN), ("ตัด Ny.1B+ฝน (4)", COMPACT)]
+NO_RAIN = list(range(8))                    # ตัด R24, R72, R168 ออก
+ARMS = [("เต็ม 11 ตัว", None), ("ตัดฝน (8)", NO_RAIN), ("ตัด Ny.1B+ฝน (4)", COMPACT)]
 ablation = {}
 print(f"\nAblation — RMSE เหตุการณ์ 25–30 ก.ย. (ซม.)")
 print(f"{'ระยะ':>7}" + "".join(f"{nm:>20}" for nm, _ in ARMS))
@@ -254,7 +257,7 @@ json.dump({str(h): [[nm, round(a, 2), round(b, 2), round(c, 2), round(d, 3), rou
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-plt.rcParams["font.family"] = ["Leelawadee UI", "Tahoma"]
+plt.rcParams["font.family"] = ["Leelawadee UI", "Tahoma", "Loma", "Garuda", "Norasi", "DejaVu Sans"]
 import matplotlib.dates as mdates
 from matplotlib.ticker import FuncFormatter
 THAI_M = {1: "ม.ค.", 2: "ก.พ.", 3: "มี.ค.", 4: "เม.ย.", 5: "พ.ค.", 6: "มิ.ย.",

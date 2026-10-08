@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.ticker import FuncFormatter
 
-plt.rcParams["font.family"] = ["Leelawadee UI", "Tahoma"]
+plt.rcParams["font.family"] = ["Leelawadee UI", "Tahoma", "Loma", "Garuda", "Norasi", "DejaVu Sans"]
 A = Path(__file__).resolve().parent
 OUT = A / "assets"
 THAI_M = {1: "ม.ค.", 2: "ก.พ.", 3: "มี.ค.", 4: "เม.ย.", 5: "พ.ค.", 6: "มิ.ย.",
@@ -36,7 +36,7 @@ ax.plot(hfit, qfit, color="#c62828", lw=2, label="สมการประมา
 ax.axvline(6.86, color="#ef6c00", ls="--", lw=1)
 ax.set_ylim(top=max(q) * 1.16)
 ax.text(6.9, max(q) * 1.06, "ระดับล้นตลิ่งเมือง 6.86 ม.รทก. (≈ เกจ 8.45)", fontsize=8, color="#ef6c00", va="top")
-ax.annotate("พีคจริง 7.68 ม.รทก.\n(สถานีอ่าน Q สูงกว่าสมการ ~18%)", xy=(7.68, 690), xytext=(-118, -6),
+ax.annotate("น้ำสูงสุดจริง 7.68 ม.รทก.\n(สถานีอ่าน Q สูงกว่าสมการ ~18%)", xy=(7.68, 690), xytext=(-118, -6),
             textcoords="offset points", fontsize=8, color="#37474f",
             arrowprops=dict(arrowstyle="->", color="#37474f", lw=0.7))
 ax.set_xlabel("ระดับน้ำ ณ Ny.7 (ม.รทก.)")

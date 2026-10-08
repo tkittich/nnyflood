@@ -30,7 +30,7 @@ cd <โฟลเดอร์ repo>
 PY=python
 
 "$PY" -m pip install -r requirements.txt
-"$PY" -m pytest tests/ -q                        # ต้องได้: 29 passed
+"$PY" -m pytest tests/ -q                        # ต้องได้: 31 passed
 "$PY" analysis/verify_data_integrity.py --quick # ต้องได้: MISMATCH 0 (MISSING = ไฟล์ใหญ่นอก git)
 ```
 

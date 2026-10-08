@@ -1,4 +1,8 @@
 {
+ "samples": {
+  "train_h": 11221,
+  "test_h": 312
+ },
  "6": [
   [
    "persistence",

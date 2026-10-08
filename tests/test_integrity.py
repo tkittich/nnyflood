@@ -110,3 +110,23 @@ def test_ambiguous_basename_silent_match_is_exit_3(tmp_path):
     md.write_text(f"| `x.dat` | 9 B | `{_sha(a)}` |\n", encoding="utf-8")
     assert vi.main(["--only", str(tmp_path)]) == 3
     assert len(vi.AMBIGUOUS) == 1
+
+
+def test_parse_section_bullet_format(tmp_path):
+    """รูปแบบ 2: หัวข้อ ``### path`` + บรรทัด ``- SHA-256: `hex``` (สไตล์โฟลเดอร์ 01/02)"""
+    f = _mk(tmp_path, "01/x.dat", b"data-01")
+    md = tmp_path / "manifest.md"
+    md.write_text(f"### 01/x.dat\n- SHA-256: `{_sha(f)}`\n", encoding="utf-8")
+    rows = vi.parse_manifest(md)
+    assert len(rows) == 1
+    assert rows[0][1] == "01/x.dat"
+    assert rows[0][2] == _sha(f)
+
+
+def test_slash_path_regex_catches_paths_not_domains():
+    """รูปแบบ 3: path ลอยในข้อความ ('เก็บต้นฉบับไว้ที่ raw/x.rar') ต้องโดนจับ
+    แต่โดเมน (facebook.com/groups) ต้องไม่ถูกจับเป็น path"""
+    line = "เก็บต้นฉบับไว้ที่ raw/FLOOD.rar และดู facebook.com/groups/123"
+    hits = vi.SLASH_PATH.findall(line)
+    assert "raw/FLOOD.rar" in hits
+    assert not any("facebook" in h for h in hits)

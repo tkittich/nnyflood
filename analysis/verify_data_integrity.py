@@ -162,11 +162,14 @@ def collect(target_dirs):
 # ---------- ตัวแก้เส้นทาง ----------
 
 def build_index(d):
-    """basename -> [path, ...] ใช้เป็นทางเลือกสุดท้ายเมื่อ path ใน manifest ไม่ตรงจริง"""
+    """basename -> [path, ...] ใช้เป็นทางเลือกสุดท้ายเมื่อ path ใน manifest ไม่ตรงจริง
+    (sort ให้ลำดับ deterministic ทุก OS — เดิมพึ่งลำดับ rglob ที่ต่างกันแต่ละระบบ)"""
     idx = {}
-    for p in d.rglob("*"):
+    for p in sorted(d.rglob("*")):
         if p.is_file():
             idx.setdefault(p.name, []).append(p)
+    for k in idx:
+        idx[k].sort()
     return idx
 
 

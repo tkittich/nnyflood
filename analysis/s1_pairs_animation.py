@@ -28,7 +28,9 @@ def merged(tag_a, tag_b, pol="vh"):
         va, vb = np.isfinite(a), np.isfinite(b)
         m = np.where(va, a, b)
         both = va & vb
-        m[both] = (a[both] + b[both]) / 2
+        # เฉลี่ยในหน่วยกำลัง (linear) — ค่าเฉลี่ยในหน่วย dB ต่ำกว่าค่าจริง (GL-25)
+        lin = 10 ** (a[both].astype(np.float64) / 10) + 10 ** (b[both].astype(np.float64) / 10)
+        m[both] = (10 * np.log10(lin / 2)).astype(np.float32)
         return m, va | vb
     return a, np.isfinite(a)
 

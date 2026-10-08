@@ -79,7 +79,12 @@ for yr in sorted(ny7s):
             out[idx[h]] = np.mean(vals)
         good = np.where(np.isfinite(out))[0]
         if len(good):
-            out = np.interp(np.arange(len(grid)), good, out[good])
+            # GL-15: interp เฉพาะช่วงห่าง ≤6 ชม. — ช่องใหญ่คง NaN (ตกออกจากชุดฝึก/ทดสอบ
+            # แทนที่จะฝึกด้วยเส้นตรงที่เดายาว 11–53 วัน)
+            segs = np.split(good, np.where(np.diff(good) > 6)[0] + 1)
+            for seg in segs:
+                lo, hi = int(seg[0]), int(seg[-1])
+                out[lo:hi + 1] = np.interp(np.arange(lo, hi + 1), seg, out[seg])
         return out
 
     H7.append(hourly(ny7s[yr])); H1.append(hourly(ny1s.get(yr, {}))); TW.append(hourly(tws.get(yr, {})))

@@ -5,33 +5,33 @@
    "label": "Ny.1B บ้านเขานางบวช (ใกล้เขื่อน)",
    "folds": {
     "2021": {
-     "n_test": 8544,
-     "rmse24_all": 34.1,
-     "rmse24_wet": 42.3,
-     "persistence24_wet": 44.5
+     "n_test": 7270,
+     "rmse24_all": 33.1,
+     "rmse24_wet": 45.0,
+     "persistence24_wet": 47.0
     },
     "2022": {
-     "n_test": 8544,
+     "n_test": 8464,
      "rmse24_all": 38.8,
-     "rmse24_wet": 53.6,
-     "persistence24_wet": 57.5
+     "rmse24_wet": 54.0,
+     "persistence24_wet": 58.1
     },
     "2024": {
-     "n_test": 8568,
-     "rmse24_all": 41.7,
-     "rmse24_wet": 56.2,
-     "persistence24_wet": 60.1
+     "n_test": 6267,
+     "rmse24_all": 43.6,
+     "rmse24_wet": 64.3,
+     "persistence24_wet": 69.8
     },
     "2025": {
-     "n_test": 8544,
+     "n_test": 8451,
      "rmse24_all": 32.4,
-     "rmse24_wet": 37.7,
+     "rmse24_wet": 37.4,
      "persistence24_wet": 40.6
     },
     "2026": {
      "n_test": 336,
-     "rmse24_all": 122.5,
-     "rmse24_wet": 122.5,
+     "rmse24_all": 121.3,
+     "rmse24_wet": 121.3,
      "persistence24_wet": 125.8
     }
    }
@@ -40,21 +40,21 @@
    "label": "ท้ายน้ำ ปตร.ท่าช้าง (ท้ายลุ่ม)",
    "folds": {
     "2024": {
-     "n_test": 8568,
-     "rmse24_all": 17.0,
-     "rmse24_wet": 21.5,
-     "persistence24_wet": 17.4
+     "n_test": 3558,
+     "rmse24_all": 16.6,
+     "rmse24_wet": 18.2,
+     "persistence24_wet": 19.0
     },
     "2025": {
-     "n_test": 8544,
-     "rmse24_all": 14.2,
-     "rmse24_wet": 13.3,
+     "n_test": 7673,
+     "rmse24_all": 13.7,
+     "rmse24_wet": 14.3,
      "persistence24_wet": 12.4
     },
     "2026": {
      "n_test": 336,
-     "rmse24_all": 30.3,
-     "rmse24_wet": 30.3,
+     "rmse24_all": 23.9,
+     "rmse24_wet": 23.9,
      "persistence24_wet": 30.6
     }
    }

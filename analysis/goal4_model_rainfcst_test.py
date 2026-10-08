@@ -61,7 +61,10 @@ for yr in sorted(H7y):
             out[idx[h]] = np.mean(vals)
         good = np.where(np.isfinite(out))[0]
         if len(good):
-            out = np.interp(np.arange(len(grid)), good, out[good])
+            segs = np.split(good, np.where(np.diff(good) > 6)[0] + 1)
+            for seg in segs:
+                lo, hi = int(seg[0]), int(seg[-1])
+                out[lo:hi + 1] = np.interp(np.arange(lo, hi + 1), seg, out[seg])
         return out
 
     H7.append(hourly(H7y[yr])); H1.append(hourly(H1y.get(yr, {})))

@@ -109,6 +109,7 @@ def main() -> None:
     print("กราฟฝน 46 ปี:")
     plot_rain_46y()
     plot_c2_volume_vs_dams()
+    plot_c2_sources_chain()
 
 
 
@@ -135,6 +136,29 @@ def plot_c2_volume_vs_dams() -> None:
     fig.savefig(OUT / 'c2_volume_vs_dams.png', bbox_inches='tight')
     plt.close(fig)
     print('  c2_volume_vs_dams.png')
+
+
+def plot_c2_sources_chain() -> None:
+    """เส้นทางน้ำ 4 จุด: ปล่อยเขื่อน vs ปิงล่าง vs น่านล่าง vs รวมที่ C.2 — น้ำมาจากฝนลุ่ม ไม่ใช่เขื่อน"""
+    d = json.loads((ROOT / 'data/22_goal6_network/raw/spike_ping_cp/c2_sources_volumes.json').read_text(encoding='utf-8'))
+    xs = list(range(len(d['dates'])))
+    fig, ax = plt.subplots(figsize=(11, 4.8), dpi=110)
+    ax.plot(xs, d['c2'], color='#1d6fb8', lw=2.2, label='C.2 ท่าเรือ (รวมสุด)')
+    ax.plot(xs, d['p17'], color='#8e44ad', lw=1.7, label='ปิงล่าง (P.17 ท่างิ้ว — หลังผ่านภูมิพล)')
+    ax.plot(xs, d['n67'], color='#16a085', lw=1.7, label='น่านล่าง (N.67 — หลังผ่านสิริกิติ์)')
+    ax.bar(xs, d['released_total'], color='#c0392b', alpha=0.55, width=0.7, label='การปล่อยน้ำเขื่อนรวม')
+    ax.set_xticks(xs[::3])
+    ax.set_xticklabels([f"{x[8:]}/{x[5:7]}" for x in d['dates'][::3]], fontsize=9)
+    ax.set_ylabel('ล้าน ลบ.ม./วัน (จากอัตราไหลวัดจริง)', fontsize=10)
+    ax.set_xlabel('วันที่ กันยายน–ตุลาคม 2569', fontsize=10)
+    ax.set_title('น้ำที่ไหลผ่าน 4 จุดตามแนวน้ำ — ปิงล่างพุ่ง 20 เท่า ขณะที่เขื่อนลดปล่อย 3 เท่า\n'
+                 '→ น้ำท่วมส่วนใหญ่คือฝนลุ่มปิง–น่าน ไม่ใช่น้ำจากเขื่อน', fontsize=12)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.25)
+    fig.tight_layout()
+    fig.savefig(OUT / 'c2_sources_chain.png', bbox_inches='tight')
+    plt.close(fig)
+    print('  c2_sources_chain.png')
 
 if __name__ == "__main__":
     main()

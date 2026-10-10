@@ -112,3 +112,38 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+def plot_c2_vs_releases() -> None:
+    """กราฟคู่: การปล่อยเขื่อน (ลดลง) vs ระดับ C.2 (ขึ้น) — หลักฐาน 'ไม่ใช่น้ำปล่อยล่วงหน้า'"""
+    d = json.loads((ROOT / 'data/22_goal6_network/raw/spike_ping_cp/c2_vs_dam_releases_sep2026.json').read_text(encoding='utf-8'))
+    dates = sorted(d['C2_daily_max'])
+    xs = list(range(len(dates)))
+    c2 = [d['C2_daily_max'][x] for x in dates]
+    bhum = [d['bhumibol_released'].get(x) for x in dates]
+    siri = [d['sirikit_released'].get(x) for x in dates]
+
+    fig, ax1 = plt.subplots(figsize=(11, 4.6), dpi=110)
+    ax1.plot(xs, c2, color='#1d6fb8', lw=2.2, marker='o', ms=3, label='ระดับน้ำที่ C.2 ท่าเรือ (สูงสุดรายวัน)')
+    ax1.set_ylabel('ระดับน้ำ (ม.รทก.)', color='#1d6fb8', fontsize=10)
+    ax1.tick_params(axis='y', labelcolor='#1d6fb8')
+    ax2 = ax1.twinx()
+    ax2.plot(xs, bhum, color='#c0392b', lw=1.6, marker='s', ms=3, label='เขื่อนภูมิพลปล่อย')
+    ax2.plot(xs, siri, color='#e67e22', lw=1.6, marker='^', ms=3, label='เขื่อนสิริกิติ์ปล่อย')
+    ax2.set_ylabel('การปล่อยน้ำ (ล้าน ลบ.ม./วัน)', color='#8a2b2b', fontsize=10)
+    ax2.tick_params(axis='y', labelcolor='#8a2b2b')
+    tick_idx = [i for i in range(0, len(dates), 3)]
+    ax1.set_xticks(tick_idx)
+    ax1.set_xticklabels([f"{dates[i][8:]}" for i in tick_idx], fontsize=9)
+    ax1.set_xlabel('วันที่ กันยายน–ตุลาคม 2569', fontsize=10)
+    ax1.axhline(25.7, color='#888', ls=':', lw=1)  # min_bank ตลิ่ง
+    ax1.text(1, 25.85, 'ระดับตลิ่ง 25.7 ม.', fontsize=8, color='#888')
+    ax1.set_title('ระดับน้ำที่ C.2 ท่าเรือ ขึ้นพร้อมกับที่เขื่อนลดการปล่อยลง —\nไม่ใช่น้ำที่เขื่อนปล่อยล่วงหน้า (ปิง–เจ้าพระยาตอนบน)', fontsize=12)
+    lines1, labels1 = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    ax1.legend(lines1 + lines2, labels1 + labels2, fontsize=8.5, loc='upper left')
+    ax1.grid(alpha=0.25)
+    fig.tight_layout()
+    OUT.mkdir(parents=True, exist_ok=True)
+    fig.savefig(OUT / 'c2_vs_dam_releases.png', bbox_inches='tight')
+    plt.close(fig)
+    print('  c2_vs_dam_releases.png')

@@ -1,0 +1,473 @@
+{
+ "schema": "goal6.l1.v1",
+ "basin": "ping_cp",
+ "label": "ปิง–เจ้าพระยาตอนบน",
+ "window": [
+  "2026-07-01",
+  "2026-10-09"
+ ],
+ "config": {
+  "label": "ปิง–เจ้าพระยาตอนบน",
+  "basin_names": [
+   "ลุ่มน้ำปิง",
+   "ลุ่มน้ำเจ้าพระยา"
+  ],
+  "dams": [
+   {
+    "name": "ภูมิพล",
+    "dam_id": 43,
+    "normal_storage": 13462
+   }
+  ],
+  "rain_points": {
+   "ลุ่มบนปิง": [
+    99.0,
+    17.5
+   ],
+   "นครสวรรค์ (C.2)": [
+    100.11,
+    15.67
+   ]
+  },
+  "upstream_anchor": "สิริกิติ์ (ลุ่มน่าน) ระบายผ่านยมเข้า C.2 ด้วย — อ้างเป็นบริบท ไม่วิเคราะห์รายตัว",
+  "window": [
+   "2026-07-01",
+   "2026-10-09"
+  ],
+  "stations": [
+   {
+    "id": 2599,
+    "code": "C.12",
+    "name": "กรมชลประทานสามเสน"
+   },
+   {
+    "id": 2744,
+    "code": "C.13",
+    "name": "ท้ายเขื่อนเจ้าพระยา"
+   },
+   {
+    "id": 2795,
+    "code": "C.2",
+    "name": "ค่ายจิรประวัติ"
+   },
+   {
+    "id": 2723,
+    "code": "C.3",
+    "name": "บ้านบางพุทรา"
+   },
+   {
+    "id": 2609,
+    "code": "C.35",
+    "name": "บ้านป้อม"
+   },
+   {
+    "id": 2611,
+    "code": "C.36",
+    "name": "บ้านบางหลวงโดด"
+   },
+   {
+    "id": 2608,
+    "code": "C.37",
+    "name": "บ้านบางบาล"
+   },
+   {
+    "id": 2626,
+    "code": "C.7A",
+    "name": "บ้านบางแก้ว"
+   },
+   {
+    "id": 3226,
+    "code": "P.1",
+    "name": "สะพานนวรัฐ"
+   },
+   {
+    "id": 2832,
+    "code": "P.17",
+    "name": "บ้านท่างิ้ว"
+   },
+   {
+    "id": 2963,
+    "code": "P.2A",
+    "name": "บ้านท่าแค"
+   },
+   {
+    "id": 3251,
+    "code": "P.4A",
+    "name": "บ้านแม่แตง"
+   },
+   {
+    "id": 3247,
+    "code": "P.67",
+    "name": "บ้านแม่แต"
+   },
+   {
+    "id": 3253,
+    "code": "P.75",
+    "name": "บ้านช่อแล"
+   }
+  ]
+ },
+ "stations": [
+  {
+   "code": "P.4A",
+   "name": "บ้านแม่แตง",
+   "province": null,
+   "n": 2292,
+   "max": 335.26,
+   "peak_dt": "2026-08-08 11:00",
+   "meta_min_bank": 337.8,
+   "raw": "3251_P.4A_2026_hourly.json"
+  },
+  {
+   "code": "P.75",
+   "name": "บ้านช่อแล",
+   "province": null,
+   "n": 2296,
+   "max": 340.490006,
+   "peak_dt": "2026-08-11 03:00",
+   "meta_min_bank": 341.300006,
+   "raw": "3253_P.75_2026_hourly.json"
+  },
+  {
+   "code": "P.67",
+   "name": "บ้านแม่แต",
+   "province": null,
+   "n": 2300,
+   "max": 318.429993,
+   "peak_dt": "2026-08-11 06:00",
+   "meta_min_bank": 318.929993,
+   "raw": "3247_P.67_2026_hourly.json"
+  },
+  {
+   "code": "P.1",
+   "name": "สะพานนวรัฐ",
+   "province": null,
+   "n": 2299,
+   "max": 303.27,
+   "peak_dt": "2026-08-11 12:00",
+   "meta_min_bank": 304.2,
+   "raw": "3226_P.1_2026_hourly.json"
+  },
+  {
+   "code": "C.12",
+   "name": "กรมชลประทานสามเสน",
+   "province": null,
+   "n": 1977,
+   "max": 2.24,
+   "peak_dt": "2026-09-27 19:00",
+   "meta_min_bank": 2.26,
+   "raw": "2599_C.12_2026_hourly.json"
+  },
+  {
+   "code": "P.2A",
+   "name": "บ้านท่าแค",
+   "province": null,
+   "n": 2316,
+   "max": 106.6,
+   "peak_dt": "2026-09-29 03:00",
+   "meta_min_bank": 109.78,
+   "raw": "2963_P.2A_2026_hourly.json"
+  },
+  {
+   "code": "P.17",
+   "name": "บ้านท่างิ้ว",
+   "province": null,
+   "n": 1977,
+   "max": 38.389999,
+   "peak_dt": "2026-09-30 15:00",
+   "meta_min_bank": 38.25,
+   "raw": "2832_P.17_2026_hourly.json"
+  },
+  {
+   "code": "C.2",
+   "name": "ค่ายจิรประวัติ",
+   "province": null,
+   "n": 1977,
+   "max": 24.1,
+   "peak_dt": "2026-10-01 02:00",
+   "meta_min_bank": 25.700001,
+   "raw": "2795_C.2_2026_hourly.json"
+  },
+  {
+   "code": "C.13",
+   "name": "ท้ายเขื่อนเจ้าพระยา",
+   "province": null,
+   "n": 1977,
+   "max": 15.93,
+   "peak_dt": "2026-10-02 03:00",
+   "meta_min_bank": 16.34,
+   "raw": "2744_C.13_2026_hourly.json"
+  },
+  {
+   "code": "C.3",
+   "name": "บ้านบางพุทรา",
+   "province": null,
+   "n": 1952,
+   "max": 12.51,
+   "peak_dt": "2026-10-03 12:00",
+   "meta_min_bank": 13.2,
+   "raw": "2723_C.3_2026_hourly.json"
+  },
+  {
+   "code": "C.37",
+   "name": "บ้านบางบาล",
+   "province": null,
+   "n": 1977,
+   "max": 4.99,
+   "peak_dt": "2026-10-03 16:00",
+   "meta_min_bank": 4.14,
+   "raw": "2608_C.37_2026_hourly.json"
+  },
+  {
+   "code": "C.7A",
+   "name": "บ้านบางแก้ว",
+   "province": null,
+   "n": 1966,
+   "max": 9.14,
+   "peak_dt": "2026-10-04 02:00",
+   "meta_min_bank": 9.9,
+   "raw": "2626_C.7A_2026_hourly.json"
+  },
+  {
+   "code": "C.36",
+   "name": "บ้านบางหลวงโดด",
+   "province": null,
+   "n": 1977,
+   "max": 6.75,
+   "peak_dt": "2026-10-04 14:00",
+   "meta_min_bank": 4.3,
+   "raw": "2611_C.36_2026_hourly.json"
+  },
+  {
+   "code": "C.35",
+   "name": "บ้านป้อม",
+   "province": null,
+   "n": 1977,
+   "max": 5.45,
+   "peak_dt": "2026-10-06 01:00",
+   "meta_min_bank": 4.35,
+   "raw": "2609_C.35_2026_hourly.json"
+  }
+ ],
+ "dams": {
+  "ภูมิพล": {
+   "dam_id": 43,
+   "normal_storage": 13462,
+   "first_year": 2005,
+   "urc_template_points": 366,
+   "years": [
+    {
+     "year": 2026,
+     "n_days": 281,
+     "max_storage": 12917.68,
+     "max_released": 45.38,
+     "days_over_urc": 11,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2025,
+     "n_days": 365,
+     "max_storage": 13405.99,
+     "max_released": 55.97,
+     "days_over_urc": 93,
+     "days_over_urc_sep_oct": 10,
+     "days_over_urc_aug_sep": 1
+    },
+    {
+     "year": 2024,
+     "n_days": 366,
+     "max_storage": 11028.79,
+     "max_released": 33.48,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2023,
+     "n_days": 365,
+     "max_storage": 11852.08,
+     "max_released": 35.94,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2022,
+     "n_days": 365,
+     "max_storage": 12170.96,
+     "max_released": 32.94,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2021,
+     "n_days": 365,
+     "max_storage": 8442.32,
+     "max_released": 25.31,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2020,
+     "n_days": 366,
+     "max_storage": 5704.22,
+     "max_released": 11.09,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2019,
+     "n_days": 362,
+     "max_storage": 8990.78,
+     "max_released": 28.0,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2018,
+     "n_days": 365,
+     "max_storage": 10536.099609,
+     "max_released": 30.223801,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2017,
+     "n_days": 364,
+     "max_storage": 10994.599609,
+     "max_released": 24.158001,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2016,
+     "n_days": 366,
+     "max_storage": 7234.009766,
+     "max_released": 10.2757,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2015,
+     "n_days": 365,
+     "max_storage": 6122.52002,
+     "max_released": 24.1036,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2014,
+     "n_days": 365,
+     "max_storage": 7186.46,
+     "max_released": 25.4291,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2013,
+     "n_days": 365,
+     "max_storage": 7748.660156,
+     "max_released": 35.111599,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2012,
+     "n_days": 365,
+     "max_storage": 13309.7,
+     "max_released": 64.46,
+     "days_over_urc": 1,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2011,
+     "n_days": 354,
+     "max_storage": 13452.7,
+     "max_released": 61.31,
+     "days_over_urc": 127,
+     "days_over_urc_sep_oct": 39,
+     "days_over_urc_aug_sep": 41
+    },
+    {
+     "year": 2010,
+     "n_days": 334,
+     "max_storage": 8783.39,
+     "max_released": 39.56,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2009,
+     "n_days": 365,
+     "max_storage": 9446.64,
+     "max_released": 36.42,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2008,
+     "n_days": 365,
+     "max_storage": 10801.9,
+     "max_released": 40.32,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2007,
+     "n_days": 365,
+     "max_storage": 12523.9,
+     "max_released": 39.31,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2006,
+     "n_days": 363,
+     "max_storage": 13312.8,
+     "max_released": 59.0,
+     "days_over_urc": 110,
+     "days_over_urc_sep_oct": 38,
+     "days_over_urc_aug_sep": 29
+    },
+    {
+     "year": 2005,
+     "n_days": 365,
+     "max_storage": 10594.5,
+     "max_released": 25.52,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    }
+   ]
+  }
+ },
+ "rain_2026": {
+  "ลุ่มบนปิง": {
+   "sep_total_mm": 523.0,
+   "best7_mm": 227.2,
+   "best7_end": "2026-09-29"
+  },
+  "นครสวรรค์ (C.2)": {
+   "sep_total_mm": 474.0,
+   "best7_mm": 251.6,
+   "best7_end": "2026-09-28"
+  }
+ },
+ "extras": null
+}

@@ -72,3 +72,7 @@ REVIEW.md
 data/manual/LC0*
 _v1_out.txt
 _oldhist/
+
+# --- credential (ห้ามเข้า git เด็ดขาด — cron รัน git add -A วันละ 2 ครั้ง) ---
+*.cdse_s3.json
+data/22_goal6_network/.cdse_s3.json

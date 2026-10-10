@@ -7,6 +7,17 @@
 | ไฟล์ | ดึงเมื่อ | URL ต้นทาง | วิธี | เนื้อหา |
 |---|---|---|---|---|
 | `raw/2026-10-04_analyst-dam_latest.json` | 2026-10-04 (11:49 น. เวลาท้องถิ่น) | `https://api-v3.thaiwater.net/api/v1/thaiwater30/analyst/dam` | curl GET | สถานะล่าสุดเขื่อน/อ่างเก็บน้ำทั่วประเทศ: `dam_hourly` (17) / `dam_medium` (862) / `dam_daily` (50) / `dam_small_tele` (60) |
+| `raw/2026-10-09_analyst-dam_latest.json` | 2026-10-09 (23:06 น. เวลาท้องถิ่น) | `https://api-v3.thaiwater.net/api/v1/thaiwater30/analyst/dam` | Python urllib | snapshot ล่าสุดโครงสร้างเดิม — อินพุตของ `analysis/goal6_dam_candidates.py` (คัดเขื่อนเป้าหมาย 6) · `dam_daily` มี `max_storage`/`normal_storage` รายเขื่อนในตัว |
+| `raw/2026-10-09_watergate_load.json` | 2026-10-09 (~23:20 น. เวลาท้องถิ่น) | `public/watergate_load` | Python urllib | **ปตร. ทั่วประเทศ 2,315 แห่ง / 24 ลุ่มน้ำ** (สสน. 1,144 · ชป. 734 · พพภ. 213 · สนน กทม. 74 · ไม่ระบุ 148) — ระดับหน้า/หลังประตู + `pump_on`/`pump` + `floodgate_open`/`height` (สถานะปัจจุบัน — วันปกติเป็น null) + พิกัด/ลุ่ม/สังกัด — ฐานเครือข่ายเป้าหมาย 6 |
+| `raw/2026-10-09_canal_waterlevel.json` | 2026-10-09 (~23:20 น. เวลาท้องถิ่น) | `public/canal_waterlevel` | Python urllib | ระดับน้ำคลอง 282 จุด (latest) |
+| `raw/2026-10-09_flow.json` | 2026-10-09 (~23:20 น. เวลาท้องถิ่น) | `public/flow` | Python urllib | อัตราการไหล 55 จุด (latest) |
+| `raw/2026-10-10_waterlevel_load.json` | 2026-10-10 (~01:20 น. เวลาท้องถิ่น) | `public/waterlevel_load` | Python urllib | **จุดวัดระดับน้ำแม่น้ำ active ทั้งประเทศ 809 จุด** (ชป. 314 · สสน. 332 · พพภ. 91 · กฟผ. 72) — key_station 199 · มีระดับวิกฤตใน API เพียง 35 จุด/เตือน 2 จุด (ส่วนที่เหลือ = งานมนุษย์จากประกาศ กช.) · ครอบทุกตระกูลรหัส P./N./Y./W./C./M./E./K. ฯลฯ — ทะเบียน node แม่น้ำของเครือข่ายเป้าหมาย 6 |
+| `raw/2026-10-10_radar_img.json` | 2026-10-10 (~01:30 น. เวลาท้องถิ่น) | `analyst/radar_img` | Python urllib | **ทะเบียนเรดาร์ฝนทั้งประเทศ 38 จุด** (TMD 26 · ชรก. 10 · กทม. 2) + รูปแบบพาธ archive รายวัน `product/radar/history/<agency>/<type>/Y/M/D` · `radar_history_img` ต้องส่ง `radar_type` (ยังไม่ทดสอบต่อ) · QA ความสด: น่าน240 stale 2023 · เพชรบูรณ์240 stale 2017 |
+
+**ปตร. รายจุดย้อนหลัง** (ทดสอบ 10 ต.ค. 69): `public/watergate_graph?station_id=492329&start_date&end_date` →
+ราย **10 นาที** หน้า/หลังประตู + discharge + `critical_level`/`ground_level` (ทดสอบ ปตร.บางระจัน id 492329,
+20 ก.ย.–9 ต.ค. 69 มีค่าจริง ✓ — ช่วงย้อนหลังสุดยังไม่ได้ทดสอบ) · ไม่มี endpoint ประวัติเปิด-ปิดบาน/เดินเครื่องสูบ
+(เฉพาะสถานะปัจจุบัน) — ปัญหาเดียวกับตารางบานขุนด่านฯ → FOI ระดับชาติ
 
 ## ค่าอ้างอิงเขื่อนขุนด่านปราการชล (ตรวจสอบวันที่ 2026-10-04)
 

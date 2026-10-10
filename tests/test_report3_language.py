@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DRAFT = ROOT / "report/ระลอกปลายกย2569_6ลุ่ม.html"
+DRAFT = ROOT / "report/ระลอกปลายกย2569.html"
 DRAFT4 = ROOT / "report/ชุดเทียบมาตรฐาน2554.html"
 
 BANNED = ["พีค", "น้ำพีค", "attribution", "คาลิเบรต", "เทมเพลต",

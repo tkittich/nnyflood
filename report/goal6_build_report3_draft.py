@@ -4,7 +4,7 @@
   analysis/goal6/config.json · analysis/goal6/<basin>/l1_summary.json ·
   analysis/goal6/dam_history_all.json · analysis/goal6_dam_candidates.json ·
   analysis/goal6_screen_2026_summary.json · data/22_goal6_network/derived/s1_stage1/dem_summary.json
-ผลลัพธ์: report/ระลอกปลายกย2569_6ลุ่ม.html
+ผลลัพธ์: report/ระลอกปลายกย2569.html
 รัน: python report/goal6_build_report3_draft.py
 """
 
@@ -21,7 +21,7 @@ from goal6_reportlib import (  # noqa: E402
 )
 
 A = ROOT / "analysis"
-OUT = ROOT / "report/ระลอกปลายกย2569_6ลุ่ม.html"
+OUT = ROOT / "report/ระลอกปลายกย2569.html"
 
 cfg = json.loads((A / "goal6/config.json").read_text(encoding="utf-8"))
 dams = json.loads((A / "goal6/dam_history_all.json").read_text(encoding="utf-8"))["dams"]

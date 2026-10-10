@@ -28,13 +28,13 @@ STAGE2 = ROOT / "data/22_goal6_network/derived/s1_stage2"
 OUT = ROOT / "report/assets/goal6"
 
 BASINS = {
-    "bp_prach": ("ลุ่มบางปะกง (นครนายก–ปราจีนบุรี)", 1281.6),
-    "pasak": ("ลุ่มป่าสัก", 521.0),
-    "thachin": ("ลุ่มท่าจีน", 160.4),
-    "maeklong": ("ลุ่มแม่กลอง", 73.0),
-    "ping_cp": ("ลุ่มปิง–เจ้าพระยาตอนบน", 2263.6),
-    "bkk_lower": ("ลุ่มเจ้าพระยาตอนล่าง–กทม.", 1199.8),
-}
+    "bp_prach": ("ลุ่มบางปะกง (นครนายก–ปราจีนบุรี)", "bp_prach"),
+    "pasak": ("ลุ่มป่าสัก", "pasak"),
+    "thachin": ("ลุ่มท่าจีน", "thachin"),
+    "maeklong": ("ลุ่มแม่กลอง", "maeklong"),
+    "ping_cp": ("ลุ่มปิง–เจ้าพระยาตอนบน", "ping_cp"),
+    "bkk_lower": ("ลุ่มเจ้าพระยาตอนล่าง–กทม.", "bkk_lower_after_sea"),
+}  # (ป้าย, canonical key) — ตัวเลข ตร.กม. อ่านจาก canonical.json ตอนวาด (ห้าม hardcode)
 
 
 def peak_scene(bid: str) -> Path:
@@ -51,7 +51,16 @@ def plot_map(bid: str, label: str, km2: float) -> None:
     dem = np.load(STAGE1 / f"dem_{bid}.npy")
     lowland = np.load(STAGE1 / f"mask_lowland_{bid}.npy")
 
-    fig, ax = plt.subplots(figsize=(9, 7), dpi=110)
+    # แก้ยืดภาพ (ตามผู้ใช้ 11 ต.ค. 69): เดิม aspect=geo_aspect ยืดกรอบ 9×7 นิ้วเสมอ
+    # — ตั้ง aspect ภูมิศาสตร์จริง: 1° lon ที่ละติจูดกลางของลุ่ม = cos(lat) × 1° lat ในระยะพื้น
+    lat_mid = (y0 + y1) / 2
+    geo_aspect = 1.0 / max(np.cos(np.radians(lat_mid)), 0.2)  # y/x ในหน่วยองศา (plate carrée)
+    lon_range, lat_range = x1 - x0, y1 - y0
+    # เลือก figsize ตามรูปทรงจริงของลุ่ม (คงพื้นที่ใกล้เดิม ~63 ตร.นิ้ว กันความละเอียดตก)
+    w_in = 9.0
+    h_in = w_in * (lat_range * geo_aspect) / lon_range
+    h_in = min(max(h_in, 4.0), 11.0)
+    fig, ax = plt.subplots(figsize=(w_in, h_in), dpi=110)
     # พื้นหลัง DEM: ที่ราบครีม · ภูเขาน้ำตาล (hillshade แบบง่าย: ความชันจาก gradient)
     dem_m = np.ma.masked_invalid(dem)
     gy, gx = np.gradient(dem_m.filled(0))
@@ -63,10 +72,10 @@ def plot_map(bid: str, label: str, km2: float) -> None:
     colors_dem[land & ~high] = np.array([0.96, 0.93, 0.84])  # ครีม = ที่ราบ
     colors_dem[high] = np.array([0.72, 0.60, 0.47]) * hillshade[high, None]  # น้ำตาล shade
     colors_dem[high] = np.clip(colors_dem[high], 0.35, 0.85)
-    ax.imshow(colors_dem, extent=[x0, x1, y0, y1], origin="upper", aspect="auto")
+    ax.imshow(colors_dem, extent=[x0, x1, y0, y1], origin="upper", aspect=geo_aspect)
     # น้ำท่วม
     wm = np.ma.masked_where(~water, water)
-    ax.imshow(wm, extent=[x0, x1, y0, y1], origin="upper", aspect="auto",
+    ax.imshow(wm, extent=[x0, x1, y0, y1], origin="upper", aspect=geo_aspect,
               cmap=matplotlib.colors.ListedColormap(["#1d6fb8"]), alpha=0.85, interpolation="nearest")
     ax.text(0.02, 0.97, f"พื้นที่น้ำท่วมใหม่ (1 ต.ค. 2569): {km2:,.0f} ตร.กม.",
             transform=ax.transAxes, fontsize=11, va="top",
@@ -87,7 +96,9 @@ def plot_map(bid: str, label: str, km2: float) -> None:
 
 
 def main() -> None:
-    for bid, (label, km2) in BASINS.items():
+    can = json.loads((ROOT / "analysis/goal6/canonical.json").read_text(encoding="utf-8"))
+    for bid, (label, key) in BASINS.items():
+        km2 = can["flood_peak_km2"][key]
         try:
             plot_map(bid, label, km2)
         except Exception as exc:  # noqa: BLE001

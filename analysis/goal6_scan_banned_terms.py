@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "report"))
 from goal6_reportlib import BANNED_TERMS  # noqa: E402
 
-DRAFT = ROOT / "report/รายงานที่3_ระลอกปลายกย2569_6ลุ่ม_ร่าง.html"
+DRAFT = ROOT / "report/ระลอกปลายกย2569.html"
 OUT = ROOT / "report/goal6_banned_terms_candidates.json"
 
 # คำที่อนุมัติใช้ได้แล้ว (คนกำหนด — ไม่ใช่คำไทยแทน แต่เป็นรหัส/ชื่อเฉพาะ/หน่วย/ตัวย่อที่ผู้อ่านต้องเห็น)

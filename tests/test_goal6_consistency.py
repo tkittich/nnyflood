@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CANON = ROOT / "analysis/goal6/canonical.json"
 
 DOCS = ["HANDOFF.md", "docs/GOAL6_PLAN.md", "START_HERE.md"]
-REPORTS = ["report/ระลอกปลายกย2569_6ลุ่ม.html", "report/ชุดเทียบมาตรฐาน2554.html"]
+REPORTS = ["report/ระลอกปลายกย2569.html", "report/ชุดเทียบมาตรฐาน2554.html"]
 
 
 def _load() -> dict:

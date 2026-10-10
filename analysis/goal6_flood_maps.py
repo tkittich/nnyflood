@@ -61,17 +61,26 @@ def plot_map(bid: str, label: str, km2: float) -> None:
     h_in = w_in * (lat_range * geo_aspect) / lon_range
     h_in = min(max(h_in, 4.0), 11.0)
     fig, ax = plt.subplots(figsize=(w_in, h_in), dpi=110)
-    # พื้นหลัง DEM: ที่ราบครีม · ภูเขาน้ำตาล (hillshade แบบง่าย: ความชันจาก gradient)
+    # พื้นหลัง DEM: ที่ราบครีม · ภูเขาไล่สีน้ำตาลตามระดับความสูง + hillshade มาตรฐาน
+    # (แก้ 11 ต.ค. 69: เดิม slope หน่วย ม./พิกเซล → อิ่มตัวทั้งภูเขา = สีเดียวเทาเข้มหมด)
     dem_m = np.ma.masked_invalid(dem)
-    gy, gx = np.gradient(dem_m.filled(0))
-    slope = np.hypot(gy, gx)
-    hillshade = 1.0 - np.clip(slope / 0.35, 0, 1)  # ยิ่งชันยิ่งมืด
+    dzdy, dzdx = np.gradient(dem_m.filled(0))  # ม./พิกเซล (พิกเซล ~30 ม.)
+    horiz_m = 30.0
+    slope_rad = np.arctan(np.hypot(dzdx, dzdy) / horiz_m)
+    aspect_rad = np.arctan2(-dzdy, dzdx)  # ทิศลาด (0=ทิศตะวันออก ทวนเข็ม)
+    sun_alt, sun_az = np.radians(45.0), np.radians(315.0)  # แสงจากตะวันตกเฉียงเหนือ
+    shade = (np.cos(slope_rad) * np.sin(sun_alt)
+             + np.sin(slope_rad) * np.cos(sun_alt) * np.cos(sun_az - aspect_rad))
+    shade = np.clip(shade, 0.15, 1.0)
     colors_dem = np.zeros((ny, nx, 3), float)
     land = np.isfinite(dem)
     high = land & (dem > 60)
     colors_dem[land & ~high] = np.array([0.96, 0.93, 0.84])  # ครีม = ที่ราบ
-    colors_dem[high] = np.array([0.72, 0.60, 0.47]) * hillshade[high, None]  # น้ำตาล shade
-    colors_dem[high] = np.clip(colors_dem[high], 0.35, 0.85)
+    # ไล่น้ำตาลตามระดับ: 60 ม. อ่อน → 1,500 ม. เข้ม
+    elev_t = np.clip((dem - 60.0) / 1400.0, 0, 1)
+    low_c, high_c = np.array([0.80, 0.70, 0.55]), np.array([0.48, 0.40, 0.32])
+    mtn = low_c[None, :] * (1 - elev_t[high, None]) + high_c[None, :] * elev_t[high, None]
+    colors_dem[high] = np.clip(mtn * (0.55 + 0.45 * shade[high, None]), 0.12, 0.95)
     ax.imshow(colors_dem, extent=[x0, x1, y0, y1], origin="upper", aspect=geo_aspect)
     # น้ำท่วม
     wm = np.ma.masked_where(~water, water)

@@ -117,32 +117,60 @@ def thai(text: str, strict: bool = False) -> str:
         )
     return out
 
+# ชุดโทเคนสีกลาง (12 ต.ค. 69 — ตามข้อเสนอผู้ใช้หลังเจอ contrast 1.11 ที่ <code> ใน header)
+# กฎ: ทุกสีใช้เป็น "คู่" (พื้น+ตัวอักษร) กำหนดพร้อมกันที่นี่เท่านั้น — ห้ามให้ตัวอักษรสืบทอดข้ามพื้น
+# ตรวจแล้วด้วย WCAG: ตัวอักษร ≥4.5 · องค์ประกอบข้อมูล ≥3.0 (ดู tests/test_report3_language.py)
+COLOR_TOKENS = {
+    "paper":        ("#ffffff", "#1c2b33"),   # กระดาษ: พื้นขาว ตัวเข้ม (15.7)
+    "page":         ("#eef2f5", "#1c2b33"),   # พื้นหน้ารอบกระดาษ
+    "header":       ("#14212e", "#ffffff"),   # header พื้นน้ำเงินดำ ตัวขาว (16+)
+    "accent":       ("#1e6fb8", "#ffffff"),   # สีเน้น/ลิงก์ (5.0)
+    "note_bg":      ("#fff8e1", "#4a3b00"),   # กล่องหมายเหตุครีม (ตัวน้ำตาลเข้ม 9+)
+    "warn_bg":      ("#fdecea", "#8a2b2b"),   # กล่องเตือนชมพู (7+)
+    "ok_bg":        ("#e8f5e9", "#1b5e20"),   # กล่องผ่านเขียว (7+)
+    "code_bg":      ("#eef2f6", "#153a5e"),   # inline code (10.4)
+    "header_code":  ("#2a4d73", "#ffffff"),   # code บนพื้นเข้ม (~8.7)
+    "muted":        ("#ffffff", "#5a6b7b"),   # ข้อความรองบนขาว (5.5)
+    "table_head":   ("#28425c", "#ffffff"),   # หัวตาราง (10.4)
+    "sea_flood":    ("#1d6fb8", "#f5edda"),   # แผนที่: น้ำบนครีม (4.5)
+    "chart_bar":    ("#4d94c9", "#ffffff"),   # แท่งกราฟรอง (3.3)
+    "chart_accent": ("#e74c3c", "#ffffff"),   # แท่งกราฟเน้น (3.8)
+}
+
+def css_tokens() -> str:
+    """สร้าง CSS variables จาก COLOR_TOKENS — builder อ้าง var(--name) แทนค่าตรง"""
+    lines = [":root {"]
+    for name, (bg, fg) in COLOR_TOKENS.items():
+        lines.append(f"  --c-{name.replace('_', '-')}: {bg}; --c-{name.replace('_', '-')}-fg: {fg};")
+    lines.append("}")
+    return "\n".join(lines)
+
 CSS = """
   body { font-family:'Leelawadee UI','Segoe UI',Tahoma,'Loma','Garuda','Norasi',sans-serif;
-         color:#1a2430; background:#eef2f5; margin:0; line-height:1.75; }
+         color:var(--c-paper-fg); background:var(--c-page); margin:0; line-height:1.75; }
   .wrap { max-width:980px; margin:0 auto; padding:28px 20px 60px; }
   .paper { background:#fff; border-radius:10px; padding:34px 40px; box-shadow:0 2px 14px rgba(0,0,0,.08); }
   h1 { font-size:1.9em; line-height:1.35; margin:.2em 0 .2em; }
-  .meta { color:#5a6b7b; font-size:.95em; margin:10px 0 0; }
-  .warn { background:#fff7e0; border:1px solid #e8c96a; border-radius:8px; padding:12px 16px;
+  .meta { color:var(--c-muted-fg); font-size:.95em; margin:10px 0 0; }
+  .warn { background:var(--c-note-bg); border:1px solid #e8c96a; border-radius:8px; padding:12px 16px;
           margin:18px 0; font-size:.95em; }
   .note { background:#eef6fb; border:1px solid #b9d7ea; border-radius:8px; padding:12px 16px;
           margin:16px 0; font-size:.95em; }
   h2 { margin:1.6em 0 .4em; padding-bottom:.25em; border-bottom:2px solid #d8e2ea; font-size:1.35em; }
   h3 { margin:1.2em 0 .3em; color:#28425c; }
   table { border-collapse:collapse; width:100%; margin:12px 0; font-size:.92em; }
-  th { background:#28425c; color:#fff; padding:6px 9px; text-align:left; }
+  th { background:var(--c-table-head); color:var(--c-table-head-fg); padding:6px 9px; text-align:left; }
   td { border-bottom:1px solid #dde6ec; padding:5px 9px; }
   tr:nth-child(even) td { background:#f6f9fb; }
   .toc { font-size:.95em; background:#f4f7f9; border-radius:8px; padding:12px 18px; margin:16px 0; }
-  .toc a { color:#28628f; text-decoration:none; }
+  .toc a { color:var(--c-accent); text-decoration:none; }
   figure { margin:18px 0; text-align:center; }
   figure img { max-width:100%; border:1px solid #dde6ec; border-radius:6px; }
   figcaption { color:#5a6b7b; font-size:.88em; margin-top:6px; text-align:left; }
   .placeholder { background:#fdf3f3; border:1px dashed #d99; border-radius:8px; padding:10px 16px;
-                 color:#8a4a4a; margin:14px 0; font-size:.93em; }
+                 color:var(--c-warn-bg-fg); margin:14px 0; font-size:.93em; }
   code { background:#f0f3f5; padding:1px 5px; border-radius:4px; font-size:.9em; }
-  .foot { color:#5a6b7b; font-size:.88em; border-top:1px solid #dde6ec; margin-top:34px; padding-top:14px; }
+  .foot { color:var(--c-muted-fg); font-size:.88em; border-top:1px solid #dde6ec; margin-top:34px; padding-top:14px; }
 """
 
 
@@ -201,7 +229,8 @@ def page(title: str, subtitle: str, sections_html: list[str], footer_html: str) 
     return f"""<!DOCTYPE html>
 <html lang="th"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title)}</title><style>{CSS}</style></head>
+<title>{esc(title)}</title><style>{css_tokens()}
+{CSS}</style></head>
 <body><div class="wrap"><div class="paper">
 <div class="meta">จัดทำเมื่อ ตุลาคม 2569 · ทุกตัวเลขตรวจสอบย้อนกลับได้ถึงไฟล์ต้นฉบับ ·
 <b>จัดทำโดยปัญญาประดิษฐ์ (AI) ร่วมกับเจ้าของโปรเจกต์ — ก่อนนำไปอ้างอิง/ตัดสินใจ ควรตรวจทานโดยผู้เชี่ยวชาญด้านอุทกวิทยา/วิศวกรรมอีกครั้ง</b></div>

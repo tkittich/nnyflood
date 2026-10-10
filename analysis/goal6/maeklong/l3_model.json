@@ -1,0 +1,121 @@
+{
+ "basin": "maeklong",
+ "target": {
+  "code": "K.3A",
+  "name": "สะพานข้ามแม่น้ำแม่กลอง (กาญจนบุรี)"
+ },
+ "upstream": "K.62",
+ "rain_point": "ลุ่มบนแม่กลอง",
+ "train_hours": 4151,
+ "test_hours": 247,
+ "results": {
+  "6": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 9.5,
+     "mae_cm": 7.0,
+     "rmse_event_cm": 10.0
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 8.6,
+     "mae_cm": 6.4,
+     "rmse_event_cm": 9.9
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 22.7,
+     "mae_cm": 15.3,
+     "rmse_event_cm": 30.2
+    }
+   ],
+   "coef_linear": [
+    2.2706,
+    -1.3059,
+    -0.0594,
+    -0.6721,
+    -0.0008,
+    0.0022,
+    0.0056,
+    -0.0003,
+    0.0002,
+    -0.0001
+   ],
+   "n_train": 4151,
+   "n_test": 247
+  },
+  "24": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 22.5,
+     "mae_cm": 16.3,
+     "rmse_event_cm": 26.0
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 20.9,
+     "mae_cm": 14.1,
+     "rmse_event_cm": 25.7
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 28.4,
+     "mae_cm": 20.2,
+     "rmse_event_cm": 36.1
+    }
+   ],
+   "coef_linear": [
+    0.9887,
+    -0.1768,
+    -0.0599,
+    -0.0149,
+    0.0367,
+    -0.0356,
+    -0.0083,
+    -0.0007,
+    0.0003,
+    -0.0001
+   ],
+   "n_train": 4151,
+   "n_test": 247
+  },
+  "48": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 35.2,
+     "mae_cm": 27.3,
+     "rmse_event_cm": 45.4
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 31.1,
+     "mae_cm": 21.2,
+     "rmse_event_cm": 41.5
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 33.6,
+     "mae_cm": 23.4,
+     "rmse_event_cm": 44.8
+    }
+   ],
+   "coef_linear": [
+    0.6315,
+    -0.0301,
+    -0.0494,
+    0.0788,
+    0.054,
+    -0.0683,
+    -0.0017,
+    -0.0009,
+    0.0006,
+    -0.0002
+   ],
+   "n_train": 4151,
+   "n_test": 247
+  }
+ }
+}

@@ -1,0 +1,121 @@
+{
+ "basin": "pasak",
+ "target": {
+  "code": "S.26",
+  "name": "ท้ายเขื่อนพระรามหก"
+ },
+ "upstream": "S.28",
+ "rain_point": "ลุ่มบนป่าสัก",
+ "train_hours": 6886,
+ "test_hours": 209,
+ "results": {
+  "6": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 24.6,
+     "mae_cm": 15.5,
+     "rmse_event_cm": 32.0
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 57.1,
+     "mae_cm": 42.4,
+     "rmse_event_cm": 73.3
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 37.8,
+     "mae_cm": 23.7,
+     "rmse_event_cm": 50.1
+    }
+   ],
+   "coef_linear": [
+    0.6851,
+    0.0779,
+    0.1152,
+    -0.5606,
+    0.1314,
+    -0.0001,
+    -0.0297,
+    0.0011,
+    0.0003,
+    0.003
+   ],
+   "n_train": 6886,
+   "n_test": 209
+  },
+  "24": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 81.0,
+     "mae_cm": 49.4,
+     "rmse_event_cm": 92.5
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 101.5,
+     "mae_cm": 68.5,
+     "rmse_event_cm": 119.4
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 94.7,
+     "mae_cm": 60.5,
+     "rmse_event_cm": 113.6
+    }
+   ],
+   "coef_linear": [
+    0.5743,
+    0.1007,
+    0.1135,
+    -0.4387,
+    0.3018,
+    0.0,
+    -0.1572,
+    0.0037,
+    0.0018,
+    0.0036
+   ],
+   "n_train": 6886,
+   "n_test": 209
+  },
+  "48": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 148.7,
+     "mae_cm": 101.0,
+     "rmse_event_cm": 142.5
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 150.9,
+     "mae_cm": 97.4,
+     "rmse_event_cm": 138.0
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 158.9,
+     "mae_cm": 110.2,
+     "rmse_event_cm": 160.1
+    }
+   ],
+   "coef_linear": [
+    0.5841,
+    0.0968,
+    0.1136,
+    -0.4468,
+    0.5687,
+    0.0,
+    -0.4299,
+    0.0094,
+    0.0012,
+    0.0044
+   ],
+   "n_train": 6886,
+   "n_test": 209
+  }
+ }
+}

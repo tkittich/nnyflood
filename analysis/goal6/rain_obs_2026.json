@@ -1,0 +1,106 @@
+{
+ "pasak_ลุ่มบนป่าสัก": {
+  "basin": "pasak",
+  "point": "ลุ่มบนป่าสัก",
+  "sep_total_mm": 359.3,
+  "best7_mm": 154.1,
+  "best7_end": "2026-08-07",
+  "days_ge_50mm": 1
+ },
+ "pasak_อยุธยา": {
+  "basin": "pasak",
+  "point": "อยุธยา",
+  "sep_total_mm": 419.3,
+  "best7_mm": 197.2,
+  "best7_end": "2026-09-28",
+  "days_ge_50mm": 1
+ },
+ "maeklong_ลุ่มบนแม่กลอง": {
+  "basin": "maeklong",
+  "point": "ลุ่มบนแม่กลอง",
+  "sep_total_mm": 542.5,
+  "best7_mm": 290.9,
+  "best7_end": "2026-09-28",
+  "days_ge_50mm": 5
+ },
+ "maeklong_กาญจนบุรี": {
+  "basin": "maeklong",
+  "point": "กาญจนบุรี",
+  "sep_total_mm": 568.5,
+  "best7_mm": 310.4,
+  "best7_end": "2026-09-28",
+  "days_ge_50mm": 2
+ },
+ "bp_prach_ลุ่มบนปราจีนบุรี-สระแก้ว": {
+  "basin": "bp_prach",
+  "point": "ลุ่มบนปราจีนบุรี/สระแก้ว",
+  "sep_total_mm": 399.1,
+  "best7_mm": 157.6,
+  "best7_end": "2026-09-27",
+  "days_ge_50mm": 1
+ },
+ "bp_prach_นครนายก": {
+  "basin": "bp_prach",
+  "point": "นครนายก",
+  "sep_total_mm": 461.8,
+  "best7_mm": 203.2,
+  "best7_end": "2026-09-29",
+  "days_ge_50mm": 3
+ },
+ "bp_prach_ปราจีนบุรี": {
+  "basin": "bp_prach",
+  "point": "ปราจีนบุรี",
+  "sep_total_mm": 461.7,
+  "best7_mm": 243.1,
+  "best7_end": "2026-09-28",
+  "days_ge_50mm": 4
+ },
+ "thachin_ลุ่มบนท่าจีน": {
+  "basin": "thachin",
+  "point": "ลุ่มบนท่าจีน",
+  "sep_total_mm": 365.0,
+  "best7_mm": 180.2,
+  "best7_end": "2026-09-28",
+  "days_ge_50mm": 1
+ },
+ "thachin_นครชัยศรี": {
+  "basin": "thachin",
+  "point": "นครชัยศรี",
+  "sep_total_mm": 622.8,
+  "best7_mm": 253.4,
+  "best7_end": "2026-09-27",
+  "days_ge_50mm": 2
+ },
+ "ping_cp_ลุ่มบนปิง": {
+  "basin": "ping_cp",
+  "point": "ลุ่มบนปิง",
+  "sep_total_mm": 386.2,
+  "best7_mm": 151.7,
+  "best7_end": "2026-09-21",
+  "days_ge_50mm": 2
+ },
+ "ping_cp_นครสวรรค์_C.2": {
+  "basin": "ping_cp",
+  "point": "นครสวรรค์ (C.2)",
+  "sep_total_mm": 394.8,
+  "best7_mm": 165.2,
+  "best7_end": "2026-09-25",
+  "days_ge_50mm": 1
+ },
+ "bkk_lower_กรุงเทพกลาง": {
+  "basin": "bkk_lower",
+  "point": "กรุงเทพกลาง",
+  "sep_total_mm": 493.4,
+  "best7_mm": 269.3,
+  "best7_end": "2026-09-28",
+  "days_ge_50mm": 1
+ },
+ "bkk_lower_ปากน้ำ": {
+  "basin": "bkk_lower",
+  "point": "ปากน้ำ",
+  "sep_total_mm": 520.7,
+  "best7_mm": 364.8,
+  "best7_end": "2026-09-28",
+  "days_ge_50mm": 3
+ }
+}

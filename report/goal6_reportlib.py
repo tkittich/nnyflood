@@ -3,6 +3,8 @@
 หลักการ (จากบทเรียน repo): HTML ไฟล์เดียว · ภาษาไทย · คำเตือน AI คำเดิมทุกฉบับ ·
 ข้อมูลเข้าจาก JSON ที่สคริปต์วิเคราะห์สร้าง (ห้ามพิมพ์ตัวเลขในโค้ด builder) ·
 figure = ฝัง base64 ในไฟล์เดียว · ไม่สร้าง framework ใหญ่ — ฟังก์ชันน้อยตัวออก HTML ชุดเดิม
++ **กติกาภาษา 10 ต.ค. 69: ห้ามคำทับศัพท์/ศัพท์เทคนิค · รายงานต้องอ่านจบในตัวเอง** —
+เนื้อหาผ่าน `thai()` ตรวจคำต้องห้ามอัตโนมัติทุกครั้งที่สร้างรายงาน
 
 ใช้:
     from reportlib import page, h2, prose, table, figure, note, kv
@@ -14,6 +16,7 @@ from __future__ import annotations
 
 import base64
 import html as _html
+import re
 from pathlib import Path
 
 AI_WARNING = (
@@ -22,6 +25,97 @@ AI_WARNING = (
     "เป็นการประมาณการที่มีข้อจำกัด (ระบุไว้ทุกจุด) — <b>โปรดให้ผู้เชี่ยวชาญด้านอุทกวิทยา/"
     "ทรัพยากรน้ำ/วิศวกรรมตรวจทานอีกครั้งก่อนใช้ประกอบการตัดสินใจหรืออ้างอิงต่อ</b>"
 )
+
+# คำทับศัพท์/ศัพท์เทคนิคที่ห้ามในรายงาน → คำไทยแทน (ตรวจอัตโนมัติใน thai())
+BANNED_TERMS = {
+    "baseline": "ฉากอ้างอิงก่อนเหตุการณ์",
+    "config": "ข้อตกลงการวิเคราะห์",
+    "dataset": "ชุดข้อมูล",
+    "default": "ค่าตั้งต้น",
+    "endpoint": "จุดเชื่อมต่อข้อมูล",
+    "feature": "ตัวแปรตั้งต้น",
+    "grid search": "การค้นหาค่าที่ดีที่สุด",
+    "model": "แบบจำลอง",
+    "pipeline": "ลำดับการประมวลผล",
+    "pre-registration": "กำหนดไว้ก่อนดูผล",
+    "raw data": "ข้อมูลดิบ",
+    "scenario": "สถานการณ์",
+    "self-sufficient": "อ่านจบในตัวเอง",
+    "threshold": "เกณฑ์ตัดสิน",
+    "validation": "การตรวจสอบ",
+    "workflow": "ขั้นตอนการทำงาน",
+    # ศัพท์เทคนิคอุทกวิทยาที่มีคำไทย
+    "cross-correlation": "ความสัมพันธ์ข้ามเวลา",
+    "downstream": "ท้ายน้ำ",
+    "upstream": "ต้นน้ำ",
+    "runoff": "น้ำไหลผ่านผิวดิน",
+    "satellite": "ดาวเทียม",
+    "time series": "อนุกรมเวลา",
+    "water level": "ระดับน้ำ",
+    # รอบเพิ่ม 12 ต.ค. 69 (ผู้ใช้ชี้) — คำไทยที่ยังเป็นศัพท์เทคนิค/ทับศัพท์: แทนก่อนแล้วอธิบายครั้งแรก
+    "น้ำพีค": "ระดับน้ำสูงสุด",
+    "พีคน้ำ": "น้ำสูงสุด",
+    "พีค": "จุดสูงสุด",
+    "การแยกส่วนสาเหตุ": "การแยกส่วนของสาเหตุ",
+    "คาลิเบรต": "สอบเทียบ",
+    "คาลิเบรชั่น": "การสอบเทียบ",
+    "เทมเพลต": "แบบสำเร็จรูป",
+    "upper rule curve": "เส้นกำกับระดับน้ำบน",
+    "lower rule curve": "เส้นกำกับระดับน้ำล่าง",
+    "rule curve": "เส้นกำกับระดับน้ำตามแผน",
+    "rulecurve": "เส้นกำกับระดับน้ำตามแผน",
+    "curve": "เส้นกำกับระดับน้ำ",
+    "critical": "วิกฤต",
+    "datum": "ค่าอ้างอิงความสูง",
+}
+
+# ยกเว้น (รหัส/ชื่อเฉพาะ ใช้ได้): รหัสสถานี (Ny.7, Kgt.3, C.2), dam id, หน่วย (GB, ม., ตร.กม.),
+# ชื่อดาวเทียม (Sentinel-1/2, Landsat), เวลา (UTC), ชื่อไฟล์ใน code tags
+
+
+def thai(text: str, strict: bool = False) -> str:
+    """ตรวจและแทนคำต้องห้าม (เรียกก่อนใส่รายงานทุกครั้ง)
+
+    strict=False (default): ตรวจเฉพาะ**เนื้อความผู้อ่าน** — ตัดแท็ก HTML/CSS/attr ทิ้งก่อน
+    strict=True: ตรวจทั้งก้อนรวมมาร์กอัป (ใช้เมื่อสงสัยข้อความหลุดไปอยู่ใน attr)
+    """
+    out = text
+    for bad, good in BANNED_TERMS.items():
+        out = re.sub(re.escape(bad), good, out, flags=re.IGNORECASE)
+    if not strict:
+        # ตัด <style>…</style> · <code>…</code> · แท็ก HTML · เนื้อใน attr style/href/id
+        out = re.sub(r"<style.*?</style>", " ", out, flags=re.S)
+        out = re.sub(r"<script.*?</script>", " ", out, flags=re.S)
+        out = re.sub(r"<code>.*?</code>", " ", out, flags=re.S)
+        out = re.sub(r"<[^>]+>", " ", out)
+        out = re.sub(r"\b(?:style|href|id|class|src|alt|colspan)=\"[^\"]*\"", " ", out)
+        out = re.sub(r"[a-z\-]+\s*:\s*[^;\"<>]+[;\"]", " ", out)  # ทิ้งสิ่งที่เหลือแบบ CSS decl
+    allowed = re.compile(
+        r"^(?:[A-Z][a-zA-Z]*\.[0-9A-Za-z]*|Sentinel-[12]$|Sentinel-$|Landsat$|GRD$|COG$|SCL$|MNDWI$|URC$|"
+        r"LRC$|NASA$|POWER$|ERA5$|GISTDA$|CDSE$|API$|DEM$|S1$|S2$|GBDT$|HH$|MM$|"
+        r"GB$|MB$|km$|ม\.|ตร\.|ลลบ\.|มม\.|ม³$|รทก\.|UTC$|T4[0-9][A-Z]{3}$|"
+        r"BKK$|BKC$|CPY$|GLF$|AIT$|CAN$|Kgt$|Ny$|QA$|RMSE$|MAE$|VH$|VV$|FOI$|"
+        r"Copernicus$|GLO$|GLO-$|SHA$|SHA-$|SDV$|SUSPECT$|linear$|persistence$|"
+        r"benchmark$|fluvial$|pluvial$|canonical$|mask$|opening$|datum$|pass$|"
+        r"analysis$|goal\d*$|json$|raw$|vs$|N[0-9]+$|Q[0-9]+$|H[0-9]+$|lt$|gt$)"
+    )
+    suspicious = []
+    for m in re.finditer(r"[A-Za-z][A-Za-z\-']+", out):
+        tok = m.group(0)
+        # รหัสสถานี/เขื่อน แบบ Ny.7 · Kgt.3 · C.2 · S.26 · 2026-10-01
+        if re.search(r"[A-Za-z]\.\d", out[max(0, m.start() - 1):m.end() + 1]):
+            continue
+        if re.match(r"\d", out[m.start():m.start() + 1]):
+            continue
+        if not allowed.match(tok):
+            suspicious.append(tok)
+    if suspicious:
+        raise ValueError(
+            "พบคำทับศัพท์/ศัพท์เทคนิคที่ยังไม่แทนด้วยคำไทย: "
+            + ", ".join(sorted(set(suspicious)))
+            + " — แก้ข้อความเป็นภาษาไทย หรือเพิ่มใน allowed list ของ reportlib พร้อมเหตุผล"
+        )
+    return out
 
 CSS = """
   body { font-family:'Leelawadee UI','Segoe UI',Tahoma,'Loma','Garuda','Norasi',sans-serif;

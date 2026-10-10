@@ -56,7 +56,7 @@ SPECS = {
         "basin_names": ["ลุ่มน้ำปิง", "ลุ่มน้ำเจ้าพระยา"],
         "dams": [["ภูมิพล", 43]],
         "rain_points": {"ลุ่มบนปิง": [99.0, 17.5], "นครสวรรค์ (C.2)": [100.11, 15.67]},
-        "upstream_anchor": "สิริกิติ์ (ลุ่มน่าน) ระบายผ่านยมเข้า C.2 ด้วย — อ้างเป็นบริบท ไม่วิเคราะห์รายตัว",
+        "upstream_anchor": "เขื่อนสิริกิติ์ (ลุ่มน่าน) ระบายน้ำผ่านแม่น้ำยมเข้าจุด C.2 ด้วย — ใช้เป็นข้อมูลบริบท ไม่วิเคราะห์รายเขื่อน",
     },
     "bkk_lower": {
         "label": "ลุ่มเจ้าพระยาตอนล่าง–กทม.–สมุทรปราการ",
@@ -64,7 +64,12 @@ SPECS = {
         "dams": [],
         "rain_points": {"กรุงเทพกลาง": [100.52, 13.75], "ปากน้ำ": [100.6, 13.55]},
         "station_filter": {"provinces": ["กรุงเทพมหานคร", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ"]},
-        "upstream_anchor": "C.2 ท่าเรือ (ดึงแล้ว 2019–2026 ที่ data/22_goal6_network/raw/) → C.22A ปากเกร็ด → กทม.",
+        # เพิ่ม 11 ต.ค. 69 (ผ่านบันทึกเหตุผล): จุดควบคุมเหนือขอบ 4 จังหวัด — อธิบายน้ำจากลุ่มได้
+        "extra_stations": [
+            {"id": 2744, "code": "C.13", "name": "ท้ายเขื่อนเจ้าพระยา (ชัยนาท)"},
+            {"id": 1574215, "code": "C.22A", "name": "ปากเกร็ด (นนทบุรี ทางเข้า กทม.)"},
+        ],
+        "upstream_anchor": "จุดวัด C.2 ท่าเรือ นครสวรรค์ (ข้อมูลตั้งแต่ 2019–2026 เก็บไว้แล้วในโฟลเดอร์หลักฐานของโครงการ) ต่อด้วย C.22A ปากเกร็ด แล้วถึงกรุงเทพฯ",
         "extras": ["watergate_snapshot", "canal_snapshot"],
         "notes": "attribution สามทาง (ฝนเมือง/น้ำลุ่ม/ทะเล) · DEM ใช้ได้เชิงคุณภาพเท่านั้น (§5.1)",
     },
@@ -125,6 +130,8 @@ def main() -> None:
             rec["stations"] = stations_from_provinces(rec["station_filter"]["provinces"])
         else:
             rec["stations"] = stations_from_readiness(rec["basin_names"])
+        for extra in rec.get("extra_stations", []):
+            rec["stations"].append({**extra, "extra": "จุดควบคุมเหนือขอบจังหวัดที่กรอง"})
         rec["dams"] = [
             {"name": n, "dam_id": d, "normal_storage": normal_storage(d)} for n, d in rec["dams"]
         ]

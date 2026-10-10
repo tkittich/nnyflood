@@ -1,0 +1,20 @@
+{
+ "method": "น้ำถาวร (VH≤−20 ≥90% ของฉากที่ครอบ, ครอบ ≥5 ฉาก) OR DEM<1.2 ม. — ใน lowland",
+ "sea_cells_km2": 1638.0,
+ "scene_adjust": [
+  {
+   "scene": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
+   "before_km2": 0.0,
+   "after_km2": 0.0,
+   "sea_removed_km2": 0.0
+  },
+  {
+   "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "before_km2": 1320.8,
+   "after_km2": 1199.8,
+   "sea_removed_km2": 121.0
+  }
+ ],
+ "peak_after_km2": 1199.8,
+ "peak_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG"
+}

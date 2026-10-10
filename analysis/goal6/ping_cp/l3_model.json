@@ -1,0 +1,121 @@
+{
+ "basin": "ping_cp",
+ "target": {
+  "code": "C.2",
+  "name": "ท่าเรือ นครสวรรค์"
+ },
+ "upstream": "P.17",
+ "rain_point": "ลุ่มบนปิง",
+ "train_hours": 6939,
+ "test_hours": 260,
+ "results": {
+  "6": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 11.9,
+     "mae_cm": 9.4,
+     "rmse_event_cm": 10.8
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 4.7,
+     "mae_cm": 3.2,
+     "rmse_event_cm": 5.6
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 7.4,
+     "mae_cm": 5.0,
+     "rmse_event_cm": 8.6
+    }
+   ],
+   "coef_linear": [
+    1.4582,
+    -0.363,
+    -0.0949,
+    0.3086,
+    0.013,
+    -0.0114,
+    -0.003,
+    -0.0003,
+    0.0004,
+    -0.0
+   ],
+   "n_train": 6939,
+   "n_test": 260
+  },
+  "24": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 44.0,
+     "mae_cm": 35.1,
+     "rmse_event_cm": 41.5
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 27.8,
+     "mae_cm": 16.6,
+     "rmse_event_cm": 35.3
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 30.8,
+     "mae_cm": 23.0,
+     "rmse_event_cm": 36.9
+    }
+   ],
+   "coef_linear": [
+    2.3249,
+    -1.096,
+    -0.2236,
+    1.3836,
+    0.0386,
+    -0.0631,
+    0.0001,
+    -0.0016,
+    0.003,
+    -0.0001
+   ],
+   "n_train": 6939,
+   "n_test": 260
+  },
+  "48": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 75.7,
+     "mae_cm": 61.9,
+     "rmse_event_cm": 74.6
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 70.1,
+     "mae_cm": 44.2,
+     "rmse_event_cm": 91.7
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 58.3,
+     "mae_cm": 46.0,
+     "rmse_event_cm": 69.0
+    }
+   ],
+   "coef_linear": [
+    3.0806,
+    -1.8606,
+    -0.2194,
+    2.2582,
+    0.0429,
+    -0.1142,
+    0.0385,
+    -0.002,
+    0.0081,
+    -0.0006
+   ],
+   "n_train": 6939,
+   "n_test": 260
+  }
+ }
+}

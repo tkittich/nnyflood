@@ -29,7 +29,7 @@
 | **ฝน 7 วัน 2569 ติดอันดับ 1–3 จาก 46 ปี ที่ 67/199 จุดทั่วประเทศ** (ครบคลังระดับชาติ) | `python analysis/goal6_rain_rarity_national.py` → `analysis/goal6/rain_rarity_national.md` (POWER 1981–2026 · แคช raw/rain_rarity_national/) |
 | น้ำท่วมพีค 1 ต.ค. ทั้งประเทศ (S1 กฎ canonical) | `python analysis/goal6_s1_stage2_water.py` — ปิง 2,264 · ทุ่งรอบนอก กทม. 1,104 (mask น้ำถาวรล้วน แก้ M13) · บางปะกง 1,282 · ป่าสัก 521 · ท่าจีน 160 · แม่กลอง 73 ตร.กม. |
 | โมเดล +48 ชม. พังพอกันทุกลุ่ม | `python analysis/goal6_l3_model.py` → `l3_model.json` |
-| C.2 ก่อนฝนใหญ่ = ฝนลุ่ม ไม่ใช่ปล่อยล่วงหน้า (corr −0.92 · ปล่อย 3% ของน้ำผ่านช่วงพีค) | `python analysis/goal6_l1_followups.py` + `analysis/goal6_prerelease_scenario.py` (ลด C.2 1.7–7.4 ม. ที่ 40–100 ลลบ.ม./วัน × 4 วัน) |
+| C.2 ก่อนฝนใหญ่ = ฝนลุ่ม ไม่ใช่ปล่อยล่วงหน้า (corr −0.92 · ปล่อย 3% ของน้ำผ่านช่วงพีค) | `python analysis/goal6_l1_followups.py` + `analysis/goal6_c2_attribution.py` (สถานการณ์ปล่อยล่วงหน้าลด C.2 0.16–2.22 ม. ทุกกรณีในช่วงคาลิเบรต — สคริปต์เก่า goal6_prerelease_scenario.py มีบั๊กหน่วย อย่าใช้) |
 | node ผูกลุ่มย่อย: จุดวัด 199 + ปตร. 2165 → HydroBASINS lev08 (ไม่ผูกได้ 0/6) | `python analysis/goal6_network_nodes.py` → `analysis/goal6/network_nodes.md` |
 | S2 ตรวจยืนยันทำไม่ได้ (เมฆ) | `python analysis/goal6_s2_validate.py` — 0/9 คู่โปร่ง ≥5% |
 | ความครบถ้วนหลักฐาน | `python analysis/verify_data_integrity.py --quick` → MISMATCH 0 · `python -m pytest tests/ -q` → 39/39 |

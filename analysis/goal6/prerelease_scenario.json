@@ -33,5 +33,6 @@
    "peak_lv_new": 16.73,
    "drop_m": 7.37
   }
- ]
+ ],
+ "DEPRECATED": "ใช้ไม่ได้แล้ว (บั๊กหน่วย — ดู analysis/goal6_c2_attribution.json ตัวแทนที่ถูกต้อง) · คงไว้เพื่อสอบย้อนรีวิว"
 }

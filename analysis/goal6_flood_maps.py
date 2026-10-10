@@ -61,26 +61,28 @@ def plot_map(bid: str, label: str, km2: float) -> None:
     h_in = w_in * (lat_range * geo_aspect) / lon_range
     h_in = min(max(h_in, 4.0), 11.0)
     fig, ax = plt.subplots(figsize=(w_in, h_in), dpi=110)
-    # พื้นหลัง DEM: ที่ราบครีม · ภูเขาไล่สีน้ำตาลตามระดับความสูง + hillshade มาตรฐาน
-    # (แก้ 11 ต.ค. 69: เดิม slope หน่วย ม./พิกเซล → อิ่มตัวทั้งภูเขา = สีเดียวเทาเข้มหมด)
-    dem_m = np.ma.masked_invalid(dem)
-    dzdy, dzdx = np.gradient(dem_m.filled(0))  # ม./พิกเซล (พิกเซล ~30 ม.)
-    horiz_m = 30.0
-    slope_rad = np.arctan(np.hypot(dzdx, dzdy) / horiz_m)
-    aspect_rad = np.arctan2(-dzdy, dzdx)  # ทิศลาด (0=ทิศตะวันออก ทวนเข็ม)
-    sun_alt, sun_az = np.radians(45.0), np.radians(315.0)  # แสงจากตะวันตกเฉียงเหนือ
-    shade = (np.cos(slope_rad) * np.sin(sun_alt)
-             + np.sin(slope_rad) * np.cos(sun_alt) * np.cos(sun_az - aspect_rad))
-    shade = np.clip(shade, 0.15, 1.0)
-    colors_dem = np.zeros((ny, nx, 3), float)
-    land = np.isfinite(dem)
-    high = land & (dem > 60)
-    colors_dem[land & ~high] = np.array([0.96, 0.93, 0.84])  # ครีม = ที่ราบ
-    # ไล่น้ำตาลตามระดับ: 60 ม. อ่อน → 1,500 ม. เข้ม
-    elev_t = np.clip((dem - 60.0) / 1400.0, 0, 1)
-    low_c, high_c = np.array([0.80, 0.70, 0.55]), np.array([0.48, 0.40, 0.32])
-    mtn = low_c[None, :] * (1 - elev_t[high, None]) + high_c[None, :] * elev_t[high, None]
-    colors_dem[high] = np.clip(mtn * (0.55 + 0.45 * shade[high, None]), 0.12, 0.95)
+    # พื้นหลัง DEM — สูตรเดียวกับรายงาน 1–2 (report/report_assets.py): โทนน้ำตาลไล่ระดับ
+    # 8 ชั้น + hillshade มุมดวงอาทิตย์ 45° จากตะวันตกเฉียงเหนือ + posterize (ให้ทั้งชุดรายงานเป็นแฟมิลีเดียว)
+    z = dem.astype(float)
+    gy, gx = np.gradient(np.nan_to_num(z, nan=0.0))
+    az, alt = np.radians(315.0), np.radians(45.0)
+    slope = np.pi / 2 - np.arctan(np.hypot(gx, gy))
+    aspect = np.arctan2(-gx, gy)
+    sh = np.cos(alt) * np.cos(slope) + np.sin(alt) * np.sin(slope) * np.cos(az - aspect)
+    sh = np.clip((sh - 0.25) / 0.75, 0.05, 1.0)
+    sh = np.round(sh * 13) / 13.0
+    dem_bins = np.array([0, 30, 80, 150, 300, 500, 750, 1100, 99999])
+    dem_colors = np.array([
+        [1.00, 0.99, 0.96], [0.98, 0.95, 0.87], [0.93, 0.87, 0.72], [0.85, 0.75, 0.55],
+        [0.71, 0.59, 0.40], [0.56, 0.45, 0.30], [0.41, 0.33, 0.22], [0.27, 0.21, 0.14],
+    ])
+    valid = np.isfinite(dem)
+    idx = np.clip(np.digitize(np.where(valid, z, 0), dem_bins) - 1, 0, len(dem_colors) - 1)
+    t_shade = np.clip((np.where(valid, z, 0) - 80) / 220, 0, 1)
+    factor = (0.85 + 0.15 * sh) * (1 - t_shade) + (0.45 + 0.55 * sh) * t_shade
+    colors_dem = dem_colors[idx] * factor[..., None]
+    colors_dem = np.round(colors_dem * 12) / 12
+    colors_dem[~valid] = 1.0  # นอกครอบ DEM = ขาว
     ax.imshow(colors_dem, extent=[x0, x1, y0, y1], origin="upper", aspect=geo_aspect)
     # น้ำท่วม
     wm = np.ma.masked_where(~water, water)
@@ -94,7 +96,7 @@ def plot_map(bid: str, label: str, km2: float) -> None:
     ax.set_ylabel("ละติจูด", fontsize=9)
     ax.text(0.01, -0.08,
             "น้ำสีน้ำเงิน = พื้นที่น้ำท่วมใหม่ (เทียบฉากก่อนเหตุการณ์ 19–20 ก.ย.) · "
-            "ครีม = ที่ราบต่ำกว่า 60 ม. · น้ำตาล = พื้นที่สูง · "
+            "โทนอ่อน = ที่ราบ (ขอบเขตวิเคราะห์ ต่ำกว่า 60 ม.) · น้ำตาลไล่เข้ม = พื้นที่สูงตามระดับจริง · "
             "ตัดทะเล/น้ำถาวรออกแล้ว (บท กทม.)",
             transform=ax.transAxes, fontsize=8, color="#5a6675")
     fig.tight_layout()

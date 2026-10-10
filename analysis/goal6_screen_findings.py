@@ -20,9 +20,17 @@ FINDINGS = ROOT / "analysis/goal6_screen_2026_findings.md"
 def main() -> None:
     s = json.loads(SUMMARY.read_text(encoding="utf-8"))
     crit = [x for x in s["stations"] if x.get("crit") is not None and (x.get("hours_over_crit") or 0) > 0]
+    # M10 (รีวิว Sift/Gemini): เพิ่มเกณฑ์ SUSPECT แบบบางส่วน — ระดับสูงสุดต่ำกว่าตลิ่งต่ำสุดของจุดตัวเอง
+    # แปลว่าพิกัด/เกณฑ์วิกฤตกับอนุกรมคนละระบบ แม้ไม่ใช่ทั้งอนุกรม (เดิมจับเฉพาะเคสเต็มอนุกรม
+    # → B.10 ตลาดท่ายาง (max 9.44 < ตลิ่งต่ำสุด 13.90) หลุดเป็น EVENT ทั้งที่ datum ไม่ตรง)
     for x in crit:
         n, h, r = x["n_values"], x["hours_over_crit"], x["longest_run_over_crit_h"]
-        x["class"] = "SUSPECT" if (h == n and r == n) else "EVENT"
+        whole = h == n and r == n
+        partial = x.get("meta_min_bank") is not None and x.get("max_val") is not None \
+            and x["max_val"] < x["meta_min_bank"]
+        x["class"] = "SUSPECT" if (whole or partial) else "EVENT"
+        x["class_reason"] = ("datum_mismatch_whole_record" if whole
+                             else "datum_mismatch_partial_below_min_bank" if partial else "ok")
 
     events = sorted([x for x in crit if x["class"] == "EVENT"], key=lambda y: -(y["hours_over_crit"]))
     suspects = sorted([x for x in crit if x["class"] == "SUSPECT"], key=lambda y: y["basin"])

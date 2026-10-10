@@ -1,0 +1,83 @@
+{
+ "note": "แก้ตามรีวิว Sift H3/H4/H5 + Gemini F1 — ตัวเลขทุกตัวคำนวณจากข้อมูลจริงใน repo",
+ "correlations": {
+  "release_vs_c2": -0.917,
+  "inflow_lag2_vs_c2": 0.438,
+  "caveat": "corr เป็นสถิติสนับสนุน (เขื่อนปล่อยน้อยช่วงพีคเพราะถือน้ำไว้ — กำกวมเชิงสาเหตุ) หลัก = สัดส่วนปริมาตรที่พีค"
+ },
+ "level_volume_equation": {
+  "a": 16.732,
+  "b": 0.034241,
+  "r2": 0.996,
+  "calib_range_mcm_day": [
+   49.9,
+   225.5
+  ]
+ },
+ "chain": {
+  "released_total": {
+   "early_sep_avg": 19.9,
+   "peak": 27.9,
+   "peak_date": "2026-09-15",
+   "ratio_peak_vs_early": 1.4
+  },
+  "p17_ping_lower": {
+   "early_sep_avg": 8.1,
+   "peak": 166.5,
+   "peak_date": "2026-09-30",
+   "ratio_peak_vs_early": 20.5
+  },
+  "n67_nan_lower": {
+   "early_sep_avg": 48.5,
+   "peak": 95.2,
+   "peak_date": "2026-10-01",
+   "ratio_peak_vs_early": 2.0
+  },
+  "c2_total": {
+   "early_sep_avg": 62.6,
+   "peak": 225.5,
+   "peak_date": "2026-10-01",
+   "ratio_peak_vs_early": 3.6
+  },
+  "release_share_at_peak_pct": 3.1
+ },
+ "prerelease_scenarios": [
+  {
+   "release_per_day": 40,
+   "actual_avg_sep11_15": 24.9,
+   "peak_q_new": 210,
+   "peak_lv_new": 23.94,
+   "drop_m": 0.16,
+   "within_calib": true,
+   "usable": true
+  },
+  {
+   "release_per_day": 60,
+   "actual_avg_sep11_15": 24.9,
+   "peak_q_new": 190,
+   "peak_lv_new": 23.25,
+   "drop_m": 0.85,
+   "within_calib": true,
+   "usable": true
+  },
+  {
+   "release_per_day": 80,
+   "actual_avg_sep11_15": 24.9,
+   "peak_q_new": 170,
+   "peak_lv_new": 22.57,
+   "drop_m": 1.53,
+   "within_calib": true,
+   "usable": true
+  },
+  {
+   "release_per_day": 100,
+   "actual_avg_sep11_15": 24.9,
+   "peak_q_new": 150,
+   "peak_lv_new": 21.88,
+   "drop_m": 2.22,
+   "within_calib": true,
+   "usable": true
+  }
+ ],
+ "prerelease_note": "แก้ผิดหน่วย (เดิมลบปริมาตร 4 วันออกจากอัตราพีค → Q=0 แม่น้ำแห้ง): ตอนนี้ลดอัตราไหลพีคลงเท่ากับส่วนปล่อยส่วนเกินต่อวัน (extra − actual) · เฉพาะกรณีที่ Q ใหม่ยังอยู่ในช่วงคาลิเบรตจึงอ่านได้ · กรณี Q ต่ำกว่าช่วง = ประมาณเกินขอบ (extrapolation) — ป้ายชัดทุกแถว"
+}

@@ -19,6 +19,10 @@ import numpy as np
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.linear_model import LinearRegression
 
+import sys as _sys
+_sys.path.insert(0, str(Path(__file__).resolve().parent))
+from rain_window import windows_for_grid  # noqa: E402 — helper กลาง (ไม่มีข้อมูลอนาคต ตามเทส test_core)
+
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "analysis/goal6/config.json"
 OUT_BASE = ROOT / "analysis/goal6"
@@ -89,18 +93,15 @@ def at(a: np.ndarray, i: int, back: int) -> float:
     return a[j] if j >= 0 else np.nan
 
 
-def rain_at(daily: dict[str, float], t: dt.datetime) -> tuple[float, float, float, float, float]:
-    """R24/R72/R168 สะสมจบที่ t (ฝนวันนี้รวมชั่วโมง t ถือวัน t) · คืน (R24, R72, R168, วันมีค่า, วันว่าง)"""
-    days = []
-    for k in range(7):
-        d = (t - dt.timedelta(days=k)).strftime("%Y-%m-%d")
-        v = daily.get(d)
-        days.append(v if isinstance(v, (int, float)) else np.nan)
-    # ต่อชั่วโมง: วันจริงแบ่งตามสัดส่วนจากข้อมูลขาด — ใช้ค่าวันตรง ๆ (จดข้อจำกัด)
-    r24 = days[0] if days[0] == days[0] else np.nan
-    r72 = np.nansum(days[:3]) if all(d == d for d in days[:3]) else np.nan
-    r168 = np.nansum(days[:7]) if all(d == d for d in days[:7]) else np.nan
-    return r24, r72, r168, 1.0, 0.0
+def rain_windows(daily: dict[str, float], grid_t: list) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """R24/R72/R168 สะสมถึง<b>สิ้นสุดเมื่อวาน</b> — ใช้ helper กลาง rain_window.windows_for_grid
+    (H6 รีวิว Sift: ตัวเดิม rain_at ใช้ฝน 'วันนี้' ทั้งวันตั้งแต่เที่ยงคืน = รั่วถึง 23 ชม. —
+    repo จดวิธีถูกไว้แล้วใน rain_window.py + เทส test_day_window_uses_no_future_information)
+    คืน (R24, R72, R168) ยาวเท่า grid_t · ค่าคงที่ทั้งวัน = ผลรวมถึงเมื่อวาน"""
+    daily_map = {d.replace("-", ""): v for d, v in daily.items()
+                 if isinstance(v, (int, float)) and v >= 0}
+    w = windows_for_grid(daily_map, grid_t, spans=(1, 3, 7))
+    return w[1], w[3], w[7]
 
 
 def run_basin(bid: str, rec: dict, out_json: Path, out_md: Path) -> None:
@@ -137,12 +138,14 @@ def run_basin(bid: str, rec: dict, out_json: Path, out_md: Path) -> None:
         g_t, tgt = hourly_grid(cache.get((st_tgt["id"], y), {}), y)
         if len(g_t) == 0:
             continue
+        # H6: หน้าต่างฝนของปีนี้ — สิ้นสุดเมื่อวาน (helper กลาง rain_window · ไม่มีข้อมูลอนาคต)
+        r24y, r72y, r168y = rain_windows(daily, g_t)
         _, up = hourly_grid(cache.get((st_up["id"], y), {}), y) if st_up else (None, None)
         for i, t in enumerate(g_t):
             if not np.isfinite(tgt[i]):
                 continue
             ok_hist = all(np.isfinite(at(tgt, i, b)) for b in (3, 6, 24))
-            r24, r72, r168, _, _ = rain_at(daily, t)
+            r24, r72, r168 = r24y[i], r72y[i], r168y[i]
             if not ok_hist:
                 continue
             x = [tgt[i], at(tgt, i, 3), at(tgt, i, 24), tgt[i] - at(tgt, i, 6)]

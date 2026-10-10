@@ -1,121 +1,123 @@
 {
  "basin": "thachin",
+ "window_test": "2026-09-20..2026-10-09",
+ "grid_end": "2026-10-09 23:00",
  "target": {
   "code": "T.1",
   "name": "ที่ว่าการ อ.นครชัยศรี"
  },
  "upstream": "T.13",
  "rain_point": "ลุ่มบนท่าจีน",
- "train_hours": 6470,
- "test_hours": 247,
+ "train_hours": 6826,
+ "test_hours": 343,
  "results": {
   "6": {
    "rows": [
     {
      "model": "persistence",
-     "rmse_cm": 14.1,
-     "mae_cm": 10.6,
-     "rmse_event_cm": 11.1
+     "rmse_cm": 13.0,
+     "mae_cm": 9.9,
+     "rmse_event_cm": 10.3
     },
     {
      "model": "linear",
-     "rmse_cm": 14.6,
-     "mae_cm": 12.0,
-     "rmse_event_cm": 13.9
+     "rmse_cm": 15.9,
+     "mae_cm": 13.4,
+     "rmse_event_cm": 15.8
     },
     {
      "model": "GBDT",
-     "rmse_cm": 37.5,
-     "mae_cm": 31.6,
-     "rmse_event_cm": 42.8
+     "rmse_cm": 38.9,
+     "mae_cm": 34.5,
+     "rmse_event_cm": 44.4
     }
    ],
    "coef_linear": [
-    0.8043,
-    -0.4997,
-    0.6375,
-    -0.5665,
-    0.4234,
-    0.3297,
-    -0.5948,
-    0.0021,
-    -0.0005,
-    -0.0006
+    0.7898,
+    -0.4839,
+    0.6383,
+    -0.5646,
+    0.4039,
+    0.3359,
+    -0.5866,
+    0.002,
+    -0.0004,
+    -0.0005
    ],
-   "n_train": 6470,
-   "n_test": 247
+   "n_train": 6826,
+   "n_test": 343
   },
   "24": {
    "rows": [
     {
      "model": "persistence",
-     "rmse_cm": 13.4,
-     "mae_cm": 8.0,
-     "rmse_event_cm": 16.6
+     "rmse_cm": 11.7,
+     "mae_cm": 6.9,
+     "rmse_event_cm": 12.6
     },
     {
      "model": "linear",
-     "rmse_cm": 12.6,
-     "mae_cm": 7.4,
-     "rmse_event_cm": 15.3
+     "rmse_cm": 10.6,
+     "mae_cm": 6.0,
+     "rmse_event_cm": 11.2
     },
     {
      "model": "GBDT",
-     "rmse_cm": 31.9,
-     "mae_cm": 26.9,
-     "rmse_event_cm": 38.4
+     "rmse_cm": 26.6,
+     "mae_cm": 23.8,
+     "rmse_event_cm": 30.7
     }
    ],
    "coef_linear": [
-    0.9772,
-    0.3127,
-    -0.29,
+    0.9769,
+    0.311,
+    -0.2903,
     0.1086,
-    0.0321,
-    0.1247,
-    -0.1559,
-    0.0018,
-    0.0,
-    -0.0001
+    0.0402,
+    0.1253,
+    -0.1594,
+    0.0016,
+    0.0001,
+    -0.0002
    ],
-   "n_train": 6470,
-   "n_test": 247
+   "n_train": 6826,
+   "n_test": 343
   },
   "48": {
    "rows": [
     {
      "model": "persistence",
-     "rmse_cm": 23.8,
-     "mae_cm": 15.5,
-     "rmse_event_cm": 24.1
+     "rmse_cm": 20.6,
+     "mae_cm": 12.8,
+     "rmse_event_cm": 18.5
     },
     {
      "model": "linear",
-     "rmse_cm": 22.8,
-     "mae_cm": 14.7,
-     "rmse_event_cm": 22.6
+     "rmse_cm": 19.4,
+     "mae_cm": 11.8,
+     "rmse_event_cm": 16.6
     },
     {
      "model": "GBDT",
-     "rmse_cm": 39.7,
-     "mae_cm": 35.4,
-     "rmse_event_cm": 45.5
+     "rmse_cm": 34.1,
+     "mae_cm": 31.6,
+     "rmse_event_cm": 37.3
     }
    ],
    "coef_linear": [
-    0.8592,
-    0.5894,
-    -0.4537,
-    0.1555,
-    0.0642,
-    0.227,
-    -0.2784,
-    0.0029,
-    0.0001,
+    0.8616,
+    0.5849,
+    -0.4552,
+    0.1542,
+    0.0746,
+    0.2275,
+    -0.2808,
+    0.0027,
+    0.0002,
     -0.0005
    ],
-   "n_train": 6470,
-   "n_test": 247
+   "n_train": 6826,
+   "n_test": 343
   }
  }
 }

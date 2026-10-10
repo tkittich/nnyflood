@@ -3,7 +3,7 @@
 โครงเดิมนครนายก: สูตรเส้นตรง 11 ตัวแปร vs persistence vs GBDT ที่ +6/+24/+48 ชม.
 ปรับต่อลุ่ม: จุดเป้าหมาย = จุดวัดเมืองหลักของลุ่ม (code ที่มีอนุกรมยาวสุด) ·
 ต้นน้ำ = จุดวัดใกล้เขื่อน · ฝน R24/R72/R168 จาก NASA POWER รายวันของจุดฝนลุ่มบน (data/22 rain_rarity raw มี 1981–2026)
-หน้าต่างฝึก: ทุกฤดูฝน 6 มิ.ย.–4 ต.ค. ที่มีข้อมูล (2020–2026) · ทดสอบ: กลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 69
+หน้าต่างฝึก: ทุกฤดูฝน 6 มิ.ย.–9 ต.ค. ที่มีข้อมูล (2020–2026 · H2 ยืดกริดถึง 9 ต.ค. 13 ต.ค. 69) · ทดสอบ: กลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 69
 ผลลัพธ์: analysis/goal6/<basin>/l3_model.json + l3_model.md
 รัน: python analysis/goal6_l3_model.py [--basin id,...]
 """
@@ -70,7 +70,7 @@ def daily_rain(key: str) -> dict[str, float]:
 
 
 def hourly_grid(d: dict[str, float], y: int) -> tuple[list, np.ndarray]:
-    t0, t1 = dt.datetime(y, 6, 1), dt.datetime(y, 10, 4, 23)
+    t0, t1 = dt.datetime(y, 6, 1), dt.datetime(y, 10, 9, 23)  # H2: ถึง 9 ต.ค. (พีค S.26 = 7 ต.ค. — เดิมจบ 4 ต.ค. หลุดพีค)
     grid = [t0 + dt.timedelta(hours=h) for h in range(int((t1 - t0).total_seconds() // 3600) + 1)]
     idx = {t.replace(minute=0): i for i, t in enumerate(grid)}
     bucket: dict[dt.datetime, list[float]] = {}
@@ -173,7 +173,7 @@ def run_basin(bid: str, rec: dict, out_json: Path, out_md: Path) -> None:
         gb = HistGradientBoostingRegressor(max_iter=400, learning_rate=0.06, max_depth=4,
                                            min_samples_leaf=40, random_state=0).fit(X[tr], ytr)
         p_gb = gb.predict(X[te])
-        ev = np.array([dt.datetime(2026, 9, 25) <= t <= dt.datetime(2026, 10, 2) for t in T[te]])
+        ev = np.array([dt.datetime(2026, 9, 25) <= t <= dt.datetime(2026, 10, 9) for t in T[te]])  # H2: ถึง 9 ต.ค.
         for nm, p in (("persistence", p_pers), ("linear", p_lin), ("GBDT", p_gb)):
             rmse = np.sqrt(np.mean((p - yte) ** 2)) * 100
             mae = np.mean(np.abs(p - yte)) * 100
@@ -185,7 +185,8 @@ def run_basin(bid: str, rec: dict, out_json: Path, out_md: Path) -> None:
         best = min(rows, key=lambda r: r["rmse_cm"])
         print(f"  {bid} +{h}ชม.: ดีสุด {best['model']} RMSE {best['rmse_cm']} ซม. "
               f"(เหตุการณ์ {rows[1]['rmse_event_cm']})", flush=True)
-    out = {"basin": bid, "target": {"code": tgt_code, "name": tgt_name},
+    out = {"basin": bid, "window_test": "2026-09-20..2026-10-09", "grid_end": "2026-10-09 23:00",
+           "target": {"code": tgt_code, "name": tgt_name},
            "upstream": up_code, "rain_point": rain_label,
            "train_hours": int(tr.sum()), "test_hours": int(te.sum()),
            "results": results}

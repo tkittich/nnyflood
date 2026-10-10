@@ -32,7 +32,7 @@
 | C.2 ก่อนฝนใหญ่ = ฝนลุ่ม ไม่ใช่ปล่อยล่วงหน้า (corr −0.92 · ปล่อย 3% ของน้ำผ่านช่วงพีค) | `python analysis/goal6_l1_followups.py` + `analysis/goal6_c2_attribution.py` (สถานการณ์ปล่อยล่วงหน้าลด C.2 0.16–2.22 ม. ทุกกรณีในช่วงคาลิเบรต — สคริปต์เก่า goal6_prerelease_scenario.py มีบั๊กหน่วย อย่าใช้) |
 | node ผูกลุ่มย่อย: จุดวัด 199 + ปตร. 2165 → HydroBASINS lev08 (ไม่ผูกได้ 0/6) | `python analysis/goal6_network_nodes.py` → `analysis/goal6/network_nodes.md` |
 | S2 ตรวจยืนยันทำไม่ได้ (เมฆ) | `python analysis/goal6_s2_validate.py` — 0/9 คู่โปร่ง ≥5% |
-| ความครบถ้วนหลักฐาน | `python analysis/verify_data_integrity.py --quick` → MISMATCH 0 · `python -m pytest tests/ -q` → 39/39 |
+| ความครบถ้วนหลักฐาน | `python analysis/verify_data_integrity.py --quick` → MISMATCH 0 · `python -m pytest tests/ -q` → 45/45 |
 
 ## 3. ข้อจำกัดที่ประกาศไว้แล้วในรายงาน (ตรวจว่าพอหรือขาด)
 

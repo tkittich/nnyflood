@@ -11,11 +11,14 @@
 
 | Endpoint | พารามิเตอร์ | ได้อะไร | ข้อจำกัดที่พบ |
 |---|---|---|---|
-| `analyst/dam_yearly_graph` | `data_type=dam_storage\|dam_inflow\|dam_released\|dam_level\|dam_spilled&dam_id=32&year=YYYY` | ข้อมูลรายวันทั้งปีของเขื่อน + `upper_rule_curve`/`lower_rule_curve` + `average_inflow` | `dam_level` ของเขื่อนนี้คืนค่าว่าง / `dam_spilled` เป็น 0 ตลอด (ระบายแบบเปิดประตูควบคุม) |
+| `analyst/dam_yearly_graph` | `data_type=dam_storage\|dam_inflow\|dam_released\|dam_level\|dam_spilled&dam_id=32&year=YYYY` | ข้อมูลรายวันทั้งปีของเขื่อน + `upper_rule_curve`/`lower_rule_curve` + `average_inflow` | `dam_level` ของเขื่อนนี้คืนค่าว่าง / `dam_spilled` เป็น 0 ตลอด (ระบายแบบเปิดประตูควบคุม) · **ความลึกต่อเขื่อนไม่เท่ากัน**: ขุนด่านฯ 2013+ แต่ภูมิพล (43) ย้อนถึง 1 มิ.ย. 1964 (probe 10 ต.ค. 69 — ค่าของบางเขื่อนอยู่ `graph_data[0]['data'][i]['value']` ซ้อน 1 ชั้น) · **URC ที่คืนเป็นเทมเพลตลงวันที่ปี 2020 เสมอ** — เทียบต้องใช้ เดือน-วัน (พิสูจน์จาก screen 11 ต.ค.) · ค่า critical_level_m ของจุดวัดหลายจุดคนละ datum กับอนุกรม (เทียบไม่ได้ตรง ๆ — ดู SUSPECT ใน screen) |
 | `provinces/rain3d_graph` | `station_id&start_date&end_date` | ฝนรายวันรายสถานี | **ช่วงวันที่ ≤31 วัน/ครั้ง** ต้องดึงเป็น chunk · มีค่าเฉพาะปีปัจจุบัน (ย้อนหลังแทบไม่มี) |
-| `public/waterlevel_graph` | `station_type=tele_waterlevel&station_id&start_date&end_date` | ระดับน้ำ**รายชั่วโมง**รายสถานี | สถานีรหัสเก่าหลายจุด (TNy9/10/11/12) คืน null ทั้งหมด |
+| `public/waterlevel_graph` | `station_type=tele_waterlevel&station_id&start_date&end_date` | ระดับน้ำ**รายชั่วโมง**รายสถานี + discharge + min_bank/qmax | สถานีรหัสเก่าหลายจุด (TNy9/10/11/12) คืน null ทั้งหมด · กริดย้อนถึง 1960 ได้แต่**มีค่าเฉพาะช่วงสถานีเข้าระบบ** (C.2 ~2019+ — 39,010 ชม. ดึงแล้วที่ data/22_goal6_network/) · เดินปีถอยหลังจน 2 ปีว่างต่อเนื่องแล้วหยุด |
+| `public/waterlevel_graph_oldcode` | `station_id&start_date&end_date` (รับ `station_id` ไม่ใช่ oldcode) | รายชั่วโมงผ่านรหัสเก่า | ทดสอบ C.2 ปี 2005 = 0 แถว — archive ลึกกว่ายังไม่พบ |
+| `public/watergate_load` / `watergate_graph` | (โครงสร้าง/ย้อนหลัง) | **ปตร. ทั้งประเทศ 2,315 แห่ง/24 ลุ่ม** + กราฟราย 10 นาที หน้า/หลังประตู+discharge | สถานะเดินเครื่องสูบ/บาน = ปัจจุบันเท่านั้น (ประวัติ = FOI) · บางระจัน 2020 ✓ มีค่า (probe 10 ต.ค.) |
+| `public/canal_waterlevel` / `public/flow` | — | ระดับน้ำคลอง 282 จุด / อัตราไหล 55 จุด (latest) | snapshot เดียว — ย้อนหลังยังไม่ทดสอบ |
 | `analyst/dam` | — | สถานะล่าสุดเขื่อน+อ่างฯ ทั้งประเทศ (snapshot) | เฉพาะค่าล่าสุด |
-| `frontend/shared/station_all` | — | ทะเบียนสถานี 11,483 จุดทั้งประเทศ | — |
+| `frontend/shared/station_all` | — | ทะเบียนสถานี 11,483 จุดทั้งประเทศ | ไม่มี field ชนิดสถานี/ระดับเตือน — ใช้ร่วมกับ endpoint รายจุด |
 
 **รหัสสถานีสำคัญใน นครนายก**: สถานีระดับน้ำ **505003 (Ny.7 สะพานหน้าจวนผู้ว่าฯ — ดีสุด)** · 2687 (Ny.1B บ้านเขานางบวช) · เขื่อน: **dam_id 32** · ดูครบใน `data/02_thaiwater/raw/station_all.json`
 

@@ -1,0 +1,351 @@
+{
+ "window": [
+  "2026-09-19T00:00:00.000Z",
+  "2026-10-03T23:59:59.999Z"
+ ],
+ "note": "ค้นจาก CDSE OData (anonymous) — ดาวน์โหลดผู้ใช้ล็อกอินเอง · กรอง GRDH",
+ "basins": {
+  "ป่าสัก": [
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG.SAFE",
+    "start": "2026-09-19T23:08:15.818282Z",
+    "content_length_mb": 1276.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG.SAFE",
+    "start": "2026-09-19T23:08:40.818088Z",
+    "content_length_mb": 1260.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG.SAFE",
+    "start": "2026-09-20T23:00:12.950135Z",
+    "content_length_mb": 1243.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260922T112030_20260922T112055_004690_008C3D_5D24_COG.SAFE",
+    "start": "2026-09-22T11:20:30.175950Z",
+    "content_length_mb": 1259.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260926T230018_20260926T230043_004755_008E7F_8F9B_COG.SAFE",
+    "start": "2026-09-26T23:00:18.057803Z",
+    "content_length_mb": 1272.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG.SAFE",
+    "start": "2026-09-27T11:28:30.682731Z",
+    "content_length_mb": 1275.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112855_20260927T112920_004763_008EC4_ECE0_COG.SAFE",
+    "start": "2026-09-27T11:28:55.681556Z",
+    "content_length_mb": 1281.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20260928T111958_20260928T112023_009647_01333F_E406_COG.SAFE",
+    "start": "2026-09-28T11:19:58.389759Z",
+    "content_length_mb": 1238.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20260928T112023_20260928T112048_009647_01333F_3FD1_COG.SAFE",
+    "start": "2026-09-28T11:20:23.389447Z",
+    "content_length_mb": 1243.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG.SAFE",
+    "start": "2026-10-01T23:08:15.905384Z",
+    "content_length_mb": 1264.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG.SAFE",
+    "start": "2026-10-01T23:08:40.905059Z",
+    "content_length_mb": 1248.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20261002T230013_20261002T230038_009712_01357D_B485_COG.SAFE",
+    "start": "2026-10-02T23:00:13.289749Z",
+    "content_length_mb": 1232.0
+   }
+  ],
+  "แม่กลอง": [
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG.SAFE",
+    "start": "2026-09-19T23:08:15.818282Z",
+    "content_length_mb": 1276.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG.SAFE",
+    "start": "2026-09-19T23:08:40.818088Z",
+    "content_length_mb": 1260.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230905_20260919T230930_004653_008B05_76B0_COG.SAFE",
+    "start": "2026-09-19T23:09:05.819385Z",
+    "content_length_mb": 1121.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG.SAFE",
+    "start": "2026-09-20T11:36:15.366600Z",
+    "content_length_mb": 1190.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG.SAFE",
+    "start": "2026-09-20T11:36:40.366609Z",
+    "content_length_mb": 1217.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260924T231641_20260924T231706_004726_008D7D_21DD_COG.SAFE",
+    "start": "2026-09-24T23:16:41.688714Z",
+    "content_length_mb": 1211.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260924T231706_20260924T231731_004726_008D7D_B576_COG.SAFE",
+    "start": "2026-09-24T23:17:06.688091Z",
+    "content_length_mb": 1053.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG.SAFE",
+    "start": "2026-09-27T11:28:05.682411Z",
+    "content_length_mb": 1192.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG.SAFE",
+    "start": "2026-09-27T11:28:30.682731Z",
+    "content_length_mb": 1275.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG.SAFE",
+    "start": "2026-10-01T23:08:15.905384Z",
+    "content_length_mb": 1264.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG.SAFE",
+    "start": "2026-10-01T23:08:40.905059Z",
+    "content_length_mb": 1248.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230905_20261001T230930_004828_00911A_1BDC_COG.SAFE",
+    "start": "2026-10-01T23:09:05.904734Z",
+    "content_length_mb": 1115.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261002T113615_20261002T113640_004836_009162_E9D4_COG.SAFE",
+    "start": "2026-10-02T11:36:15.423757Z",
+    "content_length_mb": 1171.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261002T113640_20261002T113705_004836_009162_8A28_COG.SAFE",
+    "start": "2026-10-02T11:36:40.422387Z",
+    "content_length_mb": 1195.0
+   }
+  ],
+  "ปิง–เจ้าพระยาตอนบน": [
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG.SAFE",
+    "start": "2026-09-19T23:07:50.818476Z",
+    "content_length_mb": 1283.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG.SAFE",
+    "start": "2026-09-19T23:08:15.818282Z",
+    "content_length_mb": 1276.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG.SAFE",
+    "start": "2026-09-20T11:37:05.366618Z",
+    "content_length_mb": 1214.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260920T113730_20260920T113755_004661_008B4A_FDA0_COG.SAFE",
+    "start": "2026-09-20T11:37:30.366627Z",
+    "content_length_mb": 1283.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260924T231551_20260924T231616_004726_008D7D_A910_COG.SAFE",
+    "start": "2026-09-24T23:15:51.688466Z",
+    "content_length_mb": 1293.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260924T231616_20260924T231641_004726_008D7D_7E5C_COG.SAFE",
+    "start": "2026-09-24T23:16:16.687844Z",
+    "content_length_mb": 1287.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112855_20260927T112920_004763_008EC4_ECE0_COG.SAFE",
+    "start": "2026-09-27T11:28:55.681556Z",
+    "content_length_mb": 1281.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112920_20260927T112945_004763_008EC4_7803_COG.SAFE",
+    "start": "2026-09-27T11:29:20.681869Z",
+    "content_length_mb": 1296.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230750_20261001T230815_004828_00911A_0DD2_COG.SAFE",
+    "start": "2026-10-01T23:07:50.904219Z",
+    "content_length_mb": 1282.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG.SAFE",
+    "start": "2026-10-01T23:08:15.905384Z",
+    "content_length_mb": 1264.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261002T113705_20261002T113730_004836_009162_EC26_COG.SAFE",
+    "start": "2026-10-02T11:37:05.422508Z",
+    "content_length_mb": 1199.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261002T113730_20261002T113755_004836_009162_C3D5_COG.SAFE",
+    "start": "2026-10-02T11:37:30.422628Z",
+    "content_length_mb": 1280.0
+   }
+  ],
+  "ท่าจีน": [
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG.SAFE",
+    "start": "2026-09-19T23:08:15.818282Z",
+    "content_length_mb": 1276.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG.SAFE",
+    "start": "2026-09-19T23:08:40.818088Z",
+    "content_length_mb": 1260.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG.SAFE",
+    "start": "2026-09-20T11:36:15.366600Z",
+    "content_length_mb": 1190.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG.SAFE",
+    "start": "2026-09-20T11:36:40.366609Z",
+    "content_length_mb": 1217.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260924T231641_20260924T231706_004726_008D7D_21DD_COG.SAFE",
+    "start": "2026-09-24T23:16:41.688714Z",
+    "content_length_mb": 1211.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG.SAFE",
+    "start": "2026-09-27T11:28:05.682411Z",
+    "content_length_mb": 1192.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG.SAFE",
+    "start": "2026-09-27T11:28:30.682731Z",
+    "content_length_mb": 1275.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG.SAFE",
+    "start": "2026-10-01T23:08:15.905384Z",
+    "content_length_mb": 1264.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG.SAFE",
+    "start": "2026-10-01T23:08:40.905059Z",
+    "content_length_mb": 1248.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261002T113615_20261002T113640_004836_009162_E9D4_COG.SAFE",
+    "start": "2026-10-02T11:36:15.423757Z",
+    "content_length_mb": 1171.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261002T113640_20261002T113705_004836_009162_8A28_COG.SAFE",
+    "start": "2026-10-02T11:36:40.422387Z",
+    "content_length_mb": 1195.0
+   }
+  ],
+  "ลุ่มบางปะกง (นครนายก–ปราจีนบุรี)": [
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG.SAFE",
+    "start": "2026-09-19T23:08:40.818088Z",
+    "content_length_mb": 1260.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG.SAFE",
+    "start": "2026-09-20T23:00:12.950135Z",
+    "content_length_mb": 1243.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20260920T230037_20260920T230102_009537_012FAC_79FF_COG.SAFE",
+    "start": "2026-09-20T23:00:37.949625Z",
+    "content_length_mb": 1065.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260922T112005_20260922T112030_004690_008C3D_55A3_COG.SAFE",
+    "start": "2026-09-22T11:20:05.174877Z",
+    "content_length_mb": 1263.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260926T230018_20260926T230043_004755_008E7F_8F9B_COG.SAFE",
+    "start": "2026-09-26T23:00:18.057803Z",
+    "content_length_mb": 1272.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260926T230043_20260926T230108_004755_008E7F_86E9_COG.SAFE",
+    "start": "2026-09-26T23:00:43.057322Z",
+    "content_length_mb": 1251.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG.SAFE",
+    "start": "2026-09-27T11:28:05.682411Z",
+    "content_length_mb": 1192.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG.SAFE",
+    "start": "2026-09-27T11:28:30.682731Z",
+    "content_length_mb": 1275.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20260928T111933_20260928T111958_009647_01333F_02ED_COG.SAFE",
+    "start": "2026-09-28T11:19:33.390071Z",
+    "content_length_mb": 1193.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20260928T111958_20260928T112023_009647_01333F_E406_COG.SAFE",
+    "start": "2026-09-28T11:19:58.389759Z",
+    "content_length_mb": 1238.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG.SAFE",
+    "start": "2026-10-01T23:08:40.905059Z",
+    "content_length_mb": 1248.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20261002T230013_20261002T230038_009712_01357D_B485_COG.SAFE",
+    "start": "2026-10-02T23:00:13.289749Z",
+    "content_length_mb": 1232.0
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20261002T230038_20261002T230103_009712_01357D_80ED_COG.SAFE",
+    "start": "2026-10-02T23:00:38.289103Z",
+    "content_length_mb": 1056.0
+   }
+  ],
+  "ลุ่มเจ้าพระยาตอนล่าง–กทม.–สมุทรปราการ": [
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG.SAFE",
+    "start": "2026-09-19T23:08:40.818088Z",
+    "content_length_mb": 1260.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG.SAFE",
+    "start": "2026-09-27T11:28:05.682411Z",
+    "content_length_mb": 1192.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG.SAFE",
+    "start": "2026-09-27T11:28:30.682731Z",
+    "content_length_mb": 1275.0
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG.SAFE",
+    "start": "2026-10-01T23:08:40.905059Z",
+    "content_length_mb": 1248.0
+   }
+  ]
+ }
+}

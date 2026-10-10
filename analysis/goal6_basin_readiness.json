@@ -1,0 +1,3605 @@
+{
+ "generated_at": "2026-10-09T17:29:32+00:00",
+ "basins": {
+  "pasak": {
+   "label": "ป่าสัก",
+   "registry_total": 19,
+   "stations": [
+    {
+     "id": 2753,
+     "code": "S.14",
+     "name": "บ้านท่ารวก",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำป่าสัก",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 675,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2624,
+     "code": "S.26",
+     "name": "ท้ายเขื่อนพระรามหก",
+     "key": true,
+     "crit": 8.0,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำป่าสัก",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2712,
+     "code": "S.28",
+     "name": "ท้ายเขื่อนป่าสักชลสิทธิ์",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำป่าสัก",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 657,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2576,
+     "code": "S.3",
+     "name": "ต.ตาลเดี่ยว",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำป่าสัก",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 483,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 655,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 631,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2985,
+     "code": "S.33",
+     "name": "ต.ตาดกลอย",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำป่าสัก",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 501,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 654,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 630,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2799,
+     "code": "S.42",
+     "name": "บ้านบ่อวัง",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำป่าสัก",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 655,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 631,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 504982,
+     "code": "S.43",
+     "name": "บ้านพูลทรัพย์",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำป่าสัก",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 638,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2881,
+     "code": "S.4B",
+     "name": "ต.ในเมือง",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำป่าสัก",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 655,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 676,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 631,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    }
+   ],
+   "dams": [
+    {
+     "dam_id": 11,
+     "first_year_found": 2005,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_days": 282
+      },
+      {
+       "year": 2025,
+       "n_days": 365
+      },
+      {
+       "year": 2024,
+       "n_days": 366
+      },
+      {
+       "year": 2023,
+       "n_days": 365
+      },
+      {
+       "year": 2022,
+       "n_days": 365
+      },
+      {
+       "year": 2021,
+       "n_days": 365
+      },
+      {
+       "year": 2020,
+       "n_days": 366
+      },
+      {
+       "year": 2019,
+       "n_days": 365
+      },
+      {
+       "year": 2018,
+       "n_days": 365
+      },
+      {
+       "year": 2017,
+       "n_days": 365
+      },
+      {
+       "year": 2016,
+       "n_days": 366
+      },
+      {
+       "year": 2015,
+       "n_days": 365
+      },
+      {
+       "year": 2014,
+       "n_days": 365
+      },
+      {
+       "year": 2013,
+       "n_days": 365
+      },
+      {
+       "year": 2012,
+       "n_days": 365
+      },
+      {
+       "year": 2011,
+       "n_days": 365
+      },
+      {
+       "year": 2010,
+       "n_days": 362
+      },
+      {
+       "year": 2009,
+       "n_days": 296
+      },
+      {
+       "year": 2008,
+       "n_days": 186
+      },
+      {
+       "year": 2007,
+       "n_days": 129
+      },
+      {
+       "year": 2006,
+       "n_days": 255
+      },
+      {
+       "year": 2005,
+       "n_days": 240
+      }
+     ]
+    }
+   ]
+  },
+  "maeklong": {
+   "label": "แม่กลอง",
+   "registry_total": 35,
+   "stations": [
+    {
+     "id": 2572,
+     "code": "K.10",
+     "name": "บ้านลุ่มสุ่ม",
+     "key": true,
+     "crit": 10.3,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 700,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 474,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 540,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2679,
+     "code": "K.11A",
+     "name": "บ้านวังขนาย",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 700,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 475,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 540,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2686,
+     "code": "K.12",
+     "name": "บ้านทุ่งนานางหรอก",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 700,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 475,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 540,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2573,
+     "code": "K.31",
+     "name": "ตลิ่ง ณ สถานี K.31 บ้านน้ำโจน",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 561,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 698,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 427,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 528,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2682,
+     "code": "K.35A",
+     "name": "บ้านหนองบัว",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 700,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 475,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 540,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2571,
+     "code": "K.37",
+     "name": "บ้านวังเย็น",
+     "key": true,
+     "crit": 11.65,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 660,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 669,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 562,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 377,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 696,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 474,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 539,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 505025,
+     "code": "K.3A",
+     "name": "สะพานข้ามแม่น้ำแม่กลองหน้าศาลากลางจ.กาญจนบุรี",
+     "key": true,
+     "crit": 3.41,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 656,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 8,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 29,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 28,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 30,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 832059,
+     "code": "K.49",
+     "name": "บ้านยางสูง",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2021,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 700,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 475,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 832066,
+     "code": "K.55A",
+     "name": "สะพานค่ายหลวง",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2021,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 565,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 700,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 475,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 505018,
+     "code": "K.58",
+     "name": "บ้านปากแซง",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 683,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 476,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 540,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 832057,
+     "code": "K.62",
+     "name": "บ้านหนองไผ่",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำแม่กลอง",
+     "first_year_found": 2021,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 698,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 475,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    }
+   ],
+   "dams": [
+    {
+     "dam_id": 13,
+     "first_year_found": 2005,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_days": 282
+      },
+      {
+       "year": 2025,
+       "n_days": 365
+      },
+      {
+       "year": 2024,
+       "n_days": 366
+      },
+      {
+       "year": 2023,
+       "n_days": 365
+      },
+      {
+       "year": 2022,
+       "n_days": 365
+      },
+      {
+       "year": 2021,
+       "n_days": 365
+      },
+      {
+       "year": 2020,
+       "n_days": 366
+      },
+      {
+       "year": 2019,
+       "n_days": 365
+      },
+      {
+       "year": 2018,
+       "n_days": 365
+      },
+      {
+       "year": 2017,
+       "n_days": 365
+      },
+      {
+       "year": 2016,
+       "n_days": 366
+      },
+      {
+       "year": 2015,
+       "n_days": 365
+      },
+      {
+       "year": 2014,
+       "n_days": 365
+      },
+      {
+       "year": 2013,
+       "n_days": 365
+      },
+      {
+       "year": 2012,
+       "n_days": 365
+      },
+      {
+       "year": 2011,
+       "n_days": 365
+      },
+      {
+       "year": 2010,
+       "n_days": 362
+      },
+      {
+       "year": 2009,
+       "n_days": 297
+      },
+      {
+       "year": 2008,
+       "n_days": 187
+      },
+      {
+       "year": 2007,
+       "n_days": 128
+      },
+      {
+       "year": 2006,
+       "n_days": 258
+      },
+      {
+       "year": 2005,
+       "n_days": 243
+      }
+     ]
+    },
+    {
+     "dam_id": 14,
+     "first_year_found": 2005,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_days": 282
+      },
+      {
+       "year": 2025,
+       "n_days": 365
+      },
+      {
+       "year": 2024,
+       "n_days": 366
+      },
+      {
+       "year": 2023,
+       "n_days": 365
+      },
+      {
+       "year": 2022,
+       "n_days": 365
+      },
+      {
+       "year": 2021,
+       "n_days": 365
+      },
+      {
+       "year": 2020,
+       "n_days": 366
+      },
+      {
+       "year": 2019,
+       "n_days": 365
+      },
+      {
+       "year": 2018,
+       "n_days": 365
+      },
+      {
+       "year": 2017,
+       "n_days": 365
+      },
+      {
+       "year": 2016,
+       "n_days": 366
+      },
+      {
+       "year": 2015,
+       "n_days": 365
+      },
+      {
+       "year": 2014,
+       "n_days": 365
+      },
+      {
+       "year": 2013,
+       "n_days": 365
+      },
+      {
+       "year": 2012,
+       "n_days": 365
+      },
+      {
+       "year": 2011,
+       "n_days": 364
+      },
+      {
+       "year": 2010,
+       "n_days": 362
+      },
+      {
+       "year": 2009,
+       "n_days": 297
+      },
+      {
+       "year": 2008,
+       "n_days": 187
+      },
+      {
+       "year": 2007,
+       "n_days": 127
+      },
+      {
+       "year": 2006,
+       "n_days": 254
+      },
+      {
+       "year": 2005,
+       "n_days": 237
+      }
+     ]
+    },
+    {
+     "dam_id": 15,
+     "first_year_found": 2005,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_days": 282
+      },
+      {
+       "year": 2025,
+       "n_days": 365
+      },
+      {
+       "year": 2024,
+       "n_days": 366
+      },
+      {
+       "year": 2023,
+       "n_days": 365
+      },
+      {
+       "year": 2022,
+       "n_days": 365
+      },
+      {
+       "year": 2021,
+       "n_days": 365
+      },
+      {
+       "year": 2020,
+       "n_days": 366
+      },
+      {
+       "year": 2019,
+       "n_days": 365
+      },
+      {
+       "year": 2018,
+       "n_days": 365
+      },
+      {
+       "year": 2017,
+       "n_days": 365
+      },
+      {
+       "year": 2016,
+       "n_days": 366
+      },
+      {
+       "year": 2015,
+       "n_days": 365
+      },
+      {
+       "year": 2014,
+       "n_days": 365
+      },
+      {
+       "year": 2013,
+       "n_days": 365
+      },
+      {
+       "year": 2012,
+       "n_days": 365
+      },
+      {
+       "year": 2011,
+       "n_days": 365
+      },
+      {
+       "year": 2010,
+       "n_days": 362
+      },
+      {
+       "year": 2009,
+       "n_days": 296
+      },
+      {
+       "year": 2008,
+       "n_days": 186
+      },
+      {
+       "year": 2007,
+       "n_days": 128
+      },
+      {
+       "year": 2006,
+       "n_days": 255
+      },
+      {
+       "year": 2005,
+       "n_days": 239
+      }
+     ]
+    }
+   ]
+  },
+  "ping_cp": {
+   "label": "ปิง–เจ้าพระยาตอนบน",
+   "registry_total": 137,
+   "stations": [
+    {
+     "id": 2599,
+     "code": "C.12",
+     "name": "กรมชลประทานสามเสน",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำเจ้าพระยา",
+     "first_year_found": 2022,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 466,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 548,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 673,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2020,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2744,
+     "code": "C.13",
+     "name": "ท้ายเขื่อนเจ้าพระยา",
+     "key": true,
+     "crit": 16.34,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำเจ้าพระยา",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 569,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2795,
+     "code": "C.2",
+     "name": "ค่ายจิรประวัติ",
+     "key": true,
+     "crit": 7.6,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำเจ้าพระยา",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2723,
+     "code": "C.3",
+     "name": "บ้านบางพุทรา",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำเจ้าพระยา",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 671,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2609,
+     "code": "C.35",
+     "name": "บ้านป้อม",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำเจ้าพระยา",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2611,
+     "code": "C.36",
+     "name": "บ้านบางหลวงโดด",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำเจ้าพระยา",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2608,
+     "code": "C.37",
+     "name": "บ้านบางบาล",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำเจ้าพระยา",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2626,
+     "code": "C.7A",
+     "name": "บ้านบางแก้ว",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำเจ้าพระยา",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 3226,
+     "code": "P.1",
+     "name": "สะพานนวรัฐ",
+     "key": true,
+     "crit": 3.7,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำปิง",
+     "first_year_found": 2019,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 578,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 653,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 699,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 479,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 635,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 649,
+       "n_mar": null
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2017,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2832,
+     "code": "P.17",
+     "name": "บ้านท่างิ้ว",
+     "key": true,
+     "crit": 7.69,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำปิง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 687,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 564,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 702,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 642,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2963,
+     "code": "P.2A",
+     "name": "บ้านท่าแค",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำปิง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 557,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 659,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 619,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 473,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 631,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 3251,
+     "code": "P.4A",
+     "name": "บ้านแม่แตง",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำปิง",
+     "first_year_found": 2019,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 686,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 136,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 56,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 217,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 28,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 40,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 30,
+       "n_mar": null
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2017,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 3247,
+     "code": "P.67",
+     "name": "บ้านแม่แต",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำปิง",
+     "first_year_found": 2019,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 577,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 653,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 479,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 631,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 649,
+       "n_mar": null
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2017,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 3253,
+     "code": "P.75",
+     "name": "บ้านช่อแล",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำปิง",
+     "first_year_found": 2019,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 690,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 576,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 645,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 479,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 633,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 641,
+       "n_mar": null
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2017,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    }
+   ],
+   "dams": [
+    {
+     "dam_id": 43,
+     "first_year_found": 2005,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_days": 281
+      },
+      {
+       "year": 2025,
+       "n_days": 365
+      },
+      {
+       "year": 2024,
+       "n_days": 366
+      },
+      {
+       "year": 2023,
+       "n_days": 365
+      },
+      {
+       "year": 2022,
+       "n_days": 365
+      },
+      {
+       "year": 2021,
+       "n_days": 365
+      },
+      {
+       "year": 2020,
+       "n_days": 366
+      },
+      {
+       "year": 2019,
+       "n_days": 362
+      },
+      {
+       "year": 2018,
+       "n_days": 365
+      },
+      {
+       "year": 2017,
+       "n_days": 364
+      },
+      {
+       "year": 2016,
+       "n_days": 366
+      },
+      {
+       "year": 2015,
+       "n_days": 365
+      },
+      {
+       "year": 2014,
+       "n_days": 365
+      },
+      {
+       "year": 2013,
+       "n_days": 365
+      },
+      {
+       "year": 2012,
+       "n_days": 365
+      },
+      {
+       "year": 2011,
+       "n_days": 354
+      },
+      {
+       "year": 2010,
+       "n_days": 334
+      },
+      {
+       "year": 2009,
+       "n_days": 365
+      },
+      {
+       "year": 2008,
+       "n_days": 365
+      },
+      {
+       "year": 2007,
+       "n_days": 365
+      },
+      {
+       "year": 2006,
+       "n_days": 363
+      },
+      {
+       "year": 2005,
+       "n_days": 365
+      }
+     ]
+    }
+   ]
+  },
+  "thachin": {
+   "label": "ท่าจีน",
+   "registry_total": 16,
+   "stations": [
+    {
+     "id": 2676,
+     "code": "T.1",
+     "name": "ที่ว่าการอ.นครชัยศรี",
+     "key": true,
+     "crit": 1.6,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำท่าจีน",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 517,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 698,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 476,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 539,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 505039,
+     "code": "T.13",
+     "name": "บ้านบางการ้อง",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำท่าจีน",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 379,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 700,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 369,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 540,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 505041,
+     "code": "T.14",
+     "name": "ร.ร.บ้านสามพราน",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำท่าจีน",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 700,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 475,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 540,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 528052,
+     "code": "T.15",
+     "name": "วัดบางไผ่นารถ",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำท่าจีน",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 662,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 670,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 566,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 378,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 700,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 476,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 540,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    }
+   ],
+   "dams": [
+    {
+     "dam_id": 17,
+     "first_year_found": 2005,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_days": 282
+      },
+      {
+       "year": 2025,
+       "n_days": 365
+      },
+      {
+       "year": 2024,
+       "n_days": 366
+      },
+      {
+       "year": 2023,
+       "n_days": 365
+      },
+      {
+       "year": 2022,
+       "n_days": 365
+      },
+      {
+       "year": 2021,
+       "n_days": 365
+      },
+      {
+       "year": 2020,
+       "n_days": 366
+      },
+      {
+       "year": 2019,
+       "n_days": 365
+      },
+      {
+       "year": 2018,
+       "n_days": 365
+      },
+      {
+       "year": 2017,
+       "n_days": 365
+      },
+      {
+       "year": 2016,
+       "n_days": 366
+      },
+      {
+       "year": 2015,
+       "n_days": 365
+      },
+      {
+       "year": 2014,
+       "n_days": 365
+      },
+      {
+       "year": 2013,
+       "n_days": 365
+      },
+      {
+       "year": 2012,
+       "n_days": 365
+      },
+      {
+       "year": 2011,
+       "n_days": 365
+      },
+      {
+       "year": 2010,
+       "n_days": 362
+      },
+      {
+       "year": 2009,
+       "n_days": 297
+      },
+      {
+       "year": 2008,
+       "n_days": 187
+      },
+      {
+       "year": 2007,
+       "n_days": 129
+      },
+      {
+       "year": 2006,
+       "n_days": 254
+      },
+      {
+       "year": 2005,
+       "n_days": 235
+      }
+     ]
+    }
+   ]
+  },
+  "bp_prach": {
+   "label": "บางปะกง–ปราจีนบุรี",
+   "registry_total": 34,
+   "stations": [
+    {
+     "id": 2683,
+     "code": "Kgt.1",
+     "name": "สะพานณรงค์ดำริ",
+     "key": true,
+     "crit": 4.13,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 661,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 469,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 629,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 1098950,
+     "code": "Kgt.12A",
+     "name": "บ้านแก้ง",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2022,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 661,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2020,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 504994,
+     "code": "Kgt.13A",
+     "name": "บ้านโนนสุขภูมิ",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 227,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 469,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 629,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 1098955,
+     "code": "Kgt.14A",
+     "name": "บ้านทุ่งแฝก",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2022,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 656,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 693,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2020,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 1098957,
+     "code": "Kgt.15B",
+     "name": "บ้านแก่งดินสอ",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2022,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 656,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2020,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2680,
+     "code": "Kgt.3",
+     "name": "สะพานต้นน้ำบางปะกง",
+     "key": true,
+     "crit": 10.0,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 605,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 661,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 469,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 629,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 504999,
+     "code": "Kgt.43A",
+     "name": "บ้านนาแขม",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 661,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 469,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 629,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2675,
+     "code": "Kgt.9",
+     "name": "บ้านเขาฉกรรจ์",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 360,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 637,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 469,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 614,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2687,
+     "code": "Ny.1B",
+     "name": "บ้านเขานางบวช",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 661,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 469,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 629,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 2689,
+     "code": "Ny.3",
+     "name": "บ้านป่าขะ",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 665,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 661,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 695,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 469,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 629,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    },
+    {
+     "id": 505003,
+     "code": "Ny.7",
+     "name": "สะพานหน้าจวนผู้ว่าฯ",
+     "key": true,
+     "crit": null,
+     "warn": null,
+     "agency": "ชป.",
+     "basin": "ลุ่มน้ำบางปะกง",
+     "first_year_found": 2020,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_sep": 688,
+       "n_mar": null
+      },
+      {
+       "year": 2025,
+       "n_sep": 689,
+       "n_mar": null
+      },
+      {
+       "year": 2024,
+       "n_sep": 555,
+       "n_mar": null
+      },
+      {
+       "year": 2023,
+       "n_sep": 607,
+       "n_mar": null
+      },
+      {
+       "year": 2022,
+       "n_sep": 694,
+       "n_mar": null
+      },
+      {
+       "year": 2021,
+       "n_sep": 469,
+       "n_mar": null
+      },
+      {
+       "year": 2020,
+       "n_sep": 629,
+       "n_mar": null
+      },
+      {
+       "year": 2019,
+       "n_sep": 0,
+       "n_mar": 0
+      },
+      {
+       "year": 2018,
+       "n_sep": 0,
+       "n_mar": 0
+      }
+     ]
+    }
+   ],
+   "dams": [
+    {
+     "dam_id": 32,
+     "first_year_found": 2005,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_days": 282
+      },
+      {
+       "year": 2025,
+       "n_days": 365
+      },
+      {
+       "year": 2024,
+       "n_days": 366
+      },
+      {
+       "year": 2023,
+       "n_days": 365
+      },
+      {
+       "year": 2022,
+       "n_days": 365
+      },
+      {
+       "year": 2021,
+       "n_days": 365
+      },
+      {
+       "year": 2020,
+       "n_days": 366
+      },
+      {
+       "year": 2019,
+       "n_days": 365
+      },
+      {
+       "year": 2018,
+       "n_days": 365
+      },
+      {
+       "year": 2017,
+       "n_days": 365
+      },
+      {
+       "year": 2016,
+       "n_days": 366
+      },
+      {
+       "year": 2015,
+       "n_days": 365
+      },
+      {
+       "year": 2014,
+       "n_days": 365
+      },
+      {
+       "year": 2013,
+       "n_days": 365
+      },
+      {
+       "year": 2012,
+       "n_days": 362
+      },
+      {
+       "year": 2011,
+       "n_days": 365
+      },
+      {
+       "year": 2010,
+       "n_days": 362
+      },
+      {
+       "year": 2009,
+       "n_days": 296
+      },
+      {
+       "year": 2008,
+       "n_days": 187
+      },
+      {
+       "year": 2007,
+       "n_days": 128
+      },
+      {
+       "year": 2006,
+       "n_days": 251
+      },
+      {
+       "year": 2005,
+       "n_days": 241
+      }
+     ]
+    },
+    {
+     "dam_id": 30,
+     "first_year_found": 2005,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_days": 282
+      },
+      {
+       "year": 2025,
+       "n_days": 365
+      },
+      {
+       "year": 2024,
+       "n_days": 366
+      },
+      {
+       "year": 2023,
+       "n_days": 365
+      },
+      {
+       "year": 2022,
+       "n_days": 365
+      },
+      {
+       "year": 2021,
+       "n_days": 365
+      },
+      {
+       "year": 2020,
+       "n_days": 366
+      },
+      {
+       "year": 2019,
+       "n_days": 365
+      },
+      {
+       "year": 2018,
+       "n_days": 365
+      },
+      {
+       "year": 2017,
+       "n_days": 365
+      },
+      {
+       "year": 2016,
+       "n_days": 366
+      },
+      {
+       "year": 2015,
+       "n_days": 365
+      },
+      {
+       "year": 2014,
+       "n_days": 365
+      },
+      {
+       "year": 2013,
+       "n_days": 365
+      },
+      {
+       "year": 2012,
+       "n_days": 365
+      },
+      {
+       "year": 2011,
+       "n_days": 365
+      },
+      {
+       "year": 2010,
+       "n_days": 362
+      },
+      {
+       "year": 2009,
+       "n_days": 297
+      },
+      {
+       "year": 2008,
+       "n_days": 186
+      },
+      {
+       "year": 2007,
+       "n_days": 128
+      },
+      {
+       "year": 2006,
+       "n_days": 255
+      },
+      {
+       "year": 2005,
+       "n_days": 239
+      }
+     ]
+    },
+    {
+     "dam_id": 37,
+     "first_year_found": 2016,
+     "per_year": [
+      {
+       "year": 2026,
+       "n_days": 282
+      },
+      {
+       "year": 2025,
+       "n_days": 365
+      },
+      {
+       "year": 2024,
+       "n_days": 366
+      },
+      {
+       "year": 2023,
+       "n_days": 365
+      },
+      {
+       "year": 2022,
+       "n_days": 365
+      },
+      {
+       "year": 2021,
+       "n_days": 365
+      },
+      {
+       "year": 2020,
+       "n_days": 366
+      },
+      {
+       "year": 2019,
+       "n_days": 365
+      },
+      {
+       "year": 2018,
+       "n_days": 365
+      },
+      {
+       "year": 2017,
+       "n_days": 365
+      },
+      {
+       "year": 2016,
+       "n_days": 135
+      },
+      {
+       "year": 2015,
+       "n_days": 0
+      },
+      {
+       "year": 2014,
+       "n_days": 0
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "note": "เดินปีถอยจนว่าง 2 ปีต่อเนื่อง (กติกา GOAL6_PLAN §3.1) · probe ก.ย. + มี.ค.สำรอง"
+}

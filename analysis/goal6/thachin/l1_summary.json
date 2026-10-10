@@ -1,0 +1,321 @@
+{
+ "schema": "goal6.l1.v1",
+ "basin": "thachin",
+ "label": "ท่าจีน",
+ "window": [
+  "2026-07-01",
+  "2026-10-09"
+ ],
+ "config": {
+  "label": "ท่าจีน",
+  "basin_names": [
+   "ลุ่มน้ำท่าจีน"
+  ],
+  "dams": [
+   {
+    "name": "กระเสียว",
+    "dam_id": 17,
+    "normal_storage": 299
+   }
+  ],
+  "rain_points": {
+   "ลุ่มบนท่าจีน": [
+    99.7,
+    14.9
+   ],
+   "นครชัยศรี": [
+    100.18,
+    13.79
+   ]
+  },
+  "window": [
+   "2026-07-01",
+   "2026-10-09"
+  ],
+  "stations": [
+   {
+    "id": 2676,
+    "code": "T.1",
+    "name": "ที่ว่าการอ.นครชัยศรี"
+   },
+   {
+    "id": 505039,
+    "code": "T.13",
+    "name": "บ้านบางการ้อง"
+   },
+   {
+    "id": 505041,
+    "code": "T.14",
+    "name": "ร.ร.บ้านสามพราน"
+   },
+   {
+    "id": 528052,
+    "code": "T.15",
+    "name": "วัดบางไผ่นารถ"
+   }
+  ]
+ },
+ "stations": [
+  {
+   "code": "T.14",
+   "name": "ร.ร.บ้านสามพราน",
+   "province": null,
+   "n": 2230,
+   "max": 2.0,
+   "peak_dt": "2026-09-28 08:00",
+   "meta_min_bank": 1.5,
+   "raw": "505041_T.14_2026_hourly.json"
+  },
+  {
+   "code": "T.1",
+   "name": "ที่ว่าการอ.นครชัยศรี",
+   "province": null,
+   "n": 2226,
+   "max": 2.33,
+   "peak_dt": "2026-09-30 13:00",
+   "meta_min_bank": 1.5,
+   "raw": "2676_T.1_2026_hourly.json"
+  },
+  {
+   "code": "T.13",
+   "name": "บ้านบางการ้อง",
+   "province": null,
+   "n": 1783,
+   "max": 3.3899999999999997,
+   "peak_dt": "2026-10-01 20:00",
+   "meta_min_bank": 2.4000000000000004,
+   "raw": "505039_T.13_2026_hourly.json"
+  },
+  {
+   "code": "T.15",
+   "name": "วัดบางไผ่นารถ",
+   "province": null,
+   "n": 2230,
+   "max": 2.619999999999999,
+   "peak_dt": "2026-10-02 01:00",
+   "meta_min_bank": 1.7999999999999998,
+   "raw": "528052_T.15_2026_hourly.json"
+  }
+ ],
+ "dams": {
+  "กระเสียว": {
+   "dam_id": 17,
+   "normal_storage": 299,
+   "first_year": 2005,
+   "urc_template_points": 366,
+   "years": [
+    {
+     "year": 2026,
+     "n_days": 282,
+     "max_storage": 243.01,
+     "max_released": 1.79,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2025,
+     "n_days": 365,
+     "max_storage": 246.02,
+     "max_released": 1.95,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2024,
+     "n_days": 366,
+     "max_storage": 213.4,
+     "max_released": 1.552608,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2023,
+     "n_days": 365,
+     "max_storage": 297.33,
+     "max_released": 2.014848,
+     "days_over_urc": 63,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2022,
+     "n_days": 365,
+     "max_storage": 320.14,
+     "max_released": 9.091872,
+     "days_over_urc": 129,
+     "days_over_urc_sep_oct": 26,
+     "days_over_urc_aug_sep": 17
+    },
+    {
+     "year": 2021,
+     "n_days": 365,
+     "max_storage": 310.57,
+     "max_released": 17.760384,
+     "days_over_urc": 95,
+     "days_over_urc_sep_oct": 13,
+     "days_over_urc_aug_sep": 4
+    },
+    {
+     "year": 2020,
+     "n_days": 366,
+     "max_storage": 203.44,
+     "max_released": 1.126656,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2019,
+     "n_days": 365,
+     "max_storage": 84.24,
+     "max_released": 2.018304,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2018,
+     "n_days": 365,
+     "max_storage": 289.0,
+     "max_released": 2.19,
+     "days_over_urc": 36,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2017,
+     "n_days": 365,
+     "max_storage": 292.1,
+     "max_released": 2.04,
+     "days_over_urc": 20,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2016,
+     "n_days": 366,
+     "max_storage": 246.0,
+     "max_released": 1.71,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2015,
+     "n_days": 365,
+     "max_storage": 129.0,
+     "max_released": 1.59667,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2014,
+     "n_days": 365,
+     "max_storage": 242.0,
+     "max_released": 1.9535,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2013,
+     "n_days": 365,
+     "max_storage": 245.0,
+     "max_released": 1.95696,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2012,
+     "n_days": 365,
+     "max_storage": 241.0,
+     "max_released": 2.09,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2011,
+     "n_days": 365,
+     "max_storage": 259.0,
+     "max_released": 18.42,
+     "days_over_urc": 18,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2010,
+     "n_days": 362,
+     "max_storage": 282.0,
+     "max_released": 31.59,
+     "days_over_urc": 36,
+     "days_over_urc_sep_oct": 21,
+     "days_over_urc_aug_sep": 12
+    },
+    {
+     "year": 2009,
+     "n_days": 297,
+     "max_storage": 241.0,
+     "max_released": 2.08,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2008,
+     "n_days": 187,
+     "max_storage": 265.0,
+     "max_released": 8.62,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2007,
+     "n_days": 129,
+     "max_storage": 254.0,
+     "max_released": 2.84,
+     "days_over_urc": 4,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2006,
+     "n_days": 254,
+     "max_storage": 255.1,
+     "max_released": 2.23,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": 2005,
+     "n_days": 235,
+     "max_storage": 168.0,
+     "max_released": 1.74,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    }
+   ]
+  }
+ },
+ "rain_2026": {
+  "ลุ่มบนท่าจีน": {
+   "sep_total_mm": 520.7,
+   "best7_mm": 277.3,
+   "best7_end": "2026-09-28"
+  },
+  "นครชัยศรี": {
+   "sep_total_mm": 564.5,
+   "best7_mm": 270.0,
+   "best7_end": "2026-09-27"
+  }
+ },
+ "extras": null
+}

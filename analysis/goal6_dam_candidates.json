@@ -1,0 +1,403 @@
+{
+ "source": "https://api-v3.thaiwater.net/api/v1/thaiwater30/analyst/dam",
+ "fetched_at": "2026-10-09",
+ "min_normal_storage": 200.0,
+ "baseline_dam": {
+  "dam_name": "ขุนด่านปราการชล",
+  "dam_ids": [
+   32
+  ],
+  "agencies": [
+   "กรมชลประทาน "
+  ],
+  "basin": "ลุ่มน้ำบางปะกง",
+  "lat": 14.314722,
+  "long": 101.321389,
+  "max_storage": 224.9,
+  "normal_storage": 224,
+  "hourly_reported": false
+ },
+ "n_candidates": 24,
+ "candidates": [
+  {
+   "dam_name": "ศรีนครินทร์",
+   "dam_ids": [
+    14,
+    54
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 14.4,
+   "long": 99.120667,
+   "max_storage": 18770.4273,
+   "normal_storage": 17745,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "ภูมิพล",
+   "dam_ids": [
+    1,
+    43
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 17.241944,
+   "long": 98.971456,
+   "max_storage": 13462,
+   "normal_storage": 13462,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "สิริกิติ์",
+   "dam_ids": [
+    12,
+    52
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 17.768056,
+   "long": 100.554936,
+   "max_storage": 10508.3199,
+   "normal_storage": 9510,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "วชิราลงกรณ",
+   "dam_ids": [
+    15,
+    56
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 14.7975,
+   "long": 98.60411,
+   "max_storage": 10999.99953,
+   "normal_storage": 8860,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "รัชชประภา",
+   "dam_ids": [
+    25,
+    49
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 9.054554,
+   "long": 98.670247,
+   "max_storage": 6144.38,
+   "normal_storage": 5638.84,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "อุบลรัตน์",
+   "dam_ids": [
+    2,
+    59
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.770278,
+   "long": 102.621325,
+   "max_storage": 4640,
+   "normal_storage": 2431.32,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "ลำปาว",
+   "dam_ids": [
+    39
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.60243,
+   "long": 103.4385,
+   "max_storage": 2450,
+   "normal_storage": 1980,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "สิรินธร",
+   "dam_ids": [
+    3,
+    44
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.202778,
+   "long": 105.42089,
+   "max_storage": 1966,
+   "normal_storage": 1966.47,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "บางลาง",
+   "dam_ids": [
+    26,
+    50
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.15473,
+   "long": 101.273,
+   "max_storage": 1589.82875,
+   "normal_storage": 1454.36,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "แควน้อยบำรุงแดน",
+   "dam_ids": [
+    36
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 17.182222,
+   "long": 100.415556,
+   "max_storage": 1080,
+   "normal_storage": 939,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "ป่าสักชลสิทธิ์",
+   "dam_ids": [
+    11
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำป่าสัก",
+   "lat": 14.856944,
+   "long": 101.076111,
+   "max_storage": 1036.16,
+   "normal_storage": 872,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "แก่งกระจาน",
+   "dam_ids": [
+    13,
+    57
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 12.917017,
+   "long": 99.629886,
+   "max_storage": 900,
+   "normal_storage": 710,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "น้ำอูน",
+   "dam_ids": [
+    42
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำโขงตะวันออกเฉียงเหนือ",
+   "lat": 17.3,
+   "long": 103.75,
+   "max_storage": 780,
+   "normal_storage": 520,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "คลองสียัด",
+   "dam_ids": [
+    30
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 13.431944,
+   "long": 101.647778,
+   "max_storage": 450,
+   "normal_storage": 420,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "ปราณบุรี",
+   "dam_ids": [
+    16
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 12.451389,
+   "long": 99.816667,
+   "max_storage": 490,
+   "normal_storage": 391,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "ลำตะคอง",
+   "dam_ids": [
+    40
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 14.865,
+   "long": 101.561667,
+   "max_storage": 445,
+   "normal_storage": 314.49,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "กระเสียว",
+   "dam_ids": [
+    17
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำท่าจีน",
+   "lat": 14.830645,
+   "long": 99.661749,
+   "max_storage": 390,
+   "normal_storage": 299,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "ประแสร์",
+   "dam_ids": [
+    33
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+   "lat": 12.977205,
+   "long": 101.558297,
+   "max_storage": 322,
+   "normal_storage": 295,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "นฤบดินทรจินดา",
+   "dam_ids": [
+    37
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 14.080838,
+   "long": 102.027308,
+   "max_storage": 338,
+   "normal_storage": 295,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "ลำแชะ",
+   "dam_ids": [
+    9
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 14.415833,
+   "long": 102.2774,
+   "max_storage": 325,
+   "normal_storage": 275,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "แม่งัดสมบูรณ์ชล",
+   "dam_ids": [
+    23,
+    53
+   ],
+   "agencies": [
+    "กรมชลประทาน ",
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 19.16138,
+   "long": 99.04011,
+   "max_storage": 322.89,
+   "normal_storage": 265,
+   "hourly_reported": true
+  },
+  {
+   "dam_name": "แม่กวงอุดมธารา",
+   "dam_ids": [
+    38
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 18.92348,
+   "long": 99.121978,
+   "max_storage": 295,
+   "normal_storage": 263,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "ปากมูล",
+   "dam_ids": [
+    48
+   ],
+   "agencies": [
+    "การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย"
+   ],
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.282103,
+   "long": 105.466051,
+   "max_storage": null,
+   "normal_storage": 229.6,
+   "hourly_reported": false
+  },
+  {
+   "dam_name": "ขุนด่านปราการชล",
+   "dam_ids": [
+    32
+   ],
+   "agencies": [
+    "กรมชลประทาน "
+   ],
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 14.314722,
+   "long": 101.321389,
+   "max_storage": 224.9,
+   "normal_storage": 224,
+   "hourly_reported": false
+  }
+ ]
+}

@@ -1,0 +1,831 @@
+{
+ "window": [
+  "2026-07-01",
+  "2026-10-09"
+ ],
+ "dams": {
+  "แก่งกระจาน": {
+   "dam_id": 13,
+   "agency": "ชป.",
+   "normal_storage": 710.0,
+   "first_year": 2005,
+   "urc_template_points": 366,
+   "years": [
+    {
+     "year": "2026",
+     "n_days": 282,
+     "max_storage": 726.752,
+     "max_released": 11.2755,
+     "days_over_urc": 40,
+     "days_over_urc_sep_oct": 39,
+     "days_over_urc_aug_sep": 31
+    },
+    {
+     "year": "2025",
+     "n_days": 365,
+     "max_storage": 550.836,
+     "max_released": 3.888,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2024",
+     "n_days": 366,
+     "max_storage": 559.987,
+     "max_released": 3.888,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2023",
+     "n_days": 365,
+     "max_storage": 493.337,
+     "max_released": 3.456,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2022",
+     "n_days": 365,
+     "max_storage": 635.63,
+     "max_released": 4.752,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2021",
+     "n_days": 365,
+     "max_storage": 676.74,
+     "max_released": 9.1325,
+     "days_over_urc": 5,
+     "days_over_urc_sep_oct": 5,
+     "days_over_urc_aug_sep": 5
+    },
+    {
+     "year": "2020",
+     "n_days": 366,
+     "max_storage": 553.03,
+     "max_released": 2.7648,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2019",
+     "n_days": 365,
+     "max_storage": 612.45,
+     "max_released": 8.8992,
+     "days_over_urc": 57,
+     "days_over_urc_sep_oct": 34,
+     "days_over_urc_aug_sep": 53
+    },
+    {
+     "year": "2018",
+     "n_days": 365,
+     "max_storage": 777.030029,
+     "max_released": 24.360001,
+     "days_over_urc": 88,
+     "days_over_urc_sep_oct": 39,
+     "days_over_urc_aug_sep": 61
+    },
+    {
+     "year": "2017",
+     "n_days": 365,
+     "max_storage": 454.94,
+     "max_released": 3.53,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2016",
+     "n_days": 366,
+     "max_storage": 371.0,
+     "max_released": 4.29,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2015",
+     "n_days": 365,
+     "max_storage": 437.0,
+     "max_released": 6.05,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2014",
+     "n_days": 365,
+     "max_storage": 671.0,
+     "max_released": 5.27,
+     "days_over_urc": 11,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2013",
+     "n_days": 365,
+     "max_storage": 684.0,
+     "max_released": 8.71,
+     "days_over_urc": 30,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2012",
+     "n_days": 365,
+     "max_storage": 562.0,
+     "max_released": 6.94,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2011",
+     "n_days": 365,
+     "max_storage": 577.0,
+     "max_released": 8.4,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2010",
+     "n_days": 362,
+     "max_storage": 586.0,
+     "max_released": 4.65,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2009",
+     "n_days": 297,
+     "max_storage": 653.0,
+     "max_released": 5.62,
+     "days_over_urc": 53,
+     "days_over_urc_sep_oct": 23,
+     "days_over_urc_aug_sep": 52
+    },
+    {
+     "year": "2008",
+     "n_days": 187,
+     "max_storage": 566.0,
+     "max_released": 3.89,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2007",
+     "n_days": 128,
+     "max_storage": 622.0,
+     "max_released": 9.39,
+     "days_over_urc": 9,
+     "days_over_urc_sep_oct": 5,
+     "days_over_urc_aug_sep": 7
+    },
+    {
+     "year": "2006",
+     "n_days": 258,
+     "max_storage": 730.0,
+     "max_released": 11.75,
+     "days_over_urc": 71,
+     "days_over_urc_sep_oct": 25,
+     "days_over_urc_aug_sep": 47
+    },
+    {
+     "year": "2005",
+     "n_days": 243,
+     "max_storage": 646.0,
+     "max_released": 4.29,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    }
+   ]
+  },
+  "ศรีนครินทร์": {
+   "dam_id": 14,
+   "agency": "กฟผ.",
+   "normal_storage": 17745.0,
+   "first_year": 2005,
+   "urc_template_points": 366,
+   "years": [
+    {
+     "year": "2026",
+     "n_days": 282,
+     "max_storage": 17176.03,
+     "max_released": 23.02,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2025",
+     "n_days": 365,
+     "max_storage": 16108.26,
+     "max_released": 17.0,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2024",
+     "n_days": 366,
+     "max_storage": 14924.96,
+     "max_released": 20.61,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2023",
+     "n_days": 365,
+     "max_storage": 15825.6,
+     "max_released": 23.72,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2022",
+     "n_days": 365,
+     "max_storage": 16338.26,
+     "max_released": 23.78,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2021",
+     "n_days": 365,
+     "max_storage": 16346.23,
+     "max_released": 15.85,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2020",
+     "n_days": 366,
+     "max_storage": 14992.76,
+     "max_released": 19.11,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2019",
+     "n_days": 365,
+     "max_storage": 16199.22,
+     "max_released": 21.3,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2018",
+     "n_days": 365,
+     "max_storage": 16454.039062,
+     "max_released": 30.43,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2017",
+     "n_days": 365,
+     "max_storage": 15604.1,
+     "max_released": 13.86,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2016",
+     "n_days": 366,
+     "max_storage": 13659.0,
+     "max_released": 12.45,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2015",
+     "n_days": 365,
+     "max_storage": 12988.0,
+     "max_released": 16.44,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2014",
+     "n_days": 365,
+     "max_storage": 15316.0,
+     "max_released": 26.91,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2013",
+     "n_days": 365,
+     "max_storage": 15515.0,
+     "max_released": 28.86,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2012",
+     "n_days": 365,
+     "max_storage": 15990.0,
+     "max_released": 32.74,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2011",
+     "n_days": 364,
+     "max_storage": 16187.0,
+     "max_released": 32.32,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2010",
+     "n_days": 362,
+     "max_storage": 15767.0,
+     "max_released": 29.64,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2009",
+     "n_days": 297,
+     "max_storage": 16140.0,
+     "max_released": 41.68,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2008",
+     "n_days": 187,
+     "max_storage": 16310.0,
+     "max_released": 31.8,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2007",
+     "n_days": 127,
+     "max_storage": 16784.0,
+     "max_released": 25.1,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2006",
+     "n_days": 254,
+     "max_storage": 17147.3,
+     "max_released": 26.03,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2005",
+     "n_days": 237,
+     "max_storage": 14970.0,
+     "max_released": 26.72,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    }
+   ]
+  },
+  "วชิราลงกรณ": {
+   "dam_id": 15,
+   "agency": "กฟผ.",
+   "normal_storage": 8860.0,
+   "first_year": 2005,
+   "urc_template_points": 366,
+   "years": [
+    {
+     "year": "2026",
+     "n_days": 282,
+     "max_storage": 8775.48,
+     "max_released": 40.46,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2025",
+     "n_days": 365,
+     "max_storage": 8090.87,
+     "max_released": 29.99,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2024",
+     "n_days": 366,
+     "max_storage": 7914.67,
+     "max_released": 25.14,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2023",
+     "n_days": 365,
+     "max_storage": 8002.49,
+     "max_released": 21.09,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2022",
+     "n_days": 365,
+     "max_storage": 7491.08,
+     "max_released": 29.16,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2021",
+     "n_days": 365,
+     "max_storage": 7747.93,
+     "max_released": 17.12,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2020",
+     "n_days": 366,
+     "max_storage": 6972.21,
+     "max_released": 27.1,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2019",
+     "n_days": 365,
+     "max_storage": 7995.15,
+     "max_released": 25.2,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2018",
+     "n_days": 365,
+     "max_storage": 8453.790039,
+     "max_released": 57.93,
+     "days_over_urc": 19,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 18
+    },
+    {
+     "year": "2017",
+     "n_days": 365,
+     "max_storage": 7057.17,
+     "max_released": 13.5,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2016",
+     "n_days": 366,
+     "max_storage": 5829.0,
+     "max_released": 12.09,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2015",
+     "n_days": 365,
+     "max_storage": 5598.0,
+     "max_released": 20.19,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2014",
+     "n_days": 365,
+     "max_storage": 7219.0,
+     "max_released": 26.41,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2013",
+     "n_days": 365,
+     "max_storage": 7551.0,
+     "max_released": 35.16,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2012",
+     "n_days": 365,
+     "max_storage": 7977.0,
+     "max_released": 40.43,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2011",
+     "n_days": 365,
+     "max_storage": 7647.0,
+     "max_released": 30.11,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2010",
+     "n_days": 362,
+     "max_storage": 7177.0,
+     "max_released": 35.66,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2009",
+     "n_days": 296,
+     "max_storage": 8069.0,
+     "max_released": 43.23,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2008",
+     "n_days": 186,
+     "max_storage": 7319.0,
+     "max_released": 29.8,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2007",
+     "n_days": 128,
+     "max_storage": 8165.0,
+     "max_released": 50.05,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2006",
+     "n_days": 255,
+     "max_storage": 8105.65,
+     "max_released": 41.66,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    },
+    {
+     "year": "2005",
+     "n_days": 239,
+     "max_storage": 8217.0,
+     "max_released": 24.72,
+     "days_over_urc": 0,
+     "days_over_urc_sep_oct": 0,
+     "days_over_urc_aug_sep": 0
+    }
+   ]
+  }
+ },
+ "notes": [],
+ "stations": [
+  {
+   "station_id": 505018,
+   "code": "K.58",
+   "n": 2230,
+   "max": 55.230000000000004,
+   "peak_dt": "2026-09-29 01:00",
+   "meta": {
+    "min_bank": 45.8,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 36.66,
+    "qmax": 630
+   },
+   "raw": "505018_K.58_2026_hourly.json",
+   "name": "บ้านปากแซง",
+   "crit": null
+  },
+  {
+   "station_id": 832059,
+   "code": "K.49",
+   "n": 2228,
+   "max": 104.02,
+   "peak_dt": "2026-09-27 16:00",
+   "meta": {
+    "min_bank": 103,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 99.17,
+    "qmax": null
+   },
+   "raw": "832059_K.49_2026_hourly.json",
+   "name": "บ้านยางสูง",
+   "crit": null
+  },
+  {
+   "station_id": 2679,
+   "code": "K.11A",
+   "n": 2230,
+   "max": 18.689999999999998,
+   "peak_dt": "2026-09-30 19:00",
+   "meta": {
+    "min_bank": 15.899999999999999,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 8.33,
+    "qmax": 1300
+   },
+   "raw": "2679_K.11A_2026_hourly.json",
+   "name": "บ้านวังขนาย",
+   "crit": null
+  },
+  {
+   "station_id": 2572,
+   "code": "K.10",
+   "n": 2221,
+   "max": 47.15,
+   "peak_dt": "2026-09-29 09:00",
+   "meta": {
+    "min_bank": 40.7,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 27.62,
+    "qmax": 1020
+   },
+   "raw": "2572_K.10_2026_hourly.json",
+   "name": "บ้านลุ่มสุ่ม",
+   "crit": 10.3
+  },
+  {
+   "station_id": 832066,
+   "code": "K.55A",
+   "n": 2230,
+   "max": 10.74,
+   "peak_dt": "2026-10-01 08:00",
+   "meta": {
+    "min_bank": 9,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": -0.48,
+    "qmax": 1730
+   },
+   "raw": "832066_K.55A_2026_hourly.json",
+   "name": "สะพานค่ายหลวง",
+   "crit": null
+  },
+  {
+   "station_id": 505025,
+   "code": "K.3A",
+   "n": 2230,
+   "max": 23.509999999999998,
+   "peak_dt": "2026-09-30 16:00",
+   "meta": {
+    "min_bank": 25.8,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 13.369,
+    "qmax": null
+   },
+   "raw": "505025_K.3A_2026_hourly.json",
+   "name": "สะพานข้ามแม่น้ำแม่กลองหน้าศาลากลางจ.กาญจนบุรี",
+   "crit": 3.41
+  },
+  {
+   "station_id": 2571,
+   "code": "K.37",
+   "n": 2213,
+   "max": 31.869999,
+   "peak_dt": "2026-09-30 02:00",
+   "meta": {
+    "min_bank": 31.449999,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 18.33,
+    "qmax": 1910
+   },
+   "raw": "2571_K.37_2026_hourly.json",
+   "name": "บ้านวังเย็น",
+   "crit": 11.65
+  },
+  {
+   "station_id": 2682,
+   "code": "K.35A",
+   "n": 2230,
+   "max": 26.93,
+   "peak_dt": "2026-09-30 20:00",
+   "meta": {
+    "min_bank": 27,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 22.482,
+    "qmax": 440
+   },
+   "raw": "2682_K.35A_2026_hourly.json",
+   "name": "บ้านหนองบัว",
+   "crit": null
+  },
+  {
+   "station_id": 2686,
+   "code": "K.12",
+   "n": 2230,
+   "max": 46.480001,
+   "peak_dt": "2026-09-29 21:00",
+   "meta": {
+    "min_bank": 45.800001,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 39.43,
+    "qmax": 230
+   },
+   "raw": "2686_K.12_2026_hourly.json",
+   "name": "บ้านทุ่งนานางหรอก",
+   "crit": null
+  },
+  {
+   "station_id": 832057,
+   "code": "K.62",
+   "n": 2217,
+   "max": 52.88,
+   "peak_dt": "2026-09-28 17:00",
+   "meta": {
+    "min_bank": 54.8,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 48.65,
+    "qmax": null
+   },
+   "raw": "832057_K.62_2026_hourly.json",
+   "name": "บ้านหนองไผ่",
+   "crit": null
+  },
+  {
+   "station_id": 2573,
+   "code": "K.31",
+   "n": 2230,
+   "max": 65.260001,
+   "peak_dt": "2026-09-27 21:00",
+   "meta": {
+    "min_bank": 69.000001,
+    "warning_level": null,
+    "critical_level": null,
+    "ground_level": 56.248,
+    "qmax": 2210
+   },
+   "raw": "2573_K.31_2026_hourly.json",
+   "name": "ตลิ่ง ณ สถานี K.31 บ้านน้ำโจน",
+   "crit": null
+  }
+ ],
+ "rain_2026": {
+  "ลุ่มบนแม่กลอง (14.6N/98.9E)": {
+   "sep_total_mm": 1180.0,
+   "best7_mm": 445.5,
+   "best7_end": "2026-09-28"
+  },
+  "กาญจนบุรี (14.02N/99.14E)": {
+   "sep_total_mm": 677.4,
+   "best7_mm": 301.3,
+   "best7_end": "2026-09-28"
+  }
+ }
+}

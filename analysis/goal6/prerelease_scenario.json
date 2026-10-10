@@ -1,0 +1,37 @@
+{
+ "equation": {
+  "a": 16.732,
+  "b": 0.034241,
+  "r2": 0.996
+ },
+ "scenarios": [
+  {
+   "release_per_day": 40,
+   "moved_mcm": 60,
+   "peak_q_new": 165,
+   "peak_lv_new": 22.39,
+   "drop_m": 1.71
+  },
+  {
+   "release_per_day": 60,
+   "moved_mcm": 140,
+   "peak_q_new": 85,
+   "peak_lv_new": 19.65,
+   "drop_m": 4.45
+  },
+  {
+   "release_per_day": 80,
+   "moved_mcm": 220,
+   "peak_q_new": 5,
+   "peak_lv_new": 16.91,
+   "drop_m": 7.19
+  },
+  {
+   "release_per_day": 100,
+   "moved_mcm": 300,
+   "peak_q_new": 0,
+   "peak_lv_new": 16.73,
+   "drop_m": 7.37
+  }
+ ]
+}

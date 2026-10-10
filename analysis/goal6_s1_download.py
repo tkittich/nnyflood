@@ -30,7 +30,6 @@ ROOT = Path(__file__).resolve().parent.parent
 QUEUE = ROOT / "data/22_goal6_network/raw/s1_queue/s1_queue.json"
 CRED = ROOT / "data/22_goal6_network/.cdse_s3.json"
 DEST = ROOT / "data/22_goal6_network/raw/s1_2026"
-PROGRESS = DEST / "_progress.json"
 ODATA = "https://catalogue.dataspace.copernicus.eu/odata/v1/Products"
 S3_ENDPOINT = "https://eodata.dataspace.copernicus.eu/"
 CHUNK = 8 * 1024 * 1024
@@ -67,17 +66,17 @@ def odata_lookup(name: str) -> dict:
     return {"id": r["Id"], "s3_path": r["S3Path"], "content_length": r.get("ContentLength")}
 
 
-def load_progress() -> dict:
-    if PROGRESS.exists():
-        return json.loads(PROGRESS.read_text(encoding="utf-8"))
+def load_progress(progress_path: Path) -> dict:
+    if progress_path.exists():
+        return json.loads(progress_path.read_text(encoding="utf-8"))
     return {"products": {}}
 
 
-def save_progress(p: dict) -> None:
-    PROGRESS.parent.mkdir(parents=True, exist_ok=True)
-    tmp = PROGRESS.with_suffix(".tmp")
+def save_progress(p: dict, progress_path: Path) -> None:
+    progress_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = progress_path.with_suffix(".tmp")
     tmp.write_text(json.dumps(p, ensure_ascii=False, indent=1), encoding="utf-8")
-    tmp.replace(PROGRESS)
+    tmp.replace(progress_path)
 
 
 def sha256_file(path: Path) -> str:
@@ -117,7 +116,8 @@ def download_object(s3, bucket: str, key: str, dest_file: Path) -> dict:
     return {"bytes": total, "sha256": sha256_file(dest_file)}
 
 
-def process_product(s3, bucket: str, name: str, rec: dict) -> dict:
+def process_product(s3, bucket: str, name: str, rec: dict, dest_dir: Path, progress_path: Path) -> dict:
+    """ทำงานต่อเขื่อน 1 แห่ง — ใช้ dest/progress ที่ผู้เรียกส่งมา (ห้ามอ้าง global — บั๊ก S2 11 ต.ค.)"""
     base_s3 = rec["s3_path"].lstrip("/")  # เช่น eodata/Sentinel-1/... -> หลัง bucket คือ 'Sentinel-1/...'
     bucket_name, base = base_s3.split("/", 1)
     bucket_name = bucket_name or bucket
@@ -131,7 +131,7 @@ def process_product(s3, bucket: str, name: str, rec: dict) -> dict:
     t0 = time.time()
     for key in sorted(keys):
         rel = key[len(base):].lstrip("/")
-        dest_file = DEST / name / rel
+        dest_file = dest_dir / name / rel
         dest_file.parent.mkdir(parents=True, exist_ok=True)
         info = download_object(s3, bucket_name, key, dest_file)
         total_bytes += info["bytes"]
@@ -148,19 +148,29 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=None, help="จำนวนฉากที่ทำ (ทดสอบ)")
     ap.add_argument("--test-one", action="store_true", help="ทำฉากเล็กสุดฉากเดียวแล้วจบ")
+    ap.add_argument("--queue", default=None, help="ไฟล์คิว (default: S1 queue) — รูปแบบ S2 = {'basins': {..:[{name}]}}")
+    ap.add_argument("--dest", default=None, help="โฟลเดอร์ปลายทาง (default: raw/s1_2026 หรือคู่ --queue)")
+    ap.add_argument("--progress", default=None, help="ไฟล์ progress (default: <dest>/_progress.json)")
     args = ap.parse_args()
 
-    q = json.loads(QUEUE.read_text(encoding="utf-8"))
-    names = sorted({p["name"] for prods in q["basins"].values() for p in prods})
+    queue_path = Path(args.queue) if args.queue else QUEUE
+    dest = Path(args.dest) if args.dest else (
+        queue_path.parent.parent / "s2_2026" if queue_path.name.startswith("s2_queue")
+        else DEST)
+    progress_path = Path(args.progress) if args.progress else dest / "_progress.json"
+
+    q = json.loads(queue_path.read_text(encoding="utf-8"))
+    basins = q["basins"] if "basins" in q else q
+    names = sorted({p["name"] for prods in basins.values() for p in prods})
     if args.test_one:
         names = names[:1]
     if args.limit:
         names = names[: args.limit]
 
-    prog = load_progress()
+    prog = load_progress(progress_path)
     done = set(prog["products"].keys())
     todo = [n for n in names if n not in done]
-    print(f"คิว {len(todo)} ฉาก (ทำแล้ว {len(done)}) — ปลายทาง {DEST}", flush=True)
+    print(f"คิว {len(todo)} ฉาก (ทำแล้ว {len(done)}) — ปลายทาง {dest}", flush=True)
 
     s3 = s3_client()
     for i, name in enumerate(todo, 1):
@@ -170,10 +180,10 @@ def main() -> None:
         except Exception as exc:  # noqa: BLE001
             print(f"    OData ERROR {str(exc)[:80]}", flush=True)
             prog["products"][name] = {"error": str(exc)[:200]}
-            save_progress(prog)
+            save_progress(prog, progress_path)
             continue
         prog["products"][name] = {"odata": {"id": meta["id"], "content_length": meta["content_length"]}}
-        save_progress(prog)
+        save_progress(prog, progress_path)
         try:
             res = process_product(s3, "eodata", name, {"s3_path": meta["s3_path"], "content_length": meta["content_length"]})
             prog["products"][name].update(res)
@@ -181,7 +191,7 @@ def main() -> None:
         except Exception as exc:  # noqa: BLE001
             prog["products"][name]["error"] = str(exc)[:300]
             print(f"    ERROR {str(exc)[:120]} — รันซ้ำเพื่อ resume", flush=True)
-        save_progress(prog)
+        save_progress(prog, progress_path)
     n_ok = sum(1 for v in prog["products"].values() if v.get("done"))
     n_err = sum(1 for v in prog["products"].values() if v.get("error"))
     print(f"จบรอบ: เสร็จ {n_ok} · ค้าง/ผิด {n_err} — รันสคริปต์ซ้ำเพื่อ resume", flush=True)

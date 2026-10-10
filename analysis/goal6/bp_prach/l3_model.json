@@ -1,0 +1,121 @@
+{
+ "basin": "bp_prach",
+ "target": {
+  "code": "Kgt.3",
+  "name": "สะพานต้นน้ำบางปะกง (กบินทร์บุรี)"
+ },
+ "upstream": "Kgt.15B",
+ "rain_point": "ลุ่มบนปราจีนบุรี/สระแก้ว",
+ "train_hours": 9130,
+ "test_hours": 95,
+ "results": {
+  "6": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 12.1,
+     "mae_cm": 10.0,
+     "rmse_event_cm": 9.3
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 7.7,
+     "mae_cm": 5.7,
+     "rmse_event_cm": 11.6
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 7.6,
+     "mae_cm": 5.1,
+     "rmse_event_cm": 2.9
+    }
+   ],
+   "coef_linear": [
+    1.9339,
+    -0.9553,
+    0.0176,
+    0.3604,
+    0.103,
+    -0.0598,
+    -0.014,
+    0.0004,
+    0.0004,
+    0.0
+   ],
+   "n_train": 9130,
+   "n_test": 95
+  },
+  "24": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 46.0,
+     "mae_cm": 40.4,
+     "rmse_event_cm": 56.3
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 46.7,
+     "mae_cm": 35.5,
+     "rmse_event_cm": 55.6
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 19.4,
+     "mae_cm": 13.9,
+     "rmse_event_cm": 39.9
+    }
+   ],
+   "coef_linear": [
+    3.1611,
+    -2.2975,
+    0.1128,
+    1.1689,
+    0.4784,
+    -0.3474,
+    -0.0335,
+    0.0063,
+    0.0028,
+    0.0002
+   ],
+   "n_train": 9130,
+   "n_test": 95
+  },
+  "48": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 95.5,
+     "mae_cm": 86.8,
+     "rmse_event_cm": 219.8
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 91.8,
+     "mae_cm": 74.0,
+     "rmse_event_cm": 3.8
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 67.0,
+     "mae_cm": 50.7,
+     "rmse_event_cm": 189.7
+    }
+   ],
+   "coef_linear": [
+    3.2884,
+    -2.4972,
+    0.1556,
+    1.4206,
+    0.5451,
+    -0.3919,
+    -0.0209,
+    0.0194,
+    0.0052,
+    0.0003
+   ],
+   "n_train": 9130,
+   "n_test": 95
+  }
+ }
+}

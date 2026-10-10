@@ -1,0 +1,121 @@
+{
+ "basin": "thachin",
+ "target": {
+  "code": "T.1",
+  "name": "ที่ว่าการ อ.นครชัยศรี"
+ },
+ "upstream": "T.13",
+ "rain_point": "ลุ่มบนท่าจีน",
+ "train_hours": 6470,
+ "test_hours": 247,
+ "results": {
+  "6": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 14.1,
+     "mae_cm": 10.6,
+     "rmse_event_cm": 11.1
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 15.1,
+     "mae_cm": 12.2,
+     "rmse_event_cm": 15.0
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 36.1,
+     "mae_cm": 30.8,
+     "rmse_event_cm": 41.9
+    }
+   ],
+   "coef_linear": [
+    0.7933,
+    -0.4965,
+    0.6454,
+    -0.5655,
+    0.4309,
+    0.3273,
+    -0.5998,
+    0.0015,
+    0.0008,
+    -0.001
+   ],
+   "n_train": 6470,
+   "n_test": 247
+  },
+  "24": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 13.4,
+     "mae_cm": 8.0,
+     "rmse_event_cm": 16.6
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 13.4,
+     "mae_cm": 8.8,
+     "rmse_event_cm": 16.7
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 31.9,
+     "mae_cm": 26.0,
+     "rmse_event_cm": 39.3
+    }
+   ],
+   "coef_linear": [
+    0.9557,
+    0.3205,
+    -0.2735,
+    0.1106,
+    0.0355,
+    0.1266,
+    -0.1674,
+    0.0019,
+    0.0006,
+    -0.0001
+   ],
+   "n_train": 6470,
+   "n_test": 247
+  },
+  "48": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 23.8,
+     "mae_cm": 15.5,
+     "rmse_event_cm": 24.1
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 25.9,
+     "mae_cm": 17.7,
+     "rmse_event_cm": 29.0
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 38.9,
+     "mae_cm": 34.9,
+     "rmse_event_cm": 46.0
+    }
+   ],
+   "coef_linear": [
+    0.8093,
+    0.6074,
+    -0.4155,
+    0.1604,
+    0.0756,
+    0.2321,
+    -0.308,
+    0.0045,
+    0.0009,
+    -0.0005
+   ],
+   "n_train": 6470,
+   "n_test": 247
+  }
+ }
+}

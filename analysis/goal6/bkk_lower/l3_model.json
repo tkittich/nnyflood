@@ -1,0 +1,121 @@
+{
+ "basin": "bkk_lower",
+ "target": {
+  "code": "C.13",
+  "name": "ท้ายเขื่อนเจ้าพระยา"
+ },
+ "upstream": "C.22A",
+ "rain_point": "กรุงเทพกลาง",
+ "train_hours": 2082,
+ "test_hours": 260,
+ "results": {
+  "6": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 20.5,
+     "mae_cm": 12.3,
+     "rmse_event_cm": 12.3
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 14.9,
+     "mae_cm": 11.5,
+     "rmse_event_cm": 12.2
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 31.1,
+     "mae_cm": 25.2,
+     "rmse_event_cm": 19.4
+    }
+   ],
+   "coef_linear": [
+    2.2462,
+    -1.0583,
+    -0.1878,
+    -0.496,
+    0.0293,
+    -0.0132,
+    -0.0271,
+    -0.001,
+    -0.0001,
+    0.0003
+   ],
+   "n_train": 2082,
+   "n_test": 260
+  },
+  "24": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 66.5,
+     "mae_cm": 45.9,
+     "rmse_event_cm": 35.5
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 45.5,
+     "mae_cm": 34.9,
+     "rmse_event_cm": 36.1
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 70.3,
+     "mae_cm": 58.5,
+     "rmse_event_cm": 44.2
+    }
+   ],
+   "coef_linear": [
+    2.2075,
+    -0.6741,
+    -0.5384,
+    -0.1222,
+    0.0206,
+    0.0006,
+    -0.0019,
+    -0.0047,
+    0.0012,
+    0.0007
+   ],
+   "n_train": 2082,
+   "n_test": 260
+  },
+  "48": {
+   "rows": [
+    {
+     "model": "persistence",
+     "rmse_cm": 112.6,
+     "mae_cm": 80.1,
+     "rmse_event_cm": 57.9
+    },
+    {
+     "model": "linear",
+     "rmse_cm": 77.9,
+     "mae_cm": 60.0,
+     "rmse_event_cm": 54.2
+    },
+    {
+     "model": "GBDT",
+     "rmse_cm": 94.2,
+     "mae_cm": 81.2,
+     "rmse_event_cm": 73.3
+    }
+   ],
+   "coef_linear": [
+    2.8302,
+    -0.9266,
+    -0.9198,
+    0.02,
+    0.0355,
+    0.0018,
+    0.0257,
+    -0.0078,
+    0.0031,
+    0.0012
+   ],
+   "n_train": 2082,
+   "n_test": 260
+  }
+ }
+}

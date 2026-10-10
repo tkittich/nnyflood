@@ -1,0 +1,121 @@
+{
+ "pairs": [
+  {
+   "basin": "bkk_lower",
+   "s2": "S2B_MSIL2A_20261002T033549_N0513_R061_T47PNR_20261002T072410.SAFE",
+   "s2_date": "2026-10-02",
+   "tile": "47PNR",
+   "s1_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "clear_pct": 0.0,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "s2_water_lowland_km2": 0.0,
+   "s1_water_lowland_km2": 0.0
+  },
+  {
+   "basin": "bkk_lower",
+   "s2": "S2B_MSIL2A_20261002T033549_N0513_R061_T47PNS_20261002T072410.SAFE",
+   "s2_date": "2026-10-02",
+   "tile": "47PNS",
+   "s1_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "clear_pct": 0.0,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "s2_water_lowland_km2": 0.0,
+   "s1_water_lowland_km2": 0.0
+  },
+  {
+   "basin": "bkk_lower",
+   "s2": "S2B_MSIL2A_20261002T033549_N0513_R061_T47PPT_20261002T072410.SAFE",
+   "s2_date": "2026-10-02",
+   "tile": "47PPT",
+   "s1_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "clear_pct": 0.0,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "s2_water_lowland_km2": 0.0,
+   "s1_water_lowland_km2": 0.0
+  },
+  {
+   "basin": "bkk_lower",
+   "s2": "S2B_MSIL2A_20261002T033549_N0513_R061_T47PQT_20261002T072410.SAFE",
+   "s2_date": "2026-10-02",
+   "tile": "47PQT",
+   "s1_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "clear_pct": 0.0,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "s2_water_lowland_km2": 0.0,
+   "s1_water_lowland_km2": 0.0
+  },
+  {
+   "basin": "bkk_lower",
+   "s2": "S2B_MSIL2A_20261002T033549_N0513_R061_T47QPU_20261002T072410.SAFE",
+   "s2_date": "2026-10-02",
+   "tile": "47QPU",
+   "s1_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "clear_pct": 0.0,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "s2_water_lowland_km2": 0.0,
+   "s1_water_lowland_km2": 0.0
+  },
+  {
+   "basin": "bkk_lower",
+   "s2": "S2C_MSIL2A_20260930T034541_N0513_R104_T47PNQ_20260930T084806.SAFE",
+   "s2_date": "2026-09-30",
+   "tile": "47PNQ",
+   "s1_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "clear_pct": 0.0,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "s2_water_lowland_km2": 0.0,
+   "s1_water_lowland_km2": 0.0
+  },
+  {
+   "basin": "bkk_lower",
+   "s2": "S2C_MSIL2A_20260930T034541_N0513_R104_T47PNR_20260930T084806.SAFE",
+   "s2_date": "2026-09-30",
+   "tile": "47PNR",
+   "s1_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "clear_pct": 0.0,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "s2_water_lowland_km2": 0.0,
+   "s1_water_lowland_km2": 0.0
+  },
+  {
+   "basin": "bkk_lower",
+   "s2": "S2C_MSIL2A_20260930T034541_N0513_R104_T47PNS_20260930T084806.SAFE",
+   "s2_date": "2026-09-30",
+   "tile": "47PNS",
+   "s1_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "clear_pct": 0.0,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "s2_water_lowland_km2": 0.0,
+   "s1_water_lowland_km2": 0.0
+  },
+  {
+   "basin": "bkk_lower",
+   "s2": "S2C_MSIL2A_20260930T034541_N0513_R104_T47PPS_20260930T084806.SAFE",
+   "s2_date": "2026-09-30",
+   "tile": "47PPS",
+   "s1_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "clear_pct": 0.0,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "s2_water_lowland_km2": 0.0,
+   "s1_water_lowland_km2": 0.0
+  }
+ ]
+}

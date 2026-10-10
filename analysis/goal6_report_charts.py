@@ -108,7 +108,33 @@ def main() -> None:
                   "2569: เกินเฉพาะระลอกปลาย ก.ย. (39 วัน) — พอดีช่วงน้ำท่วมท้ายลุ่ม")
     print("กราฟฝน 46 ปี:")
     plot_rain_46y()
+    plot_c2_volume_vs_dams()
 
+
+
+def plot_c2_volume_vs_dams() -> None:
+    """ปริมาตรรายวัน: น้ำที่ผ่าน C.2 vs ปล่อยรวม 2 เขื่อน vs น้ำเข้ารวม (ตัวแทนฝนลุ่นบน)"""
+    src = json.loads((ROOT / 'data/22_goal6_network/raw/spike_ping_cp/c2_discharge_daily_sep2026.json').read_text(encoding='utf-8'))
+    dates = sorted(src['C2_daily_volume_max_mcm'])
+    xs = list(range(len(dates)))
+    c2 = [src['C2_daily_volume_max_mcm'][x] for x in dates]
+    rel = [(src['bhumibol_released'].get(x, 0) or 0) + (src['sirikit_released'].get(x, 0) or 0) for x in dates]
+    inflow = [(src['bhumibol_inflow'].get(x, 0) or 0) + (src['sirikit_inflow'].get(x, 0) or 0) for x in dates]
+    fig, ax = plt.subplots(figsize=(11, 4.6), dpi=110)
+    ax.plot(xs, c2, color='#1d6fb8', lw=2.2, label='น้ำที่ไหลผ่าน C.2 ท่าเรือ')
+    ax.plot(xs, inflow, color='#7d3c98', lw=1.6, ls='--', label='น้ำไหลเข้าเขื่อนรวม (ตัวแทนฝนลุ่มบน)')
+    ax.bar(xs, rel, color='#c0392b', alpha=0.5, width=0.7, label='การปล่อยน้ำเขื่อนรวม')
+    ax.set_xticks(xs[::3])
+    ax.set_xticklabels([f"{d[8:]}/{d[5:7]}" for d in dates[::3]], fontsize=9)
+    ax.set_ylabel('ล้าน ลบ.ม./วัน', fontsize=10)
+    ax.set_xlabel('วันที่ กันยายน–ตุลาคม 2569', fontsize=10)
+    ax.set_title('ปริมาตรน้ำรายวันที่ C.2 ท่าเรือ — โตตามฝนลุ่มบน ขณะที่เขื่อนลดการปล่อยลง', fontsize=12)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.25)
+    fig.tight_layout()
+    fig.savefig(OUT / 'c2_volume_vs_dams.png', bbox_inches='tight')
+    plt.close(fig)
+    print('  c2_volume_vs_dams.png')
 
 if __name__ == "__main__":
     main()

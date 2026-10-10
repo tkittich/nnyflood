@@ -81,3 +81,8 @@ data/22_goal6_network/.cdse_s3.json
 data/22_goal6_network/raw/s1_2026/
 data/22_goal6_network/raw/s2_2026/
 data/22_goal6_network/derived/
+
+# --- ดาวน์โหลดเปิดใหม่ได้ (disk-only: HydroBASINS/WorldCover + แคช POWER 199 จุด) ---
+data/22_goal6_network/raw/worldcover/
+data/22_goal6_network/raw/hydrobasins/*.zip
+data/22_goal6_network/raw/rain_rarity_national/

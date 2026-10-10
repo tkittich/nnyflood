@@ -1,0 +1,4584 @@
+{
+ "window_event": "2026-07-01..2026-10-09",
+ "source": "NASA POWER PRECTOTCORR 1981-2026",
+ "note": "กริด 0.5° รีดยอดฝนเบลอ — ค่าสถานีจริงสูงกว่าเสมอ",
+ "points": {
+  "1079932": {
+   "id": 1079932,
+   "code": "Z.64",
+   "name": "ตำบลท่าหลวง",
+   "basin": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+   "lat": 12.657133,
+   "lon": 102.15435,
+   "key": "1079932",
+   "best7": {
+    "value_mm": 420.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 655.2,
+    "end_date": "2026-09-27",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   }
+  },
+  "1087618": {
+   "id": 1087618,
+   "code": "X.273",
+   "name": "บ้านปายอยือนิ ",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.47977,
+   "lon": 101.44474,
+   "key": "1087618",
+   "best7": {
+    "value_mm": 92.8,
+    "end_date": "2026-09-17",
+    "rank_in_n": 27,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   },
+   "best30": {
+    "value_mm": 268.6,
+    "end_date": "2026-10-07",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   }
+  },
+  "1093312": {
+   "id": 1093312,
+   "code": "Pr.1",
+   "name": "บ้านเขาน้อย",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 12.38995,
+   "lon": 99.911247,
+   "key": "1093312",
+   "best7": {
+    "value_mm": 349.7,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 676.7,
+    "end_date": "2026-10-02",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "1095872": {
+   "id": 1095872,
+   "code": "X.201A",
+   "name": "บ้านท่าไม้ลาย",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 10.50334,
+   "lon": 98.964401,
+   "key": "1095872",
+   "best7": {
+    "value_mm": 146.0,
+    "end_date": "2026-09-23",
+    "rank_in_n": 41,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 439.3,
+    "end_date": "2026-09-25",
+    "rank_in_n": 30,
+    "n_years": 46,
+    "weibull_rp_yr": 1.6
+   }
+  },
+  "1095876": {
+   "id": 1095876,
+   "code": "X.276",
+   "name": "บ้านเขาปู่",
+   "basin": "ลุ่มน้ำทะเลสาบสงขลา",
+   "lat": 7.70724,
+   "lon": 99.841743,
+   "key": "1095876",
+   "best7": {
+    "value_mm": 104.3,
+    "end_date": "2026-09-23",
+    "rank_in_n": 37,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 288.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 35,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   }
+  },
+  "1095877": {
+   "id": 1095877,
+   "code": "X.77",
+   "name": "บ้านหัวสะพาน",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.1525,
+   "lon": 101.080902,
+   "key": "1095877",
+   "best7": {
+    "value_mm": 119.7,
+    "end_date": "2026-09-17",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   },
+   "best30": {
+    "value_mm": 313.4,
+    "end_date": "2026-10-07",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   }
+  },
+  "1095878": {
+   "id": 1095878,
+   "code": "X.283",
+   "name": "บ้านปรีกี",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.715493,
+   "lon": 101.285399,
+   "key": "1095878",
+   "best7": {
+    "value_mm": 92.8,
+    "end_date": "2026-09-17",
+    "rank_in_n": 27,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   },
+   "best30": {
+    "value_mm": 268.6,
+    "end_date": "2026-10-07",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   }
+  },
+  "1095879": {
+   "id": 1095879,
+   "code": "X.228",
+   "name": "บ้านกลาง",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 7.64556,
+   "lon": 99.532204,
+   "key": "1095879",
+   "best7": {
+    "value_mm": 109.9,
+    "end_date": "2026-09-23",
+    "rank_in_n": 44,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 264.0,
+    "end_date": "2026-10-07",
+    "rank_in_n": 46,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   }
+  },
+  "1095881": {
+   "id": 1095881,
+   "code": "X.279",
+   "name": "บ้านปันจอร์",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 6.77741,
+   "lon": 100.071487,
+   "key": "1095881",
+   "best7": {
+    "value_mm": 98.4,
+    "end_date": "2026-09-23",
+    "rank_in_n": 42,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 257.6,
+    "end_date": "2026-10-07",
+    "rank_in_n": 43,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   }
+  },
+  "1095882": {
+   "id": 1095882,
+   "code": "X.188A",
+   "name": "บ้านรมณีย์",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 8.83334,
+   "lon": 98.458527,
+   "key": "1095882",
+   "best7": {
+    "value_mm": 127.3,
+    "end_date": "2026-10-06",
+    "rank_in_n": 46,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 363.8,
+    "end_date": "2026-10-07",
+    "rank_in_n": 41,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   }
+  },
+  "1098950": {
+   "id": 1098950,
+   "code": "Kgt.12A",
+   "name": "บ้านแก้ง",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 13.93635,
+   "lon": 101.972321,
+   "key": "1098950",
+   "best7": {
+    "value_mm": 380.1,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 702.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "1098952": {
+   "id": 1098952,
+   "code": "B.18",
+   "name": "เขาลูกช้าง",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 12.81337,
+   "lon": 99.794022,
+   "key": "1098952",
+   "best7": {
+    "value_mm": 346.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 663.9,
+    "end_date": "2026-09-30",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "1098955": {
+   "id": 1098955,
+   "code": "Kgt.14A",
+   "name": "บ้านทุ่งแฝก",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 14.16131,
+   "lon": 101.883057,
+   "key": "1098955",
+   "best7": {
+    "value_mm": 380.1,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 702.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "1098957": {
+   "id": 1098957,
+   "code": "Kgt.15B",
+   "name": "บ้านแก่งดินสอ",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 14.06587,
+   "lon": 101.922638,
+   "key": "1098957",
+   "best7": {
+    "value_mm": 380.1,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 702.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "1099005": {
+   "id": 1099005,
+   "code": "W.10B",
+   "name": "บ้านแลง",
+   "basin": "ลุ่มน้ำวัง",
+   "lat": 18.51882,
+   "lon": 99.629997,
+   "key": "1099005",
+   "best7": {
+    "value_mm": 160.1,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 380.3,
+    "end_date": "2026-09-30",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "1119916": {
+   "id": 1119916,
+   "code": "Kh.9A",
+   "name": "บ้านบึงศาลา",
+   "basin": "ลุ่มน้ำโขงตะวันออกเฉียงเหนือ",
+   "lat": 17.1422,
+   "lon": 104.2901,
+   "key": "1119916",
+   "best7": {
+    "value_mm": 209.0,
+    "end_date": "2026-08-09",
+    "rank_in_n": 9,
+    "n_years": 46,
+    "weibull_rp_yr": 5.2
+   },
+   "best30": {
+    "value_mm": 517.1,
+    "end_date": "2026-08-21",
+    "rank_in_n": 7,
+    "n_years": 46,
+    "weibull_rp_yr": 6.7
+   }
+  },
+  "1124040": {
+   "id": 1124040,
+   "code": "X.73A",
+   "name": "บ้านบองอ ",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.16992,
+   "lon": 101.713257,
+   "key": "1124040",
+   "best7": {
+    "value_mm": 166.8,
+    "end_date": "2026-09-17",
+    "rank_in_n": 9,
+    "n_years": 46,
+    "weibull_rp_yr": 5.2
+   },
+   "best30": {
+    "value_mm": 378.3,
+    "end_date": "2026-10-06",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "200": {
+   "id": 200,
+   "code": "SKE003",
+   "name": "คลองพรหมโหด",
+   "basin": "ลุ่มน้ำโตนเลสาบ",
+   "lat": 13.705864,
+   "lon": 102.48168,
+   "key": "200",
+   "best7": {
+    "value_mm": 232.0,
+    "end_date": "2026-09-26",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   },
+   "best30": {
+    "value_mm": 473.8,
+    "end_date": "2026-09-27",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   }
+  },
+  "2559": {
+   "id": 2559,
+   "code": "X.119A",
+   "name": "บริเวณสะพานลันตู",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.02261,
+   "lon": 101.974892,
+   "key": "2559",
+   "best7": {
+    "value_mm": 166.8,
+    "end_date": "2026-09-17",
+    "rank_in_n": 9,
+    "n_years": 46,
+    "weibull_rp_yr": 5.2
+   },
+   "best30": {
+    "value_mm": 378.3,
+    "end_date": "2026-10-06",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "2561": {
+   "id": 2561,
+   "code": "X.150",
+   "name": "บ้านวังพระเคียน",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 6.94082,
+   "lon": 99.872917,
+   "key": "2561",
+   "best7": {
+    "value_mm": 98.4,
+    "end_date": "2026-09-23",
+    "rank_in_n": 42,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 257.6,
+    "end_date": "2026-10-07",
+    "rank_in_n": 43,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   }
+  },
+  "2563": {
+   "id": 2563,
+   "code": "X.68",
+   "name": "บ้านท่าแค",
+   "basin": "ลุ่มน้ำทะเลสาบสงขลา",
+   "lat": 7.56871,
+   "lon": 100.0485,
+   "key": "2563",
+   "best7": {
+    "value_mm": 104.3,
+    "end_date": "2026-09-23",
+    "rank_in_n": 37,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 288.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 35,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   }
+  },
+  "2567": {
+   "id": 2567,
+   "code": "X.53A",
+   "name": "บ้านวังไผ่",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 10.5072,
+   "lon": 99.117798,
+   "key": "2567",
+   "best7": {
+    "value_mm": 115.6,
+    "end_date": "2026-09-16",
+    "rank_in_n": 45,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 336.4,
+    "end_date": "2026-09-25",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   }
+  },
+  "2568": {
+   "id": 2568,
+   "code": "Z.10",
+   "name": "บ้านศรีบัวทอง",
+   "basin": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+   "lat": 12.4765,
+   "lon": 102.477867,
+   "key": "2568",
+   "best7": {
+    "value_mm": 315.2,
+    "end_date": "2026-09-26",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   },
+   "best30": {
+    "value_mm": 629.6,
+    "end_date": "2026-07-31",
+    "rank_in_n": 33,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   }
+  },
+  "2569": {
+   "id": 2569,
+   "code": "B.3A",
+   "name": "บ้านสองพี่น้อง",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 12.86361,
+   "lon": 99.678497,
+   "key": "2569",
+   "best7": {
+    "value_mm": 563.9,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 926.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2571": {
+   "id": 2571,
+   "code": "K.37",
+   "name": "บ้านวังเย็น",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 13.93906,
+   "lon": 99.416252,
+   "key": "2571",
+   "best7": {
+    "value_mm": 301.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 706.2,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2572": {
+   "id": 2572,
+   "code": "K.10",
+   "name": "บ้านลุ่มสุ่ม",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 14.09243,
+   "lon": 99.178993,
+   "key": "2572",
+   "best7": {
+    "value_mm": 301.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 706.2,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2573": {
+   "id": 2573,
+   "code": "K.31",
+   "name": "ตลิ่ง ณ สถานี K.31 บ้านน้ำโจน",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 14.43409,
+   "lon": 98.80909,
+   "key": "2573",
+   "best7": {
+    "value_mm": 445.5,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 1229.9,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2575": {
+   "id": 2575,
+   "code": "E.2A",
+   "name": "ประปายโสธร",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 15.79962,
+   "lon": 104.134857,
+   "key": "2575",
+   "best7": {
+    "value_mm": 112.0,
+    "end_date": "2026-09-16",
+    "rank_in_n": 40,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 377.8,
+    "end_date": "2026-09-27",
+    "rank_in_n": 24,
+    "n_years": 46,
+    "weibull_rp_yr": 2.0
+   }
+  },
+  "2576": {
+   "id": 2576,
+   "code": "S.3",
+   "name": "ต.ตาลเดี่ยว",
+   "basin": "ลุ่มน้ำป่าสัก",
+   "lat": 16.78157,
+   "lon": 101.246689,
+   "key": "2576",
+   "best7": {
+    "value_mm": 126.1,
+    "end_date": "2026-09-10",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   },
+   "best30": {
+    "value_mm": 422.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   }
+  },
+  "2580": {
+   "id": 2580,
+   "code": "G.10",
+   "name": "บ้านหนองผำ",
+   "basin": "ลุ่มน้ำโขงเหนือ",
+   "lat": 19.71244,
+   "lon": 99.620811,
+   "key": "2580",
+   "best7": {
+    "value_mm": 126.0,
+    "end_date": "2026-08-08",
+    "rank_in_n": 20,
+    "n_years": 46,
+    "weibull_rp_yr": 2.4
+   },
+   "best30": {
+    "value_mm": 340.7,
+    "end_date": "2026-08-20",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   }
+  },
+  "2581": {
+   "id": 2581,
+   "code": "X.184",
+   "name": "บ้านซากอ",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.22716,
+   "lon": 101.496948,
+   "key": "2581",
+   "best7": {
+    "value_mm": 119.7,
+    "end_date": "2026-09-17",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   },
+   "best30": {
+    "value_mm": 313.4,
+    "end_date": "2026-10-07",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   }
+  },
+  "2582": {
+   "id": 2582,
+   "code": "X.73",
+   "name": "บ้านตันหยงมัส",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.33992,
+   "lon": 101.726959,
+   "key": "2582",
+   "best7": {
+    "value_mm": 141.4,
+    "end_date": "2026-09-18",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   },
+   "best30": {
+    "value_mm": 302.5,
+    "end_date": "2026-10-07",
+    "rank_in_n": 11,
+    "n_years": 46,
+    "weibull_rp_yr": 4.3
+   }
+  },
+  "2583": {
+   "id": 2583,
+   "code": "X.40A",
+   "name": "บ้านท่าสาบ",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.552798,
+   "lon": 101.266294,
+   "key": "2583",
+   "best7": {
+    "value_mm": 92.8,
+    "end_date": "2026-09-17",
+    "rank_in_n": 27,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   },
+   "best30": {
+    "value_mm": 268.6,
+    "end_date": "2026-10-07",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   }
+  },
+  "2584": {
+   "id": 2584,
+   "code": "X.239",
+   "name": "บ้านฉลุงเหนือ",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 6.72662,
+   "lon": 100.062737,
+   "key": "2584",
+   "best7": {
+    "value_mm": 84.2,
+    "end_date": "2026-09-23",
+    "rank_in_n": 46,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 266.6,
+    "end_date": "2026-09-27",
+    "rank_in_n": 44,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   }
+  },
+  "2585": {
+   "id": 2585,
+   "code": "X.173A",
+   "name": "บ้านม่วงก็อง",
+   "basin": "ลุ่มน้ำทะเลสาบสงขลา",
+   "lat": 6.79663,
+   "lon": 100.442337,
+   "key": "2585",
+   "best7": {
+    "value_mm": 88.5,
+    "end_date": "2026-09-23",
+    "rank_in_n": 38,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 259.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 28,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   }
+  },
+  "2587": {
+   "id": 2587,
+   "code": "X.10A",
+   "name": "สะพานเดชานุชิต",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.866,
+   "lon": 101.252129,
+   "key": "2587",
+   "best7": {
+    "value_mm": 80.1,
+    "end_date": "2026-09-22",
+    "rank_in_n": 41,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 248.5,
+    "end_date": "2026-10-07",
+    "rank_in_n": 36,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   }
+  },
+  "2589": {
+   "id": 2589,
+   "code": "X.90",
+   "name": "บ้านบางศาลา",
+   "basin": "ลุ่มน้ำทะเลสาบสงขลา",
+   "lat": 6.93124,
+   "lon": 100.439857,
+   "key": "2589",
+   "best7": {
+    "value_mm": 88.5,
+    "end_date": "2026-09-23",
+    "rank_in_n": 38,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 259.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 28,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   }
+  },
+  "2590": {
+   "id": 2590,
+   "code": "X.174",
+   "name": "บ้านคลองหวะ",
+   "basin": "ลุ่มน้ำทะเลสาบสงขลา",
+   "lat": 6.98637,
+   "lon": 100.481857,
+   "key": "2590",
+   "best7": {
+    "value_mm": 88.5,
+    "end_date": "2026-09-23",
+    "rank_in_n": 38,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 259.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 28,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   }
+  },
+  "2591": {
+   "id": 2591,
+   "code": "X.44",
+   "name": "บ้านหาดใหญ่ใน",
+   "basin": "ลุ่มน้ำทะเลสาบสงขลา",
+   "lat": 7.00218,
+   "lon": 100.456062,
+   "key": "2591",
+   "best7": {
+    "value_mm": 88.5,
+    "end_date": "2026-09-23",
+    "rank_in_n": 38,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 259.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 28,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   }
+  },
+  "2596": {
+   "id": 2596,
+   "code": "X.47",
+   "name": "บ้านท่าจีน",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 7.55583,
+   "lon": 99.578438,
+   "key": "2596",
+   "best7": {
+    "value_mm": 109.9,
+    "end_date": "2026-09-23",
+    "rank_in_n": 44,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 264.0,
+    "end_date": "2026-10-07",
+    "rank_in_n": 46,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   }
+  },
+  "2597": {
+   "id": 2597,
+   "code": "X.170",
+   "name": "บ้านคลองลำ",
+   "basin": "ลุ่มน้ำทะเลสาบสงขลา",
+   "lat": 7.55901,
+   "lon": 99.987556,
+   "key": "2597",
+   "best7": {
+    "value_mm": 104.3,
+    "end_date": "2026-09-23",
+    "rank_in_n": 37,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 288.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 35,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   }
+  },
+  "2599": {
+   "id": 2599,
+   "code": "C.12",
+   "name": "กรมชลประทานสามเสน",
+   "basin": "ลุ่มน้ำเจ้าพระยา",
+   "lat": 13.78815,
+   "lon": 100.509148,
+   "key": "2599",
+   "best7": {
+    "value_mm": 323.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 610.8,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2607": {
+   "id": 2607,
+   "code": "S.5",
+   "name": "สะพานปรีดี-ธำรง",
+   "basin": "ลุ่มน้ำเจ้าพระยา",
+   "lat": 14.35872,
+   "lon": 100.580452,
+   "key": "2607",
+   "best7": {
+    "value_mm": 290.7,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 560.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2608": {
+   "id": 2608,
+   "code": "C.37",
+   "name": "บ้านบางบาล",
+   "basin": "ลุ่มน้ำเจ้าพระยา",
+   "lat": 14.36319,
+   "lon": 100.484833,
+   "key": "2608",
+   "best7": {
+    "value_mm": 290.7,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 560.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2609": {
+   "id": 2609,
+   "code": "C.35",
+   "name": "บ้านป้อม",
+   "basin": "ลุ่มน้ำเจ้าพระยา",
+   "lat": 14.3691,
+   "lon": 100.528732,
+   "key": "2609",
+   "best7": {
+    "value_mm": 290.7,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 560.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2611": {
+   "id": 2611,
+   "code": "C.36",
+   "name": "บ้านบางหลวงโดด",
+   "basin": "ลุ่มน้ำเจ้าพระยา",
+   "lat": 14.41588,
+   "lon": 100.440804,
+   "key": "2611",
+   "best7": {
+    "value_mm": 290.7,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 560.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2620": {
+   "id": 2620,
+   "code": "M.171",
+   "name": "บ้านโนนสาวเอ้",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 14.50134,
+   "lon": 101.768478,
+   "key": "2620",
+   "best7": {
+    "value_mm": 288.9,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 583.1,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2621": {
+   "id": 2621,
+   "code": "M.43A",
+   "name": "บ้านท่ามะปรางค์",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 14.51204,
+   "lon": 101.380348,
+   "key": "2621",
+   "best7": {
+    "value_mm": 287.2,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 594.6,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2624": {
+   "id": 2624,
+   "code": "S.26",
+   "name": "ท้ายเขื่อนพระรามหก",
+   "basin": "ลุ่มน้ำป่าสัก",
+   "lat": 14.56012,
+   "lon": 100.71994,
+   "key": "2624",
+   "best7": {
+    "value_mm": 290.7,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 560.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2626": {
+   "id": 2626,
+   "code": "C.7A",
+   "name": "บ้านบางแก้ว",
+   "basin": "ลุ่มน้ำเจ้าพระยา",
+   "lat": 14.59044,
+   "lon": 100.453293,
+   "key": "2626",
+   "best7": {
+    "value_mm": 290.7,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 560.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2634": {
+   "id": 2634,
+   "code": "X.234",
+   "name": "บ้านป่าหมาก",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 7.58883,
+   "lon": 99.576874,
+   "key": "2634",
+   "best7": {
+    "value_mm": 109.9,
+    "end_date": "2026-09-23",
+    "rank_in_n": 44,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 264.0,
+    "end_date": "2026-10-07",
+    "rank_in_n": 46,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   }
+  },
+  "2635": {
+   "id": 2635,
+   "code": "X.265",
+   "name": "หน้าวัดภูผาพิมุข",
+   "basin": "ลุ่มน้ำทะเลสาบสงขลา",
+   "lat": 7.61689,
+   "lon": 100.078903,
+   "key": "2635",
+   "best7": {
+    "value_mm": 104.3,
+    "end_date": "2026-09-23",
+    "rank_in_n": 37,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 288.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 35,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   }
+  },
+  "2636": {
+   "id": 2636,
+   "code": "X.56",
+   "name": "บ้านท่าประดู่",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 7.77079,
+   "lon": 99.53743,
+   "key": "2636",
+   "best7": {
+    "value_mm": 104.7,
+    "end_date": "2026-09-23",
+    "rank_in_n": 45,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 301.7,
+    "end_date": "2026-10-07",
+    "rank_in_n": 42,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   }
+  },
+  "2638": {
+   "id": 2638,
+   "code": "X.190A",
+   "name": "บ้านเก็ตโฮ่",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 7.9034,
+   "lon": 98.349678,
+   "key": "2638",
+   "best7": {
+    "value_mm": 176.1,
+    "end_date": "2026-10-05",
+    "rank_in_n": 33,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   },
+   "best30": {
+    "value_mm": 355.9,
+    "end_date": "2026-10-07",
+    "rank_in_n": 43,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   }
+  },
+  "2639": {
+   "id": 2639,
+   "code": "X.203",
+   "name": "บ้านนาป่า",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 8.39629,
+   "lon": 99.920143,
+   "key": "2639",
+   "best7": {
+    "value_mm": 129.0,
+    "end_date": "2026-10-07",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   },
+   "best30": {
+    "value_mm": 357.3,
+    "end_date": "2026-10-07",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   }
+  },
+  "2641": {
+   "id": 2641,
+   "code": "X.200",
+   "name": "บ้านวังไทร",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 8.40836,
+   "lon": 99.797852,
+   "key": "2641",
+   "best7": {
+    "value_mm": 129.0,
+    "end_date": "2026-10-07",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   },
+   "best30": {
+    "value_mm": 357.3,
+    "end_date": "2026-10-07",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   }
+  },
+  "2643": {
+   "id": 2643,
+   "code": "X.37A",
+   "name": "บ้านย่านดินแดง",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 8.57098,
+   "lon": 99.253868,
+   "key": "2643",
+   "best7": {
+    "value_mm": 108.2,
+    "end_date": "2026-10-06",
+    "rank_in_n": 41,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 326.0,
+    "end_date": "2026-10-07",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   }
+  },
+  "2647": {
+   "id": 2647,
+   "code": "X.186",
+   "name": "บ้านตลาดเก่า",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 8.82934,
+   "lon": 98.36924,
+   "key": "2647",
+   "best7": {
+    "value_mm": 160.8,
+    "end_date": "2026-09-23",
+    "rank_in_n": 45,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 431.8,
+    "end_date": "2026-10-07",
+    "rank_in_n": 42,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   }
+  },
+  "2648": {
+   "id": 2648,
+   "code": "X.217",
+   "name": "บ้านเคียนซา",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 8.84753,
+   "lon": 99.19886,
+   "key": "2648",
+   "best7": {
+    "value_mm": 93.1,
+    "end_date": "2026-09-23",
+    "rank_in_n": 46,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 298.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 39,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   }
+  },
+  "2650": {
+   "id": 2650,
+   "code": "X.212",
+   "name": "ถนนลูกเสือ",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 9.95473,
+   "lon": 99.08004,
+   "key": "2650",
+   "best7": {
+    "value_mm": 88.5,
+    "end_date": "2026-07-30",
+    "rank_in_n": 46,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 265.5,
+    "end_date": "2026-09-25",
+    "rank_in_n": 45,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   }
+  },
+  "2651": {
+   "id": 2651,
+   "code": "X.209",
+   "name": "คลองหาดส้มแป้น",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 9.95839,
+   "lon": 98.648537,
+   "key": "2651",
+   "best7": {
+    "value_mm": 133.0,
+    "end_date": "2026-09-23",
+    "rank_in_n": 45,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 407.6,
+    "end_date": "2026-09-26",
+    "rank_in_n": 38,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   }
+  },
+  "2654": {
+   "id": 2654,
+   "code": "X.180",
+   "name": "สะพานเทศบาล 2",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 10.49706,
+   "lon": 99.17012,
+   "key": "2654",
+   "best7": {
+    "value_mm": 115.6,
+    "end_date": "2026-09-16",
+    "rank_in_n": 45,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 336.4,
+    "end_date": "2026-09-25",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   }
+  },
+  "2655": {
+   "id": 2655,
+   "code": "X.158",
+   "name": "บ้านวังครก",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 10.59451,
+   "lon": 99.141769,
+   "key": "2655",
+   "best7": {
+    "value_mm": 115.6,
+    "end_date": "2026-09-16",
+    "rank_in_n": 45,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 336.4,
+    "end_date": "2026-09-25",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   }
+  },
+  "2656": {
+   "id": 2656,
+   "code": "X.64",
+   "name": "บ้านท่าแซะ",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 10.66562,
+   "lon": 99.171227,
+   "key": "2656",
+   "best7": {
+    "value_mm": 115.6,
+    "end_date": "2026-09-16",
+    "rank_in_n": 45,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 336.4,
+    "end_date": "2026-09-25",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   }
+  },
+  "2658": {
+   "id": 2658,
+   "code": "Gt.10",
+   "name": "บ้านหนองหญ้าปล้อง",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 11.40416,
+   "lon": 99.519218,
+   "key": "2658",
+   "best7": {
+    "value_mm": 156.1,
+    "end_date": "2026-09-27",
+    "rank_in_n": 21,
+    "n_years": 46,
+    "weibull_rp_yr": 2.2
+   },
+   "best30": {
+    "value_mm": 453.5,
+    "end_date": "2026-10-05",
+    "rank_in_n": 4,
+    "n_years": 46,
+    "weibull_rp_yr": 11.8
+   }
+  },
+  "2659": {
+   "id": 2659,
+   "code": "Gt.9",
+   "name": "บ้านกลาง",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 11.49674,
+   "lon": 99.602303,
+   "key": "2659",
+   "best7": {
+    "value_mm": 156.1,
+    "end_date": "2026-09-27",
+    "rank_in_n": 21,
+    "n_years": 46,
+    "weibull_rp_yr": 2.2
+   },
+   "best30": {
+    "value_mm": 453.5,
+    "end_date": "2026-10-05",
+    "rank_in_n": 4,
+    "n_years": 46,
+    "weibull_rp_yr": 11.8
+   }
+  },
+  "2661": {
+   "id": 2661,
+   "code": "Z.58",
+   "name": "บ้านเขาสมิง",
+   "basin": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+   "lat": 12.35731,
+   "lon": 102.437897,
+   "key": "2661",
+   "best7": {
+    "value_mm": 315.2,
+    "end_date": "2026-09-26",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   },
+   "best30": {
+    "value_mm": 629.6,
+    "end_date": "2026-07-31",
+    "rank_in_n": 33,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   }
+  },
+  "2662": {
+   "id": 2662,
+   "code": "Z.57",
+   "name": "สะพานวัดจันทนาราม",
+   "basin": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+   "lat": 12.61359,
+   "lon": 102.114113,
+   "key": "2662",
+   "best7": {
+    "value_mm": 420.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 655.2,
+    "end_date": "2026-09-27",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   }
+  },
+  "2663": {
+   "id": 2663,
+   "code": "Z.14",
+   "name": "บ้านฉมัน",
+   "basin": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+   "lat": 12.74451,
+   "lon": 102.206421,
+   "key": "2663",
+   "best7": {
+    "value_mm": 315.2,
+    "end_date": "2026-09-26",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   },
+   "best30": {
+    "value_mm": 629.6,
+    "end_date": "2026-07-31",
+    "rank_in_n": 33,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   }
+  },
+  "2664": {
+   "id": 2664,
+   "code": "Z.13",
+   "name": "บ้านปึก",
+   "basin": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+   "lat": 12.76323,
+   "lon": 102.138039,
+   "key": "2664",
+   "best7": {
+    "value_mm": 378.2,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 595.8,
+    "end_date": "2026-09-27",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   }
+  },
+  "2666": {
+   "id": 2666,
+   "code": "B.8A",
+   "name": "บ้านโพรงเข้",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 12.81504,
+   "lon": 99.700867,
+   "key": "2666",
+   "best7": {
+    "value_mm": 346.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 663.9,
+    "end_date": "2026-09-30",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2669": {
+   "id": 2669,
+   "code": "Z.11",
+   "name": "บ้านเขาวังไทร",
+   "basin": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+   "lat": 12.85783,
+   "lon": 101.615738,
+   "key": "2669",
+   "best7": {
+    "value_mm": 378.2,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 595.8,
+    "end_date": "2026-09-27",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   }
+  },
+  "2671": {
+   "id": 2671,
+   "code": "B.10",
+   "name": "ตลาดท่ายาง",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 12.97398,
+   "lon": 99.88784,
+   "key": "2671",
+   "best7": {
+    "value_mm": 346.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 663.9,
+    "end_date": "2026-09-30",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2675": {
+   "id": 2675,
+   "code": "Kgt.9",
+   "name": "บ้านเขาฉกรรจ์",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 13.66804,
+   "lon": 102.0756,
+   "key": "2675",
+   "best7": {
+    "value_mm": 318.0,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 578.2,
+    "end_date": "2026-09-27",
+    "rank_in_n": 3,
+    "n_years": 46,
+    "weibull_rp_yr": 15.7
+   }
+  },
+  "2676": {
+   "id": 2676,
+   "code": "T.1",
+   "name": "ที่ว่าการอ.นครชัยศรี",
+   "basin": "ลุ่มน้ำท่าจีน",
+   "lat": 13.80096,
+   "lon": 100.188026,
+   "key": "2676",
+   "best7": {
+    "value_mm": 270.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 574.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2679": {
+   "id": 2679,
+   "code": "K.11A",
+   "name": "บ้านวังขนาย",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 13.95094,
+   "lon": 99.645477,
+   "key": "2679",
+   "best7": {
+    "value_mm": 301.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 706.2,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2680": {
+   "id": 2680,
+   "code": "Kgt.3",
+   "name": "สะพานต้นน้ำบางปะกง",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 13.98666,
+   "lon": 101.705406,
+   "key": "2680",
+   "best7": {
+    "value_mm": 380.1,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 702.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2682": {
+   "id": 2682,
+   "code": "K.35A",
+   "name": "บ้านหนองบัว",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 14.05861,
+   "lon": 99.445221,
+   "key": "2682",
+   "best7": {
+    "value_mm": 301.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 706.2,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2683": {
+   "id": 2683,
+   "code": "Kgt.1",
+   "name": "สะพานณรงค์ดำริ",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 14.05144,
+   "lon": 101.367378,
+   "key": "2683",
+   "best7": {
+    "value_mm": 334.0,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 619.1,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2686": {
+   "id": 2686,
+   "code": "K.12",
+   "name": "บ้านทุ่งนานางหรอก",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 14.17522,
+   "lon": 99.434067,
+   "key": "2686",
+   "best7": {
+    "value_mm": 301.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 706.2,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2687": {
+   "id": 2687,
+   "code": "Ny.1B",
+   "name": "บ้านเขานางบวช",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 14.24582,
+   "lon": 101.274246,
+   "key": "2687",
+   "best7": {
+    "value_mm": 334.0,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 619.1,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2689": {
+   "id": 2689,
+   "code": "Ny.3",
+   "name": "บ้านป่าขะ",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 14.28644,
+   "lon": 101.070473,
+   "key": "2689",
+   "best7": {
+    "value_mm": 287.2,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 594.6,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2694": {
+   "id": 2694,
+   "code": "M.180",
+   "name": "บ้านท่าเยี่ยม",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 14.63599,
+   "lon": 101.884697,
+   "key": "2694",
+   "best7": {
+    "value_mm": 288.9,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 583.1,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2698": {
+   "id": 2698,
+   "code": "M.89",
+   "name": "สำนักเทคโนโลยีชีวภัณฑ์สัตว์",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 14.69785,
+   "lon": 101.415154,
+   "key": "2698",
+   "best7": {
+    "value_mm": 287.2,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 594.6,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2707": {
+   "id": 2707,
+   "code": "M.170",
+   "name": "บ้านคำสำราญ",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 14.79088,
+   "lon": 105.102768,
+   "key": "2707",
+   "best7": {
+    "value_mm": 138.3,
+    "end_date": "2026-07-12",
+    "rank_in_n": 36,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 427.2,
+    "end_date": "2026-07-30",
+    "rank_in_n": 20,
+    "n_years": 46,
+    "weibull_rp_yr": 2.4
+   }
+  },
+  "2712": {
+   "id": 2712,
+   "code": "S.28",
+   "name": "ท้ายเขื่อนป่าสักชลสิทธิ์",
+   "basin": "ลุ่มน้ำป่าสัก",
+   "lat": 14.83464,
+   "lon": 101.084297,
+   "key": "2712",
+   "best7": {
+    "value_mm": 177.2,
+    "end_date": "2026-09-27",
+    "rank_in_n": 7,
+    "n_years": 46,
+    "weibull_rp_yr": 6.7
+   },
+   "best30": {
+    "value_mm": 431.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 4,
+    "n_years": 46,
+    "weibull_rp_yr": 11.8
+   }
+  },
+  "2723": {
+   "id": 2723,
+   "code": "C.3",
+   "name": "บ้านบางพุทรา",
+   "basin": "ลุ่มน้ำเจ้าพระยา",
+   "lat": 14.89868,
+   "lon": 100.401863,
+   "key": "2723",
+   "best7": {
+    "value_mm": 229.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 3,
+    "n_years": 46,
+    "weibull_rp_yr": 15.7
+   },
+   "best30": {
+    "value_mm": 478.7,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2726": {
+   "id": 2726,
+   "code": "M.164",
+   "name": "ตำบลในเมือง",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 14.98457,
+   "lon": 102.092941,
+   "key": "2726",
+   "best7": {
+    "value_mm": 169.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   },
+   "best30": {
+    "value_mm": 417.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   }
+  },
+  "2729": {
+   "id": 2729,
+   "code": "M.176",
+   "name": "บ้านโนนสีไคล",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.00636,
+   "lon": 104.633453,
+   "key": "2729",
+   "best7": {
+    "value_mm": 136.6,
+    "end_date": "2026-07-28",
+    "rank_in_n": 34,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   },
+   "best30": {
+    "value_mm": 410.8,
+    "end_date": "2026-09-25",
+    "rank_in_n": 21,
+    "n_years": 46,
+    "weibull_rp_yr": 2.2
+   }
+  },
+  "2737": {
+   "id": 2737,
+   "code": "M.9",
+   "name": "ชุมชนสะพานขาว",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.11808,
+   "lon": 104.318642,
+   "key": "2737",
+   "best7": {
+    "value_mm": 136.6,
+    "end_date": "2026-07-28",
+    "rank_in_n": 34,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   },
+   "best30": {
+    "value_mm": 410.8,
+    "end_date": "2026-09-25",
+    "rank_in_n": 21,
+    "n_years": 46,
+    "weibull_rp_yr": 2.2
+   }
+  },
+  "2739": {
+   "id": 2739,
+   "code": "M.182",
+   "name": "บ้านสีถาน",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.13208,
+   "lon": 104.488403,
+   "key": "2739",
+   "best7": {
+    "value_mm": 136.6,
+    "end_date": "2026-07-28",
+    "rank_in_n": 34,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   },
+   "best30": {
+    "value_mm": 410.8,
+    "end_date": "2026-09-25",
+    "rank_in_n": 21,
+    "n_years": 46,
+    "weibull_rp_yr": 2.2
+   }
+  },
+  "2744": {
+   "id": 2744,
+   "code": "C.13",
+   "name": "ท้ายเขื่อนเจ้าพระยา",
+   "basin": "ลุ่มน้ำเจ้าพระยา",
+   "lat": 15.16384,
+   "lon": 100.18792,
+   "key": "2744",
+   "best7": {
+    "value_mm": 277.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 553.9,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2750": {
+   "id": 2750,
+   "code": "M.184",
+   "name": "บ้านซึม",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.21996,
+   "lon": 102.428299,
+   "key": "2750",
+   "best7": {
+    "value_mm": 147.9,
+    "end_date": "2026-09-10",
+    "rank_in_n": 17,
+    "n_years": 46,
+    "weibull_rp_yr": 2.8
+   },
+   "best30": {
+    "value_mm": 439.2,
+    "end_date": "2026-09-26",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   }
+  },
+  "2752": {
+   "id": 2752,
+   "code": "M.7",
+   "name": "สะพานเสรีประชาธิปไตย",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.22263,
+   "lon": 104.859131,
+   "key": "2752",
+   "best7": {
+    "value_mm": 138.3,
+    "end_date": "2026-07-12",
+    "rank_in_n": 36,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 427.2,
+    "end_date": "2026-07-30",
+    "rank_in_n": 20,
+    "n_years": 46,
+    "weibull_rp_yr": 2.4
+   }
+  },
+  "2753": {
+   "id": 2753,
+   "code": "S.14",
+   "name": "บ้านท่ารวก",
+   "basin": "ลุ่มน้ำป่าสัก",
+   "lat": 15.22528,
+   "lon": 101.277458,
+   "key": "2753",
+   "best7": {
+    "value_mm": 177.2,
+    "end_date": "2026-09-27",
+    "rank_in_n": 7,
+    "n_years": 46,
+    "weibull_rp_yr": 6.7
+   },
+   "best30": {
+    "value_mm": 431.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 4,
+    "n_years": 46,
+    "weibull_rp_yr": 11.8
+   }
+  },
+  "2755": {
+   "id": 2755,
+   "code": "M.11B",
+   "name": "บ้านโพธิ์ตาก",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.24992,
+   "lon": 105.239243,
+   "key": "2755",
+   "best7": {
+    "value_mm": 138.3,
+    "end_date": "2026-07-12",
+    "rank_in_n": 36,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 427.2,
+    "end_date": "2026-07-30",
+    "rank_in_n": 20,
+    "n_years": 46,
+    "weibull_rp_yr": 2.4
+   }
+  },
+  "2760": {
+   "id": 2760,
+   "code": "M.6A",
+   "name": "บ้านสตึก",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.30003,
+   "lon": 103.292282,
+   "key": "2760",
+   "best7": {
+    "value_mm": 135.8,
+    "end_date": "2026-09-10",
+    "rank_in_n": 18,
+    "n_years": 46,
+    "weibull_rp_yr": 2.6
+   },
+   "best30": {
+    "value_mm": 416.8,
+    "end_date": "2026-09-27",
+    "rank_in_n": 7,
+    "n_years": 46,
+    "weibull_rp_yr": 6.7
+   }
+  },
+  "2763": {
+   "id": 2763,
+   "code": "M.4",
+   "name": "บ้านพงสวาย",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.32958,
+   "lon": 103.68261,
+   "key": "2763",
+   "best7": {
+    "value_mm": 122.0,
+    "end_date": "2026-09-06",
+    "rank_in_n": 37,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 378.6,
+    "end_date": "2026-09-27",
+    "rank_in_n": 16,
+    "n_years": 46,
+    "weibull_rp_yr": 2.9
+   }
+  },
+  "2764": {
+   "id": 2764,
+   "code": "M.5",
+   "name": "บ้านเมืองคง",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.33969,
+   "lon": 104.15403,
+   "key": "2764",
+   "best7": {
+    "value_mm": 125.0,
+    "end_date": "2026-07-29",
+    "rank_in_n": 39,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 410.6,
+    "end_date": "2026-09-26",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   }
+  },
+  "2777": {
+   "id": 2777,
+   "code": "Ct.19",
+   "name": "บ้านดอนใหญ่",
+   "basin": "ลุ่มน้ำสะแกกรัง",
+   "lat": 15.45274,
+   "lon": 100.031891,
+   "key": "2777",
+   "best7": {
+    "value_mm": 251.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 503.5,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2780": {
+   "id": 2780,
+   "code": "M.69",
+   "name": "บ้านท่าบอแบง",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.50421,
+   "lon": 104.966202,
+   "key": "2780",
+   "best7": {
+    "value_mm": 132.4,
+    "end_date": "2026-07-12",
+    "rank_in_n": 37,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 423.8,
+    "end_date": "2026-08-03",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   }
+  },
+  "2781": {
+   "id": 2781,
+   "code": "Ct.9",
+   "name": "บ้านบุ่งอ้ายเจี้ยม",
+   "basin": "ลุ่มน้ำสะแกกรัง",
+   "lat": 15.51829,
+   "lon": 99.483528,
+   "key": "2781",
+   "best7": {
+    "value_mm": 328.7,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 776.5,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2782": {
+   "id": 2782,
+   "code": "E.20A",
+   "name": "บ้านฟ้าหยาด",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 15.52481,
+   "lon": 104.249657,
+   "key": "2782",
+   "best7": {
+    "value_mm": 125.0,
+    "end_date": "2026-07-29",
+    "rank_in_n": 39,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 410.6,
+    "end_date": "2026-09-26",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   }
+  },
+  "2795": {
+   "id": 2795,
+   "code": "C.2",
+   "name": "ค่ายจิรประวัติ",
+   "basin": "ลุ่มน้ำเจ้าพระยา",
+   "lat": 15.67059,
+   "lon": 100.10936,
+   "key": "2795",
+   "best7": {
+    "value_mm": 251.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 503.5,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2797": {
+   "id": 2797,
+   "code": "E.23",
+   "name": "บ้านค่าย",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 15.68176,
+   "lon": 102.009552,
+   "key": "2797",
+   "best7": {
+    "value_mm": 146.0,
+    "end_date": "2026-09-29",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   },
+   "best30": {
+    "value_mm": 387.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "2799": {
+   "id": 2799,
+   "code": "S.42",
+   "name": "บ้านบ่อวัง",
+   "basin": "ลุ่มน้ำป่าสัก",
+   "lat": 15.5783,
+   "lon": 101.088623,
+   "key": "2799",
+   "best7": {
+    "value_mm": 133.5,
+    "end_date": "2026-09-28",
+    "rank_in_n": 18,
+    "n_years": 46,
+    "weibull_rp_yr": 2.6
+   },
+   "best30": {
+    "value_mm": 361.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   }
+  },
+  "2808": {
+   "id": 2808,
+   "code": "E.21",
+   "name": "บ้านแก่งโก",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 15.75292,
+   "lon": 102.252609,
+   "key": "2808",
+   "best7": {
+    "value_mm": 154.7,
+    "end_date": "2026-09-10",
+    "rank_in_n": 9,
+    "n_years": 46,
+    "weibull_rp_yr": 5.2
+   },
+   "best30": {
+    "value_mm": 430.1,
+    "end_date": "2026-09-27",
+    "rank_in_n": 3,
+    "n_years": 46,
+    "weibull_rp_yr": 15.7
+   }
+  },
+  "2809": {
+   "id": 2809,
+   "code": "E.5",
+   "name": "บ้านโนนเชือก",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 15.7325,
+   "lon": 101.830048,
+   "key": "2809",
+   "best7": {
+    "value_mm": 146.0,
+    "end_date": "2026-09-29",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   },
+   "best30": {
+    "value_mm": 387.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "2811": {
+   "id": 2811,
+   "code": "Ct.4",
+   "name": "บ้านศาลเจ้าไก่ต่อ",
+   "basin": "ลุ่มน้ำสะแกกรัง",
+   "lat": 15.78585,
+   "lon": 99.678329,
+   "key": "2811",
+   "best7": {
+    "value_mm": 286.4,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 637.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2820": {
+   "id": 2820,
+   "code": "M.32",
+   "name": "บ้านเชียงเพ็ง",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.84008,
+   "lon": 104.455704,
+   "key": "2820",
+   "best7": {
+    "value_mm": 112.0,
+    "end_date": "2026-09-16",
+    "rank_in_n": 40,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 377.8,
+    "end_date": "2026-09-27",
+    "rank_in_n": 24,
+    "n_years": 46,
+    "weibull_rp_yr": 2.0
+   }
+  },
+  "2821": {
+   "id": 2821,
+   "code": "N.67",
+   "name": "วัดเกยไชยเหนือ",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 15.86918,
+   "lon": 100.264732,
+   "key": "2821",
+   "best7": {
+    "value_mm": 195.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 418.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2830": {
+   "id": 2830,
+   "code": "Ct.5A",
+   "name": "บ้านปางมะค่า",
+   "basin": "ลุ่มน้ำสะแกกรัง",
+   "lat": 15.92832,
+   "lon": 99.502373,
+   "key": "2830",
+   "best7": {
+    "value_mm": 286.4,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 637.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2832": {
+   "id": 2832,
+   "code": "P.17",
+   "name": "บ้านท่างิ้ว",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 15.93539,
+   "lon": 99.976089,
+   "key": "2832",
+   "best7": {
+    "value_mm": 195.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 418.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2836": {
+   "id": 2836,
+   "code": "E.6C",
+   "name": "บ้านตาดโตน",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 15.95536,
+   "lon": 102.03363,
+   "key": "2836",
+   "best7": {
+    "value_mm": 154.9,
+    "end_date": "2026-09-29",
+    "rank_in_n": 11,
+    "n_years": 46,
+    "weibull_rp_yr": 4.3
+   },
+   "best30": {
+    "value_mm": 407.4,
+    "end_date": "2026-09-28",
+    "rank_in_n": 3,
+    "n_years": 46,
+    "weibull_rp_yr": 15.7
+   }
+  },
+  "2845": {
+   "id": 2845,
+   "code": "E.18",
+   "name": "บ้านท่าสะแบง",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.034149,
+   "lon": 103.906937,
+   "key": "2845",
+   "best7": {
+    "value_mm": 111.1,
+    "end_date": "2026-08-03",
+    "rank_in_n": 40,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 354.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 28,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   }
+  },
+  "2851": {
+   "id": 2851,
+   "code": "Y.5",
+   "name": "หน้าอำเภอโพทะเล",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 16.09481,
+   "lon": 100.259903,
+   "key": "2851",
+   "best7": {
+    "value_mm": 195.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 418.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2852": {
+   "id": 2852,
+   "code": "E.9",
+   "name": "บ้านท่านางเลื่อน",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.096939,
+   "lon": 102.570023,
+   "key": "2852",
+   "best7": {
+    "value_mm": 154.7,
+    "end_date": "2026-09-10",
+    "rank_in_n": 9,
+    "n_years": 46,
+    "weibull_rp_yr": 5.2
+   },
+   "best30": {
+    "value_mm": 430.1,
+    "end_date": "2026-09-27",
+    "rank_in_n": 3,
+    "n_years": 46,
+    "weibull_rp_yr": 15.7
+   }
+  },
+  "2863": {
+   "id": 2863,
+   "code": "E.8A",
+   "name": "บ้านดินดำ",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.231939,
+   "lon": 103.271019,
+   "key": "2863",
+   "best7": {
+    "value_mm": 117.5,
+    "end_date": "2026-09-10",
+    "rank_in_n": 33,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   },
+   "best30": {
+    "value_mm": 364.3,
+    "end_date": "2026-09-27",
+    "rank_in_n": 18,
+    "n_years": 46,
+    "weibull_rp_yr": 2.6
+   }
+  },
+  "2867": {
+   "id": 2867,
+   "code": "E.70",
+   "name": "บ้านกุดก่วง",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.288441,
+   "lon": 104.00489,
+   "key": "2867",
+   "best7": {
+    "value_mm": 121.9,
+    "end_date": "2026-08-03",
+    "rank_in_n": 37,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 348.0,
+    "end_date": "2026-08-21",
+    "rank_in_n": 33,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   }
+  },
+  "2872": {
+   "id": 2872,
+   "code": "E.87",
+   "name": "บ้านวังหิน",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.34078,
+   "lon": 103.577011,
+   "key": "2872",
+   "best7": {
+    "value_mm": 121.9,
+    "end_date": "2026-08-03",
+    "rank_in_n": 37,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   },
+   "best30": {
+    "value_mm": 348.0,
+    "end_date": "2026-08-21",
+    "rank_in_n": 33,
+    "n_years": 46,
+    "weibull_rp_yr": 1.4
+   }
+  },
+  "2874": {
+   "id": 2874,
+   "code": "E.16A",
+   "name": "บ้านกุดกว้าง",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.356001,
+   "lon": 102.804291,
+   "key": "2874",
+   "best7": {
+    "value_mm": 160.0,
+    "end_date": "2026-09-10",
+    "rank_in_n": 9,
+    "n_years": 46,
+    "weibull_rp_yr": 5.2
+   },
+   "best30": {
+    "value_mm": 415.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 3,
+    "n_years": 46,
+    "weibull_rp_yr": 15.7
+   }
+  },
+  "2875": {
+   "id": 2875,
+   "code": "E.91",
+   "name": "บ้านดอนขนวน",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.36607,
+   "lon": 102.949753,
+   "key": "2875",
+   "best7": {
+    "value_mm": 123.8,
+    "end_date": "2026-08-03",
+    "rank_in_n": 28,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   },
+   "best30": {
+    "value_mm": 328.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 30,
+    "n_years": 46,
+    "weibull_rp_yr": 1.6
+   }
+  },
+  "2881": {
+   "id": 2881,
+   "code": "S.4B",
+   "name": "ต.ในเมือง",
+   "basin": "ลุ่มน้ำป่าสัก",
+   "lat": 16.42322,
+   "lon": 101.162079,
+   "key": "2881",
+   "best7": {
+    "value_mm": 130.1,
+    "end_date": "2026-09-10",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   },
+   "best30": {
+    "value_mm": 408.1,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2895": {
+   "id": 2895,
+   "code": "N.7A",
+   "name": "บ้านราชช้างขวัญ",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 16.4695,
+   "lon": 100.330872,
+   "key": "2895",
+   "best7": {
+    "value_mm": 99.5,
+    "end_date": "2026-09-29",
+    "rank_in_n": 31,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   },
+   "best30": {
+    "value_mm": 357.2,
+    "end_date": "2026-09-28",
+    "rank_in_n": 9,
+    "n_years": 46,
+    "weibull_rp_yr": 5.2
+   }
+  },
+  "2900": {
+   "id": 2900,
+   "code": "P.7A",
+   "name": "ต.ในเมือง",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 16.47772,
+   "lon": 99.517921,
+   "key": "2900",
+   "best7": {
+    "value_mm": 229.2,
+    "end_date": "2026-09-28",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   },
+   "best30": {
+    "value_mm": 495.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "2918": {
+   "id": 2918,
+   "code": "E.75",
+   "name": "บ้านหนองม่วง",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.581209,
+   "lon": 103.437111,
+   "key": "2918",
+   "best7": {
+    "value_mm": 123.8,
+    "end_date": "2026-08-03",
+    "rank_in_n": 28,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   },
+   "best30": {
+    "value_mm": 328.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 30,
+    "n_years": 46,
+    "weibull_rp_yr": 1.6
+   }
+  },
+  "2924": {
+   "id": 2924,
+   "code": "E.22B",
+   "name": "บ้านท่าเม่า",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.65448,
+   "lon": 102.823486,
+   "key": "2924",
+   "best7": {
+    "value_mm": 123.8,
+    "end_date": "2026-08-03",
+    "rank_in_n": 28,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   },
+   "best30": {
+    "value_mm": 328.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 30,
+    "n_years": 46,
+    "weibull_rp_yr": 1.6
+   }
+  },
+  "2941": {
+   "id": 2941,
+   "code": "Y.16",
+   "name": "บางระกำ",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 16.757919,
+   "lon": 100.115578,
+   "key": "2941",
+   "best7": {
+    "value_mm": 140.2,
+    "end_date": "2026-09-30",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   },
+   "best30": {
+    "value_mm": 379.1,
+    "end_date": "2026-09-28",
+    "rank_in_n": 8,
+    "n_years": 46,
+    "weibull_rp_yr": 5.9
+   }
+  },
+  "2953": {
+   "id": 2953,
+   "code": "N.5A",
+   "name": "สะพานสุพรรณกัลยา ",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 16.80608,
+   "lon": 100.245827,
+   "key": "2953",
+   "best7": {
+    "value_mm": 140.2,
+    "end_date": "2026-09-30",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   },
+   "best30": {
+    "value_mm": 379.1,
+    "end_date": "2026-09-28",
+    "rank_in_n": 8,
+    "n_years": 46,
+    "weibull_rp_yr": 5.9
+   }
+  },
+  "2963": {
+   "id": 2963,
+   "code": "P.2A",
+   "name": "บ้านท่าแค",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 16.855261,
+   "lon": 99.124489,
+   "key": "2963",
+   "best7": {
+    "value_mm": 212.8,
+    "end_date": "2026-09-30",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   },
+   "best30": {
+    "value_mm": 437.6,
+    "end_date": "2026-09-29",
+    "rank_in_n": 4,
+    "n_years": 46,
+    "weibull_rp_yr": 11.8
+   }
+  },
+  "2985": {
+   "id": 2985,
+   "code": "S.33",
+   "name": "ต.ตาดกลอย",
+   "basin": "ลุ่มน้ำป่าสัก",
+   "lat": 17.004061,
+   "lon": 101.352898,
+   "key": "2985",
+   "best7": {
+    "value_mm": 126.1,
+    "end_date": "2026-09-10",
+    "rank_in_n": 15,
+    "n_years": 46,
+    "weibull_rp_yr": 3.1
+   },
+   "best30": {
+    "value_mm": 422.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   }
+  },
+  "2986": {
+   "id": 2986,
+   "code": "Y.4",
+   "name": "ต.ธานี",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 17.006359,
+   "lon": 99.822113,
+   "key": "2986",
+   "best7": {
+    "value_mm": 140.2,
+    "end_date": "2026-09-30",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   },
+   "best30": {
+    "value_mm": 379.1,
+    "end_date": "2026-09-28",
+    "rank_in_n": 8,
+    "n_years": 46,
+    "weibull_rp_yr": 5.9
+   }
+  },
+  "2993": {
+   "id": 2993,
+   "code": "N.27A",
+   "name": "ท้ายเขื่อนนเรศวร",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 17.033621,
+   "lon": 100.197968,
+   "key": "2993",
+   "best7": {
+    "value_mm": 140.2,
+    "end_date": "2026-09-30",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   },
+   "best30": {
+    "value_mm": 379.1,
+    "end_date": "2026-09-28",
+    "rank_in_n": 8,
+    "n_years": 46,
+    "weibull_rp_yr": 5.9
+   }
+  },
+  "3002": {
+   "id": 3002,
+   "code": "E.68A",
+   "name": "บ้านข้องโป้",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 17.082161,
+   "lon": 102.450798,
+   "key": "3002",
+   "best7": {
+    "value_mm": 130.4,
+    "end_date": "2026-08-03",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   },
+   "best30": {
+    "value_mm": 330.4,
+    "end_date": "2026-09-28",
+    "rank_in_n": 20,
+    "n_years": 46,
+    "weibull_rp_yr": 2.4
+   }
+  },
+  "3014": {
+   "id": 3014,
+   "code": "Kh.61",
+   "name": "บ้านแก่งบง",
+   "basin": "ลุ่มน้ำโขงตะวันออกเฉียงเหนือ",
+   "lat": 17.13114,
+   "lon": 101.679489,
+   "key": "3014",
+   "best7": {
+    "value_mm": 149.2,
+    "end_date": "2026-09-10",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   },
+   "best30": {
+    "value_mm": 408.8,
+    "end_date": "2026-09-28",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   }
+  },
+  "3017": {
+   "id": 3017,
+   "code": "Y.33",
+   "name": "บ้านคลองตาล",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 17.16888,
+   "lon": 99.860977,
+   "key": "3017",
+   "best7": {
+    "value_mm": 140.2,
+    "end_date": "2026-09-30",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   },
+   "best30": {
+    "value_mm": 379.1,
+    "end_date": "2026-09-28",
+    "rank_in_n": 8,
+    "n_years": 46,
+    "weibull_rp_yr": 5.9
+   }
+  },
+  "3018": {
+   "id": 3018,
+   "code": "W.4A",
+   "name": "บ้านวังหมัน",
+   "basin": "ลุ่มน้ำวัง",
+   "lat": 17.20499,
+   "lon": 99.098122,
+   "key": "3018",
+   "best7": {
+    "value_mm": 212.8,
+    "end_date": "2026-09-30",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   },
+   "best30": {
+    "value_mm": 437.6,
+    "end_date": "2026-09-29",
+    "rank_in_n": 4,
+    "n_years": 46,
+    "weibull_rp_yr": 11.8
+   }
+  },
+  "3032": {
+   "id": 3032,
+   "code": "Kh.53",
+   "name": "บ้านหนองวัวซอ",
+   "basin": "ลุ่มน้ำโขงตะวันออกเฉียงเหนือ",
+   "lat": 17.2659,
+   "lon": 102.59243,
+   "key": "3032",
+   "best7": {
+    "value_mm": 128.7,
+    "end_date": "2026-08-03",
+    "rank_in_n": 25,
+    "n_years": 46,
+    "weibull_rp_yr": 1.9
+   },
+   "best30": {
+    "value_mm": 285.7,
+    "end_date": "2026-08-20",
+    "rank_in_n": 36,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   }
+  },
+  "3041": {
+   "id": 3041,
+   "code": "Y.3A",
+   "name": "บ้านวังขอนไม้",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 17.302389,
+   "lon": 99.830307,
+   "key": "3041",
+   "best7": {
+    "value_mm": 150.4,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 387.2,
+    "end_date": "2026-09-29",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "3044": {
+   "id": 3044,
+   "code": "Kh.28A",
+   "name": "บ้านนาหลัก",
+   "basin": "ลุ่มน้ำโขงตะวันออกเฉียงเหนือ",
+   "lat": 17.31229,
+   "lon": 101.772461,
+   "key": "3044",
+   "best7": {
+    "value_mm": 129.2,
+    "end_date": "2026-08-03",
+    "rank_in_n": 21,
+    "n_years": 46,
+    "weibull_rp_yr": 2.2
+   },
+   "best30": {
+    "value_mm": 291.9,
+    "end_date": "2026-09-28",
+    "rank_in_n": 30,
+    "n_years": 46,
+    "weibull_rp_yr": 1.6
+   }
+  },
+  "3065": {
+   "id": 3065,
+   "code": "N.60",
+   "name": "บ้านเด่นสำโรง",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 17.418329,
+   "lon": 100.130913,
+   "key": "3065",
+   "best7": {
+    "value_mm": 150.4,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 387.2,
+    "end_date": "2026-09-29",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "3076": {
+   "id": 3076,
+   "code": "Kh.103",
+   "name": "บ้านโนนตูม",
+   "basin": "ลุ่มน้ำโขงตะวันออกเฉียงเหนือ",
+   "lat": 17.482571,
+   "lon": 102.797394,
+   "key": "3076",
+   "best7": {
+    "value_mm": 128.7,
+    "end_date": "2026-08-03",
+    "rank_in_n": 25,
+    "n_years": 46,
+    "weibull_rp_yr": 1.9
+   },
+   "best30": {
+    "value_mm": 285.7,
+    "end_date": "2026-08-20",
+    "rank_in_n": 36,
+    "n_years": 46,
+    "weibull_rp_yr": 1.3
+   }
+  },
+  "3095": {
+   "id": 3095,
+   "code": "N.2B",
+   "name": "ต.ในเมือง",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 17.609871,
+   "lon": 100.099609,
+   "key": "3095",
+   "best7": {
+    "value_mm": 150.4,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 387.2,
+    "end_date": "2026-09-29",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "3102": {
+   "id": 3102,
+   "code": "W.3A",
+   "name": "บ้านดอนชัย",
+   "basin": "ลุ่มน้ำวัง",
+   "lat": 17.641491,
+   "lon": 99.23201,
+   "key": "3102",
+   "best7": {
+    "value_mm": 245.2,
+    "end_date": "2026-09-30",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 484.1,
+    "end_date": "2026-09-29",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   }
+  },
+  "3117": {
+   "id": 3117,
+   "code": "Kh.74",
+   "name": "บ้านท่าห้วยหลัว",
+   "basin": "ลุ่มน้ำโขงตะวันออกเฉียงเหนือ",
+   "lat": 17.821621,
+   "lon": 103.386932,
+   "key": "3117",
+   "best7": {
+    "value_mm": 123.0,
+    "end_date": "2026-08-08",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   },
+   "best30": {
+    "value_mm": 371.9,
+    "end_date": "2026-08-20",
+    "rank_in_n": 27,
+    "n_years": 46,
+    "weibull_rp_yr": 1.7
+   }
+  },
+  "3122": {
+   "id": 3122,
+   "code": "Kh.98",
+   "name": "บ้านท่ากกแดง",
+   "basin": "ลุ่มน้ำโขงตะวันออกเฉียงเหนือ",
+   "lat": 17.86562,
+   "lon": 103.774361,
+   "key": "3122",
+   "best7": {
+    "value_mm": 213.3,
+    "end_date": "2026-08-09",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   },
+   "best30": {
+    "value_mm": 560.9,
+    "end_date": "2026-08-20",
+    "rank_in_n": 4,
+    "n_years": 46,
+    "weibull_rp_yr": 11.8
+   }
+  },
+  "3127": {
+   "id": 3127,
+   "code": "Y.37",
+   "name": "บ้านวังชิ้น",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 17.90118,
+   "lon": 99.605652,
+   "key": "3127",
+   "best7": {
+    "value_mm": 220.4,
+    "end_date": "2026-09-30",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 450.2,
+    "end_date": "2026-09-29",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   }
+  },
+  "3146": {
+   "id": 3146,
+   "code": "Y.1C",
+   "name": "บ้านน้ำโค้ง",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 18.133909,
+   "lon": 100.124641,
+   "key": "3146",
+   "best7": {
+    "value_mm": 140.9,
+    "end_date": "2026-09-30",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   },
+   "best30": {
+    "value_mm": 389.4,
+    "end_date": "2026-09-29",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "3168": {
+   "id": 3168,
+   "code": "W.1C",
+   "name": "สะพานเสตุวารี",
+   "basin": "ลุ่มน้ำวัง",
+   "lat": 18.29973,
+   "lon": 99.51123,
+   "key": "3168",
+   "best7": {
+    "value_mm": 160.1,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 380.3,
+    "end_date": "2026-09-30",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "3186": {
+   "id": 3186,
+   "code": "P.77",
+   "name": "บ้านสบแม่สะป๊วด",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 18.43327,
+   "lon": 99.085129,
+   "key": "3186",
+   "best7": {
+    "value_mm": 160.1,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 380.3,
+    "end_date": "2026-09-30",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "3205": {
+   "id": 3205,
+   "code": "Y.20",
+   "name": "บ้านห้วยสัก",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 18.58613,
+   "lon": 100.151337,
+   "key": "3205",
+   "best7": {
+    "value_mm": 121.0,
+    "end_date": "2026-09-20",
+    "rank_in_n": 23,
+    "n_years": 46,
+    "weibull_rp_yr": 2.0
+   },
+   "best30": {
+    "value_mm": 366.3,
+    "end_date": "2026-09-29",
+    "rank_in_n": 13,
+    "n_years": 46,
+    "weibull_rp_yr": 3.6
+   }
+  },
+  "3212": {
+   "id": 3212,
+   "code": "P.81",
+   "name": "บ้านโป่ง",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 18.69521,
+   "lon": 99.078751,
+   "key": "3212",
+   "best7": {
+    "value_mm": 160.1,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 380.3,
+    "end_date": "2026-09-30",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "3219": {
+   "id": 3219,
+   "code": "N.1",
+   "name": "หน้าสำนักงานป่าไม้",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 18.774879,
+   "lon": 100.779694,
+   "key": "3219",
+   "best7": {
+    "value_mm": 123.6,
+    "end_date": "2026-08-08",
+    "rank_in_n": 26,
+    "n_years": 46,
+    "weibull_rp_yr": 1.8
+   },
+   "best30": {
+    "value_mm": 339.6,
+    "end_date": "2026-08-20",
+    "rank_in_n": 20,
+    "n_years": 46,
+    "weibull_rp_yr": 2.4
+   }
+  },
+  "3220": {
+   "id": 3220,
+   "code": "P.87",
+   "name": "บ้านป่าซาง",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 18.519119,
+   "lon": 98.942291,
+   "key": "3220",
+   "best7": {
+    "value_mm": 186.6,
+    "end_date": "2026-09-30",
+    "rank_in_n": 3,
+    "n_years": 46,
+    "weibull_rp_yr": 15.7
+   },
+   "best30": {
+    "value_mm": 395.1,
+    "end_date": "2026-09-29",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   }
+  },
+  "3221": {
+   "id": 3221,
+   "code": "N.75",
+   "name": "สะพานท่าลี่",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 18.548229,
+   "lon": 100.808617,
+   "key": "3221",
+   "best7": {
+    "value_mm": 123.4,
+    "end_date": "2026-09-20",
+    "rank_in_n": 25,
+    "n_years": 46,
+    "weibull_rp_yr": 1.9
+   },
+   "best30": {
+    "value_mm": 316.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 21,
+    "n_years": 46,
+    "weibull_rp_yr": 2.2
+   }
+  },
+  "3226": {
+   "id": 3226,
+   "code": "P.1",
+   "name": "สะพานนวรัฐ",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 18.786961,
+   "lon": 99.005089,
+   "key": "3226",
+   "best7": {
+    "value_mm": 167.7,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 356.4,
+    "end_date": "2026-09-29",
+    "rank_in_n": 14,
+    "n_years": 46,
+    "weibull_rp_yr": 3.4
+   }
+  },
+  "3233": {
+   "id": 3233,
+   "code": "Y.24",
+   "name": "บ้านมาง",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 18.882099,
+   "lon": 100.291382,
+   "key": "3233",
+   "best7": {
+    "value_mm": 107.6,
+    "end_date": "2026-08-08",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   },
+   "best30": {
+    "value_mm": 337.8,
+    "end_date": "2026-09-28",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   }
+  },
+  "3243": {
+   "id": 3243,
+   "code": "Y.31",
+   "name": "บ้านทุ่งหนอง",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 18.94628,
+   "lon": 100.258949,
+   "key": "3243",
+   "best7": {
+    "value_mm": 107.6,
+    "end_date": "2026-08-08",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   },
+   "best30": {
+    "value_mm": 337.8,
+    "end_date": "2026-09-28",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   }
+  },
+  "3245": {
+   "id": 3245,
+   "code": "N.49",
+   "name": "บ้านน้ำยาว",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 18.99374,
+   "lon": 100.940102,
+   "key": "3245",
+   "best7": {
+    "value_mm": 120.1,
+    "end_date": "2026-10-06",
+    "rank_in_n": 18,
+    "n_years": 46,
+    "weibull_rp_yr": 2.6
+   },
+   "best30": {
+    "value_mm": 344.7,
+    "end_date": "2026-10-05",
+    "rank_in_n": 16,
+    "n_years": 46,
+    "weibull_rp_yr": 2.9
+   }
+  },
+  "3246": {
+   "id": 3246,
+   "code": "N.64",
+   "name": "บ้านผาขวาง",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 19.015169,
+   "lon": 100.780212,
+   "key": "3246",
+   "best7": {
+    "value_mm": 123.6,
+    "end_date": "2026-08-08",
+    "rank_in_n": 26,
+    "n_years": 46,
+    "weibull_rp_yr": 1.8
+   },
+   "best30": {
+    "value_mm": 339.6,
+    "end_date": "2026-08-20",
+    "rank_in_n": 20,
+    "n_years": 46,
+    "weibull_rp_yr": 2.4
+   }
+  },
+  "3247": {
+   "id": 3247,
+   "code": "P.67",
+   "name": "บ้านแม่แต",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 19.00985,
+   "lon": 98.95974,
+   "key": "3247",
+   "best7": {
+    "value_mm": 167.7,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 356.4,
+    "end_date": "2026-09-29",
+    "rank_in_n": 14,
+    "n_years": 46,
+    "weibull_rp_yr": 3.4
+   }
+  },
+  "3251": {
+   "id": 3251,
+   "code": "P.4A",
+   "name": "บ้านแม่แตง",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 19.122181,
+   "lon": 98.944412,
+   "key": "3251",
+   "best7": {
+    "value_mm": 167.7,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 356.4,
+    "end_date": "2026-09-29",
+    "rank_in_n": 14,
+    "n_years": 46,
+    "weibull_rp_yr": 3.4
+   }
+  },
+  "3253": {
+   "id": 3253,
+   "code": "P.75",
+   "name": "บ้านช่อแล",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 19.14599,
+   "lon": 99.007332,
+   "key": "3253",
+   "best7": {
+    "value_mm": 167.7,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 356.4,
+    "end_date": "2026-09-29",
+    "rank_in_n": 14,
+    "n_years": 46,
+    "weibull_rp_yr": 3.4
+   }
+  },
+  "3286": {
+   "id": 3286,
+   "code": "P.92",
+   "name": "บ้านเมืองกึ๊ด",
+   "basin": "ลุ่มน้ำปิง",
+   "lat": 19.220449,
+   "lon": 98.847214,
+   "key": "3286",
+   "best7": {
+    "value_mm": 167.7,
+    "end_date": "2026-09-30",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   },
+   "best30": {
+    "value_mm": 356.4,
+    "end_date": "2026-09-29",
+    "rank_in_n": 14,
+    "n_years": 46,
+    "weibull_rp_yr": 3.4
+   }
+  },
+  "3292": {
+   "id": 3292,
+   "code": "N.22A",
+   "name": "บ้านท่างาม",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 16.998871,
+   "lon": 100.32663,
+   "key": "3292",
+   "best7": {
+    "value_mm": 101.9,
+    "end_date": "2026-09-10",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   },
+   "best30": {
+    "value_mm": 352.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   }
+  },
+  "3294": {
+   "id": 3294,
+   "code": "Sw.5A",
+   "name": "บ้านท่าโป่งแดง",
+   "basin": "ลุ่มน้ำสาละวิน",
+   "lat": 19.27033,
+   "lon": 97.945213,
+   "key": "3294",
+   "best7": {
+    "value_mm": 127.0,
+    "end_date": "2026-08-13",
+    "rank_in_n": 17,
+    "n_years": 46,
+    "weibull_rp_yr": 2.8
+   },
+   "best30": {
+    "value_mm": 362.5,
+    "end_date": "2026-08-20",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   }
+  },
+  "3296": {
+   "id": 3296,
+   "code": "I.17",
+   "name": "บ้านเจดีย์งาม",
+   "basin": "ลุ่มน้ำโขงเหนือ",
+   "lat": 19.16588,
+   "lon": 99.934341,
+   "key": "3296",
+   "best7": {
+    "value_mm": 107.6,
+    "end_date": "2026-08-08",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   },
+   "best30": {
+    "value_mm": 337.8,
+    "end_date": "2026-09-28",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   }
+  },
+  "3303": {
+   "id": 3303,
+   "code": "Kh.89",
+   "name": "บ้านหัวสะพาน",
+   "basin": "ลุ่มน้ำโขงเหนือ",
+   "lat": 20.15753,
+   "lon": 99.859596,
+   "key": "3303",
+   "best7": {
+    "value_mm": 156.4,
+    "end_date": "2026-08-08",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   },
+   "best30": {
+    "value_mm": 398.6,
+    "end_date": "2026-08-20",
+    "rank_in_n": 16,
+    "n_years": 46,
+    "weibull_rp_yr": 2.9
+   }
+  },
+  "3304": {
+   "id": 3304,
+   "code": "Kh.72",
+   "name": "บ้านแม่คำหลักเจ็ด",
+   "basin": "ลุ่มน้ำโขงเหนือ",
+   "lat": 20.218361,
+   "lon": 99.856987,
+   "key": "3304",
+   "best7": {
+    "value_mm": 156.4,
+    "end_date": "2026-08-08",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   },
+   "best30": {
+    "value_mm": 398.6,
+    "end_date": "2026-08-20",
+    "rank_in_n": 16,
+    "n_years": 46,
+    "weibull_rp_yr": 2.9
+   }
+  },
+  "504897": {
+   "id": 504897,
+   "code": "Y.64",
+   "name": "บางระกำ",
+   "basin": "ลุ่มน้ำยม",
+   "lat": 16.762119,
+   "lon": 100.121201,
+   "key": "504897",
+   "best7": {
+    "value_mm": 140.2,
+    "end_date": "2026-09-30",
+    "rank_in_n": 10,
+    "n_years": 46,
+    "weibull_rp_yr": 4.7
+   },
+   "best30": {
+    "value_mm": 379.1,
+    "end_date": "2026-09-28",
+    "rank_in_n": 8,
+    "n_years": 46,
+    "weibull_rp_yr": 5.9
+   }
+  },
+  "504940": {
+   "id": 504940,
+   "code": "E.98",
+   "name": "บ้านเขื่องใน",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 15.30323,
+   "lon": 104.50032,
+   "key": "504940",
+   "best7": {
+    "value_mm": 125.0,
+    "end_date": "2026-07-29",
+    "rank_in_n": 39,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 410.6,
+    "end_date": "2026-09-26",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   }
+  },
+  "504945": {
+   "id": 504945,
+   "code": "M.191",
+   "name": "บ้านโคกกรวด",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 14.93281,
+   "lon": 101.951889,
+   "key": "504945",
+   "best7": {
+    "value_mm": 169.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   },
+   "best30": {
+    "value_mm": 417.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   }
+  },
+  "504962": {
+   "id": 504962,
+   "code": "M.179A",
+   "name": "บ้านป่าก่อ",
+   "basin": "ลุ่มน้ำมูล",
+   "lat": 15.50299,
+   "lon": 104.595444,
+   "key": "504962",
+   "best7": {
+    "value_mm": 125.0,
+    "end_date": "2026-07-29",
+    "rank_in_n": 39,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   },
+   "best30": {
+    "value_mm": 410.6,
+    "end_date": "2026-09-26",
+    "rank_in_n": 19,
+    "n_years": 46,
+    "weibull_rp_yr": 2.5
+   }
+  },
+  "504982": {
+   "id": 504982,
+   "code": "S.43",
+   "name": "บ้านพูลทรัพย์",
+   "basin": "ลุ่มน้ำป่าสัก",
+   "lat": 15.32743,
+   "lon": 101.212402,
+   "key": "504982",
+   "best7": {
+    "value_mm": 133.5,
+    "end_date": "2026-09-28",
+    "rank_in_n": 18,
+    "n_years": 46,
+    "weibull_rp_yr": 2.6
+   },
+   "best30": {
+    "value_mm": 361.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   }
+  },
+  "504994": {
+   "id": 504994,
+   "code": "Kgt.13A",
+   "name": "บ้านโนนสุขภูมิ",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 13.91009,
+   "lon": 101.838211,
+   "key": "504994",
+   "best7": {
+    "value_mm": 380.1,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 702.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "504999": {
+   "id": 504999,
+   "code": "Kgt.43A",
+   "name": "บ้านนาแขม",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 14.02174,
+   "lon": 101.750664,
+   "key": "504999",
+   "best7": {
+    "value_mm": 380.1,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 702.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "505003": {
+   "id": 505003,
+   "code": "Ny.7",
+   "name": "สะพานหน้าจวนผู้ว่าฯ",
+   "basin": "ลุ่มน้ำบางปะกง",
+   "lat": 14.20048,
+   "lon": 101.219307,
+   "key": "505003",
+   "best7": {
+    "value_mm": 334.0,
+    "end_date": "2026-09-26",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 619.1,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "505011": {
+   "id": 505011,
+   "code": "Z.38",
+   "name": "บ้านเขาโบสถ์",
+   "basin": "ลุ่มน้ำชายฝั่งทะเลตะวันออก",
+   "lat": 12.73796,
+   "lon": 101.228401,
+   "key": "505011",
+   "best7": {
+    "value_mm": 415.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 656.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   }
+  },
+  "505018": {
+   "id": 505018,
+   "code": "K.58",
+   "name": "บ้านปากแซง",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 14.21513,
+   "lon": 99.058197,
+   "key": "505018",
+   "best7": {
+    "value_mm": 604.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 1230.7,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "505025": {
+   "id": 505025,
+   "code": "K.3A",
+   "name": "สะพานข้ามแม่น้ำแม่กลองหน้าศาลากลางจ.กาญจนบุรี",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 13.99597,
+   "lon": 99.538818,
+   "key": "505025",
+   "best7": {
+    "value_mm": 301.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 706.2,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "505029": {
+   "id": 505029,
+   "code": "B.16",
+   "name": "สะพานบ้านลาด",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 13.04917,
+   "lon": 99.918549,
+   "key": "505029",
+   "best7": {
+    "value_mm": 346.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 663.9,
+    "end_date": "2026-09-30",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "505030": {
+   "id": 505030,
+   "code": "B.15",
+   "name": "ข้างจวนผู้ว่าฯ",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 13.11125,
+   "lon": 99.948219,
+   "key": "505030",
+   "best7": {
+    "value_mm": 346.4,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 663.9,
+    "end_date": "2026-09-30",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "505037": {
+   "id": 505037,
+   "code": "Gt.20",
+   "name": "สะพานรถยนต์ ร.ร.อนุบาลบางสะพาน",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 11.20557,
+   "lon": 99.508499,
+   "key": "505037",
+   "best7": {
+    "value_mm": 151.7,
+    "end_date": "2026-09-15",
+    "rank_in_n": 25,
+    "n_years": 46,
+    "weibull_rp_yr": 1.9
+   },
+   "best30": {
+    "value_mm": 402.4,
+    "end_date": "2026-09-25",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   }
+  },
+  "505039": {
+   "id": 505039,
+   "code": "T.13",
+   "name": "บ้านบางการ้อง",
+   "basin": "ลุ่มน้ำท่าจีน",
+   "lat": 14.157,
+   "lon": 100.127907,
+   "key": "505039",
+   "best7": {
+    "value_mm": 270.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 574.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "505041": {
+   "id": 505041,
+   "code": "T.14",
+   "name": "ร.ร.บ้านสามพราน",
+   "basin": "ลุ่มน้ำท่าจีน",
+   "lat": 13.72411,
+   "lon": 100.215683,
+   "key": "505041",
+   "best7": {
+    "value_mm": 307.6,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 607.5,
+    "end_date": "2026-09-30",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "505050": {
+   "id": 505050,
+   "code": "X.274",
+   "name": "บ้านบูเก๊ะตา",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 5.83916,
+   "lon": 101.892143,
+   "key": "505050",
+   "best7": {
+    "value_mm": 166.8,
+    "end_date": "2026-09-17",
+    "rank_in_n": 9,
+    "n_years": 46,
+    "weibull_rp_yr": 5.2
+   },
+   "best30": {
+    "value_mm": 378.3,
+    "end_date": "2026-10-06",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "505052": {
+   "id": 505052,
+   "code": "X.119",
+   "name": "บ้านมูโน๊ะ",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง",
+   "lat": 6.07114,
+   "lon": 102.035881,
+   "key": "505052",
+   "best7": {
+    "value_mm": 166.8,
+    "end_date": "2026-09-17",
+    "rank_in_n": 9,
+    "n_years": 46,
+    "weibull_rp_yr": 5.2
+   },
+   "best30": {
+    "value_mm": 378.3,
+    "end_date": "2026-10-06",
+    "rank_in_n": 6,
+    "n_years": 46,
+    "weibull_rp_yr": 7.8
+   }
+  },
+  "505056": {
+   "id": 505056,
+   "code": "X.5C",
+   "name": "บ้านท่าข้าม",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 9.11322,
+   "lon": 99.223679,
+   "key": "505056",
+   "best7": {
+    "value_mm": 93.1,
+    "end_date": "2026-09-23",
+    "rank_in_n": 46,
+    "n_years": 46,
+    "weibull_rp_yr": 1.0
+   },
+   "best30": {
+    "value_mm": 298.2,
+    "end_date": "2026-10-07",
+    "rank_in_n": 39,
+    "n_years": 46,
+    "weibull_rp_yr": 1.2
+   }
+  },
+  "505072": {
+   "id": 505072,
+   "code": "X.231A",
+   "name": "ชุมชนประชาบำรุง",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันตก",
+   "lat": 6.87577,
+   "lon": 99.782639,
+   "key": "505072",
+   "best7": {
+    "value_mm": 98.4,
+    "end_date": "2026-09-23",
+    "rank_in_n": 42,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 257.6,
+    "end_date": "2026-10-07",
+    "rank_in_n": 43,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   }
+  },
+  "508035": {
+   "id": 508035,
+   "code": "E.29A",
+   "name": "บ้านผานกเค้า",
+   "basin": "ลุ่มน้ำชี",
+   "lat": 16.847639,
+   "lon": 101.94426,
+   "key": "508035",
+   "best7": {
+    "value_mm": 149.2,
+    "end_date": "2026-09-10",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   },
+   "best30": {
+    "value_mm": 408.8,
+    "end_date": "2026-09-28",
+    "rank_in_n": 5,
+    "n_years": 46,
+    "weibull_rp_yr": 9.4
+   }
+  },
+  "528052": {
+   "id": 528052,
+   "code": "T.15",
+   "name": "วัดบางไผ่นารถ",
+   "basin": "ลุ่มน้ำท่าจีน",
+   "lat": 14.05221,
+   "lon": 100.175087,
+   "key": "528052",
+   "best7": {
+    "value_mm": 270.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 574.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "632505": {
+   "id": 632505,
+   "code": "N.81",
+   "name": "บ้านแก่งบัวคำ",
+   "basin": "ลุ่มน้ำน่าน",
+   "lat": 17.12855,
+   "lon": 100.588066,
+   "key": "632505",
+   "best7": {
+    "value_mm": 101.9,
+    "end_date": "2026-09-10",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   },
+   "best30": {
+    "value_mm": 352.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 12,
+    "n_years": 46,
+    "weibull_rp_yr": 3.9
+   }
+  },
+  "726656": {
+   "id": 726656,
+   "code": "X.243",
+   "name": "บ้านควนกลาง (1)",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 8.555,
+   "lon": 99.569283,
+   "key": "726656",
+   "best7": {
+    "value_mm": 108.2,
+    "end_date": "2026-10-06",
+    "rank_in_n": 41,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 326.0,
+    "end_date": "2026-10-07",
+    "rank_in_n": 32,
+    "n_years": 46,
+    "weibull_rp_yr": 1.5
+   }
+  },
+  "726673": {
+   "id": 726673,
+   "code": "X.67A",
+   "name": "บ้านนาสีทอง",
+   "basin": "ลุ่มน้ำทะเลสาบสงขลา",
+   "lat": 7.10502,
+   "lon": 100.193932,
+   "key": "726673",
+   "best7": {
+    "value_mm": 98.4,
+    "end_date": "2026-09-23",
+    "rank_in_n": 42,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 257.6,
+    "end_date": "2026-10-07",
+    "rank_in_n": 43,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   }
+  },
+  "832057": {
+   "id": 832057,
+   "code": "K.62",
+   "name": "บ้านหนองไผ่",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 13.78092,
+   "lon": 99.420921,
+   "key": "832057",
+   "best7": {
+    "value_mm": 301.3,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 706.2,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "832059": {
+   "id": 832059,
+   "code": "K.49",
+   "name": "บ้านยางสูง",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 14.48943,
+   "lon": 99.469788,
+   "key": "832059",
+   "best7": {
+    "value_mm": 278.6,
+    "end_date": "2026-09-28",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   },
+   "best30": {
+    "value_mm": 745.0,
+    "end_date": "2026-09-28",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "832066": {
+   "id": 832066,
+   "code": "K.55A",
+   "name": "สะพานค่ายหลวง",
+   "basin": "ลุ่มน้ำแม่กลอง",
+   "lat": 13.80568,
+   "lon": 99.87159,
+   "key": "832066",
+   "best7": {
+    "value_mm": 270.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   },
+   "best30": {
+    "value_mm": 574.5,
+    "end_date": "2026-09-27",
+    "rank_in_n": 1,
+    "n_years": 46,
+    "weibull_rp_yr": 47.0
+   }
+  },
+  "832084": {
+   "id": 832084,
+   "code": "Ky.3",
+   "name": "บ้านทุ่งแฝก",
+   "basin": "ลุ่มน้ำเพชรบุรี-ประจวบคีรีขันธ์",
+   "lat": 12.09765,
+   "lon": 99.78846,
+   "key": "832084",
+   "best7": {
+    "value_mm": 253.0,
+    "end_date": "2026-09-27",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   },
+   "best30": {
+    "value_mm": 539.0,
+    "end_date": "2026-10-07",
+    "rank_in_n": 2,
+    "n_years": 46,
+    "weibull_rp_yr": 23.5
+   }
+  },
+  "999395": {
+   "id": 999395,
+   "code": "X.248",
+   "name": "บ้านหาดใน ",
+   "basin": "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน",
+   "lat": 10.6375,
+   "lon": 99.050163,
+   "key": "999395",
+   "best7": {
+    "value_mm": 146.0,
+    "end_date": "2026-09-23",
+    "rank_in_n": 41,
+    "n_years": 46,
+    "weibull_rp_yr": 1.1
+   },
+   "best30": {
+    "value_mm": 439.3,
+    "end_date": "2026-09-25",
+    "rank_in_n": 30,
+    "n_years": 46,
+    "weibull_rp_yr": 1.6
+   }
+  }
+ }
+}

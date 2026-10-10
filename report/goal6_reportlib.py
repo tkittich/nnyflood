@@ -79,17 +79,23 @@ def thai(text: str, strict: bool = False) -> str:
     strict=False (default): ตรวจเฉพาะ**เนื้อความผู้อ่าน** — ตัดแท็ก HTML/CSS/attr ทิ้งก่อน
     strict=True: ตรวจทั้งก้อนรวมมาร์กอัป (ใช้เมื่อสงสัยข้อความหลุดไปอยู่ใน attr)
 
-    คืนเสมอ: ข้อความที่**แทนคำต้องห้ามแล้ว** (ทั้งก้อน รวมแท็ก/attr — คำต้องห้ามที่หลุด
-    เข้าไปใน alt/caption ก็ถูกแทน) · การแสกนสำหรับ error ทำบน**สำเนา**ที่ตัดแท็กแล้ว
-    (เจอจริง 10 ต.ค.: ตัดแท็กบนตัวต้นฉบับแล้วรีเทิร์น → ภาพ base64 หายทั้ง 11 ชิ้น)
+    คืนเสมอ: ข้อความที่**แทนคำต้องห้ามแล้ว** (เฉพาะเนื้อความผู้อ่าน) · การแสกนสำหรับ error
+    ทำบน**สำเนา**ที่ตัดแท็กแล้ว · data URI (ภาพ base64) ถูกมาสก์ก่อนแทนคำ — เจอจริง 11 ต.ค.:
+    คำอย่าง "curve"/"datum" บังเอิญปรากฏใน base64 → ถูกแทนด้วยภาษาไทย → ภาพเสีย 2/6 แผนที่
     """
+    # มาสก์ data URI ก่อนแทนคำ — base64 อาจมีลำดับตัวอักษรตรงกับคำต้องห้าม
+    _masks: list[str] = []
+    def _mask(m: re.Match) -> str:
+        _masks.append(m.group(0))
+        return f"\x00IMG{len(_masks) - 1}E\x00"
+    text = re.sub(r"data:[a-zA-Z]+/[a-zA-Z0-9.+-]+;base64,[A-Za-z0-9+/=]+", _mask, text)
     out = text
     for bad, good in BANNED_TERMS.items():
         out = re.sub(re.escape(bad), good, out, flags=re.IGNORECASE)
+    out = re.sub(r"\x00IMG(\d+)E\x00", lambda m: _masks[int(m.group(1))], out)
     if not strict:
         # สำเนาเพื่อแสกน: ตัด <style>…</style> · <code>…</code> · แท็ก HTML · attr style/href/id
-        scan = re.sub(r"data:[a-zA-Z]+/[a-zA-Z0-9.+-]+;base64,[A-Za-z0-9+/=]+", " ", out)
-        scan = re.sub(r"<style.*?</style>", " ", scan, flags=re.S)
+        scan = re.sub(r"<style.*?</style>", " ", out, flags=re.S)
         scan = re.sub(r"<script.*?</script>", " ", scan, flags=re.S)
         scan = re.sub(r"<code>.*?</code>", " ", scan, flags=re.S)
         scan = re.sub(r"<[^>]+>", " ", scan)

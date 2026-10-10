@@ -122,3 +122,17 @@ def test_docs_carry_current_anchor_values():
         txt = (ROOT / f).read_text(encoding="utf-8")
         for n in needles:
             assert n in txt, f"{f}: ตัวเลขไม่ตรง canonical (คาด {n!r}) — รัน goal6_build_all.py แล้วอัปเดตเอกสาร"
+
+
+def test_all_embedded_images_valid():
+    """ทุกภาพ base64 ในรายงานต้องถอดรหัสเป็น PNG สมบูรณ์
+    (เจอจริง 11 ต.ค.: thai() แทนคำต้องห้ามที่บังเอิญอยู่ใน base64 → ภาพเสีย 2/6 แผนที่)"""
+    import base64, re
+    for f in REPORTS:
+        h = (ROOT / f).read_text(encoding="utf-8")
+        imgs = re.findall(r"<img src='data:image/png;base64,([^']*)'", h)
+        assert imgs, f"{f}: ไม่มีภาพเลย"
+        for i, b64 in enumerate(imgs):
+            raw = base64.b64decode(b64, validate=True)
+            assert raw[:8] == b"\x89PNG\r\n\x1a\n", f"{f} img{i}: ไม่ใช่ PNG"
+            assert b"IEND" in raw, f"{f} img{i}: PNG ไม่สมบูรณ์ (ไม่มี IEND)"

@@ -1,121 +1,123 @@
 {
  "basin": "bkk_lower",
+ "window_test": "2026-09-20..2026-10-09",
+ "grid_end": "2026-10-09 23:00",
  "target": {
   "code": "C.13",
   "name": "ท้ายเขื่อนเจ้าพระยา"
  },
  "upstream": "C.22A",
  "rain_point": "กรุงเทพกลาง",
- "train_hours": 2082,
- "test_hours": 260,
+ "train_hours": 2182,
+ "test_hours": 360,
  "results": {
   "6": {
    "rows": [
     {
      "model": "persistence",
-     "rmse_cm": 20.5,
-     "mae_cm": 12.3,
-     "rmse_event_cm": 12.3
+     "rmse_cm": 17.7,
+     "mae_cm": 9.4,
+     "rmse_event_cm": 9.6
     },
     {
      "model": "linear",
-     "rmse_cm": 14.2,
-     "mae_cm": 10.9,
-     "rmse_event_cm": 10.9
+     "rmse_cm": 12.4,
+     "mae_cm": 8.6,
+     "rmse_event_cm": 8.9
     },
     {
      "model": "GBDT",
-     "rmse_cm": 34.6,
-     "mae_cm": 28.3,
-     "rmse_event_cm": 25.4
+     "rmse_cm": 23.6,
+     "mae_cm": 16.2,
+     "rmse_event_cm": 12.7
     }
    ],
    "coef_linear": [
-    2.2419,
-    -1.0549,
-    -0.1869,
-    -0.4901,
-    0.0323,
-    -0.0127,
-    -0.0298,
+    2.2493,
+    -1.0652,
+    -0.184,
+    -0.492,
+    0.0301,
+    -0.0133,
+    -0.0278,
     -0.0007,
     0.0002,
     0.0002
    ],
-   "n_train": 2082,
-   "n_test": 260
+   "n_train": 2182,
+   "n_test": 360
   },
   "24": {
    "rows": [
     {
      "model": "persistence",
-     "rmse_cm": 66.5,
-     "mae_cm": 45.9,
-     "rmse_event_cm": 35.5
+     "rmse_cm": 57.0,
+     "mae_cm": 35.2,
+     "rmse_event_cm": 27.5
     },
     {
      "model": "linear",
-     "rmse_cm": 43.2,
-     "mae_cm": 32.6,
-     "rmse_event_cm": 31.1
+     "rmse_cm": 37.4,
+     "mae_cm": 25.8,
+     "rmse_event_cm": 25.1
     },
     {
      "model": "GBDT",
-     "rmse_cm": 64.8,
-     "mae_cm": 54.8,
-     "rmse_event_cm": 42.0
+     "rmse_cm": 53.3,
+     "mae_cm": 42.6,
+     "rmse_event_cm": 34.1
     }
    ],
    "coef_linear": [
-    2.1893,
-    -0.6623,
-    -0.5317,
-    -0.0948,
-    0.0268,
-    -0.0006,
-    -0.0109,
-    -0.0006,
-    0.0012,
-    0.0004
+    2.2126,
+    -0.6903,
+    -0.5267,
+    -0.1148,
+    0.0187,
+    -0.0055,
+    -0.0066,
+    -0.0007,
+    0.0011,
+    0.0005
    ],
-   "n_train": 2082,
-   "n_test": 260
+   "n_train": 2182,
+   "n_test": 360
   },
   "48": {
    "rows": [
     {
      "model": "persistence",
-     "rmse_cm": 112.6,
-     "mae_cm": 80.1,
-     "rmse_event_cm": 57.9
+     "rmse_cm": 96.6,
+     "mae_cm": 63.0,
+     "rmse_event_cm": 45.5
     },
     {
      "model": "linear",
-     "rmse_cm": 76.4,
-     "mae_cm": 57.4,
-     "rmse_event_cm": 52.2
+     "rmse_cm": 66.0,
+     "mae_cm": 46.3,
+     "rmse_event_cm": 42.3
     },
     {
      "model": "GBDT",
-     "rmse_cm": 83.0,
-     "mae_cm": 68.0,
-     "rmse_event_cm": 62.9
+     "rmse_cm": 69.7,
+     "mae_cm": 51.1,
+     "rmse_event_cm": 45.0
     }
    ],
    "coef_linear": [
-    2.8023,
-    -0.9103,
-    -0.9074,
-    0.0559,
-    0.0398,
-    -0.0032,
-    0.0147,
-    -0.0004,
-    0.0033,
-    0.0005
+    2.8055,
+    -0.9182,
+    -0.9025,
+    0.0494,
+    0.0334,
+    -0.021,
+    0.0076,
+    -0.0005,
+    0.0031,
+    0.0008
    ],
-   "n_train": 2082,
-   "n_test": 260
+   "n_train": 2182,
+   "n_test": 360
   }
  }
 }

@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import collections
 import json
+import statistics
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -75,14 +76,15 @@ def main() -> None:
               "south": ["ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนบน", "ลุ่มน้ำภาคใต้ฝั่งตะวันออกตอนล่าง", "ลุ่มน้ำภาคใต้ฝั่งตะวันตก"]}
 
     def med(blist, key54):
+        # H1 (รีวิว GLM 13 ต.ค.): ใช้มัธยฐานมาตรฐาน statistics.median — เดิม upper median
+        # (vals[len//2]) ขัดกับตารางรายงาน 4 ที่ใช้ statistics.median (ป่าสัก 20/15 vs 16.5/13.5)
         vals = []
         for b in blist:
             for sid, r in r54["points"].items():
                 if r["basin"] == b:
                     vals.append(r["best7"]["rank54"] if key54 else r["best7"]["rank26"])
         vals = [v for v in vals if v is not None]
-        vals.sort()
-        return vals[len(vals) // 2] if vals else None
+        return float(statistics.median(vals)) if vals else None
 
     out["rain_2554_vs_2569"] = {
         "n_stations": len(r54["points"]),
@@ -139,6 +141,15 @@ def main() -> None:
         "scenarios": [{"release": s["release_per_day"], "drop_m": s["drop_m"],
                        "within_calib": s["within_calib"]} for s in c2["prerelease_scenarios"]],
     }
+    # M1 (รีวิว GLM): ตัวเลข Q&A "ภูมิพลลดปล่อย/หยุดปล่อย/น้ำเข้า" — เรนเดอร์จากข้อมูลจริง
+    rel_src = json.loads((D / "raw/spike_ping_cp/c2_vs_dam_releases_sep2026.json").read_text(encoding="utf-8"))
+    bh = rel_src["bhumibol_released"]; bhi = rel_src["bhumibol_inflow"]
+    early = [v for k, v in sorted(bh.items()) if "2026-09-01" <= k <= "2026-09-10" and v is not None]
+    out["bhumibol"] = {
+        "early_sep_avg": round(sum(early) / len(early), 1),
+        "sep25": bh.get("2026-09-25"), "sep30": bh.get("2026-09-30"),
+        "inflow_sep19": bhi.get("2026-09-19"), "inflow_sep20": bhi.get("2026-09-20"),
+    }
 
     # ---- เขื่อน (benchmark 2554) ----
     dams = json.loads((A / "goal6/dam_history_all.json").read_text(encoding="utf-8"))["dams"]
@@ -146,6 +157,8 @@ def main() -> None:
               for k, v in dams.items() if next((r for r in v["years"] if r["year"] == 2011), None)}
     out["dams_2554_over_urc_days"] = dict(sorted(over54.items(), key=lambda kv: -kv[1]))
     out["pasak_over_years"] = f"{sum(1 for y in dams['ป่าสักชลสิทธิ์']['years'] if y.get('days_over_urc', 0) > 0)}/{sum(1 for y in dams['ป่าสักชลสิทธิ์']['years'] if y.get('days_over_urc') is not None)}"
+    # M2: นิยาม "กลางหน้าฝน" (ส.ค.–ก.ย.) แยกจากทั้งปี — 16/22 ไม่ใช่ 20/22
+    out["pasak_over_mid_rain_years"] = f"{sum(1 for y in dams['ป่าสักชลสิทธิ์']['years'] if (y.get('days_over_urc_aug_sep') or 0) > 0)}/{sum(1 for y in dams['ป่าสักชลสิทธิ์']['years'] if y.get('days_over_urc_aug_sep') is not None)}"
 
     # ---- ตัวเลขที่ปลดประจำการ (retired ledger) — เทสสแกนว่าห้ามปรากฏใน HTML/เอกสาร ----
     out["retired"] = {
@@ -157,6 +170,8 @@ def main() -> None:
             "1,200 ตร.กม.": "เดียวกัน",
             "17 จาก 22": "นับจาก JSON = 20 จาก 22 (H7)",
             "ป่าสักเกิน 17": "เดียวกัน",
+            "17/22": "M2 — กลางหน้าฝน = 16/22 (ทั้งปี 20/22)",
+            "~17/22": "เดียวกัน",
             "SUSPECT 18": "เกณฑ์ partial เพิ่ม → 19",
             "12 จาก 13": "ฝนระดับชาติ 67/199 แทน",
             "12/13": "เดียวกัน",

@@ -75,6 +75,10 @@ def test_report_html_matches_canonical_flood_and_rain():
     h4 = (ROOT / REPORTS[1]).read_text(encoding="utf-8")
     assert "20 จาก 22" in h4
     assert str(d["rain_2554_vs_2569"]["top3_cells_54"]) in h4
+    # H1 (รีวิว GLM): ตารางอันดับกลางต้องตรง canonical (มัธยฐานมาตรฐาน)
+    m54 = d["rain_2554_vs_2569"]["basin_medians_54"]["pasak"]
+    m26 = d["rain_2554_vs_2569"]["basin_medians_26"]["pasak"]
+    assert f"{m54:g}" in h4 and f"{m26:g}" in h4, f"ตารางอันดับกลางป่าสักไม่ตรง canonical ({m54}/{m26})"
 
 
 def test_builder_source_has_no_metric_literals():

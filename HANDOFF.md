@@ -1,5 +1,10 @@
 # HANDOFF — สถานะส่งมอบ (อัปเดต 12 ต.ค. 2569)
 
+> ⚠️ **บันทึก 12 ต.ค. 69 — รีไรต์ประวัติแล้ว**: ฉากดาวเทียม S1/S2 ดิบ (~50 GB) เผลอเข้า commit
+> เป้าหมาย 6 ทำให้ push ล้ม (ไฟล์ >100MB เกินขีดจำกัด GitHub) — แก้ด้วย git filter-repo
+> **ชื่อ commit ทุกตัวก่อน 8c1784b เปลี่ยนหมด** — อย่าอ้างชื่อ commit เก่า (7a6edc0/b64b4d7 ฯลฯ ล้าสมณี)
+> · ไฟล์ดิบยังอยู่บนดิสก์ครบ (S1 70 · S2 18 ฉาก) + SHA-256 ใน _hashes.txt ตรวจได้ · remote origin ต้องเพิ่มใหม่หลัง filter-repo
+
 > เอกสารสำหรับ session ถัดไป · อ่านจบ 3 นาทีแล้วทำงานต่อได้ · ตัวเลข canonical อยู่ที่
 > `analysis/canonical_numbers.json` (builders/tests อ่านจากไฟล์นี้ · เอกสาร prose = `docs/DATA_DICTIONARY.md`) · ขั้นตอนทำซ้ำอยู่ที่ `START_HERE.md §4`
 >

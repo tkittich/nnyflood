@@ -50,9 +50,25 @@ html = r"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>น้ำท่วมนครนายก 2569 — รายงานฉบับประชาชน</title>
 <style>
-  :root { --blue:#1565c0; --red:#c62828; --orange:#ef6c00; --green:#2e7d32; --ink:#1c2b33; --paper:#ffffff; --soft:#f2f6fa; }
+:root {
+  --c-paper: #ffffff; --c-paper-fg: #1c2b33;
+  --c-page: #eef2f5; --c-page-fg: #1c2b33;
+  --c-header: #14212e; --c-header-fg: #ffffff;
+  --c-accent: #1e6fb8; --c-accent-fg: #ffffff;
+  --c-note-bg: #fff8e1; --c-note-bg-fg: #4a3b00;
+  --c-warn-bg: #fdecea; --c-warn-bg-fg: #8a2b2b;
+  --c-ok-bg: #e8f5e9; --c-ok-bg-fg: #1b5e20;
+  --c-code-bg: #eef2f6; --c-code-bg-fg: #153a5e;
+  --c-header-code: #2a4d73; --c-header-code-fg: #ffffff;
+  --c-muted: #ffffff; --c-muted-fg: #5a6b7b;
+  --c-table-head: #28425c; --c-table-head-fg: #ffffff;
+  --c-sea-flood: #1d6fb8; --c-sea-flood-fg: #f5edda;
+  --c-chart-bar: #4d94c9; --c-chart-bar-fg: #ffffff;
+  --c-chart-accent: #e74c3c; --c-chart-accent-fg: #ffffff;
+}
+  :root { --blue:#1565c0; --red:#c62828; --orange:#ef6c00; --green:#2e7d32; --ink:var(--c-paper-fg); --paper:#ffffff; --soft:#f2f6fa; }
   * { box-sizing: border-box; }
-  body { font-family:'Leelawadee UI','Segoe UI',Tahoma,'Loma','Garuda','Norasi',sans-serif; color:var(--ink); background:#eef2f5; margin:0; line-height:1.75; }
+  body { font-family:'Leelawadee UI','Segoe UI',Tahoma,'Loma','Garuda','Norasi',sans-serif; color:var(--ink); background:var(--c-page); margin:0; line-height:1.75; }
   .page { max-width: 980px; margin: 0 auto; background:var(--paper); padding: 34px 46px 60px; box-shadow:0 0 18px rgba(0,0,0,.08); }
   header.cover { background:linear-gradient(135deg,#0d47a1,#1976d2); color:#fff; border-radius:14px; padding:38px 40px; margin-bottom:30px; }
   header.cover h1 { margin:0 0 10px; font-size:2.05em; line-height:1.35; }
@@ -71,11 +87,11 @@ html = r"""<!DOCTYPE html>
   table { border-collapse:collapse; width:100%; margin:14px 0 8px; font-size:.95em; }
   th { background:#e8eff7; color:#0d3c78; }
   th, td { border:1px solid #cfd9e2; padding:8px 10px; text-align:left; }
-  tr.hl td { background:#fff8e1; font-weight:bold; }
+  tr.hl td { background:var(--c-note-bg); font-weight:bold; }
   .num { text-align:right; font-variant-numeric:tabular-nums; }
-  .note { background:#fff8e1; border-left:5px solid #f9a825; padding:12px 16px; border-radius:0 8px 8px 0; margin:16px 0; font-size:.93em; }
-  .ok { background:#e8f5e9; border-left:5px solid var(--green); }
-  .warn { background:#fdecea; border-left:5px solid var(--red); }
+  .note { background:var(--c-note-bg); border-left:5px solid #f9a825; padding:12px 16px; border-radius:0 8px 8px 0; margin:16px 0; font-size:.93em; }
+  .ok { background:var(--c-ok-bg); border-left:5px solid var(--green); }
+  .warn { background:var(--c-warn-bg); border-left:5px solid var(--red); }
   .timeline { list-style:none; padding-left:0; margin:18px 0; }
   .timeline li { position:relative; padding:0 0 18px 34px; border-left:3px solid #c3d3e3; margin-left:10px; }
   .timeline li::before { content:''; position:absolute; left:-9px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--blue); border:3px solid #fff; box-shadow:0 0 0 2px var(--blue); }

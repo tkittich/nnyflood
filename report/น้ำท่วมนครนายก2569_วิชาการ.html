@@ -5,9 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>น้ำท่วมนครนายก 2569 — รายงานฉบับวิชาการ (ตรวจสอบได้)</title>
 <style>
+:root {
+  --c-paper: #ffffff; --c-paper-fg: #1c2b33;
+  --c-page: #eef2f5; --c-page-fg: #1c2b33;
+  --c-header: #14212e; --c-header-fg: #ffffff;
+  --c-accent: #1e6fb8; --c-accent-fg: #ffffff;
+  --c-note-bg: #fff8e1; --c-note-bg-fg: #4a3b00;
+  --c-warn-bg: #fdecea; --c-warn-bg-fg: #8a2b2b;
+  --c-ok-bg: #e8f5e9; --c-ok-bg-fg: #1b5e20;
+  --c-code-bg: #eef2f6; --c-code-bg-fg: #153a5e;
+  --c-header-code: #2a4d73; --c-header-code-fg: #ffffff;
+  --c-muted: #ffffff; --c-muted-fg: #5a6b7b;
+  --c-table-head: #28425c; --c-table-head-fg: #ffffff;
+  --c-sea-flood: #1d6fb8; --c-sea-flood-fg: #f5edda;
+  --c-chart-bar: #4d94c9; --c-chart-bar-fg: #ffffff;
+  --c-chart-accent: #e74c3c; --c-chart-accent-fg: #ffffff;
+}
   :root { --blue:#0d47a1; --red:#b71c1c; --ink:#1a2530; --soft:#f4f7fa; --line:#cfd9e2; }
   * { box-sizing:border-box; }
-  body { font-family:'Leelawadee UI','Segoe UI',Tahoma,'Loma','Garuda','Norasi',sans-serif; color:var(--ink); background:#eef1f4; margin:0; line-height:1.7; font-size:15px; }
+  body { font-family:'Leelawadee UI','Segoe UI',Tahoma,'Loma','Garuda','Norasi',sans-serif; color:var(--ink); background:var(--c-page); margin:0; line-height:1.7; font-size:15px; }
   .page { max-width:1020px; margin:0 auto; background:#fff; padding:34px 48px 60px; box-shadow:0 0 16px rgba(0,0,0,.08); }
   header.cover { background:linear-gradient(135deg,#14212e,#0d47a1); color:#fff; border-radius:12px; padding:30px 36px; margin-bottom:24px; }
   header.cover h1 { margin:0 0 8px; font-size:1.7em; }
@@ -17,7 +33,7 @@
   img.chart { width:100%; border:1px solid var(--line); border-radius:6px; margin:10px 0 4px; }
   .cap { font-size:.8em; color:#5a6b78; margin:2px 0 14px; }
   table { border-collapse:collapse; width:100%; margin:10px 0; font-size:.86em; }
-  th { background:#e8eff7; color:#123c6e; }
+  th { background:var(--c-note-bg); color:#123c6e; }
   th, td { border:1px solid var(--line); padding:6px 9px; text-align:left; vertical-align:top; }
   .num { text-align:right; font-variant-numeric:tabular-nums; }
   code, pre { font-family:Consolas,'Courier New',monospace; }
@@ -26,10 +42,10 @@
   code { padding:1px 5px; border-radius:4px; font-size:.88em; }
   pre { padding:10px 14px; border-radius:6px; overflow-x:auto; font-size:.82em; line-height:1.5; }
   .eq { background:#f4f7fa; border-left:4px solid var(--blue); padding:8px 14px; margin:10px 0; font-family:Georgia,'Times New Roman',serif; font-size:1.05em; }
-  .note { background:#fff8e1; border-left:5px solid #f9a825; padding:10px 14px; margin:14px 0; font-size:.9em; }
-  .warn { background:#fdecea; border-left-color:var(--red); }
+  .note { background:var(--c-note-bg); border-left:5px solid #f9a825; padding:10px 14px; margin:14px 0; font-size:.9em; }
+  .warn { background:var(--c-warn-bg); border-left-color:var(--red); }
   .tag { display:inline-block; font-size:.72em; font-weight:bold; padding:1px 8px; border-radius:10px; vertical-align:middle; }
-  .tg-f { background:#e8f5e9; color:#1b5e20; } .tg-i { background:#fff3e0; color:#b34700; } .tg-o { background:#fce4ec; color:#880e4f; }
+  .tg-f { background:var(--c-ok-bg); color:#1b5e20; } .tg-i { background:#fff3e0; color:var(--c-note-bg-fg); } .tg-o { background:#fce4ec; color:#880e4f; }
   .toc { background:var(--soft); padding:14px 20px; border-radius:8px; font-size:.92em; }
   .toc a { color:var(--blue); text-decoration:none; }
   details { background:var(--soft); border-radius:6px; padding:8px 16px; margin:10px 0; }

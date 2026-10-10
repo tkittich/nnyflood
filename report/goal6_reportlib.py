@@ -78,18 +78,25 @@ def thai(text: str, strict: bool = False) -> str:
 
     strict=False (default): ตรวจเฉพาะ**เนื้อความผู้อ่าน** — ตัดแท็ก HTML/CSS/attr ทิ้งก่อน
     strict=True: ตรวจทั้งก้อนรวมมาร์กอัป (ใช้เมื่อสงสัยข้อความหลุดไปอยู่ใน attr)
+
+    คืนเสมอ: ข้อความที่**แทนคำต้องห้ามแล้ว** (ทั้งก้อน รวมแท็ก/attr — คำต้องห้ามที่หลุด
+    เข้าไปใน alt/caption ก็ถูกแทน) · การแสกนสำหรับ error ทำบน**สำเนา**ที่ตัดแท็กแล้ว
+    (เจอจริง 10 ต.ค.: ตัดแท็กบนตัวต้นฉบับแล้วรีเทิร์น → ภาพ base64 หายทั้ง 11 ชิ้น)
     """
     out = text
     for bad, good in BANNED_TERMS.items():
         out = re.sub(re.escape(bad), good, out, flags=re.IGNORECASE)
     if not strict:
-        # ตัด <style>…</style> · <code>…</code> · แท็ก HTML · เนื้อใน attr style/href/id
-        out = re.sub(r"<style.*?</style>", " ", out, flags=re.S)
-        out = re.sub(r"<script.*?</script>", " ", out, flags=re.S)
-        out = re.sub(r"<code>.*?</code>", " ", out, flags=re.S)
-        out = re.sub(r"<[^>]+>", " ", out)
-        out = re.sub(r"\b(?:style|href|id|class|src|alt|colspan)=\"[^\"]*\"", " ", out)
-        out = re.sub(r"[a-z\-]+\s*:\s*[^;\"<>]+[;\"]", " ", out)  # ทิ้งสิ่งที่เหลือแบบ CSS decl
+        # สำเนาเพื่อแสกน: ตัด <style>…</style> · <code>…</code> · แท็ก HTML · attr style/href/id
+        scan = re.sub(r"data:[a-zA-Z]+/[a-zA-Z0-9.+-]+;base64,[A-Za-z0-9+/=]+", " ", out)
+        scan = re.sub(r"<style.*?</style>", " ", scan, flags=re.S)
+        scan = re.sub(r"<script.*?</script>", " ", scan, flags=re.S)
+        scan = re.sub(r"<code>.*?</code>", " ", scan, flags=re.S)
+        scan = re.sub(r"<[^>]+>", " ", scan)
+        scan = re.sub(r"\b(?:style|href|id|class|src|alt|colspan)=\"[^\"]*\"", " ", scan)
+        scan = re.sub(r"[a-z\-]+\s*:\s*[^;\"<>]+[;\"]", " ", scan)  # ทิ้งสิ่งที่เหลือแบบ CSS decl
+    else:
+        scan = out
     allowed = re.compile(
         r"^(?:[A-Z][a-zA-Z]*\.[0-9A-Za-z]*|Sentinel-[12]$|Sentinel-$|Landsat$|GRD$|COG$|SCL$|MNDWI$|URC$|"
         r"LRC$|NASA$|POWER$|ERA5$|GISTDA$|CDSE$|API$|DEM$|S1$|S2$|GBDT$|HH$|MM$|"
@@ -100,12 +107,12 @@ def thai(text: str, strict: bool = False) -> str:
         r"analysis$|goal\d*$|json$|raw$|vs$|N[0-9]+$|Q[0-9]+$|H[0-9]+$|lt$|gt$)"
     )
     suspicious = []
-    for m in re.finditer(r"[A-Za-z][A-Za-z\-']+", out):
+    for m in re.finditer(r"[A-Za-z][A-Za-z\-']+", scan):
         tok = m.group(0)
         # รหัสสถานี/เขื่อน แบบ Ny.7 · Kgt.3 · C.2 · S.26 · 2026-10-01
-        if re.search(r"[A-Za-z]\.\d", out[max(0, m.start() - 1):m.end() + 1]):
+        if re.search(r"[A-Za-z]\.\d", scan[max(0, m.start() - 1):m.end() + 1]):
             continue
-        if re.match(r"\d", out[m.start():m.start() + 1]):
+        if re.match(r"\d", scan[m.start():m.start() + 1]):
             continue
         if not allowed.match(tok):
             suspicious.append(tok)
@@ -225,7 +232,9 @@ def toc(sections: list[tuple[str, str]]) -> str:
 
 
 def page(title: str, subtitle: str, sections_html: list[str], footer_html: str) -> str:
-    body = "\n".join(sections_html)
+    # M11 (รีวิว Sift): เรียก thai() จริงทุกครั้งที่สร้างรายงาน — เดิมเป็น dead code
+    # (เทสภาษาครอบ 14/37 ศัพท์ · "การแยกส่วนสาเหตุ" หลุดอยู่ใน HTML จริง 2 จุด)
+    body = thai("\n".join(sections_html))
     return f"""<!DOCTYPE html>
 <html lang="th"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

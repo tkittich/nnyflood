@@ -2,8 +2,8 @@
 
 วิธี (pre-register): ทะเล = เซลล์ที่ **ค่า VH ต่ำถาวรทุกฉากทุกวง** (น้ำเกลือไม่มีทางแห้งในหน้าต่าง
 1 ก.ค.–9 ต.ค. 69) — VH ≤ −20 dB ใน ≥90% ของฉากที่ครอบจุดนั้น = น้ำถาวร · ตัดออกจาก "น้ำใหม่" ของ stage-2
-+ ตรวจคู่เทียบด้วยพิกัด: เซลล์อยู่เหนือ 13.1°N หรือลึกเข้าฝั่ง (ระยะจากปากแม่น้ำ > 12 กม. ใช้ค่ารัศมี
-เชิงพิกัดเฉพาะ) — ผสมสองเกณฑ์: (น้ำถาวรสถิติ) AND (พิกัดต่ำกว่าแนวชายฝั่งจาก DEM < 1.2 ม.รทก.)
++ M13 (รีวิว 10 ต.ค.): ใช้**น้ำถาวรสถิติเท่านั้น** — ตัด DEM<1.2 ม. ออก (GLO-30 ±2–4 ม.
+ไม่ใช่แนวชายฝั่ง · เดิม OR กินที่ลุ่มต่ำมีคนอยู่ทั้งแถบ → ผิดจาก docstring AND)
 
 ผลลัพธ์: data/22_goal6_network/derived/s1_stage2/bkk_lower/mask_sea.npy +
 analysis/goal6/bkk_lower/l2_sea_adjust.json + MD สรุปตัวเลขก่อน/หลัง
@@ -37,13 +37,12 @@ for f in vh_files:
     covered += c
     wet_count += ((v <= -20.0) & c).astype(np.float32)
 wet_frac = np.where(covered > 0, wet_count / np.maximum(covered, 1), np.nan)
-permanent_water = np.where(covered >= 5, wet_frac >= 0.9, False)  # ครอบ ≥5 ฉากและเปียก ≥90%
+permanent_water = np.where(covered >= 3, wet_frac >= 0.9, False)  # ครอบ ≥3 ฉาก (bkk_lower มี 4 ฉาก) และเปียก ≥90%
 
-# 2) เกณฑ์พิกัด/DEM: ทะเล = DEM < 1.2 ม. (ต่ำกว่าระดับน้ำทะเลประมาณค่ายืนสูง)
-dem = np.load(STAGE1 / f"dem_{bid}.npy")
-low_dem = dem < 1.2
-
-sea_mask = (permanent_water | low_dem) & lowland
+# 2) เกณฑ์พิกัด/DEM — M13 (รีวิว Sift/Gemini): เดิม OR DEM<1.2 ม. กินที่ลุ่มต่ำที่อยู่อาศัยทั้งแถบ
+# (ผิดกับ docstring ที่เขียน AND) · แก้เป็น**น้ำถาวรสถิติเท่านั้น** (ป้องกันอ่านเป็นตัวเลขต่ำเทียม)
+# — DEM<1.2 ไม่ใช่แนวชายฝั่ง (GLO-30 คลาดเคลื่อน ±2–4 ม.) จึงไม่ใช้
+sea_mask = permanent_water & lowland
 np.save(STAGE2 / bid / "mask_sea.npy", sea_mask)
 
 # 3) ปรับตัวเลข stage-2 ก่อน/หลัง
@@ -59,7 +58,7 @@ for rec in summary[bid]["scenes"]:
                  "sea_removed_km2": round(before - after, 1)})
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
 peak = max(rows, key=lambda r: r["after_km2"])
-out = {"method": "น้ำถาวร (VH≤−20 ≥90% ของฉากที่ครอบ, ครอบ ≥5 ฉาก) OR DEM<1.2 ม. — ใน lowland",
+out = {"method": "น้ำถาวรสถิติเท่านั้น (VH≤−20 ≥90% ของฉากที่ครอบ, ครอบ ≥3 ฉาก) — ใน lowland (M13: ตัด DEM<1.2 ออก)",
        "sea_cells_km2": round(float(sea_mask.sum()) * 0.0009, 1),
        "scene_adjust": rows, "peak_after_km2": peak["after_km2"], "peak_scene": peak["scene"]}
 OUT_JSON.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")

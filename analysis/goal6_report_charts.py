@@ -81,7 +81,7 @@ def plot_rain_46y() -> None:
     years = sorted(int(y) for y in pt)
     vals = [pt[str(y)][0] or 0 for y in years]
     fig, ax = plt.subplots(figsize=(11, 4.2), dpi=110)
-    colors = ["#e74c3c" if y == 2026 else "#9bb7c9" for y in years]
+    colors = ["#e74c3c" if y == 2026 else "#4d94c9" for y in years]
     ax.bar([y + 543 for y in years], vals, color=colors)
     ax.axhline(150, color="#c0392b", ls="--", lw=1.2)
     ax.text(years[0] + 543, 155, "เกณฑ์เตือนน้ำท่วม 150 มม./7 วัน", fontsize=9, color="#c0392b")

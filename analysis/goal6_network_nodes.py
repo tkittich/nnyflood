@@ -74,8 +74,16 @@ def main() -> None:
         hb = assign(tree, meta, lon, lat)
         if hb is None:
             unbound["gauge"] += 1
-        gauges.append({"id": rec["station_id"], "code": rec.get("code", ""), "name": rec.get("name", ""),
-                       "lat": lat, "lon": lon, "hybas_id": hb})
+        c_code = rec.get("code", "")
+        c_name = rec.get("name", "")
+        c_prov = st.get("geocode", {}).get("province_name", {}).get("th", "") if isinstance(st.get("geocode"), dict) else ""
+        is_estuary = (
+            c_code in {"GLF001", "GLF003", "THA009", "MKG006", "PTTEP1", "PTTEP4", "BKK006", "BKK017", "BKC002", "BKC003", "BKC004", "CPY015", "C.12"}
+            or any(k in c_name for k in ["ป้อมพระจุล", "ปากน้ำ", "ทะเล", "อ่าว"])
+            or c_prov in {"สมุทรปราการ", "สมุทรสาคร", "สมุทรสงคราม"}
+        )
+        gauges.append({"id": rec["station_id"], "code": c_code, "name": c_name,
+                       "lat": lat, "lon": lon, "hybas_id": hb, "is_estuary_tide": is_estuary})
 
     # ---- ปตร. (snapshot 9 ต.ค.) · 構造: province単位のリスト ----
     g = json.loads(GATES.read_text(encoding="utf-8"))["station"]["data"]
@@ -90,19 +98,28 @@ def main() -> None:
             hb = assign(tree, meta, lon, lat)
             if hb is None:
                 unbound["gate"] += 1
+            g_name = (s.get("station_name") or {}).get("th", "")
+            is_coastal = (
+                prov in {"สมุทรปราการ", "สมุทรสาคร", "สมุทรสงคราม"}
+                or any(k in g_name for k in ["ชายทะเล", "ปากอ่าว", "ปากคลอง", "ระบายออกทะเล", "ป้อมพระจุล"])
+            )
             gates.append({"id": s.get("station_id"), "code": s.get("station_oldcode", ""),
-                          "name": (s.get("station_name") or {}).get("th", ""), "prov": prov,
-                          "lat": lat, "lon": lon, "hybas_id": hb})
+                          "name": g_name, "prov": prov,
+                          "lat": lat, "lon": lon, "hybas_id": hb, "is_coastal_gate": is_coastal})
 
     # ---- สรุป ----
     from collections import Counter
     hb_gauge = Counter(x["hybas_id"] for x in gauges if x["hybas_id"])
     hb_gate = Counter(x["hybas_id"] for x in gates if x["hybas_id"])
     shared = set(hb_gauge) & set(hb_gate)
+    n_estuary_gauges = sum(1 for x in gauges if x.get("is_estuary_tide"))
+    n_coastal_gates = sum(1 for x in gates if x.get("is_coastal_gate"))
     out = {
-        "note": "ผูก node→ลุ่มย่อย lev08 แบบ point-in-polygon ตามพิกัด API (ไม่เลื่อนพิกัด) · จุดหลุด = นับไม่ผูกได้",
+        "note": "ผูก node→ลุ่มย่อย lev08 แบบ point-in-polygon ตามพิกัด API (ไม่เลื่อนพิกัด) · จุดหลุด = นับไม่ผูกได้ · จำแนกสถานีปากอ่าว/น้ำหนุน",
         "unbound": unbound,
         "gauge_n": len(gauges), "gate_n": len(gates),
+        "estuary_gauge_n": n_estuary_gauges,
+        "coastal_gate_n": n_coastal_gates,
         "subbasins_with_gauge": len(hb_gauge), "subbasins_with_gate": len(hb_gate),
         "subbasins_both": len(shared),
         "gauges": gauges, "gates": gates,
@@ -112,14 +129,14 @@ def main() -> None:
     lines = ["# ฐานเครือข่ายระดับชาติ — node ผูกลุ่มย่อย (N1/N2 ขั้นฐาน)", "",
              "> ลุ่มย่อย = HydroBASINS lev08 · ผูกแบบ point-in-polygon ตามพิกัด API เดิม (ไม่เลื่อนพิกัด) · "
              "จุดที่ผูกไม่ได้ = นับเปิดเผย ไม่ซ่อน", "",
-             "| กลุ่ม node | จำนวน | ผูกได้ | ผูกไม่ได้ | ครอบลุ่มย่อย |", "|---|---|---|---|---|",
-             f"| จุดวัด (คลัง 199) | {len(gauges)} | {len(gauges)-unbound['gauge']} | {unbound['gauge']} | {len(hb_gauge)} |",
-             f"| ปตร. (snapshot 9 ต.ค.) | {len(gates)} | {len(gates)-unbound['gate']} | {unbound['gate']} | {len(hb_gate)} |",
-             f"| ลุ่มย่อยที่มีทั้งจุดวัดและ ปตร. | — | — | — | {len(shared)} |", "",
-             "อ่านต่อ: ตัวเลขนี้คือฐานของ N1 (จุดบอด) และ N2 (cascade เขื่อน→ปตร.→เมือง) — "
+             "| กลุ่ม node | จำนวน | ผูกได้ | ผูกไม่ได้ | ปากอ่าว/ชายฝั่ง | ครอบลุ่มย่อย |", "|---|---|---|---|---|---|",
+             f"| จุดวัด (คลัง 199) | {len(gauges)} | {len(gauges)-unbound['gauge']} | {unbound['gauge']} | {n_estuary_gauges} | {len(hb_gauge)} |",
+             f"| ปตร. (snapshot 9 ต.ค.) | {len(gates)} | {len(gates)-unbound['gate']} | {unbound['gate']} | {n_coastal_gates} | {len(hb_gate)} |",
+             f"| ลุ่มย่อยที่มีทั้งจุดวัดและ ปตร. | — | — | — | — | {len(shared)} |", "",
+             "อ่านต่อ: ตัวเลขนี้คือฐานของ N1 (จุดบอด), N2 (cascade เขื่อน→ปตร.→เมือง) และจุดควบคุมขอบล่างปากอ่าว — "
              "การจัดเต็มทำในรายงานที่ 5", ""]
     OUT_MD.write_text("\n".join(lines), encoding="utf-8")
-    print(f"จุดวัด {len(gauges)} (ไม่ผูกได้ {unbound['gauge']}) · ปตร. {len(gates)} (ไม่ผูกได้ {unbound['gate']}) · "
+    print(f"จุดวัด {len(gauges)} (ปากอ่าว/น้ำหนุน {n_estuary_gauges}) · ปตร. {len(gates)} (ปตร. ชายฝั่ง {n_coastal_gates}) · "
           f"ลุ่มย่อยทั้งสองชนิด {len(shared)}", flush=True)
 
 

@@ -13,6 +13,7 @@
 | `raw/2026-10-09_flow.json` | 2026-10-09 (~23:20 น. เวลาท้องถิ่น) | `public/flow` | Python urllib | อัตราการไหล 55 จุด (latest) |
 | `raw/2026-10-10_waterlevel_load.json` | 2026-10-10 (~01:20 น. เวลาท้องถิ่น) | `public/waterlevel_load` | Python urllib | **จุดวัดระดับน้ำแม่น้ำ active ทั้งประเทศ 809 จุด** (ชป. 314 · สสน. 332 · พพภ. 91 · กฟผ. 72) — key_station 199 · มีระดับวิกฤตใน API เพียง 35 จุด/เตือน 2 จุด (ส่วนที่เหลือ = งานมนุษย์จากประกาศ กช.) · ครอบทุกตระกูลรหัส P./N./Y./W./C./M./E./K. ฯลฯ — ทะเบียน node แม่น้ำของเครือข่ายเป้าหมาย 6 |
 | `raw/2026-10-10_radar_img.json` | 2026-10-10 (~01:30 น. เวลาท้องถิ่น) | `analyst/radar_img` | Python urllib | **ทะเบียนเรดาร์ฝนทั้งประเทศ 38 จุด** (TMD 26 · ชรก. 10 · กทม. 2) + รูปแบบพาธ archive รายวัน `product/radar/history/<agency>/<type>/Y/M/D` · `radar_history_img` ต้องส่ง `radar_type` (ยังไม่ทดสอบต่อ) · QA ความสด: น่าน240 stale 2023 · เพชรบูรณ์240 stale 2017 |
+| `raw/2026-10-11_waterquality_load.json` | 2026-10-11 (~22:15 น. เวลาท้องถิ่น) | `analyst/waterquality_load` | Python urllib | **สถานีตรวจวัดคุณภาพน้ำทั้งประเทศ 112 สถานี** (สสน. 87 · กปน. 13 · ชป. 12) ครอบคลุม 8 พารามิเตอร์รวมความเค็ม (Salinity g/L) และการนำไฟฟ้า (EC) — แหล่งตรวจสอบข้อจำกัดการระบายน้ำเพื่อผลักดันลิ่มความเค็ม |
 
 **ปตร. รายจุดย้อนหลัง** (ทดสอบ 10 ต.ค. 69): `public/watergate_graph?station_id=492329&start_date&end_date` →
 ราย **10 นาที** หน้า/หลังประตู + discharge + `critical_level`/`ground_level` (ทดสอบ ปตร.บางระจัน id 492329,

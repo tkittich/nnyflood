@@ -61,6 +61,10 @@ def test_headline_numbers_present_in_canonical():
     assert "C.2" in es["suspect_codes"]
     assert d["c2_attribution"]["scenarios"][-1]["drop_m"] == 2.22
     assert d["pasak_over_years"] == "20/22"
+    tide = d["estuary_tide"]
+    assert tide["cpy015_peak_m"] == 1.91
+    assert tide["c12_peak_m"] == 2.24
+    assert tide["coastal_gates_count"] == 38
 
 
 def test_report_html_matches_canonical_flood_and_rain():
@@ -72,6 +76,9 @@ def test_report_html_matches_canonical_flood_and_rain():
     assert str(d["rain_national"]["top3_stations_7d"]) in h3
     assert str(d["rain_national"]["top3_cells_7d"]) in h3
     assert str(d["event_stations"]["n_usable_datum"]) in h3
+    assert f"{d['estuary_tide']['cpy015_peak_m']:.2f}" in h3
+    assert f"{d['estuary_tide']['c12_peak_m']:.2f}" in h3
+    assert str(d['estuary_tide']['coastal_gates_count']) in h3
     h4 = (ROOT / REPORTS[1]).read_text(encoding="utf-8")
     assert "20 จาก 22" in h4
     assert str(d["rain_2554_vs_2569"]["top3_cells_54"]) in h4

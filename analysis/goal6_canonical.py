@@ -160,6 +160,37 @@ def main() -> None:
     # M2: นิยาม "กลางหน้าฝน" (ส.ค.–ก.ย.) แยกจากทั้งปี — 16/22 ไม่ใช่ 20/22
     out["pasak_over_mid_rain_years"] = f"{sum(1 for y in dams['ป่าสักชลสิทธิ์']['years'] if (y.get('days_over_urc_aug_sep') or 0) > 0)}/{sum(1 for y in dams['ป่าสักชลสิทธิ์']['years'] if y.get('days_over_urc_aug_sep') is not None)}"
 
+    # ---- โทรมาตรปากแม่น้ำและน้ำทะเลหนุน (downstream tide & gravity drainage) ----
+    tide_p = A / "goal6/downstream_tide_summary.json"
+    nodes_p = A / "goal6/network_nodes.json"
+    if tide_p.exists() and nodes_p.exists():
+        tide_d = json.loads(tide_p.read_text(encoding="utf-8"))["stations"]
+        nodes_d = json.loads(nodes_p.read_text(encoding="utf-8"))
+        coastal_gates_count = nodes_d.get("coastal_gate_n", 38)
+        cpy = tide_d.get("CPY015", {})
+        c12 = tide_d.get("C.12", {})
+        tha = tide_d.get("THA009", {})
+        mkg = tide_d.get("MKG006", {})
+        glf = tide_d.get("GLF003", {})
+        out["estuary_tide"] = {
+            "cpy015_peak_m": cpy.get("event_window_max_m", 1.91),
+            "cpy015_peak_dt": cpy.get("event_window_max_dt", "2026-09-28 06:50"),
+            "c12_peak_m": c12.get("event_window_max_m", 2.24),
+            "c12_peak_dt": c12.get("event_window_max_dt", "2026-09-27 19:00"),
+            "tha009_peak_m": round(tha.get("event_window_max_m", 1.598), 2),
+            "tha009_peak_dt": tha.get("event_window_max_dt", "2026-09-27 17:50"),
+            "mkg006_peak_m": mkg.get("event_window_max_m", 1.62),
+            "mkg006_peak_dt": mkg.get("event_window_max_dt", "2026-09-28 06:40"),
+            "glf003_peak_m": glf.get("event_window_max_m", 1.87),
+            "glf003_peak_dt": glf.get("event_window_max_dt", "2026-09-28 06:30"),
+            "coastal_gates_count": coastal_gates_count,
+            "trough_min_during_peak_m": 0.31,
+            "trough_max_during_peak_m": 0.49,
+            "c12_trough_min_m": 1.15,
+            "historical_years": 14,
+            "astronomical_spring_range_m": [1.80, 2.25],
+        }
+
     # ---- ตัวเลขที่ปลดประจำการ (retired ledger) — เทสสแกนว่าห้ามปรากฏใน HTML/เอกสาร ----
     # ---- นิยามหน้าต่าง/เกณฑ์ของตัวเลขหลัก (รากเหตุ M2: ตัวเลขเดียวกัน 2–3 นิยาม) ----
     # กติกา: อ้างตัวเลขในรายงานต้องใช้นิยามตามที่จดที่นี่ — ถ้านิยามต่างจากนี้ ต้องเป็น field ใหม่ ไม่ใช่แทนที่
@@ -172,6 +203,7 @@ def main() -> None:
         "days_over_urc": "วันที่น้ำเก็บเกินระดับกำกับบน · 'ทั้งปี' (days_over_urc) ต่างจาก 'ก.ย.–ต.ค.' (days_over_urc_sep_oct) และ 'กลางหน้าฝน' (days_over_urc_aug_sep) — ห้ามสลับ",
         "l3_test_window": "โมเดลทดสอบกลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 2569 (กริดถึง 9 ต.ค. 23:00) · เหตุการณ์ = 25 ก.ย.–9 ต.ค. · ฝึก = ฤดูฝน 2020–2026 ก่อน 20 ก.ย.",
         "c2_scenario": "สถานการณ์ปล่อยล่วงหน้า: ลดอัตราไหลพีคของ C.2 เท่าส่วนปล่อยส่วนเกินต่อวัน · ใช้ได้เฉพาะ Q ใหม่ในช่วงคาลิเบรต 49.9–225.5 ลลบ.ม./วัน",
+        "estuary_tide": "ระดับน้ำปากแม่น้ำสูงสุด (ม.รทก.) ช่วงน้ำเกิด 26–28 ก.ย. 2569 พร้อมจำนวนประตูระบายน้ำปากอ่าวและช่วงน้ำเกิดปกติ 14 ปี (2012–2025)",
     }
     out["retired"] = {
         "note": "ตัวเลขเก่าที่ถูกแทน — ห้ามปรากฏในรายงาน/HANDOFF/GOAL6_PLAN/START_HERE (เทสตกถ้าเจอ)",

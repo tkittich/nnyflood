@@ -82,7 +82,20 @@ data/22_goal6_network/raw/s1_2026/
 data/22_goal6_network/raw/s2_2026/
 data/22_goal6_network/derived/
 
-# --- ดาวน์โหลดเปิดใหม่ได้ (disk-only: HydroBASINS/WorldCover + แคช POWER 199 จุด) ---
+# --- ดาวน์โหลดเปิดใหม่ได้ (disk-only: HydroBASINS/WorldCover + แคช POWER 199 จุด + โทรมาตรปากอ่าว) ---
 data/22_goal6_network/raw/worldcover/
 data/22_goal6_network/raw/hydrobasins/*.zip
 data/22_goal6_network/raw/rain_rarity_national/
+data/22_goal6_network/raw/estuary_tides/
+
+# --- PDPA (12 ต.ค. 69): ข้อมูลดิบโซเชียลมีชื่อ/เบอร์โทรบุคคล — อยู่บนดิสก์เท่านั้น ไม่เข้า git ---
+data/06_citizen_social/raw/
+data/01_rid_khun_dan/fb_page/raw/
+data/01_rid_khun_dan/fb_page/screenshots/
+data/01_rid_khun_dan/instagram/raw/
+data/10_mitrearth_gis/screenshots/
+data/11_external_forecasters/tee_page/screenshots/
+analysis/flood_feed_evidence_posts.csv
+analysis/flood_album_captions.csv
+analysis/album_geotag_results.csv
+analysis/flood_locations_from_album_captions.csv

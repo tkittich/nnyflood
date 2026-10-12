@@ -219,3 +219,17 @@ def test_s1_rule_validation_wired_into_report():
     assert "ความแม่นของกฎตัดน้ำ" in h3 and "ตรงกัน 72.7%" not in h3
     h1 = (ROOT / "report/น้ำท่วมนครนายก2569_ประชาชน.html").read_text(encoding="utf-8")
     assert "อ่านเป็นช่วง ไม่ใช่ตัวเลขเดียว" in h1 and 'จึงเป็น "ขอบล่าง"' not in h1
+
+
+def test_dam_inflow_wired_and_consistent():
+    """น้ำเข้า–ปล่อย–เก็บรายเขื่อน: อันดับน้ำเข้าอยู่ในช่วง · รายงาน 4 มีบท 5 · วันเกินเส้นตรงกับ dam_history_all"""
+    d = _load()["dam_inflow"]
+    hist = json.loads((ROOT / "analysis/goal6/dam_history_all.json").read_text(encoding="utf-8"))["dams"]
+    assert len(d) >= 20
+    for n, v in d.items():
+        assert 1 <= v["inflow_rank2569"] <= v["n_years"]
+        y26 = next(r for r in hist[n]["years"] if r["year"] == 2026)
+        assert v["days_over_2569"] == y26["days_over_urc_sep_oct"], (n, v["days_over_2569"], y26["days_over_urc_sep_oct"])
+    h4 = (ROOT / REPORTS[1]).read_text(encoding="utf-8")
+    assert "น้ำเข้าอ่าง: ปี 2554 เทียบ 2569" in h4
+    assert "ฝนลุ่มตะวันตกแล้ง" not in (ROOT / REPORTS[0]).read_text(encoding="utf-8")

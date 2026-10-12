@@ -268,3 +268,7 @@ bbox ครอบอ่าวไทย (DEM ทะเล = 0 ม. นับเ�
 
 - ดึง 38 เซลล์ (ศูนย์กลางเซลล์ 0.5° × 0.625° · PRECTOTCORR รายวัน 1981-01-01..2026-12-31 ได้ถึง ~7 ต.ค. 2569) ด้วย GET `power.larc.nasa.gov/api/temporal/daily/point` (ไม่ต้อง auth) → `raw/basin_rain/cell_<lat>_<lon>.json` · เซลล์ที่มีแคชรายจุดเดิม (45) ใช้ซ้ำจาก `raw/rain_rarity_national/`
 - ใช้โดย `analysis/goal6_basin_rain.py` (ลุ่มรับน้ำจาก HydroBASINS lev08 — zip ใน `raw/hydrobasins/`) · ไฟล์เซลล์ **disk-only ไม่เข้า git** (นโยบาย raw ใหญ่) — SHA-256 ใน `_hashes.txt`
+
+## น้ำเข้า–ปล่อย–เก็บ รายวันรายเขื่อน 2548–2569 (12 ต.ค. 2569 — รีวิว Sonnet H4)
+
+- ดึง 24 เขื่อน × (dam_storage · dam_inflow · dam_released) × ปี 2005–2026 ด้วย GET `analyst/dam_yearly_graph` (ไม่ต้อง auth) → `raw/dam_flows/dam_<id>.json` · ใช้โดย `analysis/goal6_dam_inflow.py` · disk-only (SHA-256 ใน `_hashes.txt`)

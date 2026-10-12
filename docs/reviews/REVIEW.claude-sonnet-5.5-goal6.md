@@ -479,3 +479,21 @@ What changed in the conclusions:
 - Weibull/ranks at gauge points (67/199 → 32/99 cells) remain valid as a *station-density* count; the basin-mean table is the preferred statement for basin-level claims.
 
 Limits: POWER MERRA-2 is ~55 km (cells span 0.5° × 0.625°); the 2-cell Nakhon Nayok catchment is crude; reanalysis rain is smoothed (gauges higher); season totals are not inflow (reservoir inflow for 2011 is still not in the report).
+
+
+---
+
+# Addendum 6 — reservoir inflow, release and start state (H4 closure), 12 Oct 2026
+
+Script `analysis/goal6_dam_inflow.py` → `analysis/goal6/dam_inflow.json/.md`; 24 dams × daily storage/inflow/release 2005–2026 re-pulled (disk-only, hashed). Seasonal inflow = 1 Jul–9 Oct; window = 1 Sep–9 Oct (same as days-over-curve).
+
+| Finding | Evidence |
+|---|---|
+| **2554 was a record-inflow year for the Chao Phraya head dams** | Bhumibol 7,979 mcm (rank 1/18) vs 2569 3,324 (rank 7); Sirikit 8,092 (1) vs 4,312 (6); Pasak 3,598 (1) vs 1,215 (11); 13 of the 14 dams over the curve in the 2554 window had top-third inflow |
+| **2569 exceedances split into two kinds** | 6 of 9 dams over the curve had top-third inflow (Kaeng Krachan, Khlong Si Yat, Pran Buri, Prasae, Mae Ngat, Khun Dan); 3 did not (Sirindhorn, Pasak, Naruebodindra). Of those, **Pasak** began the window 108 mcm *above* the curve with below-median inflow (rank 11/17); the other two began 47–59 mcm below and exceeded it with mid-range inflow |
+| **High inflow without exceedance is explained by start state** | Srinagarind: inflow rank 1 (2554) and 2 (2569), 0 days over; on 1 Sep it was 2,541 / 1,825 mcm *below* the curve and retained 72 % / 92 % of window inflow. Vajiralongkorn, Bang Lang, Rajjaprabha the same pattern |
+| **Retired claim** | "2554 west was dry" (report 3) and "difference comes mainly from basin rain" (reports 3–4): replaced by "inflow *and* start-of-window headroom"; no statement that one agency performs better |
+
+Report 4 gains section 5 (table of all 24 dams + two paragraphs, all rendered from `canonical.json → dam_inflow`); report 3's TLDR and "best dam" Q&A carry the inflow ranks; `test_dam_inflow_wired_and_consistent` ties days-over to `dam_history_all`.
+
+Limits: daily inflow is agency-reported (gaps filled with the window mean); curve = 2020 month-day template; 9–18 years per dam (inflow records start ~2009); no counterfactual routing (cannot say what release "should" have been); reservoir start state is the outcome of earlier decisions the report does not examine.

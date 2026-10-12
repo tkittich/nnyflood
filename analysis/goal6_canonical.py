@@ -119,6 +119,20 @@ def main() -> None:
     flood["bkk_lower_after_sea"] = sea["peak_after_km2"]
     out["flood_peak_km2"] = flood
     out["flood_peak_meta"] = flood_meta
+    # ---- น้ำเข้า–ปล่อย–เก็บ รายเขื่อน (goal6_dam_inflow.py — รีวิว Sonnet H4/ข้อ 1) ----
+    di_p = A / "goal6/dam_inflow.json"
+    if di_p.exists():
+        di = json.loads(di_p.read_text(encoding="utf-8"))
+        slim = {}
+        for n, r in di["dams"].items():
+            if "y2569" not in r or r["y2569"] is None:
+                continue
+            slim[n] = {"n_years": r["n_years"], "inflow_rank2554": r["inflow_rank2554"], "inflow_rank2569": r["inflow_rank2569"],
+                       "inflow2554": (r["y2554"] or {}).get("inflow_season_mcm"), "inflow2569": r["y2569"]["inflow_season_mcm"],
+                       "sep1_over_2554": (r["y2554"] or {}).get("sep1_over_urc_mcm"), "sep1_over_2569": r["y2569"]["sep1_over_urc_mcm"],
+                       "days_over_2554": (r["y2554"] or {}).get("days_over_urc_window"), "days_over_2569": r["y2569"]["days_over_urc_window"],
+                       "retained_2554": (r["y2554"] or {}).get("retained_share"), "retained_2569": r["y2569"]["retained_share"]}
+        out["dam_inflow"] = slim
     # ---- ฝนเฉลี่ยทั้งลุ่ม + ฝนรวมฤดู (goal6_basin_rain.py — รีวิว Sonnet A2) ----
     br_p = A / "goal6/basin_rain.json"
     if br_p.exists():

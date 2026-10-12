@@ -550,3 +550,21 @@ Sanity: Nakhon Nayok (2 Oct) area-weighted 28–36 k vs GISTDA's published 48,10
 Caveats stated in the report: population uniform inside 1 km cells (real settlement is clustered); radar under-detects urban water (built-up land is 3–21 % of lowland, ≤ 1 % of detections) so city exposure is understated; ponds/seasonally flooded paddy may be over-counted; the basin rows overlap spatially and must not be summed; (B) is an upper bound for people near flooding, not a count of affected people.
 
 Housekeeping: `pip install osmium` (pyosmium 4.3.1) was added for the OSM parse — not pinned in `requirements.txt` yet; the retired-number test now strips base64 before scanning (a 3-character coincidence failed it once).
+
+
+---
+
+# Final status (consolidation pass, 12 Oct 2026)
+
+**Verdict update:** from *fix-first* to **publishable as drafts with the listed human steps outstanding**. All HIGH findings (H1–H6, P1, P2-as-link-decision) and the data-dependent MED findings are closed in code, text and tests; the remaining items need people, not computation.
+
+Verification run on the final tree: `python analysis/goal6_build_all.py --with-analysis` (all analyses + L3 + canonical + reports 3–4 + pytest) → exit 0; tracked outputs identical to the committed ones (the pipeline is deterministic); `pytest` 60/60; integrity MISMATCH 0; privacy test (no phone numbers/profile links in tracked text) green.
+
+| Area | State |
+|---|---|
+| Privacy (P1) | raw social data removed from tree **and** history; test guards re-entry; **author must** force-push (done) and ask GitHub to purge caches/forks, delete the local `backup/` bundle |
+| Claims (H1–H6, R1–R3, M1–M6) | corrected, ranges shown, gross vs strict displayed together, retired phrases ledgered and tested |
+| New evidence | basin-mean rain + season totals; reservoir inflow/start state; S1 rule validation; land-cover/permanent-water breakdown; exposure layer |
+| Reports 1–2 | numbers re-derived (ERA5 rank, 29-day streak), language rule enforced, sizes −30–40 % |
+| Open — people | counsel review (R8: plan's legal status, agency comparisons); right of reply to EGAT/RID; hydrologist read of C.2 chain, L3, dam tables; time-matched GISTDA reference for 27 Sep; same-orbit control pairs outside Nakhon Nayok; decide whether drafts 3–4 stay linked on `index.html`; code licence |
+| Open — analysis | routed counterfactual (Muskingum) for pre-release; rolling-origin forecast evaluation with embargo; return-period flows; dam-catchment (not gauge) rain; WorldCover-based paddy vs pond separation; WorldPop dasymetric refinement |

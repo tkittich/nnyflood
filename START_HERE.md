@@ -133,6 +133,16 @@ PY=python
 > ลำดับสำคัญ: `report_assets.py` ต้องรันก่อน · `build_*_report.py` อ่านรูปจาก `report/assets/`
 > เท่านั้น และจะเตือน (`!! ขาด ...`) ถ้าภาพที่ analysis เป็นเจ้าของยังไม่ถูกคัดลอก
 
+### 4.D — สร้างชุดเป้าหมาย 6 (รายงาน 3–4) ใหม่ทั้งชุด
+
+```bash
+bash data/31_external_landcover/fetch.sh          # ครั้งแรกเท่านั้น (~750 MB: WorldCover/JRC/WorldPop/OSM)
+"$PY" analysis/goal6_build_all.py --with-analysis  # วิเคราะห์ → canonical → รายงาน 3–4 → pytest
+```
+
+> ไม่ใช้ `--skip-l3` ถ้าต้องการคำนวณโมเดล L3 ใหม่ (ต้องมีแคชรายชั่วโมงใน `data/22_goal6_network/raw/`) ·
+> รอบเต็มวันที่ 12 ต.ค. 69 ผ่าน: pytest 60/60 · MISMATCH 0 · ไฟล์ที่ track ไม่เปลี่ยนเลย (ทำซ้ำได้ตรง)
+
 ---
 
 ## 5. ตัวเลขที่ควรได้ (sanity check)
@@ -152,12 +162,15 @@ PY=python
 
 ---
 
+---
+
 ## 6. แผนผัง: อะไรอยู่ใน git อะไรอยู่บนดิสก์
 
 **อยู่ใน git** (ตรวจสอบย้อนได้): สคริปต์ · ผลวิเคราะห์ JSON/CSV/PNG · รายงาน HTML ·
 `manifest.md` ทุกโฟลเดอร์ · ข้อมูลโทรมาตรที่จัดระเบียบแล้ว (`data/01`, `02`, `16`, `19` ฯลฯ)
 
-**อยู่บนดิสก์เท่านั้น** (มี SHA-256 ใน manifest): ฉากดาวเทียมดิบ (`*.zip/*.kmz`),
+**อยู่บนดิสก์เท่านั้น** (มี SHA-256 ใน manifest): ข้อมูลภายนอก `data/31_external_landcover/raw` (WorldCover/JRC/WorldPop/OSM) ·
+ฝนรายเซลล์ `data/22.../raw/basin_rain` · น้ำเข้าอ่าง `data/22.../raw/dam_flows` · ฉากดาวเทียมดิบ (`*.zip/*.kmz`),
 DEM ต้นฉบับ, PDF/ภาพสแกน, อัลบั้มภาพ, กริด `derived/` ของ S1, SAFE ที่แตกแล้วของ S2
 
 > เหตุผล: git ไม่ใช่ backup ของไฟล์หลาย GB — นโยบายอยู่ใน `.gitignore` (หัวไฟล์)

@@ -11,7 +11,11 @@
 ขั้นที่ไม่รวม (ต้องเครือข่าย/แคชใหญ่ — รันแยกเมื่อข้อมูลใหม่): goal6_rain_rarity_national,
 rain_rarity_2554, screen_basins, s1_*, bkk_sea_mask (รวมอยู่ใน canonical ผ่าน l2_sea_adjust)
 
-รัน: python analysis/goal6_build_all.py [--skip-l3]
+ตัวเลือก --with-analysis (เพิ่ม 12 ต.ค. 69 รอบรีวิว Sonnet): รันวิเคราะห์ที่ใช้ข้อมูลในเครื่อง/แคชก่อน canonical
+  (ตรวจกฎตัดน้ำ · ผิวดิน · ผลกระทบ · ฝนเฉลี่ยลุ่ม · น้ำเข้าอ่าง · อันดับฝน 2554) — ต้องมี data/31_external_landcover/raw
+  (รัน data/31_external_landcover/fetch.sh) และแคช POWER/เขื่อนที่ดึงไว้แล้ว
+
+รัน: python analysis/goal6_build_all.py [--skip-l3] [--with-analysis]
 """
 
 from __future__ import annotations
@@ -38,6 +42,13 @@ def run(cmd: list[str], name: str, allow_fail: bool = False) -> bool:
 
 def main() -> None:
     skip_l3 = "--skip-l3" in sys.argv
+    if "--with-analysis" in sys.argv:
+        run([PY, "analysis/goal6_rain_rarity_2554.py"], "0/ อันดับฝน 2554 (แคช POWER)")
+        run([PY, "-I", "analysis/goal6_basin_rain.py"], "0/ ฝนเฉลี่ยลุ่ม (HydroBASINS × POWER)")
+        run([PY, "analysis/goal6_dam_inflow.py"], "0/ น้ำเข้า–ปล่อย–เก็บรายเขื่อน (แคช)")
+        run([PY, "analysis/goal6_s1_rule_validation.py"], "0/ ตรวจกฎตัดน้ำ S1")
+        run([PY, "analysis/goal6_s1_landcover.py"], "0/ ผิวดิน/น้ำถาวร (WorldCover/JRC)")
+        run([PY, "analysis/goal6_exposure.py"], "0/ ผลกระทบ ประชากร/ถนน")
     run([PY, "analysis/goal6_c2_attribution.py"], "1/5 C.2 attribution")
     if not skip_l3:
         run([PY, "analysis/goal6_l3_model.py"], "2/5 โมเดล L3 6 ลุ่ม")

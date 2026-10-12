@@ -79,3 +79,21 @@
 2. **ขอความอนุเคราะห์วิชาการ 5 เรื่อง**: LiDAR 1–5 ม. (ACAD-01) · ฝนสถานีจริงรายชั่วโมง TMD (ACAD-02) · ข้อมูลสะท้อนเรดาร์ QPE (ACAD-03) · GISTDA shapefiles ท่วมราย pass (ACAD-04) · อนุกรมความเค็มรายชั่วโมง (ACAD-05)
 3. **Wayback Machine** สำรอง URL สำคัญ (เก็บแล้ว 3 URL — ขยายได้)
 
+
+
+---
+
+## แหล่งข้อมูลที่เพิ่มรอบรีวิวภายนอก (12 ต.ค. 2569)
+
+| แหล่ง | ใช้ทำอะไร | วิธีได้ | ที่เก็บ/แฮช |
+|---|---|---|---|
+| ESA WorldCover 2021 v200 (10 ม.) | ชนิดผิวดินของพื้นที่ที่ตรวจพบน้ำ | HTTPS สาธารณะ `esa-worldcover.s3.eu-central-1.amazonaws.com` | `data/31_external_landcover/` (`fetch.sh`, `_hashes.txt`) |
+| JRC Global Surface Water v1.4 (occurrence) | น้ำถาวร (≥ 50%) | `storage.googleapis.com/global-surface-water/downloads2021/occurrence/` | เดียวกัน |
+| WorldPop 2020 UN-adjusted 1 กม. | ประชากรต่อเซลล์ (รวมระดับกริด ไม่ใช่รายครัวเรือน) | `data.worldpop.org/GIS/Population/Global_2000_2020_1km/2020/THA/` | เดียวกัน |
+| OpenStreetMap — Geofabrik Thailand | ถนน/ทางรถไฟ | `download.geofabrik.de/asia/thailand-latest.osm.pbf` (ODbL) | เดียวกัน |
+| NASA POWER รายเซลล์ (PRECTOTCORR) | ฝนเฉลี่ยลุ่ม + ฝนรวมฤดู | `power.larc.nasa.gov/api/temporal/daily/point` | `data/22_goal6_network/raw/basin_rain/` |
+| HydroBASINS lev08 (HydroSHEDS) | ลุ่มรับน้ำเหนือจุดวัด | zip ที่ดึงไว้ (10 ต.ค.) | `data/22_goal6_network/raw/hydrobasins/` |
+| คลังข้อมูลน้ำแห่งชาติ `dam_yearly_graph` (storage/inflow/released) | น้ำเข้า–ปล่อย–เก็บรายวัน 2548–2569 | GET ไม่ต้อง auth | `data/22_goal6_network/raw/dam_flows/` |
+
+เงื่อนไขการใช้: WorldCover/WorldPop = CC BY 4.0 · JRC = เปิด (อ้าง Pekel et al. 2016) · OSM = ODbL (© OpenStreetMap contributors) —
+ข้อมูลเหล่านี้ไม่ถูก redistribute ใน git (disk-only); ผลสรุปที่ track เป็นตัวเลขรวม

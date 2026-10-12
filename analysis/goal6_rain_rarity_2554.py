@@ -59,8 +59,8 @@ def main() -> None:
              "|---|---|---|---|---|---|"]
     for r in pts:
         b7 = r["best7"]
-        lines.append(f"| {r['name']} | {r['basin']} | {b7['v54']} | {b7['rank54']}/199 | "
-                     f"~{b7['rp54']} ปี | {b7['rank26']}/199 |")
+        lines.append(f"| {r['name']} | {r['basin']} | {b7['v54']} | {b7['rank54']}/46 | "
+                     f"≥~{b7['rp54']} ปี (ขอบล่าง เพดาน 47) | {b7['rank26']}/46 |")
     import collections
     rows = collections.defaultdict(list)
     for r in out["points"].values():

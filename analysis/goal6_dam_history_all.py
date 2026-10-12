@@ -10,6 +10,7 @@ raw: data/22_goal6_network/raw/dam_history_all/ (ประวัติเต็�
 from __future__ import annotations
 
 import json
+import sys
 import time
 from pathlib import Path
 
@@ -32,7 +33,15 @@ def dam_full(dam_id: int) -> dict:
         st = pasak.urc_stats(rows, hist["urc_mmdd"])
         vals = [r["storage"] for r in rows.values() if r.get("storage") is not None]
         rel = [r["released"] for r in rows.values() if r.get("released") is not None]
+        # H3 (รีวิว Sonnet 12 ต.ค.): max_storage = สูงสุดทั้งปีปฏิทิน (2569 = ม.ค.–9 ต.ค. รวมน้ำยกยอดจากปีก่อน)
+        # → เพิ่มค่าในหน้าต่างเดียวกับ days_over_urc_sep_oct (1 ก.ย.–9 ต.ค.) ใช้เทียบสองปี
+        win = [r["storage"] for dt, r in rows.items()
+               if r.get("storage") is not None and "09-01" <= dt[5:10] <= "10-09"]
         per_year.append({"year": int(y), "n_days": len(rows), "max_storage": max(vals) if vals else None,
+                         "max_storage_sep_oct": max(win) if win else None, "n_days_sep_oct": len(win),
+                         # เก็บรายวันของหน้าต่างไว้ให้ตรวจย้อน (หลักฐาน) — ไม่เก็บทั้งปีเพื่อไม่ให้ไฟล์บวม
+                         "storage_sep_oct": {dt: r["storage"] for dt, r in sorted(rows.items())
+                                             if r.get("storage") is not None and "09-01" <= dt[5:10] <= "10-09"},
                          "max_released": max(rel) if rel else None, **st})
     return {"dam_id": dam_id, "urc_points": len(hist["urc_mmdd"]),
             "first_year": min((int(r["year"]) for r in per_year if r["n_days"] > 0), default=None),
@@ -52,7 +61,7 @@ def main() -> None:
         dids = c["dam_ids"]
         # เขื่อนที่มีประวัติแล้วจาก spike/L1 (ดูด้วย raw ไฟล์)
         raw_path = RAW_DIR / f"dam_{dids[0]}.json"
-        if raw_path.exists():
+        if raw_path.exists() and "--refresh" not in sys.argv:  # --refresh = ดึงใหม่ทุกเขื่อน (H3 12 ต.ค. 69)
             continue
         # เลือก dam_id ที่มีข้อมูลมากสุด (ลองทีละ id)
         best = None
@@ -79,19 +88,19 @@ def main() -> None:
     # MD: ตาราง 2554 vs 2569 ทุกเขื่อน
     lines = ["# URC compliance ทุกเขื่อนผู้สมัคร — เทียบ 2554 vs 2569 (H1 benchmark)", "",
              "> สร้างโดย `analysis/goal6_dam_history_all.py` · เทมเพลต URC = curve จริง (ยืนยันไขว้ 5,025 แถว)", "",
-             "| เขื่อน | ลุ่ม | เก็บปกติ | 2554: เกิน URC (ปี/ก.ย.–ต.ค.) | 2554 เก็บพีค | 2569: เกิน URC (ก.ย.–ต.ค.) | 2569 เก็บพีค |", "|---|---|---|---|---|---|---|"]
+             "| เขื่อน | ลุ่ม | เก็บปกติ | 2554: เกิน URC (ปี/ก.ย.–ต.ค.) | 2554 เก็บสูงสุด ก.ย.–ต.ค. | 2569: เกิน URC (ก.ย.–ต.ค.) | 2569 เก็บสูงสุด ก.ย.–ต.ค. |", "|---|---|---|---|---|---|---|"]
     for name, rec in sorted(out["dams"].items(), key=lambda kv: -(kv[1].get("normal_storage") or 0)):
         ys = rec.get("years", [])
         r11 = next((r for r in ys if r["year"] == 2011), None)
         r26 = next((r for r in ys if r["year"] == 2026), None)
         ns = rec.get("normal_storage")
         f = lambda r, k: (r[k] if r else "—")
-        pct11 = f" ({r11['max_storage']/ns*100:.0f}%)" if r11 and r11.get("max_storage") and ns else ""
-        pct26 = f" ({r26['max_storage']/ns*100:.0f}%)" if r26 and r26.get("max_storage") and ns else ""
+        pct11 = f" ({r11['max_storage_sep_oct']/ns*100:.0f}%)" if r11 and r11.get("max_storage_sep_oct") and ns else ""
+        pct26 = f" ({r26['max_storage_sep_oct']/ns*100:.0f}%)" if r26 and r26.get("max_storage_sep_oct") and ns else ""
         lines.append(
             f"| {name} | {rec.get('basin', '')} | {ns or '—'} | "
-            f"{f(r11, 'days_over_urc')} / {f(r11, 'days_over_urc_sep_oct')} | {f(r11, 'max_storage')}{pct11} | "
-            f"{f(r26, 'days_over_urc_sep_oct')} | {f(r26, 'max_storage')}{pct26} |"
+            f"{f(r11, 'days_over_urc')} / {f(r11, 'days_over_urc_sep_oct')} | {f(r11, 'max_storage_sep_oct')}{pct11} | "
+            f"{f(r26, 'days_over_urc_sep_oct')} | {f(r26, 'max_storage_sep_oct')}{pct26} |"
         )
     lines += ["", "## สิ่งที่เห็นจากตาราง (จะเขียนเต็มในรายงานที่ 4)", "",
               "- 2554: เขื่อนระบบเจ้าพระยาเต็มเกิน URC จริง (ภูมิพล 127 วัน · ป่าสัก 241 วัน) · ระบบ กฟผ. 0 วัน",

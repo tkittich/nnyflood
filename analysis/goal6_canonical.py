@@ -14,7 +14,9 @@ from __future__ import annotations
 
 import collections
 import json
+import re
 import statistics
+from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -96,12 +98,27 @@ def main() -> None:
     # ---- พื้นที่น้ำท่วม (stage-2 summary + bkk sea adjust) ----
     st2 = json.loads((D / "derived/s1_stage2/summary.json").read_text(encoding="utf-8"))
     flood = {}
+    flood_meta = {}
     for b, rec in st2.items():
         scenes = [r for r in rec["scenes"] if r["reference"] != r["scene"]]
         flood[b] = round(max(r["water_km2_lowland"] for r in scenes), 1)
+        # H2/P3 (รีวิว Sonnet): ฉากสูงสุดครอบกริดกี่ % · รวมฉากข้างเคียงของวงโคจร+วันเดียวกัน · เวลาไทย (UTC+7)
+        pk = max(scenes, key=lambda r: r["water_km2_lowland"])
+        m = re.search(r"_(\d{8})T(\d{6})_", pk["scene"])
+        utc = datetime.strptime(m.group(1) + m.group(2), "%Y%m%d%H%M%S")
+        same = [r for r in scenes if r["track"] == pk["track"] and
+                re.search(r"_(\d{8})T", r["scene"]).group(1) == m.group(1)]
+        flood_meta[b] = {
+            "scene": pk["scene"], "coverage": round(pk["coverage"], 2),
+            "utc": utc.strftime("%Y-%m-%d %H:%M"), "ict": (utc + timedelta(hours=7)).strftime("%Y-%m-%d %H:%M"),
+            "same_pass_frames": len(same),
+            "same_pass_sum_km2": round(sum(r["water_km2_lowland"] for r in same), 1),
+            "same_pass_coverage_sum": round(min(1.0, sum(r["coverage"] for r in same)), 2),
+        }
     sea = json.loads((A / "goal6/bkk_lower/l2_sea_adjust.json").read_text(encoding="utf-8"))
     flood["bkk_lower_after_sea"] = sea["peak_after_km2"]
     out["flood_peak_km2"] = flood
+    out["flood_peak_meta"] = flood_meta
 
     # ---- เหตุการณ์จุดวัด (screen) ----
     sc = json.loads((A / "goal6_screen_2026_summary.json").read_text(encoding="utf-8"))
@@ -128,9 +145,20 @@ def main() -> None:
         rows = {}
         for h, blk in d["results"].items():
             best = min(blk["rows"], key=lambda r: r["rmse_cm"])
-            rows[f"h{h}"] = {"model": best["model"], "rmse_cm": best["rmse_cm"]}
+            pers = next(r for r in blk["rows"] if r["model"] == "persistence")["rmse_cm"]
+            # H5 (รีวิว Sonnet): ทักษะเทียบ "ค่าเดิมคงที่" — 1 − RMSE/RMSE_persistence · near = ต่างไม่เกิน 10%
+            rows[f"h{h}"] = {"model": best["model"], "rmse_cm": best["rmse_cm"],
+                             "persistence_cm": pers,
+                             "skill_vs_persistence": round(1 - best["rmse_cm"] / pers, 3),
+                             "near_persistence": best["rmse_cm"] >= 0.9 * pers}
         l3[p.parent.name] = rows
     out["l3_best"] = l3
+    out["l3_summary"] = {
+        f"n_near_persistence_h{h}": sum(1 for v in l3.values() if v[f"h{h}"]["near_persistence"])
+        for h in (6, 24, 48)
+    }
+    out["l3_summary"]["n_basins"] = len(l3)
+    out["l3_summary"]["test_window_note"] = "ทดสอบกับเหตุการณ์เดียว (20 ก.ย.–9 ต.ค. 69) ประมาณ 7–15 วัน — ค่า RMSE ใช้เทียบเชิงคุณภาพ ไม่ใช่ความแม่นระยะยาว"
 
     # ---- C.2 attribution ----
     c2 = json.loads((A / "goal6/c2_attribution.json").read_text(encoding="utf-8"))
@@ -213,6 +241,8 @@ def main() -> None:
             "0.16–2.22 ม.": "Sonnet H1 — สถานการณ์ลบส่วนเกินจากอัตราพีคเกินเพดาน (ปล่อยวันพีค 7 ลลบ.ม./วัน = 3%) → ถอน",
             "ราว 1–2 ม. ที่ C.2": "เดียวกัน (Sonnet H1)",
             "ได้ราว 2 ม.": "เดียวกัน (Sonnet H1)",
+            "12,936": "Sonnet H3 — ภูมิพล 'เก็บสูงสุด 2569' เป็นค่าสูงสุดทั้งปีปฏิทิน (ยกยอดจากปีก่อน) → ใช้หน้าต่าง ก.ย.–ต.ค. (≈9,291)",
+            "12,918": "เดียวกัน (Sonnet H3)",
             "ลด ~7 ม.": "เดียวกัน",
             "กทม. 1,200": "mask เดิมใช้ DEM<1.2 OR (M13) → 1,104",
             "1,200 ตร.กม.": "เดียวกัน",

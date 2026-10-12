@@ -57,6 +57,62 @@
   "bkk_lower": 1320.8,
   "bkk_lower_after_sea": 1104.0
  },
+ "flood_peak_meta": {
+  "pasak": {
+   "scene": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
+   "coverage": 0.53,
+   "utc": "2026-10-01 23:08",
+   "ict": "2026-10-02 06:08",
+   "same_pass_frames": 2,
+   "same_pass_sum_km2": 521.0,
+   "same_pass_coverage_sum": 0.69
+  },
+  "maeklong": {
+   "scene": "S1D_IW_GRDH_1SDV_20261002T113615_20261002T113640_004836_009162_E9D4_COG",
+   "coverage": 0.43,
+   "utc": "2026-10-02 11:36",
+   "ict": "2026-10-02 18:36",
+   "same_pass_frames": 2,
+   "same_pass_sum_km2": 73.0,
+   "same_pass_coverage_sum": 0.83
+  },
+  "bp_prach": {
+   "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "coverage": 0.42,
+   "utc": "2026-10-01 23:08",
+   "ict": "2026-10-02 06:08",
+   "same_pass_frames": 1,
+   "same_pass_sum_km2": 1281.6,
+   "same_pass_coverage_sum": 0.42
+  },
+  "thachin": {
+   "scene": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
+   "coverage": 0.13,
+   "utc": "2026-10-01 23:08",
+   "ict": "2026-10-02 06:08",
+   "same_pass_frames": 2,
+   "same_pass_sum_km2": 160.4,
+   "same_pass_coverage_sum": 1.0
+  },
+  "ping_cp": {
+   "scene": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
+   "coverage": 0.18,
+   "utc": "2026-10-01 23:08",
+   "ict": "2026-10-02 06:08",
+   "same_pass_frames": 1,
+   "same_pass_sum_km2": 2263.6,
+   "same_pass_coverage_sum": 0.18
+  },
+  "bkk_lower": {
+   "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "coverage": 1.0,
+   "utc": "2026-10-01 23:08",
+   "ict": "2026-10-02 06:08",
+   "same_pass_frames": 1,
+   "same_pass_sum_km2": 1320.8,
+   "same_pass_coverage_sum": 1.0
+  }
+ },
  "event_stations": {
   "n_over_crit": 25,
   "n_wave_peak": 17,
@@ -97,87 +153,148 @@
   "bkk_lower": {
    "h6": {
     "model": "linear",
-    "rmse_cm": 12.4
+    "rmse_cm": 12.4,
+    "persistence_cm": 17.7,
+    "skill_vs_persistence": 0.299,
+    "near_persistence": false
    },
    "h24": {
     "model": "linear",
-    "rmse_cm": 37.4
+    "rmse_cm": 37.4,
+    "persistence_cm": 57.0,
+    "skill_vs_persistence": 0.344,
+    "near_persistence": false
    },
    "h48": {
     "model": "linear",
-    "rmse_cm": 66.0
+    "rmse_cm": 66.0,
+    "persistence_cm": 96.6,
+    "skill_vs_persistence": 0.317,
+    "near_persistence": false
    }
   },
   "bp_prach": {
    "h6": {
     "model": "linear",
-    "rmse_cm": 6.3
+    "rmse_cm": 6.3,
+    "persistence_cm": 10.0,
+    "skill_vs_persistence": 0.37,
+    "near_persistence": false
    },
    "h24": {
     "model": "GBDT",
-    "rmse_cm": 32.4
+    "rmse_cm": 32.4,
+    "persistence_cm": 37.8,
+    "skill_vs_persistence": 0.143,
+    "near_persistence": false
    },
    "h48": {
     "model": "linear",
-    "rmse_cm": 68.7
+    "rmse_cm": 68.7,
+    "persistence_cm": 77.9,
+    "skill_vs_persistence": 0.118,
+    "near_persistence": false
    }
   },
   "maeklong": {
    "h6": {
     "model": "persistence",
-    "rmse_cm": 10.2
+    "rmse_cm": 10.2,
+    "persistence_cm": 10.2,
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true
    },
    "h24": {
     "model": "linear",
-    "rmse_cm": 19.3
+    "rmse_cm": 19.3,
+    "persistence_cm": 20.1,
+    "skill_vs_persistence": 0.04,
+    "near_persistence": true
    },
    "h48": {
     "model": "linear",
-    "rmse_cm": 26.5
+    "rmse_cm": 26.5,
+    "persistence_cm": 31.5,
+    "skill_vs_persistence": 0.159,
+    "near_persistence": false
    }
   },
   "pasak": {
    "h6": {
     "model": "persistence",
-    "rmse_cm": 20.8
+    "rmse_cm": 20.8,
+    "persistence_cm": 20.8,
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true
    },
    "h24": {
     "model": "persistence",
-    "rmse_cm": 68.6
+    "rmse_cm": 68.6,
+    "persistence_cm": 68.6,
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true
    },
    "h48": {
     "model": "persistence",
-    "rmse_cm": 125.9
+    "rmse_cm": 125.9,
+    "persistence_cm": 125.9,
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true
    }
   },
   "ping_cp": {
    "h6": {
     "model": "linear",
-    "rmse_cm": 4.4
+    "rmse_cm": 4.4,
+    "persistence_cm": 10.5,
+    "skill_vs_persistence": 0.581,
+    "near_persistence": false
    },
    "h24": {
     "model": "linear",
-    "rmse_cm": 24.9
+    "rmse_cm": 24.9,
+    "persistence_cm": 39.0,
+    "skill_vs_persistence": 0.362,
+    "near_persistence": false
    },
    "h48": {
     "model": "GBDT",
-    "rmse_cm": 60.6
+    "rmse_cm": 60.6,
+    "persistence_cm": 66.8,
+    "skill_vs_persistence": 0.093,
+    "near_persistence": true
    }
   },
   "thachin": {
    "h6": {
     "model": "persistence",
-    "rmse_cm": 13.0
+    "rmse_cm": 13.0,
+    "persistence_cm": 13.0,
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true
    },
    "h24": {
     "model": "linear",
-    "rmse_cm": 10.6
+    "rmse_cm": 10.6,
+    "persistence_cm": 11.7,
+    "skill_vs_persistence": 0.094,
+    "near_persistence": true
    },
    "h48": {
     "model": "linear",
-    "rmse_cm": 19.4
+    "rmse_cm": 19.4,
+    "persistence_cm": 20.6,
+    "skill_vs_persistence": 0.058,
+    "near_persistence": true
    }
   }
+ },
+ "l3_summary": {
+  "n_near_persistence_h6": 3,
+  "n_near_persistence_h24": 3,
+  "n_near_persistence_h48": 3,
+  "n_basins": 6,
+  "test_window_note": "ทดสอบกับเหตุการณ์เดียว (20 ก.ย.–9 ต.ค. 69) ประมาณ 7–15 วัน — ค่า RMSE ใช้เทียบเชิงคุณภาพ ไม่ใช่ความแม่นระยะยาว"
  },
  "c2_attribution": {
   "corr_release": -0.917,
@@ -258,6 +375,8 @@
    "0.16–2.22 ม.": "Sonnet H1 — สถานการณ์ลบส่วนเกินจากอัตราพีคเกินเพดาน (ปล่อยวันพีค 7 ลลบ.ม./วัน = 3%) → ถอน",
    "ราว 1–2 ม. ที่ C.2": "เดียวกัน (Sonnet H1)",
    "ได้ราว 2 ม.": "เดียวกัน (Sonnet H1)",
+   "12,936": "Sonnet H3 — ภูมิพล 'เก็บสูงสุด 2569' เป็นค่าสูงสุดทั้งปีปฏิทิน (ยกยอดจากปีก่อน) → ใช้หน้าต่าง ก.ย.–ต.ค. (≈9,291)",
+   "12,918": "เดียวกัน (Sonnet H3)",
    "ลด ~7 ม.": "เดียวกัน",
    "กทม. 1,200": "mask เดิมใช้ DEM<1.2 OR (M13) → 1,104",
    "1,200 ตร.กม.": "เดียวกัน",

@@ -79,6 +79,20 @@ _l3 = _can["l3_best"]
 _h6vals = sorted(v["h6"]["rmse_cm"] for v in _l3.values())
 _h24vals = sorted(v["h24"]["rmse_cm"] for v in _l3.values())
 _h48vals = sorted(v["h48"]["rmse_cm"] for v in _l3.values())
+_l3s = _can["l3_summary"]
+_fm = _can["flood_peak_meta"]
+_TH_MON = ["", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+
+
+def ict_label(scene: str) -> str:
+    """P3 (รีวิว Sonnet): ชื่อฉาก S1 เป็นเวลาสากล (UTC) — แปลงเป็นเวลาไทย (UTC+7) เพื่อเทียบกับจุดวัดระดับน้ำ"""
+    import re as _re
+    from datetime import datetime as _dt, timedelta as _td
+    m = _re.search(r"_(\d{8})T(\d{6})_", scene)
+    if not m:
+        return scene
+    d = _dt.strptime(m.group(1) + m.group(2), "%Y%m%d%H%M%S") + _td(hours=7)
+    return f"{d.day} {_TH_MON[d.month]} {d:%H:%M}"
 _c2 = _can["c2_attribution"]
 _tide = _can["estuary_tide"]
 S.insert(1, note(
@@ -95,13 +109,16 @@ S.insert(1, note(
     "ขณะที่เขื่อนชลประทานบางแห่งเก็บน้ำเกินระดับกำกับเป็นเรื่องปกติของระบบ "
     "— หมายเหตุ: เขื่อนใหญ่ของการไฟฟ้าฝ่ายผลิตฯ ในลุ่มเจ้าพระยา (ภูมิพล สิริกิติ์) ปี 2554 เกินระดับกำกับมากเช่นกัน "
     "โดยมีฝนลุ่มตอนบนหนักเป็นเหตุ (รายงานที่ 4) "
-    f"(3) <b>พยากรณ์ระยะสั้นทำได้จริง</b> — แบบจำลองทำนายระดับน้ำแม่นสุด {_h6vals[0]:.0f}–{_h6vals[-1]:.0f} ซม. ที่ระยะ 6 ชม. "
-    f"ใน 6 ลุ่ม (ที่ระยะ 24 ชม. แม่นสุด {_h24vals[0]:.0f}–{_h24vals[-1]:.0f} ซม. — ตัวเลขสูงสุดคือป่าสัก) · "
-    f"ระยะ 48 ชม. ขึ้นไปคลาดเคลื่อนโตตามลุ่ม (ท่าจีน/แม่กลองยังพอใช้ "
+    f"(3) <b>พยากรณ์ระยะสั้น — ได้ผลจำกัด</b>: ค่าคลาดเคลื่อนดีสุด {_h6vals[0]:.0f}–{_h6vals[-1]:.0f} ซม. ที่ระยะ 6 ชม. "
+    f"({_l3s['n_near_persistence_h6']} จาก {_l3s['n_basins']} ลุ่ม แบบจำลองดีไปกว่าค่าเดิมคงที่ — วิธี \"ระดับน้ำไม่เปลี่ยน\" — ไม่ถึง 10%) · "
+    f"ที่ระยะ 24 ชม. {_h24vals[0]:.0f}–{_h24vals[-1]:.0f} ซม. ({_l3s['n_near_persistence_h24']} จาก {_l3s['n_basins']} ลุ่มเช่นกัน) · "
+    f"ระยะ 48 ชม. คลาดเคลื่อนโตตามลุ่ม (ท่าจีน/แม่กลอง "
     f"{min(_l3['thachin']['h48']['rmse_cm'], _l3['maeklong']['h48']['rmse_cm']):.0f}–"
     f"{max(_l3['thachin']['h48']['rmse_cm'], _l3['maeklong']['h48']['rmse_cm']):.0f} ซม. — "
-    f"ที่เหลือ 4 ลุ่มคลาดเคลื่อน {sorted(v['h48']['rmse_cm'] for k, v in _l3.items() if k not in ('thachin', 'maeklong'))[0]:.0f}–{_h48vals[-1]:.0f} ซม.) · "
-    f"พื้นที่น้ำท่วมมากสุด (1 ต.ค.): "
+    f"ที่เหลือ 4 ลุ่ม {sorted(v['h48']['rmse_cm'] for k, v in _l3.items() if k not in ('thachin', 'maeklong'))[0]:.0f}–{_h48vals[-1]:.0f} ซม.) · "
+    "ทดสอบกับเหตุการณ์เดียวเท่านั้น · "
+    f"พื้นที่น้ำท่วมที่ตรวจพบในฉากดาวเทียมเดียวที่ใหญ่สุดของแต่ละลุ่ม (ฉากสุดท้ายที่มีคือ 2 ต.ค. เวลาไทย · แต่ละฉากครอบพื้นที่ลุ่มต่างกัน "
+    f"{min(v['coverage'] for v in _fm.values()):.0%}–{max(v['coverage'] for v in _fm.values()):.0%} จึงเทียบข้ามลุ่มตรง ๆ ไม่ได้ และเป็นค่าต่ำสุดเพราะส่วนนอกฉากไม่ได้ตรวจ): "
     f"ปิง–เจ้าพระยา {_fl['ping_cp']:,.0f} ตร.กม. · ทุ่งรับน้ำรอบนอก กทม. {_fl['bkk_lower_after_sea']:,.0f} (ล่างขอบ — ตัดเฉพาะน้ำถาวร) · "
     f"บางปะกง {_fl['bp_prach']:,.0f} · ป่าสัก {_fl['pasak']:.0f} · ท่าจีน {_fl['thachin']:.0f} · แม่กลอง {_fl['maeklong']:.0f}"
 ))
@@ -143,8 +160,8 @@ dams_2554_days = {k: next(r["days_over_urc"] for r in v.get("years", []) if r["y
 dams_2554_peak_pct = {}
 for k, v in dams.items():
     r11 = next((r for r in v.get("years", []) if r["year"] == 2011), None)
-    if r11 and r11.get("max_storage") and v.get("normal_storage"):
-        dams_2554_peak_pct[k] = round(r11["max_storage"] / v["normal_storage"] * 100)
+    if r11 and r11.get("max_storage_sep_oct") and v.get("normal_storage"):
+        dams_2554_peak_pct[k] = round(r11["max_storage_sep_oct"] / v["normal_storage"] * 100)
 S.append(prose(
     f"ฝั่งเขื่อน: จากผู้สมัคร {len(dams)} แห่ง (≥200 ล้าน ลบ.ม.) มี "
     f"<b>{len(dams_over26)} แห่ง</b> เกินระดับกำกับบน (ระดับน้ำเก็บสูงสุดตามแผนรายปี) ช่วง ก.ย.–ต.ค. 2569 และทุกเขื่อนในรายชื่อ"
@@ -175,15 +192,15 @@ for name, rec in sorted(dams.items(), key=lambda kv: -(kv[1].get("normal_storage
     ns = rec.get("normal_storage")
     def f(r, k):
         return num(r[k], 0) if r else "—"
-    pct11 = f" ({r11['max_storage']/ns*100:.0f}%)" if r11 and r11.get("max_storage") and ns else ""
-    pct26 = f" ({r26['max_storage']/ns*100:.0f}%)" if r26 and r26.get("max_storage") and ns else ""
+    pct11 = f" ({r11['max_storage_sep_oct']/ns*100:.0f}%)" if r11 and r11.get("max_storage_sep_oct") and ns else ""
+    pct26 = f" ({r26['max_storage_sep_oct']/ns*100:.0f}%)" if r26 and r26.get("max_storage_sep_oct") and ns else ""
     rows.append([esc(name), num(ns, 0),
                  f"{f(r11, 'days_over_urc')} / {f(r11, 'days_over_urc_sep_oct')}",
-                 f"{num(r11['max_storage'], 0) if r11 else '—'}{pct11}",
+                 f"{num(r11['max_storage_sep_oct'], 0) if r11 else '—'}{pct11}",
                  f"{f(r26, 'days_over_urc_sep_oct')}",
-                 f"{num(r26['max_storage'], 0) if r26 else '—'}{pct26}"])
-S.append(table(["เขื่อน", "เก็บปกติ (ลลบ.ม.)", "2554: เกินระดับกำกับบน ปี/ก.ย.–ต.ค. (วัน)", "2554 เก็บสูงสุด",
-                "2569: ก.ย.–ต.ค. (วัน)", "2569 เก็บสูงสุด"], rows,
+                 f"{num(r26['max_storage_sep_oct'], 0) if r26 else '—'}{pct26}"])
+S.append(table(["เขื่อน", "เก็บปกติ (ลลบ.ม.)", "2554: เกินระดับกำกับบน ปี/ก.ย.–ต.ค. (วัน)", "2554 เก็บสูงสุด ก.ย.–ต.ค.",
+                "2569: ก.ย.–ต.ค. (วัน)", "2569 เก็บสูงสุด ก.ย.–ต.ค."], rows,
                "ประวัติรายวันย้อนหลังจาก API (เส้นกำกับระดับน้ำใน API ยืนยันว่าเป็นเส้นจริงด้วยการไขว้แฟ้มทางการของเขื่อนขุนด่านปราการชล 5,025 แถว ต่าง 0.0 — ยืนยันเชิงตัวอย่างเขื่อนเดียว ที่เหลือใช้เส้นกำกับแหล่งเดียวจาก API ยังไม่ได้ไขว้แฟ้มทางการรายเขื่อน)"))
 S.append(note(
     "<b>สิ่งที่ตารางนี้บอก</b>: 2554 ระบบเจ้าพระยาเต็มเกินระดับกำกับตั้งแต่หน้าฝนแล้วทั้งฤดู — "
@@ -213,10 +230,10 @@ for bid, rec in cfg["basins"].items():
         over_mid = sum(1 for r in ys if r["days_over_urc_aug_sep"] > 0)
         dam_rows.append([esc(name), num(d["normal_storage"], 0), num(d["first_year"], 0),
                          num(r26.get("days_over_urc_sep_oct"), 0),
-                         f"{over_mid}/{len(ys)}", num(r26.get("max_storage"), 0)])
+                         f"{over_mid}/{len(ys)}", num(r26.get("max_storage_sep_oct"), 0)])
     if dam_rows:
         S.append(table(["เขื่อน", "เก็บปกติ", "ลึกถึงปี", "2569 เกินระดับกำกับบน ก.ย.–ต.ค. (วัน)",
-                        "เกินกลางหน้าฝน (ปี)", "2569 เก็บสูงสุด"], dam_rows,
+                        "เกินกลางหน้าฝน (ปี)", "2569 เก็บสูงสุด ก.ย.–ต.ค."], dam_rows,
                        "ประวัติเต็มรายปีในภาคผนวกข้อมูล"))
     rain_rows = [[esc(k), f"{v['sep_total_mm']} มม.", f"{v['best7_mm']} มม. ปลาย {v['best7_end']}"]
                  for k, v in summary["rain_2026"].items()]
@@ -261,15 +278,18 @@ for bid, rec in cfg["basins"].items():
                         # M4: % ที่ราบควรคำนวณจากค่าหลังตัด (เดิมค้างค่าก่อนตัด)
                         if r.get("plain_km2"):
                             frac = adj["after_km2"] / r["plain_km2"]
-                l2_rows.append([esc(r["track"]), esc(r["scene"][12:40]), esc(r["reference"][12:40]),
+                l2_rows.append([esc(r["track"]), esc(ict_label(r["scene"])), esc(r["scene"][12:40]), esc(r["reference"][12:40]),
                                 num(val, 1) + note_s, f"{frac:.1%}",
-                                num(r["coverage"], 2)])
-            S.append(table(["วงโคจร (HH:MM)", "ฉากเหตุการณ์", "อ้างอิงก่อนเหตุการณ์",
-                            "น้ำใหม่ (ตร.กม.)", "% ที่ราบ", "ครอบกริด"], l2_rows,
+                                f"{r['coverage']:.0%}"])
+            S.append(table(["วงโคจร (HH:MM เวลาสากล)", "ถ่ายภาพ (เวลาไทย)", "ฉากเหตุการณ์", "อ้างอิงก่อนเหตุการณ์",
+                            "น้ำใหม่ (ตร.กม.)", "% ของที่ราบทั้งลุ่ม", "ฉากครอบลุ่ม (%)"], l2_rows,
                            "กฎตัดน้ำที่ใช้: สัญญาณเรดาร์ต้องลดลงอย่างน้อย 0.5 หน่วย (ช่องต่างขั้ว) และ 1.5 หน่วย (ช่องเหมือนขั้ว) เทียบก่อนเหตุการณ์ และค่าหลังเหตุการณ์ต้องต่ำกว่า −20 · นับเฉพาะที่ราบต่ำกว่า 60 เมตร · กฎนี้สอบเทียบกับแผนที่ทางการ GISTDA แล้ว (ตรงกัน 72.7%)"))
             note_extra = (f"จุดที่พื้นที่น้ำท่วมมากสุดของลุ่มนี้: <b>{num(peak['water_km2_lowland'], 1)} ตร.กม.</b> "
-                          f"({peak['water_frac_plain']:.1%} ที่ราบ) — ฉาก {peak['scene'][12:40]} · "
-                          "ยังไม่ได้เทียบ GISTDA (ทำต่อใน v0.3)")
+                          f"({peak['water_frac_plain']:.1%} ของที่ราบทั้งลุ่ม) — ฉาก {peak['scene'][12:40]} ถ่ายเมื่อ {ict_label(peak['scene'])} เวลาไทย · "
+                          f"ฉากเดียวนี้ครอบ <b>{_fm[bid]['coverage']:.0%}</b> ของลุ่ม — เป็นค่าต่ำสุด (ส่วนนอกฉากไม่ได้ตรวจ) · "
+                          + (f"ฉากข้างเคียงรอบเดียวกัน {_fm[bid]['same_pass_frames']} ฉาก รวม {num(_fm[bid]['same_pass_sum_km2'], 1)} ตร.กม. "
+                             f"(ครอบรวมไม่เกิน {_fm[bid]['same_pass_coverage_sum']:.0%}) · " if _fm[bid]['same_pass_frames'] > 1 else "")
+                          + "ยังไม่ได้เทียบ GISTDA (ทำต่อใน v0.3)")
             if bid == "bkk_lower":
                 sea_p = A / "goal6/bkk_lower/l2_sea_adjust.json"
                 if sea_p.exists():
@@ -303,10 +323,14 @@ for bid, rec in cfg["basins"].items():
         model_th = {"linear": "สูตรเส้นตรง", "persistence": "ค่าเดิมคงที่", "GBDT": "แบบจำลองต้นไม้"}
         best6 = min(l3["results"]["6"]["rows"], key=lambda r: r["rmse_cm"])
         best24 = min(l3["results"]["24"]["rows"], key=lambda r: r["rmse_cm"])
+        best48 = min(l3["results"]["48"]["rows"], key=lambda r: r["rmse_cm"])
+        pers6 = next(r for r in l3["results"]["6"]["rows"] if r["model"] == "persistence")["rmse_cm"]
+        pers24 = next(r for r in l3["results"]["24"]["rows"] if r["model"] == "persistence")["rmse_cm"]
         S.append(note(
-            f"สรุป: ที่ระยะใช้งานจริง แบบจำลองดีสุดคือ <b>{model_th.get(best6['model'], best6['model'])} (คลาดเคลื่อน {best6['rmse_cm']} ซม. ที่ +6 ชม.)</b> "
+            f"สรุป: ที่ระยะใช้งานจริง วิธีที่ดีสุดคือ <b>{model_th.get(best6['model'], best6['model'])} (คลาดเคลื่อน {best6['rmse_cm']} ซม. ที่ +6 ชม.)</b> "
             f"และ <b>{model_th.get(best24['model'], best24['model'])} ({best24['rmse_cm']} ซม. ที่ +24 ชม.)</b> — "
-            "เทียบข้อค้นพบนครนายก: ระยะ +48 ชม. คลาดเคลื่อนทุกโมเดล"
+            f"เทียบกับค่าเดิมคงที่ {pers6} ซม. และ {pers24} ซม. (ถ้าสองชุดใกล้กัน ความแม่นมาจากระดับน้ำเปลี่ยนช้า ไม่ใช่ฝีมือแบบจำลอง) · "
+            f"ที่ +48 ชม. ดีสุด {best48['rmse_cm']} ซม. ({model_th.get(best48['model'], best48['model'])}) · ทดสอบกับเหตุการณ์เดียว"
         ))
     else:
         S.append(placeholder("L3 — โมเดลทำนายระดับน้ำ (สูตร/ค่าเดิมคงที่/GBDT วิธีเดียวกับนครนายก) รอเข้าคิว"))
@@ -314,7 +338,7 @@ for bid, rec in cfg["basins"].items():
     map_p = ROOT / f"report/assets/goal6/map_{bid}.png"
     if map_p.exists():
         S.append(figure(map_p,
-                        f"แผนที่น้ำท่วมจากดาวเทียมเรดาร์ (1 ต.ค. 2569 จุดสูงสุด) — {rec['label']}"))
+                        f"แผนที่น้ำท่วมจากดาวเทียมเรดาร์ ฉากที่ใหญ่สุด ({ict_label(_fm[bid]['scene'])} เวลาไทย · ครอบ {_fm[bid]['coverage']:.0%} ของลุ่ม) — {rec['label']}"))
 
 # ---- 5. ข้อจำกัด ----
 S.append(h2("5. ถาม–ตอบ คำถามที่คนทั่วไปถามบ่อย", "qa"))
@@ -346,7 +370,7 @@ S.append(prose(
 ))
 S.append(prose("<b>ถาม: กรุงเทพฯ เสี่ยงไหม?</b>"))
 S.append(prose(
-    f"ข้อมูลเรา: น้ำท่วมทุ่งรับน้ำราบรอบ กทม. สูงสุด {_fl['bkk_lower_after_sea']:,.0f} ตร.กม. วันที่ 1 ต.ค. "
+    f"ข้อมูลเรา: น้ำท่วมทุ่งรับน้ำราบรอบ กทม. สูงสุด {_fl['bkk_lower_after_sea']:,.0f} ตร.กม. (ฉากถ่ายเมื่อ {ict_label(_fm['bkk_lower']['scene'])} เวลาไทย) "
     "(ฉากเดียวที่ครอบทั้งลุ่ม · นับเฉพาะน้ำใหม่ที่ไม่ใช่น้ำถาวร · ค่าจริงอาจต่างทั้งสองทิศ: กฎตัดน้ำตรงกับแผนที่ทางการ F1 0.65–0.73 และเรดาร์มองไม่เห็นน้ำท่วมใต้ตึกเมือง) · ระดับน้ำที่ท้ายเขื่อนเจ้าพระยา "
     f"ทำนายได้ (คลาดเคลื่อน ~{_l3['bkk_lower']['h6']['rmse_cm']:.0f} ซม. ที่ระยะ 6 ชม.) · ทั้งนี้ กรุงเทพฯ เผชิญความเสี่ยงสำคัญ 2 ประการร่วมกัน "
     f"คือ น้ำหลากจากแม่น้ำเจ้าพระยาตอนบนและฝนในพื้นที่ ประจวบเหมาะกับช่วงน้ำทะเลหนุนสูงสุด (น้ำเกิด) ที่สะพานกรุงเทพ "
@@ -568,8 +592,8 @@ S.append(prose(
     "หน่วยงานควรนำข้อมูลระดับน้ำร่วมกับแผนที่ความสูงภูมิประเทศ แปลงเป็นแผนที่คาดการณ์ความลึกของน้ำท่วมขังบนผิวดินรายตำบลและชุมชน "
     "เพื่อให้ประชาชนเห็นภาพความเสี่ยงของตนเองได้อย่างชัดเจน<br>"
     "2. <b>แจ้งเตือนล่วงหน้าตามระยะเวลาที่ประชาชนลงมือปฏิบัติได้จริง (มีเวลารับมือ 6–24 ชั่วโมง)</b>: "
-    "ผลการวิเคราะห์แบบจำลองของโครงการพิสูจน์ว่า การพยากรณ์ระดับน้ำระยะสั้น 6 ถึง 24 ชั่วโมง มีความแม่นยำสูง "
-    "ภาครัฐควรนำผลทำนายนี้มาประกาศเตือนภัยระดับสี (เขียว-เหลือง-ส้ม-แดง) ล่วงหน้าอย่างน้อย 12–24 ชั่วโมง "
+    "ผลทดสอบของโครงการ (เหตุการณ์เดียว) ชี้ว่าการพยากรณ์ระดับน้ำ 6 ชั่วโมงให้ผลพอใช้ แต่ที่ 24 ชั่วโมงในหลายลุ่มยังไม่ดีไปกว่าการบอกว่าระดับน้ำจะไม่เปลี่ยน "
+    "จึงควรทดสอบกับเหตุการณ์ย้อนหลังหลายครั้งก่อน แล้วค่อยประกาศเตือนภัยระดับสี (เขียว-เหลือง-ส้ม-แดง) ล่วงหน้า "
     "พร้อมระบุขั้นตอนที่ประชาชนต้องปฏิบัติอย่างเป็นรูปธรรม เช่น ยกเครื่องใช้ไฟฟ้าขึ้นที่สูง ย้ายยานพาหนะ หรือเตรียมอพยพ<br>"
     "3. <b>ส่งสัญญาณเตือนภัยฉุกเฉินเฉพาะพิกัดพื้นที่ผ่านโครงข่ายโทรศัพท์เคลื่อนที่</b>: "
     "ใช้ระบบกระจายสัญญาณข้อความเตือนภัยฉุกเฉินผ่านเสาสัญญาณโทรศัพท์เคลื่อนที่แบบเจาะจงเฉพาะพื้นที่เสี่ยงภัย "

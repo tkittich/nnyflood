@@ -391,3 +391,22 @@ Effort scale: **S** ≤ 1 day · **M** 2–5 days · **L** > 1 week.
 5. **Before announcing:** human hydrologist and counsel review, right of reply to agencies, tagged and archived release (P10).
 
 If only four additions are possible: **A1 (frame-union area), C1 (routing counterfactual), B4 + C5 (land-cover-stratified, out-of-sample S1 accuracy), A4 (return-period flows)** — together they turn the four largest attack surfaces (area ranking, pre-release number, area bias, rarity claim) into defensible ranges without waiting for any agency data.
+
+---
+
+# Resolution log (updated 12 Oct 2026, same day)
+
+| ID | Status | Where |
+|---|---|---|
+| P1 privacy | **Done** — files removed from tree and rewritten out of history (local + remote force-push by author); `tests/test_privacy.py` | commit "PDPA: …" |
+| H1 pre-release | **Done** — scenarios withdrawn; ceiling ≤ 0.24 m | `goal6_c2_attribution.py`, report 3 Q&A, tests |
+| H6 tide/gates | **Done** — unsupported gate/pump claims removed; observed low-water rise stated with limits | report 3 |
+| P4 policy Q&A | **Done (labelled)** — block labelled as the author's opinion; unsourced numbers removed | report 3 |
+| H3 dam storage window | **Done** — window max (1 Sep–9 Oct) in both reports; daily window values stored; cross-checked vs screen within 1 % | `goal6_dam_history_all.py --refresh`, reports 3–4, test |
+| H4 2554-vs-2569 wording | **Done (wording)** — "operations comparable" and "normal system behaviour" removed; season-total rain still not computed (open: suggestion A2) | report 4 |
+| H5 forecast claims | **Done** — skill vs persistence in canonical; TLDR/summaries/policy text reworded; single-event caveat. Leakage/embargo fix and rolling-origin evaluation still open (C2) | report 3 |
+| H2 + P3 area/dates | **Partly** — coverage % and same-pass sum printed; dates converted to Thai time; headline no longer says "1 ต.ค. จุดสูงสุด". Coverage-normalised estimate / frame union still open (A1) | report 3 |
+| M4 `/199` label | **Done** | `goal6_rain_rarity_2554.py` |
+| M5 stale numbers | **Done** for HANDOFF/PLAN L3 values | docs |
+| P5 tests | **Done** — pins replaced by ceiling/invariants; 4 new invariant tests | `tests/test_goal6_consistency.py` |
+| Open | M1 (S1 rule validation), M2 (25 over-critical headline / own-history screen), M3 (pre-registration wording), M6 residual wording, P2 (drafts still linked — author's choice), P6–P10, all suggestions A/B/C/D | — |

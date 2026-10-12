@@ -149,3 +149,55 @@ def test_all_embedded_images_valid():
             raw = base64.b64decode(b64, validate=True)
             assert raw[:8] == b"\x89PNG\r\n\x1a\n", f"{f} img{i}: ไม่ใช่ PNG"
             assert b"IEND" in raw, f"{f} img{i}: PNG ไม่สมบูรณ์ (ไม่มี IEND)"
+
+
+# ---- ค่าคงที่เชิงสถิติจากรีวิว Sonnet 12 ต.ค. 69 (กันผิดซ้ำ — เทสเดิมแค่ยืนยันค่า ไม่ตรวจความถูกต้อง) ----
+
+def test_dam_storage_column_uses_event_window():
+    """H3: 'เก็บสูงสุด 2569' ต้องเป็นสูงสุดในหน้าต่าง ก.ย.–ต.ค. เดียวกับ days_over_urc_sep_oct
+    ไม่ใช่สูงสุดทั้งปีปฏิทิน (ยกยอดจากปีก่อน) · และตรงกับ screen (แหล่งต่างสคริปต์) ภายใน 1%"""
+    dh = json.loads((ROOT / "analysis/goal6/dam_history_all.json").read_text(encoding="utf-8"))["dams"]
+    sc = {d["name"]: d for d in json.loads(
+        (ROOT / "analysis/goal6_screen_2026_summary.json").read_text(encoding="utf-8"))["dams"]}
+    bad = []
+    for name, rec in dh.items():
+        y = next((r for r in rec.get("years", []) if r["year"] == 2026), None)
+        if not y or y.get("max_storage_sep_oct") is None:
+            continue
+        win = y["storage_sep_oct"]
+        assert max(win.values()) == y["max_storage_sep_oct"]
+        assert all("09-01" <= d[5:10] <= "10-09" for d in win)
+        ref = sc.get(name, {}).get("sep_oct_max_storage")
+        if ref and abs(y["max_storage_sep_oct"] - ref) / ref > 0.01:
+            bad.append((name, y["max_storage_sep_oct"], ref))
+    assert not bad, f"ค่า 2569 ในหน้าต่างไม่ตรง screen: {bad}"
+
+
+def test_l3_skill_vs_persistence_present_and_report_not_overclaiming():
+    """H5: ทุก RMSE ต้องมีค่าเดิมคงที่คู่กัน · ห้ามคำว่า 'พิสูจน์ว่า' กับพยากรณ์"""
+    d = _load()
+    for b, v in d["l3_best"].items():
+        for h in ("h6", "h24", "h48"):
+            assert "persistence_cm" in v[h] and "skill_vs_persistence" in v[h], (b, h)
+    assert d["l3_summary"]["n_basins"] == 6
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    assert "พิสูจน์ว่า การพยากรณ์" not in h3 and "คลาดเคลื่อนทุกโมเดล" not in h3
+    assert "ทำนายได้แม่น" not in h3
+
+
+def test_flood_area_printed_with_coverage_and_thai_time():
+    """H2/P3: พื้นที่น้ำท่วมต้องมีสัดส่วนที่ฉากครอบ + เวลาไทย · ห้ามเรียก 'จุดสูงสุด 1 ต.ค.' ลอย ๆ"""
+    d = _load()
+    fm = d["flood_peak_meta"]
+    assert set(fm) >= {"pasak", "maeklong", "bp_prach", "thachin", "ping_cp", "bkk_lower"}
+    for b, m in fm.items():
+        assert 0 < m["coverage"] <= 1 and m["ict"] > m["utc"]
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    assert "เวลาไทย" in h3 and "จุดสูงสุด) —" not in h3
+    assert "1 ต.ค. 2569 จุดสูงสุด" not in h3
+
+
+def test_rain_2554_md_rank_denominator_is_years():
+    """M4: อันดับต่อปี (≤46) ห้ามพิมพ์เป็น '/199'"""
+    md = (ROOT / "analysis/goal6/rain_rarity_2554.md").read_text(encoding="utf-8")
+    assert "/199 |" not in md

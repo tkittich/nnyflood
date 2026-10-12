@@ -454,3 +454,28 @@ Script: `analysis/goal6_s1_rule_validation.py` → `analysis/goal6/s1_rule_valid
 Consequences applied: report 3 limitation (7) carries these numbers (rendered from canonical); each basin note prints the already-dark share and the net-new area; the TLDR adds one clause; "ตรงกัน 72.7 %" is retired; reports 1–2 no longer call 452 km² a "lower bound" and state the 288–578 km² range with F1/CI. Canonical headline areas (521/73/1,282/160/2,264/1,104) are **unchanged** — impact was computed above rather than applied, because changing the definition to "net-new" would alter published report-3 figures and needs the author's decision.
 
 Still open: land-cover stratification (needs WorldCover), a time-matched reference for the peak, any independent reference outside Nakhon Nayok.
+
+
+---
+
+# Addendum 5 — basin-mean rain and season totals (A2), 12 Oct 2026
+
+Script `analysis/goal6_basin_rain.py` → `analysis/goal6/basin_rain.json/.md`. Catchments = all HydroBASINS lev08 polygons upstream (NEXT_DOWN) of the polygon containing each reference gauge; weights = area overlap with NASA POWER 0.5° × 0.625° cells; 38 new cells fetched (45 reused from the earlier gauge cache); one common window 1 Jul–7 Oct for **all 46 years including 2026** (removes the one-sided truncation noted in M4).
+
+| Catchment above | cells | season total 2554 (rank/46) | 2569 (rank) | 7-day max rank 2554 / 2569 | median (mm) |
+|---|---|---|---|---|---|
+| Ping–Wang–Yom–Nan at C.2 | 49 | 888 mm (**3**) | 806 (8) | 10 / 3 | 624 |
+| Whole basin above C.13 | 52 | 890 (**3**) | 824 (7) | 8 / 2 | 633 |
+| Pasak at S.26 | 13 | 827 (5) | 846 (4) | 9 / 5 | 616 |
+| Mae Klong at K.3A | 16 | 920 (15) | 1,538 (**1**) | 18 / 1 | 800 |
+| Bang Pakong at Kgt.3 | 10 | 1,087 (5) | 1,288 (2) | 29 / 1 | 828 |
+| Tha Chin at T.1 | 11 | 707 (16) | 972 (**1**) | 18 / 1 | 655 |
+| Nakhon Nayok at Ny.7 | 2 | 1,039 (5) | 1,188 (2) | 18 / 1 | 783 |
+
+What changed in the conclusions:
+- **H4 sharpened:** the 2011 rain was a *season-long, upper-basin* event (season total rank 3 of 46, 888 mm — above the 2026 value of 806 mm), which the old 7-day-maximum statistic put at rank 10 and the old gauge-median table called "ordinary". Report 4 now says so and states that cross-year days-over-curve are descriptive only.
+- **"2554 west was dry" retracted:** Mae Klong 2554 season total is rank 15/46 (above median), not "median rank 39". Report 3's dam-table note and the "best dam" Q&A now carry the computed rank and still say operation and inflow cannot be separated.
+- **2569:** a late-September burst on the middle/lower basins (7-day max rank 1 in Mae Klong, Tha Chin, Nakhon Nayok; Bang Pakong season total rank 2), while the upper basin's season total was only rank 8.
+- Weibull/ranks at gauge points (67/199 → 32/99 cells) remain valid as a *station-density* count; the basin-mean table is the preferred statement for basin-level claims.
+
+Limits: POWER MERRA-2 is ~55 km (cells span 0.5° × 0.625°); the 2-cell Nakhon Nayok catchment is crude; reanalysis rain is smoothed (gauges higher); season totals are not inflow (reservoir inflow for 2011 is still not in the report).

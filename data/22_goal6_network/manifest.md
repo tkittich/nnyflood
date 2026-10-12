@@ -263,3 +263,8 @@ bbox ครอบอ่าวไทย (DEM ทะเล = 0 ม. นับเ�
 
 - ดึงซ้ำด้วย `python analysis/goal6_dam_history_all.py --refresh` (GET analyst/dam_yearly_graph ไม่ต้อง auth) เพื่อเก็บรายวันของหน้าต่าง 1 ก.ย.–9 ต.ค. (`storage_sep_oct`) ตามรีวิว Sonnet H3
 - ผลต่างจากรอบก่อน: ข้อมูลปี 2569 ยาวขึ้น 3 วัน (ถึง ~12 ต.ค.) → ค่ารายปี (ทั้งปี) ขยับเล็กน้อย; ค่าในหน้าต่าง ก.ย.–ต.ค. ไม่เปลี่ยน · SHA-256 ใน `_hashes.txt` อัปเดตแล้ว (ฉบับก่อนอยู่ในประวัติ git)
+
+## ฝนรายเซลล์ NASA POWER สำหรับฝนเฉลี่ยทั้งลุ่ม (12 ต.ค. 2569 — รีวิว Sonnet A2)
+
+- ดึง 38 เซลล์ (ศูนย์กลางเซลล์ 0.5° × 0.625° · PRECTOTCORR รายวัน 1981-01-01..2026-12-31 ได้ถึง ~7 ต.ค. 2569) ด้วย GET `power.larc.nasa.gov/api/temporal/daily/point` (ไม่ต้อง auth) → `raw/basin_rain/cell_<lat>_<lon>.json` · เซลล์ที่มีแคชรายจุดเดิม (45) ใช้ซ้ำจาก `raw/rain_rarity_national/`
+- ใช้โดย `analysis/goal6_basin_rain.py` (ลุ่มรับน้ำจาก HydroBASINS lev08 — zip ใน `raw/hydrobasins/`) · ไฟล์เซลล์ **disk-only ไม่เข้า git** (นโยบาย raw ใหญ่) — SHA-256 ใน `_hashes.txt`

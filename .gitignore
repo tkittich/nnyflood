@@ -99,3 +99,6 @@ analysis/flood_feed_evidence_posts.csv
 analysis/flood_album_captions.csv
 analysis/album_geotag_results.csv
 analysis/flood_locations_from_album_captions.csv
+
+# ฝนรายเซลล์ POWER (A2 12 ต.ค. 69) — disk-only, SHA-256 อยู่ data/22_goal6_network/_hashes.txt
+data/22_goal6_network/raw/basin_rain/

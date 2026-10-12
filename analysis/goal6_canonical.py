@@ -119,6 +119,16 @@ def main() -> None:
     flood["bkk_lower_after_sea"] = sea["peak_after_km2"]
     out["flood_peak_km2"] = flood
     out["flood_peak_meta"] = flood_meta
+    # ---- ฝนเฉลี่ยทั้งลุ่ม + ฝนรวมฤดู (goal6_basin_rain.py — รีวิว Sonnet A2) ----
+    br_p = A / "goal6/basin_rain.json"
+    if br_p.exists():
+        br = json.loads(br_p.read_text(encoding="utf-8"))
+        out["basin_rain"] = {
+            "window": br["window"],
+            "basins": {b: {"gauge": v["gauge"], "label": v["label"], "n_cells": v["n_cells"],
+                           **{m: {k: x[k] for k in ("v2554", "v2569", "rank2554", "rank2569", "median")}
+                              for m, x in v["metrics"].items()}} for b, v in br["basins"].items()},
+        }
     # ---- ตรวจกฎตัดน้ำ (goal6_s1_rule_validation.py — รีวิว Sonnet M1/R9) ----
     rv_p = A / "goal6/s1_rule_validation.json"
     if rv_p.exists():

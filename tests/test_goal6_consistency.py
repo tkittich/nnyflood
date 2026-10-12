@@ -89,9 +89,13 @@ def test_report_html_matches_canonical_flood_and_rain():
     assert "20 จาก 22" in h4
     assert str(d["rain_2554_vs_2569"]["top3_cells_54"]) in h4
     # H1 (รีวิว GLM): ตารางอันดับกลางต้องตรง canonical (มัธยฐานมาตรฐาน)
-    m54 = d["rain_2554_vs_2569"]["basin_medians_54"]["pasak"]
-    m26 = d["rain_2554_vs_2569"]["basin_medians_26"]["pasak"]
-    assert f"{m54:g}" in h4 and f"{m26:g}" in h4, f"ตารางอันดับกลางป่าสักไม่ตรง canonical ({m54}/{m26})"
+    # A2: ตารางฝนเฉลี่ยลุ่ม — เลขฝนรวมฤดู/อันดับของทุกลุ่มต้องตรง canonical
+    br = d["basin_rain"]["basins"]
+    for b in ("ping_cp", "pasak", "bp_prach", "maeklong", "thachin", "nakhonnayok"):
+        m = br[b]["season_total"]
+        assert f"{m['v2554']:.0f} · อันดับ {m['rank2554']}" in h4, f"ฝนรวมฤดู 2554 {b} ไม่ตรง canonical"
+        assert f"{m['v2569']:.0f} · อันดับ {m['rank2569']}" in h4, f"ฝนรวมฤดู 2569 {b} ไม่ตรง canonical"
+    assert "ไม่ใช่ปีแล้ง" in h3 and "อันดับกลาง 39" not in h3
 
 
 def test_builder_source_has_no_metric_literals():

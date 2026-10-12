@@ -526,3 +526,27 @@ Reading:
 5. Nakhon Nayok precision by class (share of detections inside GISTDA, 2 Oct): cropland 74 %, wetland 48 %, grass 39 %, water 22 %, forest 14 %, built-up 4 %. By area, however, ~79 of ~108 km² of non-GISTDA detections are still on cropland — the weak classes are small.
 
 Applied: report 3 limitation (7) and each basin note print the strict-new area and the cropland/built-up shares; canonical keeps the gross headline areas.
+
+
+---
+
+# Addendum 8 — gross vs strict shown together; exposure layer (C6), 12 Oct 2026
+
+**Decision applied (author, 12 Oct):** report 3 now shows *both* numbers everywhere a flood area is quoted — "ตรวจพบรวม" (gross; upper bound of new water **in the frame**) and "น้ำใหม่เข้มงวด" (strict; lower bound after removing mapped permanent water, JRC ≥ 50 % and already-dark pixels). TLDR, basin notes and all six map labels carry the pair; the coverage warning (outside the frame is not inspected) stays separate. Reports 1–2 keep the gross figure with the range wording added earlier.
+
+**Exposure layer** (`analysis/goal6_exposure.py` → `analysis/goal6/exposure.json/.md`; WorldPop 2020 1 km, OSM Thailand extract of 12 Oct; aggregate only, no household-level data):
+
+| Scene | Population, area-weighted (strict–gross) | Population in 1-km cells ≥ 10 % detected | Major roads km | Minor roads km | Rail km |
+|---|---|---|---|---|---|
+| Ping–Chao Phraya (upper) | 187,600–230,400 | 455,900–540,000 | 338–393 | 3,141–3,648 | 26–44 |
+| Chao Phraya lower–Bangkok | 277,100–357,400 | 778,800–984,000 | 280–304 | 3,162–3,646 | 20–24 |
+| Bang Pakong | 141,100–184,400 | 369,900–434,500 | 233–265 | 2,162–2,575 | 41–46 |
+| Pasak | 50,400–58,100 | 109,000–126,100 | 96–111 | 685–774 | 28–44 |
+| Tha Chin | 13,600–16,100 | 40,200–46,900 | 12–13 | 283–309 | 0 |
+| Mae Klong | 900–1,200 | 2,000–3,000 | < 1 | 18–22 | 0 |
+| Nakhon Nayok 2 Oct | 27,800–36,400 | 75,900–83,700 | 64–71 | 531–618 | 15–20 |
+
+Sanity: Nakhon Nayok (2 Oct) area-weighted 28–36 k vs GISTDA's published 48,100 people for the cumulative 28 Sep–2 Oct product (different definition, same order); 27 Sep peak scene 37–52 k.
+Caveats stated in the report: population uniform inside 1 km cells (real settlement is clustered); radar under-detects urban water (built-up land is 3–21 % of lowland, ≤ 1 % of detections) so city exposure is understated; ponds/seasonally flooded paddy may be over-counted; the basin rows overlap spatially and must not be summed; (B) is an upper bound for people near flooding, not a count of affected people.
+
+Housekeeping: `pip install osmium` (pyosmium 4.3.1) was added for the OSM parse — not pinned in `requirements.txt` yet; the retired-number test now strips base64 before scanning (a 3-character coincidence failed it once).

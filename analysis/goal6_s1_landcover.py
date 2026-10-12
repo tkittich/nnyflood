@@ -148,6 +148,8 @@ def analyse(tag: str, water: np.ndarray, pre_vh: np.ndarray, post_vh: np.ndarray
     # เก็บชั้นผิวดินที่ตัดแล้ว (disk-only)
     DER.mkdir(parents=True, exist_ok=True)
     np.save(DER / f"worldcover_{tag}.npy", lc)
+    np.save(DER / f"gross_{tag}.npy", w)       # ตรวจพบรวม (ในฉากที่ครอบ)
+    np.save(DER / f"strict_{tag}.npy", s3)     # น้ำใหม่เข้มงวด — ใช้ต่อใน goal6_exposure.py
     return res
 
 

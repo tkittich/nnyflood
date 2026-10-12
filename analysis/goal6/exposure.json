@@ -1,0 +1,165 @@
+{
+ "source": "WorldPop 2020 1 กม. + OSM Geofabrik 12 ต.ค. 2569 · มาสก์: ตรวจพบรวม/เข้มงวด (goal6_s1_landcover)",
+ "scenes": {
+  "nn_oct2": {
+   "gross": {
+    "pop_areal": 36400,
+    "pop_cells_ge10pct": 83700,
+    "major_km": 71.1,
+    "minor_km": 617.7,
+    "rail_km": 19.6
+   },
+   "lowland_major_km": 1033.2,
+   "lowland_minor_km": 10882.1,
+   "lowland_rail_km": 87.2,
+   "strict": {
+    "pop_areal": 27800,
+    "pop_cells_ge10pct": 75900,
+    "major_km": 64.0,
+    "minor_km": 530.9,
+    "rail_km": 15.4
+   },
+   "pop_lowland_covered": 234000
+  },
+  "nn_peak_27sep": {
+   "gross": {
+    "pop_areal": 51500,
+    "pop_cells_ge10pct": 129100,
+    "major_km": 69.7,
+    "minor_km": 992.5,
+    "rail_km": 14.8
+   },
+   "lowland_major_km": 1033.2,
+   "lowland_minor_km": 10882.1,
+   "lowland_rail_km": 87.2,
+   "strict": {
+    "pop_areal": 37200,
+    "pop_cells_ge10pct": 111300,
+    "major_km": 62.3,
+    "minor_km": 791.9,
+    "rail_km": 13.6
+   },
+   "pop_lowland_covered": 234000
+  },
+  "pasak": {
+   "gross": {
+    "pop_areal": 58100,
+    "pop_cells_ge10pct": 126100,
+    "major_km": 110.8,
+    "minor_km": 774.2,
+    "rail_km": 43.6
+   },
+   "lowland_major_km": 7948.6,
+   "lowland_minor_km": 48867.8,
+   "lowland_rail_km": 824.9,
+   "strict": {
+    "pop_areal": 50400,
+    "pop_cells_ge10pct": 109000,
+    "major_km": 96.2,
+    "minor_km": 684.5,
+    "rail_km": 28.2
+   },
+   "pop_lowland_covered": 2512000
+  },
+  "maeklong": {
+   "gross": {
+    "pop_areal": 1200,
+    "pop_cells_ge10pct": 3000,
+    "major_km": 0.4,
+    "minor_km": 22.4,
+    "rail_km": 0.0
+   },
+   "lowland_major_km": 6989.6,
+   "lowland_minor_km": 47390.6,
+   "lowland_rail_km": 534.3,
+   "strict": {
+    "pop_areal": 900,
+    "pop_cells_ge10pct": 2000,
+    "major_km": 0.4,
+    "minor_km": 18.1,
+    "rail_km": 0.0
+   },
+   "pop_lowland_covered": 2274000
+  },
+  "bp_prach": {
+   "gross": {
+    "pop_areal": 184400,
+    "pop_cells_ge10pct": 434500,
+    "major_km": 265.4,
+    "minor_km": 2575.3,
+    "rail_km": 46.2
+   },
+   "lowland_major_km": 7280.3,
+   "lowland_minor_km": 63785.8,
+   "lowland_rail_km": 562.3,
+   "strict": {
+    "pop_areal": 141100,
+    "pop_cells_ge10pct": 369900,
+    "major_km": 233.4,
+    "minor_km": 2162.4,
+    "rail_km": 40.6
+   },
+   "pop_lowland_covered": 2862000
+  },
+  "thachin": {
+   "gross": {
+    "pop_areal": 16100,
+    "pop_cells_ge10pct": 46900,
+    "major_km": 12.5,
+    "minor_km": 309.3,
+    "rail_km": 0.0
+   },
+   "lowland_major_km": 10142.2,
+   "lowland_minor_km": 82271.6,
+   "lowland_rail_km": 365.7,
+   "strict": {
+    "pop_areal": 13600,
+    "pop_cells_ge10pct": 40200,
+    "major_km": 11.7,
+    "minor_km": 282.8,
+    "rail_km": 0.0
+   },
+   "pop_lowland_covered": 4685000
+  },
+  "ping_cp": {
+   "gross": {
+    "pop_areal": 230400,
+    "pop_cells_ge10pct": 540000,
+    "major_km": 392.5,
+    "minor_km": 3647.9,
+    "rail_km": 43.7
+   },
+   "lowland_major_km": 31285.7,
+   "lowland_minor_km": 225015.3,
+   "lowland_rail_km": 1861.6,
+   "strict": {
+    "pop_areal": 187600,
+    "pop_cells_ge10pct": 455900,
+    "major_km": 337.8,
+    "minor_km": 3140.6,
+    "rail_km": 25.7
+   },
+   "pop_lowland_covered": 21577000
+  },
+  "bkk_lower": {
+   "gross": {
+    "pop_areal": 357400,
+    "pop_cells_ge10pct": 984000,
+    "major_km": 303.9,
+    "minor_km": 3646.3,
+    "rail_km": 23.9
+   },
+   "lowland_major_km": 17000.2,
+   "lowland_minor_km": 143514.9,
+   "lowland_rail_km": 1110.2,
+   "strict": {
+    "pop_areal": 277100,
+    "pop_cells_ge10pct": 778800,
+    "major_km": 280.4,
+    "minor_km": 3162.1,
+    "rail_km": 19.9
+   },
+   "pop_lowland_covered": 21688000
+  }
+ }
+}

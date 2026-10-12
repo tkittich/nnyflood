@@ -143,6 +143,10 @@ def main() -> None:
                            **{m: {k: x[k] for k in ("v2554", "v2569", "rank2554", "rank2569", "median")}
                               for m, x in v["metrics"].items()}} for b, v in br["basins"].items()},
         }
+    # ---- ผลกระทบ ประชากร/ถนน (goal6_exposure.py) ----
+    ex_p = A / "goal6/exposure.json"
+    if ex_p.exists():
+        out["exposure"] = json.loads(ex_p.read_text(encoding="utf-8"))["scenes"]
     # ---- ผิวดิน/น้ำถาวร (goal6_s1_landcover.py — WorldCover + JRC) ----
     lc_p = A / "goal6/s1_landcover.json"
     if lc_p.exists():

@@ -21,3 +21,6 @@ pytest==9.1.1        # รันชุดทดสอบ: python -m pytest tests
 # 3 สคริปต์ (georef_gistda / georef_fit / georef_corner_match) import cv2 (opencv-python)
 # แต่เป็น "การทดลองที่สรุปผลไม่ได้" (สเกล ~14–16 ม./px, ตำแหน่ง ±1 กม.) ไม่ใช่ไปป์ไลน์หลัก
 # จึงไม่ปักหมุดในรายการหลัก · ถ้าต้องรัน: pip install opencv-python
+
+# เสริม (ตัวเลือก): ใช้เฉพาะ analysis/goal6_exposure.py อ่าน OSM .pbf
+# osmium==4.3.1

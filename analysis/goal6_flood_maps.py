@@ -48,7 +48,7 @@ def peak_scene_name(bid: str) -> str:
     return peak_scene(bid).name.removesuffix("_water.npy")
 
 
-def plot_map(bid: str, label: str, km2: float, when: str, cov_pct: float) -> None:
+def plot_map(bid: str, label: str, km2: float, when: str, cov_pct: float, strict: float | None = None) -> None:
     g = json.loads((STAGE1 / f"grid_{bid}.json").read_text(encoding="utf-8"))
     x0, y0, x1, y1, nx, ny = g["x0"], g["y0"], g["x1"], g["y1"], g["nx"], g["ny"]
     water = np.load(peak_scene(bid))
@@ -103,8 +103,10 @@ def plot_map(bid: str, label: str, km2: float, when: str, cov_pct: float) -> Non
                       aspect=geo_aspect, cmap=matplotlib.colors.ListedColormap(["#6b7280"]), alpha=0.55,
                       interpolation="nearest")
             cov_txt = f" · ส่วนสีเทา = นอกขอบฉาก (ไม่ได้ตรวจ)"
-    ax.text(0.02, 0.97, f"พื้นที่น้ำท่วมใหม่ในฉากเดียว: {km2:,.0f} ตร.กม." + chr(10) +
-                        f"ถ่ายเมื่อ {when} (เวลาไทย) · ฉากครอบ {cov_pct:.0%} ของลุ่ม — ค่าต่ำสุด",
+    head = (f"ตรวจพบรวม {km2:,.0f} (ขอบบน) → เข้มงวด {strict:,.0f} (ขอบล่าง) ตร.กม." if strict is not None
+            else f"พื้นที่น้ำท่วมใหม่ในฉากเดียว: {km2:,.0f} ตร.กม.")
+    ax.text(0.02, 0.97, head + chr(10) +
+            f"ถ่าย {when} (เวลาไทย) · ฉากครอบ {cov_pct:.0%} · นอกฉากไม่ได้ตรวจ",
             transform=ax.transAxes, fontsize=10, va="top",
             bbox=dict(boxstyle="round,pad=0.4", fc="white", ec="#1d6fb8", alpha=0.9))
     ax.set_title(f"น้ำท่วมจากดาวเทียมเรดาร์ — {label}", fontsize=13)
@@ -131,7 +133,7 @@ def main() -> None:
             from datetime import datetime
             d = datetime.strptime(m["ict"], "%Y-%m-%d %H:%M")
             mon = ["", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."][d.month]
-            plot_map(bid, label, km2, f"{d.day} {mon} {d:%H:%M}", m["coverage"])
+            plot_map(bid, label, km2, f"{d.day} {mon} {d:%H:%M}", m["coverage"], can.get("s1_landcover", {}).get(bid, {}).get("strict_new_km2"))
         except Exception as exc:  # noqa: BLE001
             print(f"  ERROR {bid}: {type(exc).__name__} {str(exc)[:100]}", flush=True)
 

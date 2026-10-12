@@ -43,7 +43,8 @@ def test_retired_numbers_absent():
             p = ROOT / f
             if not p.exists():
                 continue
-            txt = p.read_text(encoding="utf-8")
+            import re
+            txt = re.sub(r"data:[a-zA-Z]+/[a-zA-Z0-9.+-]+;base64,[A-Za-z0-9+/=]+", "", p.read_text(encoding="utf-8"))  # ภาพ base64 บังเอิญมีลำดับตัวอักษรตรงได้
             assert retired not in txt, f"{f}: พบตัวเลข/ข้อความที่ปลดประจำการแล้ว: {retired!r} ({why})"
 
 
@@ -244,3 +245,15 @@ def test_landcover_breakdown_wired():
     assert d["maeklong"]["share_on_worldcover_water"] > 0.5 and d["maeklong"]["strict_new_km2"] < 20
     h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
     assert "น้ำใหม่เข้มงวด" in h3 and "ตามผิวดิน" in h3
+
+
+def test_gross_and_strict_shown_and_exposure_wired():
+    """ผู้ใช้ตัดสิน 12 ต.ค. 69: แสดงทั้ง 'ตรวจพบรวม (ขอบบน)' และ 'น้ำใหม่เข้มงวด (ขอบล่าง)' · ชั้นผลกระทบต้องมีและ เข้มงวด ≤ รวม"""
+    d = _load()
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    assert "ตรวจพบรวม (ขอบบนของน้ำใหม่ในฉาก)" in h3 and "น้ำใหม่เข้มงวด (ขอบล่าง)" in h3
+    for t, r in d["exposure"].items():
+        assert r["strict"]["pop_areal"] <= r["gross"]["pop_areal"] + 1, t
+        assert r["strict"]["major_km"] <= r["gross"]["major_km"] + 0.05, t
+        assert r["pop_lowland_covered"] > r["gross"]["pop_areal"], t
+    assert "ถามนี้" not in h3 and "ในพื้นที่ที่ตรวจพบน้ำท่วม มีประชากรและถนนอยู่เท่าไร" in h3

@@ -82,6 +82,7 @@ _h48vals = sorted(v["h48"]["rmse_cm"] for v in _l3.values())
 _l3s = _can["l3_summary"]
 _fm = _can["flood_peak_meta"]
 _rv = _can["s1_rule"]
+_lc = _can["s1_landcover"]
 _RULE_SENT = (
     f"ความน่าเชื่อถือของกฎ (ตรวจด้วยข้อมูลที่มี ไม่ปรับค่า): F1 เทียบ GISTDA = {_rv['oct2']['f1']:.2f} "
     f"(ช่วง 95%: {_rv['oct2']['f1_ci95'][0]:.2f}–{_rv['oct2']['f1_ci95'][1]:.2f}) บนฉากเดียวกับที่ใช้ตั้งค่า และ "
@@ -303,7 +304,8 @@ for bid, rec in cfg["basins"].items():
                           + (f"ฉากข้างเคียงรอบเดียวกัน {_fm[bid]['same_pass_frames']} ฉาก รวม {num(_fm[bid]['same_pass_sum_km2'], 1)} ตร.กม. "
                              f"(ครอบรวมไม่เกิน {_fm[bid]['same_pass_coverage_sum']:.0%}) · " if _fm[bid]['same_pass_frames'] > 1 else "")
                           + f"ในจุดที่ตรวจพบ <b>{_rv['basin_dark_share'][bid]:.0%}</b> เป็นพื้นที่ที่ภาพก่อนเหตุการณ์มืดอยู่แล้ว (อาจเป็นน้ำเดิม/บ่อ) — "
-                            f"ส่วนที่เป็นน้ำใหม่สุทธิ ~{_rv['basin_net_new_km2'][bid]:.0f} ตร.กม. · "
+                            f"หลังตัดแหล่งน้ำถาวร (ตามแผนที่ผิวดินโลก 10 ม. และแผนที่ความถี่การมีน้ำ 2527–2564) และจุดที่มืดอยู่แล้ว เหลือ <b>น้ำใหม่เข้มงวด ~{_lc[bid]['strict_new_km2']:.0f} ตร.กม.</b> "
+                            f"(ตรวจพบบนพื้นที่เพาะปลูก {_lc[bid]['share_det_crop']:.0%} ของที่ราบฉากนี้เป็นพื้นที่เพาะปลูก {_lc[bid]['share_base_crop']:.0%}) · "
                           + "ยังไม่ได้เทียบ GISTDA (ทำต่อใน v0.3)")
             if bid == "bkk_lower":
                 sea_p = A / "goal6/bkk_lower/l2_sea_adjust.json"
@@ -675,7 +677,15 @@ S.append(prose(
     "(3.1) หน้าต่างฝนของปี 2569 จบ 9 ต.ค. (ข้อมูลกริดมีถึง 7 ต.ค.) ขณะที่ปีอื่นนับถึง 31 ต.ค. — ทิศเอียง<b>สวน</b>ปี 2569 (ระลอกยังเดินต่อได้อีก ~3 สัปดาห์โดยไม่ถูกนับ) จึงเป็นค่าประมาณต่ำสุด · "
     "ใช้ได้เชิงคุณภาพเท่านั้น (5) ความครอบคลุมข้อมูลรายชั่วโมงรายจุดไม่เท่ากัน (จำนวนชม.มีค่าแสดงในตาราง) (6) <b>การตรวจยืนยันอิสระเชิงพื้นที่ทำไม่ได้สำหรับระลอกนี้</b> — Sentinel-2 ทั้ง 9 ฉากที่โปร่งที่สุดเมฆปิดในบริเวณเป้าหมาย (มรสุมปลาย ก.ย.) · ตัวเลขน้ำท่วมจึงยืนบน S1 เรดาร์เดี่ยว + ความสอดคล้องเชิงเวลากับระดับน้ำจุดวัด · ทางเลือกตรวจยืนยัน: แผนที่ GISTDA รายครั้งการถ่ายภาพ (รอมนุษย์) / Landsat 9 / ขยายหน้าต่าง S2 ต.ค. "
     "(7) <b>ความแม่นของกฎตัดน้ำ</b> — " + _RULE_SENT + f" · สัดส่วนน้ำใหม่ที่ภาพก่อนเหตุการณ์มืดอยู่แล้ว: นครนายก {_rv['nn_dark_share']['oct2']:.0%}–{_rv['nn_dark_share']['peak_27sep']:.0%}, "
-    f"รายลุ่ม {min(_rv['basin_dark_share'].values()):.0%}–{max(_rv['basin_dark_share'].values()):.0%} (แม่กลอง {_rv['basin_dark_share']['maeklong']:.0%} → ตัวเลขสุทธิใหม่ ~{_rv['basin_net_new_km2']['maeklong']:.0f} ตร.กม.)"
+    f"รายลุ่ม {min(_rv['basin_dark_share'].values()):.0%}–{max(_rv['basin_dark_share'].values()):.0%} (แม่กลอง {_rv['basin_dark_share']['maeklong']:.0%} → น้ำใหม่เข้มงวดเหลือ ~{_lc['maeklong']['strict_new_km2']:.0f} ตร.กม. เพราะ {_lc['maeklong']['share_on_worldcover_water']:.0%} ตกบนแหล่งน้ำที่แผนที่ผิวดินระบุเป็นน้ำถาวร) · "
+    f"<b>ตามผิวดิน</b>: ที่ตรวจพบอยู่บนพื้นที่เพาะปลูก {min(v['share_det_crop'] for k, v in _lc.items() if not k.startswith('nn_') and k != 'maeklong'):.0%}–{max(v['share_det_crop'] for k, v in _lc.items() if not k.startswith('nn_') and k != 'maeklong'):.0%} "
+    "— ระบบแยก \"นาที่ถูกน้ำท่วมจริง\" ออกจาก \"นาที่ขังน้ำตามฤดู/ปล่อยน้ำเข้านา\" ไม่ได้ · พื้นที่ก่อสร้างเป็น "
+    f"{min(v['share_base_built'] for k, v in _lc.items() if not k.startswith('nn_')):.0%}–{max(v['share_base_built'] for k, v in _lc.items() if not k.startswith('nn_')):.0%} ของที่ราบ แต่ได้เพียง "
+    f"{max(v['share_det_built'] for k, v in _lc.items()):.0%} ของที่ตรวจพบ (น้ำท่วมในเมืองเรดาร์ตรวจไม่เห็นเป็นหลัก — ตัวเลขกรุงเทพฯ จึงต่ำกว่าจริงในส่วนเมือง) · "
+    f"ที่นครนายก (เทียบ GISTDA 2 ต.ค.) ส่วนที่ตรวจพบบนพื้นที่เพาะปลูกตกใน GISTDA {_lc['nn_oct2']['precision_by_class'].get('40', 0):.0%} "
+    f"แต่บนแหล่งน้ำถาวร {_lc['nn_oct2']['precision_by_class'].get('80', 0):.0%} และป่า {_lc['nn_oct2']['precision_by_class'].get('10', 0):.0%} — "
+    f"ตามสัดส่วนผิวดินอื่นแม่นน้อยกว่ามาก แต่ตามพื้นที่ ส่วนที่ไม่ตกใน GISTDA ราว {_lc['nn_oct2']['fp_km2_by_class'].get('40', 0):.0f} จาก "
+    f"{sum(_lc['nn_oct2']['fp_km2_by_class'].values()):.0f} ตร.กม. อยู่บนพื้นที่เพาะปลูก (ที่เหลือกระจายบนป่า ทุ่งหญ้า แหล่งน้ำ)"
 ))
 
 # ---- สารบัญ + ปิด ----

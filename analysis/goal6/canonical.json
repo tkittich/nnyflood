@@ -712,6 +712,176 @@
    }
   }
  },
+ "s1_landcover": {
+  "nn_peak_27sep": {
+   "steps_km2": {
+    "gross": 438.9,
+    "minus_worldcover_water": 402.5,
+    "minus_jrc_occ50": 402.2,
+    "minus_already_dark": 303.8
+   },
+   "strict_new_km2": 303.8,
+   "share_on_worldcover_water": 0.083,
+   "share_on_jrc_occ50": 0.007,
+   "share_det_crop": 0.795,
+   "share_base_crop": 0.489,
+   "share_det_built": 0.002,
+   "share_base_built": 0.031,
+   "precision_by_class": {
+    "10": 0.094,
+    "30": 0.28,
+    "40": 0.596,
+    "50": 0.017,
+    "60": 0.218,
+    "80": 0.069,
+    "90": 0.27
+   },
+   "fp_km2_by_class": {
+    "10": 17.0,
+    "30": 20.2,
+    "40": 141.1,
+    "50": 1.1,
+    "60": 1.2,
+    "80": 34.0,
+    "90": 2.8
+   }
+  },
+  "nn_oct2": {
+   "steps_km2": {
+    "gross": 353.0,
+    "minus_worldcover_water": 342.9,
+    "minus_jrc_occ50": 342.8,
+    "minus_already_dark": 270.3
+   },
+   "strict_new_km2": 270.3,
+   "share_on_worldcover_water": 0.029,
+   "share_on_jrc_occ50": 0.002,
+   "share_det_crop": 0.858,
+   "share_base_crop": 0.489,
+   "share_det_built": 0.004,
+   "share_base_built": 0.031,
+   "precision_by_class": {
+    "10": 0.145,
+    "30": 0.39,
+    "40": 0.736,
+    "50": 0.043,
+    "60": 0.364,
+    "80": 0.221,
+    "90": 0.478
+   },
+   "fp_km2_by_class": {
+    "10": 10.8,
+    "30": 13.8,
+    "40": 80.0,
+    "50": 1.2,
+    "60": 0.6,
+    "80": 7.9,
+    "90": 1.3
+   }
+  },
+  "pasak": {
+   "steps_km2": {
+    "gross": 521.0,
+    "minus_worldcover_water": 505.7,
+    "minus_jrc_occ50": 485.1,
+    "minus_already_dark": 442.0
+   },
+   "strict_new_km2": 442.0,
+   "share_on_worldcover_water": 0.029,
+   "share_on_jrc_occ50": 0.063,
+   "share_det_crop": 0.885,
+   "share_base_crop": 0.801,
+   "share_det_built": 0.006,
+   "share_base_built": 0.035,
+   "precision_by_class": {},
+   "fp_km2_by_class": {}
+  },
+  "maeklong": {
+   "steps_km2": {
+    "gross": 73.0,
+    "minus_worldcover_water": 9.1,
+    "minus_jrc_occ50": 9.1,
+    "minus_already_dark": 6.8
+   },
+   "strict_new_km2": 6.8,
+   "share_on_worldcover_water": 0.875,
+   "share_on_jrc_occ50": 0.872,
+   "share_det_crop": 0.092,
+   "share_base_crop": 0.284,
+   "share_det_built": 0.001,
+   "share_base_built": 0.032,
+   "precision_by_class": {},
+   "fp_km2_by_class": {}
+  },
+  "bp_prach": {
+   "steps_km2": {
+    "gross": 1281.6,
+    "minus_worldcover_water": 1211.8,
+    "minus_jrc_occ50": 1209.4,
+    "minus_already_dark": 985.8
+   },
+   "strict_new_km2": 985.8,
+   "share_on_worldcover_water": 0.054,
+   "share_on_jrc_occ50": 0.017,
+   "share_det_crop": 0.835,
+   "share_base_crop": 0.423,
+   "share_det_built": 0.003,
+   "share_base_built": 0.074,
+   "precision_by_class": {},
+   "fp_km2_by_class": {}
+  },
+  "thachin": {
+   "steps_km2": {
+    "gross": 160.4,
+    "minus_worldcover_water": 158.9,
+    "minus_jrc_occ50": 158.6,
+    "minus_already_dark": 139.3
+   },
+   "strict_new_km2": 139.3,
+   "share_on_worldcover_water": 0.01,
+   "share_on_jrc_occ50": 0.007,
+   "share_det_crop": 0.955,
+   "share_base_crop": 0.797,
+   "share_det_built": 0.002,
+   "share_base_built": 0.04,
+   "precision_by_class": {},
+   "fp_km2_by_class": {}
+  },
+  "ping_cp": {
+   "steps_km2": {
+    "gross": 2263.6,
+    "minus_worldcover_water": 2234.2,
+    "minus_jrc_occ50": 2225.9,
+    "minus_already_dark": 1896.2
+   },
+   "strict_new_km2": 1896.2,
+   "share_on_worldcover_water": 0.013,
+   "share_on_jrc_occ50": 0.011,
+   "share_det_crop": 0.935,
+   "share_base_crop": 0.804,
+   "share_det_built": 0.004,
+   "share_base_built": 0.034,
+   "precision_by_class": {},
+   "fp_km2_by_class": {}
+  },
+  "bkk_lower": {
+   "steps_km2": {
+    "gross": 1320.8,
+    "minus_worldcover_water": 1220.7,
+    "minus_jrc_occ50": 1217.9,
+    "minus_already_dark": 1051.8
+   },
+   "strict_new_km2": 1051.8,
+   "share_on_worldcover_water": 0.076,
+   "share_on_jrc_occ50": 0.057,
+   "share_det_crop": 0.827,
+   "share_base_crop": 0.313,
+   "share_det_built": 0.009,
+   "share_base_built": 0.212,
+   "precision_by_class": {},
+   "fp_km2_by_class": {}
+  }
+ },
  "s1_rule": {
   "oct2": {
    "area_km2": 363.6,

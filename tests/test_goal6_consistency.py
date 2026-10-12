@@ -233,3 +233,14 @@ def test_dam_inflow_wired_and_consistent():
     h4 = (ROOT / REPORTS[1]).read_text(encoding="utf-8")
     assert "น้ำเข้าอ่าง: ปี 2554 เทียบ 2569" in h4
     assert "ฝนลุ่มตะวันตกแล้ง" not in (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+
+
+def test_landcover_breakdown_wired():
+    """ตัวเลข 'น้ำใหม่เข้มงวด' ต้องไม่เกินตรวจพบรวม · แม่กลองส่วนใหญ่ตกบนแหล่งน้ำถาวร · มีในข้อจำกัด (7) ของรายงาน 3"""
+    d = _load()["s1_landcover"]
+    for t, v in d.items():
+        s = v["steps_km2"]
+        assert s["minus_already_dark"] <= s["minus_jrc_occ50"] <= s["minus_worldcover_water"] <= s["gross"] + 1e-6, t
+    assert d["maeklong"]["share_on_worldcover_water"] > 0.5 and d["maeklong"]["strict_new_km2"] < 20
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    assert "น้ำใหม่เข้มงวด" in h3 and "ตามผิวดิน" in h3

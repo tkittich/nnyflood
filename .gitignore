@@ -103,3 +103,8 @@ analysis/flood_locations_from_album_captions.csv
 # ฝนรายเซลล์ POWER (A2 12 ต.ค. 69) — disk-only, SHA-256 อยู่ data/22_goal6_network/_hashes.txt
 data/22_goal6_network/raw/basin_rain/
 data/22_goal6_network/raw/dam_flows/
+
+# ข้อมูลภายนอก 31 (WorldCover/JRC/WorldPop/OSM) — disk-only, SHA-256 ใน data/31_external_landcover/_hashes.txt
+data/31_external_landcover/raw/
+data/31_external_landcover/derived/
+data/31_external_landcover/fetch.log

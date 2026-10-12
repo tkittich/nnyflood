@@ -497,3 +497,32 @@ Script `analysis/goal6_dam_inflow.py` → `analysis/goal6/dam_inflow.json/.md`; 
 Report 4 gains section 5 (table of all 24 dams + two paragraphs, all rendered from `canonical.json → dam_inflow`); report 3's TLDR and "best dam" Q&A carry the inflow ranks; `test_dam_inflow_wired_and_consistent` ties days-over to `dam_history_all`.
 
 Limits: daily inflow is agency-reported (gaps filled with the window mean); curve = 2020 month-day template; 9–18 years per dam (inflow records start ~2009); no counterfactual routing (cannot say what release "should" have been); reservoir start state is the outcome of earlier decisions the report does not examine.
+
+
+---
+
+# Addendum 7 — land-cover and permanent-water breakdown of the S1 detections (M1/R9 closure), 12 Oct 2026
+
+Data fetched (open, no login): ESA WorldCover 2021 v200 10 m (7 tiles), JRC Global Surface Water occurrence v1.4 (2 tiles), plus WorldPop 2020 1 km and the Geofabrik Thailand OSM extract (staged for the exposure layer, not yet used). All in `data/31_external_landcover/` (`fetch.sh`, `manifest.md`, SHA-256 list; raw disk-only). Script `analysis/goal6_s1_landcover.py` → `analysis/goal6/s1_landcover.json/.md`.
+
+Sequential removal from each basin's peak scene (km²; "strict new" = not WorldCover water, not JRC occurrence ≥ 50 %, and not already dark in the reference):
+
+| Scene | detected | − WorldCover water | − JRC ≥ 50 % | **strict new** | % on cropland (cropland share of lowland) |
+|---|---|---|---|---|---|
+| Nakhon Nayok 2 Oct | 353 | 343 | 343 | **270** | 86 % (49 %) |
+| Nakhon Nayok 27 Sep | 439 | 403 | 402 | **304** | 80 % (49 %) |
+| Pasak | 521 | 506 | 485 | **442** | 88 % (80 %) |
+| Mae Klong | 73 | 9 | 9 | **7** | 9 % (28 %); **88 % on mapped permanent water**, 87 % JRC ≥ 50 % |
+| Bang Pakong | 1,282 | 1,212 | 1,209 | **986** | 84 % (42 %) |
+| Tha Chin | 160 | 159 | 159 | **139** | 96 % (80 %) |
+| Ping–Chao Phraya | 2,264 | 2,234 | 2,226 | **1,896** | 94 % (80 %) |
+| Bangkok lower | 1,321 | 1,221 | 1,218 | **1,052** | 83 % (31 %) |
+
+Reading:
+1. **Mae Klong's 73 km² is almost entirely permanent water** (WorldCover and JRC agree). Treat as ≈ 7 km² new water or "not interpretable"; the headline should not rank it with the others.
+2. For the other basins the removal is 13–23 % — modest, and in the direction already stated (headline values are gross, not lower bounds).
+3. **Cropland carries 80–96 % of detections** (baseline 28–80 %). The rule cannot separate flooded paddy from seasonally inundated or irrigated paddy; the nominal "flood" in these basins is largely inundated farmland, which is a legitimate flood outcome but not a clean "overbank" measure.
+4. **Built-up land is 3–21 % of the lowland but ≤ 1 % of detections** (Bangkok 21 % → 1 %): urban inundation is largely invisible to the rule, so Bangkok's number is an undercount for the city and an over-representation of surrounding farmland/ponds.
+5. Nakhon Nayok precision by class (share of detections inside GISTDA, 2 Oct): cropland 74 %, wetland 48 %, grass 39 %, water 22 %, forest 14 %, built-up 4 %. By area, however, ~79 of ~108 km² of non-GISTDA detections are still on cropland — the weak classes are small.
+
+Applied: report 3 limitation (7) and each basin note print the strict-new area and the cropland/built-up shares; canonical keeps the gross headline areas.

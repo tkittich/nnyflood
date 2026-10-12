@@ -143,6 +143,24 @@ def main() -> None:
                            **{m: {k: x[k] for k in ("v2554", "v2569", "rank2554", "rank2569", "median")}
                               for m, x in v["metrics"].items()}} for b, v in br["basins"].items()},
         }
+    # ---- ผิวดิน/น้ำถาวร (goal6_s1_landcover.py — WorldCover + JRC) ----
+    lc_p = A / "goal6/s1_landcover.json"
+    if lc_p.exists():
+        lc = json.loads(lc_p.read_text(encoding="utf-8"))["scenes"]
+        def _sh(r, key, c):
+            return r[key].get(str(c), {}).get("share", 0.0)
+        def _base(r, c):
+            tot = sum(v["km2"] for v in r["baseline_composition"].values())
+            return round(r["baseline_composition"].get(str(c), {}).get("km2", 0.0) / tot, 3) if tot else None
+        out["s1_landcover"] = {t: {
+            "steps_km2": r["steps_km2"], "strict_new_km2": r["steps_km2"]["minus_already_dark"],
+            "share_on_worldcover_water": r["share_on_worldcover_water"], "share_on_jrc_occ50": r["share_on_jrc_occ50"],
+            "share_det_crop": _sh(r, "detected_composition", 40), "share_base_crop": _base(r, 40),
+            "share_det_built": _sh(r, "detected_composition", 50), "share_base_built": _base(r, 50),
+            "precision_by_class": {k: v["inside_gistda"] for k, v in r.get("precision_by_class", {}).items()},
+            "fp_km2_by_class": {k: round(v["detected_km2"] * (1 - v["inside_gistda"]), 1)
+                                for k, v in r.get("precision_by_class", {}).items()},
+        } for t, r in lc.items()}
     # ---- ตรวจกฎตัดน้ำ (goal6_s1_rule_validation.py — รีวิว Sonnet M1/R9) ----
     rv_p = A / "goal6/s1_rule_validation.json"
     if rv_p.exists():

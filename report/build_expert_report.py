@@ -1,7 +1,11 @@
 """Assemble the EXPERT/technical HTML report (verifiable methods & data)."""
 import base64
+import sys
 import json
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from goal6_reportlib import optimize_image, soften_terms, find_banned_reader_terms  # noqa: E402
 
 # ROOT อิงตำแหน่งไฟล์สคริปต์ ไม่ใช่ cwd — รันจากโฟลเดอร์ไหนก็หา asset เจอ
 ROOT = Path(__file__).resolve().parent.parent
@@ -12,7 +16,7 @@ CANON = json.loads((ROOT / "analysis" / "canonical_numbers.json").read_text(enco
 
 def b64(p):
     mime = "image/jpeg" if str(p).lower().endswith((".jpg", ".jpeg")) else "image/png"
-    return f"data:{mime};base64," + base64.b64encode(Path(p).read_bytes()).decode()
+    return f"data:{mime};base64," + base64.b64encode(optimize_image(Path(p).read_bytes())).decode()
 
 imgs = {
     "C1": b64(ASSETS / "c1_rain.png"),
@@ -130,7 +134,7 @@ html = r"""<!DOCTYPE html>
 <tr><td>3</td><td>ระดับล้นตลิ่งย่านเมือง และเวลาเริ่มท่วมจริง</td><td>เกจ 8.45 ม. ≈ Q 420 ม³/วิ · ข้ามจริง 26 ก.ย. 23:00</td><td class="tg-f">F</td><td>§3 · §4C</td></tr>
 <tr><td>4</td><td>ตัวจุดชนวนท่วม 26 ก.ย. = ฝน ไม่ใช่การปล่อยเขื่อน (เขื่อนกักน้ำวันนั้น)</td><td>สัดส่วนเขื่อนช่วงเริ่มท่วม 12% : ฝน 88%</td><td class="tg-f">F</td><td>§4B</td></tr>
 <tr><td>5</td><td>การเร่งปล่อย 27–29 ก.ย. ยืดเวลาน้ำเหนือตลิ่ง (ไม่ได้สร้างน้ำสูงสุด)</td><td>สัดส่วนเขื่อนช่วงน้ำขัง 59% · เหนือตลิ่ง 65 ชม. (วัดจริงจากฟีดรายชั่วโมง; การนับจากฟีด thaiwater ตรง ๆ ได้ 62 ชม. เพราะขาดแถวเที่ยงคืน 3 แถว — ดู §4D)</td><td class="tg-f">F</td><td>§4B-C</td></tr>
-<tr><td>6</td><td>น้ำเก็บเหนือ URC ต่อเนื่อง 36 วัน ก่อนพายุ</td><td>สูงกว่า URC ~13–14 ลลบ.ม. ณ 25 ก.ย.</td><td class="tg-f">F</td><td>§4D ข้อจำกัด</td></tr>
+<tr><td>6</td><td>น้ำเก็บเหนือ URC ต่อเนื่อง 29 วัน (30 ส.ค.–27 ก.ย. ก่อนน้ำสูงสุด · รวม 36 วันถึง 4 ต.ค.)</td><td>สูงกว่า URC ~13–14 ลลบ.ม. ณ 25 ก.ย.</td><td class="tg-f">F</td><td>§4D ข้อจำกัด</td></tr>
 <tr><td>7</td><td>สถานการณ์ "บริหารสมบูรณ์แบบ" ลดปริมาณน้ำล้นตลิ่ง −62% ถึง −92% (แล้ว lag)</td><td>12.0 → 0.9–4.5 (URC) หรือ 0.1–1.5 ลลบ.ม. (กักช่วงน้ำสูงสุด)</td><td class="tg-i">I</td><td>§4D + sensitivity</td></tr>
 <tr><td>8</td><td>พื้นที่ท่วมน้ำสูงสุดเย็น 27 ก.ย. (S1 ประมวลผลเอง สอบเทียบ GISTDA)</td><td>@@R:peak@@ ตร.กม. (ช่วงเทียบเท่านิยาม ~@@R:pisai@@)</td><td class="tg-i">I</td><td>§6</td></tr>
 <tr><td>9</td><td>โซนที่การบริหารเปลี่ยนผลได้ (ระดับแม่น้ำคุม) vs น้ำค้างโครงสร้างพื้นที่</td><td>รอดได้ ~209 ตร.กม. (46% ของน้ำสูงสุด) / ค้าง ~242</td><td class="tg-i">I</td><td>§4F</td></tr>
@@ -515,6 +519,12 @@ if missing:
         "   analysis เปลี่ยนผลแล้วหรือ template ยังพิมพ์เลขเก่า — ดู analysis/canonical_numbers.json"
     )
 print(f"canonical check: {len(CANON['checks']['expert'])}/{len(CANON['checks']['expert'])} OK")
+
+# รีวิว Sonnet 12 ต.ค. 69: รายงาน 1–2 อยู่ในขอบเขตกติกาภาษาเดียวกับรายงาน 3–4 (แทนคำต้องห้ามเฉพาะเนื้อความ)
+html = soften_terms(html)
+_left = find_banned_reader_terms(html)
+if _left:
+    raise SystemExit(f"!! คำต้องห้ามตกค้างในเนื้อความผู้อ่าน: {_left}")
 
 out = ROOT / "report" / "น้ำท่วมนครนายก2569_วิชาการ.html"
 out.write_text(html, encoding="utf-8")

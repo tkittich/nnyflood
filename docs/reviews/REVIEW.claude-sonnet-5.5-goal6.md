@@ -412,3 +412,25 @@ If only four additions are possible: **A1 (frame-union area), C1 (routing counte
 | H2 maps | **Done** — maps now draw the frame footprint (grey = not inspected), the Thai-time stamp and coverage %; the Bangkok map shows parcel-shaped detections in the north-east (paddy/aquaculture pattern, supports M1 caution) | `goal6_flood_maps.py` |
 | Report size | **Done** — report 3: 10.0 MB → 3.8 MB (128-colour palette PNG at embed time; originals untouched) | `goal6_reportlib.figure` |
 | Open | M1 (S1 rule validation), M2 (25 over-critical headline / own-history screen), M3 (pre-registration wording), M6 residual wording, P2 (drafts still linked — author's choice), P6–P10, all suggestions A/B/C/D | — |
+
+
+---
+
+# Addendum 3 — reports 1–2 (Nakhon Nayok) now in scope (12 Oct 2026)
+
+Scope change: the public and academic editions and the README are reviewed and fixed under the same rules as reports 3–4. Method: read the rendered text of both editions, re-derived the checkable claims from the repo's own CSV/JSON, then fixed the builders (`report/build_report_html.py`, `report/build_expert_report.py`) and re-ran `analysis/build_canonical_numbers.py`, the builders, `pytest`, and the integrity check.
+
+| ID | Sev | Finding (evidence) | Status |
+|---|---|---|---|
+| R1 | HIGH | **"Rain higher than the 26-year maximum (ERA5)"** compares gauge totals (1,058–1,416 mm) with an ERA5 grid maximum (606 mm). Like for like, `analysis/era5_rain_18day_max_by_year.csv` gives 2026 = 430 mm, **rank 6 of 27** (≈ 1 year in 4) — the project's own `event_timeline_sep2026.md` item 6 says so. Appeared in the public TL;DR card, Q&A "ฝนผิดปกติจริงหรือ?" and "ใหญ่แค่ไหน". | **Fixed** — text now states both, with the ERA5 rank rendered from the CSV (`@@R:era5_rank@@`) |
+| R2 | HIGH | **"36 days above the upper rule curve before the storm"** (README, public ×5, academic table): `dam_khun_dan_daily_2013_2026.csv` shows the run is **30 Aug–27 Sep = 29 days at the flood peak**; 36 days is the run to 4 Oct (after the event). | **Fixed** everywhere; test recomputes the streak from the CSV |
+| R3 | MED | Over-claims: "พิสูจน์ว่า "ตัวกั้น" = อัตราการปล่อย" (release cut on 30 Sep coincided with rain stopping and tributaries receding); "ซึ่งไม่มีหน่วยงานใดเคยเผยแพร่" (absence claim); unsourced "ฝนเดือน ต.ค. กรุงเทพฯ ~200 มม." | **Fixed** (softened / removed) |
+| R4 | MED | Language rule not enforced on reports 1–2: academic `model` ×15, `curve` ×13, `datum` ×7, `feature`, `pipeline`, `downstream`; transliterations "สปิลเวย์", "เกจ" (24×). `rating curve` must not become "rule curve", so replacement is context-ordered. | **Fixed** — `soften_terms()` + builder aborts if any remain; `tests/test_reports12.py` |
+| R5 | MED | Framing: "การไม่ตามเส้นควบคุมมา 36 วัน" presupposes a duty that the same report says it could not find; "การบริหาร … คือจุดที่เลือกทางไว้จริง" attributes choice; heading "ผิดกฎหมายหรือไม่?". | **Fixed** — "เก็บอยู่เหนือเส้น", "สถานะอ่าง … กำหนดทางเลือก", "มีระเบียบสาธารณะบังคับหรือไม่?" |
+| R6 | MED | README quoted RMSE 0.78 m at +24 h without saying persistence scored 0.71 m on the same window (`goal4_model_v1_results.json`). | **Fixed** |
+| R7 | LOW | Size: public 6.7 → 4.8 MB, academic 3.3 → 2.2 MB (palette PNG, JPEG q78 at embed time; sources untouched). Images re-validated by test. | **Done** |
+| R8 | MED | **Open (counsel):** "ผังน้ำลุ่มบางปะกงที่เป็นกฎหมายกำกับ" (legal status of the plan not verified in repo); named expert quotation (LEGAL_REVIEW accepts it, re-confirm source link); "ตามมาตรฐานหรือไม่" language. | Open |
+| R9 | MED | **Open:** the 452.1 km² peak depends on the same S1 rule whose F1 on that very scene is 0.645 (`gistda_georef_findings.md` §7); the report calls it a lower bound (optical 5.3× larger in clear patches) but the counterfactual "area × days" table inherits ±30 % commission/omission. Needs the M1/B4 validation. | Open |
+| R10 | LOW | **Open:** peak discharge "610–630 m³/s ≈ 2× previous maxima 323/212" compares against only three seasons of gauge data; stated, but "ใหญ่กว่าปกติมาก" is stronger than a 3-year record supports. | Open |
+
+Re-verified and **found OK** in reports 1–2: 452.1 / 363.6 / 306.9 km² match `canonical_numbers.json`; release 31.66 mcm/day = 366 m³/s; storage 224.34 mcm at 27 Sep; 9.23 m / 8.45 m stage values and 65 h over bank agree with the canonical checks; scene times are already in Thai local time (18:28 = 11:28 UTC); uncertainty ranges (±18 %, ±6 h, ±0.85 m) are disclosed next to the counterfactual table; the "ช่องโหว่อยู่ตรงไหน" Q&A frames systems, not persons.

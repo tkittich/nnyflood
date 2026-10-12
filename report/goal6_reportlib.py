@@ -130,6 +130,96 @@ def thai(text: str, strict: bool = False) -> str:
         )
     return out
 
+# ---- รายงาน 1–2 (12 ต.ค. 69: รวมอยู่ในขอบเขตรีวิว) — แทนคำต้องห้ามแบบ "อ่อน" ไม่ raise ----
+# ลำดับสำคัญ: คำยาว/เฉพาะบริบทก่อน (rating curve ≠ เส้นกำกับระดับน้ำ)
+SOFT_RULES = [
+    (r"rating\s+curve", "เส้นความสัมพันธ์ระดับน้ำ–อัตราไหล"),
+    (r"rule\s*curve", "เส้นกำกับระดับน้ำ"),
+    (r"downstream\s+boundary", "เงื่อนไขขอบท้ายน้ำ"),
+    (r"pipeline", "ลำดับการประมวลผล"),
+    (r"datum", "ค่าอ้างอิงความสูง"),
+    (r"feature", "ตัวแปรตั้งต้น"),
+    (r"downstream", "ท้ายน้ำ"),
+    (r"model", "แบบจำลอง"),
+    (r"curve", "เส้นโค้ง"),
+    (r"โมเดล", "แบบจำลอง"),
+    (r"สปิลเวย์", "ทางระบายน้ำล้น"),
+    (r"ม\.เกจ", "ม.ตามมาตรวัด"),
+    (r"เกจ", "มาตรวัด"),
+]
+_PATHLIKE = re.compile(r"[\w./\-]*(?:analysis|report|data|docs|tests)/[\w./-]+|[\w-]+\.(?:py|md|json|csv|png|jpg|txt|html)")
+
+
+def _text_segments(html: str):
+    """แยก HTML เป็น (is_text, chunk) — ไม่แตะ <style>/<script>/<code>/แท็ก/data URI"""
+    pat = re.compile(r"(<style.*?</style>|<script.*?</script>|<code>.*?</code>|<[^>]+>)", re.S)
+    pos = 0
+    for m in pat.finditer(html):
+        if m.start() > pos:
+            yield True, html[pos:m.start()]
+        yield False, m.group(0)
+        pos = m.end()
+    if pos < len(html):
+        yield True, html[pos:]
+
+
+def soften_terms(html: str) -> str:
+    """แทนคำทับศัพท์/ศัพท์เทคนิคเฉพาะ "เนื้อความผู้อ่าน" (ข้ามแท็ก/code/ชื่อไฟล์/พาธ/ภาพ base64)"""
+    out = []
+    for is_text, chunk in _text_segments(html):
+        if not is_text or "base64," in chunk:
+            out.append(chunk)
+            continue
+        keep: list[str] = []
+        def _hold(m):
+            keep.append(m.group(0))
+            return f"\x00P{len(keep) - 1}\x00"
+        s = _PATHLIKE.sub(_hold, chunk)
+        for pat, rep in SOFT_RULES:
+            s = re.sub(pat, rep, s, flags=re.IGNORECASE)
+        s = re.sub(r"\x00P(\d+)\x00", lambda m: keep[int(m.group(1))], s)
+        out.append(s)
+    return "".join(out)
+
+
+def find_banned_reader_terms(html: str) -> list[str]:
+    """คำต้องห้าม (BANNED_TERMS ภาษาอังกฤษ + SOFT_RULES) ที่ยังเหลือในเนื้อความผู้อ่าน"""
+    hits = set()
+    for is_text, chunk in _text_segments(html):
+        if not is_text or "base64," in chunk:
+            continue
+        s = _PATHLIKE.sub(" ", chunk)
+        for pat, _ in SOFT_RULES:
+            for m in re.finditer(pat, s, flags=re.IGNORECASE):
+                hits.add(m.group(0))
+        for bad in BANNED_TERMS:
+            if re.fullmatch(r"[a-z \-]+", bad) and re.search(r"" + re.escape(bad) + r"", s, flags=re.IGNORECASE):
+                hits.add(bad)
+    return sorted(hits)
+
+
+def optimize_image(raw: bytes) -> bytes:
+    """ย่อภาพฝังรายงาน: PNG > 200 KB → พาเลต 128 สี · JPEG > 150 KB → คุณภาพ 78 (ไม่แตะไฟล์ต้นฉบับ)"""
+    from io import BytesIO
+
+    from PIL import Image
+    try:
+        im = Image.open(BytesIO(raw))
+        fmt = (im.format or "").upper()
+        if fmt == "PNG" and len(raw) > 200_000:
+            q = im.convert("RGB").quantize(colors=128, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+            buf = BytesIO()
+            q.save(buf, "PNG", optimize=True)
+        elif fmt in ("JPEG", "JPG") and len(raw) > 150_000:
+            buf = BytesIO()
+            im.convert("RGB").save(buf, "JPEG", quality=78, optimize=True)
+        else:
+            return raw
+        return buf.getvalue() if len(buf.getvalue()) < len(raw) else raw
+    except Exception:  # noqa: BLE001 — ภาพเสีย/ไม่รู้จัก = คืนต้นฉบับ
+        return raw
+
+
 # ชุดโทเคนสีกลาง (12 ต.ค. 69 — ตามข้อเสนอผู้ใช้หลังเจอ contrast 1.11 ที่ <code> ใน header)
 # กฎ: ทุกสีใช้เป็น "คู่" (พื้น+ตัวอักษร) กำหนดพร้อมกันที่นี่เท่านั้น — ห้ามให้ตัวอักษรสืบทอดข้ามพื้น
 # ตรวจแล้วด้วย WCAG: ตัวอักษร ≥4.5 · องค์ประกอบข้อมูล ≥3.0 (ดู tests/test_report3_language.py)

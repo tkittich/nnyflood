@@ -123,7 +123,7 @@ checks = {
 }
 
 # ค่า/คำที่เลิกใช้ — ห้ามปรากฏใน HTML ที่ build (builders/tests ตรวจ absence — GL-10)
-FORBIDDEN = ["1,050", "1,420", "11.95", "44 ซม", "57%", "564.4", "14 passed", "12 ตัวแปร",
+FORBIDDEN = ["เกินเส้นควบคุม 36 วัน", "ต่อเนื่องก่อนพายุ", "เหนือเส้นควบคุมมา 36 วัน", "ไม่ตามเส้นควบคุม", "พิสูจน์ว่า \"ตัวกั้น\"", "ไม่มีหน่วยงานใดเคยเผยแพร่", "1,050", "1,420", "11.95", "44 ซม", "57%", "564.4", "14 passed", "12 ตัวแปร",
              "น้ำสูงสุดสูงสุด", "น้ำสูงสุดสุด", "ทำนายทำนาย", "น้ำน้ำ", "ผู้ว้าฯ",
              "509.3", "436.3", "62.2", "450.5", "364.5", "50.0", "202.3", "104.4", "75.8", "68.1",
              "176.0", "50.5", "≈380–450", "0.732", "0.676", "0.798",
@@ -139,7 +139,16 @@ for f in sorted(DER.glob("mask_district_*.npy")):
     dpk[nm] = round(float((peak_m & m).sum() * cell), 1)
     do2[nm] = round(float((oct2_m & m).sum() * cell), 1)
 K = {"อำเภอองครักษ์": "ong", "อำเภอเมืองนครนายก": "mueang", "อำเภอบ้านนา": "bn", "อำเภอปากพลี": "pk"}
+# รีวิว Sonnet 12 ต.ค. 69: เทียบฝนแบบเดียวกับแหล่งเดียวกัน — อันดับ ERA5 ของปี 2569 (ไม่เทียบสถานีกับกริด)
+import csv as _csv
+_era = [(int(r["year"]), float(r["dam_upper_basin"])) for r in
+        _csv.DictReader(open(ANA / "era5_rain_18day_max_by_year.csv", encoding="utf-8-sig"))
+        if r["dam_upper_basin"]]
+_era_sorted = sorted((v for _, v in _era), reverse=True)
+_era26 = next(v for y, v in _era if y == 2026)
+_era_rank = _era_sorted.index(_era26) + 1
 render = {
+    "era5_18d_mm": f"{_era26:.0f}", "era5_rank": f"{_era_rank} จาก {len(_era)}",
     "peak": f"{s1['peak_km2']}", "oct2": f"{s1['oct2_ours_km2']}",
     "am27": f"{s1['sep27_am_ours_km2']}",
     **{f"d_{v}": f"{dpk[k]}" for k, v in K.items()},

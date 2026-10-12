@@ -147,7 +147,14 @@ _era = [(int(r["year"]), float(r["dam_upper_basin"])) for r in
 _era_sorted = sorted((v for _, v in _era), reverse=True)
 _era26 = next(v for y, v in _era if y == 2026)
 _era_rank = _era_sorted.index(_era26) + 1
+# ตรวจกฎตัดน้ำ (รีวิว Sonnet M1/R9) — อ่านจาก analysis/goal6/s1_rule_validation.json (ผลิตโดย goal6_s1_rule_validation.py)
+_rv = json.loads((ANA / "goal6" / "s1_rule_validation.json").read_text(encoding="utf-8"))["nakhonnayok"]
+_pk_rows = [r for r in _rv["sensitivity"] if r["scene"] == "peak_27sep" and r["drop_vh"] == 0.5 and r["drop_vv"] == 1.5]
 render = {
+    "s1_pk_lo": f"{min(r['area_km2'] for r in _pk_rows):.0f}", "s1_pk_hi": f"{max(r['area_km2'] for r in _pk_rows):.0f}",
+    "s1_pk_f1": f"{_rv['peak_27sep']['f1']:.2f}",
+    "s1_pk_f1ci": f"{_rv['peak_27sep']['f1_ci95'][0]:.2f}–{_rv['peak_27sep']['f1_ci95'][1]:.2f}",
+    "s1_pk_dark": f"{_rv['peak_27sep']['share_new_water_already_dark_in_reference']:.0%}",
     "era5_18d_mm": f"{_era26:.0f}", "era5_rank": f"{_era_rank} จาก {len(_era)}",
     "peak": f"{s1['peak_km2']}", "oct2": f"{s1['oct2_ours_km2']}",
     "am27": f"{s1['sep27_am_ours_km2']}",

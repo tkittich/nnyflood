@@ -119,6 +119,32 @@ def main() -> None:
     flood["bkk_lower_after_sea"] = sea["peak_after_km2"]
     out["flood_peak_km2"] = flood
     out["flood_peak_meta"] = flood_meta
+    # ---- ตรวจกฎตัดน้ำ (goal6_s1_rule_validation.py — รีวิว Sonnet M1/R9) ----
+    rv_p = A / "goal6/s1_rule_validation.json"
+    if rv_p.exists():
+        rv = json.loads(rv_p.read_text(encoding="utf-8"))
+        nn = rv["nakhonnayok"]
+        ctrl = next(iter(nn["control_pairs"].values()))
+
+        def _abs_range(k):
+            rows = [r for r in nn["sensitivity"] if r["scene"] == k and r["drop_vh"] == 0.5 and r["drop_vv"] == 1.5]
+            return [min(r["area_km2"] for r in rows), max(r["area_km2"] for r in rows)]
+        out["s1_rule"] = {
+            "oct2": {"area_km2": nn["oct2"]["area_km2"], "f1": nn["oct2"]["f1"], "f1_ci95": nn["oct2"]["f1_ci95"], "precision": nn["oct2"]["precision"],
+                     "recall": nn["oct2"]["recall"], "area_range_abs_pm2db": _abs_range("oct2"),
+                     "area_range_all": nn["oct2"]["sensitivity_area_range_km2"]},
+            "peak_27sep": {"area_km2": nn["peak_27sep"]["area_km2"], "f1": nn["peak_27sep"]["f1"], "f1_ci95": nn["peak_27sep"]["f1_ci95"],
+                           "precision": nn["peak_27sep"]["precision"], "area_range_abs_pm2db": _abs_range("peak_27sep"),
+                           "area_range_all": nn["peak_27sep"]["sensitivity_area_range_km2"]},
+            "control_false_pos_km2": ctrl["false_pos_km2"], "control_covered_km2": ctrl["covered_lowland_km2"],
+            "control_per_1000_km2": ctrl["per_1000_km2"],
+            "basin_dark_share": {b: max(v["events"], key=lambda e: e["water_km2"])["share_already_dark_in_reference"]
+                                 for b, v in rv["basins"].items() if v["events"]},
+            "basin_net_new_km2": {b: max(v["events"], key=lambda e: e["water_km2"])["net_new_km2"]
+                                  for b, v in rv["basins"].items() if v["events"]},
+            "nn_dark_share": {"oct2": nn["oct2"]["share_new_water_already_dark_in_reference"],
+                              "peak_27sep": nn["peak_27sep"]["share_new_water_already_dark_in_reference"]},
+        }
 
     # ---- เหตุการณ์จุดวัด (screen) ----
     sc = json.loads((A / "goal6_screen_2026_summary.json").read_text(encoding="utf-8"))
@@ -231,6 +257,7 @@ def main() -> None:
         "flood_peak_km2": "พื้นที่น้ำใหม่ (กฎ canonical เทียบฉากก่อนเหตุการณ์) ในที่ราบ <60 ม. · สูงสุดต่อลุ่ม · bkk_after_sea = หลังตัดน้ำถาวรสถิติ",
         "days_over_urc": "วันที่น้ำเก็บเกินระดับกำกับบน · 'ทั้งปี' (days_over_urc) ต่างจาก 'ก.ย.–ต.ค.' (days_over_urc_sep_oct) และ 'กลางหน้าฝน' (days_over_urc_aug_sep) — ห้ามสลับ",
         "l3_test_window": "โมเดลทดสอบกลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 2569 (กริดถึง 9 ต.ค. 23:00) · เหตุการณ์ = 25 ก.ย.–9 ต.ค. · ฝึก = ฤดูฝน 2020–2026 ก่อน 20 ก.ย.",
+        "s1_rule": "ตรวจกฎตัดน้ำ: F1 + ช่วง 95% (bootstrap แปลง 6 กม.) · ฉากควบคุมก่อนท่วม · สัดส่วน 'น้ำใหม่' ที่ฉากอ้างอิงมืดอยู่แล้ว (VH≤−20) · พื้นที่เมื่อเลื่อนเกณฑ์ VH ±2 dB",
         "c2_scenario": "เพดานการลดพีค C.2 จากปล่อยล่วงหน้า = ปล่อยจริงของสองเขื่อนวันพีค × ความชันสมการระดับ↔ปริมาตร (ถ้าไม่ปล่อยเลยวันพีค) · สถานการณ์ 40–100 ลลบ.ม./วัน เดิมถูกถอน (เกินเพดาน)",
         "estuary_tide": "ระดับน้ำปากแม่น้ำสูงสุด (ม.รทก.) ช่วงน้ำเกิด 26–28 ก.ย. 2569 พร้อมจำนวนประตูระบายน้ำปากอ่าวและช่วงน้ำเกิดปกติ 14 ปี (2012–2025)",
     }
@@ -241,6 +268,7 @@ def main() -> None:
             "0.16–2.22 ม.": "Sonnet H1 — สถานการณ์ลบส่วนเกินจากอัตราพีคเกินเพดาน (ปล่อยวันพีค 7 ลลบ.ม./วัน = 3%) → ถอน",
             "ราว 1–2 ม. ที่ C.2": "เดียวกัน (Sonnet H1)",
             "ได้ราว 2 ม.": "เดียวกัน (Sonnet H1)",
+            "ตรงกัน 72.7%": "Sonnet M1 — เป็น F1 ในฉากที่ใช้ตั้งค่า ไม่ใช่ % ตรงกัน → รายงาน F1 + ช่วง 95% + ช่วงตามเกณฑ์",
             "12,936": "Sonnet H3 — ภูมิพล 'เก็บสูงสุด 2569' เป็นค่าสูงสุดทั้งปีปฏิทิน (ยกยอดจากปีก่อน) → ใช้หน้าต่าง ก.ย.–ต.ค. (≈9,291)",
             "12,918": "เดียวกัน (Sonnet H3)",
             "ลด ~7 ม.": "เดียวกัน",

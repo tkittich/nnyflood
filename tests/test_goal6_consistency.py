@@ -201,3 +201,17 @@ def test_rain_2554_md_rank_denominator_is_years():
     """M4: อันดับต่อปี (≤46) ห้ามพิมพ์เป็น '/199'"""
     md = (ROOT / "analysis/goal6/rain_rarity_2554.md").read_text(encoding="utf-8")
     assert "/199 |" not in md
+
+
+def test_s1_rule_validation_wired_into_report():
+    """M1/R9: ผลตรวจกฎตัดน้ำต้องเข้ารายงาน 3 (ข้อจำกัด (7)) · พื้นที่ฉากท่วมต้องมีช่วงตามเกณฑ์ · ห้าม 'ตรงกัน 72.7%'"""
+    d = _load()
+    r = d["s1_rule"]
+    assert 0.5 < r["oct2"]["f1"] < 0.9 and r["oct2"]["f1_ci95"][0] < r["oct2"]["f1"] < r["oct2"]["f1_ci95"][1]
+    lo, hi = r["peak_27sep"]["area_range_abs_pm2db"]
+    assert lo < r["peak_27sep"]["area_km2"] < hi, "ค่ากลางต้องอยู่ในช่วงที่เลื่อนเกณฑ์ ±2 dB"
+    assert set(r["basin_dark_share"]) >= {"pasak", "maeklong", "bp_prach", "thachin", "ping_cp", "bkk_lower"}
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    assert "ความแม่นของกฎตัดน้ำ" in h3 and "ตรงกัน 72.7%" not in h3
+    h1 = (ROOT / "report/น้ำท่วมนครนายก2569_ประชาชน.html").read_text(encoding="utf-8")
+    assert "อ่านเป็นช่วง ไม่ใช่ตัวเลขเดียว" in h1 and 'จึงเป็น "ขอบล่าง"' not in h1

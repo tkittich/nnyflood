@@ -434,3 +434,23 @@ Scope change: the public and academic editions and the README are reviewed and f
 | R10 | LOW | **Open:** peak discharge "610–630 m³/s ≈ 2× previous maxima 323/212" compares against only three seasons of gauge data; stated, but "ใหญ่กว่าปกติมาก" is stronger than a 3-year record supports. | Open |
 
 Re-verified and **found OK** in reports 1–2: 452.1 / 363.6 / 306.9 km² match `canonical_numbers.json`; release 31.66 mcm/day = 366 m³/s; storage 224.34 mcm at 27 Sep; 9.23 m / 8.45 m stage values and 65 h over bank agree with the canonical checks; scene times are already in Thai local time (18:28 = 11:28 UTC); uncertainty ranges (±18 %, ±6 h, ±0.85 m) are disclosed next to the counterfactual table; the "ช่องโหว่อยู่ตรงไหน" Q&A frames systems, not persons.
+
+
+---
+
+# Addendum 4 — S1 water-rule validation (M1 / R9), 12 Oct 2026
+
+Script: `analysis/goal6_s1_rule_validation.py` → `analysis/goal6/s1_rule_validation.json/.md` (frozen rule, no new data, no threshold change). What the data in the repo can and cannot say:
+
+| Test | Result | Reading |
+|---|---|---|
+| In-sample F1 (2 Oct, vs GISTDA pass) | **0.727**, 95 % block-bootstrap 0.683–0.765 (P 0.672, R 0.792) | reproduces the calibration value; the interval is ±0.04 |
+| Out-of-sample F1 (27 Sep peak, vs the same GISTDA composite) | **0.601**, 0.535–0.654 (P 0.505) | the composite (28 Sep–2 Oct) is not time-matched, so this is a pessimistic bound, but 0.73 does not transfer unchanged |
+| Pre-flood control pair (S1D 15 Sep → S1C 21 Sep, ~19 % of lowland) | 4.1 km² "water" in 293 km² covered ≈ **14 per 1,000 km²** | specificity under moderate rain is good; only **one** control covers the lowland (the 18:20 pairs cover mountains only), so this is not a basin-wide false-positive rate |
+| Threshold sensitivity (VH threshold −18/−20/−22 dB at calibrated Δ) | peak scene 578 / 452 / 288 km²; 2 Oct 471 / 364 / 226 km²; F1 moves only ±0.04 | **the calibration cannot pin area**: ±2 dB moves area ±25–36 % with almost no change in F1. The full 45-setting grid spans 196–683 (peak) and 174–536 km² (2 Oct) |
+| Share of detected "new" water that was already dark (VH ≤ −20 dB) in the reference | NN 22–28 %; Pasak 14 %, Bang Pakong 20 %, Tha Chin 13 %, Ping 16 %, Bangkok 19 %, **Mae Klong 90 %** | permanent water/ponds with a ≥0.5 dB change pass the Δ test. Net-new area: Pasak ~450, Bang Pakong ~1,023, Tha Chin ~140, Ping ~1,908, Bangkok ~1,071 (before the sea mask), **Mae Klong ~7 km²** |
+| Same-orbit no-flood controls for the five other basins | none (24 Sep frames are their own references; 20 Sep frames cover 0–3 %) | not testable with the repo's imagery |
+
+Consequences applied: report 3 limitation (7) carries these numbers (rendered from canonical); each basin note prints the already-dark share and the net-new area; the TLDR adds one clause; "ตรงกัน 72.7 %" is retired; reports 1–2 no longer call 452 km² a "lower bound" and state the 288–578 km² range with F1/CI. Canonical headline areas (521/73/1,282/160/2,264/1,104) are **unchanged** — impact was computed above rather than applied, because changing the definition to "net-new" would alter published report-3 figures and needs the author's decision.
+
+Still open: land-cover stratification (needs WorldCover), a time-matched reference for the peak, any independent reference outside Nakhon Nayok.

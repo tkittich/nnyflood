@@ -44,7 +44,11 @@ def peak_scene(bid: str) -> Path:
     return STAGE2 / bid / f"{peak['scene']}_water.npy"
 
 
-def plot_map(bid: str, label: str, km2: float) -> None:
+def peak_scene_name(bid: str) -> str:
+    return peak_scene(bid).name.removesuffix("_water.npy")
+
+
+def plot_map(bid: str, label: str, km2: float, when: str, cov_pct: float) -> None:
     g = json.loads((STAGE1 / f"grid_{bid}.json").read_text(encoding="utf-8"))
     x0, y0, x1, y1, nx, ny = g["x0"], g["y0"], g["x1"], g["y1"], g["nx"], g["ny"]
     water = np.load(peak_scene(bid))
@@ -88,16 +92,28 @@ def plot_map(bid: str, label: str, km2: float) -> None:
     wm = np.ma.masked_where(~water, water)
     ax.imshow(wm, extent=[x0, x1, y0, y1], origin="upper", aspect=geo_aspect,
               cmap=matplotlib.colors.ListedColormap(["#1d6fb8"]), alpha=0.85, interpolation="nearest")
-    ax.text(0.02, 0.97, f"พื้นที่น้ำท่วมใหม่ (1 ต.ค. 2569): {km2:,.0f} ตร.กม.",
-            transform=ax.transAxes, fontsize=11, va="top",
+    # H2 (รีวิว Sonnet 12 ต.ค.): แสดงขอบเขตที่ฉากดาวเทียมไม่ครอบ (ไม่ได้ตรวจ — ไม่ใช่ "ไม่มีน้ำ")
+    vh_p = STAGE1 / bid / f"{peak_scene_name(bid)}_vh_db.npy"
+    cov_txt = ""
+    if vh_p.exists():
+        foot = np.isfinite(np.load(vh_p))
+        if foot.shape == lowland.shape:
+            outside = lowland & ~foot
+            ax.imshow(np.ma.masked_where(~outside, outside), extent=[x0, x1, y0, y1], origin="upper",
+                      aspect=geo_aspect, cmap=matplotlib.colors.ListedColormap(["#6b7280"]), alpha=0.55,
+                      interpolation="nearest")
+            cov_txt = f" · ส่วนสีเทา = นอกขอบฉาก (ไม่ได้ตรวจ)"
+    ax.text(0.02, 0.97, f"พื้นที่น้ำท่วมใหม่ในฉากเดียว: {km2:,.0f} ตร.กม." + chr(10) +
+                        f"ถ่ายเมื่อ {when} (เวลาไทย) · ฉากครอบ {cov_pct:.0%} ของลุ่ม — ค่าต่ำสุด",
+            transform=ax.transAxes, fontsize=10, va="top",
             bbox=dict(boxstyle="round,pad=0.4", fc="white", ec="#1d6fb8", alpha=0.9))
     ax.set_title(f"น้ำท่วมจากดาวเทียมเรดาร์ — {label}", fontsize=13)
     ax.set_xlabel("ลองจิจูด", fontsize=9)
     ax.set_ylabel("ละติจูด", fontsize=9)
-    ax.text(0.01, -0.08,
+    ax.text(0.01, -0.095,
             "น้ำสีน้ำเงิน = พื้นที่น้ำท่วมใหม่ (เทียบฉากก่อนเหตุการณ์ 19–20 ก.ย.) · "
-            "โทนอ่อน = ที่ราบ (ขอบเขตวิเคราะห์ ต่ำกว่า 60 ม.) · น้ำตาลไล่เข้ม = พื้นที่สูงตามระดับจริง · "
-            "ตัดทะเล/น้ำถาวรออกแล้ว (บท กทม.)",
+            "โทนอ่อน = ที่ราบ (ต่ำกว่า 60 ม.)\n"
+            "น้ำตาลไล่เข้ม = พื้นที่สูงตามระดับจริง · ตัดทะเล/น้ำถาวรออกแล้ว (บท กทม.)" + cov_txt.replace(" · ", "\n", 1),
             transform=ax.transAxes, fontsize=8, color="#5a6675")
     fig.tight_layout()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -111,7 +127,11 @@ def main() -> None:
     for bid, (label, key) in BASINS.items():
         km2 = can["flood_peak_km2"][key]
         try:
-            plot_map(bid, label, km2)
+            m = can["flood_peak_meta"][bid]
+            from datetime import datetime
+            d = datetime.strptime(m["ict"], "%Y-%m-%d %H:%M")
+            mon = ["", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."][d.month]
+            plot_map(bid, label, km2, f"{d.day} {mon} {d:%H:%M}", m["coverage"])
         except Exception as exc:  # noqa: BLE001
             print(f"  ERROR {bid}: {type(exc).__name__} {str(exc)[:100]}", flush=True)
 

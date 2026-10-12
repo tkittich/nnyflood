@@ -227,7 +227,20 @@ def table(headers: list[str], rows: list[list], caption: str | None = None) -> s
 
 def figure(png_path: str | Path, caption: str) -> str:
     p = Path(png_path)
-    b64 = base64.b64encode(p.read_bytes()).decode("ascii")
+    raw = p.read_bytes()
+    if len(raw) > 200_000:
+        # ลดขนาดรายงาน (เดิม ~10 MB): แปลงเป็นพาเลต 128 สี ไม่ dither — แผนที่โทนน้ำตาลโพสเตอไรซ์อยู่แล้ว
+        # ตรวจตาเทียบต้นฉบับแล้ว (12 ต.ค. 69) · ไม่แตะไฟล์ต้นฉบับใน report/assets
+        from io import BytesIO
+
+        from PIL import Image
+        im = Image.open(BytesIO(raw)).convert("RGB")
+        q = im.quantize(colors=128, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+        buf = BytesIO()
+        q.save(buf, "PNG", optimize=True)
+        if len(buf.getvalue()) < len(raw):
+            raw = buf.getvalue()
+    b64 = base64.b64encode(raw).decode("ascii")
     return (f"<figure><img src='data:image/png;base64,{b64}' alt='{esc(caption)}'>"
             f"<figcaption>{esc(caption)}</figcaption></figure>")
 

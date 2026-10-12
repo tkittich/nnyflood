@@ -409,4 +409,6 @@ If only four additions are possible: **A1 (frame-union area), C1 (routing counte
 | M4 `/199` label | **Done** | `goal6_rain_rarity_2554.py` |
 | M5 stale numbers | **Done** for HANDOFF/PLAN L3 values | docs |
 | P5 tests | **Done** — pins replaced by ceiling/invariants; 4 new invariant tests | `tests/test_goal6_consistency.py` |
+| H2 maps | **Done** — maps now draw the frame footprint (grey = not inspected), the Thai-time stamp and coverage %; the Bangkok map shows parcel-shaped detections in the north-east (paddy/aquaculture pattern, supports M1 caution) | `goal6_flood_maps.py` |
+| Report size | **Done** — report 3: 10.0 MB → 3.8 MB (128-colour palette PNG at embed time; originals untouched) | `goal6_reportlib.figure` |
 | Open | M1 (S1 rule validation), M2 (25 over-critical headline / own-history screen), M3 (pre-registration wording), M6 residual wording, P2 (drafts still linked — author's choice), P6–P10, all suggestions A/B/C/D | — |

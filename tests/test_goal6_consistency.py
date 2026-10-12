@@ -59,12 +59,15 @@ def test_headline_numbers_present_in_canonical():
     assert (es["n_over_crit"], es["n_wave_peak"], es["n_pre_wave_peak"]) == (25, 17, 8)
     assert es["n_usable_datum"] == 6
     assert "C.2" in es["suspect_codes"]
-    assert d["c2_attribution"]["scenarios"][-1]["drop_m"] == 2.22
+    # H1 (Sonnet): เพดานลดพีค = ปล่อยวันพีค × ความชัน — ต้องไม่เกินเพดาน และไม่เกิน 3% ของน้ำผ่านพีค
+    c2 = d["c2_attribution"]
+    assert c2["max_drop_m_if_zero_release"] <= 0.3, "สถานการณ์ปล่อยล่วงหน้าเกินเพดาน (ปล่อยวันพีค 3% ของน้ำผ่าน)"
+    assert c2["release_at_peak_mcm_day"] / 225.5 < 0.05
+    assert "scenarios" not in c2, "สถานการณ์ลบส่วนเกินถูกถอนแล้ว (รีวิว Sonnet H1)"
     assert d["pasak_over_years"] == "20/22"
     tide = d["estuary_tide"]
     assert tide["cpy015_peak_m"] == 1.91
     assert tide["c12_peak_m"] == 2.24
-    assert tide["coastal_gates_count"] == 38
 
 
 def test_report_html_matches_canonical_flood_and_rain():
@@ -78,7 +81,10 @@ def test_report_html_matches_canonical_flood_and_rain():
     assert str(d["event_stations"]["n_usable_datum"]) in h3
     assert f"{d['estuary_tide']['cpy015_peak_m']:.2f}" in h3
     assert f"{d['estuary_tide']['c12_peak_m']:.2f}" in h3
-    assert str(d['estuary_tide']['coastal_gates_count']) in h3
+    # H6 (Sonnet): ห้ามอ้างจำนวน/สถานะประตูระบายที่ไม่มีข้อมูล
+    for bad in ("ปิดบานเพื่อป้องกันน้ำเค็ม", "พึ่งพาระบบเครื่องสูบน้ำแบบบังคับระบาย 100%", "ถูกปิดกั้นโดยสิ้นเชิง"):
+        assert bad not in h3, f"ข้อความเกินหลักฐาน (ไม่มีข้อมูลบานประตู): {bad}"
+    assert "1–2 ม. ที่ C.2" not in h3 and "ได้ราว 2 ม." not in h3
     h4 = (ROOT / REPORTS[1]).read_text(encoding="utf-8")
     assert "20 จาก 22" in h4
     assert str(d["rain_2554_vs_2569"]["top3_cells_54"]) in h4
@@ -118,7 +124,7 @@ def test_docs_carry_current_anchor_values():
             f"{rn['top3_stations_7d']}/{rn['n_stations']}",
             f"{d['flood_peak_km2']['ping_cp']:,.0f}",
             f"{d['flood_peak_km2']['bkk_lower_after_sea']:,.0f}",
-            f"{c2['scenarios'][0]['drop_m']:.2f}–{c2['scenarios'][-1]['drop_m']:.2f}",
+            f"{c2['max_drop_m_if_zero_release']:.2f}",
         ],
         "docs/GOAL6_PLAN.md": [
             f"{d['flood_peak_km2']['ping_cp']:,.0f}",

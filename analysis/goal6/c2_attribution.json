@@ -41,43 +41,11 @@
   },
   "release_share_at_peak_pct": 3.1
  },
- "prerelease_scenarios": [
-  {
-   "release_per_day": 40,
-   "actual_avg_sep11_15": 24.9,
-   "peak_q_new": 210,
-   "peak_lv_new": 23.94,
-   "drop_m": 0.16,
-   "within_calib": true,
-   "usable": true
-  },
-  {
-   "release_per_day": 60,
-   "actual_avg_sep11_15": 24.9,
-   "peak_q_new": 190,
-   "peak_lv_new": 23.25,
-   "drop_m": 0.85,
-   "within_calib": true,
-   "usable": true
-  },
-  {
-   "release_per_day": 80,
-   "actual_avg_sep11_15": 24.9,
-   "peak_q_new": 170,
-   "peak_lv_new": 22.57,
-   "drop_m": 1.53,
-   "within_calib": true,
-   "usable": true
-  },
-  {
-   "release_per_day": 100,
-   "actual_avg_sep11_15": 24.9,
-   "peak_q_new": 150,
-   "peak_lv_new": 21.88,
-   "drop_m": 2.22,
-   "within_calib": true,
-   "usable": true
-  }
- ],
- "prerelease_note": "แก้ผิดหน่วย (เดิมลบปริมาตร 4 วันออกจากอัตราพีค → Q=0 แม่น้ำแห้ง): ตอนนี้ลดอัตราไหลพีคลงเท่ากับส่วนปล่อยส่วนเกินต่อวัน (extra − actual) · เฉพาะกรณีที่ Q ใหม่ยังอยู่ในช่วงคาลิเบรตจึงอ่านได้ · กรณี Q ต่ำกว่าช่วง = ประมาณเกินขอบ (extrapolation) — ป้ายชัดทุกแถว"
+ "prerelease_scenarios": [],
+ "prerelease_note": "ถอนสถานการณ์ 40/60/80/100 (ลบส่วนเกินจากอัตราพีค) — ขัดกับสัดส่วน 3% ของข้อมูลเอง · ใช้เพดาน peak_release_ceiling แทน (รายงานรีวิว Sonnet H1)",
+ "peak_release_ceiling": {
+  "release_at_peak_mcm_day": 7.01,
+  "max_drop_m_if_zero_release": 0.24,
+  "note": "เพดานทางทฤษฎี: ถ้าเขื่อนทั้งสองไม่ปล่อยเลยวันพีค (1 ต.ค.) ระดับ C.2 ลดได้อย่างมาก = ความชันสมการ × ปล่อยวันพีค · สถานการณ์ปล่อยล่วงหน้าที่มี (ลบส่วนเกินออกจากอัตราไหลพีค) ถูกถอน เพราะเกินเพดานนี้ 3.5–9 เท่า (ปล่อยล่วงหน้าเลื่อนเวลาน้ำ ไม่ได้หักออกจากอัตราไหลวันพีค)"
+ }
 }

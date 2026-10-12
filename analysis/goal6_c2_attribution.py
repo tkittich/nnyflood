@@ -86,25 +86,24 @@ def main() -> None:
                            "กรณี Q ต่ำกว่าช่วง = ประมาณเกินขอบ (extrapolation) — ป้ายชัดทุกแถว",
     }
     peak_idx = dates.index("2026-10-01")
-    actual_avg = float(rel[dates.index("2026-09-15") - 2: dates.index("2026-09-15") + 3].mean())
-    calib_lo, calib_hi = float(c2v.min()), float(c2v.max())
-    for extra in (40, 60, 80, 100):
-        q_new = max(float(c2v[peak_idx]) - (extra - actual_avg), 0.0)
-        lv_new = float(coef[0] + coef[1] * q_new)
-        in_calib = calib_lo <= q_new <= calib_hi
-        out["prerelease_scenarios"].append({
-            "release_per_day": extra, "actual_avg_sep11_15": round(actual_avg, 1),
-            "peak_q_new": round(q_new), "peak_lv_new": round(lv_new, 2),
-            "drop_m": round(float(lv[peak_idx]) - lv_new, 2),
-            "within_calib": in_calib,
-            "usable": in_calib,
-        })
+    # H1 (รีวิว Sonnet 12 ต.ค.): ปล่อยล่วงหน้าช่วยพีคได้ทางเดียว = เขื่อนปล่อยน้อยลง "ที่เวลาพีค"
+    # → เพดานการลดพีคของ C.2 = ปล่อยจริงของ 2 เขื่อน ณ วันพีค (เทียบ 3% ของน้ำผ่าน) ไม่ใช่ส่วนเกินที่ปล่อยก่อนหน้า
+    release_at_peak = float(rel[peak_idx])
+    max_drop_m = float(coef[1]) * release_at_peak
+    out["peak_release_ceiling"] = {
+        "release_at_peak_mcm_day": round(release_at_peak, 2),
+        "max_drop_m_if_zero_release": round(max_drop_m, 2),
+        "note": "เพดานทางทฤษฎี: ถ้าเขื่อนทั้งสองไม่ปล่อยเลยวันพีค (1 ต.ค.) ระดับ C.2 ลดได้อย่างมาก = ความชันสมการ × ปล่อยวันพีค "
+                "· สถานการณ์ปล่อยล่วงหน้าที่มี (ลบส่วนเกินออกจากอัตราไหลพีค) ถูกถอน เพราะเกินเพดานนี้ 3.5–9 เท่า "
+                "(ปล่อยล่วงหน้าเลื่อนเวลาน้ำ ไม่ได้หักออกจากอัตราไหลวันพีค)",
+    }
+    out["prerelease_scenarios"] = []
+    out["prerelease_note"] = ("ถอนสถานการณ์ 40/60/80/100 (ลบส่วนเกินจากอัตราพีค) — ขัดกับสัดส่วน 3% ของข้อมูลเอง · "
+                              "ใช้เพดาน peak_release_ceiling แทน (รายงานรีวิว Sonnet H1)")
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"corr: {corr_rel:.3f}/{corr_inflow_lag:.3f} · สมการ {coef[0]:.2f}+{coef[1]:.5f}·Q R²={r2:.3f} "
-          f"ช่วงคาลิเบรต {calib_lo:.1f}–{calib_hi:.1f}")
-    for s in out["prerelease_scenarios"]:
-        tag = "ในช่วง" if s["within_calib"] else "นอกช่วง (ประมาณเกินขอบ)"
-        print(f"  ปล่อย {s['release_per_day']}: Q พีคใหม่ {s['peak_q_new']} ({tag}) · ลด {s['drop_m']} ม.")
+          f"ช่วงคาลิเบรต {c2v.min():.1f}–{c2v.max():.1f}")
+    print(f"เพดานลดพีค: ปล่อยวันพีค {release_at_peak:.2f} → ≤ {max_drop_m:.2f} ม.")
     print(f"เขียนแล้ว: {OUT}")
 
 

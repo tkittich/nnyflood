@@ -1,0 +1,16 @@
+# TopoJSON จาก https://waterchartmis.onwr.go.th/misbpk/json/{Flood,WaterChart,Hydrology}/…  — ดาวน์โหลด 15 ต.ค. 2569 (disk-only)
+# ชั้นข้อมูลของ MIS ผังน้ำลุ่มน้ำบางปะกง (สทนช.) · KMZ ที่หน้าเว็บลิงก์ไว้ให้ 404 — ใช้ไฟล์ json ที่หน้าแผนที่โหลดจริงแทน (อ่านจาก DOM/สคริปต์ของหน้า)
+ce2306ee0e06ea21d1f7d672fced472ae3c61a6f28d819fe490ce96a80495fa2 · 396283 ไบต์ · Flood_GISTDA2554.json
+df2fd6d8999f4972784949781a7899914103ad4747a47e1840f97de38f455f37 · 1712693 ไบต์ · Flood_GISTDA2564.json
+485e01cd1ee7f952fb6f5669332750fc2bfbcd575d3a60590254ce29aac61d22 · 3125920 ไบต์ · Flood_GISTDA2565.json
+22fd2d03a0f95dd5571637f78276794c57245aaf279a6d52fc61b2d5ccf8d471 · 1492023 ไบต์ · Flood_GISTDA2566.json
+9dec314a13ca382bb3d35008cb30b17dd41029c3d929ba3ca008f597562e93cc · 1678161 ไบต์ · Flood_Tr10.json
+7ac45755424f95bf94de0e59fc9fd249f260a7cd52cd98307cd9659589128015 · 1066234 ไบต์ · Flood_Tr100.json
+1ea6101d99bc9c758bb7739ca9e2f0bc9bd5dbea4e001848852e59f71f063fd5 · 1783471 ไบต์ · Flood_Tr2.json
+69eb469bc4e5e65363c07dde4440167fc21f9517156ba3297252c4dbf981e202 · 2186204 ไบต์ · Flood_Tr25.json
+69ff808b66f18d66ad5d199e679c0878fcb01bea99fe615b73b9f91e5cf8a956 · 1830081 ไบต์ · Flood_Tr5.json
+efb67bc082bf938332a5339bff0e864dc164152b9d64bdb87ebe4d929f786698 · 2211529 ไบต์ · Flood_Tr50.json
+355ac8e16f09e59f8352f82e8945cd3d7de4943496a150d6b584db74848a25a3 · 887536 ไบต์ · FloodArea.json
+94a859535335314a296801d1521a2f3fe260da9491a690c3e15a7a6e6c5a6df9 · 3843185 ไบต์ · Floodway.json
+86186865fd0af4e14646a22985e2978d3b467cd13f39f9e5b012ebae4ce1ebd2 · 2886881 ไบต์ · Stream_1-3.json
+7c68d87041760c656472b74861980eb954ac707053da51f36b0aaf2e69aeb2d0 · 876852 ไบต์ · Stream_Capacity.json

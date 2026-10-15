@@ -26,6 +26,7 @@ plt.rcParams["font.family"] = ["Leelawadee UI", "Tahoma"]
 plt.rcParams["axes.unicode_minus"] = False
 C = json.loads((ROOT / "analysis/goal7/canonical.json").read_text(encoding="utf-8"))
 D7 = ROOT / "data/32_goal7_chaophraya2/derived"
+WC = json.loads((ROOT / "analysis/goal7/waterchart_overlay.json").read_text(encoding="utf-8"))
 ASSETS = ROOT / "report/assets"
 F, ST, DEM, MN, C2, PD, CA, FB = (C[k] for k in ("facts", "structures", "dem", "manning", "c2", "pasak_dam", "corridor_area", "flood_band"))
 NN = ST["nakhonnayok"]

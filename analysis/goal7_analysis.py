@@ -366,6 +366,10 @@ PARTICIPATION = [
     {"date": "25 ก.ค.–1 ส.ค. 2559", "event": "กลุ่มย่อยครั้งที่ 1 งานทางระบายน้ำหลาก (11 เวที)", "n": 718, "nn_venue": True,
      "note": "เวทีที่ 5 อบต.คลองใหญ่ (65 คน, ผู้ได้รับผลกระทบ 13) · เวทีที่ 6 อบต.พระอาจารย์ (66 คน, ผู้ได้รับผลกระทบ 21) — 27 ก.ค. 2559 อ.องครักษ์"},
     {"date": "24 ก.พ.–3 มี.ค. 2560", "event": "กลุ่มย่อยครั้งที่ 2 งานทางระบายน้ำหลาก (11 เวที)", "n": 1082, "nn_venue": True, "note": "เวทีที่ 6 อบต.คลองใหญ่ อ.องครักษ์ (1 มี.ค. 2560) — ตามรายงานผลกระทบสิ่งแวดล้อม เล่ม 2 หน้า 9-100 · ผลรับฟัง: ลดแนวเขตคลองจาก ~200 ม. เป็น 170 ม. (กม.0–23) / 180 ม. (นครนายก)"},
+    {"date": "มี.ค. 2565", "event": "กลุ่มย่อยครั้งที่ 1 งานออกแบบรายละเอียดระยะที่ 1 (ฉะเชิงเทรา)", "n": None, "nn_venue": False, "note": "เอกสารกรมชลประทาน มี.ค. 2565 — พื้นที่ฉะเชิงเทรา/สมุทรปราการ"},
+    {"date": "16 ก.พ. 2566", "event": "ประชุมปฐมนิเทศงานออกแบบระยะที่ 2 (กม.0–81) เวทีที่ 1 ที่ อ.องครักษ์", "n": None, "nn_venue": True,
+     "note": "ห้องประชุมแสดขาว โรงเรียนองครักษ์ — ครอบคลุม อ.องครักษ์ อ.บ้านนา อ.หนองเสือ อ.บางน้ำเปรี้ยว · เวทีที่ 2 ที่สระบุรี 17 ก.พ. 2566"},
+    {"date": "20–23 มี.ค. 2566", "event": "กลุ่มย่อยครั้งที่ 3 ระยะที่ 1 (6 เวที)", "n": None, "nn_venue": False, "note": "ระยะที่ 1 กม.81–135.555 (ฉะเชิงเทรา/สมุทรปราการ)"},
     {"date": "28–29 มี.ค. 2560", "event": "ประชุมสาธารณะครั้งที่ 2 (2 เวที: สระบุรี และสมุทรปราการ)", "n": 267, "nn_venue": False,
      "note": "ผู้ได้รับผลกระทบ 106 คน · พื้นที่ศึกษา 6 จังหวัด 13 อำเภอ รวมบ้านนาและองครักษ์ — ไม่มีเวทีในนครนายก"},
 ]
@@ -384,6 +388,24 @@ DWR_PLAN = {
                    "route": "ปลายคลองรังสิต/คลอง 13 → ปตร.เสาวภาผ่องศรี (องครักษ์) → ปตร.สมบูรณ์ (บ้านสร้าง ปราจีนบุรี) → แม่น้ำบางปะกง (บางคล้า/บ้านโพธิ์) และรับน้ำที่หนองจอก/ประเวศ",
                    "src": "ข่าว สทนช. 14 ต.ค. 2569 (thailandplus.tv) และประชาชาติธุรกิจ — ชั้น B"},
 }
+
+# แบบรายละเอียด ม.ค. 2565–ก.ค. 2566 (เอกสารประชุมกลุ่มย่อยครั้งที่ 3 ระยะที่ 1 มี.ค. 2566 · เอกสารระยะที่ 2 ก.พ.–มิ.ย. 2566 — ก่อน EIA ฉบับอนุมัติ)
+DESIGN_2566 = {
+    "src": "data/manual/ป่าสัก-อ่าวไทย-ระยะที่1 (ประชุมกลุ่มย่อย 3 เวที 1–6, 20–23 มี.ค. 2566) และ …ระยะที่2 (เอกสารแนะนำโครงการ ม.ค. 2566 · ปฐมนิเทศ 16–17 ก.พ. 2566 · สัมมนา มิ.ย. 2566)",
+    "phase1": {"km": [81.0, 135.555], "crossings": 27, "crossings_with_locks": 5, "road_bridges": 23, "rail_bridges": 1, "gates": 2, "end_gate_km": 133.936},
+    "phase2": {"km": [0.0, 81.0], "crossings": 28, "aqueducts": 7, "road_bridges_p8": 30, "road_bridges_p17": 32, "rail_bridges": 1, "intakes": 4, "gates": 3,
+               "reach_23_81": {"bottom_m": 70, "depth_m": 6, "corridor_m": 200}, "reach_0_23": {"bottom_m": 53, "depth_m": 7, "corridor_m": 170},
+               "m6_km": 17.075, "expressway_km": 62.962, "tambons_nn": 6, "src_note": "นครนายก: บ้านนา 1 ตำบล (บ้านพริก) · องครักษ์ 5 ตำบล"},
+    "total_crossings": 27 + 5 + 28,
+    "total_road_bridges_min": 23 + 30, "total_road_bridges_max": 23 + 32,
+    "plan_then": {"knch": 2568, "cabinet": 2568, "construction": "2570–2574", "complete": "2574–2575"},
+    "design_period": {"phase1": "1 ก.ค. 2564 – 20 มิ.ย. 2566", "phase2": "1 ธ.ค. 2565 – 19 พ.ย. 2567"},
+    "ph2_orientation_nn": {"date": "16 ก.พ. 2566", "venue": "ห้องประชุมแสดขาว โรงเรียนองครักษ์ อ.องครักษ์ จ.นครนายก", "covers": "อ.องครักษ์ อ.บ้านนา (นครนายก) · อ.หนองเสือ (ปทุมธานี) · อ.บางน้ำเปรี้ยว (ฉะเชิงเทรา)"},
+    "note_depth": "เอกสาร 2564–2566 ใช้ท้อง 70 ม. ลึกน้ำ 6 ม. ช่วง กม.23 เป็นต้นไป · แต่ รายงานผลกระทบสิ่งแวดล้อม (ก.พ. 2569) ใช้ลึก 7 ม. ตามผลศึกษาปี 2560 — ขัดกัน ยังไม่ทราบค่าสุดท้ายของแบบ",
+}
+
+PARTICIPATION.sort(key=lambda x: ["26–27 ม.ค. 2559", "25–29 เม.ย. 2559", "25 ก.ค.–1 ส.ค. 2559", "24 ก.พ.–3 มี.ค. 2560", "28–29 มี.ค. 2560", "มี.ค. 2565", "16 ก.พ. 2566", "20–23 มี.ค. 2566"].index(x["date"]))
+
 
 def design_check():
     """ตรวจว่าตัวแปรออกแบบรายช่วง (ชั้น B) รับ 600 ลบ.ม./วินาที ได้ด้วยความลาดชันเท่าไร เทียบความลาดพื้นดินตามแนว"""
@@ -412,10 +434,15 @@ def struct_compare():
             "n_crossing_2569_sheets": len(cross),
             "n_crossing_2565": DESIGN_2565_STRUCTS["crossings_14"] + DESIGN_2565_STRUCTS["crossings_with_lock_5"],
             "n_road_bridge_2569_sheets": len(br), "n_road_bridge_2565": DESIGN_2565_STRUCTS["road_bridges"],
-            "official_total_crossings": {"eia_2569": 34 + 5, "design_2560": DESIGN_2560["crossings_siphon_drain"] + DESIGN_2560["crossings_with_locks"]},
+            "official_total_crossings": {"eia_2569": 34 + 5, "design_2560": DESIGN_2560["crossings_siphon_drain"] + DESIGN_2560["crossings_with_locks"], "design_2566": DESIGN_2566["total_crossings"]},
+            "phase_split": {"p1_sheets": sum(1 for r in rows if float(r["km"]) >= 81.0 and r["kind"] in ("อาคารเชื่อมจุดตัดคลอง", "ท่อระบายน้ำและไซฟอน")),
+                            "p2_sheets": sum(1 for r in rows if float(r["km"]) < 81.0 and r["kind"] in ("อาคารเชื่อมจุดตัดคลอง", "ท่อระบายน้ำและไซฟอน")),
+                            "p1_bridges_sheets": sum(1 for r in rows if float(r["km"]) >= 81.0 and r["kind"] == "สะพานรถยนต์"),
+                            "p2_bridges_sheets": sum(1 for r in rows if float(r["km"]) < 81.0 and r["kind"] == "สะพานรถยนต์")},
             "all_route_crossings_sheets": sum(1 for r in rows if r["kind"] in ("อาคารเชื่อมจุดตัดคลอง", "ท่อระบายน้ำและไซฟอน")),
             "all_route_road_bridges_sheets": sum(1 for r in rows if r["kind"] == "สะพานรถยนต์"),
-            "note": "แบบ 2565 นับจากเอกสารกรมชลประทาน (14+5 อาคารตัดคลอง · สะพานรถยนต์ 15) · แบบ 2569 นับจากแผนที่รายช่วงที่ผู้ใช้ได้มา อ่านด้วยตา"}
+            "design_2566_phase1": {"crossings": DESIGN_2566["phase1"]["crossings"] + DESIGN_2566["phase1"]["crossings_with_locks"], "road_bridges": DESIGN_2566["phase1"]["road_bridges"]},
+            "note": "แบบ 2565 นับจากเอกสารกรมชลประทาน (14+5 อาคารตัดคลอง · สะพานรถยนต์ 15) · แบบรายละเอียดมี.ค. 2566 ระยะที่ 1: 27+5 · สะพาน 23 (เพิ่มขึ้นจากแบบ 2565) · แผนที่ล่าสุดนับจากแผนที่รายช่วงที่ผู้ใช้ได้มา อ่านด้วยตา"}
 
 
 def main():
@@ -424,7 +451,7 @@ def main():
     L = max(f["properties"]["km"] for f in mk)
     c = {
         "meta": {"built_by": "analysis/goal7_analysis.py", "alignment_source": "Google My Maps (ผู้ใช้สร้าง — ไม่เป็นทางการ)"},
-        "facts": FACTS, "design_segments": design_check(), "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY,
+        "facts": FACTS, "design_segments": design_check(), "design_2566": DESIGN_2566, "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY,
         "alignment_qa": json.loads((D7 / "alignment_qa.json").read_text(encoding="utf-8")),
         "provinces_km": {"สระบุรี": [0, KM_NN0], "นครนายก": [KM_NN0, KM_NN1], "ฉะเชิงเทรา": [KM_NN1, KM_SP0], "สมุทรปราการ": [KM_SP0, 135.7]},
         "structures": structures(), "dem": dem_profile(), "manning": manning(), "c2": c2_peaks(),

@@ -87,3 +87,27 @@ def test_no_person_blaming(p):
     _, b = _body(p)
     for w in ("ทุจริต", "ผลาญงบ", "ผิดพลาดโดยเจตนา", "ต้องรับผิดชอบ"):
         assert w not in b
+
+
+QA = ROOT / "report/คลองเจ้าพระยา2_ถามตอบสั้น.html"
+
+
+def test_qa_exists_and_structure():
+    assert QA.exists(), "ยังไม่ได้สร้างฉบับถาม–ตอบสั้น — รัน report/goal7_build_qa.py"
+    h, b = _body(QA)
+    assert "สรุปสั้น (อ่าน 2 นาที)" in h and "บริบทสำหรับผู้อ่านใหม่" in h and "อ่านจบในตัวเอง" in h
+    assert h.count("<figure>") >= 2
+    assert h.count("class='qa'") >= 10, "ต้องมีคำถามอย่างน้อย 10 ข้อ"
+    for w in ("รู้แล้ว", "ยังไม่รู้", "ขอได้จาก"):
+        assert w in b
+    hits = {w: len(re.findall(w, b, flags=re.I)) for w in BANNED}
+    assert not {k: v for k, v in hits.items() if v}, "พบคำทับศัพท์"
+
+
+def test_qa_numbers_match_canonical():
+    c = json.loads(CAN.read_text(encoding="utf-8"))
+    _, b = _body(QA)
+    nn = next(r for r in c["eia_land"]["rows"] if r["province"] == "นครนายก")
+    assert f"{nn['rai']:,}" in b and f"{nn['owners']:,}" in b
+    assert str(c["eia_econ"]["earlier_2560"]["bcr"]) in b
+    assert "ไม่ใช่แนวทางการ" in b

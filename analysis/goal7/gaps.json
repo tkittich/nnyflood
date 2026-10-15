@@ -17,6 +17,7 @@
     "090d9cd4bd6c7005195c85af2a588a49dad20def662dbe8177cc7321d6cf9b27",
     "0bd31503fcf8807d30c5514a79c4f19a34756d17f78fb8a76fdd11cf0825cb1e",
     "0cd28a054255cf648de79f100af323cad08ec9b7442594ef265226d1c37b4293",
+    "10b89d25dd3ab09a3bf64d3a7d24339b3d0757475f82c0827391ee315b4f9173",
     "1173360ac84f8be25cddf09332f717fff676e545b4a770dbc19e2a3268d61d92",
     "126271061b8a8dd37284b25eacafa11231575e1316b6bf545a1a3c530ae70eed",
     "14715cc6e9788e69a8907855e74158762ab92f9d1b3a278f4340b2042fb4a607",
@@ -135,6 +136,7 @@
     "9d3e435f64bf5a743dbcaa827b644c773e55f723fe86c6f53dad137cb40bcdca",
     "9dec314a13ca382bb3d35008cb30b17dd41029c3d929ba3ca008f597562e93cc",
     "9e4b7ac1b4782cec8942cee98b3d0d4284afa0786f563b01b628dc389f1c6878",
+    "9ee23457d20603744e53d455dbe2ed7d7e71cb4181175ca993cc0df3645215f4",
     "a0099f18e7eee0f7a0a2e2b06a248dd21d469391986d70099f1e1f54537a7f7b",
     "a03a341cf08c5242c6008209d67823d09f760fc2f3e115672206f6756f600d18",
     "a048781eaeb0fef2086c860e638f4373df8a33d36964ad5980d20dced451ab11",
@@ -193,6 +195,7 @@
     "e6ce8fa086e9dcc7201f94e4f46231e3b9553a99b4fb4233cfc6ca736eda5d74",
     "e85142d2e3bc375087c105d09f946f6ab1663561006a8125f71d820121729879",
     "e91fec2d103e35cdcd2f2a710866ee66f0fe4da98c9b9e0c1c6f09f342f2022c",
+    "eda106e12f5179089dd91cbfaa81f254613c13b35ce31eb95e6bd27584a4f5d1",
     "edd85ef19164cfa05a533b036ced70b454fd0b170b5ce605aecda5d574961658",
     "eeb8b4e99b5a7c0640f05ce43e435707f3345615326272192bac38562989c21d",
     "ef36811c781327e3262d60b345229866df7200ec7c32bbb09911c496962d3200",
@@ -362,10 +365,11 @@
     {
       "id": "waterchart_component_list",
       "claim": "ยังไม่ได้ดาวน์โหลด 'รายการประกอบผังน้ำ' (ข้อ 2) ของลุ่ม 10/12/15 จึงยังไม่ทราบข้อกำหนดรายโซนที่ใช้บังคับกับพื้นที่ทางน้ำหลาก",
-      "status": "open",
+      "status": "closed",
       "closes_with": [
         "รายการประกอบผังน้ำ สทนช. ลุ่ม 10 · 12 · 15"
-      ]
+      ],
+      "evidence": "ได้ \"รายการประกอบผังน้ำ\" ลุ่ม 10/12/15 วันที่ 16 ต.ค. 2569 (official_onwr_gazette/*_component_list.zip) — ข้อกำหนดเป็นการเสนอแนะ ไม่ใช่ข้อห้ามรายโซน"
     }
   ]
 }

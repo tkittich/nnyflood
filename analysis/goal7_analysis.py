@@ -370,6 +370,21 @@ PARTICIPATION = [
      "note": "ผู้ได้รับผลกระทบ 106 คน · พื้นที่ศึกษา 6 จังหวัด 13 อำเภอ รวมบ้านนาและองครักษ์ — ไม่มีเวทีในนครนายก"},
 ]
 
+DWR_PLAN = {
+    "src": "สทนช. สำนักงานทรัพยากรน้ำแห่งชาติภาค 2 · แผนป้องกันและแก้ไขภาวะน้ำท่วมลุ่มน้ำเจ้าพระยา ปี 2566 (539 หน้า) หน้า 4-78, 4-88 ถึง 4-90, 2-58, ภาคผนวก ค-2/ค-3",
+    "tier": "A",
+    "chao_phraya_dam_release_max": 2840, "managed_max_m3s": 3465, "historical_peak_note": "ปี 2549 และ 2554 มากกว่า 5,000 ลบ.ม./วินาที",
+    "diversion_now": {"chainat_pasak": 130, "chainat_ayutthaya": 30, "tha_chin": 200, "noi": 230, "makham_thao": 35, "total": 625},
+    "canal_adds_m3s": 800, "rapi_phat_now": 210, "rapi_phat_target": 400,
+    "rangsit_south_retention_rai": 420000, "retention_total_mcm_target": 1300,
+    "flood_prone_rai": {"บ้านนา": {"low": 3807, "mid": 9670, "high": 0, "total": 13477}, "องครักษ์": {"low": 1727, "mid": 18951, "high": 0, "total": 20678}},
+    "flood_prone_src": "กรมพัฒนาที่ดิน 2562 ตามภาคผนวก ค ตาราง ค-2 หน้า 333 (พื้นที่ประสบปัญหาน้ำท่วมซ้ำซาก)",
+    "villages_at_risk_listed": {"บ้านนา": 3, "องครักษ์": 10, "src": "บัญชีหมู่บ้านเสี่ยง ภาคผนวก ง-3 หน้า 345 (นับจากรหัสหมู่บ้านที่ตัวอ่านได้ — อาจไม่ครบ)"},
+    "event_2569": {"date": "14 ต.ค. 2569", "gistda_mcm": {"4 ต.ค.": 2010, "9 ต.ค.": 1088}, "drained_mcm": 922,
+                   "route": "ปลายคลองรังสิต/คลอง 13 → ปตร.เสาวภาผ่องศรี (องครักษ์) → ปตร.สมบูรณ์ (บ้านสร้าง ปราจีนบุรี) → แม่น้ำบางปะกง (บางคล้า/บ้านโพธิ์) และรับน้ำที่หนองจอก/ประเวศ",
+                   "src": "ข่าว สทนช. 14 ต.ค. 2569 (thailandplus.tv) และประชาชาติธุรกิจ — ชั้น B"},
+}
+
 def design_check():
     """ตรวจว่าตัวแปรออกแบบรายช่วง (ชั้น B) รับ 600 ลบ.ม./วินาที ได้ด้วยความลาดชันเท่าไร เทียบความลาดพื้นดินตามแนว"""
     out = []
@@ -409,7 +424,7 @@ def main():
     L = max(f["properties"]["km"] for f in mk)
     c = {
         "meta": {"built_by": "analysis/goal7_analysis.py", "alignment_source": "Google My Maps (ผู้ใช้สร้าง — ไม่เป็นทางการ)"},
-        "facts": FACTS, "design_segments": design_check(), "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY,
+        "facts": FACTS, "design_segments": design_check(), "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY,
         "alignment_qa": json.loads((D7 / "alignment_qa.json").read_text(encoding="utf-8")),
         "provinces_km": {"สระบุรี": [0, KM_NN0], "นครนายก": [KM_NN0, KM_NN1], "ฉะเชิงเทรา": [KM_NN1, KM_SP0], "สมุทรปราการ": [KM_SP0, 135.7]},
         "structures": structures(), "dem": dem_profile(), "manning": manning(), "c2": c2_peaks(),

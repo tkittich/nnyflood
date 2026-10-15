@@ -29,6 +29,7 @@ EE = C["eia_econ"]
 ESO = C["eia_social"]
 CK = C["concern_checks"]
 D60 = C["design_2560"]
+DW = C["dwr_plan"]
 PART = C["participation"]
 import json as _json
 
@@ -216,6 +217,27 @@ S.append(prose(
     f"ยินยอมที่ราคาประเมิน {ESO['consent_appraised_pct']}% · ที่ราคาตลาด {ESO['consent_market_pct']}% · ไม่ยินยอม {ESO['refuse_pct']:.0f}% (เหตุหลักกลัวค่าชดเชยต่ำ {ESO['refuse_reason_low_pay_pct']}%) · "
     f"ไม่อยากย้ายถิ่น {ESO['no_move_pct']}% · อยากอยู่ตำบลเดิม {ESO['same_tambon_pct']}% · "
     f"พื้นที่ศึกษาโครงการมีประชากร {fmt(ESO['study_population'])} คน {fmt(ESO['study_households'])} ครัวเรือน (นครนายก {fmt(ESO['nakhonnayok_population'])} คน) · แหล่ง: {ESO['src']}"
+))
+S.append(h3("3.7 บริบทระดับลุ่มน้ำ: แผนป้องกันและแก้ไขภาวะน้ำท่วมลุ่มน้ำเจ้าพระยา (สทนช. 2566) และเหตุการณ์ ต.ค. 2569"))
+S.append(prose(
+    f"แหล่ง: {DW['src']} (ชั้น A) · แฟ้มเก็บแบบดิสก์ใน <code>data/32_goal7_chaophraya2/official_dwr/</code> · "
+    f"<b>ข้อเท็จจริง:</b> เขื่อนเจ้าพระยาระบายสูงสุดราว {fmt(DW['chao_phraya_dam_release_max'])} ลบ.ม./วินาที · "
+    f"ทางระบายปัจจุบัน {fmt(DW['diversion_now']['total'])} ลบ.ม./วินาทีเหนือเขื่อน (คลองชัยนาท–ป่าสัก {DW['diversion_now']['chainat_pasak']} · ท่าจีน {DW['diversion_now']['tha_chin']} · แม่น้ำน้อย {DW['diversion_now']['noi']} ฯลฯ) "
+    f"จึงบริหารน้ำในแม่น้ำเจ้าพระยาได้สูงสุดราว {fmt(DW['managed_max_m3s'])} ลบ.ม./วินาที ในขณะที่ปี 2549 และ 2554 มีน้ำ{DW['historical_peak_note'].replace('ปี 2549 และ 2554 ','')} · "
+    f"แผนหลักตั้งเป้าเพิ่มการระบายหน้าเขื่อนลงอ่าวไทยอีก {DW['canal_adds_m3s']} ลบ.ม./วินาที (คลองระบายน้ำหลากเจ้าพระยาฝั่งตะวันออก) · "
+    f"<b>การคำนวณอย่างง่าย (ของรายงานนี้):</b> {fmt(DW['managed_max_m3s'])} + {DW['canal_adds_m3s']} = {fmt(DW['managed_max_m3s'] + DW['canal_adds_m3s'])} ลบ.ม./วินาที "
+    f"ยังต่ำกว่า 5,000 ที่เกิดในปี 2554 ราว {fmt(5000 - DW['managed_max_m3s'] - DW['canal_adds_m3s'])} ลบ.ม./วินาทีขึ้นไป (5,000 เป็นค่าต่ำสุดที่แผนระบุว่า \"มากกว่า\") — ส่วนที่เหลือต้องพึ่งทุ่งรับน้ำนอง "
+    f"(ทุ่งรังสิตใต้ {fmt(DW['rangsit_south_retention_rai'])} ไร่ ครอบคลุมนครนายกด้วย) คันกั้นน้ำและการเลื่อนระดับน้ำ · "
+    "<b>การตีความ:</b> คลองนี้เป็นส่วนหนึ่งของชุด 9 แผนงาน ไม่ได้ถูกออกแบบให้รับน้ำปีใหญ่ได้ทั้งหมดด้วยตัวเอง"
+))
+S.append(table(["พื้นที่", "น้ำท่วมซ้ำซากระดับน้อย (ไร่)", "ระดับปานกลาง (ไร่)", "ระดับมาก (ไร่)", "รวม (ไร่)"],
+               [[k, fmt(v["low"]), fmt(v["mid"]), fmt(v["high"]), fmt(v["total"])] for k, v in DW["flood_prone_rai"].items()],
+               f"{DW['flood_prone_src']} — ข้อมูลก่อนมีคลองนี้ · บัญชีหมู่บ้านเสี่ยงในแผนนับได้: บ้านนา {DW['villages_at_risk_listed']['บ้านนา']} · องครักษ์ {DW['villages_at_risk_listed']['องครักษ์']} หมู่บ้าน (อ่านได้บางส่วน)"))
+ev = DW["event_2569"]
+S.append(prose(
+    f"<b>เหตุการณ์ปลาย ก.ย.–ต.ค. 2569 (ชั้น B ข่าว สทนช.):</b> ปริมาณน้ำท่วมขังลุ่มน้ำบางปะกงจากดาวเทียมราว {fmt(ev['gistda_mcm']['4 ต.ค.'])} ล้าน ลบ.ม. (4 ต.ค.) เหลือ {fmt(ev['gistda_mcm']['9 ต.ค.'])} (9 ต.ค.) · "
+    f"ระบายออกแล้วราว {fmt(ev['drained_mcm'])} ล้าน ลบ.ม. · เส้นทางระบายน้ำองครักษ์: {ev['route']} · "
+    "ข่าวไม่ระบุอัตราไหล (ลบ.ม./วินาที) และไม่เชื่อมกับคลองเจ้าพระยา2 — จึงไม่ใช้เป็นหลักฐานสถานภาพคลอง"
 ))
 S.append(h3("3.4 สรุปการประชุมจังหวัดนครนายก 9 ก.ย. 2569"))
 S.append(prose(

@@ -2556,5 +2556,125 @@
    }
   },
   "note": "ซ้าย/ตะวันตก = ฝั่งกรุงเทพฯ·ปทุมธานี · ขวา/ตะวันออก = ฝั่งนครนายกเมือง·ปราจีนฯ · รวมเฉพาะรูปทรงน้ำท่วม GISTDA ที่ตัดกับแถบ"
+ },
+ "embankment": {
+  "note": "ค่าประมาณจากตัวเลขในรายงานผลกระทบสิ่งแวดล้อม ไม่ใช่แบบจำลองน้ำท่วม · 'คันสูง 6/7 ม.' เป็นสมมติ (ผู้ใช้/ข่าวอ้างราว 6 ม.) เทียบกับค่าคำนวณจากรายงาน",
+  "assumptions": {
+   "freeboard_m": 1.5,
+   "z_inner": 3.0,
+   "z_outer": 2.0,
+   "crest_road_m": 10.0,
+   "weir_c": 1.7,
+   "reach_between_gates_km": [
+    23,
+    74
+   ],
+   "flow_def": "q_in = น้ำหลากรอบ 10 ปี 5 วันของคลองเดิม · ท่อระบายน้ำปิดระหว่างผันน้ำหลาก (ฉบับ 2561 หน้า 138)",
+   "pond_area_km2": 171.1,
+   "pond_area_src": "พื้นที่น้ำท่วมจริง 2 ต.ค. 2569 ภายใน 10 กม. สองฝั่งช่วงนครนายก (ดาวเทียม)"
+  },
+  "capacity": {
+   "eia2569": {
+    "bottom_m": 51.0,
+    "depth_m": 7.0,
+    "q_m3s": 605
+   },
+   "design2566": {
+    "bottom_m": 70,
+    "depth_m": 6,
+    "q_m3s": 601
+   }
+  },
+  "cases": [
+   {
+    "id": "eia_typ",
+    "label": "ค่าที่คำนวณจากรายงาน (สูงสุดในช่วงนครนายก)",
+    "crest_above_ground_m": 3.6,
+    "water_above_ground_m": 2.1,
+    "outer_toe_from_crest_m": 7.2,
+    "half_width_m": 68.2,
+    "volume_above_ground_mcm": 9.3,
+    "breach_peak_m3s": {
+     "30": 155,
+     "60": 310,
+     "100": 517
+    },
+    "seep_gradient": 0.07
+   },
+   {
+    "id": "eia_max",
+    "label": "ค่าสูงสุดที่รายงานระบุ",
+    "crest_above_ground_m": 4.8,
+    "water_above_ground_m": 3.3,
+    "outer_toe_from_crest_m": 9.6,
+    "half_width_m": 70.6,
+    "volume_above_ground_mcm": 14.0,
+    "breach_peak_m3s": {
+     "30": 306,
+     "60": 611,
+     "100": 1019
+    },
+    "seep_gradient": 0.1
+   },
+   {
+    "id": "H6",
+    "label": "สมมติคันสูง 6 ม. เหนือพื้นเดิม",
+    "crest_above_ground_m": 6.0,
+    "water_above_ground_m": 4.5,
+    "outer_toe_from_crest_m": 12.0,
+    "half_width_m": 73.0,
+    "volume_above_ground_mcm": 18.2,
+    "breach_peak_m3s": {
+     "30": 487,
+     "60": 974,
+     "100": 1623
+    },
+    "seep_gradient": 0.11
+   },
+   {
+    "id": "H7",
+    "label": "สมมติคันสูง 7 ม. เหนือพื้นเดิม",
+    "crest_above_ground_m": 7.0,
+    "water_above_ground_m": 5.5,
+    "outer_toe_from_crest_m": 14.0,
+    "half_width_m": 75.0,
+    "volume_above_ground_mcm": 21.5,
+    "breach_peak_m3s": {
+     "30": 658,
+     "60": 1316,
+     "100": 2193
+    },
+    "seep_gradient": 0.12
+   }
+  ],
+  "ref_range": [
+   2.0,
+   3.6
+  ],
+  "barrier": {
+   "siphon_area_m2": 48,
+   "length_km": 34.6,
+   "open_ratio_pct": {
+    "0.5": 0.28,
+    "1.0": 0.14,
+    "1.5": 0.09
+   }
+  },
+  "ponding": {
+   "nn_all": {
+    "excess_m3s": 77.0,
+    "volume_5d_mcm": 33.3,
+    "per_day_mcm": 6.66,
+    "depth_cm_obs_area": 19.5,
+    "depth_cm_half_area": 38.9
+   },
+   "floodway_zone": {
+    "excess_m3s": 55.0,
+    "volume_5d_mcm": 23.8,
+    "per_day_mcm": 4.75,
+    "depth_cm_obs_area": 13.9,
+    "depth_cm_half_area": 27.8
+   }
+  }
  }
 }

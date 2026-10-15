@@ -519,6 +519,74 @@ def eia_structs_summary():
     }
 
 
+def embankment_scenarios(c):
+    """ประมาณผลของความสูงคันคลองเหนือพื้นเดิม (6 ม./7 ม. เทียบกับค่าที่รายงานให้) — ใช้ตัวเลขรายงานผลกระทบสิ่งแวดล้อมล้วน ๆ
+    ไม่ใช่แบบจำลองน้ำท่วม: ทุกค่าเป็นค่าประมาณขอบบนแบบมีสมมติฐานระบุไว้ในฟิลด์ assumptions"""
+    es = c["eia_structs"]
+    if not es:
+        return None
+    sec = c["eia_section"]
+    z1, z2, road, D = sec["z1"], sec["z2"], sec["road_m"], sec["D_m"]
+    b = sec["A_m2"] / D - z1 * D
+    S0 = 1.0 / sec["slope_1_n"]
+    FB = 1.5
+
+    def q_manning(bw, d, n=sec["n"]):
+        A = (bw + z1 * d) * d
+        P = bw + 2 * d * math.sqrt(1 + z1 * z1)
+        return (1 / n) * A * (A / P) ** (2 / 3) * S0 ** 0.5
+
+    d6 = DESIGN_2566["phase2"]["reach_23_81"]
+    caps = {"eia2569": {"bottom_m": round(b, 1), "depth_m": D, "q_m3s": round(q_manning(b, D))},
+            "design2566": {"bottom_m": d6["bottom_m"], "depth_m": d6["depth_m"], "q_m3s": round(q_manning(d6["bottom_m"], d6["depth_m"]))}}
+    # ปตร.กลางคลอง กม.23 และ 74 (ตาราง 2.3.2-3) — ช่วงที่ลอยเหนือพื้นอยู่ระหว่างประตูทั้งสอง
+    L_reach = (74.0 - 23.0) * 1000
+    cases = []
+    lv = c["eia_levels"]["rows"]
+    ref_lo = min(r["crest_above_ground_m"] for r in lv)
+    ref_hi = max(r["crest_above_ground_m"] for r in lv)
+    defs = [("eia_typ", f"ค่าที่คำนวณจากรายงาน (สูงสุดในช่วงนครนายก)", ref_hi),
+            ("eia_max", "ค่าสูงสุดที่รายงานระบุ", c["eia_levels"]["eia_crest_above_ground_max_m"]),
+            ("H6", "สมมติคันสูง 6 ม. เหนือพื้นเดิม", 6.0), ("H7", "สมมติคันสูง 7 ม. เหนือพื้นเดิม", 7.0)]
+    for cid, label, H in defs:
+        h = H - FB                                  # ระดับน้ำสูงสุดเหนือพื้นเดิม
+        w_ws = b + 2 * z1 * D
+        hh = min(h, D)
+        w_g = w_ws - 2 * z1 * hh
+        vol = L_reach * hh * (w_g + w_ws) / 2 / 1e6
+        breach = {str(B): round(1.7 * B * h ** 1.5) for B in (30, 60, 100)}
+        base = road + z2 * H
+        cases.append({"id": cid, "label": label, "crest_above_ground_m": round(H, 1), "water_above_ground_m": round(h, 1),
+                      "outer_toe_from_crest_m": round(z2 * H, 1), "half_width_m": round(b / 2 + z1 * (D + FB) + road + z2 * H, 1),
+                      "volume_above_ground_mcm": round(vol, 1), "breach_peak_m3s": breach,
+                      "seep_gradient": round(h / (road + (z1 + z2) * H), 2)})
+    cr = es["nn"]["crossings"]
+    zone = es["nn"]["zone_floodway"]
+    a_sip = sum(x["sip_n"] * x["sip_w"] * x["sip_h"] for x in cr)
+    L_nn = c["alignment_qa"].get("length_km") if False else (es["nn"]["km"][1] - es["nn"]["km"][0])
+    ex_all = sum(max(0.0, x["q_in"] - x["q_struct"]) for x in cr)
+    ex_zone = zone["q_in_sum"] - zone["q_struct_sum"] if zone else None
+    fb = c["flood_band"]["scenes"]["S1D_20261002_0609"]
+    a_obs = (fb["west_rai"] + fb["east_rai"]) / 625.0
+    pond = {}
+    for key, q in (("nn_all", ex_all), ("floodway_zone", ex_zone)):
+        if q is None:
+            continue
+        v5 = q * 86400 * 5 / 1e6
+        pond[key] = {"excess_m3s": round(q, 1), "volume_5d_mcm": round(v5, 1), "per_day_mcm": round(q * 86400 / 1e6, 2),
+                     "depth_cm_obs_area": round(v5 * 1e6 / (a_obs * 1e6) * 100, 1),
+                     "depth_cm_half_area": round(v5 * 1e6 / (a_obs * 0.5 * 1e6) * 100, 1)}
+    barrier = {"siphon_area_m2": round(a_sip), "length_km": round(L_nn, 1),
+               "open_ratio_pct": {str(d): round(a_sip / (L_nn * 1000 * d) * 100, 2) for d in (0.5, 1.0, 1.5)}}
+    return {
+        "note": "ค่าประมาณจากตัวเลขในรายงานผลกระทบสิ่งแวดล้อม ไม่ใช่แบบจำลองน้ำท่วม · 'คันสูง 6/7 ม.' เป็นสมมติ (ผู้ใช้/ข่าวอ้างราว 6 ม.) เทียบกับค่าคำนวณจากรายงาน",
+        "assumptions": {"freeboard_m": FB, "z_inner": z1, "z_outer": z2, "crest_road_m": road, "weir_c": 1.7, "reach_between_gates_km": [23, 74],
+                        "flow_def": "q_in = น้ำหลากรอบ 10 ปี 5 วันของคลองเดิม · ท่อระบายน้ำปิดระหว่างผันน้ำหลาก (ฉบับ 2561 หน้า 138)",
+                        "pond_area_km2": round(a_obs, 1), "pond_area_src": "พื้นที่น้ำท่วมจริง 2 ต.ค. 2569 ภายใน 10 กม. สองฝั่งช่วงนครนายก (ดาวเทียม)"},
+        "capacity": caps, "cases": cases, "ref_range": [ref_lo, ref_hi], "barrier": barrier, "ponding": pond,
+    }
+
+
 def main():
     OUT.mkdir(exist_ok=True)
     mk = json.load(open(D7 / "km_markers.geojson"))["features"]
@@ -531,6 +599,7 @@ def main():
         "structures": structures(), "dem": dem_profile(), "manning": manning(), "c2": c2_peaks(),
         "pasak_dam": pasak_dam(), "corridor_area": corridor_area(round(L, 1)), "flood_band": flood_band(),
     }
+    c["embankment"] = embankment_scenarios(c)
     (OUT / "canonical.json").write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: c[k] for k in ("structures", "c2", "pasak_dam", "corridor_area", "flood_band")}, ensure_ascii=False, indent=1)[:5000])
 

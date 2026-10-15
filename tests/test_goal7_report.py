@@ -163,3 +163,21 @@ def test_nn_reach_stats_cover_full_reach():
     assert r["km"] == [38.6, 73.2]
     # พื้นดินต่ำสุด ~1.47 ม. อยู่ที่ปลายช่วง (กม.73.2) — ถ้าวนไม่ถึงปลายช่วง ค่านี้จะเป็น 1.95
     assert r["ground_min_m"] <= 1.5
+
+
+def test_builders_have_no_crest_range_literal():
+    """ช่วงสันคันเหนือพื้นเดิมต้องมาจาก canonical (eia_profile.nn_reach) — ห้ามพิมพ์เป็น literal ใน builder
+    (ต้นเหตุของ "2.5–4.8" ค้าง — รีวิวอิสระ 15 ต.ค. 69)"""
+    r = json.loads(CAN.read_text(encoding="utf-8"))["eia_profile"]["nn_reach"]
+    lits = [f"{r['crest_above_ground_min_m']}–{r['crest_above_ground_max_m']}",
+            f"{r['water_above_ground_min_m']}–{r['water_above_ground_max_m']}"]
+    for b in BUILDERS:
+        code = "\n".join(ln for ln in b.read_text(encoding="utf-8").splitlines() if not ln.strip().startswith("#"))
+        for lit in lits:
+            assert lit not in code, f"{b.name}: literal {lit!r} — อ่านจาก canonical"
+
+
+def test_canal_in_three_basins_only():
+    b = json.loads((ROOT / "analysis/goal7/basin_containment.json").read_text(encoding="utf-8"))
+    assert b["n_basins"] == 3 and {x["basin"] for x in b["basins"]} == {"เจ้าพระยา", "ป่าสัก", "บางปะกง"}
+    assert abs(b["sum_km"] - b["line_len_km"]) < 1.0

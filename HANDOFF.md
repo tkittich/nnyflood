@@ -177,7 +177,7 @@ commit ปกติแล้วหลัง `git init` ใหม่ — จะ p
 ## เป้าหมาย 7 — คลองเจ้าพระยา2 (15 ต.ค. 69)
 
 แผน `docs/GOAL7_PLAN.md` (§9 = สถานะ) · ข้อมูล `data/32_goal7_chaophraya2/` · วิเคราะห์ `analysis/goal7_analysis.py` →
-`analysis/goal7/canonical.json` · รายงาน 2 ฉบับ `report/คลองเจ้าพระยา2_ประชาชน.html` + `_วิชาการ.html`
+`analysis/goal7/canonical.json` · รายงาน 2 ฉบับ `report/คลองเจ้าพระยา2_ประชาชน.html` (รวมถาม–ตอบ 19 ข้อ) + `_วิชาการ.html`
 (สร้าง: `python analysis/goal7_clean_alignment.py && python analysis/goal7_analysis.py && python report/goal7_build_public.py && python report/goal7_build_academic.py`)
 · **แนวคลองมาจาก My Maps ผู้ใช้สร้าง = ไม่เป็นทางการ** · ตารางอาคารถอดด้วยตา ต้องตรวจซ้ำ ·
 งานค้างมนุษย์: ขอแบบหน้าตัด/ขนาดท่อ/รายงานสิ่งแวดล้อมฉบับเต็ม (รายการใน GOAL7_PLAN §4)

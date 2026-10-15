@@ -165,6 +165,17 @@ def main():
         rec["line_crosses_length_km"] = rec["nn"]["cross_km"]
         rec["corridor_share_pct"] = rec["nn"]["corridor_share_pct"]
         rec["km_intervals"] = rec["nn"]["km_intervals"]
+        # นิยามต่างกัน: cross_km = ความยาวตัดทั้งหมด รวมเศษสั้น · interval_sum_km = รวมเฉพาะช่วงที่ยาวอย่างน้อย 50 ม. (ตรงช่วง กม. ที่พิมพ์)
+        rec["nn"]["interval_sum_km"] = round(sum(b - a for a, b in rec["nn"]["km_intervals"]), 1)
+        # ความไวต่อตำแหน่งแนว: แนวคลองเป็นแนวไม่เป็นทางการ จึงเลื่อนขนานซ้าย/ขวา 100–300 ม.
+        sens = []
+        for dist in (100, 200, 300):
+            for side in ("left", "right"):
+                ol = sub["nn"]["line"].parallel_offset(dist, side)
+                oc = ol.buffer(100)
+                sens.append((ol.intersection(u).length / 1000, oc.intersection(u).area / oc.area * 100))
+        rec["nn"]["shift_sensitivity"] = {"shift_m": "100–300", "cross_km": [round(min(x[0] for x in sens), 1), round(max(x[0] for x in sens), 1)],
+                                          "corridor_share_pct": [round(min(x[1] for x in sens)), round(max(x[1] for x in sens))]}
         rec["in_band5km_km2"] = round(sub["nn"]["line"].buffer(5000).intersection(u).area / 1e6, 2)
         rec["n_polygons"] = sum(v.get("n_polygons_near", 0) for v in per.values())
         res["layers"][k] = rec

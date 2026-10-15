@@ -116,7 +116,7 @@ def fig_area():
     labs = ["ตามตัวแปรออกแบบ\nรายช่วง (220/170/160 ม.)", "ตามภาพแผนที่\n(170 ม. ถึง กม.23 แล้ว 200 ม.)", "200 ม.\nตลอดแนว"]
     vals = [CA["rai"]["design_2569_segments"], CA["rai"]["mixed"], CA["rai"]["all200"]]
     fig, ax = plt.subplots(figsize=(7.2, 3.6))
-    ax.bar(labs, vals, color="#4d94c9")
+    ax.bar(labs, vals, color="#1d6fb8")
     lo, hi = CA["reported_rai"]["eia_2569_canal"], CA["reported_rai"]["rid_2569_sec2"]
     ax.axhspan(lo, hi, color=ORANGE, alpha=.9, zorder=4)
     ax.text(-0.45, hi + 450, f"ตัวเลขที่รายงาน: {fmt(lo)}–{fmt(hi)} ไร่ (รายงานผลกระทบสิ่งแวดล้อม · เอกสารกรมชลประทาน · ข่าว)", fontsize=9, color=INK,
@@ -138,7 +138,7 @@ def fig_overview():
     mk = json.loads((D7 / "km_markers.geojson").read_text(encoding="utf-8"))["features"]
     pts = sorted((f["properties"]["km"], *f["geometry"]["coordinates"]) for f in mk)
     fig, ax = plt.subplots(figsize=(5.6, 8.4))
-    ax.plot([c[0] for c in cl], [c[1] for c in cl], color="#8aa0b3", lw=1.2, zorder=1)
+    ax.plot([c[0] for c in cl], [c[1] for c in cl], color="#5f7a91", lw=1.2, zorder=1)
     pk = C["provinces_km"]
     cols = {"สระบุรี": "#a14a00", "นครนายก": "#1d6fb8", "ฉะเชิงเทรา": "#1b5e20", "สมุทรปราการ": "#6a1b9a"}
     for prov, (a, b) in pk.items():

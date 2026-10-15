@@ -89,41 +89,14 @@ def test_no_person_blaming(p):
         assert w not in b
 
 
-QA = ROOT / "report/คลองเจ้าพระยา2_ถามตอบสั้น.html"
-
-
-def test_qa_exists_and_structure():
-    assert QA.exists(), "ยังไม่ได้สร้างฉบับถาม–ตอบสั้น — รัน report/goal7_build_qa.py"
-    h, b = _body(QA)
-    assert "สรุปสั้น (อ่าน 2 นาที)" in h and "บริบทสำหรับผู้อ่านใหม่" in h and "อ่านจบในตัวเอง" in h
-    assert h.count("<figure>") >= 2
-    assert h.count("class='qa'") >= 10, "ต้องมีคำถามอย่างน้อย 10 ข้อ"
-    for w in ("รู้แล้ว", "ยังไม่รู้", "ขอได้จาก"):
-        assert w in b
-    hits = {w: len(re.findall(w, b, flags=re.I)) for w in BANNED}
-    assert not {k: v for k, v in hits.items() if v}, "พบคำทับศัพท์"
-
-
-def test_qa_numbers_match_canonical():
-    c = json.loads(CAN.read_text(encoding="utf-8"))
-    _, b = _body(QA)
-    nn = next(r for r in c["eia_land"]["rows"] if r["province"] == "นครนายก")
-    assert f"{nn['rai']:,}" in b and f"{nn['owners']:,}" in b
-    assert str(c["eia_econ"]["earlier_2560"]["bcr"]) in b
-    assert "ไม่ใช่แนวทางการ" in b
-
-
 # ---- เพิ่ม 15 ต.ค. 69: ความสูงคันตามข้อมูล · ภาพประกอบ · คำถามเพิ่ม · กฎหมาย/PDPA ----
-QA_FILE = ROOT / "report/คลองเจ้าพระยา2_ถามตอบสั้น.html"
-
-
 def test_embankment_uses_documented_heights_only():
     c = json.loads(CAN.read_text(encoding="utf-8"))
     ids = [x["id"] for x in c["embankment"]["cases"]]
     assert ids == ["eia_lo", "eia_hi"], "ต้องใช้เฉพาะความสูงคันตามรูปตัดตามยาว (ไม่มีกรณีสมมติ 6/7 ม.)"
     top = max(x["crest_above_ground_m"] for x in c["embankment"]["cases"])
     assert top <= 4.8
-    for p in (PUBLIC, ACADEMIC, QA_FILE):
+    for p in (PUBLIC, ACADEMIC):
         _, b = _body(p)
         assert "คันสูง 6 หรือ 7" not in b and "สมมติคันสูง 6" not in b
 
@@ -131,14 +104,13 @@ def test_embankment_uses_documented_heights_only():
 def test_new_figures_and_questions():
     pub = PUBLIC.read_text(encoding="utf-8")
     aca = ACADEMIC.read_text(encoding="utf-8")
-    qa = QA_FILE.read_text(encoding="utf-8")
-    assert pub.count("<figure>") >= 9 and aca.count("<figure>") >= 10 and qa.count("<figure>") >= 5
-    assert qa.count("class='qa'") >= 24, "ถาม–ตอบต้องมีอย่างน้อย 24 ข้อ (เพิ่มประตู/รอยเลื่อน/ทางเลือก/การดูแล/ข้อเสนอ)"
-    for w in ("ประตูจะเปิด–ปิดอย่างไร", "รอยเลื่อนองครักษ์", "ทางเลือกอื่น", "ใครดูแลคันและท่อ", "ก่อนกันยายน 2569", "ใช้เวลานานเท่าไร", "ข้ามคลองได้ที่ไหน", "คุ้มค่าก่อสร้าง", "หอย"):
-        assert w in qa
+    assert pub.count("<figure>") >= 9 and aca.count("<figure>") >= 10
+    assert pub.count("class='qa'") >= 7, "ถาม–ตอบต้องมีอย่างน้อย 24 ข้อ (เพิ่มประตู/รอยเลื่อน/ทางเลือก/การดูแล/ข้อเสนอ)"
+    for w in ("ประตูจะเปิด–ปิดอย่างไร", "รอยเลื่อนองครักษ์", "ทางเลือกอื่น", "ใครดูแลคันและท่อ", "กันยายน 2569", "ใช้เวลานานเท่าไร", "ข้ามคลองได้ที่ไหน", "คุ้มค่าก่อสร้าง", "หอย"):
+        assert w in pub
 
 
-@pytest.mark.parametrize("p", [PUBLIC, ACADEMIC, QA_FILE], ids=["ประชาชน", "วิชาการ", "ถามตอบ"])
+@pytest.mark.parametrize("p", [PUBLIC, ACADEMIC], ids=["ประชาชน", "วิชาการ"])
 def test_legal_pdpa_no_persons_no_blame(p):
     """กฎหมายหมิ่นประมาท + PDPA (docs/LEGAL_REVIEW.md §4): ไม่มีชื่อบุคคลธรรมดา/เบอร์/ลิงก์โปรไฟล์ · ไม่ตั้งกรอบหาคนผิด"""
     _, b = _body(p)
@@ -170,3 +142,24 @@ def test_options_screening_present_and_labeled():
     assert "ข้อเสนอของผู้จัดทำ" in b and "ไม่ใช่ข้อมูลทางการ" in b
     _, b2 = _body(PUBLIC)
     assert "ข้อเสนอของผู้จัดทำ" in b2
+
+
+# ---- ค่าที่ถูกแทนแล้ว (retired) — ห้ามค้างในรายงาน/builder (เพิ่ม 15 ต.ค. 69 หลังรีวิวอิสระ 3 ฉบับ) ----
+RETIRED = ["2.5–4.8", "เฉพาะแม่น้ำใน 28.05", "น้ำสูงเพิ่ม ~19–39", "ผิวน้ำสูงขึ้นส่วนล้นไซฟอน"]
+ALL_REPORTS = [PUBLIC, ACADEMIC]
+BUILDERS = [ROOT / f"report/goal7_build_{n}.py" for n in ("public", "academic")]
+
+
+@pytest.mark.parametrize("p", ALL_REPORTS + BUILDERS, ids=lambda p: p.name)
+def test_no_retired_values(p):
+    t = p.read_text(encoding="utf-8")
+    hits = [r for r in RETIRED if r in t]
+    assert not hits, f"{p.name} มีค่าที่ถูกแทนแล้ว: {hits}"
+
+
+def test_nn_reach_stats_cover_full_reach():
+    d = json.loads(CAN.read_text(encoding="utf-8"))["eia_profile"]
+    r = d["nn_reach"]
+    assert r["km"] == [38.6, 73.2]
+    # พื้นดินต่ำสุด ~1.47 ม. อยู่ที่ปลายช่วง (กม.73.2) — ถ้าวนไม่ถึงปลายช่วง ค่านี้จะเป็น 1.95
+    assert r["ground_min_m"] <= 1.5

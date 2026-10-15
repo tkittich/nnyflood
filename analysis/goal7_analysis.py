@@ -437,6 +437,10 @@ EIA_VERSIONS = {
          "canal": {"length_km": 135.655, "q_max": 600, "bed_m": 70, "depth_m": 7.0, "row_m": 200, "src": "รายงานฉบับ ก.พ. 2569 (ดู 3.3b)"},
          "land_rai": 16288, "buildings": 1378, "econ": {"eirr_pct": 10.94, "bc9": 1.48, "bc12": 0.97, "npv12_mb": -2821}},
     ],
+    "fault": {"claim": "รายงานฉบับ 2561 และ 2564 จัดรอยเลื่อนองครักษ์ (ยาวราว 177 กม. พาดผ่าน อ.องครักษ์) เป็น \"รอยเลื่อนที่ไม่มีพลัง\" และประเมินความเสี่ยงต่อโครงสร้างระดับน้อยถึงปานกลาง (ฉบับ 2564 หน้า 616–617)",
+              "reviewer": "คชก. รอบ 1 (ข้อ 5.2–5.3) ขอให้เจาะสำรวจดินอย่างน้อย 5 หลุมตามแนวคลองที่ผ่านรอยเลื่อน ลงถึงชั้นดินแข็ง และตัดคำว่า \"เป็นรอยเลื่อนไม่มีพลัง\" เพราะยังไม่มีการศึกษา",
+              "status": "ไม่พบผลเจาะสำรวจ 5 หลุมในส่วนที่ค้น — ฉบับ 2564 ยังคงข้อความ \"ไม่มีพลัง\" · ภาคผนวกยังไม่ได้อ่าน"},
+    "no_lateral_flood_model": "ค้นคำว่าแบบจำลองน้ำท่วม/ผลกระทบข้างคลอง/ท่วมขัง ในเนื้อรายงานฉบับ 2564 และ 2566 ไม่พบการคำนวณน้ำท่วมด้านข้างของคลองลอย (พบเฉพาะแบบจำลองระบายน้ำลงทะเลและชายฝั่ง)",
     "unchanged": ["แนวคิดคลองลอยดาดคอนกรีตตั้งแต่ กม.23 ตลอดทุกฉบับ (เหตุผล: ลดขนาดเขตคลองเพราะที่ดินแพง)", "จำนวนอาคารประกอบ 99 แห่ง สะพานรถยนต์ 41 + รถไฟ 2 แห่ง ตั้งแต่ 2561 ถึง 2566", "ที่ปรึกษา: บริษัท พิสุทธิ์ เทคโนโลยี จำกัด (ตามหนังสือ คชก. 2564 · 2567)"],
     "changed": ["ผลตอบแทนทางเศรษฐกิจลดลงทุกฉบับ: B/C ที่ 12% จาก 1.35 → 1.12 → 0.99 → 0.97", "พื้นที่เวนคืนเพิ่มจาก 14,609 เป็น 16,288 ไร่ · สิ่งปลูกสร้างลดจาก 1,625 เป็น 1,378 หลัง · ค่าชดเชยที่ดินเพิ่มจาก 17,616 เป็น 19,677 ล้านบาท", "ระยะก่อสร้างที่ระบุ 3 ปี (2561–2564) → 5 ปี (2566) → 7–8 ปี (2569)"],
     "other_files": [
@@ -486,13 +490,42 @@ def struct_compare():
             "note": "แบบ 2565 นับจากเอกสารกรมชลประทาน (14+5 อาคารตัดคลอง · สะพานรถยนต์ 15) · แบบรายละเอียดมี.ค. 2566 ระยะที่ 1: 27+5 · สะพาน 23 (เพิ่มขึ้นจากแบบ 2565) · แผนที่ล่าสุดนับจากแผนที่รายช่วงที่ผู้ใช้ได้มา อ่านด้วยตา"}
 
 
+def eia_structs_summary():
+    """สรุปตารางอาคารประกอบ (ตาราง 2.3.2-3) จาก analysis/goal7/eia_structs.json (ผลิตโดย goal7_eia_structs.py)"""
+    f = OUT / "eia_structs.json"
+    if not f.exists():
+        return None
+    d = json.loads(f.read_text(encoding="utf-8"))
+    nn = d["nn_reach"]
+    cr = nn["crossings"]
+    for c in cr:
+        c["ratio"] = round(c["q_struct"] / c["q_in"], 2) if c.get("q_in") else None
+        c["shortfall"] = c["q_struct"] < c["q_in"]
+    ov = OUT / "waterchart_overlay.json"
+    zone = None
+    if ov.exists():
+        ivs = json.loads(ov.read_text(encoding="utf-8"))["layers"]["Floodway"]["nn"]["km_intervals"]
+        zc = [c for c in cr if any(a <= c["km"] <= b for a, b in ivs)]
+        zone = {"intervals": ivs, "n": len(zc), "kms": [c["km"] for c in zc],
+                "q_in_sum": round(sum(c["q_in"] for c in zc), 1), "q_struct_sum": round(sum(c["q_struct"] for c in zc), 1)}
+    return {
+        "src": "ตาราง 2.3.2-3 บัญชีอาคารประกอบของคลองระบายน้ำหลาก (รายงานผลกระทบสิ่งแวดล้อม) · q_in = อัตราไหลของคลองเดิมที่ตัด (ลบ.ม./วินาที — ตรงกับน้ำหลากรอบ 10 ปี 5 วัน ในตาราง 2.3.2-1 เช่น แม่น้ำใน 28.046) · q_struct = อัตราไหลของอาคารเชื่อม",
+        "versions": {v: {"n": x["n"], "pdf_pages": x["pdf_pages"]} for v, x in d["versions"].items()},
+        "identical_across_versions": len(d["diffs_vs_2561"]) == 0, "n_diffs": len(d["diffs_vs_2561"]),
+        "match": d["match"],
+        "nn": {"km": nn["km"], "n_all": nn["n_all"], "n_crossings": nn["n_crossings"], "n_road_bridges": nn["n_road_bridges"], "n_locks": nn["n_locks"],
+               "q_in_sum": round(sum(c["q_in"] for c in cr), 1), "q_struct_sum": round(sum(c["q_struct"] for c in cr), 1),
+               "n_shortfall": sum(c["shortfall"] for c in cr), "crossings": cr, "zone_floodway": zone},
+    }
+
+
 def main():
     OUT.mkdir(exist_ok=True)
     mk = json.load(open(D7 / "km_markers.geojson"))["features"]
     L = max(f["properties"]["km"] for f in mk)
     c = {
         "meta": {"built_by": "analysis/goal7_analysis.py", "alignment_source": "Google My Maps (ผู้ใช้สร้าง — ไม่เป็นทางการ)"},
-        "facts": FACTS, "design_segments": design_check(), "design_2566": DESIGN_2566, "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY, "eia_versions": EIA_VERSIONS,
+        "facts": FACTS, "design_segments": design_check(), "design_2566": DESIGN_2566, "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY, "eia_versions": EIA_VERSIONS, "eia_structs": eia_structs_summary(),
         "alignment_qa": json.loads((D7 / "alignment_qa.json").read_text(encoding="utf-8")),
         "provinces_km": {"สระบุรี": [0, KM_NN0], "นครนายก": [KM_NN0, KM_NN1], "ฉะเชิงเทรา": [KM_NN1, KM_SP0], "สมุทรปราการ": [KM_SP0, 135.7]},
         "structures": structures(), "dem": dem_profile(), "manning": manning(), "c2": c2_peaks(),

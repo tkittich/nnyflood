@@ -133,7 +133,7 @@ def test_new_figures_and_questions():
     aca = ACADEMIC.read_text(encoding="utf-8")
     qa = QA_FILE.read_text(encoding="utf-8")
     assert pub.count("<figure>") >= 9 and aca.count("<figure>") >= 10 and qa.count("<figure>") >= 5
-    assert qa.count("class='qa'") >= 18, "ถาม–ตอบต้องมีอย่างน้อย 18 ข้อ (เพิ่มประตู/รอยเลื่อน/ทางเลือก/การดูแล/ข้อเสนอ)"
+    assert qa.count("class='qa'") >= 19, "ถาม–ตอบต้องมีอย่างน้อย 19 ข้อ (เพิ่มประตู/รอยเลื่อน/ทางเลือก/การดูแล/ข้อเสนอ)"
     for w in ("ประตูจะเปิด–ปิดอย่างไร", "รอยเลื่อนองครักษ์", "ทางเลือกอื่น", "ใครดูแลคันและท่อ"):
         assert w in qa
 

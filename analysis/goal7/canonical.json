@@ -3836,5 +3836,165 @@
   ],
   "outlet_gate_storage_mcm": 2.3,
   "src_note": "ค่าคัดกรองคำนวณเอง จากตัวเลขหน้าตัดและระดับในรายงานฯ — ใช้เทียบลำดับขนาดของทางเลือก ไม่ใช่แบบ"
+ },
+ "runoff": {
+  "note": "ค่าประมาณลำดับขนาด ไม่ใช่แบบจำลอง — ฝนกริดหยาบ (สถานีบนเขาวัดได้ 1,058–1,416 มม./18 วัน) จึงเป็นขอบล่างของฝนจริง",
+  "assumptions": {
+   "rain_src": "ERA5 ผ่าน Open-Meteo (14.2355N, 101.2292E) 2543–2569 · ฝนสะสม 5 วันสูงสุดรายปี ก.ค.–พ.ย. · Gumbel",
+   "C_range": [
+    0.5,
+    0.8
+   ],
+   "C_note": "ที่นาอิ่มน้ำปลายฤดูฝน · ไม่มีค่าทางการ",
+   "event_window_start": "2026-09-23",
+   "sheet_n": 0.05,
+   "ground_slope_note": "ตามรูปตัดตามยาว พื้นดิน +2.0→+1.45 ม. ตลอด กม.37–75 (≈1:70,000 ตามแนวคลอง) · ลาดขวางแนวไม่ทราบ ใช้ 1:10,000–1:70,000"
+  },
+  "rain_5d_mm": {
+   "annual_max_n_years": 26,
+   "gumbel": {
+    "2": 145.0,
+    "10": 213.0,
+    "50": 273.0,
+    "100": 298.0
+   },
+   "event_2569": 199.0,
+   "event_rank": 6
+  },
+  "basins": [
+   {
+    "id": 4,
+    "canal": "แม่น้ำใน",
+    "area_km2": 330,
+    "q10_eia": 28.046,
+    "out_q": 28.046,
+    "eia_drain_depth_mm": 37.0,
+    "q_C5_event": 76,
+    "deficit_mcm_C5_event": 20.7,
+    "q_C5_t10": 81,
+    "deficit_mcm_C5_t10": 23.0,
+    "q_C8_event": 122,
+    "deficit_mcm_C8_event": 40.4,
+    "q_C8_t10": 130,
+    "deficit_mcm_C8_t10": 44.1
+   },
+   {
+    "id": 6,
+    "canal": "คลองรังสิตประยูรศักดิ์",
+    "area_km2": 886,
+    "q10_eia": 176.921,
+    "out_q": 120.0,
+    "eia_drain_depth_mm": 86.0,
+    "q_C5_event": 204,
+    "deficit_mcm_C5_event": 36.3,
+    "q_C5_t10": 218,
+    "deficit_mcm_C5_t10": 42.5,
+    "q_C8_event": 326,
+    "deficit_mcm_C8_event": 89.2,
+    "q_C8_t10": 349,
+    "deficit_mcm_C8_t10": 99.1
+   },
+   {
+    "id": 7,
+    "canal": "คลองหกวาสายล่าง",
+    "area_km2": 286,
+    "q10_eia": 74.033,
+    "out_q": 36.0,
+    "eia_drain_depth_mm": 112.0,
+    "q_C5_event": 66,
+    "deficit_mcm_C5_event": 12.9,
+    "q_C5_t10": 70,
+    "deficit_mcm_C5_t10": 14.9,
+    "q_C8_event": 105,
+    "deficit_mcm_C8_event": 29.9,
+    "q_C8_t10": 113,
+    "deficit_mcm_C8_t10": 33.1
+   },
+   {
+    "id": 12,
+    "canal": "คลองหกวาสายล่าง",
+    "area_km2": 192,
+    "q10_eia": 26.885,
+    "out_q": 15.0,
+    "eia_drain_depth_mm": 61.0,
+    "q_C5_event": 44,
+    "deficit_mcm_C5_event": 12.6,
+    "q_C5_t10": 47,
+    "deficit_mcm_C5_t10": 13.9,
+    "q_C8_event": 71,
+    "deficit_mcm_C8_event": 24.0,
+    "q_C8_t10": 76,
+    "deficit_mcm_C8_t10": 26.2
+   }
+  ],
+  "strip": [
+   {
+    "W_km": 2,
+    "C": 0.5,
+    "area_km2": 69,
+    "q_m3s": 16,
+    "per_km_m3s": 0.5
+   },
+   {
+    "W_km": 2,
+    "C": 0.8,
+    "area_km2": 69,
+    "q_m3s": 26,
+    "per_km_m3s": 0.7
+   },
+   {
+    "W_km": 5,
+    "C": 0.5,
+    "area_km2": 173,
+    "q_m3s": 40,
+    "per_km_m3s": 1.2
+   },
+   {
+    "W_km": 5,
+    "C": 0.8,
+    "area_km2": 173,
+    "q_m3s": 64,
+    "per_km_m3s": 1.8
+   },
+   {
+    "W_km": 10,
+    "C": 0.5,
+    "area_km2": 346,
+    "q_m3s": 80,
+    "per_km_m3s": 2.3
+   },
+   {
+    "W_km": 10,
+    "C": 0.8,
+    "area_km2": 346,
+    "q_m3s": 128,
+    "per_km_m3s": 3.7
+   }
+  ],
+  "local_capacity": {
+   "small_siphons_m3s": 47,
+   "connecting_canal_m3s": 28.046,
+   "ditches_m3s_low": 1.4,
+   "ditches_m3s_high": 4.4,
+   "total_low": 76,
+   "total_high": 79
+  },
+  "travel": {
+   "n": 0.05,
+   "h_m": [
+    0.2,
+    0.5
+   ],
+   "slope_1_n": [
+    10000,
+    70000
+   ],
+   "km_per_day": {
+    "h0.2_S10000": 5.9,
+    "h0.2_S70000": 2.2,
+    "h0.5_S10000": 10.9,
+    "h0.5_S70000": 4.1
+   }
+  }
  }
 }

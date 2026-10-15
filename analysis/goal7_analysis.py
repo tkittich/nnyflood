@@ -680,6 +680,71 @@ def options_screening(c):
     }
 
 
+def runoff_screening(c):
+    """ประมาณน้ำไหลบ่าตอนฝนหนักซ้อนช่วงผันน้ำหลาก — คัดกรองลำดับขนาดจากฝนกริด (ERA5 จุดตัวเมืองนครนายก 2543–2569) พื้นที่รับน้ำตามตาราง 2.3.2-1
+    และทางระบายตามตาราง 2.3.2-3 · ไม่ใช่แบบจำลองไหลบ่า: สมมติฐานระบุไว้ใน assumptions"""
+    import datetime as dt
+    f = ROOT / "data/04_tmd_rainfall/raw_era5/town_daily.json"
+    if not f.exists():
+        return None
+    d = json.loads(f.read_text(encoding="utf-8"))["daily"]
+    dates = [dt.date.fromisoformat(x) for x in d["time"]]
+    v = np.array([np.nan if x is None else x for x in d["precipitation_sum"]], dtype=float)
+    best = {}
+    for i in range(len(v) - 4):
+        if dates[i].month in (7, 8, 9, 10, 11) and not np.isnan(v[i:i + 5]).any():
+            s = float(v[i:i + 5].sum())
+            y = dates[i].year
+            if s > best.get(y, (0, None))[0]:
+                best[y] = (s, dates[i].isoformat())
+    yrs = sorted(y for y in best if y < 2026)
+    vals = np.array([best[y][0] for y in yrs])
+    beta = vals.std(ddof=1) * math.sqrt(6) / math.pi
+    loc = vals.mean() - 0.5772 * beta
+    gum = {str(T): round(loc - beta * math.log(-math.log(1 - 1 / T)), 0) for T in (2, 10, 50, 100)}
+    R_event = round(best[2026][0], 0)
+    DAY5 = 5 * 86400.0
+    sel = [b for b in BASINS_2569 if b["id"] in (4, 6, 7, 12)]
+    rows = []
+    for b in sel:
+        A = b["area_rai"] / 625.0
+        row = {"id": b["id"], "canal": b["canal"], "area_km2": round(A), "q10_eia": b["q10"], "out_q": b["out_q"],
+               "eia_drain_depth_mm": round(b["q10"] * DAY5 / (A * 1e6) * 1000, 0)}
+        for Cc in (0.5, 0.8):
+            for tag, Rr in (("event", R_event), ("t10", gum["10"])):
+                q = Cc * Rr / 1000 * A * 1e6 / DAY5
+                row[f"q_C{int(Cc*10)}_{tag}"] = round(q)
+                row[f"deficit_mcm_C{int(Cc*10)}_{tag}"] = round(max(0.0, q - b["out_q"]) * DAY5 / 1e6, 1)
+        rows.append(row)
+    es = c["eia_structs"]["nn"]["crossings"]
+    small = [x for x in es if x["sip_w"] == 2.0 and x["sip_h"] == 2.0]
+    cap_small = sum(x["q_struct"] for x in small)
+    ditch = c["embankment"]["ditch_q_each_side_m3s"]
+    L = c["eia_structs"]["nn"]["km"][1] - c["eia_structs"]["nn"]["km"][0]
+    strip = []
+    for W in (2, 5, 10):
+        A = W * L
+        for Cc in (0.5, 0.8):
+            q = Cc * R_event / 1000 * A * 1e6 / DAY5
+            strip.append({"W_km": W, "C": Cc, "area_km2": round(A), "q_m3s": round(q), "per_km_m3s": round(q / L, 1)})
+    cap_local = {"small_siphons_m3s": round(cap_small), "connecting_canal_m3s": 28.046,
+                 "ditches_m3s_low": round(2 * ditch["1e-04"], 1), "ditches_m3s_high": round(2 * ditch["1e-03"], 1)}
+    cap_local["total_low"] = round(cap_local["small_siphons_m3s"] + cap_local["connecting_canal_m3s"] + cap_local["ditches_m3s_low"])
+    cap_local["total_high"] = round(cap_local["small_siphons_m3s"] + cap_local["connecting_canal_m3s"] + cap_local["ditches_m3s_high"])
+    def v_sheet(n, h, S):
+        return (1 / n) * h ** (2 / 3) * S ** 0.5 * 86.4   # กม./วัน
+    travel = {"n": 0.05, "h_m": [0.2, 0.5], "slope_1_n": [10000, 70000],
+              "km_per_day": {f"h{h}_S{s}": round(v_sheet(0.05, h, 1.0 / s), 1) for h in (0.2, 0.5) for s in (10000, 70000)}}
+    return {
+        "note": "ค่าประมาณลำดับขนาด ไม่ใช่แบบจำลอง — ฝนกริดหยาบ (สถานีบนเขาวัดได้ 1,058–1,416 มม./18 วัน) จึงเป็นขอบล่างของฝนจริง",
+        "assumptions": {"rain_src": "ERA5 ผ่าน Open-Meteo (14.2355N, 101.2292E) 2543–2569 · ฝนสะสม 5 วันสูงสุดรายปี ก.ค.–พ.ย. · Gumbel",
+                        "C_range": [0.5, 0.8], "C_note": "ที่นาอิ่มน้ำปลายฤดูฝน · ไม่มีค่าทางการ", "event_window_start": best[2026][1],
+                        "sheet_n": 0.05, "ground_slope_note": "ตามรูปตัดตามยาว พื้นดิน +2.0→+1.45 ม. ตลอด กม.37–75 (≈1:70,000 ตามแนวคลอง) · ลาดขวางแนวไม่ทราบ ใช้ 1:10,000–1:70,000"},
+        "rain_5d_mm": {"annual_max_n_years": len(yrs), "gumbel": gum, "event_2569": R_event, "event_rank": 1 + sum(1 for x in vals if x > R_event)},
+        "basins": rows, "strip": strip, "local_capacity": cap_local, "travel": travel,
+    }
+
+
 def embankment_scenarios(c):
     """ประมาณผลของความสูงคันคลองเหนือพื้นเดิม ตามรูปตัดตามยาว (รูปที่ 2.3.2-9) — ไม่ใช่แบบจำลองน้ำท่วม
     ค่าที่ใช้: สันคันเหนือพื้นเดิม ช่วงนครนายก (จากโปรไฟล์) · หน้าตัดตามรายงาน · ตารางอาคาร · พื้นที่น้ำท่วมจริงจากดาวเทียม"""
@@ -761,6 +826,7 @@ def main():
                                  "kw": {"model": "แบบจำลอง", "flood_side": "น้ำท่วมซ้ำซาก/ขัง", "gate_rule": "เกณฑ์เดินประตู", "fault": "รอยเลื่อน",
                                         "salinity": "น้ำเค็ม", "subsidence": "ทรุดตัว", "opinion": "ความคิดเห็น/แบบสอบถาม", "cost": "ค่าก่อสร้าง/วงเงิน"}}
     c["options"] = options_screening(c)
+    c["runoff"] = runoff_screening(c)
     (OUT / "canonical.json").write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: c[k] for k in ("structures", "c2", "pasak_dam", "corridor_area", "flood_band")}, ensure_ascii=False, indent=1)[:5000])
 

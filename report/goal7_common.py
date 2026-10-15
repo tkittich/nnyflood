@@ -208,7 +208,7 @@ def fig_xsection():
     b = sec["A_m2"] / D - z1 * D
     FB = EB["assumptions"]["freeboard_m"]
     H = EB["cases"][1]["crest_above_ground_m"]
-    Hmax = EB["cases"][2]["crest_above_ground_m"]
+    Hmax = H
     wl = H - FB
     bed = -(D + FB - H)
     xi_c = b / 2 + z1 * (D + FB)            # ขอบในที่ระดับสันคัน
@@ -223,7 +223,7 @@ def fig_xsection():
     ax.plot([-xo_g - 25, xo_g + 25], [0, 0], color=ORANGE, lw=2.2, zorder=4)
     ax.plot([-xi_g, -b / 2, b / 2, xi_g], [0, bed, bed, 0], color=INK, lw=1.2, zorder=4)
     ax.text(0, (bed + wl) / 2, f"น้ำสูงสุดตามแบบ\nท้อง {b:.0f} ม. · ลึก {D:.0f} ม.", ha="center", va="center", fontsize=10, color="white", fontweight="bold", zorder=6)
-    ax.annotate(f"สันคัน (ถนนกว้าง {road:.0f} ม.) สูงเหนือพื้นเดิม {H} ม.\n(ค่าสูงสุดที่คำนวณได้ · รายงานระบุไม่เกิน {Hmax} ม.)",
+    ax.annotate(f"สันคัน (ถนนกว้าง {road:.0f} ม.) สูงเหนือพื้นเดิม {H} ม.\n(ที่ กม.40 ตามรูปตัดตามยาว ราว 3.2–{Hmax} ม. ตลอดช่วงนครนายก)",
                 xy=((xi_c + xo_c) / 2, H), xytext=(xo_c - 5, H + 4.2), fontsize=9, color=INK, ha="center",
                 arrowprops=dict(arrowstyle="-", color=INK, lw=1), zorder=7)
     ax.annotate(f"ผิวน้ำสูงสุดสูงกว่าพื้นเดิม {wl:.1f} ม.\n(รายงานระบุ {C['eia_levels']['eia_range_water_above_ground_m'][0]}–{C['eia_levels']['eia_range_water_above_ground_m'][1]} ม.)",
@@ -246,7 +246,7 @@ def fig_sip_flow():
     q_st = [c["q_struct"] for c in ES]
     y = np.arange(len(ES))
     fig, ax = plt.subplots(figsize=(7.4, 4.6))
-    ax.barh(y - 0.2, q_in, 0.38, color=BLUE, label="น้ำหลากของคลองเดิม (รอบ 10 ปี 5 วัน)")
+    ax.barh(y - 0.2, q_in, 0.38, color=BLUE, label="อัตราไหลของคลองเดิมตามตาราง")
     ax.barh(y + 0.2, q_st, 0.38, color=ORANGE, label="อาคารเชื่อมรับได้")
     for i, c in enumerate(ES):
         ax.text(c["q_in"] + 0.6, i - 0.2, f"{c['q_in']:.0f}", va="center", fontsize=8.5, color=INK)
@@ -254,7 +254,7 @@ def fig_sip_flow():
     ax.set_yticks(y); ax.set_yticklabels(labs, fontsize=8.8)
     ax.invert_yaxis()
     ax.set_xlabel("อัตราไหล (ลบ.ม./วินาที)")
-    ax.set_title("ช่วงนครนายก: น้ำหลากของคลองเดิมที่คลองใหม่ตัดผ่าน เทียบกับที่อาคารเชื่อมรับได้", fontsize=10, color=INK)
+    ax.set_title("ช่วงนครนายก: อัตราไหลของคลองเดิมที่คลองใหม่ตัดผ่าน เทียบกับที่อาคารเชื่อมรับได้ (ตาราง 2.3.2-3)", fontsize=10, color=INK)
     ax.legend(loc="lower right", fontsize=8.5, frameon=True)
     ax.grid(axis="x", alpha=.3); fig.tight_layout()
     path = ASSETS / "goal7_siphon_vs_flood.png"
@@ -299,7 +299,7 @@ def fig_wc_map():
     from matplotlib.lines import Line2D
     ax.legend(handles=[Patch(color="#4d94c9", label=names["Flood_Tr100"][1]), Patch(color="#c76f10", label=names["Floodway"][1]),
                        Line2D([0], [0], color=INK, lw=2.4, label="แนวคลองประมาณ"),
-                       Line2D([0], [0], marker="v", color="w", mfc="#8b0000", ms=9, label="คลองเดิมที่อาคารรับน้ำหลากได้น้อยกว่า 1 ใน 4"),
+                       Line2D([0], [0], marker="v", color="w", mfc="#8b0000", ms=9, label="คลองเดิมที่อาคารเชื่อมรับได้น้อยกว่า 1 ใน 4 ของอัตราไหลตามตาราง"),
                        Line2D([0], [0], marker="v", color="w", mfc=INK, ms=7, label="คลองเดิมที่ตัดผ่านจุดอื่น")],
               loc="upper center", bbox_to_anchor=(0.5, -0.09), fontsize=8.3, frameon=True)
     lo0 = min(s[0] for s in seg); lo1 = max(s[0] for s in seg); la0 = min(s[1] for s in seg); la1 = max(s[1] for s in seg)
@@ -338,5 +338,42 @@ def fig_versions():
     fig.suptitle("รายงานผลกระทบสิ่งแวดล้อมถูกส่งกลับแก้ 3 รอบ — ตัวเลขเปลี่ยนอย่างไร", fontsize=10, color=INK)
     fig.tight_layout()
     path = ASSETS / "goal7_eia_versions.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
+def fig_profile():
+    """รูปตัดตามยาววาดใหม่จากรูปที่ 2.3.2-9 (ค่าที่อ่านจากรูป ±0.2 ม.) — ไม่คัดลอกรูปต้นฉบับ"""
+    PF = C["eia_profile"]
+    gx = [g[0] for g in PF["ground_readings"]]
+    gz = [g[1] for g in PF["ground_readings"]]
+    kms = np.arange(0, 135.9, 0.5)
+    bed, water, crest = [], [], []
+    for km in kms:
+        if km < 23:
+            b = 1.75 - (km - 0.15) * 0.1
+            w = b + 7.0
+            cst = w + 1.5
+        else:
+            b = -1.05 - (km - 23) * 0.04
+            w = b + 7.0
+            cst = w + 1.5 if km <= 109 else 4.0
+        bed.append(b); water.append(w); crest.append(cst)
+    fig, ax = plt.subplots(figsize=(7.6, 4.4))
+    ax.axvspan(NN["km_from"], NN["km_to"], color="#dbe9f6", zorder=0)
+    ax.plot(gx, gz, color=ORANGE, lw=2.2, label="พื้นดินเดิม (อ่านจากรูป)", zorder=3)
+    ax.plot(kms, crest, color=INK, lw=2, label="สันคัน", zorder=3)
+    ax.plot(kms, water, color=BLUE, lw=2, label="ระดับน้ำสูงสุดออกแบบ", zorder=3)
+    ax.plot(kms, bed, color=GREY, lw=1.8, ls="--", label="ท้องคลอง", zorder=3)
+    for gk in (23, 74, 102):
+        ax.axvline(gk, color=GREY, lw=0.9, ls=":", zorder=1)
+        ax.text(gk, 12.9, f"ปตร. กม.{gk}", va="top", ha="center", fontsize=8, color=INK, bbox=dict(facecolor="white", edgecolor="none", pad=1))
+    ax.text((NN["km_from"] + NN["km_to"]) / 2, 9.6, "ช่วงนครนายก", ha="center", fontsize=9, color=INK)
+    ax.set_xlim(0, 136); ax.set_ylim(-7.5, 13)
+    ax.set_xlabel("ระยะตามแนวคลอง (กม. นับจากฝั่งป่าสัก)"); ax.set_ylabel("ระดับ (ม.รทก.)")
+    ax.set_title("รูปตัดตามยาวของคลอง (วาดใหม่จากรูปที่ 2.3.2-9 ของรายงานฯ): ผิวน้ำและสันคันอยู่เหนือพื้นเดิมตั้งแต่ กม.23", fontsize=9.5, color=INK)
+    ax.legend(loc="lower left", fontsize=8.3, frameon=True, ncol=2)
+    ax.grid(alpha=.3); fig.tight_layout()
+    path = ASSETS / "goal7_profile.png"
     fig.savefig(path, dpi=130); plt.close(fig)
     return path

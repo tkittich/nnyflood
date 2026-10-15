@@ -302,20 +302,80 @@ EIA_SECTION = {"D_m": 7.0, "A_m2": 504.0, "V_ms": 1.20, "n": 0.016, "slope_1_n":
                "src": "รายงานผลกระทบสิ่งแวดล้อม เล่ม 1 หน้า 2-39 (รูปที่ 2.3.2-11 ตาราง กม.23–134)"}
 
 
-def eia_levels(dem_profile_rows):
-    """ระดับน้ำ/สันคัน ตามค่าของรายงานผลกระทบสิ่งแวดล้อมเทียบพื้นดินจาก DEM (ประมาณ — ใช้ลาดก้นคลอง 1:25,000 ต่อจากระดับ +2.50 ที่ กม.109)"""
-    g = {p["km"]: p["ground_m"] for p in dem_profile_rows}
-    out = []
-    for km in (40, 50, 60, 70, 100):
-        if km not in g:
-            continue
-        water = 2.5 + max(0, 109 - km) * (1000 / 25000) / 1.0 * 1.0 if km < 109 else 2.5
-        # หน่วย: ลาด 1:25,000 = 0.04 ม./กม.
-        water = 2.5 + (109 - km) * 0.04
+PROFILE_FIG = {
+    "src": "รายงานผลกระทบสิ่งแวดล้อม ฉบับ ก.พ. 2569 เล่ม 1 รูปที่ 2.3.2-9 (หน้าพิมพ์ 2-37 · หน้าไฟล์ 142) · ภาพไฟล์ data/manual/EIA ทางระบายน้ำหลาก_สมบูรณ์ เล่ม 1-17907513091.jpg",
+    "reading_error_m": 0.2,
+    "method": "อ่านด้วยตาจากภาพขยาย 600 จุดต่อนิ้ว โดยเทียบเส้นตารางแนวตั้งทุก 1 ม. · ระดับน้ำ/สันคัน/ท้องคลองตรงกับสูตร (ท้อง −1.05 ม. ที่ กม.23 ลาด 1:25,000 ลึก 7 ม. เผื่อพ้นน้ำ 1.5 ม.) และค่าที่เขียนกำกับบนรูป",
+    "labels_on_figure": {"km0.15": {"crest": 10.25, "water": 8.75, "bed": 1.75}, "km22.9": {"crest": 7.95, "water": 6.45},
+                         "km23": {"crest": 7.45, "water": 5.95, "bed": -1.05}, "km75": {"crest": 5.36, "water": 3.86, "bed": -3.13},
+                         "km109": {"crest": 4.0, "water": 2.5}, "km134": {"crest": 3.0, "bed": -5.504, "sea_high": 2.0, "backwater": 2.5, "water": 1.498},
+                         "connect_canal_km39.8": {"crest": 3.2, "water": 2.0, "bed": -1.0}, "connect_canal_km51.5": {"crest": 2.808, "water": 1.408, "bed": -1.592}},
+    # (กม., ความสูงพื้นดินธรรมชาติ ม.รทก.) อ่านจากเส้นประ "ระดับดินธรรมชาติ"
+    "ground": [(0, 10.0), (6.5, 10.0), (9.8, 11.4), (12.8, 8.0), (15.3, 8.0), (22.0, 8.0), (24.5, 4.0), (28.0, 4.0), (36.9, 2.0),
+               (50.0, 1.95), (56.7, 2.9), (57.8, 2.5), (60.0, 1.93), (65.0, 1.6), (70.0, 1.5), (75.0, 1.45), (85.0, 1.2), (95.0, 1.0),
+               (105.0, 0.5), (118.0, 0.5), (123.0, 1.0), (129.0, 0.55), (131.0, 0.8), (134.0, 1.5)],
+}
+
+
+def _profile_levels(km):
+    """ระดับน้ำสูงสุด/สันคัน/ท้องคลอง (ม.รทก.) ตามสูตรที่ตรงกับรูปที่ 2.3.2-9"""
+    if km < 23:
+        bed = 1.75 - (km - 0.15) * 0.1
+        water = bed + 7.0
         crest = water + 1.5
-        out.append({"km": km, "ground_dsm_m": g[km], "water_msl_m": round(water, 2), "water_above_ground_m": round(water - g[km], 1),
-                    "crest_msl_m": round(crest, 2), "crest_above_ground_m": round(crest - g[km], 1)})
-    return {"rows": out, "note": "ค่าคำนวณของรายงานนี้จากตัวเลขรายงานผลกระทบสิ่งแวดล้อม (ลาด 1:25,000 + ระดับ +2.50 ที่ กม.109 + เผื่อพ้นน้ำ 1.50) ไม่ใช่ตัวเลขในแบบ · พื้นดินเป็นความสูงพื้นผิว ±2–4 ม. · ไม่รวมการลดระดับที่ปตร.กลางคลอง กม.74 และ 102",
+    elif km <= 109:
+        bed = -1.05 - (km - 23) * 0.04
+        water = bed + 7.0
+        crest = water + 1.5
+    else:
+        bed = -1.05 - (km - 23) * 0.04
+        water = bed + 7.0
+        crest = 4.0
+    return bed, water, crest
+
+
+def eia_profile():
+    g = PROFILE_FIG["ground"]
+    gx = [x[0] for x in g]
+    gy = [x[1] for x in g]
+    rows = []
+    for km in list(range(0, 136, 5)):
+        bed, water, crest = _profile_levels(km)
+        z = float(np.interp(km, gx, gy))
+        rows.append({"km": km, "ground_m": round(z, 2), "bed_m": round(bed, 2), "water_m": round(water, 2), "crest_m": round(crest, 2),
+                     "water_above_ground_m": round(water - z, 1), "crest_above_ground_m": round(crest - z, 1)})
+    nn = []
+    for i in range(0, 351):
+        km = 23.0 + i * 0.1
+        if 38.6 <= km <= 73.2:
+            bed, water, crest = _profile_levels(km)
+            z = float(np.interp(km, gx, gy))
+            nn.append((km, crest - z, water - z, z))
+    return {**{k: v for k, v in PROFILE_FIG.items() if k != "ground"}, "ground_readings": PROFILE_FIG["ground"], "rows": rows,
+            "nn_reach": {"km": [38.6, 73.2],
+                         "crest_above_ground_min_m": round(min(x[1] for x in nn), 1), "crest_above_ground_max_m": round(max(x[1] for x in nn), 1),
+                         "water_above_ground_min_m": round(min(x[2] for x in nn), 1), "water_above_ground_max_m": round(max(x[2] for x in nn), 1),
+                         "ground_min_m": round(min(x[3] for x in nn), 2), "ground_max_m": round(max(x[3] for x in nn), 2)},
+            "connecting_canal": {"km": [39.8, 51.5], "crest_msl": [3.2, 2.808], "water_msl": [2.0, 1.408], "bed_msl": [-1.0, -1.592], "bed_slope": "1:20,000",
+                                 "basin": "PK-AT-4 แม่น้ำใน", "basin_rai": 206224, "q_m3s": 28.046,
+                                 "src": "ฉบับ 2569 หน้า 2-41/2-42 (หน้าไฟล์ 146–147) และรูปที่ 2.3.2-9 — คลองเชื่อมจากแม่น้ำในไปคลองบางปลากดแล้วลงแม่น้ำนครนายก ขนานฝั่งซ้ายของคลองระบายน้ำหลาก"},
+            "lateral_ditch": {"width_m": 3.0, "depth_m": 1.0, "src": "ฉบับ 2569 หน้า 2-45 (หน้าไฟล์ 150): คูระบายน้ำกว้าง 3 ม. ลึก 1 ม. ด้านนอกคันทั้งสองฝั่งตลอดแนว"},
+            "upland_basins": {"ids": ["PK-AT-1", "PK-AT-2", "PK-AT-3"], "note": "พื้นดินสูงกว่าระดับน้ำสูงสุดของคลอง ระบายผ่านท่อระบายน้ำได้ทุกสถานการณ์ (หน้า 2-41)"}}
+
+
+def eia_levels(dem_profile_rows):
+    """ระดับน้ำ/สันคัน เทียบพื้นดินเดิมที่อ่านจากรูปตัดตามยาว (รูปที่ 2.3.2-9) — ไม่ใช้ DEM ผิวดิน"""
+    g = {p["km"]: p["ground_m"] for p in dem_profile_rows}
+    pr = PROFILE_FIG["ground"]
+    gx = [x[0] for x in pr]
+    gy = [x[1] for x in pr]
+    out = []
+    for km in (40, 45, 50, 55, 60, 65, 70, 100):
+        bed, water, crest = _profile_levels(km)
+        z = float(np.interp(km, gx, gy))
+        out.append({"km": km, "ground_dsm_m": g.get(km), "ground_m": round(z, 2), "water_msl_m": round(water, 2),
+                    "water_above_ground_m": round(water - z, 1), "crest_msl_m": round(crest, 2), "crest_above_ground_m": round(crest - z, 1)})
+    return {"rows": out, "note": "พื้นดินเดิมอ่านจากเส้น \"ระดับดินธรรมชาติ\" ในรูปตัดตามยาว (รูปที่ 2.3.2-9) ±0.2 ม. · ระดับน้ำ/สันคันคำนวณจากสูตรที่ตรงกับค่ากำกับบนรูป (ลาด 1:25,000 ลึก 7 ม. เผื่อพ้นน้ำ 1.5 ม.) · ไม่รวมคลองเชื่อมแม่น้ำใน (กม.39.8–51.5)",
             "eia_range_water_above_ground_m": [1.0, 3.3], "eia_crest_above_ground_max_m": 4.8}
 
 
@@ -518,7 +578,7 @@ def eia_structs_summary():
         zone = {"intervals": ivs, "n": len(zc), "kms": [c["km"] for c in zc],
                 "q_in_sum": round(sum(c["q_in"] for c in zc), 1), "q_struct_sum": round(sum(c["q_struct"] for c in zc), 1)}
     return {
-        "src": "ตาราง 2.3.2-3 บัญชีอาคารประกอบของคลองระบายน้ำหลาก (รายงานผลกระทบสิ่งแวดล้อม) · q_in = อัตราไหลของคลองเดิมที่ตัด (ลบ.ม./วินาที — ตรงกับน้ำหลากรอบ 10 ปี 5 วัน ในตาราง 2.3.2-1 เช่น แม่น้ำใน 28.046) · q_struct = อัตราไหลของอาคารเชื่อม",
+        "src": "ตาราง 2.3.2-3 บัญชีอาคารประกอบของคลองระบายน้ำหลาก (รายงานผลกระทบสิ่งแวดล้อม) · q_in = อัตราไหลของคลองเดิมที่ตัดตามตาราง (ลบ.ม./วินาที — เฉพาะแม่น้ำใน 28.05 ตรงกับน้ำหลากรอบ 10 ปี 5 วัน ของพื้นที่รับน้ำ PK-AT-4 ในตาราง 2.3.2-1 ส่วนจุดอื่นตารางไม่ระบุนิยาม) · q_struct = อัตราไหลของอาคารเชื่อม",
         "versions": {v: {"n": x["n"], "pdf_pages": x["pdf_pages"]} for v, x in d["versions"].items()},
         "identical_across_versions": len(d["diffs_vs_2561"]) == 0, "n_diffs": len(d["diffs_vs_2561"]),
         "match": d["match"],
@@ -529,10 +589,11 @@ def eia_structs_summary():
 
 
 def embankment_scenarios(c):
-    """ประมาณผลของความสูงคันคลองเหนือพื้นเดิม (6 ม./7 ม. เทียบกับค่าที่รายงานให้) — ใช้ตัวเลขรายงานผลกระทบสิ่งแวดล้อมล้วน ๆ
-    ไม่ใช่แบบจำลองน้ำท่วม: ทุกค่าเป็นค่าประมาณขอบบนแบบมีสมมติฐานระบุไว้ในฟิลด์ assumptions"""
+    """ประมาณผลของความสูงคันคลองเหนือพื้นเดิม ตามรูปตัดตามยาว (รูปที่ 2.3.2-9) — ไม่ใช่แบบจำลองน้ำท่วม
+    ค่าที่ใช้: สันคันเหนือพื้นเดิม ช่วงนครนายก (จากโปรไฟล์) · หน้าตัดตามรายงาน · ตารางอาคาร · พื้นที่น้ำท่วมจริงจากดาวเทียม"""
     es = c["eia_structs"]
-    if not es:
+    pf = c.get("eia_profile")
+    if not es or not pf:
         return None
     sec = c["eia_section"]
     z1, z2, road, D = sec["z1"], sec["z2"], sec["road_m"], sec["D_m"]
@@ -548,51 +609,43 @@ def embankment_scenarios(c):
     d6 = DESIGN_2566["phase2"]["reach_23_81"]
     caps = {"eia2569": {"bottom_m": round(b, 1), "depth_m": D, "q_m3s": round(q_manning(b, D))},
             "design2566": {"bottom_m": d6["bottom_m"], "depth_m": d6["depth_m"], "q_m3s": round(q_manning(d6["bottom_m"], d6["depth_m"]))}}
-    # ปตร.กลางคลอง กม.23 และ 74 (ตาราง 2.3.2-3) — ช่วงที่ลอยเหนือพื้นอยู่ระหว่างประตูทั้งสอง
     L_reach = (74.0 - 23.0) * 1000
+    nn = pf["nn_reach"]
     cases = []
-    lv = c["eia_levels"]["rows"]
-    ref_lo = min(r["crest_above_ground_m"] for r in lv)
-    ref_hi = max(r["crest_above_ground_m"] for r in lv)
-    defs = [("eia_lo", "ค่าต่ำสุดที่คำนวณจากรายงาน (ช่วงนครนายก)", ref_lo),
-            ("eia_hi", "ค่าสูงสุดที่คำนวณจากรายงาน (ช่วงนครนายก)", ref_hi),
-            ("eia_max", "ค่าสูงสุดที่รายงานระบุ", c["eia_levels"]["eia_crest_above_ground_max_m"])]
+    defs = [("eia_lo", "ต่ำสุดในช่วงนครนายก (ตรงโคกพื้นดินสูงที่ กม.56–57)", nn["crest_above_ground_min_m"]),
+            ("eia_hi", "สูงสุดในช่วงนครนายก (ราว กม.40 พื้นดินต่ำสุด)", nn["crest_above_ground_max_m"])]
     for cid, label, H in defs:
-        h = H - FB                                  # ระดับน้ำสูงสุดเหนือพื้นเดิม
+        h = H - FB
         w_ws = b + 2 * z1 * D
         hh = min(h, D)
         w_g = w_ws - 2 * z1 * hh
         vol = L_reach * hh * (w_g + w_ws) / 2 / 1e6
         breach = {str(B): round(1.7 * B * h ** 1.5) for B in (30, 60, 100)}
-        base = road + z2 * H
         cases.append({"id": cid, "label": label, "crest_above_ground_m": round(H, 1), "water_above_ground_m": round(h, 1),
                       "outer_toe_from_crest_m": round(z2 * H, 1), "half_width_m": round(b / 2 + z1 * (D + FB) + road + z2 * H, 1),
                       "volume_above_ground_mcm": round(vol, 1), "breach_peak_m3s": breach,
                       "seep_gradient": round(h / (road + (z1 + z2) * H), 2)})
     cr = es["nn"]["crossings"]
-    zone = es["nn"]["zone_floodway"]
     a_sip = sum(x["sip_n"] * x["sip_w"] * x["sip_h"] for x in cr)
-    L_nn = c["alignment_qa"].get("length_km") if False else (es["nn"]["km"][1] - es["nn"]["km"][0])
-    ex_all = sum(max(0.0, x["q_in"] - x["q_struct"]) for x in cr)
-    ex_zone = zone["q_in_sum"] - zone["q_struct_sum"] if zone else None
-    fb = c["flood_band"]["scenes"]["S1D_20261002_0609"]
-    a_obs = (fb["west_rai"] + fb["east_rai"]) / 625.0
-    pond = {}
-    for key, q in (("nn_all", ex_all), ("floodway_zone", ex_zone)):
-        if q is None:
-            continue
-        v5 = q * 86400 * 5 / 1e6
-        pond[key] = {"excess_m3s": round(q, 1), "volume_5d_mcm": round(v5, 1), "per_day_mcm": round(q * 86400 / 1e6, 2),
-                     "depth_cm_obs_area": round(v5 * 1e6 / (a_obs * 1e6) * 100, 1),
-                     "depth_cm_half_area": round(v5 * 1e6 / (a_obs * 0.5 * 1e6) * 100, 1)}
+    L_nn = es["nn"]["km"][1] - es["nn"]["km"][0]
     barrier = {"siphon_area_m2": round(a_sip), "length_km": round(L_nn, 1),
                "open_ratio_pct": {str(d): round(a_sip / (L_nn * 1000 * d) * 100, 2) for d in (0.5, 1.0, 1.5)}}
+    # ความจุคูระบายน้ำขนานคัน (กว้าง 3 ม. ลึก 1 ม.) — ประมาณด้วยสูตรแมนนิ่ง ลาดผันแปร (สมมติฐาน)
+    ld = pf["lateral_ditch"]
+    ditch = {}
+    for s in (1e-4, 3e-4, 1e-3):
+        A = ld["width_m"] * ld["depth_m"]
+        P = ld["width_m"] + 2 * ld["depth_m"]
+        ditch[f"{s:.0e}"] = round((1 / 0.03) * A * (A / P) ** (2 / 3) * s ** 0.5, 1)
+    fb = c["flood_band"]["scenes"]["S1D_20261002_0609"]
     return {
-        "note": "ค่าประมาณจากตัวเลขในรายงานผลกระทบสิ่งแวดล้อม ไม่ใช่แบบจำลองน้ำท่วม · ใช้เฉพาะความสูงคันตามเอกสาร (2.0–4.8 ม.) — ตัวเลข \"ราว 6 ม.\" ที่มีผู้อ้างไม่พบที่มาในเอกสารจึงไม่ใช้คำนวณ",
+        "note": "ค่าประมาณจากรูปตัดตามยาวและตัวเลขในรายงานผลกระทบสิ่งแวดล้อม ไม่ใช่แบบจำลองน้ำท่วม · ใช้ความสูงคันตามเอกสารเท่านั้น — ตัวเลข \"ราว 6 ม.\" ที่มีผู้อ้างไม่พบที่มา",
         "assumptions": {"freeboard_m": FB, "z_inner": z1, "z_outer": z2, "crest_road_m": road, "weir_c": 1.7, "reach_between_gates_km": [23, 74],
-                        "flow_def": "q_in = น้ำหลากรอบ 10 ปี 5 วันของคลองเดิม · ท่อระบายน้ำปิดระหว่างผันน้ำหลาก (ฉบับ 2561 หน้า 138)",
-                        "pond_area_km2": round(a_obs, 1), "pond_area_src": "พื้นที่น้ำท่วมจริง 2 ต.ค. 2569 ภายใน 10 กม. สองฝั่งช่วงนครนายก (ดาวเทียม)"},
-        "capacity": caps, "cases": cases, "ref_range": [ref_lo, ref_hi], "barrier": barrier, "ponding": pond,
+                        "ditch_n": 0.03, "ditch_slopes": ["1:10,000", "1:3,000", "1:1,000"],
+                        "flood_area_km2": round((fb["west_rai"] + fb["east_rai"]) / 625.0, 1),
+                        "flood_area_src": "พื้นที่น้ำท่วมจริง 2 ต.ค. 2569 ภายใน 10 กม. สองฝั่งช่วงนครนายก (ดาวเทียม)"},
+        "capacity": caps, "cases": cases, "barrier": barrier, "ditch_q_each_side_m3s": ditch,
+        "routes": {"connecting_canal": pf["connecting_canal"], "upland": pf["upland_basins"], "ditch": ld},
     }
 
 
@@ -602,7 +655,7 @@ def main():
     L = max(f["properties"]["km"] for f in mk)
     c = {
         "meta": {"built_by": "analysis/goal7_analysis.py", "alignment_source": "Google My Maps (ผู้ใช้สร้าง — ไม่เป็นทางการ)"},
-        "facts": FACTS, "design_segments": design_check(), "design_2566": DESIGN_2566, "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY, "eia_versions": EIA_VERSIONS, "eia_structs": eia_structs_summary(),
+        "facts": FACTS, "design_segments": design_check(), "design_2566": DESIGN_2566, "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "eia_profile": eia_profile(), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY, "eia_versions": EIA_VERSIONS, "eia_structs": eia_structs_summary(),
         "alignment_qa": json.loads((D7 / "alignment_qa.json").read_text(encoding="utf-8")),
         "provinces_km": {"สระบุรี": [0, KM_NN0], "นครนายก": [KM_NN0, KM_NN1], "ฉะเชิงเทรา": [KM_NN1, KM_SP0], "สมุทรปราการ": [KM_SP0, 135.7]},
         "structures": structures(), "dem": dem_profile(), "manning": manning(), "c2": c2_peaks(),

@@ -120,7 +120,7 @@ QA_FILE = ROOT / "report/คลองเจ้าพระยา2_ถามต�
 def test_embankment_uses_documented_heights_only():
     c = json.loads(CAN.read_text(encoding="utf-8"))
     ids = [x["id"] for x in c["embankment"]["cases"]]
-    assert ids == ["eia_lo", "eia_hi", "eia_max"], "ต้องใช้เฉพาะความสูงคันตามเอกสาร (ไม่มีกรณีสมมติ 6/7 ม.)"
+    assert ids == ["eia_lo", "eia_hi"], "ต้องใช้เฉพาะความสูงคันตามรูปตัดตามยาว (ไม่มีกรณีสมมติ 6/7 ม.)"
     top = max(x["crest_above_ground_m"] for x in c["embankment"]["cases"])
     assert top <= 4.8
     for p in (PUBLIC, ACADEMIC, QA_FILE):
@@ -132,7 +132,7 @@ def test_new_figures_and_questions():
     pub = PUBLIC.read_text(encoding="utf-8")
     aca = ACADEMIC.read_text(encoding="utf-8")
     qa = QA_FILE.read_text(encoding="utf-8")
-    assert pub.count("<figure>") >= 9 and aca.count("<figure>") >= 10 and qa.count("<figure>") >= 4
+    assert pub.count("<figure>") >= 9 and aca.count("<figure>") >= 10 and qa.count("<figure>") >= 5
     assert qa.count("class='qa'") >= 17, "ถาม–ตอบต้องมีอย่างน้อย 17 ข้อ (เพิ่มประตู/รอยเลื่อน/ทางเลือก/การดูแล)"
     for w in ("ประตูจะเปิด–ปิดอย่างไร", "รอยเลื่อนองครักษ์", "ทางเลือกอื่น", "ใครดูแลคันและท่อ"):
         assert w in qa
@@ -146,3 +146,15 @@ def test_legal_pdpa_no_persons_no_blame(p):
     assert not re.search(r"0\d{1,2}[- ]?\d{3}[- ]?\d{4}", b), "พบเบอร์โทร"
     for w in ("ทุจริต", "โกง", "เจตนา", "ละเลย", "หลอกลวง", "ใครผิด", "ใครรับผิด", "ผลประโยชน์ทับซ้อน"):
         assert w not in b, f"พบถ้อยคำกล่าวหา: {w}"
+
+
+def test_profile_from_drawing_consistent():
+    """รูปตัดตามยาว (รูปที่ 2.3.2-9): ค่าที่อ่านต้องสอดคล้องกับค่าที่รายงานระบุ (สันคันสูงสุดเหนือพื้น 4.8 ม. · ระดับน้ำเหนือพื้น 1.0–3.3 ม.)"""
+    c = json.loads(CAN.read_text(encoding="utf-8"))
+    nn = c["eia_profile"]["nn_reach"]
+    assert abs(nn["crest_above_ground_max_m"] - 4.8) <= 0.1
+    assert 1.0 <= nn["water_above_ground_min_m"] and nn["water_above_ground_max_m"] <= 3.4
+    rows = {r["km"]: r for r in c["eia_profile"]["rows"]}
+    # ค่ากำกับบนรูป: กม.75 สันคัน +5.36 น้ำ +3.86
+    assert abs(rows[75]["crest_m"] - 5.36) <= 0.02 and abs(rows[75]["water_m"] - 3.86) <= 0.02
+    assert c["eia_profile"]["connecting_canal"]["km"] == [39.8, 51.5]

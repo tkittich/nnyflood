@@ -455,50 +455,529 @@
    {
     "km": 40,
     "ground_dsm_m": 3.2,
-    "water_msl_m": 5.26,
-    "water_above_ground_m": 2.1,
-    "crest_msl_m": 6.76,
-    "crest_above_ground_m": 3.6
+    "ground_m": 1.99,
+    "water_msl_m": 5.27,
+    "water_above_ground_m": 3.3,
+    "crest_msl_m": 6.77,
+    "crest_above_ground_m": 4.8
+   },
+   {
+    "km": 45,
+    "ground_dsm_m": null,
+    "ground_m": 1.97,
+    "water_msl_m": 5.07,
+    "water_above_ground_m": 3.1,
+    "crest_msl_m": 6.57,
+    "crest_above_ground_m": 4.6
    },
    {
     "km": 50,
     "ground_dsm_m": 4.4,
-    "water_msl_m": 4.86,
-    "water_above_ground_m": 0.5,
-    "crest_msl_m": 6.36,
-    "crest_above_ground_m": 2.0
+    "ground_m": 1.95,
+    "water_msl_m": 4.87,
+    "water_above_ground_m": 2.9,
+    "crest_msl_m": 6.37,
+    "crest_above_ground_m": 4.4
+   },
+   {
+    "km": 55,
+    "ground_dsm_m": null,
+    "ground_m": 2.66,
+    "water_msl_m": 4.67,
+    "water_above_ground_m": 2.0,
+    "crest_msl_m": 6.17,
+    "crest_above_ground_m": 3.5
    },
    {
     "km": 60,
     "ground_dsm_m": 3.1,
-    "water_msl_m": 4.46,
-    "water_above_ground_m": 1.4,
-    "crest_msl_m": 5.96,
-    "crest_above_ground_m": 2.9
+    "ground_m": 1.93,
+    "water_msl_m": 4.47,
+    "water_above_ground_m": 2.5,
+    "crest_msl_m": 5.97,
+    "crest_above_ground_m": 4.0
+   },
+   {
+    "km": 65,
+    "ground_dsm_m": null,
+    "ground_m": 1.6,
+    "water_msl_m": 4.27,
+    "water_above_ground_m": 2.7,
+    "crest_msl_m": 5.77,
+    "crest_above_ground_m": 4.2
    },
    {
     "km": 70,
     "ground_dsm_m": 2.7,
-    "water_msl_m": 4.06,
-    "water_above_ground_m": 1.4,
-    "crest_msl_m": 5.56,
-    "crest_above_ground_m": 2.9
+    "ground_m": 1.5,
+    "water_msl_m": 4.07,
+    "water_above_ground_m": 2.6,
+    "crest_msl_m": 5.57,
+    "crest_above_ground_m": 4.1
    },
    {
     "km": 100,
     "ground_dsm_m": 1.5,
-    "water_msl_m": 2.86,
-    "water_above_ground_m": 1.4,
-    "crest_msl_m": 4.36,
-    "crest_above_ground_m": 2.9
+    "ground_m": 0.75,
+    "water_msl_m": 2.87,
+    "water_above_ground_m": 2.1,
+    "crest_msl_m": 4.37,
+    "crest_above_ground_m": 3.6
    }
   ],
-  "note": "ค่าคำนวณของรายงานนี้จากตัวเลขรายงานผลกระทบสิ่งแวดล้อม (ลาด 1:25,000 + ระดับ +2.50 ที่ กม.109 + เผื่อพ้นน้ำ 1.50) ไม่ใช่ตัวเลขในแบบ · พื้นดินเป็นความสูงพื้นผิว ±2–4 ม. · ไม่รวมการลดระดับที่ปตร.กลางคลอง กม.74 และ 102",
+  "note": "พื้นดินเดิมอ่านจากเส้น \"ระดับดินธรรมชาติ\" ในรูปตัดตามยาว (รูปที่ 2.3.2-9) ±0.2 ม. · ระดับน้ำ/สันคันคำนวณจากสูตรที่ตรงกับค่ากำกับบนรูป (ลาด 1:25,000 ลึก 7 ม. เผื่อพ้นน้ำ 1.5 ม.) · ไม่รวมคลองเชื่อมแม่น้ำใน (กม.39.8–51.5)",
   "eia_range_water_above_ground_m": [
    1.0,
    3.3
   ],
   "eia_crest_above_ground_max_m": 4.8
+ },
+ "eia_profile": {
+  "src": "รายงานผลกระทบสิ่งแวดล้อม ฉบับ ก.พ. 2569 เล่ม 1 รูปที่ 2.3.2-9 (หน้าพิมพ์ 2-37 · หน้าไฟล์ 142) · ภาพไฟล์ data/manual/EIA ทางระบายน้ำหลาก_สมบูรณ์ เล่ม 1-17907513091.jpg",
+  "reading_error_m": 0.2,
+  "method": "อ่านด้วยตาจากภาพขยาย 600 จุดต่อนิ้ว โดยเทียบเส้นตารางแนวตั้งทุก 1 ม. · ระดับน้ำ/สันคัน/ท้องคลองตรงกับสูตร (ท้อง −1.05 ม. ที่ กม.23 ลาด 1:25,000 ลึก 7 ม. เผื่อพ้นน้ำ 1.5 ม.) และค่าที่เขียนกำกับบนรูป",
+  "labels_on_figure": {
+   "km0.15": {
+    "crest": 10.25,
+    "water": 8.75,
+    "bed": 1.75
+   },
+   "km22.9": {
+    "crest": 7.95,
+    "water": 6.45
+   },
+   "km23": {
+    "crest": 7.45,
+    "water": 5.95,
+    "bed": -1.05
+   },
+   "km75": {
+    "crest": 5.36,
+    "water": 3.86,
+    "bed": -3.13
+   },
+   "km109": {
+    "crest": 4.0,
+    "water": 2.5
+   },
+   "km134": {
+    "crest": 3.0,
+    "bed": -5.504,
+    "sea_high": 2.0,
+    "backwater": 2.5,
+    "water": 1.498
+   },
+   "connect_canal_km39.8": {
+    "crest": 3.2,
+    "water": 2.0,
+    "bed": -1.0
+   },
+   "connect_canal_km51.5": {
+    "crest": 2.808,
+    "water": 1.408,
+    "bed": -1.592
+   }
+  },
+  "ground_readings": [
+   [
+    0,
+    10.0
+   ],
+   [
+    6.5,
+    10.0
+   ],
+   [
+    9.8,
+    11.4
+   ],
+   [
+    12.8,
+    8.0
+   ],
+   [
+    15.3,
+    8.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    24.5,
+    4.0
+   ],
+   [
+    28.0,
+    4.0
+   ],
+   [
+    36.9,
+    2.0
+   ],
+   [
+    50.0,
+    1.95
+   ],
+   [
+    56.7,
+    2.9
+   ],
+   [
+    57.8,
+    2.5
+   ],
+   [
+    60.0,
+    1.93
+   ],
+   [
+    65.0,
+    1.6
+   ],
+   [
+    70.0,
+    1.5
+   ],
+   [
+    75.0,
+    1.45
+   ],
+   [
+    85.0,
+    1.2
+   ],
+   [
+    95.0,
+    1.0
+   ],
+   [
+    105.0,
+    0.5
+   ],
+   [
+    118.0,
+    0.5
+   ],
+   [
+    123.0,
+    1.0
+   ],
+   [
+    129.0,
+    0.55
+   ],
+   [
+    131.0,
+    0.8
+   ],
+   [
+    134.0,
+    1.5
+   ]
+  ],
+  "rows": [
+   {
+    "km": 0,
+    "ground_m": 10.0,
+    "bed_m": 1.76,
+    "water_m": 8.77,
+    "crest_m": 10.27,
+    "water_above_ground_m": -1.2,
+    "crest_above_ground_m": 0.3
+   },
+   {
+    "km": 5,
+    "ground_m": 10.0,
+    "bed_m": 1.27,
+    "water_m": 8.27,
+    "crest_m": 9.77,
+    "water_above_ground_m": -1.7,
+    "crest_above_ground_m": -0.2
+   },
+   {
+    "km": 10,
+    "ground_m": 11.17,
+    "bed_m": 0.77,
+    "water_m": 7.76,
+    "crest_m": 9.27,
+    "water_above_ground_m": -3.4,
+    "crest_above_ground_m": -1.9
+   },
+   {
+    "km": 15,
+    "ground_m": 8.0,
+    "bed_m": 0.26,
+    "water_m": 7.26,
+    "crest_m": 8.77,
+    "water_above_ground_m": -0.7,
+    "crest_above_ground_m": 0.8
+   },
+   {
+    "km": 20,
+    "ground_m": 8.0,
+    "bed_m": -0.24,
+    "water_m": 6.76,
+    "crest_m": 8.27,
+    "water_above_ground_m": -1.2,
+    "crest_above_ground_m": 0.3
+   },
+   {
+    "km": 25,
+    "ground_m": 4.0,
+    "bed_m": -1.13,
+    "water_m": 5.87,
+    "crest_m": 7.37,
+    "water_above_ground_m": 1.9,
+    "crest_above_ground_m": 3.4
+   },
+   {
+    "km": 30,
+    "ground_m": 3.55,
+    "bed_m": -1.33,
+    "water_m": 5.67,
+    "crest_m": 7.17,
+    "water_above_ground_m": 2.1,
+    "crest_above_ground_m": 3.6
+   },
+   {
+    "km": 35,
+    "ground_m": 2.43,
+    "bed_m": -1.53,
+    "water_m": 5.47,
+    "crest_m": 6.97,
+    "water_above_ground_m": 3.0,
+    "crest_above_ground_m": 4.5
+   },
+   {
+    "km": 40,
+    "ground_m": 1.99,
+    "bed_m": -1.73,
+    "water_m": 5.27,
+    "crest_m": 6.77,
+    "water_above_ground_m": 3.3,
+    "crest_above_ground_m": 4.8
+   },
+   {
+    "km": 45,
+    "ground_m": 1.97,
+    "bed_m": -1.93,
+    "water_m": 5.07,
+    "crest_m": 6.57,
+    "water_above_ground_m": 3.1,
+    "crest_above_ground_m": 4.6
+   },
+   {
+    "km": 50,
+    "ground_m": 1.95,
+    "bed_m": -2.13,
+    "water_m": 4.87,
+    "crest_m": 6.37,
+    "water_above_ground_m": 2.9,
+    "crest_above_ground_m": 4.4
+   },
+   {
+    "km": 55,
+    "ground_m": 2.66,
+    "bed_m": -2.33,
+    "water_m": 4.67,
+    "crest_m": 6.17,
+    "water_above_ground_m": 2.0,
+    "crest_above_ground_m": 3.5
+   },
+   {
+    "km": 60,
+    "ground_m": 1.93,
+    "bed_m": -2.53,
+    "water_m": 4.47,
+    "crest_m": 5.97,
+    "water_above_ground_m": 2.5,
+    "crest_above_ground_m": 4.0
+   },
+   {
+    "km": 65,
+    "ground_m": 1.6,
+    "bed_m": -2.73,
+    "water_m": 4.27,
+    "crest_m": 5.77,
+    "water_above_ground_m": 2.7,
+    "crest_above_ground_m": 4.2
+   },
+   {
+    "km": 70,
+    "ground_m": 1.5,
+    "bed_m": -2.93,
+    "water_m": 4.07,
+    "crest_m": 5.57,
+    "water_above_ground_m": 2.6,
+    "crest_above_ground_m": 4.1
+   },
+   {
+    "km": 75,
+    "ground_m": 1.45,
+    "bed_m": -3.13,
+    "water_m": 3.87,
+    "crest_m": 5.37,
+    "water_above_ground_m": 2.4,
+    "crest_above_ground_m": 3.9
+   },
+   {
+    "km": 80,
+    "ground_m": 1.32,
+    "bed_m": -3.33,
+    "water_m": 3.67,
+    "crest_m": 5.17,
+    "water_above_ground_m": 2.3,
+    "crest_above_ground_m": 3.8
+   },
+   {
+    "km": 85,
+    "ground_m": 1.2,
+    "bed_m": -3.53,
+    "water_m": 3.47,
+    "crest_m": 4.97,
+    "water_above_ground_m": 2.3,
+    "crest_above_ground_m": 3.8
+   },
+   {
+    "km": 90,
+    "ground_m": 1.1,
+    "bed_m": -3.73,
+    "water_m": 3.27,
+    "crest_m": 4.77,
+    "water_above_ground_m": 2.2,
+    "crest_above_ground_m": 3.7
+   },
+   {
+    "km": 95,
+    "ground_m": 1.0,
+    "bed_m": -3.93,
+    "water_m": 3.07,
+    "crest_m": 4.57,
+    "water_above_ground_m": 2.1,
+    "crest_above_ground_m": 3.6
+   },
+   {
+    "km": 100,
+    "ground_m": 0.75,
+    "bed_m": -4.13,
+    "water_m": 2.87,
+    "crest_m": 4.37,
+    "water_above_ground_m": 2.1,
+    "crest_above_ground_m": 3.6
+   },
+   {
+    "km": 105,
+    "ground_m": 0.5,
+    "bed_m": -4.33,
+    "water_m": 2.67,
+    "crest_m": 4.17,
+    "water_above_ground_m": 2.2,
+    "crest_above_ground_m": 3.7
+   },
+   {
+    "km": 110,
+    "ground_m": 0.5,
+    "bed_m": -4.53,
+    "water_m": 2.47,
+    "crest_m": 4.0,
+    "water_above_ground_m": 2.0,
+    "crest_above_ground_m": 3.5
+   },
+   {
+    "km": 115,
+    "ground_m": 0.5,
+    "bed_m": -4.73,
+    "water_m": 2.27,
+    "crest_m": 4.0,
+    "water_above_ground_m": 1.8,
+    "crest_above_ground_m": 3.5
+   },
+   {
+    "km": 120,
+    "ground_m": 0.7,
+    "bed_m": -4.93,
+    "water_m": 2.07,
+    "crest_m": 4.0,
+    "water_above_ground_m": 1.4,
+    "crest_above_ground_m": 3.3
+   },
+   {
+    "km": 125,
+    "ground_m": 0.85,
+    "bed_m": -5.13,
+    "water_m": 1.87,
+    "crest_m": 4.0,
+    "water_above_ground_m": 1.0,
+    "crest_above_ground_m": 3.1
+   },
+   {
+    "km": 130,
+    "ground_m": 0.68,
+    "bed_m": -5.33,
+    "water_m": 1.67,
+    "crest_m": 4.0,
+    "water_above_ground_m": 1.0,
+    "crest_above_ground_m": 3.3
+   },
+   {
+    "km": 135,
+    "ground_m": 1.5,
+    "bed_m": -5.53,
+    "water_m": 1.47,
+    "crest_m": 4.0,
+    "water_above_ground_m": -0.0,
+    "crest_above_ground_m": 2.5
+   }
+  ],
+  "nn_reach": {
+   "km": [
+    38.6,
+    73.2
+   ],
+   "crest_above_ground_min_m": 3.2,
+   "crest_above_ground_max_m": 4.8,
+   "water_above_ground_min_m": 1.7,
+   "water_above_ground_max_m": 3.3,
+   "ground_min_m": 1.95,
+   "ground_max_m": 2.9
+  },
+  "connecting_canal": {
+   "km": [
+    39.8,
+    51.5
+   ],
+   "crest_msl": [
+    3.2,
+    2.808
+   ],
+   "water_msl": [
+    2.0,
+    1.408
+   ],
+   "bed_msl": [
+    -1.0,
+    -1.592
+   ],
+   "bed_slope": "1:20,000",
+   "basin": "PK-AT-4 แม่น้ำใน",
+   "basin_rai": 206224,
+   "q_m3s": 28.046,
+   "src": "ฉบับ 2569 หน้า 2-41/2-42 (หน้าไฟล์ 146–147) และรูปที่ 2.3.2-9 — คลองเชื่อมจากแม่น้ำในไปคลองบางปลากดแล้วลงแม่น้ำนครนายก ขนานฝั่งซ้ายของคลองระบายน้ำหลาก"
+  },
+  "lateral_ditch": {
+   "width_m": 3.0,
+   "depth_m": 1.0,
+   "src": "ฉบับ 2569 หน้า 2-45 (หน้าไฟล์ 150): คูระบายน้ำกว้าง 3 ม. ลึก 1 ม. ด้านนอกคันทั้งสองฝั่งตลอดแนว"
+  },
+  "upland_basins": {
+   "ids": [
+    "PK-AT-1",
+    "PK-AT-2",
+    "PK-AT-3"
+   ],
+   "note": "พื้นดินสูงกว่าระดับน้ำสูงสุดของคลอง ระบายผ่านท่อระบายน้ำได้ทุกสถานการณ์ (หน้า 2-41)"
+  }
  },
  "design_2565": {
   "bottom_m": 70,
@@ -1067,7 +1546,7 @@
   ]
  },
  "eia_structs": {
-  "src": "ตาราง 2.3.2-3 บัญชีอาคารประกอบของคลองระบายน้ำหลาก (รายงานผลกระทบสิ่งแวดล้อม) · q_in = อัตราไหลของคลองเดิมที่ตัด (ลบ.ม./วินาที — ตรงกับน้ำหลากรอบ 10 ปี 5 วัน ในตาราง 2.3.2-1 เช่น แม่น้ำใน 28.046) · q_struct = อัตราไหลของอาคารเชื่อม",
+  "src": "ตาราง 2.3.2-3 บัญชีอาคารประกอบของคลองระบายน้ำหลาก (รายงานผลกระทบสิ่งแวดล้อม) · q_in = อัตราไหลของคลองเดิมที่ตัดตามตาราง (ลบ.ม./วินาที — เฉพาะแม่น้ำใน 28.05 ตรงกับน้ำหลากรอบ 10 ปี 5 วัน ของพื้นที่รับน้ำ PK-AT-4 ในตาราง 2.3.2-1 ส่วนจุดอื่นตารางไม่ระบุนิยาม) · q_struct = อัตราไหลของอาคารเชื่อม",
   "versions": {
    "2561": {
     "n": 99,
@@ -2576,7 +3055,7 @@
   "note": "ซ้าย/ตะวันตก = ฝั่งกรุงเทพฯ·ปทุมธานี · ขวา/ตะวันออก = ฝั่งนครนายกเมือง·ปราจีนฯ · รวมเฉพาะรูปทรงน้ำท่วม GISTDA ที่ตัดกับแถบ"
  },
  "embankment": {
-  "note": "ค่าประมาณจากตัวเลขในรายงานผลกระทบสิ่งแวดล้อม ไม่ใช่แบบจำลองน้ำท่วม · ใช้เฉพาะความสูงคันตามเอกสาร (2.0–4.8 ม.) — ตัวเลข \"ราว 6 ม.\" ที่มีผู้อ้างไม่พบที่มาในเอกสารจึงไม่ใช้คำนวณ",
+  "note": "ค่าประมาณจากรูปตัดตามยาวและตัวเลขในรายงานผลกระทบสิ่งแวดล้อม ไม่ใช่แบบจำลองน้ำท่วม · ใช้ความสูงคันตามเอกสารเท่านั้น — ตัวเลข \"ราว 6 ม.\" ที่มีผู้อ้างไม่พบที่มา",
   "assumptions": {
    "freeboard_m": 1.5,
    "z_inner": 3.0,
@@ -2587,9 +3066,14 @@
     23,
     74
    ],
-   "flow_def": "q_in = น้ำหลากรอบ 10 ปี 5 วันของคลองเดิม · ท่อระบายน้ำปิดระหว่างผันน้ำหลาก (ฉบับ 2561 หน้า 138)",
-   "pond_area_km2": 171.1,
-   "pond_area_src": "พื้นที่น้ำท่วมจริง 2 ต.ค. 2569 ภายใน 10 กม. สองฝั่งช่วงนครนายก (ดาวเทียม)"
+   "ditch_n": 0.03,
+   "ditch_slopes": [
+    "1:10,000",
+    "1:3,000",
+    "1:1,000"
+   ],
+   "flood_area_km2": 171.1,
+   "flood_area_src": "พื้นที่น้ำท่วมจริง 2 ต.ค. 2569 ภายใน 10 กม. สองฝั่งช่วงนครนายก (ดาวเทียม)"
   },
   "capacity": {
    "eia2569": {
@@ -2606,37 +3090,22 @@
   "cases": [
    {
     "id": "eia_lo",
-    "label": "ค่าต่ำสุดที่คำนวณจากรายงาน (ช่วงนครนายก)",
-    "crest_above_ground_m": 2.0,
-    "water_above_ground_m": 0.5,
-    "outer_toe_from_crest_m": 4.0,
-    "half_width_m": 65.0,
-    "volume_above_ground_mcm": 2.3,
+    "label": "ต่ำสุดในช่วงนครนายก (ตรงโคกพื้นดินสูงที่ กม.56–57)",
+    "crest_above_ground_m": 3.2,
+    "water_above_ground_m": 1.7,
+    "outer_toe_from_crest_m": 6.4,
+    "half_width_m": 67.4,
+    "volume_above_ground_mcm": 7.6,
     "breach_peak_m3s": {
-     "30": 18,
-     "60": 36,
-     "100": 60
-    },
-    "seep_gradient": 0.03
-   },
-   {
-    "id": "eia_hi",
-    "label": "ค่าสูงสุดที่คำนวณจากรายงาน (ช่วงนครนายก)",
-    "crest_above_ground_m": 3.6,
-    "water_above_ground_m": 2.1,
-    "outer_toe_from_crest_m": 7.2,
-    "half_width_m": 68.2,
-    "volume_above_ground_mcm": 9.3,
-    "breach_peak_m3s": {
-     "30": 155,
-     "60": 310,
-     "100": 517
+     "30": 113,
+     "60": 226,
+     "100": 377
     },
     "seep_gradient": 0.07
    },
    {
-    "id": "eia_max",
-    "label": "ค่าสูงสุดที่รายงานระบุ",
+    "id": "eia_hi",
+    "label": "สูงสุดในช่วงนครนายก (ราว กม.40 พื้นดินต่ำสุด)",
     "crest_above_ground_m": 4.8,
     "water_above_ground_m": 3.3,
     "outer_toe_from_crest_m": 9.6,
@@ -2650,10 +3119,6 @@
     "seep_gradient": 0.1
    }
   ],
-  "ref_range": [
-   2.0,
-   3.6
-  ],
   "barrier": {
    "siphon_area_m2": 48,
    "length_km": 34.6,
@@ -2663,20 +3128,47 @@
     "1.5": 0.09
    }
   },
-  "ponding": {
-   "nn_all": {
-    "excess_m3s": 77.0,
-    "volume_5d_mcm": 33.3,
-    "per_day_mcm": 6.66,
-    "depth_cm_obs_area": 19.5,
-    "depth_cm_half_area": 38.9
+  "ditch_q_each_side_m3s": {
+   "1e-04": 0.7,
+   "3e-04": 1.2,
+   "1e-03": 2.2
+  },
+  "routes": {
+   "connecting_canal": {
+    "km": [
+     39.8,
+     51.5
+    ],
+    "crest_msl": [
+     3.2,
+     2.808
+    ],
+    "water_msl": [
+     2.0,
+     1.408
+    ],
+    "bed_msl": [
+     -1.0,
+     -1.592
+    ],
+    "bed_slope": "1:20,000",
+    "basin": "PK-AT-4 แม่น้ำใน",
+    "basin_rai": 206224,
+    "q_m3s": 28.046,
+    "src": "ฉบับ 2569 หน้า 2-41/2-42 (หน้าไฟล์ 146–147) และรูปที่ 2.3.2-9 — คลองเชื่อมจากแม่น้ำในไปคลองบางปลากดแล้วลงแม่น้ำนครนายก ขนานฝั่งซ้ายของคลองระบายน้ำหลาก"
    },
-   "floodway_zone": {
-    "excess_m3s": 55.0,
-    "volume_5d_mcm": 23.8,
-    "per_day_mcm": 4.75,
-    "depth_cm_obs_area": 13.9,
-    "depth_cm_half_area": 27.8
+   "upland": {
+    "ids": [
+     "PK-AT-1",
+     "PK-AT-2",
+     "PK-AT-3"
+    ],
+    "note": "พื้นดินสูงกว่าระดับน้ำสูงสุดของคลอง ระบายผ่านท่อระบายน้ำได้ทุกสถานการณ์ (หน้า 2-41)"
+   },
+   "ditch": {
+    "width_m": 3.0,
+    "depth_m": 1.0,
+    "src": "ฉบับ 2569 หน้า 2-45 (หน้าไฟล์ 150): คูระบายน้ำกว้าง 3 ม. ลึก 1 ม. ด้านนอกคันทั้งสองฝั่งตลอดแนว"
    }
   }
  }

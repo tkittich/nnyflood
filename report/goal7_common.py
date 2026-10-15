@@ -377,3 +377,51 @@ def fig_profile():
     path = ASSETS / "goal7_profile.png"
     fig.savefig(path, dpi=130); plt.close(fig)
     return path
+
+
+def fig_basins():
+    B = C["basins_2569"]["rows"]
+    col = {"floodway": "#1d6fb8", "connect": "#1d6fb8", "pump": "#5a6b7b", "siphon": "#a14a00"}
+    labs = [f"พื้นที่ {b['id']} · {b['canal']}" for b in B]
+    y = np.arange(len(B))
+    fig, ax = plt.subplots(figsize=(7.6, 5.4))
+    ax.barh(y - 0.2, [b["q10"] for b in B], 0.38, color="#4d94c9", label="น้ำหลากรอบ 10 ปี (ฝนสูงสุด 5 วัน)")
+    ax.barh(y + 0.2, [b["out_q"] for b in B], 0.38, color=ORANGE, label="อาคารระบาย/สูบที่ระบุ")
+    for i, b in enumerate(B):
+        ax.text(max(b["q10"], b["out_q"]) + 4, i, f"{b['cap_ratio']*100:.0f}%", va="center", fontsize=8.3, color=INK)
+    ax.set_yticks(y); ax.set_yticklabels(labs, fontsize=8.2)
+    ax.invert_yaxis()
+    ax.set_xlabel("อัตราไหล (ลบ.ม./วินาที) · ตัวเลขท้ายแท่ง = อาคารระบาย ÷ น้ำหลาก")
+    ax.set_title("พื้นที่รับน้ำย่อย 17 พื้นที่ ตามตาราง 2.3.2-1: น้ำหลากเทียบความสามารถระบาย/สูบ", fontsize=10, color=INK)
+    ax.legend(loc="lower right", fontsize=8.5, frameon=True)
+    ax.grid(axis="x", alpha=.3); fig.tight_layout()
+    path = ASSETS / "goal7_basins.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
+def fig_options():
+    O = C["options"]
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(7.6, 3.8))
+    w = O["wide_canal"]
+    a1.bar([f"สันคันสูง\n{x['crest_above_ground_m']} ม." for x in w], [x["land_vs_now_pct"] for x in w], color=BLUE)
+    for i, x in enumerate(w):
+        a1.text(i, x["land_vs_now_pct"] + 9, f"+{x['land_vs_now_pct']}%", ha="center", fontsize=10.5, color=INK, fontweight="bold")
+        a1.text(i, x["land_vs_now_pct"] + 2, f"ท้อง {x['bottom_m']} ม.", ha="center", fontsize=8.3, color=INK)
+    a1.set_ylim(0, max(x["land_vs_now_pct"] for x in w) * 1.3 + 5)
+    a1.set_title("ทำคลองกว้างขึ้นเพื่อให้คันต่ำลง:\nที่ดินที่ใช้เพิ่มขึ้นเท่าใด", fontsize=9.5, color=INK)
+    a1.set_ylabel("ที่ดินแถบคลองเพิ่มจากแบบปัจจุบัน (%)")
+    a1.tick_params(axis="x", labelsize=8)
+    o = O["outlet_pump"]
+    a2.bar([f"ลดระดับน้ำ\n{x['lower_m']:.0f} ม." for x in o], [x["power_mw"] for x in o], color=ORANGE)
+    for i, x in enumerate(o):
+        a2.text(i, x["power_mw"] / 2, f"{x['power_mw']:.0f}", ha="center", color="white", fontsize=11, fontweight="bold")
+        a2.text(i, x["power_mw"] + 0.6, f"คันที่ กม.40 = {x['crest_above_ground_km40_m']} ม.", ha="center", fontsize=8, color=INK)
+    a2.set_ylim(0, max(x["power_mw"] for x in o) * 1.25)
+    a2.set_title("ติดปั๊มที่ปลายคลองผลักดันน้ำ 600 ลบ.ม./วินาที:\nกำลังไฟฟ้าที่ต้องใช้", fontsize=9.5, color=INK)
+    a2.set_ylabel("เมกะวัตต์")
+    a2.tick_params(axis="x", labelsize=8)
+    fig.tight_layout()
+    path = ASSETS / "goal7_options.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path

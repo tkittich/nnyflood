@@ -133,7 +133,7 @@ def test_new_figures_and_questions():
     aca = ACADEMIC.read_text(encoding="utf-8")
     qa = QA_FILE.read_text(encoding="utf-8")
     assert pub.count("<figure>") >= 9 and aca.count("<figure>") >= 10 and qa.count("<figure>") >= 5
-    assert qa.count("class='qa'") >= 17, "ถาม–ตอบต้องมีอย่างน้อย 17 ข้อ (เพิ่มประตู/รอยเลื่อน/ทางเลือก/การดูแล)"
+    assert qa.count("class='qa'") >= 18, "ถาม–ตอบต้องมีอย่างน้อย 18 ข้อ (เพิ่มประตู/รอยเลื่อน/ทางเลือก/การดูแล/ข้อเสนอ)"
     for w in ("ประตูจะเปิด–ปิดอย่างไร", "รอยเลื่อนองครักษ์", "ทางเลือกอื่น", "ใครดูแลคันและท่อ"):
         assert w in qa
 
@@ -158,3 +158,15 @@ def test_profile_from_drawing_consistent():
     # ค่ากำกับบนรูป: กม.75 สันคัน +5.36 น้ำ +3.86
     assert abs(rows[75]["crest_m"] - 5.36) <= 0.02 and abs(rows[75]["water_m"] - 3.86) <= 0.02
     assert c["eia_profile"]["connecting_canal"]["km"] == [39.8, 51.5]
+
+
+def test_options_screening_present_and_labeled():
+    c = json.loads(CAN.read_text(encoding="utf-8"))
+    o = c["options"]
+    assert [w["water_above_ground_m"] for w in o["wide_canal"]] == [3.3, 2.0, 1.0, 0.0]
+    assert o["wide_canal"][0]["land_vs_now_pct"] == 0 and abs(o["wide_canal"][0]["bottom_m"] - 51) <= 2, "ฐานเทียบต้องตรงหน้าตัดตามรายงาน"
+    assert len(c["basins_2569"]["rows"]) == 17
+    _, b = _body(ACADEMIC)
+    assert "ข้อเสนอของผู้จัดทำ" in b and "ไม่ใช่ข้อมูลทางการ" in b
+    _, b2 = _body(PUBLIC)
+    assert "ข้อเสนอของผู้จัดทำ" in b2

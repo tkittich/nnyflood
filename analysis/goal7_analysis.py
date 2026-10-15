@@ -588,6 +588,98 @@ def eia_structs_summary():
     }
 
 
+BASINS_2569 = [  # ตาราง 2.3.2-1 รายงานฉบับ 2569 (หน้าไฟล์ 149) · พื้นที่ ไร่ · น้ำหลากรอบ 10 ปี 5 วัน · อาคารระบาย/สูบ (ลบ.ม./วินาที)
+    {"id": 1, "area_rai": 21642, "q10": 6.415, "canal": "คลองหนองสรวง", "outlet": "ท่อระบายน้ำ", "out_q": 6.145, "to": "คลองระบายน้ำหลาก", "route": "floodway"},
+    {"id": 2, "area_rai": 36918, "q10": 15.712, "canal": "-", "outlet": "ท่อระบายน้ำ", "out_q": 15.712, "to": "คลองระบายน้ำหลาก", "route": "floodway"},
+    {"id": 3, "area_rai": 45750, "q10": 18.080, "canal": "คลองหนองแค", "outlet": "ท่อระบายน้ำ", "out_q": 18.080, "to": "คลองระบายน้ำหลาก", "route": "floodway"},
+    {"id": 4, "area_rai": 206224, "q10": 28.046, "canal": "แม่น้ำใน", "outlet": "ท่อระบายน้ำ + คลองเชื่อมไปคลองบางปลากด", "out_q": 28.046, "to": "คลองระบายน้ำหลาก/แม่น้ำนครนายก", "route": "connect"},
+    {"id": 5, "area_rai": 501513, "q10": 112.54, "canal": "คลองเชียงรากน้อย", "outlet": "สถานีสูบน้ำเชียงรากน้อย", "out_q": 45.0, "to": "แม่น้ำเจ้าพระยา", "route": "pump"},
+    {"id": 6, "area_rai": 553570, "q10": 176.921, "canal": "คลองรังสิตประยูรศักดิ์", "outlet": "ไซฟอนลอดคลอง", "out_q": 120.0, "to": "เจ้าพระยา/บางปะกง", "route": "siphon"},
+    {"id": 7, "area_rai": 178479, "q10": 74.033, "canal": "คลองหกวาสายล่าง", "outlet": "ไซฟอนลอดคลอง", "out_q": 36.0, "to": "แม่น้ำบางปะกง", "route": "siphon"},
+    {"id": 8, "area_rai": 172715, "q10": 71.642, "canal": "คลองแสนแสบ", "outlet": "สถานีสูบน้ำหนองจอก", "out_q": 60.0, "to": "คลองพระองค์ไชยานุชิต", "route": "pump"},
+    {"id": 9, "area_rai": 175233, "q10": 46.472, "canal": "คลองประเวศบุรีรมย์", "outlet": "สถานีสูบน้ำประเวศ", "out_q": 60.0, "to": "คลองพระองค์ไชยานุชิต", "route": "pump"},
+    {"id": 10, "area_rai": 224187, "q10": 115.834, "canal": "คลองชายทะเล", "outlet": "สถานีสูบน้ำ 6 แห่ง", "out_q": 301.0, "to": "อ่าวไทย", "route": "pump"},
+    {"id": 11, "area_rai": 132281, "q10": 42.277, "canal": "คลองด่าน", "outlet": "สถานีสูบน้ำชลหารพิจิตร", "out_q": 120.0, "to": "อ่าวไทย", "route": "pump"},
+    {"id": 12, "area_rai": 119807, "q10": 26.885, "canal": "คลองหกวาสายล่าง", "outlet": "สถานีสูบน้ำสมบูรณ์", "out_q": 15.0, "to": "แม่น้ำนครนายก", "route": "pump"},
+    {"id": 13, "area_rai": 190444, "q10": 42.736, "canal": "คลองบางขนาก", "outlet": "สถานีสูบน้ำบางขนาก", "out_q": 54.0, "to": "แม่น้ำบางปะกง", "route": "pump"},
+    {"id": 14, "area_rai": 156282, "q10": 49.948, "canal": "คลองนครเนื่องเขต", "outlet": "สถานีสูบน้ำท่าไข่", "out_q": 36.0, "to": "แม่น้ำบางปะกง", "route": "pump"},
+    {"id": 15, "area_rai": 84814, "q10": 28.701, "canal": "คลองประเวศบุรีรมย์", "outlet": "สถานีสูบน้ำท่าถั่ว", "out_q": 48.0, "to": "แม่น้ำบางปะกง", "route": "pump"},
+    {"id": 16, "area_rai": 106021, "q10": 30.28, "canal": "คลองสำโรง", "outlet": "สถานีสูบน้ำปากตะคอง", "out_q": 24.0, "to": "แม่น้ำบางปะกง", "route": "pump"},
+    {"id": 17, "area_rai": 59612, "q10": 18.027, "canal": "คลองชายทะเล", "outlet": "สถานีสูบน้ำเทพรังสรรค์/พระยาวิสูตร", "out_q": 24.0, "to": "อ่าวไทย", "route": "pump"},
+]
+
+
+def basins_summary():
+    rows = []
+    for b in BASINS_2569:
+        r = dict(b)
+        r["q10_per_1000rai"] = round(b["q10"] / b["area_rai"] * 1000, 2)
+        r["cap_ratio"] = round(b["out_q"] / b["q10"], 2)
+        rows.append(r)
+    below = [r["id"] for r in rows if r["cap_ratio"] < 0.95 and r["route"] in ("pump", "siphon")]
+    return {"src": "ตาราง 2.3.2-1 รายงานฉบับ 2569 (หน้าพิมพ์ 2-44 · หน้าไฟล์ 149) — ที่มา: บริษัทที่ปรึกษา (2560) · น้ำหลากคำนวณจากฝนสูงสุด 5 วันรอบ 10 ปี ด้วยสัมประสิทธิ์การระบายน้ำ",
+            "rows": rows, "total_area_rai": sum(b["area_rai"] for b in BASINS_2569), "below_capacity_ids": below,
+            "note": "อัตราส่วนความจุ = อาคารระบาย/สูบที่ระบุ ÷ น้ำหลาก — ต่ำกว่า 1 ไม่ได้แปลว่าท่วมเสมอ (น้ำหลากเป็นค่าเฉลี่ย 5 วัน มีแก้มลิง/ที่ลุ่มรับ) แต่บอกพื้นที่ที่ระบบเดิมตึง"}
+
+
+def options_screening(c):
+    """ข้อเสนอเพื่อลดโทษ/เพิ่มประโยชน์ — การคัดกรองเชิงปริมาณ (ไม่ใช่การออกแบบ) · สมมติฐานระบุในฟิลด์ assumptions"""
+    sec = c["eia_section"]
+    z1, z2, road, D = sec["z1"], sec["z2"], sec["road_m"], sec["D_m"]
+    n = sec["n"]
+    FB, Q = 1.5, 600.0
+    g40 = float(np.interp(40, [x[0] for x in PROFILE_FIG["ground"]], [x[1] for x in PROFILE_FIG["ground"]]))
+    km_end, ws_end = 134.0, 1.5
+    L_km = km_end - 40.0
+
+    def cap(b, d, S):
+        A = (b + z1 * d) * d
+        P = b + 2 * d * math.sqrt(1 + z1 * z1)
+        return (1 / n) * A * (A / P) ** (2 / 3) * S ** 0.5
+
+    wide = []
+    for ht in (3.3, 2.0, 1.0, 0.0):
+        ws40 = g40 + ht
+        S = (ws40 - ws_end) / (L_km * 1000)
+        b = brentq(lambda x: cap(x, D, S) - Q, 5, 2000)
+        crest_h = ht + FB
+        half = b / 2 + z1 * (D + FB) + road + z2 * crest_h
+        wide.append({"water_above_ground_m": ht, "crest_above_ground_m": round(crest_h, 1), "slope_1_n": round(1 / S), "bottom_m": round(b),
+                     "corridor_m": round(2 * half), "land_vs_now_pct": None})
+    base = wide[0]["corridor_m"]
+    for w in wide:
+        w["land_vs_now_pct"] = round((w["corridor_m"] / base - 1) * 100)
+    eta, rho_g = 0.75, 9810.0
+    outlet = []
+    for dh in (1.0, 2.0, 3.0):
+        P = rho_g * Q * dh / eta / 1e6
+        outlet.append({"lower_m": dh, "crest_above_ground_km40_m": round(4.8 - dh, 1), "power_mw": round(P, 1), "gwh_per_10d": round(P * 240 / 1000, 2),
+                       "note": "ระดับน้ำทั้งแนวลดลงเท่ากัน (ความลาดเท่าเดิม) ท้องคลองปลายทางลึกลงตามกัน"})
+    lat = []
+    for q in (10.0, 28.0, 60.0):
+        for h in (1.7, 3.3):
+            P = rho_g * q * h / eta / 1e6
+            lat.append({"q_m3s": q, "lift_m": h, "power_mw": round(P, 2)})
+    # โซลาร์ลอยน้ำ
+    L_float = 134.0 - 23.0
+    w_ws = (sec["A_m2"] / D - z1 * D) + 2 * z1 * D
+    area_km2 = L_float * w_ws / 1000.0
+    pv = []
+    for cov in (0.1, 0.2):
+        mwp = area_km2 * 1e6 * cov * 0.15 / 1000.0   # 0.15 kWp ต่อ ตร.ม.ผิวน้ำที่ปกคลุม
+        pv.append({"coverage_pct": int(cov * 100), "mwp": round(mwp), "gwh_per_year": round(mwp * 1.4, 0),
+                   "evap_saved_mcm_per_year": round(area_km2 * cov * 1.5 * 0.7, 1)})
+    gate_vol = 25.0 * 1000 * w_ws * (2.5 - 1.5) / 1e6
+    return {
+        "assumptions": {"n": n, "pump_eff": eta, "Q_m3s": Q, "ground_km40_m": round(g40, 2), "end_level_m": ws_end, "pv_kwp_per_m2": 0.15,
+                        "pv_kwh_per_kwp_year": 1400, "evap_m_per_year": 1.5, "evap_reduction": 0.7, "event_hours": 240,
+                        "canal_water_width_m": round(w_ws), "canal_water_area_km2_km23_134": round(area_km2, 1)},
+        "wide_canal": wide, "outlet_pump": outlet, "lateral_pump": lat, "floating_pv": pv,
+        "outlet_gate_storage_mcm": round(gate_vol, 1),
+        "src_note": "ค่าคัดกรองคำนวณเอง จากตัวเลขหน้าตัดและระดับในรายงานฯ — ใช้เทียบลำดับขนาดของทางเลือก ไม่ใช่แบบ",
+    }
+
+
 def embankment_scenarios(c):
     """ประมาณผลของความสูงคันคลองเหนือพื้นเดิม ตามรูปตัดตามยาว (รูปที่ 2.3.2-9) — ไม่ใช่แบบจำลองน้ำท่วม
     ค่าที่ใช้: สันคันเหนือพื้นเดิม ช่วงนครนายก (จากโปรไฟล์) · หน้าตัดตามรายงาน · ตารางอาคาร · พื้นที่น้ำท่วมจริงจากดาวเทียม"""
@@ -662,6 +754,13 @@ def main():
         "pasak_dam": pasak_dam(), "corridor_area": corridor_area(round(L, 1)), "flood_band": flood_band(),
     }
     c["embankment"] = embankment_scenarios(c)
+    c["basins_2569"] = basins_summary()
+    sc = OUT / "eia2569_scan.json"
+    if sc.exists():
+        c["reading_coverage"] = {"scan": json.loads(sc.read_text(encoding="utf-8")),
+                                 "kw": {"model": "แบบจำลอง", "flood_side": "น้ำท่วมซ้ำซาก/ขัง", "gate_rule": "เกณฑ์เดินประตู", "fault": "รอยเลื่อน",
+                                        "salinity": "น้ำเค็ม", "subsidence": "ทรุดตัว", "opinion": "ความคิดเห็น/แบบสอบถาม", "cost": "ค่าก่อสร้าง/วงเงิน"}}
+    c["options"] = options_screening(c)
     (OUT / "canonical.json").write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: c[k] for k in ("structures", "c2", "pasak_dam", "corridor_area", "flood_band")}, ensure_ascii=False, indent=1)[:5000])
 

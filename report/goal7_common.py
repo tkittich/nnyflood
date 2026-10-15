@@ -198,3 +198,145 @@ tot_flood = SCENE["west_rai"] + SCENE["east_rai"]
 amp = SCENE["by_amphoe_rai"]
 ong = amp.get("อ.องครักษ์", 0); bn = amp.get("อ.บ้านนา", 0)
 
+
+
+def fig_xsection():
+    """หน้าตัดคลองลอยตามรายงาน: ท้อง 51 ม. ลึกน้ำ 7 ม. ลาด 1:3 ด้านใน 1:2 ด้านนอก หลังคัน 10 ม. · วาดที่ค่าสูงสุดที่คำนวณจากรายงาน"""
+    sec = C["eia_section"]
+    EB = C["embankment"]
+    z1, z2, road, D = sec["z1"], sec["z2"], sec["road_m"], sec["D_m"]
+    b = sec["A_m2"] / D - z1 * D
+    FB = EB["assumptions"]["freeboard_m"]
+    H = EB["cases"][1]["crest_above_ground_m"]
+    Hmax = EB["cases"][2]["crest_above_ground_m"]
+    wl = H - FB
+    bed = -(D + FB - H)
+    xi_c = b / 2 + z1 * (D + FB)            # ขอบในที่ระดับสันคัน
+    xo_c = xi_c + road                       # ขอบนอกของสันคัน
+    xo_g = xo_c + z2 * H                     # ปลายลาดนอกที่พื้นเดิม
+    xi_g = b / 2 + z1 * (-bed)               # ขอบในที่ระดับพื้นเดิม
+    fig, ax = plt.subplots(figsize=(7.4, 4.4))
+    for s in (1, -1):
+        ax.fill([s * xi_g, s * xi_c, s * xo_c, s * xo_g], [0, H, H, 0], color="#c9d3dc", ec=INK, lw=1.2, zorder=2)
+    xw = b / 2 + z1 * (wl - bed)
+    ax.fill([-b / 2, b / 2, xw, -xw], [bed, bed, wl, wl], color=BLUE, ec=INK, lw=1.0, zorder=3)
+    ax.plot([-xo_g - 25, xo_g + 25], [0, 0], color=ORANGE, lw=2.2, zorder=4)
+    ax.plot([-xi_g, -b / 2, b / 2, xi_g], [0, bed, bed, 0], color=INK, lw=1.2, zorder=4)
+    ax.text(0, (bed + wl) / 2, f"น้ำสูงสุดตามแบบ\nท้อง {b:.0f} ม. · ลึก {D:.0f} ม.", ha="center", va="center", fontsize=10, color="white", fontweight="bold", zorder=6)
+    ax.annotate(f"สันคัน (ถนนกว้าง {road:.0f} ม.) สูงเหนือพื้นเดิม {H} ม.\n(ค่าสูงสุดที่คำนวณได้ · รายงานระบุไม่เกิน {Hmax} ม.)",
+                xy=((xi_c + xo_c) / 2, H), xytext=(xo_c - 5, H + 4.2), fontsize=9, color=INK, ha="center",
+                arrowprops=dict(arrowstyle="-", color=INK, lw=1), zorder=7)
+    ax.annotate(f"ผิวน้ำสูงสุดสูงกว่าพื้นเดิม {wl:.1f} ม.\n(รายงานระบุ {C['eia_levels']['eia_range_water_above_ground_m'][0]}–{C['eia_levels']['eia_range_water_above_ground_m'][1]} ม.)",
+                xy=(-xw + 2, wl), xytext=(-xo_g + 5, H + 4.2), fontsize=9, color=INK, ha="center", arrowprops=dict(arrowstyle="-", color=INK, lw=1), zorder=7)
+    ax.text(xo_g + 22, -0.5, "พื้นเดิม", fontsize=9.5, color=ORANGE, ha="right", va="top", fontweight="bold")
+    ax.text(0, bed - 0.7, f"ท้องคลองต่ำกว่าพื้นเดิม {-bed:.1f} ม.", fontsize=9, color=INK, ha="center", va="top")
+    ax.set_xlim(-xo_g - 28, xo_g + 28); ax.set_ylim(bed - 3.0, H + 8.5)
+    ax.set_xlabel("ระยะจากกึ่งกลางคลอง (ม.) — ภาพขยายความสูงให้เห็นชัด"); ax.set_ylabel("ความสูงเทียบพื้นเดิม (ม.)")
+    ax.set_title("หน้าตัดคลองช่วง กม.23 เป็นต้นไป: ผิวน้ำและสันคันอยู่เหนือพื้นเดิม (คลองลอย)", fontsize=10, color=INK, pad=10)
+    ax.grid(alpha=.25); fig.tight_layout()
+    path = ASSETS / "goal7_xsection.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
+def fig_sip_flow():
+    ES = C["eia_structs"]["nn"]["crossings"]
+    labs = [f"กม.{c['km']:.1f} {c['name']}" for c in ES]
+    q_in = [c["q_in"] for c in ES]
+    q_st = [c["q_struct"] for c in ES]
+    y = np.arange(len(ES))
+    fig, ax = plt.subplots(figsize=(7.4, 4.6))
+    ax.barh(y - 0.2, q_in, 0.38, color=BLUE, label="น้ำหลากของคลองเดิม (รอบ 10 ปี 5 วัน)")
+    ax.barh(y + 0.2, q_st, 0.38, color=ORANGE, label="อาคารเชื่อมรับได้")
+    for i, c in enumerate(ES):
+        ax.text(c["q_in"] + 0.6, i - 0.2, f"{c['q_in']:.0f}", va="center", fontsize=8.5, color=INK)
+        ax.text(c["q_struct"] + 0.6, i + 0.2, f"{c['q_struct']:.0f}" + (f"  ({c['ratio']*100:.0f}%)" if c["shortfall"] else ""), va="center", fontsize=8.5, color=INK)
+    ax.set_yticks(y); ax.set_yticklabels(labs, fontsize=8.8)
+    ax.invert_yaxis()
+    ax.set_xlabel("อัตราไหล (ลบ.ม./วินาที)")
+    ax.set_title("ช่วงนครนายก: น้ำหลากของคลองเดิมที่คลองใหม่ตัดผ่าน เทียบกับที่อาคารเชื่อมรับได้", fontsize=10, color=INK)
+    ax.legend(loc="lower right", fontsize=8.5, frameon=True)
+    ax.grid(axis="x", alpha=.3); fig.tight_layout()
+    path = ASSETS / "goal7_siphon_vs_flood.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
+def fig_wc_map():
+    """ผังน้ำ/น้ำท่วมรอบ 100 ปีของ สทนช. ซ้อนแนวคลอง ช่วงนครนายก พร้อมจุดตัดคลองเดิม (แดง = อาคารรับได้น้อยกว่าน้ำหลากมาก)"""
+    gj = json.loads((ROOT / "analysis/goal7/waterchart_clip.geojson").read_text(encoding="utf-8"))
+    cl = json.loads((D7 / "centerline.geojson").read_text(encoding="utf-8"))["features"][0]["geometry"]["coordinates"]
+    mk = sorted(((f["properties"]["km"], f["geometry"]["coordinates"][0], f["geometry"]["coordinates"][1])
+                 for f in json.loads((D7 / "km_markers.geojson").read_text(encoding="utf-8"))["features"]))
+    kmv = [m[0] for m in mk]
+    lonv = [m[1] for m in mk]
+    latv = [m[2] for m in mk]
+    fig, ax = plt.subplots(figsize=(7.2, 7.8))
+    names = {"Flood_Tr100": ("#4d94c9", "น้ำท่วมรอบ 100 ปี (ผังน้ำ สทนช.)"), "Floodway": ("#c76f10", "พื้นที่ทางน้ำหลาก (ผังน้ำ สทนช.)")}
+    for key in ("Flood_Tr100", "Floodway"):
+        for f in gj["features"]:
+            if f["properties"]["layer"] != key:
+                continue
+            g = shape(f["geometry"])
+            for part in (g.geoms if g.geom_type in ("MultiPolygon", "GeometryCollection") else [g]):
+                if part.geom_type != "Polygon":
+                    continue
+                xs, ys = part.exterior.xy
+                ax.fill(xs, ys, color=names[key][0], lw=0, zorder=1 if key == "Flood_Tr100" else 2)
+    ax.plot([c[0] for c in cl], [c[1] for c in cl], color=INK, lw=2.4, zorder=4)
+    # ช่วงนครนายก เส้นหนา
+    nn = ST["nakhonnayok"]
+    seg = [(lo, la) for k, lo, la in mk if nn["km_from"] <= k <= nn["km_to"]]
+    for km in range(40, 75, 5):
+        lo = float(np.interp(km, kmv, lonv)); la = float(np.interp(km, kmv, latv))
+        ax.plot(lo, la, "o", color=INK, ms=4, zorder=5)
+        ax.text(lo + .010, la, f"กม.{km}", fontsize=8.5, color=INK, zorder=6,
+                bbox=dict(facecolor="white", edgecolor="none", pad=0.8, alpha=.85))
+    for c in C["eia_structs"]["nn"]["crossings"]:
+        lo = float(np.interp(c["km"], kmv, lonv)); la = float(np.interp(c["km"], kmv, latv))
+        ax.plot(lo, la, "v", ms=12 if c["shortfall"] else 6.5, color="#8b0000" if c["shortfall"] else INK, mec="white", mew=0.8, zorder=7)
+    from matplotlib.patches import Patch
+    from matplotlib.lines import Line2D
+    ax.legend(handles=[Patch(color="#4d94c9", label=names["Flood_Tr100"][1]), Patch(color="#c76f10", label=names["Floodway"][1]),
+                       Line2D([0], [0], color=INK, lw=2.4, label="แนวคลองประมาณ"),
+                       Line2D([0], [0], marker="v", color="w", mfc="#8b0000", ms=9, label="คลองเดิมที่อาคารรับน้ำหลากได้น้อยกว่า 1 ใน 4"),
+                       Line2D([0], [0], marker="v", color="w", mfc=INK, ms=7, label="คลองเดิมที่ตัดผ่านจุดอื่น")],
+              loc="upper center", bbox_to_anchor=(0.5, -0.09), fontsize=8.3, frameon=True)
+    lo0 = min(s[0] for s in seg); lo1 = max(s[0] for s in seg); la0 = min(s[1] for s in seg); la1 = max(s[1] for s in seg)
+    ax.set_xlim(lo0 - .055, lo1 + .055); ax.set_ylim(la0 - .03, la1 + .03)
+    ax.set_aspect(1 / math.cos(math.radians(14.2)))
+    ax.ticklabel_format(useOffset=False, style="plain")
+    ax.set_xlabel("ลองจิจูด"); ax.set_ylabel("ละติจูด")
+    ax.set_title("ผังน้ำของ สทนช. ซ้อนแนวคลอง ช่วงนครนายก พร้อมจุดที่คลองเดิมถูกตัด", fontsize=10, color=INK)
+    fig.tight_layout()
+    path = ASSETS / "goal7_waterchart_map.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
+def fig_versions():
+    rs = C["eia_versions"]["rounds"]
+    labs = ["ส่ง พ.ย. 2561", "ชี้แจงครั้ง 1\nก.ย. 2564", "ชี้แจงครั้ง 2\nธ.ค. 2566", "ฉบับที่เห็นชอบ\n(2569)"]
+    bc = [r["econ"]["bc12"] for r in rs]
+    land = [r["land_rai"] for r in rs]
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(7.4, 3.6))
+    cols = [BLUE, BLUE, BLUE, ORANGE]
+    a1.bar(labs, bc, color=cols)
+    a1.axhline(1.0, color=INK, ls="--", lw=1.3)
+    a1.text(3.45, 1.04, "คุ้มทุนพอดี = 1.0", fontsize=8.5, color=INK, ha="right", bbox=dict(facecolor="white", edgecolor="none", pad=1.2), zorder=6)
+    for i, v in enumerate(bc):
+        a1.text(i, v / 2, f"{v:.2f}", ha="center", va="center", fontsize=11, color="white", fontweight="bold", zorder=7)
+    a1.set_ylim(0, max(bc) * 1.25)
+    a1.set_title("ผลตอบแทนต่อต้นทุน ที่อัตราคิดลด 12%", fontsize=9.5, color=INK)
+    a1.tick_params(axis="x", labelsize=7.8)
+    a2.bar(labs, land, color=cols)
+    for i, v in enumerate(land):
+        a2.text(i, v / 2, f"{v:,}", ha="center", va="center", fontsize=10, color="white", fontweight="bold")
+    a2.set_ylim(0, max(land) * 1.18)
+    a2.set_title("ที่ดินที่ต้องเวนคืน (ไร่)", fontsize=9.5, color=INK)
+    a2.tick_params(axis="x", labelsize=7.8)
+    fig.suptitle("รายงานผลกระทบสิ่งแวดล้อมถูกส่งกลับแก้ 3 รอบ — ตัวเลขเปลี่ยนอย่างไร", fontsize=10, color=INK)
+    fig.tight_layout()
+    path = ASSETS / "goal7_eia_versions.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path

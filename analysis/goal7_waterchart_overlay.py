@@ -129,6 +129,9 @@ def main():
                    "ข้อมูลจาก 3 แนวคลองอยู่ในทั้ง 3 ลุ่มน้ำนี้ทั้งหมด (ตรวจกับขอบเขต 22 ลุ่มน้ำของ สทนช. — ไม่มีลุ่มน้ำชายฝั่งทะเลตะวันออกอยู่บนแนว)",
            "nn_reach_len_km": round(sub["nn"]["len_km"], 1), "all_len_km": round(sub["all"]["len_km"], 1),
            "corridor_200m_km2": {k: round(v["corr"].area / 1e6, 2) for k, v in sub.items()}, "layers": {}}
+    clip_feats = []
+    from shapely.geometry import mapping
+    clip_box = sub["nn"]["line"].buffer(7000)
     for k, label in LAYERS.items():
         per = {}
         allp = []
@@ -148,6 +151,10 @@ def main():
         if not allp:
             continue
         u = unary_union(allp)
+        if k in ("Floodway", "Flood_Tr100"):
+            g = u.intersection(clip_box).simplify(15)
+            g = transform(lambda x, y, z=None: (x / KX + LON0, y / KY + LAT0), g)
+            clip_feats.append({"type": "Feature", "properties": {"layer": k, "label": label}, "geometry": mapping(g)})
         rec = {"label": label, "per_basin": per}
         for rk in ("nn", "all"):
             ln, corr = sub[rk]["line"], sub[rk]["corr"]
@@ -162,6 +169,7 @@ def main():
         rec["n_polygons"] = sum(v.get("n_polygons_near", 0) for v in per.values())
         res["layers"][k] = rec
     OUT.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
+    (OUT.parent / "waterchart_clip.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": clip_feats}, ensure_ascii=False), encoding="utf-8")
     for k, v in res["layers"].items():
         print(f"{k:18s} NN cross={v['nn']['cross_km']:5.2f} km share={v['nn']['corridor_share_pct']:5.1f}% {v['nn']['km_intervals']} | "
               f"ALL cross={v['all']['cross_km']:6.2f} km share={v['all']['corridor_share_pct']:5.1f}% n_iv={len(v['all']['km_intervals'])}")

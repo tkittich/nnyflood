@@ -111,3 +111,38 @@ def test_qa_numbers_match_canonical():
     assert f"{nn['rai']:,}" in b and f"{nn['owners']:,}" in b
     assert str(c["eia_econ"]["earlier_2560"]["bcr"]) in b
     assert "ไม่ใช่แนวทางการ" in b
+
+
+# ---- เพิ่ม 15 ต.ค. 69: ความสูงคันตามข้อมูล · ภาพประกอบ · คำถามเพิ่ม · กฎหมาย/PDPA ----
+QA_FILE = ROOT / "report/คลองเจ้าพระยา2_ถามตอบสั้น.html"
+
+
+def test_embankment_uses_documented_heights_only():
+    c = json.loads(CAN.read_text(encoding="utf-8"))
+    ids = [x["id"] for x in c["embankment"]["cases"]]
+    assert ids == ["eia_lo", "eia_hi", "eia_max"], "ต้องใช้เฉพาะความสูงคันตามเอกสาร (ไม่มีกรณีสมมติ 6/7 ม.)"
+    top = max(x["crest_above_ground_m"] for x in c["embankment"]["cases"])
+    assert top <= 4.8
+    for p in (PUBLIC, ACADEMIC, QA_FILE):
+        _, b = _body(p)
+        assert "คันสูง 6 หรือ 7" not in b and "สมมติคันสูง 6" not in b
+
+
+def test_new_figures_and_questions():
+    pub = PUBLIC.read_text(encoding="utf-8")
+    aca = ACADEMIC.read_text(encoding="utf-8")
+    qa = QA_FILE.read_text(encoding="utf-8")
+    assert pub.count("<figure>") >= 9 and aca.count("<figure>") >= 10 and qa.count("<figure>") >= 4
+    assert qa.count("class='qa'") >= 17, "ถาม–ตอบต้องมีอย่างน้อย 17 ข้อ (เพิ่มประตู/รอยเลื่อน/ทางเลือก/การดูแล)"
+    for w in ("ประตูจะเปิด–ปิดอย่างไร", "รอยเลื่อนองครักษ์", "ทางเลือกอื่น", "ใครดูแลคันและท่อ"):
+        assert w in qa
+
+
+@pytest.mark.parametrize("p", [PUBLIC, ACADEMIC, QA_FILE], ids=["ประชาชน", "วิชาการ", "ถามตอบ"])
+def test_legal_pdpa_no_persons_no_blame(p):
+    """กฎหมายหมิ่นประมาท + PDPA (docs/LEGAL_REVIEW.md §4): ไม่มีชื่อบุคคลธรรมดา/เบอร์/ลิงก์โปรไฟล์ · ไม่ตั้งกรอบหาคนผิด"""
+    _, b = _body(p)
+    assert not re.search(r"(?<![ก-๙])(?:นางสาว|นาย|นาง)(?!ก|อำเภอ)[ก-๙]{2,}\s+[ก-๙]{2,}", b), "พบชื่อบุคคลธรรมดา"
+    assert not re.search(r"0\d{1,2}[- ]?\d{3}[- ]?\d{4}", b), "พบเบอร์โทร"
+    for w in ("ทุจริต", "โกง", "เจตนา", "ละเลย", "หลอกลวง", "ใครผิด", "ใครรับผิด", "ผลประโยชน์ทับซ้อน"):
+        assert w not in b, f"พบถ้อยคำกล่าวหา: {w}"

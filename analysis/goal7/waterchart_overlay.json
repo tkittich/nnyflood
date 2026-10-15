@@ -1,57 +1,189 @@
 {
- "note": "แนวคลองไม่เป็นทางการ (My Maps) · ช่วงนครนายก กม.38.6–73.2 · พื้นที่ ตร.กม. (1 ตร.กม. = 625 ไร่)",
+ "note": "แนวคลองไม่เป็นทางการ (My Maps) · ช่วงนครนายก กม.38.6–73.2 · ทั้งคลองใหม่ กม.0–135.655 · พื้นที่ ตร.กม. (1 ตร.กม. = 625 ไร่) · ข้อมูลจาก 3 ลุ่มน้ำของ สทนช. (บางปะกง/เจ้าพระยา/ป่าสัก) — ลุ่มน้ำอื่นที่แนวผ่าน (เช่น ชายฝั่งตะวันออก) ยังไม่ได้ใช้",
  "nn_reach_len_km": 35.7,
- "corridor_200m_km2": 7.11,
- "band5km_km2": 427.8,
+ "all_len_km": 144.2,
+ "corridor_200m_km2": {
+  "nn": 7.11,
+  "all": 27.66
+ },
  "layers": {
   "Floodway": {
    "label": "ผังน้ำ: พื้นที่ทางน้ำหลาก (ล.)",
-   "n_polygons": 5,
-   "bbox_lonlat": [
-    100.639,
-    13.104,
-    102.472,
-    14.407
-   ],
-   "in_band5km_km2": 58.22,
-   "in_corridor200m_km2": 0.998,
-   "corridor_share_pct": 14.0,
-   "line_crosses_length_km": 4.91,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 27,
+     "n_polygons_total": 438,
+     "cross_all_km": 5.72
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 6650,
+     "n_polygons_total": 10142,
+     "cross_all_km": 27.53
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 811,
+     "n_polygons_total": 2943,
+     "cross_all_km": 0.0
+    }
+   },
+   "nn": {
+    "cross_km": 16.82,
+    "corridor_share_pct": 46.8,
+    "km_intervals": [
+     [
+      41.4,
+      57.6
+     ]
+    ]
+   },
+   "all": {
+    "cross_km": 33.26,
+    "corridor_share_pct": 23.7,
+    "km_intervals": [
+     [
+      0.4,
+      3.9
+     ],
+     [
+      4.1,
+      4.1
+     ],
+     [
+      13.2,
+      19.3
+     ],
+     [
+      19.5,
+      22.0
+     ],
+     [
+      23.4,
+      23.9
+     ],
+     [
+      24.7,
+      27.3
+     ],
+     [
+      41.4,
+      57.6
+     ],
+     [
+      73.2,
+      73.3
+     ],
+     [
+      88.2,
+      88.5
+     ],
+     [
+      98.0,
+      98.2
+     ],
+     [
+      111.0,
+      111.1
+     ],
+     [
+      124.3,
+      124.5
+     ]
+    ]
+   },
+   "line_crosses_length_km": 16.82,
+   "corridor_share_pct": 46.8,
    "km_intervals": [
     [
-     45.6,
-     50.5
+     41.4,
+     57.6
     ]
-   ]
+   ],
+   "in_band5km_km2": 153.09,
+   "n_polygons": 7488
   },
   "FloodArea": {
    "label": "ผังน้ำ: พื้นที่น้ำนอง (น.)",
-   "n_polygons": 2,
-   "bbox_lonlat": [
-    101.151,
-    13.763,
-    101.69,
-    14.065
-   ],
-   "in_band5km_km2": 0.0,
-   "in_corridor200m_km2": 0.0,
-   "corridor_share_pct": 0.0,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 0,
+     "n_polygons_total": 334
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 348,
+     "n_polygons_total": 354,
+     "cross_all_km": 0.0
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 27,
+     "n_polygons_total": 27,
+     "cross_all_km": 0.0
+    }
+   },
+   "nn": {
+    "cross_km": 0.0,
+    "corridor_share_pct": 0.0,
+    "km_intervals": []
+   },
+   "all": {
+    "cross_km": 0.0,
+    "corridor_share_pct": 0.0,
+    "km_intervals": []
+   },
    "line_crosses_length_km": 0.0,
-   "km_intervals": []
+   "corridor_share_pct": 0.0,
+   "km_intervals": [],
+   "in_band5km_km2": 0.0,
+   "n_polygons": 375
   },
   "Flood_Tr2": {
    "label": "น้ำท่วมคาบอุบัติ 2 ปี",
-   "n_polygons": 3561,
-   "bbox_lonlat": [
-    100.955,
-    13.298,
-    102.423,
-    14.325
-   ],
-   "in_band5km_km2": 13.93,
-   "in_corridor200m_km2": 0.117,
-   "corridor_share_pct": 1.6,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 276,
+     "n_polygons_total": 3561,
+     "cross_all_km": 0.55
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 1334,
+     "n_polygons_total": 1442,
+     "cross_all_km": 0.0
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 740,
+     "n_polygons_total": 1397,
+     "cross_all_km": 0.0
+    }
+   },
+   "nn": {
+    "cross_km": 0.55,
+    "corridor_share_pct": 1.6,
+    "km_intervals": [
+     [
+      45.6,
+      45.7
+     ],
+     [
+      49.6,
+      50.1
+     ]
+    ]
+   },
+   "all": {
+    "cross_km": 0.55,
+    "corridor_share_pct": 0.4,
+    "km_intervals": [
+     [
+      45.6,
+      45.7
+     ],
+     [
+      49.6,
+      50.1
+     ]
+    ]
+   },
    "line_crosses_length_km": 0.55,
+   "corridor_share_pct": 1.6,
    "km_intervals": [
     [
      45.6,
@@ -61,57 +193,141 @@
      49.6,
      50.1
     ]
-   ]
+   ],
+   "in_band5km_km2": 13.93,
+   "n_polygons": 2350
   },
   "Flood_Tr5": {
    "label": "น้ำท่วมคาบอุบัติ 5 ปี",
-   "n_polygons": 3364,
-   "bbox_lonlat": [
-    100.955,
-    13.297,
-    102.423,
-    14.325
-   ],
-   "in_band5km_km2": 20.56,
-   "in_corridor200m_km2": 0.214,
-   "corridor_share_pct": 3.0,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 247,
+     "n_polygons_total": 3364,
+     "cross_all_km": 0.98
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 1488,
+     "n_polygons_total": 1582,
+     "cross_all_km": 0.0
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 1245,
+     "n_polygons_total": 2503,
+     "cross_all_km": 0.0
+    }
+   },
+   "nn": {
+    "cross_km": 0.98,
+    "corridor_share_pct": 3.0,
+    "km_intervals": [
+     [
+      45.6,
+      45.9
+     ],
+     [
+      47.6,
+      48.0
+     ],
+     [
+      49.6,
+      50.1
+     ]
+    ]
+   },
+   "all": {
+    "cross_km": 0.98,
+    "corridor_share_pct": 0.8,
+    "km_intervals": [
+     [
+      45.6,
+      45.9
+     ],
+     [
+      47.6,
+      48.0
+     ],
+     [
+      49.6,
+      50.1
+     ]
+    ]
+   },
    "line_crosses_length_km": 0.98,
+   "corridor_share_pct": 3.0,
    "km_intervals": [
     [
      45.6,
-     45.7
-    ],
-    [
-     45.8,
      45.9
     ],
     [
      47.6,
-     47.7
-    ],
-    [
-     47.8,
      48.0
     ],
     [
      49.6,
      50.1
     ]
-   ]
+   ],
+   "in_band5km_km2": 20.56,
+   "n_polygons": 2980
   },
   "Flood_Tr10": {
    "label": "น้ำท่วมคาบอุบัติ 10 ปี",
-   "n_polygons": 1469,
-   "bbox_lonlat": [
-    100.955,
-    13.297,
-    102.423,
-    14.325
-   ],
-   "in_band5km_km2": 30.95,
-   "in_corridor200m_km2": 0.303,
-   "corridor_share_pct": 4.3,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 98,
+     "n_polygons_total": 1469,
+     "cross_all_km": 1.5
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 1080,
+     "n_polygons_total": 1123,
+     "cross_all_km": 0.0
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 755,
+     "n_polygons_total": 1579,
+     "cross_all_km": 0.0
+    }
+   },
+   "nn": {
+    "cross_km": 1.5,
+    "corridor_share_pct": 4.3,
+    "km_intervals": [
+     [
+      45.6,
+      46.0
+     ],
+     [
+      47.6,
+      48.2
+     ],
+     [
+      49.6,
+      50.1
+     ]
+    ]
+   },
+   "all": {
+    "cross_km": 1.5,
+    "corridor_share_pct": 1.1,
+    "km_intervals": [
+     [
+      45.6,
+      46.0
+     ],
+     [
+      47.6,
+      48.2
+     ],
+     [
+      49.6,
+      50.1
+     ]
+    ]
+   },
    "line_crosses_length_km": 1.5,
+   "corridor_share_pct": 4.3,
    "km_intervals": [
     [
      45.6,
@@ -125,28 +341,182 @@
      49.6,
      50.1
     ]
-   ]
+   ],
+   "in_band5km_km2": 30.95,
+   "n_polygons": 1933
   },
   "Flood_Tr25": {
    "label": "น้ำท่วมคาบอุบัติ 25 ปี",
-   "n_polygons": 676,
-   "bbox_lonlat": [
-    100.955,
-    13.296,
-    102.423,
-    14.326
-   ],
-   "in_band5km_km2": 43.91,
-   "in_corridor200m_km2": 0.589,
-   "corridor_share_pct": 8.3,
-   "line_crosses_length_km": 3.0,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 57,
+     "n_polygons_total": 676,
+     "cross_all_km": 3.0
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 2097,
+     "n_polygons_total": 2183,
+     "cross_all_km": 21.81
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 954,
+     "n_polygons_total": 2444,
+     "cross_all_km": 0.0
+    }
+   },
+   "nn": {
+    "cross_km": 14.82,
+    "corridor_share_pct": 40.8,
+    "km_intervals": [
+     [
+      41.4,
+      46.5
+     ],
+     [
+      47.5,
+      48.4
+     ],
+     [
+      49.0,
+      49.3
+     ],
+     [
+      49.5,
+      57.6
+     ]
+    ]
+   },
+   "all": {
+    "cross_km": 24.81,
+    "corridor_share_pct": 17.5,
+    "km_intervals": [
+     [
+      0.7,
+      1.6
+     ],
+     [
+      2.1,
+      3.4
+     ],
+     [
+      4.1,
+      4.1
+     ],
+     [
+      5.1,
+      5.4
+     ],
+     [
+      5.9,
+      6.1
+     ],
+     [
+      6.8,
+      6.9
+     ],
+     [
+      7.7,
+      7.9
+     ],
+     [
+      11.4,
+      11.6
+     ],
+     [
+      11.9,
+      11.9
+     ],
+     [
+      13.2,
+      13.4
+     ],
+     [
+      13.9,
+      14.0
+     ],
+     [
+      14.2,
+      14.5
+     ],
+     [
+      16.0,
+      16.1
+     ],
+     [
+      16.3,
+      16.6
+     ],
+     [
+      17.1,
+      17.2
+     ],
+     [
+      17.4,
+      17.8
+     ],
+     [
+      18.2,
+      18.9
+     ],
+     [
+      21.1,
+      21.6
+     ],
+     [
+      22.3,
+      22.5
+     ],
+     [
+      23.4,
+      23.9
+     ],
+     [
+      25.0,
+      25.9
+     ],
+     [
+      26.3,
+      27.3
+     ],
+     [
+      27.6,
+      27.7
+     ],
+     [
+      30.2,
+      30.6
+     ],
+     [
+      34.9,
+      34.9
+     ],
+     [
+      36.6,
+      38.4
+     ],
+     [
+      41.4,
+      46.5
+     ],
+     [
+      47.5,
+      48.4
+     ],
+     [
+      49.0,
+      49.3
+     ],
+     [
+      49.5,
+      57.6
+     ]
+    ]
+   },
+   "line_crosses_length_km": 14.82,
+   "corridor_share_pct": 40.8,
    "km_intervals": [
     [
-     45.6,
-     46.1
-    ],
-    [
-     46.2,
+     41.4,
      46.5
     ],
     [
@@ -159,26 +529,72 @@
     ],
     [
      49.5,
-     50.5
+     57.6
     ]
-   ]
+   ],
+   "in_band5km_km2": 148.75,
+   "n_polygons": 3108
   },
   "Flood_Tr50": {
    "label": "น้ำท่วมคาบอุบัติ 50 ปี",
-   "n_polygons": 578,
-   "bbox_lonlat": [
-    100.955,
-    13.295,
-    102.423,
-    14.326
-   ],
-   "in_band5km_km2": 48.54,
-   "in_corridor200m_km2": 0.818,
-   "corridor_share_pct": 11.5,
-   "line_crosses_length_km": 4.21,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 41,
+     "n_polygons_total": 578,
+     "cross_all_km": 4.21
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 7668,
+     "n_polygons_total": 7807,
+     "cross_all_km": 53.7
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 340,
+     "n_polygons_total": 753,
+     "cross_all_km": 0.16
+    }
+   },
+   "nn": {
+    "cross_km": 18.86,
+    "corridor_share_pct": 52.1,
+    "km_intervals": [
+     [
+      38.6,
+      46.7
+     ],
+     [
+      46.9,
+      47.1
+     ],
+     [
+      47.5,
+      57.6
+     ]
+    ]
+   },
+   "all": {
+    "cross_km": 58.07,
+    "corridor_share_pct": 41.6,
+    "km_intervals": [
+     [
+      0.0,
+      46.7
+     ],
+     [
+      46.9,
+      47.1
+     ],
+     [
+      47.5,
+      57.6
+     ]
+    ]
+   },
+   "line_crosses_length_km": 18.86,
+   "corridor_share_pct": 52.1,
    "km_intervals": [
     [
-     45.6,
+     38.6,
      46.7
     ],
     [
@@ -187,89 +603,210 @@
     ],
     [
      47.5,
-     50.5
+     57.6
     ]
-   ]
+   ],
+   "in_band5km_km2": 220.39,
+   "n_polygons": 8049
   },
   "Flood_Tr100": {
    "label": "น้ำท่วมคาบอุบัติ 100 ปี",
-   "n_polygons": 217,
-   "bbox_lonlat": [
-    100.955,
-    13.295,
-    102.423,
-    14.326
-   ],
-   "in_band5km_km2": 56.47,
-   "in_corridor200m_km2": 0.978,
-   "corridor_share_pct": 13.7,
-   "line_crosses_length_km": 4.89,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 1,
+     "n_polygons_total": 217,
+     "cross_all_km": 4.89
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 1166,
+     "n_polygons_total": 1288,
+     "cross_all_km": 53.74
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 162,
+     "n_polygons_total": 413,
+     "cross_all_km": 0.16
+    }
+   },
+   "nn": {
+    "cross_km": 19.58,
+    "corridor_share_pct": 54.5,
+    "km_intervals": [
+     [
+      38.6,
+      57.6
+     ]
+    ]
+   },
+   "all": {
+    "cross_km": 58.79,
+    "corridor_share_pct": 42.2,
+    "km_intervals": [
+     [
+      0.0,
+      57.6
+     ]
+    ]
+   },
+   "line_crosses_length_km": 19.58,
+   "corridor_share_pct": 54.5,
    "km_intervals": [
     [
-     45.6,
-     50.5
+     38.6,
+     57.6
     ]
-   ]
+   ],
+   "in_band5km_km2": 229.22,
+   "n_polygons": 1329
   },
   "Flood_GISTDA2554": {
    "label": "น้ำท่วมจริง 2554 (GISTDA)",
-   "n_polygons": 1,
-   "bbox_lonlat": [
-    101.461,
-    13.941,
-    101.864,
-    14.182
-   ],
-   "in_band5km_km2": 0.0,
-   "in_corridor200m_km2": 0.0,
-   "corridor_share_pct": 0.0,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 0,
+     "n_polygons_total": 1008
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 966,
+     "n_polygons_total": 3524,
+     "cross_all_km": 0.0
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 420,
+     "n_polygons_total": 1698,
+     "cross_all_km": 0.07
+    }
+   },
+   "nn": {
+    "cross_km": 0.0,
+    "corridor_share_pct": 0.0,
+    "km_intervals": []
+   },
+   "all": {
+    "cross_km": 0.07,
+    "corridor_share_pct": 0.1,
+    "km_intervals": [
+     [
+      0.0,
+      0.1
+     ]
+    ]
+   },
    "line_crosses_length_km": 0.0,
-   "km_intervals": []
+   "corridor_share_pct": 0.0,
+   "km_intervals": [],
+   "in_band5km_km2": 0.0,
+   "n_polygons": 1386
   },
   "Flood_GISTDA2564": {
    "label": "น้ำท่วมจริง 2564",
-   "n_polygons": 4598,
-   "bbox_lonlat": [
-    101.014,
-    13.322,
-    102.163,
-    14.238
-   ],
-   "in_band5km_km2": 0.23,
-   "in_corridor200m_km2": 0.0,
-   "corridor_share_pct": 0.0,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 325,
+     "n_polygons_total": 4598,
+     "cross_all_km": 0.0
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 7062,
+     "n_polygons_total": 11224,
+     "cross_all_km": 0.0
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 353,
+     "n_polygons_total": 3663,
+     "cross_all_km": 0.16
+    }
+   },
+   "nn": {
+    "cross_km": 0.0,
+    "corridor_share_pct": 0.0,
+    "km_intervals": []
+   },
+   "all": {
+    "cross_km": 0.16,
+    "corridor_share_pct": 0.1,
+    "km_intervals": [
+     [
+      0.0,
+      0.2
+     ]
+    ]
+   },
    "line_crosses_length_km": 0.0,
-   "km_intervals": []
+   "corridor_share_pct": 0.0,
+   "km_intervals": [],
+   "in_band5km_km2": 0.23,
+   "n_polygons": 7740
   },
   "Flood_GISTDA2565": {
    "label": "น้ำท่วมจริง 2565",
-   "n_polygons": 3729,
-   "bbox_lonlat": [
-    101.02,
-    13.33,
-    102.04,
-    14.237
-   ],
-   "in_band5km_km2": 0.0,
-   "in_corridor200m_km2": 0.0,
-   "corridor_share_pct": 0.0,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 151,
+     "n_polygons_total": 3736,
+     "cross_all_km": 0.0
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 10280,
+     "n_polygons_total": 15823,
+     "cross_all_km": 0.0
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 366,
+     "n_polygons_total": 3743,
+     "cross_all_km": 0.0
+    }
+   },
+   "nn": {
+    "cross_km": 0.0,
+    "corridor_share_pct": 0.0,
+    "km_intervals": []
+   },
+   "all": {
+    "cross_km": 0.0,
+    "corridor_share_pct": 0.0,
+    "km_intervals": []
+   },
    "line_crosses_length_km": 0.0,
-   "km_intervals": []
+   "corridor_share_pct": 0.0,
+   "km_intervals": [],
+   "in_band5km_km2": 0.0,
+   "n_polygons": 10797
   },
   "Flood_GISTDA2566": {
    "label": "น้ำท่วมจริง 2566",
-   "n_polygons": 1,
-   "bbox_lonlat": [
-    100.946,
-    13.473,
-    101.999,
-    14.122
-   ],
-   "in_band5km_km2": 0.0,
-   "in_corridor200m_km2": 0.0,
-   "corridor_share_pct": 0.0,
+   "per_basin": {
+    "บางปะกง": {
+     "n_polygons_near": 1,
+     "n_polygons_total": 1156,
+     "cross_all_km": 0.0
+    },
+    "เจ้าพระยา": {
+     "n_polygons_near": 7671,
+     "n_polygons_total": 8764,
+     "cross_all_km": 0.0
+    },
+    "ป่าสัก": {
+     "n_polygons_near": 331,
+     "n_polygons_total": 2123,
+     "cross_all_km": 0.0
+    }
+   },
+   "nn": {
+    "cross_km": 0.0,
+    "corridor_share_pct": 0.0,
+    "km_intervals": []
+   },
+   "all": {
+    "cross_km": 0.0,
+    "corridor_share_pct": 0.0,
+    "km_intervals": []
+   },
    "line_crosses_length_km": 0.0,
-   "km_intervals": []
+   "corridor_share_pct": 0.0,
+   "km_intervals": [],
+   "in_band5km_km2": 0.0,
+   "n_polygons": 8003
   }
  }
 }

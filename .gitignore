@@ -110,3 +110,4 @@ data/31_external_landcover/derived/
 data/31_external_landcover/fetch.log
 # เป้าหมาย 7: TopoJSON ผังน้ำบางปะกง (สทนช.) — disk-only แฮชใน hashes.sha256
 data/32_goal7_chaophraya2/official_onwr_waterchart/*.json
+data/32_goal7_chaophraya2/official_onwr_waterchart/*/*.json

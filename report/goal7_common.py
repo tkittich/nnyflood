@@ -45,12 +45,89 @@ def tier(k):
     return f"ชั้น {F[k]['tier']}"
 
 
+
+# ---------------- ภูมิประเทศ ถนน แม่น้ำลำคลอง (แบบเดียวกับรายงาน 1) ----------------
+_DER13 = ROOT / "data/13_sentinel1_copernicus/derived"
+_DEM_TILES = ROOT / "data/08_dem_topography/raw"
+# ที่ราบภาคกลางสูงต่างกันไม่กี่เมตร จึงแบ่งระดับถี่ช่วงต่ำ (ต่างจากรายงาน 1 ที่แบ่งตั้งแต่ 30 ม.)
+_ELEV_BINS = [-99, 1, 2, 3, 5, 10, 20, 50, 100, 99999]
+_ELEV_COLORS = ["#e6f0e0", "#d6e8c8", "#e9efc6", "#f3ecb8", "#ecdba0", "#d9bf86", "#c2a06a", "#a07f50", "#7a5e3a"]
+_ELEV_LABELS = ["ต่ำกว่า 1 ม.", "1–2 ม.", "2–3 ม.", "3–5 ม.", "5–10 ม.", "10–20 ม.", "20–50 ม.", "50–100 ม.", "สูงกว่า 100 ม."]
+
+
+def _load_dem(x0, x1, y0, y1, step):
+    import rasterio
+    from rasterio.windows import from_bounds
+    xs = np.arange(x0, x1, step)
+    ys = np.arange(y1, y0, -step)
+    out = np.full((len(ys), len(xs)), np.nan, dtype="float32")
+    for lat in range(int(math.floor(y0)), int(math.floor(y1)) + 1):
+        for lon in range(int(math.floor(x0)), int(math.floor(x1)) + 1):
+            f = _DEM_TILES / f"Copernicus_DSM_COG_10_N{lat}_00_E{lon}_00_DEM.tif"
+            if not f.exists():
+                continue
+            bx0, bx1, by0, by1 = max(x0, lon), min(x1, lon + 1), max(y0, lat), min(y1, lat + 1)
+            if bx0 >= bx1 or by0 >= by1:
+                continue
+            with rasterio.open(f) as ds:
+                w = from_bounds(bx0, by0, bx1, by1, ds.transform)
+                ny = max(1, int(round((by1 - by0) / step))); nx = max(1, int(round((bx1 - bx0) / step)))
+                a = ds.read(1, window=w, out_shape=(ny, nx), resampling=rasterio.enums.Resampling.average, boundless=True).astype("float32")
+            ix = int(round((bx0 - x0) / step)); iy = int(round((y1 - by1) / step))
+            h = min(ny, out.shape[0] - iy); wv = min(nx, out.shape[1] - ix)
+            if h > 0 and wv > 0:
+                out[iy:iy + h, ix:ix + wv] = a[:h, :wv]
+    return out
+
+
+def draw_basemap(ax, x0, x1, y0, y1, step=0.0006, roads=True, water=True, legend=True):
+    """ภูมิประเทศสีตามความสูง + ถนนสายหลัก + แม่น้ำลำคลอง (ถนนและลำน้ำมีเฉพาะในกรอบข้อมูลจังหวัดนครนายกของรายงาน 1)"""
+    from matplotlib.colors import ListedColormap, BoundaryNorm
+    z = _load_dem(x0, x1, y0, y1, step)
+    cm = ListedColormap(_ELEV_COLORS); cm.set_bad("#ffffff")
+    ax.imshow(np.ma.masked_invalid(z), extent=[x0, x1, y0, y1], origin="upper", cmap=cm,
+              norm=BoundaryNorm(_ELEV_BINS, cm.N), interpolation="nearest", aspect="auto", zorder=0)
+    if water:
+        try:
+            W = json.loads((_DER13 / "waterways.json").read_text(encoding="utf-8"))
+            for wb in W.get("waters", []) + W.get("reservoir", []):
+                c = np.array(wb["coords"])
+                if c[:, 0].max() < x0 or c[:, 0].min() > x1 or c[:, 1].max() < y0 or c[:, 1].min() > y1:
+                    continue
+                ax.fill(c[:, 0], c[:, 1], color="#9ccfe0", lw=0, zorder=0.5)
+            for cn in W.get("canals", []):
+                c = np.array(cn["coords"]); ax.plot(c[:, 0], c[:, 1], color="#3f9bb0", lw=0.55, zorder=0.6, alpha=0.9)
+            for rv in W.get("rivers", []):
+                c = np.array(rv["coords"]); ax.plot(c[:, 0], c[:, 1], color="#136f8a", lw=1.2, zorder=0.7)
+        except Exception:
+            pass
+    if roads:
+        try:
+            R = json.loads((_DER13 / "roads_major.json").read_text(encoding="utf-8"))
+            st = {"motorway": ("#8a5000", 1.5), "trunk": ("#8a5000", 1.3), "primary": ("#6f6256", 1.0), "secondary": ("#8a7f75", 0.7), "tertiary": ("#a89e94", 0.5)}
+            for rd in R:
+                col, lw = st.get(rd["cls"], ("#a89e94", 0.5))
+                c = np.array(rd["coords"]); ax.plot(c[:, 0], c[:, 1], color=col, lw=lw, zorder=0.8, solid_capstyle="round")
+        except Exception:
+            pass
+    if legend:
+        from matplotlib.patches import Patch
+        from matplotlib.lines import Line2D
+        h = [Patch(facecolor=c, edgecolor="#888", label=l) for c, l in zip(_ELEV_COLORS, _ELEV_LABELS)]
+        if water:
+            h += [Line2D([0], [0], color="#136f8a", lw=1.5, label="แม่น้ำ"), Line2D([0], [0], color="#3f9bb0", lw=0.8, label="คลอง")]
+        if roads:
+            h += [Line2D([0], [0], color="#8a5000", lw=1.5, label="ถนนสายหลัก")]
+        return h
+    return []
+
 # ---------------- ภาพ ----------------
 def fig_map():
     cl = json.loads((D7 / "centerline.geojson").read_text(encoding="utf-8"))["features"][0]["geometry"]["coordinates"]
     mk = json.loads((D7 / "km_markers.geojson").read_text(encoding="utf-8"))["features"]
     x0, x1, y0, y1 = 100.80, 101.12, 13.98, 14.36
     fig, ax = plt.subplots(figsize=(7.2, 7.6))
+    base_h = draw_basemap(ax, x0, x1, y0, y1)
     p = ROOT / "data/manual/shp_S1D_20261002_0609/S1D_20261002_0609.shp"
     r = shapefile.Reader(str(p), encoding="latin-1")
     for sr in r.iterShapeRecords():
@@ -60,7 +137,7 @@ def fig_map():
             continue
         for part in (g.geoms if g.geom_type == "MultiPolygon" else [g]):
             xs, ys = part.exterior.xy
-            ax.fill(xs, ys, color="#4d94c9", lw=0, alpha=.9, zorder=1)
+            ax.fill(xs, ys, color="#1d6fb8", lw=0, alpha=.55, zorder=1)
     ax.plot([c[0] for c in cl], [c[1] for c in cl], color=INK, lw=2.2, zorder=3)
     for f in mk:
         km = f["properties"]["km"]
@@ -69,6 +146,8 @@ def fig_map():
             ax.plot(lon, lat, "o", color=INK, ms=4, zorder=4)
             ax.text(lon + .012, lat, f"กม.{int(km)}", fontsize=8, color=INK, zorder=5)
     ax.set_xlim(x0, x1); ax.set_ylim(y0, y1); ax.set_aspect(1 / math.cos(math.radians(14.2)))
+    from matplotlib.patches import Patch
+    ax.legend(handles=base_h + [Patch(color="#1d6fb8", alpha=.55, label="น้ำท่วม 2 ต.ค. 2569 (ดาวเทียม)")], loc="upper center", bbox_to_anchor=(0.5, -0.09), ncol=3, fontsize=7.5, frameon=True, title="สีพื้น = ความสูงพื้นผิว (ม.) · ถนนและลำน้ำแสดงในกรอบข้อมูลของรายงานน้ำท่วมนครนายก", title_fontsize=7.5)
     ax.set_xlabel("ลองจิจูด"); ax.set_ylabel("ละติจูด")
     ax.set_title("แนวคลองประมาณ (เส้นดำ) กับน้ำท่วมที่ดาวเทียมตรวจพบ 2 ต.ค. 2569 (สีฟ้า)", fontsize=10, color=INK)
     fig.tight_layout()
@@ -138,7 +217,9 @@ def fig_overview():
     mk = json.loads((D7 / "km_markers.geojson").read_text(encoding="utf-8"))["features"]
     pts = sorted((f["properties"]["km"], *f["geometry"]["coordinates"]) for f in mk)
     fig, ax = plt.subplots(figsize=(5.6, 8.4))
-    ax.plot([c[0] for c in cl], [c[1] for c in cl], color="#5f7a91", lw=1.2, zorder=1)
+    _ys = [c[1] for c in cl]
+    base_h = draw_basemap(ax, 100.05, 101.15, min(_ys) - 0.03, max(_ys) + 0.03, step=0.002, roads=False, water=False)
+    ax.plot([c[0] for c in cl], [c[1] for c in cl], color="#3b4a57", lw=1.2, zorder=1)
     pk = C["provinces_km"]
     cols = {"สระบุรี": "#a14a00", "นครนายก": "#1d6fb8", "ฉะเชิงเทรา": "#1b5e20", "สมุทรปราการ": "#6a1b9a"}
     for prov, (a, b) in pk.items():
@@ -151,7 +232,8 @@ def fig_overview():
             ax.text(lon + .02, lat, f"กม.{int(km)}", fontsize=8, color=INK)
     ax.set_aspect(1 / math.cos(math.radians(14.2)))
     ax.set_xlim(100.05, 101.15)
-    ax.legend(loc="upper left", fontsize=8, frameon=True)
+    _h, _l = ax.get_legend_handles_labels()
+    ax.legend(handles=_h + base_h, loc="lower left", fontsize=7, frameon=True, ncol=1)
     ax.set_xlabel("ลองจิจูด"); ax.set_ylabel("ละติจูด")
     ax.set_title("ทั้งเส้นทาง: ชัยนาท (เหนือ) → อ่าวไทย (ใต้) ตามแผนที่ผู้ใช้สร้าง", fontsize=10, color=INK)
     fig.tight_layout()
@@ -271,7 +353,12 @@ def fig_wc_map():
     kmv = [m[0] for m in mk]
     lonv = [m[1] for m in mk]
     latv = [m[2] for m in mk]
-    fig, ax = plt.subplots(figsize=(7.2, 7.8))
+    fig, ax = plt.subplots(figsize=(7.2, 8.4))
+    _nn = ST["nakhonnayok"]
+    _seg = [(lo, la) for k, lo, la in mk if _nn["km_from"] <= k <= _nn["km_to"]]
+    _lo0 = min(t[0] for t in _seg) - .055; _lo1 = max(t[0] for t in _seg) + .055
+    _la0 = min(t[1] for t in _seg) - .03; _la1 = max(t[1] for t in _seg) + .03
+    base_h = draw_basemap(ax, _lo0, _lo1, _la0, _la1)
     names = {"Flood_Tr100": ("#4d94c9", "น้ำท่วมรอบ 100 ปี (ผังน้ำ สทนช.)"), "Floodway": ("#c76f10", "พื้นที่ทางน้ำหลาก (ผังน้ำ สทนช.)")}
     for key in ("Flood_Tr100", "Floodway"):
         for f in gj["features"]:
@@ -282,7 +369,7 @@ def fig_wc_map():
                 if part.geom_type != "Polygon":
                     continue
                 xs, ys = part.exterior.xy
-                ax.fill(xs, ys, color=names[key][0], lw=0, zorder=1 if key == "Flood_Tr100" else 2)
+                ax.fill(xs, ys, color=names[key][0], lw=0, alpha=.55 if key == "Flood_Tr100" else .75, zorder=1 if key == "Flood_Tr100" else 2)
     ax.plot([c[0] for c in cl], [c[1] for c in cl], color=INK, lw=2.4, zorder=4)
     # ช่วงนครนายก เส้นหนา
     nn = ST["nakhonnayok"]
@@ -297,11 +384,11 @@ def fig_wc_map():
         ax.plot(lo, la, "v", ms=12 if c["shortfall"] else 6.5, color="#8b0000" if c["shortfall"] else INK, mec="white", mew=0.8, zorder=7)
     from matplotlib.patches import Patch
     from matplotlib.lines import Line2D
-    ax.legend(handles=[Patch(color="#4d94c9", label=names["Flood_Tr100"][1]), Patch(color="#c76f10", label=names["Floodway"][1]),
+    ax.legend(handles=base_h + [Patch(color="#4d94c9", alpha=.55, label=names["Flood_Tr100"][1]), Patch(color="#c76f10", label=names["Floodway"][1]),
                        Line2D([0], [0], color=INK, lw=2.4, label="แนวคลองประมาณ"),
                        Line2D([0], [0], marker="v", color="w", mfc="#8b0000", ms=9, label="คลองเดิมที่อาคารเชื่อมรับได้น้อยกว่า 1 ใน 4 ของอัตราไหลตามตาราง"),
                        Line2D([0], [0], marker="v", color="w", mfc=INK, ms=7, label="คลองเดิมที่ตัดผ่านจุดอื่น")],
-              loc="upper center", bbox_to_anchor=(0.5, -0.09), fontsize=8.3, frameon=True)
+              loc="upper center", bbox_to_anchor=(0.5, -0.07), ncol=3, fontsize=7.6, frameon=True)
     lo0 = min(s[0] for s in seg); lo1 = max(s[0] for s in seg); la0 = min(s[1] for s in seg); la1 = max(s[1] for s in seg)
     ax.set_xlim(lo0 - .055, lo1 + .055); ax.set_ylim(la0 - .03, la1 + .03)
     ax.set_aspect(1 / math.cos(math.radians(14.2)))
@@ -367,7 +454,7 @@ def fig_profile():
     ax.plot(kms, bed, color=GREY, lw=1.8, ls="--", label="ท้องคลอง", zorder=3)
     for gk in (23, 74, 102):
         ax.axvline(gk, color=GREY, lw=0.9, ls=":", zorder=1)
-        ax.text(gk, 12.9, f"ปตร. กม.{gk}", va="top", ha="center", fontsize=8, color=INK, bbox=dict(facecolor="white", edgecolor="none", pad=1))
+        ax.text(gk, 12.9, f"ประตูระบายน้ำ กม.{gk}", va="top", ha="center", fontsize=8, color=INK, bbox=dict(facecolor="white", edgecolor="none", pad=1))
     ax.text((NN["km_from"] + NN["km_to"]) / 2, 9.6, "ช่วงนครนายก", ha="center", fontsize=9, color=INK)
     ax.set_xlim(0, 136); ax.set_ylim(-7.5, 13)
     ax.set_xlabel("ระยะตามแนวคลอง (กม. นับจากฝั่งป่าสัก)"); ax.set_ylabel("ระดับ (ม.รทก.)")
@@ -418,10 +505,48 @@ def fig_options():
         a2.text(i, x["power_mw"] / 2, f"{x['power_mw']:.0f}", ha="center", color="white", fontsize=11, fontweight="bold")
         a2.text(i, x["power_mw"] + 0.6, f"คันที่ กม.40 = {x['crest_above_ground_km40_m']} ม.", ha="center", fontsize=8, color=INK)
     a2.set_ylim(0, max(x["power_mw"] for x in o) * 1.25)
-    a2.set_title("ติดปั๊มที่ปลายคลองผลักดันน้ำ 600 ลบ.ม./วินาที:\nกำลังไฟฟ้าที่ต้องใช้", fontsize=9.5, color=INK)
+    a2.set_title("ติดเครื่องสูบน้ำที่ปลายคลองผลักดันน้ำ 600 ลบ.ม./วินาที:\nกำลังไฟฟ้าที่ต้องใช้", fontsize=9.5, color=INK)
     a2.set_ylabel("เมกะวัตต์")
     a2.tick_params(axis="x", labelsize=8)
     fig.tight_layout()
     path = ASSETS / "goal7_options.png"
     fig.savefig(path, dpi=130); plt.close(fig)
     return path
+
+
+# ---- คำไทยเข้าใจง่ายแทนคำทับศัพท์/ศัพท์เทคนิค (ข้อตกลงภาษารายงาน 16 ต.ค. 69 — รายงาน 7 และ 8) ----
+# เรียงจากยาวไปสั้น (กันคำสั้นกลืนคำยาว) · ใช้ตอนท้ายสร้าง HTML เท่านั้น ไม่แก้ข้อมูล
+PLAIN_TH = [
+    ("ท่อ/ไซฟอนที่ลอดใต้คลอง", "ท่อลอดใต้คลอง"),
+    ("ท่อระบายน้ำและไซฟอน", "ท่อระบายน้ำและท่อลอด"),
+    ("ไซฟอนลอดคลอง", "ท่อลอดคลอง"),
+    ("ไซฟอน", "ท่อลอด"),
+    ("ปั๊มผลักดันน้ำ", "เครื่องสูบผลักดันน้ำ"),
+    ("ปั๊ม", "เครื่องสูบน้ำ"),
+    ("โซลาร์ลอยน้ำ", "แผงเซลล์แสงอาทิตย์ลอยน้ำ"),
+    ("โซลาร์", "พลังงานแสงอาทิตย์"),
+    ("ปตร.", "ประตูระบายน้ำ"),
+    ("โปรเจกต์", "งานวิเคราะห์"),
+    ("ไฟล์", "แฟ้ม"),
+    ("ลิงก์", "ที่อยู่เว็บ"),
+    ("สคริปต์", "โปรแกรมคำนวณ"),
+    ("ออนไลน์", "บนอินเทอร์เน็ต"),
+    ("ทางชลศาสตร์", "ด้านการไหลของน้ำ"),
+    ("ชลศาสตร์", "การไหลของน้ำ"),
+    ("โทรมาตร", "ระบบวัดและส่งข้อมูลระยะไกล"),
+    ("ชั้นข้อมูล", "ชุดข้อมูล"),
+    ("โซน", "เขต"),
+    ("p10–p90", "ช่วงกลางร้อยละ 80"),
+]
+
+
+def plain(html: str) -> str:
+    """แทนคำทับศัพท์ด้วยคำไทย + อธิบายคำใหม่ตอนใช้ครั้งแรก (ท่อลอด · ม.รทก.)"""
+    body_start = html.find("<body")
+    head, body = html[:body_start], html[body_start:]
+    for a, b in PLAIN_TH:
+        body = body.replace(a, b)
+    import re as _re
+    body = _re.sub(r'(?<!และ)(?<!")ท่อลอด', "ท่อลอด (ท่อให้น้ำของคลองเดิมไหลลอดใต้คลองใหญ่ไปอีกฝั่ง)", body, count=1)
+    body = body.replace("ม.รทก.", "ม.รทก. (เมตรเหนือระดับน้ำทะเลปานกลาง)", 1)
+    return head + body

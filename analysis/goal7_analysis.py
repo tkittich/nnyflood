@@ -745,6 +745,43 @@ def runoff_screening(c):
     }
 
 
+def extra_questions(c):
+    """ข้อมูลสำหรับคำถามชวนอ่านเพิ่ม: เวลาน้ำถึงทะเล · ระยะห่างสะพาน · คืนทุนแบบง่าย · ปลายคลอง/ชายฝั่ง · ผลต่อเหตุการณ์ 2569"""
+    out = {}
+    L = 135.9
+    out["travel"] = {"length_km": L, "v_ms": [0.8, 1.2], "hours": [round(L * 1000 / v / 3600) for v in (1.2, 0.8)],
+                     "src": "ความยาวและความเร็วออกแบบ 1.2 ม./วินาที ตามรายงาน (ความเร็วต่ำกว่านี้เมื่อน้ำน้อย)"}
+    es = json.loads((OUT / "eia_structs.json").read_text(encoding="utf-8"))
+    rows = es["versions"]["2561"]["rows"]
+    br = [r for r in rows if r["kind"] == "road_bridge"]
+    nn = [r for r in br if 38.6 <= r["km"] <= 73.2]
+    kms = [r["km"] for r in nn]
+    gaps = [round(b - a, 1) for a, b in zip(kms, kms[1:])]
+    out["bridges"] = {"all_n": len(br), "all_mean_gap_km": round(135.9 / len(br), 1), "nn_n": len(nn),
+                      "nn": [{"km": r["km"], "name": r["name"]} for r in nn], "nn_gaps_km": gaps,
+                      "nn_max_gap_km": max(gaps), "nn_mean_gap_km": round(sum(gaps) / len(gaps), 1),
+                      "rail_n": sum(1 for r in rows if r["kind"] == "rail_bridge"),
+                      "locks_n": sum(1 for r in rows if r.get("lock"))}
+    F = c["facts"]
+    lo, hi = 5085.0, 16938.0
+    cost = float(F["budget_mb"]["v"])
+    om = 519.0
+    out["payback"] = {"cost_mb": cost, "benefit_mb_low": lo, "benefit_mb_high": hi, "om_mb": om,
+                      "years_simple": [round(cost / hi, 1), round(cost / lo, 1)],
+                      "years_net_of_om": [round(cost / (hi - om), 1), round(cost / (lo - om), 1)],
+                      "src": "งบ 165,000 ล้านบาท · ความเสียหายที่ลดได้เฉลี่ยปีละ 5,085–16,938 ล้านบาท (เอกสารจังหวัด) · ค่าดำเนินการและบำรุงรักษาปีละ 519 ล้านบาท (ฉบับชี้แจง ธ.ค. 2566 หน้า 121) · ไม่คิดลดค่าเงิน"}
+    out["coast"] = {"salinity_drop_psu": 5, "affected_km": 3.5, "salinity_src": "ฉบับ 2569 เล่ม 1 หน้า 693 (แบบจำลอง ที่ 600 ลบ.ม./วินาที ผิวน้ำลดราว 5 หน่วย ท้องน้ำลดเล็กน้อย)",
+                    "mangrove_rai": 47, "mangrove_src": "ฉบับ 2569 เล่ม 1 หน้า 752 · หนังสือแจ้งมติ 14 ก.พ. 2562 ข้อ 10.5",
+                    "mussel_threshold_ppt": 15, "mussel_src": "ฉบับ 2569 เล่ม 1 หน้า 694 (หอยแมลงภู่ตายสะสม 100% ที่ความเค็ม 5 และ 10 ภายใน 72 ชม. · 26% ที่ 15)",
+                    "erosion_10y_m": {"without": 0.789, "with": 0.755}, "erosion_src": "ฉบับชี้แจงครั้งที่ 2 หน้า 165 (แบบจำลองชายฝั่ง: มีโครงการกัดเซาะเฉลี่ยลดลงเล็กน้อยเพราะตะกอนทับถมเพิ่ม)",
+                    "mitigation": "เปิดประตูระบายน้ำลงอ่าวไทยเฉพาะช่วงเสี่ยงท่วม ราวเดือนกันยายน–ตุลาคมที่ผู้เลี้ยงหอยพักการเลี้ยง และแจ้งเตือนล่วงหน้า (หน้า 694)"}
+    fb = c["flood_band"]["scenes"]["S1D_20261002_0609"]
+    out["event2569"] = {"flood_rai_10km": fb["west_rai"] + fb["east_rai"], "by_amphoe": fb["by_amphoe_rai"], "on_corridor_100m_rai": fb["on_corridor_100m_rai"],
+                        "canal_flow_m3s": 600,
+                        "note": "คลองนี้รับน้ำจากแม่น้ำเจ้าพระยา/ป่าสัก ไม่ได้รับน้ำจากแม่น้ำนครนายกหรือเขื่อนขุนด่านปราการชล — เหตุน้ำท่วมนครนายก 26–29 ก.ย. 2569 (ฝนเป็นแถบ + บริหารเขื่อน) จึงอยู่นอกเป้าหมายของคลอง"}
+    return out
+
+
 def embankment_scenarios(c):
     """ประมาณผลของความสูงคันคลองเหนือพื้นเดิม ตามรูปตัดตามยาว (รูปที่ 2.3.2-9) — ไม่ใช่แบบจำลองน้ำท่วม
     ค่าที่ใช้: สันคันเหนือพื้นเดิม ช่วงนครนายก (จากโปรไฟล์) · หน้าตัดตามรายงาน · ตารางอาคาร · พื้นที่น้ำท่วมจริงจากดาวเทียม"""
@@ -827,6 +864,7 @@ def main():
                                         "salinity": "น้ำเค็ม", "subsidence": "ทรุดตัว", "opinion": "ความคิดเห็น/แบบสอบถาม", "cost": "ค่าก่อสร้าง/วงเงิน"}}
     c["options"] = options_screening(c)
     c["runoff"] = runoff_screening(c)
+    c["extra_q"] = extra_questions(c)
     (OUT / "canonical.json").write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: c[k] for k in ("structures", "c2", "pasak_dam", "corridor_area", "flood_band")}, ensure_ascii=False, indent=1)[:5000])
 

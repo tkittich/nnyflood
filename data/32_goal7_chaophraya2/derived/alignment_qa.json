@@ -1,0 +1,40 @@
+{
+ "ring_points": 28830,
+ "ring_closed": true,
+ "unique_points": 26785,
+ "bank_len_km": [
+  332.1,
+  301.7
+ ],
+ "centerline_len_km": 274.3,
+ "centerline_pts": 3017,
+ "width_m": {
+  "median": 200.0,
+  "p10": 171.0,
+  "p90": 253.0,
+  "max": 932.0
+ },
+ "ring_area_rai": 36223.0,
+ "markers": 141,
+ "marker_km_min": 0.0,
+ "marker_km_max": 135.655,
+ "marker_offset_from_centerline_m": {
+  "median": 668.0,
+  "max": 3630.0
+ },
+ "extent": {
+  "lat": [
+   13.4742659,
+   15.3388517
+  ],
+  "lon": [
+   100.107377,
+   101.0247514
+  ]
+ },
+ "km_vs_centerline_fit": {
+  "slope_marker_km_per_centerline_km": -0.949,
+  "intercept_km": 138.2,
+  "n": 139
+ }
+}

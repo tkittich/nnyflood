@@ -170,3 +170,22 @@ commit ปกติแล้วหลัง `git init` ใหม่ — จะ p
 | `analysis/goal5_policy_proposals.md` | ข้อเสนอต่อภาครัฐ (เป้าหมาย 5 — E1–E7) |
 | `docs/GOAL6_PLAN.md` | แผนเป้าหมาย 6 ขยายสู่ลุ่มอื่น + เครือข่ายปตร. ทั้งประเทศ (รายงานที่ 3) |
 | `AGENTS.md` | กติกาบังคับสำหรับ AI session (หลักฐาน/git/เทส/ภาษา) — AI ต้องอ่านก่อนลงมือ |
+
+
+---
+
+## เป้าหมาย 7 — คลองเจ้าพระยา2 (15 ต.ค. 69)
+
+แผน `docs/GOAL7_PLAN.md` (§9 = สถานะ) · ข้อมูล `data/32_goal7_chaophraya2/` · วิเคราะห์ `analysis/goal7_analysis.py` →
+`analysis/goal7/canonical.json` · รายงาน 2 ฉบับ `report/คลองเจ้าพระยา2_ประชาชน.html` + `_วิชาการ.html`
+(สร้าง: `python analysis/goal7_clean_alignment.py && python analysis/goal7_analysis.py && python report/goal7_build_public.py && python report/goal7_build_academic.py`)
+· **แนวคลองมาจาก My Maps ผู้ใช้สร้าง = ไม่เป็นทางการ** · ตารางอาคารถอดด้วยตา ต้องตรวจซ้ำ ·
+งานค้างมนุษย์: ขอแบบหน้าตัด/ขนาดท่อ/รายงานสิ่งแวดล้อมฉบับเต็ม (รายการใน GOAL7_PLAN §4)
+· integrity MISMATCH 2 รายการเดิมใน `data/22_goal6_network` (mask_sea.npy · 2015_751_BKK006_annual.json) ยังไม่ได้สอบสวน
+
+- **รอบที่ 2 (15 ต.ค. 69)**: ได้เอกสารทางการ 2 ชุดใน `data/manual/` → ทะเบียนข้อเท็จจริงปรับเป็นชั้น A (ดู GOAL7_PLAN §10) ·
+  ตัวแปรออกแบบรายช่วงอยู่ใน `analysis/goal7_analysis.py` (DESIGN_SEGMENTS) · ไม่พบ EIA ฉบับเต็ม — รายการขอไว้ใน GOAL7_PLAN §4
+- **รอบที่ 3 (15 ต.ค. 69)**: พบ EIA ฉบับเต็ม (ผู้ใช้ให้ลิงก์ สผ.) → `data/32_goal7_chaophraya2/official_eia/` (disk-only) + `analysis/goal7/eia_excerpts.json` ·
+  สันคัน/ระดับน้ำ/ลาดก้นคลองใช้ค่าชั้น A (GOAL7_PLAN §11) · เล่ม 2/ภาคผนวก/หนังสือมาตรการยังไม่ได้อ่าน
+- **รอบที่ 4 (15 ต.ค. 69)**: อ่านเล่ม 2 EIA (ที่ดิน/เศรษฐศาสตร์/สังคม) + เอกสารเว็บที่ปรึกษา 2559–2560 (เก่า — เฉพาะประวัติ) · GOAL7_PLAN §11–12 ·
+  แก้: ตารางอาคารนับเกินทางการ · "2,600" = ผู้ถือครองที่ดิน · ยังไม่ได้อ่าน บทที่ 9 ภาคผนวก หนังสือมาตรการ

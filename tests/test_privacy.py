@@ -10,7 +10,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PHONE = re.compile(r"(?<![\d.\-])0[689]\d[- ]?\d{3}[- ]?\d{4}(?![\d.])")
+PHONE = re.compile(r"(?<![\d.\-a-fA-F])0[689]\d[- ]?\d{3}[- ]?\d{4}(?![\d.])")
 PROFILE = re.compile(r"facebook\.com/(?:profile\.php\?id=\d+|people/)")
 TEXT_EXT = {".md", ".csv", ".txt", ".html", ".py"}
 # ไฟล์ที่อ้างรูปแบบเหล่านี้เพื่ออธิบายกติกา/รีวิว (ไม่ใช่ข้อมูลบุคคล)

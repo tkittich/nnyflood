@@ -209,8 +209,8 @@ S.append(prose(
     "<b>การตีความ:</b> ค่าชดเชยเฉลี่ยต่อไร่ต่างกันมากตามจังหวัด (สมุทรปราการสูงสุดเพราะที่ดินใกล้กรุงเทพฯ) จึงทำให้ตัวเลขรวมไม่ใช่เพียงผลคูณของพื้นที่"
 ))
 S.append(table(["อัตราคิดลด (%)", "ผลตอบแทนทางเศรษฐกิจ (%)", "อัตราส่วนผลประโยชน์ต่อต้นทุน", "มูลค่าปัจจุบันสุทธิ (ล้านบาท)"],
-               [[r["discount"], r["eirr"], r["bcr"], fmt(r["npv_mb"])] for r in EE["rows"]],
-               f"{EE['src']} · {EE['verdict']}"))
+               [[r["discount"], r["eirr"], r["bcr"], fmt(r["npv_mb"])] for r in EE["rows"]] + [[f"{EE['earlier_2560']['discount']} (ข้อมูลปี 2560)", EE["earlier_2560"]["eirr"], EE["earlier_2560"]["bcr"], fmt(EE["earlier_2560"]["npv_mb"])]],
+               f"{EE['src']} · {EE['verdict']} · แถวสุดท้ายคือตัวเลขที่ชี้แจงในประชุมสาธารณะ มี.ค. 2560 (ราคาคงที่ปี 2560) ซึ่งคุ้มค่าที่ 12% — ฉบับ 2569 ต่ำลง"))
 S.append(prose(
     f"<b>ผลสำรวจผู้ถูกเวนคืน 123 ราย:</b> ยังไม่ทราบโครงการ {ESO['unaware_pct']}% · ยินยอมไม่มีเงื่อนไข {ESO['consent_unconditional_pct']}% · "
     f"ยินยอมที่ราคาประเมิน {ESO['consent_appraised_pct']}% · ที่ราคาตลาด {ESO['consent_market_pct']}% · ไม่ยินยอม {ESO['refuse_pct']:.0f}% (เหตุหลักกลัวค่าชดเชยต่ำ {ESO['refuse_reason_low_pay_pct']}%) · "

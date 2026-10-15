@@ -182,3 +182,52 @@ def test_canal_in_three_basins_only():
     b = json.loads((ROOT / "analysis/goal7/basin_containment.json").read_text(encoding="utf-8"))
     assert b["n_basins"] == 3 and {x["basin"] for x in b["basins"]} == {"เจ้าพระยา", "ป่าสัก", "บางปะกง"}
     assert abs(b["sum_km"] - b["line_len_km"]) < 1.0
+
+
+# ---- ทะเบียนช่องว่างความรู้ (กันข้อความล้าสมัย — เพิ่ม 16 ต.ค. 69) ----
+GAPS = ROOT / "analysis/goal7/gaps.json"
+_MISSING_RX = re.compile(r"ไม่พบ|ยังไม่พบ|ยังไม่ปรากฏ|ไม่ปรากฏ|ยังไม่มี|ยังไม่ได้อ่าน|ยังไม่ได้ตรวจ|ยังไม่ทราบ|ยังไม่ชัด|ไม่ระบุ|ยังไม่ได้รับ|ยังตอบ|ยังไม่รู้|ยังไม่แน่")
+
+
+def _gap_lines():
+    for b in BUILDERS:
+        for i, ln in enumerate(b.read_text(encoding="utf-8").splitlines(), 1):
+            if ln.strip().startswith("#"):
+                continue
+            yield b, i, ln
+
+
+def test_missing_knowledge_sentences_are_tagged():
+    """ประโยค "ไม่พบ/ยังไม่รู้…" ต้องผูกรหัสช่องว่าง (# gap: id) หรือ n/a ถ้าไม่ใช่การอ้างความรู้ที่ขาด"""
+    bad = [f"{b.name}:{i}" for b, i, ln in _gap_lines() if _MISSING_RX.search(ln) and "# gap:" not in ln]
+    assert not bad, f"ประโยคบอกว่าขาดข้อมูลแต่ไม่มีรหัสช่องว่าง: {bad[:10]}"
+
+
+def test_gap_ids_are_open_in_ledger():
+    """ช่องว่างที่ปิดแล้ว (closed) ห้ามมีประโยคอ้างถึงค้างอยู่ — ต้องแก้ข้อความให้เป็นข้อเท็จจริงใหม่"""
+    led = {g["id"]: g for g in json.loads(GAPS.read_text(encoding="utf-8"))["gaps"]}
+    used, stale, unknown = set(), [], []
+    for b, i, ln in _gap_lines():
+        m = re.search(r"# gap: ([a-z0-9_/]+)", ln)
+        if not m or m.group(1) == "n/a":
+            continue
+        gid = m.group(1)
+        used.add(gid)
+        if gid not in led:
+            unknown.append(f"{b.name}:{i}:{gid}")
+        elif led[gid]["status"] != "open":
+            stale.append(f"{b.name}:{i}:{gid}")
+    assert not unknown, f"รหัสช่องว่างที่ไม่มีในทะเบียน: {unknown}"
+    assert not stale, f"ช่องว่างปิดแล้วแต่ข้อความยังอ้างอยู่ — แก้บรรทัดเหล่านี้: {stale}"
+    dead = [k for k, g in led.items() if g["status"] == "open" and k not in used]
+    assert not dead, f"ช่องว่างที่ยังเปิดแต่ไม่มีที่ใช้ในรายงาน (ลบหรือปิดแล้ว?): {dead}"
+
+
+def test_no_unreviewed_sources():
+    """แหล่งข้อมูลใหม่ในทะเบียนแฮช = ต้องทบทวนช่องว่างที่ยังเปิดก่อน (python analysis/goal7_gaps_check.py)"""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("g7gaps", ROOT / "analysis/goal7_gaps_check.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    ns = m.new_sources()
+    assert not ns, f"มีแหล่งใหม่ {len(ns)} รายการที่ยังไม่ได้ทบทวนช่องว่าง: {list(ns.values())[:5]} — รัน analysis/goal7_gaps_check.py แล้ว --ack"

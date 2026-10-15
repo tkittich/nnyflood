@@ -1,0 +1,358 @@
+{
+  "_doc": "ทะเบียนช่องว่างความรู้ของรายงาน 7–8 — ประโยคที่บอกว่า 'ไม่พบ/ยังไม่รู้/ยังไม่ได้อ่าน' ต้องผูกกับรหัสในไฟล์นี้ด้วยคอมเมนต์ '# gap: <id>' ท้ายบรรทัดใน builder · เมื่อได้ข้อมูลที่ปิดช่องว่าง: เปลี่ยน status เป็น closed + ใส่ evidence แล้วเทสจะแจ้งทุกบรรทัดที่ต้องแก้ · รัน analysis/goal7_gaps_check.py --ack หลังตรวจแหล่งใหม่ครบ",
+  "as_of": "2026-10-16",
+  "reviewed_hashes": [
+    "02823143c0ca69a4aa8d3eea2508348eaa5466ed7eef0fcc3b7eb5240b1893a1",
+    "02af1c32616302300dd9c0b7933896c533c3157d71819165047da9c1e6c4ba75",
+    "02de7e893b0a28910f0d8cb8ded832a3a5e4151218c4084bf3d5a8be487f451a",
+    "0333be57bc1b9199e43b1e85cd10e351011a68bffee583117edf7c4fe214194e",
+    "039ca07318c03ec4bf7625172bd5cc109e163c78db6a8dd99c4d4084a432ad23",
+    "04cbc908992a8339eb8c652d566a281761fb3a6d84fc4f734c02bf7a18ae3e11",
+    "04f24b2f780c16ccafeddd551d4cd63b9a14bee4aba1fc5af552823db9d1061b",
+    "0596b5ff125af8d4bd6258d60440dc3cbe85092e36c2d57541ff2a65a28f20eb",
+    "06646bf9a9f8f3abc4b675c94573e418c66dc92a852da347196f66770697fdf1",
+    "0676a998bb947aa4fab4d53989ed803533f48b8de8a7465caa6091f9e48f2c8d",
+    "067affda93ab4444b5dd88ef9aa91d0b6ae0e808ef6ecee50b3532771dc47c3b",
+    "0741d5899b5f568c68d6216c751194abade7eb35be345fdb5f9639ef3ea23c95",
+    "090d9cd4bd6c7005195c85af2a588a49dad20def662dbe8177cc7321d6cf9b27",
+    "0cd28a054255cf648de79f100af323cad08ec9b7442594ef265226d1c37b4293",
+    "1173360ac84f8be25cddf09332f717fff676e545b4a770dbc19e2a3268d61d92",
+    "126271061b8a8dd37284b25eacafa11231575e1316b6bf545a1a3c530ae70eed",
+    "14715cc6e9788e69a8907855e74158762ab92f9d1b3a278f4340b2042fb4a607",
+    "152d5cc4689c70cc54633c39a4f39d08681bc3180a993360aaafa9f1b69d0a6a",
+    "1577d5743400f210573a6ed77cdde3cc8ae6a0a64645312d4e5f6beb13106c29",
+    "15a3daa64d3c7867877f4602521fd562084ab41d7f591b036521e159d61abca7",
+    "15e17d8750842b1b38fcf6de0ecf08ec68c370b7afddf5c2c04c9e1f2238f8f2",
+    "166cc8709b9e18473f3f89380e6f6464392e2621f31ab0706848d33e5d5be502",
+    "16ea17497058cb65f14e499249c91f41cb0ed8434efa217694d11f29b92b7ae1",
+    "177fbc5973606712ac78eb99b3a5d1d98c9f5f1c951c8268f8cf2a37587f4020",
+    "1b09c5f3ca7a0e58e366789fa5c947ad54c3292fb47ccca2a5e1bed32e6c13f9",
+    "1baaaa1e86028bab86d7e6074b4f71ec0b5abddd548b26650315ce9efbb23059",
+    "1de618776fc190c356a8c06b965a9312e5f873a214689dd1f88fc0bec7c6514a",
+    "1ea6101d99bc9c758bb7739ca9e2f0bc9bd5dbea4e001848852e59f71f063fd5",
+    "205ce8196ecd590cc63242582170fb7324a4e44d8b102ecb9454c4ac23dcbdc0",
+    "22fd2d03a0f95dd5571637f78276794c57245aaf279a6d52fc61b2d5ccf8d471",
+    "2304f813ee4fa237eaaaf212b26d5deeecb743ba2c2334d44795c13cba093180",
+    "2356d2ace0d2d0e4d2e44740e70623ae16406a93163191cae995d862ac1215b7",
+    "23bf8c15f63e44ed8ef2fa69f659c0d5dc3acd2220ff1c819376956dae7a1d64",
+    "271a69018fd38e654aabd98614d7f812822c07051119ce825f956330ff7f0983",
+    "276e2816db0921321494aad28d198095f0e8c7bdf058333a517fb6937ec6fddd",
+    "277a6ff1b8e469c7747cb385c28903b648477ca1b9c39e60b5cae0bb5ed0534e",
+    "27a7f858d83705b6014383c0da218aa19fa80e2142c3e77e972d73b84e567abe",
+    "2b16eaeae3a9c3f1adf2eb6e9e240d376b793a294438ea2b104176edbc27953e",
+    "2c4dc434aba37862875b36003758953f213ee209ab0526e8ad09f7a5eeb3940f",
+    "2d6954ae8a38d183c5ca1de7b81a62ff09dc2a58b7bea56d553ecfc91fe7712a",
+    "2f936d809542e95ae517e6e87a1d4b6e19ad66b23c84d6f38e7ea60ea0d5cd9f",
+    "3002155528ecc27616c749a930988d83068687c8fc0821d80287951c8627d2e8",
+    "310ab131794df19e10dad357f32b3a89585c393bd9ea31712fecd7f0e3325a02",
+    "3125a982ec2ea2929c0106c98b2357b07139efbb15df170ce9edbd379b74ea6d",
+    "327b5f5ede57e2e7d84fa8fd80ab1aeedc48ec64fa50d872bc0a3a192f15c02c",
+    "327e7e5dd78f84291914ed4f2e221e247fb0e7f21c6878b0aa3f4e4234caa33a",
+    "33f8ed845e28f71b8a6d1930faa0dc2f74321872f052d9da87a8c4ead80d6d7a",
+    "355ac8e16f09e59f8352f82e8945cd3d7de4943496a150d6b584db74848a25a3",
+    "3757b63922e7e7bacea3ad7800bde6df36d44951c812f3c08a887a51e43a1fd4",
+    "375d64f7bb99ea1d68e4b3493a54579c8124e17c6db66d44bfc4b81861de2947",
+    "38419d87b47d85c72ea3fb89e41bdebd64c61ac6ec447bacc2d8b98c9cf5f58b",
+    "38657b65ab6201b494790ef369b393fcb5a48fb67bd337c240290417e2c6bd1b",
+    "38a294ac72a41271b0b2e143216ba4ebabaf2420c2f6afa46a162b9c7ca7b9af",
+    "38e9c561e6bd0c91eb11a16a256aacdbe24ea69cc17a9c3716434619929c6af4",
+    "3a525944e42169f108bfd5d67f9084b72c184a21a63ea979b9651a0e6ecde20a",
+    "3a84f9f9fc3c697ad35a60f11b34e99ac59366720ef35bfb109687d185721ca8",
+    "3b55d07b5c0f81e958190b348489382db878615ae9417d43e4bfe50a3bf5457d",
+    "3d8d9083f4a121cc4227d6546af0de684343df8d5d3c0d967047bceef6420ba6",
+    "3e93ed280045830d54586ea9978e150feb0d8c953460f384a7fad874b6731f1f",
+    "3fb5043a8c341214fb01ca216cea682a5d05137f5a630865c88299fe27ecbc25",
+    "3fbbbe8d46bb425fdda5cfaa812524d7455e77ee3e6b6443ea2caa4660c3389d",
+    "400e90e899899fb27bfcf8eb419d2cce66a598764e2f768b2a8163e14b6d14fb",
+    "402c993b126d44635a6e5905de00549f079c76a975b4c2b1f5d196f1b3fcbcdd",
+    "43118cea0f6c8edeeb2989cd131676f21e592b1dfc4aa24f57d8a3e63b0a17ee",
+    "450c4138e752c349983e9cc0bfe6f932646da0c9dfe0b7224afcb9167e01af07",
+    "485e01cd1ee7f952fb6f5669332750fc2bfbcd575d3a60590254ce29aac61d22",
+    "4888f186b6e42800c0dc921f9701c48a801f1d44a8abb65914c4eb7a3b1798bf",
+    "48d6b6a3bd8b6e4a2b476861633cb3b9fa6ba80b2c62db4c51f8d47ed849452f",
+    "4a568a77ce0d995126e42a7494d172308209d73e3362210950e191cf903a86e7",
+    "4d680b7990f147e08211581e77fb3d6f4e2480528cf41948d3c8aa5223fc3216",
+    "4e94b295934d8d494b2846fe9bd2951acd1b17e1168a61ebb38bef240628531d",
+    "4ef511f14b03c1d3cf722092c18b6c6152ae178d535c0ecd337b54f5af246f4e",
+    "4fa7b913d29dfb3c827418f0ed2744c9311d7a2e54ac6ed908a758a17ac5e92b",
+    "5090ee3f6a36beb2e0099074af2ee79475488b90cb459cfcff3745b48722127d",
+    "5492d1d434740c60582db4e2c02cc6a7568ec81d8825c59df4b94200255b6267",
+    "552a883a07a110b3b130cc09451e57a10ac5a1d4954928be337b2ed3076c8c9d",
+    "55d2ea580d2c2633c119b7c8547d815103cc39093094987186ba075b26238b69",
+    "5916d6e7034135ce382bdcc252b3a4eeaa6cfd5a31ac50fe43e4cc471e4045e5",
+    "59e9bb628e585d1fa4bb90b0028cb7643ee472beb2c7204edb9646cde8d36717",
+    "5ba1bdf815302ed0a196b24ce3626628a27d92ed81f166887568efecdbe300b8",
+    "5bda17ebd56dcb2c094f34e126294335e166aaa7ed6ae4983a27c0ce0652b285",
+    "5dc2023466d93beef1c6b539d48c87c998d0bdefd044673a954bf8b6f0b48388",
+    "664d55ccf50e57b6dad5164aa4c432857aabac5a95e9cef984fd00d45cebb329",
+    "69b2a60b72ff33be0d5acc645bca6d83effcd20b023cc644b67ea58dc2178f5d",
+    "69eb469bc4e5e65363c07dde4440167fc21f9517156ba3297252c4dbf981e202",
+    "69ff808b66f18d66ad5d199e679c0878fcb01bea99fe615b73b9f91e5cf8a956",
+    "6a50841d77c001b3a7905b833190f8bffd7f64ef0ea7c52b8eb7a861a48be726",
+    "6a6b921107bb71d5d6d0d4b0f0c33f9f5512d8dcd6020b68323be0d8b0642710",
+    "6aed4f572879a0b8fcc31ca3941f323c2636cddba0ee5e06aa0dc04a227c51d6",
+    "6e2dec892871a6a617ea016bb0a5fb2ed40680a46c73ab6d210e7bbd5cc4475e",
+    "733c39a41846e41ee3359c353c07d28fbafd88589790797ae1d11aeb70cd500f",
+    "73b57403265b9be8acb4553915badb16aacb7fefddc9257353736b55aaaac4ab",
+    "759282edbbf586ac4d1f82c430b1e16d2cf1339eb15e3e60eba80a3e4c05e3e6",
+    "77ddca18055770234458b2bf7d3cbfcba5a62c440a7763351d43d40aeb66ff32",
+    "781d444f4d6e4f3bab504c50d2c869fe73404675ad5fcf2659d68eed404b238f",
+    "788176a0c7d37f83ae81124d66d2886f68af9fd4b7ea4d3a654fd5ce329257b0",
+    "7ac45755424f95bf94de0e59fc9fd249f260a7cd52cd98307cd9659589128015",
+    "7c68d87041760c656472b74861980eb954ac707053da51f36b0aaf2e69aeb2d0",
+    "7f9ffd349320c5e112a77f1365e0f44b8652cb85d4bb8ee0dde29dd424993b40",
+    "7fbeaeb902f75971b70e601a2beedc15f9e3e799943b09d5435d7737887367a7",
+    "808fa791a85020530388702b727b2c1338dbd608f209754e8db32e820d07f360",
+    "83071dcb157a77b9e1b453ad8b3e206ea587eeaa097b100c862179602cfd8504",
+    "83fbeea682702d8129109b5db6c4e0f894b2e0ba0cb41ef6756a656c6e98eb73",
+    "86186865fd0af4e14646a22985e2978d3b467cd13f39f9e5b012ebae4ce1ebd2",
+    "86f650d71f6da57bac46aaa25c86b927bcad5919e6546e702fc612b808b86a5d",
+    "8777088093717a6c19cad3fb94c9600a5b483a1dba91425baf98a1e569f945f8",
+    "87d93a3f9940871af6d7199e9ebffa6e40e80bfe4b26c4347864d7cb6c356104",
+    "892598742064902e6fcc05728b0148b0724eb4c99c71064b43dafdabb9f736a2",
+    "8f275e922fa8f22adafd5cf0ac4bd2d460143b5f45c83a11eedcf15da2ff592e",
+    "8f2b795f7c3dbad742bb76c6c4356fe9316d295322ddafcb42f68b2a0a579336",
+    "921ebac4c06455e23c5217d3892e88483d20f2a4ae73d1787e1ed1c469812800",
+    "924e445e694aeb075418f41e869b7a98f3f4459605b7f2a2784dd3f2326ff369",
+    "924e56ad58a17ffd6de13fc37cde49640a9ab8311f09907896979ab3521237c8",
+    "931a409688c40c0ebcfcea2eae8b3d076e33864f8cfb82e9bc249e906792bdd2",
+    "9368fe2bcd5849bc82562062a293b516212ca8443fe81255ced4f80d91f270b7",
+    "94a859535335314a296801d1521a2f3fe260da9491a690c3e15a7a6e6c5a6df9",
+    "94b1f34469d712714308807abb60d3dd0edda916330aac4c83bd97519ddae42e",
+    "9616be4bd6297ccb41570f0cda641101e7ca8f686a2d7f2ca2f3619f1b1a86c1",
+    "989311de181bc94dfd98fc2c54c57901a6549a065796fc7312d0e3106ac235b2",
+    "98a65bb6c5df3f2e707dd2317a88d3209f1d39da3729108fe6dee35e84c9e10e",
+    "99bc072ff21a085e4ffbeeb0527303fbcaed16c97aaf292b272bda5249198323",
+    "9a38153c2f8380c5055b0c0ddbfc9882581edd1d5eaeaff3421e90ce6a059405",
+    "9b7dc69ff51f6781860b3a8d26e504c3dca984a911fee36c204233baecbde460",
+    "9c035aa56efbcfe13da93ac1adc8cb4c9283ebecca4991cd52b769fcf9682a26",
+    "9c34fe4078dc1f2e0ef004106b0937bfb84f5b0c985a32eb47ae4a44872d38b2",
+    "9cbbc4092de6ca50fd21f1528bb11283934737a6b6ae069f1498e93dca92e253",
+    "9d3e435f64bf5a743dbcaa827b644c773e55f723fe86c6f53dad137cb40bcdca",
+    "9dec314a13ca382bb3d35008cb30b17dd41029c3d929ba3ca008f597562e93cc",
+    "9e4b7ac1b4782cec8942cee98b3d0d4284afa0786f563b01b628dc389f1c6878",
+    "a0099f18e7eee0f7a0a2e2b06a248dd21d469391986d70099f1e1f54537a7f7b",
+    "a03a341cf08c5242c6008209d67823d09f760fc2f3e115672206f6756f600d18",
+    "a048781eaeb0fef2086c860e638f4373df8a33d36964ad5980d20dced451ab11",
+    "a1e4bdae1cfba829ec5c8485047ca07f086ec10a6acb594330d2100d9f3ca771",
+    "a2b9ac2f8e91c0a8358e5ae6bb628c106904e485623a3bd0800870a9894ae40d",
+    "a2fcebb200cd9177dd861745b66bc6be0dc773ec8ce987c5b9415976a2cebceb",
+    "a33343b7503cc21613089c52ced93d9f71f6bfa2c0cf6fbf42c0888515167f20",
+    "a3435c5cb3a9b70e051a1e206c73b8f322b4b62b1d9bf7dc718065e5fc6f5d5c",
+    "a34ac633345a18b2887d63cc5dc3714e5af0228cb5f1735ceca6b38547d8ff4e",
+    "a34d7f8561708196fe48c79ed47684b7441ab1dd5b133058b6bacc19717a9a4c",
+    "a5654f8492f59cfbefb8b4d0ba70e25a18da056ff7c3f195d11eb46c6919ef69",
+    "a860c0f67afb29c1551b24047cfa2c1ff1616e1f77853bf6667eca1066219e70",
+    "a8c9afc6ed7580f8529ddb47d0ddbc069a0a42c70eee97d73a7761c27c0930bc",
+    "a99736898482b8e1e3c05bedb89c54050e3e9b1564dc5c6fcf0544b96d886fc8",
+    "ab5cfeb2da357d5c97b5c7d8e88720cbd59e4628abc381f325672b9df6e14be3",
+    "acd48b319f4c0474e3e293380725c5921a64c8d110df62e5037cdeeef4de6d82",
+    "ae2b2ff512211ea3d18472702c5bd48184c39f7094e6e0d807c77254e81a499c",
+    "af2a4ad24937d92bdd85075ba300aa5215c27a058e38131e156c1e0cd56cc5dd",
+    "b0a14759383c1ec7dfbd11336bd1224223d0dc3b414aae6b811a3385d0df42a8",
+    "b2743893a0653808824a58a88b3fe26672b3e5de0915ffff184ebcd74c26675d",
+    "b27e97decbdd2906262818d1221b00025cd28af0ce4575863ec4c1106351eca9",
+    "b4d175ffa709ae3bd2510c0dfba750a53f235f0e7e1fa6e7bee1390a584f60bc",
+    "b5ac2e6dfcd0dae445de5d4c4818f37c18c635cb89c0cc09ab6194af59057e0b",
+    "b5ae6c1e99b546af09ce9fb592b979465ffffea47eeaacca1571d6d4bcce839c",
+    "b81e398fd387e25fa4765a99290f5731a750a84b14066cd47d30ee31926e4e41",
+    "b840a5aa308bfd37a40e2f22ff12b83ebed13518a49d1b0d222bcd8e025029c0",
+    "b8e14df0b7cbd87a650bdfd100dfc62c6b958602028811436e389ca97268bd5e",
+    "b8f10a0daa54757de7b1b43f4c34a694ec9d801ced1cdb74888fb100e2f5da7a",
+    "bc95d232e39776e74477dac93e071fdf671d5ceb310ca49cec7531e7a0e606ad",
+    "c1577e039772e15e3c00f7b5d741c326fcb9624b77ecce8bf831b3ea0cf5de9b",
+    "c1913981655c9ecce72f9d4f12f09335d087160e412e8631c4b43ec0139753ce",
+    "c502ef19baea0009f92b43f56c019991dd9310b28ef3fef311c78d769e28bc37",
+    "c70e4108cfbea2c098441e00ded01b70c67c2d08bbfbece7141b96435d57c64c",
+    "c9d6cb2def9636475c393e2c24ea674e7221c2a81e0612238804015765382e84",
+    "cdefc61c031ab71560e10fe5b5197de870a5d6b6d70f3cdacd1967939bef7be2",
+    "ce2306ee0e06ea21d1f7d672fced472ae3c61a6f28d819fe490ce96a80495fa2",
+    "ced573cdd83b97e1c55081d486d6e5e6b38d8c7e975fdd5ee7f352cfc410fc0e",
+    "cf3cc5fcde9c84503b6ca980dce00d64b41bfc971436e53988da3c614058a1aa",
+    "d271b8afd3fc2b2e08581d33ed7b532de3e0c1d22494b9ed0589bd5209d97ac8",
+    "d2acb9dbf623a99f35704c1676ef51c0287d7d5772a7f8196ddbf29ee1e6c7c4",
+    "d3fe0ea3d46e7bc2635a738bea92d53954e3fad636b0520bd08b089cf68b8a12",
+    "d82e8848782393a6e461e05604c0d44ab1b5966671b279f5d71b70a6be2a809b",
+    "d8d3736227893ba2d2b8d32748cb1f2a8615f43bde3b8d422e5382d168e1e093",
+    "d907d53854d29b0b710f38d5b469543008f5741e83446c0a3b7a0466723aa23d",
+    "d9432c6e1b56c22f27446886db55ec1999c5ffa07c9934f25e2be51cc0f91e47",
+    "d9aebe7b30a1c5f6d5987d1b0675bacff25234da35e77dc84201d57876d0e89a",
+    "db7d5afd2f5e9c11684003260edc084b5f38d796bda665689c7b4cf2a626df5b",
+    "dba26807a472c2aa175e614f1528d3e79d021bd2689aab7acdb637335a6fb372",
+    "de00b6d46c8bb3bdd4148ee6e624278a388d7012ffc687403bc4069bcde22d7c",
+    "de0863172e096485116c66a23a27a787f00683bedee1be63a3a9a893ad003bb7",
+    "df2fd6d8999f4972784949781a7899914103ad4747a47e1840f97de38f455f37",
+    "e2bfe172a3861d9302076daefcaba0f394ce97e5312e14602f39ece2bf21d63b",
+    "e2cba8f4019dfa7e5cc86cce73471a4a08c91571c3247eb72fa626ad326cb3e0",
+    "e679862c3af35474555ee75501479b13abff8d2080956d3737fdf17ae8b0e921",
+    "e6ce8fa086e9dcc7201f94e4f46231e3b9553a99b4fb4233cfc6ca736eda5d74",
+    "e85142d2e3bc375087c105d09f946f6ab1663561006a8125f71d820121729879",
+    "e91fec2d103e35cdcd2f2a710866ee66f0fe4da98c9b9e0c1c6f09f342f2022c",
+    "edd85ef19164cfa05a533b036ced70b454fd0b170b5ce605aecda5d574961658",
+    "eeb8b4e99b5a7c0640f05ce43e435707f3345615326272192bac38562989c21d",
+    "ef36811c781327e3262d60b345229866df7200ec7c32bbb09911c496962d3200",
+    "efb67bc082bf938332a5339bff0e864dc164152b9d64bdb87ebe4d929f786698",
+    "efeda1629d4e6c014174f0e6a686e89f85bb9ad9d38060a9c1a6145954d54ea9",
+    "f3781e26724822db4629cab97b818f284ac31ad3ece0bccce3a954fb985b3eb3",
+    "f83c168e0b6cf5bf2a782ed5df12626d97bd965c342cbf814fa9b65f22bebdc0",
+    "faa550ef62dc9cc0b599cc8718b320f10174e7d6b06c424fd6cf411e8cb7a653",
+    "fab67524da6eb7dffd7511cd22e21206325553a0ada5bf522194bee3fd232f22",
+    "fc8592761d7eb5f55cd64dfef4c21c22b3d8bd7aeed98f8c7b96cb9d75adf4c8",
+    "fd7c4dfc88a334f03feb47ed19f36dc31ba87e7abefa13769c51bf8e72d0f6cf",
+    "ff27a27272cc34fef5e1ce92bec5103b2c9361307d8ebccde56bb15817d5f815"
+  ],
+  "gaps": [
+    {
+      "id": "gate_rules",
+      "claim": "ไม่พบเกณฑ์เดินประตู (ระดับน้ำ/เวลาปิด–เปิด/ผู้สั่ง) ใน EIA ฉบับ 2569 ทั้ง 4 เล่ม",
+      "status": "open",
+      "closes_with": [
+        "คู่มือ/เกณฑ์เดินประตู กรมชลประทาน",
+        "ภาคผนวก EIA",
+        "ผลแบบจำลองระบายน้ำเต็มรูป"
+      ]
+    },
+    {
+      "id": "lateral_flood_model",
+      "claim": "ไม่พบแบบจำลองน้ำท่วมด้านข้างของคลองลอย จึงตอบผลเชิงปริมาณต่อองครักษ์ไม่ได้",
+      "status": "open",
+      "closes_with": [
+        "ผลแบบจำลองน้ำท่วมของที่ปรึกษา",
+        "ภาคผนวก EIA",
+        "แบบจำลองสองมิติ"
+      ]
+    },
+    {
+      "id": "fault_boreholes",
+      "claim": "ไม่พบผลเจาะสำรวจรอยเลื่อนองครักษ์ 5 หลุมที่ คชก. ขอ",
+      "status": "open",
+      "closes_with": [
+        "ภาคผนวกธรณี/ดิน EIA",
+        "หนังสือชี้แจง คชก.",
+        "กรมทรัพยากรธรณี"
+      ]
+    },
+    {
+      "id": "appendices_unread",
+      "claim": "ภาคผนวก EIA และเล่ม 2 ส่วนที่เกี่ยวข้องยังอ่านไม่ครบ",
+      "status": "open",
+      "closes_with": [
+        "ภาคผนวก EIA",
+        "เล่ม 2 EIA"
+      ]
+    },
+    {
+      "id": "scanned_docs_unread",
+      "claim": "เอกสารภาพสแกน (ระยะที่ 1–2 · หนังสือมาตรการ 54 หน้า) ยังไม่ได้แปลงเป็นข้อความ",
+      "status": "open",
+      "closes_with": [
+        "การแปลงภาพเป็นข้อความ (OCR)",
+        "ฉบับข้อความของเอกสาร"
+      ]
+    },
+    {
+      "id": "ground_level_table",
+      "claim": "ไม่มีตารางระดับพื้นเดิมรายกิโลเมตรจากหน่วยงาน (ค่าพื้นเดิมอ่านจากรูป ±0.2 ม.)",
+      "status": "open",
+      "closes_with": [
+        "ตารางรูปตัดตามยาวรายกิโลเมตรจาก กรมชลประทาน/สผ.",
+        "ไฟล์ CAD/PDF เวกเตอร์ของรูปตัดตามยาว"
+      ]
+    },
+    {
+      "id": "culvert_invert",
+      "claim": "ไม่พบระดับท้องท่อ/ความลึกวางท่อของท่อระบายน้ำและท่อลอดรายจุด",
+      "status": "open",
+      "closes_with": [
+        "แบบอาคารประกอบ",
+        "ภาคผนวก EIA"
+      ]
+    },
+    {
+      "id": "khlong29_explanation",
+      "claim": "ไม่พบคำอธิบายว่าน้ำส่วนที่เกินท่อลอดคลองยี่สิบเก้า (กม.53.8) ไปทางใดในกรณีผันน้ำหลาก",
+      "status": "open",
+      "closes_with": [
+        "แบบอาคารประกอบ",
+        "ผลแบบจำลองน้ำท่วมด้านข้าง"
+      ]
+    },
+    {
+      "id": "agency_response_to_concerns",
+      "claim": "ยังไม่พบคำชี้แจงของหน่วยงานต่อข้อห่วงกังวล 13 ข้อของสมาคมพลเมืองนครนายก",
+      "status": "open",
+      "closes_with": [
+        "คำชี้แจงกรมชลประทาน/สผ./กรรมาธิการ"
+      ]
+    },
+    {
+      "id": "nn_benefit_split",
+      "claim": "ไม่พบตัวเลขประโยชน์/ผลกระทบแยกเฉพาะนครนายก และกติกาจัดสรรน้ำหน้าแล้ง",
+      "status": "open",
+      "closes_with": [
+        "เล่ม 2 EIA ตารางเศรษฐศาสตร์รายจังหวัด",
+        "กติกาจัดสรรน้ำของโครงการ"
+      ]
+    },
+    {
+      "id": "telemetry_locations",
+      "claim": "ยังไม่ได้ตรวจตำแหน่งระบบโทรมาตรและศูนย์ปฏิบัติการตามที่ คชก. ขอ",
+      "status": "open",
+      "closes_with": [
+        "ภาคผนวก EIA",
+        "รายงานชี้แจงเพิ่มเติม"
+      ]
+    },
+    {
+      "id": "mussel_notification",
+      "claim": "รายงานยังไม่ระบุว่าใครแจ้งเตือนผู้เลี้ยงหอยและแจ้งล่วงหน้ากี่วัน",
+      "status": "open",
+      "closes_with": [
+        "มาตรการติดตามตรวจสอบสิ่งแวดล้อม",
+        "หนังสือมาตรการ"
+      ]
+    },
+    {
+      "id": "runoff_calc",
+      "claim": "ไม่มีการคำนวณน้ำไหลบ่าที่เกินความจุคูและท่อลอดเมื่อฝนหนักซ้อนช่วงผันน้ำหลากในรายงาน",
+      "status": "open",
+      "closes_with": [
+        "ผลแบบจำลองน้ำท่วมด้านข้าง"
+      ]
+    },
+    {
+      "id": "event2569_vs_10yr",
+      "claim": "ยังไม่ได้ตรวจว่าฝน/น้ำเหตุการณ์ปี 2569 เกินรอบ 10 ปีของแต่ละลุ่มรับน้ำหรือไม่",
+      "status": "open",
+      "closes_with": [
+        "ฝนรายสถานีรายชั่วโมงรอบแนว"
+      ]
+    },
+    {
+      "id": "civic_numbers_unverified",
+      "claim": "ตัวเลขภาคประชาชน/ข่าวบางค่า (2,730 ลบ.ม./วินาที · 1,563 หลัง) ไม่พบที่มาในเอกสารทางการ",
+      "status": "open",
+      "closes_with": [
+        "เอกสารต้นทางของตัวเลขนั้น"
+      ]
+    },
+    {
+      "id": "six_m_source",
+      "claim": "ตัวเลข 'ราว 6 ม.' ที่ผู้ใช้อ้างยังไม่พบที่มาในเอกสารราชการ",
+      "status": "open",
+      "closes_with": [
+        "ที่มาจากผู้อ้าง",
+        "แบบที่มีสันคันเกิน 4.8 ม."
+      ]
+    },
+    {
+      "id": "concern_checks_pending",
+      "claim": "ข้อห่วงกังวลบางข้อยังไม่ได้ตรวจกับภาคผนวก/เล่ม 2",
+      "status": "open",
+      "closes_with": [
+        "ภาคผนวก EIA",
+        "เล่ม 2 EIA"
+      ]
+    }
+  ]
+}

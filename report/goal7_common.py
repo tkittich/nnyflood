@@ -550,3 +550,11 @@ def plain(html: str) -> str:
     body = _re.sub(r'(?<!และ)(?<!")ท่อลอด', "ท่อลอด (ท่อให้น้ำของคลองเดิมไหลลอดใต้คลองใหญ่ไปอีกฝั่ง)", body, count=1)
     body = body.replace("ม.รทก.", "ม.รทก. (เมตรเหนือระดับน้ำทะเลปานกลาง)", 1)
     return head + body
+
+
+# ---- ทะเบียนช่องว่างความรู้ (analysis/goal7/gaps.json) — ตัวป้องกันข้อความล้าสมัย ----
+_GAPS = json.loads((ROOT / "analysis/goal7/gaps.json").read_text(encoding="utf-8"))
+_TH_MON = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+_y, _m, _d = (int(x) for x in _GAPS["as_of"].split("-"))
+GAP_FOOT = (f" · ข้อมูลล่าสุด {_d} {_TH_MON[_m - 1]} {_y + 543} · ช่องว่างความรู้ที่ยังเปิดอยู่ "
+            f"{sum(1 for g in _GAPS['gaps'] if g['status'] == 'open')} ข้อ")

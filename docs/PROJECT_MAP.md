@@ -40,6 +40,7 @@ graph TD
 | **โมเดลทำนายระดับน้ำล่วงหน้า (Model v1, 11 ตัวแปร)** | รายงาน 2 | `analysis/goal4_model_v1.py`<br>`analysis/goal4_thachang_model.py` | `analysis/waterlevel_hourly_Ny7_2025_2026.csv`<br>`analysis/dam_khun_dan_daily_2013_2026.csv` | `analysis/goal4_model_v1_results.json`<br>`docs/ANALYSIS_PLAN.md` |
 | **ข้อเสนอเชิงนโยบายการบริหารน้ำ (Policy Proposals)** | รายงาน 1, 2 | - | - | `analysis/goal5_policy_proposals.md`<br>`analysis/firo_dynamic_rulecurve_proposal.md` |
 | **น้ำท่วม 6 ลุ่มน้ำระลอกปลาย ก.ย. 69 (ดาวเทียม)** | รายงาน 3 | `analysis/goal6_s1_landcover.py`<br>`analysis/goal6_s1_rule_validation.py` | `data/22_goal6_network/`<br>`data/31_external_landcover/` | `analysis/goal6/canonical.json` $\rightarrow$ `basins` |
+| **ชั้นข้อมูลน้ำท่วมทางการ GISTDA (Disaster Platform)** | รายงาน 1, 2, 3 | `analysis/goal6_fetch_gistda_flood.py`<br>`analysis/gistda_georef_compare.py` | `data/12_gistda_flood/` | `analysis/gistda_platform_findings.md`<br>`analysis/goal6/canonical.json` |
 | **การบริหารน้ำ 24 เขื่อนใหญ่ (กฟผ. vs ชลประทาน)** | รายงาน 3, 4 | `analysis/goal6_dam_history_all.py`<br>`analysis/goal6_dam_inflow.py` | `data/02_thaiwater/`<br>`analysis/goal6/canonical.json` | `analysis/goal6/canonical.json` $\rightarrow$ `dams` |
 | **สถิติฝนตกหนักย้อนหลัง 46 ปี (ERA5/POWER)** | รายงาน 3, 4 | `analysis/goal6_rain_rarity.py`<br>`analysis/goal6_basin_rain.py` | `data/22_goal6_network/`<br>`analysis/goal6/canonical.json` | `analysis/goal6/canonical.json` $\rightarrow$ `rainfall_stats` |
 | **คลองเจ้าพระยา 2: ทำไมคันคลองสูง 3.2–4.8 ม. (คลองลอย)** | รายงาน 7, 8 | `analysis/goal7_analysis.py` | `data/32_goal7_chaophraya2/`<br>`data/manual/` | `analysis/goal7/canonical.json` $\rightarrow$ `embankment` |
@@ -73,6 +74,7 @@ graph TD
 ### กลุ่ม ค: การประมวลผลดาวเทียมและผังน้ำ (Remote Sensing & GIS)
 - `s1_process.py`, `s1_change_detect.py`, `s1_peak_flood_map.py`: สกัดพื้นที่น้ำท่วมจาก Sentinel-1 (ลุ่มน้ำนครนายก)
 - `goal6_s1_stage1.py`, `goal6_s1_stage2_water.py`: สกัดน้ำท่วมระดับชาติ
+- `goal6_fetch_gistda_flood.py`: ดึงข้อมูลขอบเขตน้ำท่วมสะสม 30 วันและประวัติความถี่ 14 ปี จาก GISTDA Disaster Platform API
 - `goal6_s1_landcover.py`: จำแนกประเภทผิวดิน (WorldCover) และหักลบน้ำถาวร (JRC) เพื่อหา "น้ำใหม่เข้มงวด"
 - `goal6_s1_rule_validation.py`: สอบเทียบเกณฑ์ความแม่นยำ F1-score และฉากควบคุม
 - `goal7_waterchart_overlay.py`: ซ้อนทับแนวคลองกับผังน้ำ สทนช. (พื้นที่ทางน้ำหลาก & น้ำท่วม 100 ปี)

@@ -292,6 +292,25 @@ def main() -> None:
             "astronomical_spring_range_m": [1.80, 2.25],
         }
 
+    # ---- GISTDA Disaster Platform (สะสม 30 วัน + สถิติความถี่ 14 ปี) ----
+    gistda_summary_file = ROOT / "data/12_gistda_flood/raw/summary_30days.json"
+    if gistda_summary_file.exists():
+        g30 = json.loads(gistda_summary_file.read_text(encoding="utf-8"))
+        out["gistda_disaster_platform"] = {
+            "source": "GISTDA Disaster Platform API (2026)",
+            "satellite_passes_count": 34,
+            "areas_30days": {
+                k: {
+                    "flood_sqkm": v["total_flood_sqkm"],
+                    "flood_rai": v["total_flood_rai"],
+                    "rice_sqkm": v["total_rice_sqkm"],
+                    "population_affected": v["total_population_affected"],
+                    "features_count": v["features_count"],
+                }
+                for k, v in g30.items()
+            },
+        }
+
     # ---- ตัวเลขที่ปลดประจำการ (retired ledger) — เทสสแกนว่าห้ามปรากฏใน HTML/เอกสาร ----
     # ---- นิยามหน้าต่าง/เกณฑ์ของตัวเลขหลัก (รากเหตุ M2: ตัวเลขเดียวกัน 2–3 นิยาม) ----
     # กติกา: อ้างตัวเลขในรายงานต้องใช้นิยามตามที่จดที่นี่ — ถ้านิยามต่างจากนี้ ต้องเป็น field ใหม่ ไม่ใช่แทนที่

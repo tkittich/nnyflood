@@ -1348,6 +1348,40 @@
    2.25
   ]
  },
+ "gistda_disaster_platform": {
+  "source": "GISTDA Disaster Platform API (2026)",
+  "satellite_passes_count": 34,
+  "areas_30days": {
+   "nakhonnayok": {
+    "flood_sqkm": 349.61,
+    "flood_rai": 218505.2,
+    "rice_sqkm": 93.19,
+    "population_affected": 40932,
+    "features_count": 7975
+   },
+   "bma": {
+    "flood_sqkm": 61.35,
+    "flood_rai": 38341.5,
+    "rice_sqkm": 24.11,
+    "population_affected": 60836,
+    "features_count": 2035
+   },
+   "bangpakong": {
+    "flood_sqkm": 1442.96,
+    "flood_rai": 901847.4,
+    "rice_sqkm": 505.66,
+    "population_affected": 275236,
+    "features_count": 31594
+   },
+   "chaophraya": {
+    "flood_sqkm": 2879.01,
+    "flood_rai": 1799382.4,
+    "rice_sqkm": 1143.31,
+    "population_affected": 676360,
+    "features_count": 92380
+   }
+  }
+ },
  "definitions": {
   "rain_top3": "จำนวนจุดวัดที่ฝนสะสมสูงสุด 7 วัน (ก.ค.–ต.ค. ของปีนั้น) ติดอันดับ 1–3 จาก 46 ปี (1981–2026) · Weibull (n+1)/อันดับ",
   "grid_cell": "ช่องกริด POWER MERRA-2 0.5° lat × 0.625° lon — จุดวัดในช่องเดียวกันได้ค่าเดียวกัน (dedup ตามนี้)",

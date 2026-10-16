@@ -85,8 +85,10 @@ PILLARS = {
             "analysis/goal6_rain_rarity.py",
             "analysis/goal6_s1_landcover.py",
             "analysis/goal6_s1_rule_validation.py",
+            "analysis/goal6_fetch_gistda_flood.py",
         ],
         "data_dirs": [
+            "data/12_gistda_flood",
             "data/22_goal6_network",
             "data/31_external_landcover",
         ],

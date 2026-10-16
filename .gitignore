@@ -76,6 +76,12 @@ _oldhist/
 # --- credential (ห้ามเข้า git เด็ดขาด — cron รัน git add -A วันละ 2 ครั้ง) ---
 *.cdse_s3.json
 data/22_goal6_network/.cdse_s3.json
+*.gistda_api.json
+data/12_gistda_flood/.gistda_api.json
+.env
+
+# --- ข้อมูลดาวน์โหลด GISTDA API (disk-only ตามนโยบายข้อมูลขนาดใหญ่) ---
+data/12_gistda_flood/raw/
 
 # --- ฉากดาวเทียมดิบเป้าหมาย 6 (disk-only ตามนโยบายหัวไฟล์ — เผลอ commit 12 ต.ค. แก้แล้ว) ---
 data/22_goal6_network/raw/s1_2026/

@@ -13,9 +13,22 @@
          margin:0 0 1rem;text-decoration:none;color:inherit;background:#fff;
          transition:border-color .15s, box-shadow .15s}
   a.card:hover{border-color:#1e6fb8;box-shadow:0 2px 10px rgba(30,111,184,.12)}
+  .badges{display:flex;flex-wrap:wrap;gap:0.35rem;margin:0 0 0.5rem}
+  .badge{display:inline-flex;align-items:center;font-size:0.75rem;font-weight:600;padding:0.18rem 0.55rem;border-radius:9999px;line-height:1.3}
+  .badge-public{background:#e8f3fb;color:#145388;border:1px solid #c2def3}
+  .badge-academic{background:#f5effa;color:#5e2973;border:1px solid #dec9ee}
+  .badge-scope{background:#f0f4f2;color:#1f5942;border:1px solid #cce0d7}
+  .badge-feat{background:#fef7eb;color:#8a4b08;border:1px solid #f6ddb6}
   .card h2{font-size:1.12rem;margin:0 0 .3rem;color:#1e6fb8}
   .card p{margin:0;color:#5a6675;font-size:.95rem}
   .note{font-size:.9rem;color:#7a8494;border-left:3px solid #d8dee6;padding:.2rem 0 .2rem .9rem;margin:1.6rem 0}
+  details.tech-drawer{border:1.5px solid #d8dee6;border-radius:12px;padding:0.9rem 1.2rem;margin:2rem 0 1rem;background:#fff}
+  details.tech-drawer summary{font-weight:600;font-size:1rem;color:#1e6fb8;cursor:pointer;user-select:none}
+  .drawer-content{margin-top:1rem;font-size:0.92rem;color:#333}
+  .arch-table{width:100%;border-collapse:collapse;margin-top:0.8rem;font-size:0.85rem}
+  .arch-table th{background:#f0f4f8;color:#1c2b33;padding:0.55rem 0.7rem;border:1px solid #d8dee6;text-align:left}
+  .arch-table td{padding:0.55rem 0.7rem;border:1px solid #d8dee6;vertical-align:top;line-height:1.5}
+  .arch-table code{background:#f0f4f8;padding:0.15rem 0.35rem;border-radius:4px;font-size:0.8rem;color:#145388}
   footer{margin-top:2.5rem;font-size:.88rem;color:#7a8494}
   footer a{color:#1e6fb8}
 </style>
@@ -26,23 +39,43 @@
 — ด้วยข้อมูลเปิดเผยสาธารณะ + การประมวลผลดาวเทียม Sentinel-1 เอง</p>
 
 <a class="card" href="report/น้ำท่วมนครนายก2569_ประชาชน.html">
+  <div class="badges">
+    <span class="badge badge-public">ฉบับประชาชน</span>
+    <span class="badge badge-scope">นครนายก</span>
+    <span class="badge badge-feat">สไลเดอร์ดาวเทียม · ถาม–ตอบ 15 ข้อ</span>
+  </div>
   <h2>รายงานที่ 1 — ฉบับประชาชน (อ่านง่าย)</h2>
   <p>เล่าเหตุการณ์ตามลำดับเวลา ถาม–ตอบ 15 ข้อ แผนที่เคลื่อนไหว และสูตรทำนายระดับน้ำ
      ไฟล์ขนาด ~10 MB — โหลดครั้งแรกอาจใช้เวลาสักครู่</p>
 </a>
 
 <a class="card" href="report/น้ำท่วมนครนายก2569_วิชาการ.html">
+  <div class="badges">
+    <span class="badge badge-academic">ฉบับวิชาการ</span>
+    <span class="badge badge-scope">นครนายก</span>
+    <span class="badge badge-feat">สมการ & คู่มือทำซ้ำ</span>
+  </div>
   <h2>รายงานที่ 2 — ฉบับวิชาการ (ตรวจสอบย้อนกลับได้ทุกตัวเลข)</h2>
   <p>วิธีวิทยา สมการ พารามิเตอร์ การตรวจไขว้ ข้อจำกัด และคู่มือทำซ้ำทุกขั้นตอน</p>
 </a>
 
 <a class="card" href="report/ระลอกปลายกย2569.html">
+  <div class="badges">
+    <span class="badge badge-public">ฉบับประชาชน/นโยบาย</span>
+    <span class="badge badge-scope">6 ลุ่มน้ำทั่วประเทศ</span>
+    <span class="badge badge-feat">สถิติฝนรอบ 46 ปี · กฟผ. vs ชลประทาน</span>
+  </div>
   <h2>รายงานที่ 3 — ระลอกปลาย ก.ย. 2569: 6 ลุ่มน้ำทั่วประเทศ (ร่าง)</h2>
   <p>นำวิธีการสืบสวนแบบเดียวกับนครนายกไปใช้กับ 6 ลุ่มน้ำ: ฝนคาบคืน · เขื่อนเทียบแผน ·
      พื้นที่น้ำท่วมจากดาวเทียม · แบบจำลองทำนาย · รวมบท กทม.–เจ้าพระยาตอนล่าง</p>
 </a>
 
 <a class="card" href="report/ชุดเทียบมาตรฐาน2554.html">
+  <div class="badges">
+    <span class="badge badge-academic">ฉบับวิเคราะห์เปรียบเทียบ</span>
+    <span class="badge badge-scope">เขื่อนทั่วประเทศ</span>
+    <span class="badge badge-feat">เทียบมาตรฐาน 2554 vs 2569</span>
+  </div>
   <h2>รายงานที่ 4 — ชุดเทียบมาตรฐาน: เขื่อนทั่วประเทศ ปี 2554 เทียบ 2569 (ร่าง)</h2>
   <p>สองปีสองรูปแบบ: 2554 เขื่อนชลประทานเก็บน้ำเกินระดับกำกับทั้งฤดู ·
      2569 เกินเฉพาะระลอก · เขื่อนการไฟฟ้าฝ่ายผลิตฯ ไม่เคยเกินทั้งสองปี</p>
@@ -54,14 +87,64 @@
 — แนวคลองจากแผนที่ผู้ใช้ไม่เป็นทางการ ตัวเลขตำแหน่งจึงเป็นค่าประมาณ</p>
 
 <a class="card" href="report/คลองเจ้าพระยา2_ประชาชน.html">
+  <div class="badges">
+    <span class="badge badge-public">ฉบับประชาชน</span>
+    <span class="badge badge-scope">คลองเจ้าพระยา 2 (ชัยนาท–อ่าวไทย)</span>
+    <span class="badge badge-feat">ถาม–ตอบ 23 ข้อ · ภาพสัดส่วนจริง</span>
+  </div>
   <h2>รายงานที่ 7 — คลองเจ้าพระยา2 ฉบับประชาชน</h2>
   <p>เล่าเป็นเรื่อง: โครงการคืออะไร ทำไมคันสูง (3.2–4.8 ม.) ผลต่อองครักษ์ ท่อลอดคลองเดิม — พร้อมถาม–ตอบ 23 ข้อ ที่ดิน ค่าชดเชย กำหนดการ ประตู ความปลอดภัย แผนที่และกราฟ</p>
 </a>
 
 <a class="card" href="report/คลองเจ้าพระยา2_วิชาการ.html">
+  <div class="badges">
+    <span class="badge badge-academic">ฉบับวิชาการ</span>
+    <span class="badge badge-scope">คลองเจ้าพระยา 2 (ชัยนาท–อ่าวไทย)</span>
+    <span class="badge badge-feat">อาคาร 99 รายการ · ผังน้ำ สทนช.</span>
+  </div>
   <h2>รายงานที่ 8 — คลองเจ้าพระยา2 ฉบับวิชาการ</h2>
   <p>ข้อมูลทั้งหมด: ตัวแปรออกแบบ · ตารางอาคาร 99 รายการ · EIA ฉบับ 2561/2564/2566/2569 · ผังน้ำ 3 ลุ่มน้ำ · ประมาณผลความสูงคัน · ทะเบียนข้อกังวล 13 ข้อ · ภาพหน้าตัด แผนที่ผังน้ำ กราฟท่อลอด</p>
 </a>
+
+<details class="tech-drawer">
+  <summary>แผนผังข้อมูลและสถาปัตยกรรมการวิเคราะห์ (Data & Code Architecture)</summary>
+  <div class="drawer-content">
+    <p>ตารางเชื่อมโยงระหว่างรายงาน ข้อมูลดิบ สคริปต์วิเคราะห์ และเอกสารสเปก (รายละเอียดฉบับสมบูรณ์ดูได้ที่ <a href="docs/PROJECT_MAP.md" style="color:#1e6fb8">docs/PROJECT_MAP.md</a>):</p>
+    <table class="arch-table">
+      <thead>
+        <tr>
+          <th>รายงาน</th>
+          <th>ข้อมูลต้นทาง</th>
+          <th>สคริปต์วิเคราะห์ / ตัวสร้าง</th>
+          <th>ตัวเลขทางการ (Canonical)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>รายงาน 1, 2</strong><br>(นครนายก)</td>
+          <td>โทรมาตรเขื่อนขุนด่านฯ (RID), ระดับน้ำราย ชม. (Thaiwater), ดาวเทียม Sentinel-1 (CDSE)</td>
+          <td><code>attribution_share.py</code><br><code>s1_peak_flood_map.py</code><br><code>goal4_model_v1.py</code></td>
+          <td><code>analysis/canonical_numbers.json</code></td>
+        </tr>
+        <tr>
+          <td><strong>รายงาน 3, 4</strong><br>(6 ลุ่มน้ำ &amp; ปี 54)</td>
+          <td>24 เขื่อนใหญ่ (RID/EGAT), ฝนสะสม 46 ปี (ERA5/POWER), ผิวดิน WorldCover</td>
+          <td><code>goal6_dam_history_all.py</code><br><code>goal6_basin_rain.py</code><br><code>goal6_s1_landcover.py</code></td>
+          <td><code>analysis/goal6/canonical.json</code></td>
+        </tr>
+        <tr>
+          <td><strong>รายงาน 7, 8</strong><br>(คลองเจ้าพระยา 2)</td>
+          <td>EIA 4 ฉบับ (2561–2569), แผนที่รายช่วง 111 กม., ผังน้ำ 3 ลุ่มน้ำ (สทนช.)</td>
+          <td><code>goal7_analysis.py</code><br><code>goal7_eia_structs.py</code><br><code>goal7_waterchart_overlay.py</code></td>
+          <td><code>analysis/goal7/canonical.json</code><br><code>analysis/goal7/gaps.json</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:0.8rem;font-size:0.88rem;color:#5a6675">
+      💡 <strong>เครื่องมือสืบค้นเร็วใน Terminal:</strong> รัน <code>python catalog.py find &lt;คำค้น&gt;</code> หรือ <code>python catalog.py goal &lt;1..7&gt;</code>
+    </p>
+  </div>
+</details>
 
 <p class="note">รายงานฉบับประชาชน/วิชาการเป็น "ไฟล์เดียวจบ" (ภาพและกราฟฝังในไฟล์)
 จึงดาวน์โหลดไปเปิดได้ถาวรแม้ไม่มีอินเทอร์เน็ต ·
@@ -69,6 +152,6 @@
 
 <footer>ซอร์สโค้ด ข้อมูลต้นฉบับ (พร้อม SHA-256) และสคริปต์ทำซ้ำทั้งหมดอยู่ที่
 <a href="https://github.com/tkittich/nnyflood">github.com/tkittich/nnyflood</a>
-· เริ่มอ่านเอกสารโครงการจาก <a href="START_HERE.md">START_HERE.md</a></footer>
+· เริ่มอ่านจาก <a href="START_HERE.md">START_HERE.md</a> · แผนที่ระบบ <a href="docs/PROJECT_MAP.md">docs/PROJECT_MAP.md</a> · ข้อตกลง <a href="docs/REPORT_CONVENTIONS.md">docs/REPORT_CONVENTIONS.md</a></footer>
 </body>
 </html>

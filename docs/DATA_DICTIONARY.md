@@ -66,7 +66,7 @@
 | `mask_province.npy / mask_district_*.npy` | เขตจังหวัด/4 อำเภอ (OSM) |
 | `mask_lowland.npy / dem_30m.npy` | ที่ราบ <60 ม. / DEM ผสาน 4 ไทล์ |
 | `<tag>_vh_db.npy|.tif`, `<tag>_vv_db.npy|.tif` | σ₀ (dB) ตามวันถ่าย (tag = s1d_20260927_1828, s1d_20261002_0609, ฯลฯ) |
-| `flood_peak_27sep1828.tif|.npy` | **มาสก์น้ำท่วมน้ำสูงสุด 27 ก.ย. 18:28** (change detection vs 15 ก.ย.) |
+| `flood_peak_27sep1828.tif|.npy` | **มาสก์พื้นที่น้ำท่วมสูงสุด 27 ก.ย. 18:28** (change detection vs 15 ก.ย.) |
 | `flood_2oct_validated.tif|.npy` | มาสก์ 2 ต.ค. (สอบเทียบ GISTDA) |
 
 ### ไฟล์ analysis/ ชุดใหม่

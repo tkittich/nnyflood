@@ -370,7 +370,7 @@ for mask, color in ((both_m, (0.85, 0.20, 0.13, 0.75)), (only_m, (0.20, 0.60, 0.
     ax.imshow(m, extent=[gr["x0"], gr["x1"], gr["y0"], gr["y1"]], origin="upper",
               cmap=mcolors.ListedColormap([color]), vmin=0, vmax=1, interpolation="nearest",
               aspect="auto", zorder=1.2)
-ax.set_title("โซนผลกระทบภายใต้ 'การบริหารสมบูรณ์แบบ' (ประมาณการจากดาวเทียบ 2 ช่วงเวลา)", fontsize=12.5, fontweight="bold")
+ax.set_title("โซนผลกระทบภายใต้ 'การบริหารสมบูรณ์แบบ' (ประมาณการจากดาวเทียม 2 ช่วงเวลา)", fontsize=12.5, fontweight="bold")
 ax.legend(handles=[
     Patch(fc=(0.20, 0.60, 0.25, 0.75), label="รอด — แห้งโดย 2 ต.ค. (~209 ตร.กม.)"),
     Patch(fc=(0.85, 0.20, 0.13, 0.75), label="ยังมีน้ำ ระบายใน ~1–2 วัน (~242 ตร.กม. · แถบริมน้ำ/คลอง)"),

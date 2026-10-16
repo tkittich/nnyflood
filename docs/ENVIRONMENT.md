@@ -34,7 +34,7 @@ pip install -r requirements.txt
 python -m pytest tests/ -q          # ต้องได้ 31 passed
 ```
 
-## กับดักสภาพแวดล้อมที่เจอจริงในโปรเจคนี้
+## กับดักสภาพแวดล้อมที่เจอจริงในโครงการนี้
 
 1. **ฟอนต์ไทยใน matplotlib** — ค่าเริ่มต้น (DejaVu Sans) ไม่มีสระ/วรรณยุกต์ไทย ทำให้กราฟ
    ออกมาเป็นกล่องสี่เหลี่ยม ต้องตั้งในทุกสคริปต์ที่วาดกราฟ:
@@ -53,7 +53,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
    เท่านั้น การเขียนแบบ append ต้องกันไม่ให้ BOM ซ้ำ (ดู `analysis/album_append.py`)
 
 4. **path ของ curl ใน Git Bash vs Python บน Windows** — `curl -o /tmp/x.json` เขียนลงพาธ
-   ที่ Python ฝั่ง Windows อ่านไม่ได้ ให้เขียนลงไฟล์ในโปรเจคแทน (เช่น `.ov_tmp.json`)
+   ที่ Python ฝั่ง Windows อ่านไม่ได้ ให้เขียนลงไฟล์ในโครงการแทน (เช่น `.ov_tmp.json`)
 
 5. **ชื่อแพ็กเกจ ≠ ชื่อโมดูล (`pyshp`)** — ติดตั้งด้วยชื่อ `pyshp` แต่ import ด้วย `import shapefile`
    · `import pyshp` **ล้มเหลว** (ตรวจแล้ว: `ModuleNotFoundError: No module named 'pyshp'`

@@ -353,3 +353,10 @@ disk-only ที่ `data/32_goal7_chaophraya2/official_eia/` (แฮชใน `
   พับได้ (`<details class='qd'>`) เปิดไว้ 7 ข้อ · เลข "ถาม N" ใน §14–24 ข้างบนเป็นเลขก่อนจัดหมวด
 - **เทสต์ใหม่:** `test_new_cases_regression` · `test_public_questions_collapsible_and_numbered` · `test_public_cross_refs_point_to_existing_questions` · `test_handoff_question_count_current`
 - **ทะเบียนช่องว่าง:** `runoff_calc` และ `event2569_vs_10yr` ยังเปิด แต่ปรับข้อความให้บอกว่าตรวจบางส่วนแล้ว (§3.15)
+
+## 26. เอ็นจินรายงาน + ชิ้นส่วนร่วม (16 ต.ค. 69)
+
+- `report/goal7_engine.py` — `Outline` (key คงที่ · เลขอัตโนมัติ · `⟦key⟧`/`⟦ว:key⟧`/`⟦ป:key⟧` · ผัง `analysis/goal7/outline_*.json`) · `details` (ถามพับได้)
+- `report/goal7_blocks.py` — ตารางร่วมสองฉบับ (`tbl_*`) · `report/goal7_build_all.py` — สร้างสองฉบับวนจนผังนิ่ง
+- ฉบับวิชาการ: หัวข้อเรียงใหม่ตามเนื้อหา (3.4–3.6 เดิมถูกย้ายมาก่อน 3.7) เลขข้อ 3.x **เปลี่ยนทั้งหมด** — เลข "ข้อ 3.x" ใน §14–25 ข้างบนเป็นประวัติ
+- เทสต์: `test_builders_have_no_hardcoded_numbering_refs` · `test_no_unresolved_reference_tokens` · `test_outlines_match_reports` · `test_shared_tables_not_duplicated_across_builders`

@@ -1,0 +1,307 @@
+{
+ "edition": "academic",
+ "items": [
+  {
+   "key": "goals",
+   "kind": "h2",
+   "number": "1",
+   "title": "วัตถุประสงค์และคำถามที่ลงทะเบียนไว้ก่อนดูผล",
+   "anchor": "a1"
+  },
+  {
+   "key": "method",
+   "kind": "h2",
+   "number": "2",
+   "title": "ข้อมูลและวิธีการ",
+   "anchor": "a2"
+  },
+  {
+   "key": "align",
+   "kind": "h3",
+   "number": "2.1",
+   "title": "ทำความสะอาดแนวคลอง",
+   "anchor": null
+  },
+  {
+   "key": "structs",
+   "kind": "h3",
+   "number": "2.2",
+   "title": "ถอดอาคารจากแผนที่รายช่วง",
+   "anchor": null
+  },
+  {
+   "key": "manning",
+   "kind": "h3",
+   "number": "2.3",
+   "title": "ความลึกน้ำที่ต้องใช้ (สมการแมนนิง)",
+   "anchor": null
+  },
+  {
+   "key": "flood_band",
+   "kind": "h3",
+   "number": "2.4",
+   "title": "น้ำท่วมสองฝั่งแนว",
+   "anchor": null
+  },
+  {
+   "key": "registry",
+   "kind": "h2",
+   "number": "3",
+   "title": "ทะเบียนข้อเท็จจริงของโครงการ",
+   "anchor": "a3"
+  },
+  {
+   "key": "conflicts",
+   "kind": "h3",
+   "number": "3.1",
+   "title": "ค่าที่ขัดกันระหว่างแหล่ง และผลการตรวจกับเอกสารทางการ",
+   "anchor": null
+  },
+  {
+   "key": "timeline",
+   "kind": "h3",
+   "number": "3.2",
+   "title": "ลำดับเวลา",
+   "anchor": null
+  },
+  {
+   "key": "design_vars",
+   "kind": "h3",
+   "number": "3.3",
+   "title": "ตัวแปรออกแบบรายช่วง (ช่วงป่าสัก–อ่าวไทย)",
+   "anchor": null
+  },
+  {
+   "key": "design_eia",
+   "kind": "h3",
+   "number": "3.4",
+   "title": "ตัวแปรออกแบบตามรายงานผลกระทบสิ่งแวดล้อมฉบับเต็ม (ชั้น A)",
+   "anchor": null
+  },
+  {
+   "key": "land_econ",
+   "kind": "h3",
+   "number": "3.5",
+   "title": "ที่ดิน ค่าชดเชย และเศรษฐศาสตร์ตามรายงานผลกระทบสิ่งแวดล้อม (ชั้น A)",
+   "anchor": null
+  },
+  {
+   "key": "meeting",
+   "kind": "h3",
+   "number": "3.6",
+   "title": "สรุปการประชุมจังหวัดนครนายก 9 ก.ย. 2569",
+   "anchor": null
+  },
+  {
+   "key": "early_design",
+   "kind": "h3",
+   "number": "3.7",
+   "title": "แบบเริ่มต้นปี 2560 และประวัติการมีส่วนร่วม 2559–2560 (เอกสารที่ปรึกษากรมชลประทาน — เก่า)",
+   "anchor": null
+  },
+  {
+   "key": "design_2565",
+   "kind": "h3",
+   "number": "3.8",
+   "title": "เทียบแบบ 2565 กับแผนที่ 2569 (ระยะที่ 1 กม.81–135.9)",
+   "anchor": null
+  },
+  {
+   "key": "basin_plan",
+   "kind": "h3",
+   "number": "3.9",
+   "title": "บริบทระดับลุ่มน้ำ: แผนป้องกันและแก้ไขภาวะน้ำท่วมลุ่มน้ำเจ้าพระยา (สทนช. 2566) และเหตุการณ์ ต.ค. 2569",
+   "anchor": null
+  },
+  {
+   "key": "waterchart",
+   "kind": "h3",
+   "number": "3.10",
+   "title": "ซ้อนแนวคลองกับผังน้ำและขอบเขตน้ำท่วมของ สทนช. (บางปะกง · เจ้าพระยา · ป่าสัก)",
+   "anchor": null
+  },
+  {
+   "key": "eia_versions",
+   "kind": "h3",
+   "number": "3.11",
+   "title": "รายงานผลกระทบสิ่งแวดล้อมฉบับก่อนหน้า (2561 · 2564 · 2566) เทียบฉบับที่เห็นชอบ",
+   "anchor": null
+  },
+  {
+   "key": "siphon_sizes",
+   "kind": "h3",
+   "number": "3.12",
+   "title": "ขนาดอาคารเชื่อมคลองเดิมรายจุด และทางระบายน้ำท้องถิ่นตามที่รายงานออกแบบ",
+   "anchor": null
+  },
+  {
+   "key": "embankment_est",
+   "kind": "h3",
+   "number": "3.13",
+   "title": "ประมาณผลของความสูงคัน (3.2–4.8 ม. ตามรูปตัดตามยาว) ต่อน้ำท่วม น้ำหลาก และหน้าฝน — การประมาณขอบบน ไม่ใช่แบบจำลอง",
+   "anchor": null
+  },
+  {
+   "key": "subbasins",
+   "kind": "h3",
+   "number": "3.14",
+   "title": "พื้นที่รับน้ำย่อย 17 พื้นที่ (ตาราง 2.3.2-1) และสิ่งที่ไม่ได้อ่าน",
+   "anchor": null
+  },
+  {
+   "key": "proposals",
+   "kind": "h3",
+   "number": "3.15",
+   "title": "ข้อเสนอเพื่อให้โครงการมีประโยชน์สูงสุดและมีผลเสียน้อยที่สุด (ข้อเสนอของผู้จัดทำ — ไม่ใช่ข้อมูลทางการ)",
+   "anchor": null
+  },
+  {
+   "key": "reading_map",
+   "kind": "h3",
+   "number": "3.16",
+   "title": "แผนที่การอ่านเอกสาร — ส่วนสำคัญที่ยังอ่านไม่ได้หรืออ่านไม่ครบ",
+   "anchor": null
+  },
+  {
+   "key": "runoff",
+   "kind": "h3",
+   "number": "3.17",
+   "title": "ประมาณน้ำไหลบ่าตอนฝนหนักซ้อนช่วงผันน้ำหลาก (ฝน × พื้นที่ × ความลาดชัน — คัดกรองลำดับขนาด)",
+   "anchor": null
+  },
+  {
+   "key": "new_cases",
+   "kind": "h3",
+   "number": "3.18",
+   "title": "กรณีศึกษาเพิ่ม (16 ต.ค. 2569): น้ำเท้อและน้ำทะเลหนุน · ขุดลึกให้คันต่ำ · พัฒนาสองฝั่ง · ท่องเที่ยว · ไฟฟ้าจากน้ำไหล — คัดกรองลำดับขนาด",
+   "anchor": null
+  },
+  {
+   "key": "alignment",
+   "kind": "h2",
+   "number": "4",
+   "title": "แนวคลองและอาคารตามแนว",
+   "anchor": "a4"
+  },
+  {
+   "key": "results",
+   "kind": "h2",
+   "number": "5",
+   "title": "ผลเชิงปริมาณ",
+   "anchor": "a5"
+  },
+  {
+   "key": "ground",
+   "kind": "h3",
+   "number": "5.1",
+   "title": "ความสูงพื้นดินตามแนว",
+   "anchor": null
+  },
+  {
+   "key": "capacity",
+   "kind": "h3",
+   "number": "5.2",
+   "title": "เทียบอัตราระบายกับน้ำหลาก",
+   "anchor": null
+  },
+  {
+   "key": "depth",
+   "kind": "h3",
+   "number": "5.3",
+   "title": "ความลึกน้ำที่ต้องใช้",
+   "anchor": null
+  },
+  {
+   "key": "flood_near",
+   "kind": "h3",
+   "number": "5.4",
+   "title": "น้ำท่วมใกล้แนว (ดาวเทียม)",
+   "anchor": null
+  },
+  {
+   "key": "corridor_area",
+   "kind": "h3",
+   "number": "5.5",
+   "title": "พื้นที่แถบคลองเทียบตัวเลขเวนคืน",
+   "anchor": null
+  },
+  {
+   "key": "discussion",
+   "kind": "h2",
+   "number": "6",
+   "title": "อภิปราย: แยกข้อเท็จจริง การตีความ และการประเมิน",
+   "anchor": "a6"
+  },
+  {
+   "key": "k6",
+   "kind": "h3",
+   "number": "6.1",
+   "title": "คันสูงกว่าพื้นเดิม (K6)",
+   "anchor": null
+  },
+  {
+   "key": "k4k6",
+   "kind": "h3",
+   "number": "6.2",
+   "title": "ผลต่อน้ำท่วมองครักษ์ (K4 และ K6)",
+   "anchor": null
+  },
+  {
+   "key": "k7",
+   "kind": "h3",
+   "number": "6.3",
+   "title": "ลดคันให้เท่าพื้น (K7)",
+   "anchor": null
+  },
+  {
+   "key": "k8",
+   "kind": "h3",
+   "number": "6.4",
+   "title": "ท่อลอดและไซฟอน (K8)",
+   "anchor": null
+  },
+  {
+   "key": "concerns",
+   "kind": "h3",
+   "number": "6.5",
+   "title": "ข้อห่วงกังวลที่ยื่นต่อรัฐสภา (ชั้น C)",
+   "anchor": null
+  },
+  {
+   "key": "limits",
+   "kind": "h2",
+   "number": "7",
+   "title": "ข้อจำกัดและเอกสารที่ต้องขอ",
+   "anchor": "a7"
+  },
+  {
+   "key": "eia_status",
+   "kind": "h3",
+   "number": "7.1",
+   "title": "สถานะรายงานผลกระทบสิ่งแวดล้อม",
+   "anchor": null
+  },
+  {
+   "key": "app_a",
+   "kind": "h2",
+   "number": "",
+   "title": "ภาคผนวก ก. ตารางอาคารและจุดตัดทั้งเส้น",
+   "anchor": "app"
+  },
+  {
+   "key": "app_b",
+   "kind": "h2",
+   "number": "",
+   "title": "ภาคผนวก ข. นิยาม",
+   "anchor": "app2"
+  },
+  {
+   "key": "app_c",
+   "kind": "h2",
+   "number": "",
+   "title": "ภาคผนวก ค. ทำซ้ำอย่างไร",
+   "anchor": "app3"
+  }
+ ],
+ "alias": {}
+}

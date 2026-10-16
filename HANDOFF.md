@@ -178,7 +178,7 @@ commit ปกติแล้วหลัง `git init` ใหม่ — จะ p
 
 แผน `docs/GOAL7_PLAN.md` (§9 = สถานะ) · ข้อมูล `data/32_goal7_chaophraya2/` · วิเคราะห์ `analysis/goal7_analysis.py` →
 `analysis/goal7/canonical.json` · รายงาน 2 ฉบับ `report/คลองเจ้าพระยา2_ประชาชน.html` (รวมถาม–ตอบ 20 ข้อ จัด 5 หมวด ก–จ · พับได้ เปิดไว้ 7 ข้อสำคัญ) + `_วิชาการ.html`
-(สร้าง: `python analysis/goal7_clean_alignment.py && python analysis/goal7_analysis.py && python report/goal7_build_public.py && python report/goal7_build_academic.py`)
+(สร้าง: `python analysis/goal7_clean_alignment.py && python analysis/goal7_analysis.py && python report/goal7_build_all.py`)
 · **แนวคลองมาจาก My Maps ผู้ใช้สร้าง = ไม่เป็นทางการ** · ตารางอาคารถอดด้วยตา ต้องตรวจซ้ำ ·
 งานค้างมนุษย์: ขอแบบหน้าตัด/ขนาดท่อ/รายงานสิ่งแวดล้อมฉบับเต็ม (รายการใน GOAL7_PLAN §4)
 · integrity MISMATCH 2 รายการเดิมใน `data/22_goal6_network` (mask_sea.npy · 2015_751_BKK006_annual.json) ยังไม่ได้สอบสวน
@@ -194,4 +194,5 @@ commit ปกติแล้วหลัง `git init` ใหม่ — จะ p
 - **รอบที่ 6 (16 ต.ค. 69)**: ผู้ใช้ขอกรณีเพิ่ม → `canonical.json → new_cases` (น้ำเท้อ/ทะเลหนุน · ขุดลึกให้คันเตี้ย · พัฒนาสองฝั่งหาเงินแทนเงินกู้ · ท่องเที่ยว · ไฟฟ้าจากน้ำไหล) ·
   ทุกกรณีเป็นการคัดกรองลำดับขนาด (สมมติฐานอยู่ใน canonical) · จัดฉบับประชาชนใหม่เป็น 5 หมวด รวมคำถามซ้ำ 25→20 ข้อ · ฉบับวิชาการ §3.16 ·
   ช่องว่างใหม่ `expropriation_commercial_use` · **เลข "ถาม N" ใน GOAL7_PLAN §14–24 เป็นเลขก่อนจัดหมวดใหม่ (ประวัติ)** ·
+  **เอ็นจินรายงาน** `report/goal7_engine.py` (key คงที่ · เลขอัตโนมัติ · โทเคน ⟦key⟧) + ชิ้นส่วนร่วม `report/goal7_blocks.py` + ข้อตกลง `docs/REPORT_CONVENTIONS.md` ·
   ค้าง: OCR หนังสือมาตรการ 54 หน้า/ภาคผนวก EIA · ราคาที่ดินริมคลองและจำนวนวันผันน้ำจริง (ตอนนี้เป็นสมมติฐาน) · ตรวจสถิติ "ล่องแก่งยาวที่สุดในโลก"

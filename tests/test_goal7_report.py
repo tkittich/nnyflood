@@ -278,3 +278,46 @@ def test_handoff_question_count_current():
     n = len(re.findall(r"<details class='qd'", _pub()))
     t = HANDOFF.read_text(encoding="utf-8")
     assert f"ถาม–ตอบ {n} ข้อ" in t, f"HANDOFF.md ต้องมีข้อความ 'ถาม–ตอบ {n} ข้อ'"
+
+
+# ---- เอ็นจินรายงาน (16 ต.ค. 69): key คงที่ · เลขอัตโนมัติ · ชิ้นส่วนร่วม (docs/REPORT_CONVENTIONS.md §2–3) ----
+def test_builders_have_no_hardcoded_numbering_refs():
+    """ห้ามพิมพ์เลขถาม/เลขข้อวิชาการเป็น literal ใน builder — ใช้โทเคน ⟦key⟧ (ย้ายคำถามแล้วเลขตามอัตโนมัติ)"""
+    bad = []
+    for b in BUILDERS:
+        for i, ln in enumerate(b.read_text(encoding="utf-8").splitlines(), 1):
+            code = ln.split("  # ")[0]
+            if code.strip().startswith("#"):
+                continue
+            if re.search(r"ถาม \d|ข้อ 3\.\d|ฉบับวิชาการ ข้อ", code):
+                bad.append(f"{b.name}:{i}")
+    assert not bad, f"พบเลขอ้างอิงที่พิมพ์ตรง ๆ (ใช้ ⟦key⟧): {bad[:10]}"
+
+
+@pytest.mark.parametrize("p", BOTH, ids=["ประชาชน", "วิชาการ"])
+def test_no_unresolved_reference_tokens(p):
+    h = p.read_text(encoding="utf-8")
+    assert "⟦" not in h and "⟧" not in h, "มีโทเคนอ้างข้อที่ยังไม่ถูกแปลง — รัน report/goal7_build_all.py"
+    assert "เลขอ้างอิงจะปรากฏหลังสร้างรอบสอง" not in h, "ผังหัวข้อยังไม่นิ่ง — รัน report/goal7_build_all.py"
+
+
+def test_outlines_match_reports():
+    for ed, p in (("public", PUBLIC), ("academic", ACADEMIC)):
+        o = json.loads((ROOT / f"analysis/goal7/outline_{ed}.json").read_text(encoding="utf-8"))
+        keys = [i["key"] for i in o["items"]]
+        assert len(keys) == len(set(keys)), f"key ซ้ำใน outline_{ed}"
+        _, b = _body(p)
+        for it in o["items"]:
+            if it["kind"] == "q":
+                assert f"ถาม {it['number']}:" in b, f"{ed}: ถาม {it['number']} ({it['key']}) ไม่อยู่ในรายงาน (outline ล้าสมัย — รัน goal7_build_all.py)"
+            elif it["kind"] == "h3" and it["number"]:
+                assert f"{it['number']} " in b, f"{ed}: ข้อ {it['number']} ({it['key']}) ไม่อยู่ในรายงาน (outline ล้าสมัย)"
+
+
+def test_shared_tables_not_duplicated_across_builders():
+    """ตารางที่อยู่ในทั้งสองฉบับต้องมาจาก goal7_blocks.py (ที่เดียว) — ห้ามมีหัวตารางเดียวกันในสอง builder"""
+    def heads(path):
+        t = path.read_text(encoding="utf-8")
+        return {tuple(re.findall(r'"([^"]+)"', m)[:3]) for m in re.findall(r"table\(\[(.*?)\]", t, flags=re.S)}
+    dup = heads(BUILDERS[0]) & heads(BUILDERS[1])
+    assert not dup, f"ตารางซ้ำสอง builder (ย้ายไป goal7_blocks.py): {list(dup)[:3]}"

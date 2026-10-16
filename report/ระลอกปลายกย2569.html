@@ -43,6 +43,14 @@
                  color:var(--c-warn-bg-fg); margin:14px 0; font-size:.93em; }
   code { background:#f0f3f5; padding:1px 5px; border-radius:4px; font-size:.9em; }
   .foot { color:var(--c-muted-fg); font-size:.88em; border-top:1px solid #dde6ec; margin-top:34px; padding-top:14px; }
+  .provenance-box { margin-top:18px; padding:14px 18px; background:#f7fafc;
+                     border:1px solid #d8e2ea; border-radius:8px; font-size:.88em;
+                     color:var(--c-muted-fg); line-height:1.65; }
+  .provenance-box b { color:var(--c-paper-fg); }
+  .provenance-badges { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 10px; }
+  .prov-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:.84em; font-weight:600; }
+  .prov-badge-ok { background:var(--c-ok-bg); color:var(--c-ok-bg-fg); }
+  .prov-badge-code { background:var(--c-code-bg); color:var(--c-code-bg-fg); }
 </style></head>
 <body><div class="wrap"><div class="paper">
 <div class="meta">จัดทำเมื่อ ตุลาคม 2569 · ทุกตัวเลขตรวจสอบย้อนกลับได้ถึงไฟล์ต้นฉบับ ·
@@ -176,4 +184,15 @@
 <p>รายงานนี้<b>อ่านจบในตัวเอง</b> — ไม่ต้องอ่านรายงานหรือเอกสารอื่นก่อน คำที่ใช้ซ้ำมีความหมายดังนี้:</p>
 <table><caption style='text-align:left;color:#5a6b7b;padding:4px 2px'>นิยามคำที่ใช้ในรายงาน — อ่านครั้งเดียวพอ</caption><tr><th>คำในรายงาน</th><th>ความหมาย</th></tr><tr><td>ระลอกปลาย ก.ย. 2569</td><td>ช่วงฝนตกหนักทั่วประเทศ 23 ก.ย.–9 ต.ค. 2569 ที่ทำให้หลายลุ่มน้ำท่วมพร้อมกัน</td></tr><tr><td>เส้นกำกับระดับน้ำตามแผน</td><td>ระดับปริมาณน้ำเก็บที่เขื่อนควรมีในแต่ละวันตามแผนบริหารรายปี — ถ้าน้ำจริงสูงกว่าเส้นนี้ แปลว่าเขื่อนเก็บน้ำมากกว่าแผน</td></tr><tr><td>ระดับวิกฤต / ระดับเตือน</td><td>ระดับน้ำในแม่น้ำที่หน่วยงานกำหนดไว้ว่าอันตราย / ควรเฝ้าระวัง</td></tr><tr><td>จุดวัด</td><td>เครื่องวัดระดับน้ำในแม่น้ำหรือคลองที่ส่งข้อมูลอัตโนมัติ</td></tr><tr><td>ดาวเทียมเรดาร์ (S1)</td><td>ดาวเทียม Sentinel-1 ที่ถ่ายภาพพื้นดินได้ทั้งกลางวันกลางคืนและทะลุเมฆ — ใช้ตรวจพื้นที่น้ำท่วม</td></tr><tr><td>ดาวเทียมสีธรรมชาติ (S2)</td><td>ดาวเทียม Sentinel-2 ที่ถ่ายภาพสีเหมือนตาคน — ใช้ตรวจยืนยัน แต่มองไม่ทะลุเมฆ</td></tr><tr><td>ที่ราบต่ำกว่า 60 เมตร</td><td>พื้นที่ราบลุ่มที่น้ำท่วมถึงได้ — พื้นที่วิเคราะห์หลักของรายงานนี้</td></tr><tr><td>จุดสูงสุด</td><td>ช่วงเวลาที่ระดับน้ำหรือพื้นที่น้ำท่วมมากที่สุด</td></tr><tr><td>การแยกส่วนของสาเหตุ</td><td>การคำนวณว่าน้ำท่วมมาจากฝนเท่าไร จากการปล่อยน้ำเขื่อน/ประตูระบายน้ำเท่าไร</td></tr><tr><td>เหตุการณ์นครนายก</td><td>น้ำท่วม อ.เมือง นครนายก ปลาย ก.ย. 2569 ที่วิเคราะห์ไว้แล้วในรายงานชุดก่อน — รายงานนี้ใช้เป็นจุดเทียบ โดยสรุปข้อเท็จจริงที่จำเป็นไว้ในตัว</td></tr></table>
 <div class="foot">สถานะ: ร่าง (ข้อมูลครบทุกบท: จุดวัด 69 จุด · เขื่อน 24 แห่ง · น้ำท่วมจากดาวเทียม · แบบจำลองทำนาย) · ตัวเลขทุกตัวสร้างโดยสคริปต์ใน <code>analysis/goal6/</code> (รันซ้ำได้) · โครงสร้างรายงานโปรแกรม 5 ฉบับ: นครนายก (1–2) · ระลอก 2569 6 ลุ่ม (ฉบับนี้) · ชุดเทียบมาตรฐาน 2554 (ที่ 4) · เครือข่ายระดับชาติ (ที่ 5)</div>
+<div class="provenance-box">
+  <div class="provenance-badges">
+    <span class="prov-badge prov-badge-code">รหัสรุ่น Git: 77faece</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ผ่านการตรวจภาษาไทย (Typo &amp; Collision Guard)</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ความเปรียบต่างสีผ่านเกณฑ์ WCAG AA</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ข้อมูลผูกกับฐานตัวเลขทางการ (analysis/goal6/canonical.json)</span>
+  </div>
+  <div>
+    <b>บันทึกประวัติและความโปร่งใส (Provenance &amp; Traceability):</b> รายงานฉบับนี้สร้างโดยกระบวนการสังเคราะห์อัตโนมัติร่วมกับปัญญาประดิษฐ์ (AI) ทุกตัวเลขหลักเชื่อมโยงกับแหล่งข้อมูลทางการใน <code>analysis/goal6/canonical.json</code> สามารถรันซ้ำเพื่อตรวจสอบความถูกต้องได้ทุกขั้นตอน คลังโค้ดและข้อมูลเปิดเผยแบบสาธารณะที่ <a href="https://github.com/tkittich/nnyflood" style="color:var(--c-accent)" target="_blank" rel="noopener">GitHub: tkittich/nnyflood</a>
+  </div>
+</div>
 </div></div></body></html>

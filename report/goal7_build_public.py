@@ -994,6 +994,7 @@ html = plain(page(
     "รายงานฉบับที่ 7 ฉบับประชาชน (ร่าง) · เป้าหมาย 7 · ต่อยอดจากรายงานน้ำท่วมนครนายก 2569",
     [OL.resolve(x) for x in [_tldr] + G["ctx"] + [CSS_EXTRA, toc(OL.toc_items())] + BODY],
     "ร่างรายงานที่ 7 — ยังไม่ผ่านการตรวจทานโดยผู้เชี่ยวชาญ" + GAP_FOOT,
+    canonical_ref="analysis/goal7/canonical.json",
 ))
 OL.save()
 OUT.write_text(html, encoding="utf-8")

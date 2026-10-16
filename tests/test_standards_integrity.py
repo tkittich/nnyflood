@@ -112,3 +112,22 @@ def test_project_map_registered_files_exist():
             missing.append(rel_path)
 
     assert not missing, f"พบไฟล์ที่อ้างใน docs/PROJECT_MAP.md แต่ไม่มีอยู่จริง:\n" + "\n".join(missing)
+
+
+def test_active_reports_have_provenance_box():
+    """รายงานฉบับที่ 3, 4, 7, 8 ต้องมีกล่องประทับประวัติและความโปร่งใส (provenance-box) พร้อมป้ายรับรอง"""
+    targets = [
+        ROOT / "report/ระลอกปลายกย2569.html",
+        ROOT / "report/ชุดเทียบมาตรฐาน2554.html",
+        ROOT / "report/คลองเจ้าพระยา2_ประชาชน.html",
+        ROOT / "report/คลองเจ้าพระยา2_วิชาการ.html",
+    ]
+    for path in targets:
+        assert path.exists(), f"ไม่พบไฟล์รายงาน {path.name}"
+        html = path.read_text(encoding="utf-8")
+        assert 'class="provenance-box"' in html, f"{path.name} ขาดกล่อง provenance-box"
+        assert "prov-badge-code" in html, f"{path.name} ขาดป้ายรหัสรุ่น Git"
+        assert "prov-badge-ok" in html, f"{path.name} ขาดป้ายรับรองคุณภาพ"
+        assert "canonical.json" in html, f"{path.name} ขาดการอ้างอิง canonical.json"
+        assert "github.com/tkittich/nnyflood" in html, f"{path.name} ขาดลิงก์คลังโค้ดสาธารณะ"
+

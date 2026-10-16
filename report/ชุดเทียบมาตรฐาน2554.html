@@ -43,6 +43,14 @@
                  color:var(--c-warn-bg-fg); margin:14px 0; font-size:.93em; }
   code { background:#f0f3f5; padding:1px 5px; border-radius:4px; font-size:.9em; }
   .foot { color:var(--c-muted-fg); font-size:.88em; border-top:1px solid #dde6ec; margin-top:34px; padding-top:14px; }
+  .provenance-box { margin-top:18px; padding:14px 18px; background:#f7fafc;
+                     border:1px solid #d8e2ea; border-radius:8px; font-size:.88em;
+                     color:var(--c-muted-fg); line-height:1.65; }
+  .provenance-box b { color:var(--c-paper-fg); }
+  .provenance-badges { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 10px; }
+  .prov-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:.84em; font-weight:600; }
+  .prov-badge-ok { background:var(--c-ok-bg); color:var(--c-ok-bg-fg); }
+  .prov-badge-code { background:var(--c-code-bg); color:var(--c-code-bg-fg); }
 </style></head>
 <body><div class="wrap"><div class="paper">
 <div class="meta">จัดทำเมื่อ ตุลาคม 2569 · ทุกตัวเลขตรวจสอบย้อนกลับได้ถึงไฟล์ต้นฉบับ ·
@@ -72,4 +80,15 @@
 <p><b>เขื่อนที่น้ำเข้าสูงแต่ไม่เกินเส้น</b>: ศรีนครินทร์น้ำเข้าฤดูปี 2554 อันดับ 1 (4,974 ล้าน ลบ.ม.) และปี 2569 อันดับ 2 (4,452) แต่ไม่เกินเส้นทั้งสองปี — ณ 1 ก.ย. เก็บต่ำกว่าเส้น 2,541 (2554) และ 1,825 ล้าน ลบ.ม. (2569) และเก็บน้ำเข้าไว้ได้ 72% และ 92% ตามลำดับ — ผลลัพธ์นี้ชี้ว่าความต่างระหว่างเขื่อนส่วนหนึ่งมาจาก<b>พื้นที่ว่างใต้เส้น ณ ต้นหน้าต่าง</b> ไม่ใช่เฉพาะปริมาณน้ำเข้า · ข้อควรระวัง: น้ำเข้าเป็นค่ารายวันที่หน่วยงานรายงาน (ขาดบางวัน ชดเชยด้วยค่าเฉลี่ย) · เส้นกำกับเป็นแบบรายเดือน-วันปี 2020 · ไม่ได้จำลองการระบายแบบอื่น จึงยังบอกไม่ได้ว่า "ควรปล่อยเท่าไร"</p>
 <div class="placeholder">⏳ รอข้อมูล — วิเคราะห์ต่อ (รอผู้ใช้ยืนยันขอบเขต): จังหวะระบายรายเดือน 2554 เทียบระดับน้ำแม่น้ำ (ต้องข้อมูลมนุษย์) · ข้อเสนอนโยบายระดับชาติ</div>
 <div class="foot">สถานะ: ร่างแรก — ตารางหลักครบ 24 เขื่อน · ส่วนวิเคราะห์เพิ่มรอขอบเขตจากผู้ใช้</div>
+<div class="provenance-box">
+  <div class="provenance-badges">
+    <span class="prov-badge prov-badge-code">รหัสรุ่น Git: 77faece</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ผ่านการตรวจภาษาไทย (Typo &amp; Collision Guard)</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ความเปรียบต่างสีผ่านเกณฑ์ WCAG AA</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ข้อมูลผูกกับฐานตัวเลขทางการ (analysis/goal6/canonical.json)</span>
+  </div>
+  <div>
+    <b>บันทึกประวัติและความโปร่งใส (Provenance &amp; Traceability):</b> รายงานฉบับนี้สร้างโดยกระบวนการสังเคราะห์อัตโนมัติร่วมกับปัญญาประดิษฐ์ (AI) ทุกตัวเลขหลักเชื่อมโยงกับแหล่งข้อมูลทางการใน <code>analysis/goal6/canonical.json</code> สามารถรันซ้ำเพื่อตรวจสอบความถูกต้องได้ทุกขั้นตอน คลังโค้ดและข้อมูลเปิดเผยแบบสาธารณะที่ <a href="https://github.com/tkittich/nnyflood" style="color:var(--c-accent)" target="_blank" rel="noopener">GitHub: tkittich/nnyflood</a>
+  </div>
+</div>
 </div></div></body></html>

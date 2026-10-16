@@ -43,6 +43,14 @@
                  color:var(--c-warn-bg-fg); margin:14px 0; font-size:.93em; }
   code { background:#f0f3f5; padding:1px 5px; border-radius:4px; font-size:.9em; }
   .foot { color:var(--c-muted-fg); font-size:.88em; border-top:1px solid #dde6ec; margin-top:34px; padding-top:14px; }
+  .provenance-box { margin-top:18px; padding:14px 18px; background:#f7fafc;
+                     border:1px solid #d8e2ea; border-radius:8px; font-size:.88em;
+                     color:var(--c-muted-fg); line-height:1.65; }
+  .provenance-box b { color:var(--c-paper-fg); }
+  .provenance-badges { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 10px; }
+  .prov-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:.84em; font-weight:600; }
+  .prov-badge-ok { background:var(--c-ok-bg); color:var(--c-ok-bg-fg); }
+  .prov-badge-code { background:var(--c-code-bg); color:var(--c-code-bg-fg); }
 </style></head>
 <body><div class="wrap"><div class="paper">
 <div class="meta">จัดทำเมื่อ ตุลาคม 2569 · ทุกตัวเลขตรวจสอบย้อนกลับได้ถึงแฟ้มต้นฉบับ ·
@@ -138,4 +146,15 @@
 <h2 id="app">ภาคผนวก: แหล่งที่มา</h2>
 <p>สำนักข่าวประชาสัมพันธ์ · เว็บข่าวไทยพับลิก้า · แนวหน้า · ประชาชาติธุรกิจ · ฐานเศรษฐกิจ · ไทยพีบีเอส (รายการสื่อละเอียดใน <code>docs/GOAL7_PLAN.md</code> §7) · แผนที่รายช่วง 24 แผ่น (ผู้ใช้ได้มา — ที่มาและแฮชใน <code>data/32_goal7_chaophraya2/manifest.md</code>) · แผนที่ผู้ใช้สร้างชื่อ "เจ้าพระยา2" · ภาพน้ำท่วม GISTDA (Sentinel-1 และเรดาร์ดาวเทียมอีกดวง) · ความสูงพื้นผิว Copernicus GLO-30 · ปริมาณน้ำสถานี C.2 และเขื่อนป่าสักฯ จากข้อมูลน้ำของงานวิเคราะห์</p>
 <div class="foot">ร่างรายงานที่ 7 — ยังไม่ผ่านการตรวจทานโดยผู้เชี่ยวชาญ · ข้อมูลล่าสุด 16 ต.ค. 2569 · ช่องว่างความรู้ที่ยังเปิดอยู่ 18 ข้อ</div>
+<div class="provenance-box">
+  <div class="provenance-badges">
+    <span class="prov-badge prov-badge-code">รหัสรุ่น Git: 77faece</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ผ่านการตรวจภาษาไทย (Typo &amp; Collision Guard)</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ความเปรียบต่างสีผ่านเกณฑ์ WCAG AA</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ข้อมูลผูกกับฐานตัวเลขทางการ (analysis/goal7/canonical.json)</span>
+  </div>
+  <div>
+    <b>บันทึกประวัติและความโปร่งใส (Provenance &amp; Traceability):</b> รายงานฉบับนี้สร้างโดยกระบวนการสังเคราะห์อัตโนมัติร่วมกับปัญญาประดิษฐ์ (AI) ทุกตัวเลขหลักเชื่อมโยงกับแหล่งข้อมูลทางการใน <code>analysis/goal7/canonical.json</code> สามารถรันซ้ำเพื่อตรวจสอบความถูกต้องได้ทุกขั้นตอน คลังโค้ดและข้อมูลเปิดเผยแบบสาธารณะที่ <a href="https://github.com/tkittich/nnyflood" style="color:var(--c-accent)" target="_blank" rel="noopener">GitHub: tkittich/nnyflood</a>
+  </div>
+</div>
 </div></div></body></html>

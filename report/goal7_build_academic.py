@@ -837,6 +837,7 @@ html = plain(page(
     "รายงานฉบับที่ 8 ฉบับวิชาการ (ร่าง) · เป้าหมาย 7 · ตรวจสอบย้อนกลับได้",
     [OL.resolve(x) for x in S],
     "ร่างรายงานที่ 8 ฉบับวิชาการ — ยังไม่ผ่านการตรวจทานโดยผู้เชี่ยวชาญ" + GAP_FOOT,
+    canonical_ref="analysis/goal7/canonical.json",
 ))
 OL.save()
 OUT.write_text(html, encoding="utf-8")

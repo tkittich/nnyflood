@@ -741,5 +741,5 @@ foot = ("สถานะ: ร่าง (ข้อมูลครบทุกบ�
 OUT.write_text(page(
     "รายงานที่ 3 (ร่าง) — ระลอกปลาย ก.ย. 2569 ทั่วประเทศ: 6 ลุ่มน้ำเทียบกัน",
     "การสอบสวนเชิงหลักฐาน แบบเดียวกับนครนายก ขยายสู่พื้นที่ทั่วประเทศ — จุดยืนเป็นกลางตามหลักฐาน",
-    S, foot), encoding="utf-8")
+    S, foot, canonical_ref="analysis/goal6/canonical.json"), encoding="utf-8")
 print(f"เขียนแล้ว: {OUT} ({OUT.stat().st_size/1e3:.0f} KB)")

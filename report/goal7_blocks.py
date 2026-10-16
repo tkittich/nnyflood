@@ -167,3 +167,20 @@ def tbl_nn_water_users() -> str:
     W = C["nn_water_users"]
     return table(["ประเด็นที่ผู้แทนผู้ใช้น้ำนครนายกกังวล", "มาตรการที่รายงานระบุ"], W["pairs"],
                  f"ประชุมกลุ่มย่อยผู้ใช้น้ำ {W['date']} ณ {W['place']} (ผู้แทนนครนายก {W['n_reps']} คน) · {W['src']}")
+
+
+def tbl_nn_venues_2566() -> str:
+    V = C["nn_venues_2566"]
+    rows = [[f"เวทีที่ {r['venue']}", r["when"], r["area"], r["place"], " · ".join(r["topics"])] for r in V["rows"]]
+    tc, al = V["topic_counts"], V["all_total"]
+    top = sorted(tc.items(), key=lambda kv: -kv[1])[:4]
+    cap = (V["src"] + " · สรุป " + str(V["n_venues"]) + " เวทีที่เกี่ยวกับนครนายก: " +
+           " · ".join(f"{k} {v} เวที (ทั้งโครงการ {al[k]} จาก 32)" for k, v in top if v) + " · " + V["banna_note"])
+    return table(["เวที", "วัน-เวลา", "พื้นที่ (ตำบล)", "สถานที่", "ประเด็นที่เวทีให้ความสำคัญ"], rows, cap)
+
+
+def tbl_nuclear_villages() -> str:
+    N = C["nuclear_site"]
+    rows = [[v["village"], v["dist_km"], v["side"], f"{v['canal_km']:.0f}", v["dem_m"] if v["dem_m"] is not None else "—"] for v in N["villages"]]
+    return table(["หมู่บ้านในตำบลทรายมูล (อ.องครักษ์)", "ห่างแนวคลอง (กม.)", "ฝั่งของคลอง", "ตรงกับคลอง กม.", "ความสูงผิวพื้น (ม.รทก.)"], rows,
+                 "แนวคลองไม่เป็นทางการ · พิกัดหมู่บ้านและความสูงผิวพื้นจากข้อมูลของโปรเจกต์ (±2–4 ม.) · ที่ตั้งศูนย์วิจัยนิวเคลียร์อยู่ในตำบลนี้ (หมู่ 7) แต่ไม่มีพิกัดแน่ชัด")

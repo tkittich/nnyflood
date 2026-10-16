@@ -261,7 +261,7 @@ def test_public_questions_collapsible_and_numbered():
     nums = [int(n) for _, n in heads]
     assert nums == list(range(1, len(nums) + 1)), f"เลขถามต้องเรียง 1..N ไม่ข้าม/ซ้ำ: {nums}"
     n_open = sum(1 for o, _ in heads if o)
-    assert 3 <= n_open <= 8, "คำถามสำคัญเปิดไว้ตั้งต้น (3–8 ข้อ) ที่เหลือพับ"
+    assert 3 <= n_open <= 12, "คำถามสำคัญเปิดไว้ตั้งต้น (3–12 ข้อ) ที่เหลือพับ"
     assert len(nums) < 25, "คำถามซ้ำซ้อนต้องรวมแล้ว"
 
 

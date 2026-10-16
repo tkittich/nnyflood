@@ -336,3 +336,16 @@ def test_ocr_facts_and_diversion_days():
     led = {g["id"]: g for g in json.loads((ROOT / "analysis/goal7/gaps.json").read_text(encoding="utf-8"))["gaps"]}
     for k in ("mussel_notification", "telemetry_locations", "scanned_docs_unread"):
         assert led[k]["status"] == "closed" and led[k].get("closed_by"), k
+
+
+def test_acid_soil_regression():
+    """ดินเปรี้ยว: ตัวเลขจากตาราง 3.1.3-5 ของรายงานผลกระทบสิ่งแวดล้อม 2569 + ปริมาตรดินขุดในชุดดินกรด (คัดกรอง)"""
+    a = json.loads(CAN.read_text(encoding="utf-8"))["acid_soil"]
+    ar = a["areas"]["km23_110"]
+    assert (ar["Ok"], ar["Rs"], ar["Bp"], ar["total"]) == (1768, 2848, 2171, 10130)
+    assert abs(a["acid_share_km23_110"] - 67.0) < 0.1 and abs(a["acid_share_all"] - 54.1) < 0.2
+    v = a["excavation_acid_mcm"]
+    assert 4.0 <= v["deep"] / v["design"] <= 5.0
+    assert a["lime_mt"]["deep"]["0.5"] > 3 * a["lime_mt"]["design"]["0.5"]
+    led = {g["id"]: g for g in json.loads((ROOT / "analysis/goal7/gaps.json").read_text(encoding="utf-8"))["gaps"]}
+    assert led["acid_sulfur_content"]["status"] == "open" and led["acid_measures"]["status"] == "open"

@@ -133,3 +133,31 @@ def tbl_civic_concerns(checks: dict | None, caption: str) -> str:
     rows = [[k["n"], k["topic"], k["claim"]] + ([checks.get(str(k["n"]), "ยังไม่ได้ตรวจ")] if checks is not None else [])  # gap: concern_checks_pending
             for k in C["concerns"]]
     return table(head, rows, caption)
+
+
+# ---------- ดินเปรี้ยว (acid_soil) ----------
+_AS = C["acid_soil"]
+
+
+def tbl_acid_areas() -> str:
+    A = _AS["areas"]
+    rows = []
+    for code in ("Ok", "Rs", "Bp"):
+        s = _AS["series"][code]
+        a1, a2 = A["km23_110"].get(code, 0), A["km110_135"].get(code, 0)
+        rows.append([f"{s['name']} (<code>{code}</code>)", s["ph"], f"{a1:,} ({a1 / A['km23_110']['total'] * 100:.1f}%)",
+                     f"{a2:,} ({a2 / A['km110_135']['total'] * 100:.1f}%)" if a2 else "—", s["note"]])
+    rows.append(["รวม 3 ชุดดินกรด", "", f"{sum(A['km23_110'].get(k, 0) for k in ('Ok', 'Rs', 'Bp')):,} ({_AS['acid_share_km23_110']}%)",
+                 f"{A['km110_135']['Bp']:,} ({_AS['acid_share_km110_135']}%)", f"ทั้งแนว {_AS['acid_rai_all']:,} จาก {_AS['soil_rai_all']:,} ไร่ ({_AS['acid_share_all']}%)"])
+    return table(["ชุดดิน", "ความเป็นกรด-ด่างตามรายงาน", "กม.23–110 ไร่ (ร้อยละ)", "กม.110–135 ไร่ (ร้อยละ)", "ลักษณะสำคัญ"], rows,
+                 _AS["src"] + f" · ชุดดินองครักษ์อยู่เฉพาะ กม.23–110 (อ่านจากแผนที่ ราว กม.{_AS['ok_km_map'][0][0]}–{_AS['ok_km_map'][0][1]} และ {_AS['ok_km_map'][1][0]}–{_AS['ok_km_map'][1][1]} ±2 กม.)")
+
+
+def tbl_acid_lime() -> str:
+    L, V = _AS["lime_mt"], _AS["excavation_acid_mcm"]
+    rows = [[("ตามแบบในรายงาน (ขุดต่ำกว่าพื้นเดิมราว 3.7 ม.)" if k == "design" else "กรณีขุดลึก (ราว 12 ม.)"), V[k],
+             L[k]["0.2"], L[k]["0.5"], L[k]["1.0"], f"{_AS['lime_cost_mb'][k][0]:,}–{_AS['lime_cost_mb'][k][1]:,}"] for k in ("design", "deep")]
+    a = _AS["assumptions"]
+    return table(["กรณี", "ดินที่ขุดในชุดดินกรด (ล้าน ลบ.ม.)", "ปูนที่ต้องใช้ ถ้ากำมะถัน 0.2% (ล้านตัน)", "ถ้า 0.5%", "ถ้า 1.0%", "ค่าปูนที่ 0.5% (ล้านบาท)"], rows,
+                 f"สมมติฐาน: ความหนาแน่นดิน {a['bulk_density_t_m3']} ตัน/ลบ.ม. · ปูน {a['caco3_kg_per_t_per_pct_s']} กก./ตันดิน ต่อกำมะถัน 1% × เผื่อ {a['safety']} เท่า · "
+                 f"ราคาปูน {_AS['lime_price_baht_per_t'][0]:,}–{_AS['lime_price_baht_per_t'][1]:,} บาท/ตัน · {a['note']}")

@@ -893,6 +893,61 @@ OCR_FACTS = [
 ]
 
 
+
+# ---- ดินเปรี้ยว/ดินกรดกำมะถัน ตามแนวคลอง (16 ต.ค. 69) — ข้อมูลจากรายงานผลกระทบสิ่งแวดล้อม 2569 เล่ม 1 §3.1.3 (กรมพัฒนาที่ดิน 2562 · สำรวจดิน 26–27 พ.ค. 2559) ----
+ACID_SRC = "รายงานผลกระทบสิ่งแวดล้อม 2569 เล่ม 1 บทที่ 3 §3.1.3 ตาราง 3.1.3-3, 3.1.3-5, 3.1.3-7 (หน้าไฟล์ 217–231) · รูปที่ 3.1.3-3 (หน้าไฟล์ 225)"
+ACID_AREAS = {   # พื้นที่ชุดดินในแนวคลอง (ไร่) ตารางที่ 3.1.3-5
+    "km0_23": {"total": 2140, "Tr": 2140},
+    "km23_110": {"total": 10130, "Ok": 1768, "Rs": 2848, "Bp": 2171, "Bk": 882, "Cc": 1724, "Ma": 454, "Tr": 282},
+    "km110_135": {"total": 2694, "Bp": 1302, "Bk": 753, "Sm": 377, "Bpg": 263},
+}
+ACID_SERIES = {
+    "Ok": {"name": "ชุดดินองครักษ์", "ph": "4.0–4.5 ทั้งหน้าตัด (ชั้นบนราว 4.0 ภายใน 50 ซม.)",
+           "note": "ดินเลนเหนียวทะเลชั้นล่าง · น้ำท่วมขังลึก 1 ม. นาน 6–7 เดือน · เหล็ก/อะลูมิเนียมละลายออกมากจนเป็นพิษต่อพืช · \"ไม่เหมาะต่อการเกษตรทุกประเภท\""},
+    "Rs": {"name": "ชุดดินรังสิต", "ph": "4.0–5.0 (ต่ำกว่า 4.0 ที่ลึก 100–150 ซม.)",
+           "note": "พบจุดจาโรไซต์ (ตัวชี้ดินกรดกำมะถัน) ที่ 50–100 ซม. · ต่ำลงไปเป็นดินเลน \"ดินเปรี้ยวจัด\" · เหมาะปานกลางสำหรับปลูกข้าว"},
+    "Bp": {"name": "ชุดดินบางน้ำเปรี้ยว", "ph": "6.0–6.5 ชั้นบน · \"ดินเป็นกรดจัด\" ตามคำบรรยาย",
+           "note": "พบดินเลนสีเทาปนเขียวที่ราว 150 ซม. ลงไป · อาจพบจุดเหลืองฟางข้าว · เหมาะปานกลางสำหรับปลูกข้าว"},
+}
+ACID_FIELD_PH = [   # ตาราง 3.1.3-7: (สถานี, ชั้นบน, ชั้นล่าง)
+    ("วัดม่วงหวาน", 5.97, 5.57), ("อบต.หนองหมู (วิหารแดง)", 3.98, 3.93), ("ร.ร.บ้านช่องตะเคียน", 5.44, 4.59),
+    ("ทุ่งนา ต.ดอนฉิมพลี (บางน้ำเปรี้ยว)", 3.72, 3.64), ("ที่ดินข้างคลองกระแซงเตย", 5.93, 4.01)]
+ACID_OK_KM_MAP = [[32, 40], [44, 50]]   # อ่านจากรูปที่ 3.1.3-3 สีส้ม "ไม่เหมาะสมสำหรับพืชเศรษฐกิจ" (±2 กม.)
+
+
+def acid_soil(c):
+    """ดินเปรี้ยวกับการขุดลึก — คัดกรองลำดับขนาด: ปริมาตรดินขุดที่อยู่ในชุดดินกรด และปูนที่ต้องใช้ (ตามสมมติฐานกำมะถัน)"""
+    dc = c["new_cases"]["deep_cut"]
+    a1, a2 = ACID_AREAS["km23_110"], ACID_AREAS["km110_135"]
+    acid1 = a1["Ok"] + a1["Rs"] + a1["Bp"]
+    acid2 = a2["Bp"]
+    f1, f2 = acid1 / a1["total"], acid2 / a2["total"]
+    tot = sum(ACID_AREAS[k]["total"] for k in ACID_AREAS)
+    acid_tot = acid1 + acid2
+    L1, L2 = 87.0, 24.0          # กม.23–110 และ กม.110–134
+    cut_deep, cut_now = dc["area_m2"], dc["area_now_below_ground_m2"]
+    vol = {"design": round((L1 * f1 + L2 * f2) * cut_now / 1000, 1), "deep": round((L1 * f1 + L2 * f2) * cut_deep / 1000, 1)}
+    rho, caco3_kg_per_t_per_pct, safety = 1.4, 31.25, 1.5
+    lime = {}
+    for case, v in vol.items():
+        mt = v * 1e6 * rho / 1e6          # ล้านตันดิน
+        lime[case] = {str(sp): round(mt * sp * caco3_kg_per_t_per_pct / 1000 * safety, 2) for sp in (0.2, 0.5, 1.0)}
+    price = (1000, 1500)
+    return {
+        "src": ACID_SRC, "areas": ACID_AREAS, "series": ACID_SERIES, "field_ph": ACID_FIELD_PH, "ok_km_map": ACID_OK_KM_MAP,
+        "acid_share_km23_110": round(f1 * 100, 1), "acid_share_km110_135": round(f2 * 100, 1), "acid_share_all": round(acid_tot / tot * 100, 1),
+        "acid_rai_all": acid_tot, "soil_rai_all": tot,
+        "ok_500m_rai": 4019 + 4303, "ok_rai_canal": a1["Ok"],
+        "excavation_acid_mcm": vol, "cut_area_m2": {"design": cut_now, "deep": cut_deep},
+        "lime_mt": lime, "lime_price_baht_per_t": list(price),
+        "lime_cost_mb": {k: [round(v["0.5"] * price[0]), round(v["0.5"] * price[1])] for k, v in lime.items()},
+        "assumptions": {"bulk_density_t_m3": rho, "caco3_kg_per_t_per_pct_s": caco3_kg_per_t_per_pct, "safety": safety,
+                        "sulfur_pct_scenarios": [0.2, 0.5, 1.0],
+                        "note": "รายงานผลกระทบสิ่งแวดล้อมวัดเฉพาะความเป็นกรด-ด่างชั้นตื้น ไม่มีปริมาณกำมะถัน/ศักย์กรด — ค่ากำมะถันเป็นสมมติฐานเพื่อดูลำดับขนาด · ถือว่าดินที่ขุดทั้งหมดในชุดดินกรดเป็นดินที่มีกำมะถัน (ขอบบน)"},
+        "water_ph_2555": [6.96, 7.95], "water_ph_src": "รายงานผลกระทบสิ่งแวดล้อม 2569 เล่ม 1 ตาราง 3.1.7-4 (ผลปี 2555) หน้าไฟล์ 265",
+    }
+
+
 def _ground(km):
     g = PROFILE_FIG["ground"]
     return float(np.interp(km, [x[0] for x in g], [x[1] for x in g]))
@@ -1098,6 +1153,7 @@ def main():
     c["extra_q"] = extra_questions(c)
     c["new_cases"] = new_cases(c)
     c["ocr_facts"] = {"facts": OCR_FACTS, "s26": OCR_S26}
+    c["acid_soil"] = acid_soil(c)
     (OUT / "canonical.json").write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: c[k] for k in ("structures", "c2", "pasak_dam", "corridor_area", "flood_band")}, ensure_ascii=False, indent=1)[:5000])
 

@@ -843,6 +843,180 @@ def embankment_scenarios(c):
     }
 
 
+def _ground(km):
+    g = PROFILE_FIG["ground"]
+    return float(np.interp(km, [x[0] for x in g], [x[1] for x in g]))
+
+
+def new_cases(c):
+    """กรณีเพิ่ม 16 ต.ค. 69: (1) น้ำเท้อ/น้ำทะเลหนุน (2) ขุดลึกลดคัน + พัฒนาสองฝั่ง (3) ท่องเที่ยว (4) ไฟฟ้าจากน้ำไหล
+    คัดกรองลำดับขนาดจากหน้าตัดตามรายงาน — สมมติฐานทุกข้อระบุใน assumptions · ไม่ใช่แบบออกแบบ"""
+    sec = c["eia_section"]
+    z, D, n, Q = sec["z1"], sec["D_m"], sec["n"], 600.0
+    b = sec["A_m2"] / D - z * D
+    S0 = 0.04 / 1000.0
+    KM0, KM1 = 23.0, 134.0
+    g = 9.81
+
+    def geo(y):
+        A = (b + z * y) * y
+        P = b + 2 * y * math.sqrt(1 + z * z)
+        return A, P, b + 2 * z * y
+
+    def sf(y, q):
+        A, P, _ = geo(y)
+        return (q * n / (A * (A / P) ** (2 / 3))) ** 2
+
+    def dydx(y, q):
+        A, _, T = geo(y)
+        fr2 = q * q * T / (g * A ** 3)
+        return (S0 - sf(y, q)) / (1 - fr2)
+
+    def normal(q):
+        return brentq(lambda y: (1 / n) * geo(y)[0] * (geo(y)[0] / geo(y)[1]) ** (2 / 3) * math.sqrt(S0) - q, 0.05, 40)
+
+    bed_end = _profile_levels(KM1)[0]
+
+    def backwater(q, stage_end):
+        yn = normal(q)
+        y = max(stage_end - bed_end, yn)
+        out = {134: y}
+        dx = 0.05
+        for i in range(1, int(round((KM1 - KM0) / dx)) + 1):
+            k1 = dydx(y, q)
+            k2 = dydx(y - 0.5 * dx * 1000 * k1, q)
+            y = max(y - dx * 1000 * k2, yn)
+            km = KM1 - i * dx
+            if abs(km - round(km)) < 1e-6:
+                out[int(round(km))] = y
+        return yn, out
+
+    cases = []
+    for label, q, st in (("น้ำหลากเต็มกำลัง 600 · ปลายคลองตามแบบ +1.50", 600.0, 1.498),
+                         ("น้ำหลากเต็มกำลัง 600 · อัดน้ำหลังประตู +2.50", 600.0, 2.5),
+                         ("ผันน้ำน้อย 100 · น้ำทะเลหนุนสูงสุด +2.49", 100.0, 2.49)):
+        yn, prof = backwater(q, st)
+        surf = {k: round(_profile_levels(k)[0] + v, 2) for k, v in sorted(prof.items())}
+        norm = round(yn, 2)
+        rise = {k: prof[k] - yn for k in prof}
+        reach = [k for k in sorted(rise) if rise[k] > 0.05]
+        rise_m = {str(k): round(rise[k], 2) for k in (134, 120, 102, 74, 40)}
+        r25 = [k for k in sorted(rise) if rise[k] > 0.25]
+        cases.append({"label": label, "q_m3s": q, "stage_end_m": st, "normal_depth_m": norm,
+                      "rise_m": rise_m, "length_rise_gt_025_km": (KM1 - min(r25) if r25 else 0.0),
+                      "backwater_upto_km": (min(reach) if reach else None),
+                      "backwater_length_km": (KM1 - min(reach) if reach else 0.0),
+                      "surface_msl": {str(k): v for k, v in surf.items()}})
+    w_ws = b + 2 * z * D
+    stor = {}
+    for a in (74, 102):
+        v1 = (134 - a) * 1000 * w_ws * 1.0 / 1e6
+        stor[f"km{a}_134"] = {"mcm_per_m_rise": round(v1, 1), "hours_at_600_per_m": round(v1 * 1e6 / Q / 3600, 1)}
+    tide = {"design_high_m": 2.0, "behind_gate_m": 2.5, "gate_front_m": 1.5, "y2554_max_m": 2.49, "y2554_min_m": -1.49,
+            "backwater_km_eia": 60, "storage": stor, "water_width_m": round(w_ws),
+            "src": "รายงานผลกระทบสิ่งแวดล้อม ฉบับ 2569 (ระดับน้ำทะเลสูงสุด +2.00 · หน้าประตู +1.50 · อัดน้ำ +2.50 · แบบจำลองคณิตศาสตร์ของรายงาน น้ำทะเล 2554 +2.49/−1.49 · น้ำเท้อ ~60 กม.) · เส้นน้ำเท้อคำนวณเอง ด้วยสมการการไหลไม่สม่ำเสมอแบบแมนนิง ขั้นละ 50 ม.",
+            "cases": cases}
+    g40 = _ground(40)
+    S_flat = (g40 - 1.5) / (94 * 1000.0)
+
+    def cap(Dd, S):
+        A = (b + z * Dd) * Dd
+        P = b + 2 * Dd * math.sqrt(1 + z * z)
+        return (1 / n) * A * (A / P) ** (2 / 3) * math.sqrt(S)
+
+    D_deep = brentq(lambda d: cap(d, S_flat) - Q, 2, 60)
+    rows, mx, nnmax = [], 0.0, 0.0
+    for km in range(38, 135, 2):
+        w = g40 - (g40 - 1.5) * (km - 40) / 94 if km >= 40 else g40
+        gr = _ground(km)
+        crest = (w - gr) + 1.5
+        mx = max(mx, crest)
+        if 38.6 <= km <= 73.2:
+            nnmax = max(nnmax, crest)
+        rows.append((km, round(w, 2), round(gr, 2), round(crest, 1)))
+    def deep_backwater(stage_end):
+        bed_end_d = 1.5 - D_deep
+        y = stage_end - bed_end_d
+        out = {134: y - D_deep}
+
+        def f(yy):
+            A, P, T = geo(yy)
+            return (S_flat - (Q * n / (A * (A / P) ** (2 / 3))) ** 2) / (1 - Q * Q * T / (g * A ** 3))
+        dx = 0.05
+        for i in range(1, int(round(111 / dx)) + 1):
+            k1 = f(y)
+            k2 = f(y - 0.5 * dx * 1000 * k1)
+            y = max(y - dx * 1000 * k2, D_deep)
+            km = 134 - i * dx
+            if abs(km - round(km)) < 1e-6:
+                out[int(round(km))] = y - D_deep
+        return out
+
+    dbw = deep_backwater(2.5)
+    d_r25 = [k for k in sorted(dbw) if dbw[k] > 0.25]
+    A_deep = (b + z * D_deep) * D_deep
+    d_now = g40 - _profile_levels(40)[0]
+    cut_now = (b + z * d_now) * d_now
+    bank_now = 2 * 4.8 * (10 + (z + 2.0) * 4.8 / 2)
+    bank_deep = 2 * 1.5 * (10 + (z + 2.0) * 1.5 / 2)
+    L = c["corridor_area"]["length_km"]
+    extra_cut = (A_deep - cut_now) * (134 - 23) * 1000 / 1e6
+    top_w = b + 2 * z * D_deep
+    deep = {"water_at_ground_km40_m": round(g40, 2), "slope_1_n": round(1 / S_flat), "depth_m": round(D_deep, 1), "bottom_m": round(b),
+            "bed_km40_msl": round(g40 - D_deep, 1), "water_width_m": round(top_w), "area_m2": round(A_deep),
+            "area_now_below_ground_m2": round(cut_now), "depth_now_below_ground_m": round(d_now, 1),
+            "crest_above_ground_max_m": round(mx, 1), "crest_above_ground_nn_max_m": round(nnmax, 1),
+            "bank_fill_now_m2": round(bank_now), "bank_fill_deep_m2": round(bank_deep),
+            "extra_spoil_mcm_km23_134": round(extra_cut),
+            "unit_cost_baht_per_m3": [60, 150], "extra_cut_cost_mb": [round(extra_cut * 60), round(extra_cut * 150)],
+            "tide_rise_m": {str(k): round(dbw[k], 2) for k in (134, 120, 102, 74, 40)},
+            "tide_rise_len_gt_025_km": (134 - min(d_r25) if d_r25 else 0.0),
+            "storage_mcm_per_m_rise_km74_134": round((134 - 74) * 1000 * top_w / 1e6, 1),
+            "rows": rows}
+    loan, state = c["civic_funding"]["loan_adb_mb"], c["civic_funding"]["budget_state_mb"]
+    dev = []
+    for w in (100, 200, 300):
+        rai = L * 1000 * w * 2 / 1600.0
+        for p in (1.0, 3.0, 5.0):
+            dev.append({"strip_m_each_side": w, "rai": round(rai), "net_mb_per_rai": p, "total_mb": round(rai * p),
+                        "cover_loan_pct": round(rai * p / loan * 100)})
+    be = {str(w): round(loan / (L * 1000 * w * 2 / 1600.0), 1) for w in (100, 200, 300)}
+    land = {"scenarios": dev, "breakeven_mb_per_rai_for_loan": be, "loan_mb": loan, "state_mb": state, "length_km": L,
+            "nn_comp_mb_per_rai": round(3864.7 / 4266, 2), "sp_comp_mb_per_rai": round(10612.1 / 2594, 2),
+            "absorb_rai_per_year_200m_8y": round(L * 1000 * 400 / 1600.0 / 8)}
+    area_km2 = (134 - 23) * w_ws / 1000.0
+    om = c["eia_versions"]["qa"]["om_mb_per_year"]
+    tour = {"water_area_km2": round(area_km2, 1), "water_width_m": round(w_ws), "raft_footprint_m2": 600,
+            "rafts_per_pct_surface": round(area_km2 * 1e6 * 0.01 / 600),
+            "bed_fall_km23_134_m": round(_profile_levels(KM0)[0] - _profile_levels(KM1)[0], 1),
+            "drift_speed_kmh": round(sec["V_ms"] * 3.6, 1), "drift_hours_111km": round(111 / (sec["V_ms"] * 3.6)),
+            "om_mb_per_year": om, "visitors_to_cover_om_m": {str(m): round(om / m, 1) for m in (100, 200, 400)},
+            "longest_whitewater_found_km": {"purpose_built": 1.1, "river_reshaped_urban": 4.0},
+            "src_ww": "ค้นเว็บ 16 ต.ค. 2569: รายการสนามล่องแก่งเทียมในวิกิพีเดีย · เว็บข่าวกองทัพบกสหรัฐ (แม่น้ำแชตตาฮูชี ราว 2.5 ไมล์) · ผู้ประกอบการสนามในสหรัฐอาหรับเอมิเรตส์ (อ้าง 1.1 กม.)"}
+    V = sec["V_ms"]
+    cp = 0.3
+    pden = 0.5 * 1000 * V ** 3 * cp
+    kin = []
+    for frac in (0.1, 0.2):
+        per = pden * sec["A_m2"] * frac / 1000.0
+        kin.append({"swept_fraction": frac, "kw_per_station": round(per, 1), "mw_55_stations": round(per * 55 / 1000.0, 2)})
+    ts = np.linspace(0, 2 * math.pi, 2000)
+    head = np.maximum(1.5 - (0.5 + 2.0 * np.sin(ts)), 0.0)
+    h_avg = float(head.mean())
+    p_gate = 9810 * Q * h_avg * 0.8 / 1e6
+    days = {str(d): {"gate_gwh": round(p_gate * 24 * d / 1000, 1),
+                     "kinetic_gwh": [round(k["mw_55_stations"] * 24 * d / 1000, 1) for k in kin]} for d in (30, 60, 90)}
+    pv = c["options"]["floating_pv"]
+    hyd = {"velocity_ms": V, "cp": cp, "power_density_w_m2": round(pden), "kinetic": kin,
+           "gate_head_avg_m": round(h_avg, 2), "gate_open_fraction": round(float((head > 0).mean()), 2),
+           "gate_power_mw_avg": round(p_gate, 1), "days_scenarios": days,
+           "pv_gwh_per_year": [pv[0]["gwh_per_year"], pv[1]["gwh_per_year"]], "pv_mwp": [pv[0]["mwp"], pv[1]["mwp"]],
+           "outlet_pump_mw_1m": c["options"]["outlet_pump"][0]["power_mw"],
+           "assumptions": "ทะเลขึ้นลงแบบคลื่นไซน์ +0.5±2.0 ม.รทก. (ช่วง −1.49…+2.49 ของปี 2554) · น้ำปลายคลอง +1.5 · ประสิทธิภาพกังหัน 0.8 · "
+                          "กังหันกลางน้ำ สัมประสิทธิ์กำลัง 0.3 · 55 สถานี (ทุก 2 กม.) · วันผันน้ำเต็มกำลัง 30/60/90 วันเป็นสมมติฐาน"}
+    return {"tide": tide, "deep_cut": deep, "land_dev": land, "tourism": tour, "hydro": hyd}
+
+
 def main():
     OUT.mkdir(exist_ok=True)
     mk = json.load(open(D7 / "km_markers.geojson"))["features"]
@@ -865,6 +1039,7 @@ def main():
     c["options"] = options_screening(c)
     c["runoff"] = runoff_screening(c)
     c["extra_q"] = extra_questions(c)
+    c["new_cases"] = new_cases(c)
     (OUT / "canonical.json").write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: c[k] for k in ("structures", "c2", "pasak_dam", "corridor_area", "flood_band")}, ensure_ascii=False, indent=1)[:5000])
 

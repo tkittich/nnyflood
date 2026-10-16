@@ -514,6 +514,137 @@ def fig_options():
     return path
 
 
+
+
+TEAL, PURPLE = "#0b6f6a", "#7a3b8f"
+
+
+def fig_tide():
+    """รูปตัดตามยาว + เส้นน้ำเท้อ/น้ำทะเลหนุนสูงสุด (คำนวณเอง จากหน้าตัดตามรายงาน)"""
+    T = C["new_cases"]["tide"]
+    PF = C["eia_profile"]
+    gx = [g[0] for g in PF["ground_readings"]]
+    gz = [g[1] for g in PF["ground_readings"]]
+    kms = np.arange(23, 134.01, 1.0)
+    bed = [-1.05 - (k - 23) * 0.04 for k in kms]
+    crest = [(b + 7.0 + 1.5) if k <= 109 else 4.0 for k, b in zip(kms, bed)]
+    water = [b + 7.0 for b in bed]
+    cs = T["cases"]
+    ks = sorted(int(k) for k in cs[1]["surface_msl"])
+    fig, ax = plt.subplots(figsize=(7.8, 4.9))
+    ax.axvspan(NN["km_from"], NN["km_to"], color="#dbe9f6", zorder=0)
+    ax.plot(gx, gz, color=ORANGE, lw=2.2, label="พื้นดินเดิม", zorder=3)
+    ax.plot(kms, crest, color=INK, lw=2, label="สันคัน", zorder=3)
+    ax.plot(kms, water, color=BLUE, lw=2, label="ระดับน้ำสูงสุดตามแบบ (ปลายคลอง +1.5)", zorder=3)
+    ax.plot(ks, [cs[1]["surface_msl"][str(k)] for k in ks], color=PURPLE, lw=2.2, label="น้ำเท้อ: อัดน้ำหลังประตู +2.5 · น้ำหลาก 600", zorder=4)
+    ax.plot(ks, [cs[2]["surface_msl"][str(k)] for k in ks], color=TEAL, lw=2.2, ls="--", label="น้ำเท้อ: ผันน้ำน้อย 100 · ทะเลหนุน +2.49", zorder=4)
+    ax.plot(kms, bed, color=GREY, lw=1.6, ls="--", label="ท้องคลอง", zorder=3)
+    ax.axhline(T["y2554_max_m"], color=PURPLE, lw=1.0, ls=":", zorder=2)
+    ax.text(133, -0.2, f"เส้นประม่วง = น้ำทะเลหนุนสูงสุดที่ใช้ทดสอบ +{T['y2554_max_m']} ม.รทก. (ปี 2554)", fontsize=8.3, color=PURPLE, ha="right", bbox=dict(facecolor="white", edgecolor="none", pad=1))
+    ax.axhline(T["y2554_min_m"], color=GREY, lw=0.9, ls=":", zorder=2)
+    ax.text(133, T["y2554_min_m"] - 0.7, f"เส้นจุดเทา = น้ำทะเลลงต่ำสุด {T['y2554_min_m']} ม.รทก.", fontsize=8.3, color=GREY, ha="right", bbox=dict(facecolor="white", edgecolor="none", pad=1))
+    for gk, lab in ((74, "ประตู\nกม.74"), (102, "ประตู\nกม.102"), (134, "ประตู\nปลายคลอง")):
+        ax.axvline(gk, color=GREY, lw=0.9, ls=":", zorder=1)
+        ax.text(gk, 9.4, lab, ha="right" if gk == 134 else "center", va="top", fontsize=8, color=INK, bbox=dict(facecolor="white", edgecolor="none", pad=1))
+    ax.set_xlim(23, 136); ax.set_ylim(-7, 9.6)
+    ax.set_xlabel("ระยะตามแนวคลอง (กม.)"); ax.set_ylabel("ระดับ (ม.รทก.)")
+    ax.set_title("เส้นน้ำเท้อเมื่อน้ำทะเลหนุน: ที่ปลายคลองน้ำทะเลสูงกว่าพื้นดินเดิม 1–2 ม.", fontsize=10, color=INK)
+    ax.legend(loc="lower left", fontsize=7.6, frameon=True)
+    ax.grid(alpha=.3); fig.tight_layout()
+    path = ASSETS / "goal7_tide.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
+def fig_xsection_true():
+    """หน้าตัดคลองมาตราส่วนจริง 1:1 (แกนนอน=แกนตั้ง) เทียบแบบตามรายงาน กับกรณีขุดลึกให้คันต่ำ"""
+    sec = C["eia_section"]
+    DC = C["new_cases"]["deep_cut"]
+    z1, z2, road, D = sec["z1"], sec["z2"], sec["road_m"], sec["D_m"]
+    b = sec["A_m2"] / D - z1 * D
+    fig, axs = plt.subplots(2, 1, figsize=(7.8, 3.9), sharex=True)
+
+    def panel(ax, H, wl, bed, title):
+        xi_c = b / 2 + z1 * (H - bed)
+        xo_c = xi_c + road
+        xo_g = xo_c + z2 * H
+        xi_g = b / 2 + z1 * (-bed)
+        for s in (1, -1):
+            ax.fill([s * xi_g, s * xi_c, s * xo_c, s * xo_g], [0, H, H, 0], color="#c9d3dc", ec=INK, lw=1.0, zorder=2)
+        xw = b / 2 + z1 * (wl - bed)
+        ax.fill_between([-110, 110], [-14, -14], [0, 0], color="#efe7d8", zorder=0)
+        ax.fill([-b / 2, b / 2, xi_g, -xi_g], [bed, bed, 0, 0], color="#efe7d8", ec=INK, lw=0.9, zorder=2.5)
+        ax.fill([-b / 2, b / 2, xw, -xw], [bed, bed, wl, wl], color=BLUE, ec=INK, lw=0.9, zorder=3)
+        ax.plot([-110, 110], [0, 0], color=ORANGE, lw=2.0, zorder=4)
+        hx = 82
+        ax.add_patch(plt.Rectangle((hx, 0), 8, 7, fc="#ffffff", ec=INK, lw=1.0, zorder=5))
+        ax.text(hx + 4, 3.5, "บ้าน\n2 ชั้น", ha="center", va="center", fontsize=7, color=INK, zorder=6)
+        ax.add_patch(plt.Rectangle((hx + 11, 0), 0.6, 1.7, fc=INK, ec=INK, zorder=5))
+        ax.text(hx + 11.3, 2.2, "คน", ha="left", fontsize=7, color=INK)
+        ax.text(0, (bed + wl) / 2, f"น้ำลึก {wl - bed:.1f} ม.\nท้องกว้าง {b:.0f} ม.", ha="center", va="center", fontsize=8.5, color="white", fontweight="bold", zorder=6)
+        ax.text(-108, 10.5, f"สันคันสูงเหนือพื้นเดิม {H:.1f} ม.", fontsize=8.5, color=INK, va="top")
+        ax.text(-108, -0.6, "พื้นเดิม", fontsize=8.5, color=ORANGE, ha="left", va="top", fontweight="bold")
+        ax.set_aspect("equal"); ax.set_ylim(-14, 11)
+        ax.set_title(title, fontsize=8.2, color=INK, loc="left")
+        ax.set_ylabel("ความสูง (ม.)"); ax.grid(alpha=.25)
+        return 2 * xo_g
+
+    t1 = 2 * (b / 2 + z1 * (4.8 + D - 3.3) + road + z2 * 4.8)
+    panel(axs[0], 4.8, 3.3, -(D - 3.3), f"ก) ตามแบบในรายงาน (คลองลอย ที่ กม.40): น้ำสูงกว่าพื้น 3.3 ม. · กว้างรวมคันสองฝั่งราว {t1:.0f} ม.")
+    t2 = 2 * (b / 2 + z1 * (DC["depth_m"] + 1.5) + road + z2 * 1.5)
+    panel(axs[1], 1.5, 0.0, -DC["depth_m"], f"ข) กรณีขุดลึก: ผิวน้ำเสมอพื้นเดิม · คันสูง 1.5 ม. · กว้างรวมราว {t2:.0f} ม. · ดินขุดเพิ่มราว {DC['extra_spoil_mcm_km23_134']} ล้าน ลบ.ม.")
+    axs[1].set_xlabel("ระยะจากกึ่งกลางคลอง (ม.) — แกนนอนกับแกนตั้งมาตราส่วนเดียวกัน (สัดส่วนจริง)")
+    axs[0].set_xlim(-110, 110)
+    fig.tight_layout()
+    path = ASSETS / "goal7_xsection_true.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
+def fig_energy():
+    H = C["new_cases"]["hydro"]
+    d60 = H["days_scenarios"]["60"]
+    labs = ["แผงเซลล์แสงอาทิตย์ลอยน้ำ\n(ปกคลุม 20% ผิวน้ำ)", "แผงเซลล์แสงอาทิตย์ลอยน้ำ\n(ปกคลุม 10%)",
+            "กังหันที่ประตูปลายคลอง\n(ผันน้ำเต็มกำลัง 60 วัน)", "กังหันกลางน้ำ 55 สถานี\n(60 วัน · ครอบ 20%)"]
+    vals = [H["pv_gwh_per_year"][1], H["pv_gwh_per_year"][0], d60["gate_gwh"], d60["kinetic_gwh"][1]]
+    cols = [ORANGE, ORANGE, BLUE, BLUE]
+    fig, ax = plt.subplots(figsize=(7.6, 3.5))
+    y = np.arange(len(vals))
+    ax.barh(y, vals, color=cols)
+    for i, v in enumerate(vals):
+        ax.text(v + 6, i, f"{v:,.1f} กิกะวัตต์-ชั่วโมง/ปี", va="center", fontsize=9, color=INK)
+    ax.set_yticks(y); ax.set_yticklabels(labs, fontsize=8.8); ax.invert_yaxis()
+    ax.set_xlim(0, max(vals) * 1.5); ax.set_xlabel("พลังงานไฟฟ้าต่อปี (กิกะวัตต์-ชั่วโมง)")
+    ax.set_title("ไฟฟ้าจากน้ำไหลในคลอง เทียบกับแผงเซลล์แสงอาทิตย์ลอยน้ำ (ค่าคัดกรอง)", fontsize=10, color=INK)
+    ax.grid(axis="x", alpha=.3); fig.tight_layout()
+    path = ASSETS / "goal7_energy.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
+def fig_land_dev():
+    LD = C["new_cases"]["land_dev"]
+    fig, ax = plt.subplots(figsize=(7.4, 3.9))
+    cols = ["#6c8fb5", BLUE, "#0f3f6e"]
+    x = np.arange(3)
+    for j, p in enumerate((1.0, 3.0, 5.0)):
+        v = [next(s["cover_loan_pct"] for s in LD["scenarios"] if s["strip_m_each_side"] == w and s["net_mb_per_rai"] == p) for w in (100, 200, 300)]
+        ax.bar(x + (j - 1) * 0.26, v, 0.26, color=cols[j], label=f"รายได้สุทธิ {p:g} ล้านบาท/ไร่")
+        for xi, vv in zip(x, v):
+            ax.text(xi + (j - 1) * 0.26, vv + 4, f"{vv}%", ha="center", fontsize=8.5, color=INK)
+    ax.axhline(100, color=ORANGE, lw=1.8, ls="--")
+    ax.text(2.45, 106, "ครอบคลุมเงินกู้พอดี", ha="right", fontsize=8.5, color=ORANGE)
+    ax.set_xticks(x)
+    ax.set_xticklabels([f"พัฒนาข้างละ {w} ม.\n({LD['scenarios'][i * 3]['rai']:,} ไร่)" for i, w in enumerate((100, 200, 300))], fontsize=9)
+    ax.set_ylabel("สัดส่วนที่ครอบคลุมเงินกู้ (%)")
+    ax.set_ylim(0, 290)
+    ax.set_title("ขายพัฒนาที่ดินริมคลอง: ได้เงินเท่าไรเมื่อเทียบกับเงินกู้ในแผน", fontsize=10, color=INK)
+    ax.legend(loc="upper left", fontsize=8.5); ax.grid(axis="y", alpha=.3); fig.tight_layout()
+    path = ASSETS / "goal7_land_dev.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
 # ---- คำไทยเข้าใจง่ายแทนคำทับศัพท์/ศัพท์เทคนิค (ข้อตกลงภาษารายงาน 16 ต.ค. 69 — รายงาน 7 และ 8) ----
 # เรียงจากยาวไปสั้น (กันคำสั้นกลืนคำยาว) · ใช้ตอนท้ายสร้าง HTML เท่านั้น ไม่แก้ข้อมูล
 PLAIN_TH = [

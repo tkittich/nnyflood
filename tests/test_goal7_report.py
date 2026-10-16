@@ -231,3 +231,50 @@ def test_no_unreviewed_sources():
     spec.loader.exec_module(m)
     ns = m.new_sources()
     assert not ns, f"มีแหล่งใหม่ {len(ns)} รายการที่ยังไม่ได้ทบทวนช่องว่าง: {list(ns.values())[:5]} — รัน analysis/goal7_gaps_check.py แล้ว --ack"
+
+
+# ---- เพิ่ม 16 ต.ค. 69: กรณีใหม่ · โครงหมวดพับได้ · เอกสารสถานะตรงกับรายงาน ----
+HANDOFF = ROOT / "HANDOFF.md"
+
+
+def test_new_cases_regression():
+    """ตัวเลขกรณีใหม่ (new_cases) — ล็อกค่าสำคัญ ถ้าหน้าตัด/สมการเปลี่ยน เทสต์นี้ต้องล้มก่อนรายงานเปลี่ยนเงียบ ๆ"""
+    nc = json.loads(CAN.read_text(encoding="utf-8"))["new_cases"]
+    t = nc["tide"]["cases"]
+    assert abs(t[0]["rise_m"]["134"]) < 0.05, "ปลายคลองตามแบบ (+1.5) ต้องไม่เท้อ"
+    assert abs(t[1]["rise_m"]["134"] - 1.02) < 0.05 and abs(t[1]["rise_m"]["40"] - 0.18) < 0.05
+    d = nc["deep_cut"]
+    assert abs(d["depth_m"] - 11.9) < 0.3 and d["crest_above_ground_nn_max_m"] <= 2.0
+    assert d["tide_rise_m"]["40"] > t[1]["rise_m"]["40"] * 3, "ขุดลึก: น้ำทะเลหนุนต้องส่งผลไกลกว่าแบบเดิมชัดเจน"
+    assert abs(nc["tourism"]["water_area_km2"] - 10.3) < 0.2
+    h = nc["hydro"]
+    assert h["pv_gwh_per_year"][0] / h["days_scenarios"]["90"]["gate_gwh"] >= 15
+
+
+def _pub():
+    return PUBLIC.read_text(encoding="utf-8")
+
+
+def test_public_questions_collapsible_and_numbered():
+    h = _pub()
+    heads = re.findall(r"<details class='qd'( open)?><summary>ถาม (\d+):", h)
+    nums = [int(n) for _, n in heads]
+    assert nums == list(range(1, len(nums) + 1)), f"เลขถามต้องเรียง 1..N ไม่ข้าม/ซ้ำ: {nums}"
+    n_open = sum(1 for o, _ in heads if o)
+    assert 3 <= n_open <= 8, "คำถามสำคัญเปิดไว้ตั้งต้น (3–8 ข้อ) ที่เหลือพับ"
+    assert len(nums) < 25, "คำถามซ้ำซ้อนต้องรวมแล้ว"
+
+
+def test_public_cross_refs_point_to_existing_questions():
+    h = _pub()
+    n = len(re.findall(r"<details class='qd'", h))
+    body = re.sub(r"<[^>]+>", " ", h)
+    refs = {int(x) for m in re.findall(r"ถาม (\d+(?:, \d+)*)", body) for x in m.split(", ")}
+    assert refs and max(refs) <= n, f"อ้างถามที่ไม่มีอยู่: {sorted(r for r in refs if r > n)}"
+
+
+def test_handoff_question_count_current():
+    """HANDOFF ต้องบอกจำนวนถาม–ตอบตรงกับรายงานจริง (กันเอกสารสถานะล้าสมัย — เกิดขึ้นแล้ว: เขียน 19 ข้อขณะรายงานมี 20)"""
+    n = len(re.findall(r"<details class='qd'", _pub()))
+    t = HANDOFF.read_text(encoding="utf-8")
+    assert f"ถาม–ตอบ {n} ข้อ" in t, f"HANDOFF.md ต้องมีข้อความ 'ถาม–ตอบ {n} ข้อ'"

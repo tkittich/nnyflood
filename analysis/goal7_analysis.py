@@ -1023,8 +1023,52 @@ NUC_WEB = {
     "address": "9/9 หมู่ 7 ต.ทรายมูล อ.องครักษ์ จ.นครนายก (เว็บ สทน.)",
     "waste_site": "สำนักงานใหญ่องครักษ์เป็น 1 ใน 3 พื้นที่เก็บกากกัมมันตรังสีที่จัดการแล้ว (อีก 2 แห่ง บางเขน และเทคโนธานี) ตามรายงานตรวจรังสีสิ่งแวดล้อมปี 2562 ของ สทน.",
     "reactor": "โครงการเตาปฏิกรณ์วิจัย 20 เมกะวัตต์ที่องครักษ์ (แผนปี 2549) ถูกพักไว้แล้วโอนทรัพย์สินให้ สทน. · มีข่าวฟื้นแผนและการคัดค้านในพื้นที่ (2563–2566) ตามสื่อ",
-    "src": "ค้นเว็บ 16 ต.ค. 2569: เว็บ สทน. · รายงานตรวจรังสีสิ่งแวดล้อมปี 2562 · สื่อ (มติชน · ไทยรัฐ · บางกอกโพสต์) · ไม่มีพิกัดที่ตั้งเป๊ะ — ยังไม่ได้ตรวจกับเอกสารทางการของ สทน.",
+    "src": "ค้นเว็บ 16 ต.ค. 2569: เว็บ สทน. · รายงานตรวจรังสีสิ่งแวดล้อมปี 2562 · สื่อ (มติชน · ไทยรัฐ · บางกอกโพสต์) · พิกัดหมุดจากผู้ใช้ (ตารางพิกัดหมุด) — ข้อมูลศูนย์/กากยังไม่ได้ตรวจกับเอกสารทางการของ สทน.",
 }
+
+
+
+NUC_POINT = {"lon": 101.0274776, "lat": 14.1220685,
+             "src": "พิกัดหมุดสถาบันเทคโนโลยีนิวเคลียร์แห่งชาติ (องค์การมหาชน) บนแผนที่ออนไลน์ที่ผู้ใช้ให้มา 16 ต.ค. 2569 — เป็นหมุดของสถาบัน ไม่ใช่ขอบเขตรั้วหรือที่ตั้งอาคารเก็บกาก"}
+
+
+def nuclear_point():
+    """ระยะ/ฝั่ง/กม./ความสูง/น้ำท่วมดาวเทียม ณ หมุดศูนย์ (ใช้ shapely + shapefile น้ำท่วม GISTDA)"""
+    lon, lat = NUC_POINT["lon"], NUC_POINT["lat"]
+    KX, KY = 111.32 * math.cos(math.radians(lat)), 110.57
+    cl = json.loads((D7 / "centerline.geojson").read_text(encoding="utf-8"))["features"][0]["geometry"]["coordinates"]
+    pts = [((p[0] - lon) * KX, (p[1] - lat) * KY) for p in cl]
+
+    def seg(a, b):
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        t = max(0, min(1, ((0 - a[0]) * dx + (0 - a[1]) * dy) / (dx * dx + dy * dy or 1)))
+        q = (a[0] + t * dx, a[1] + t * dy)
+        return math.hypot(*q), q
+    d, q = min(seg(pts[i], pts[i + 1]) for i in range(len(pts) - 1))
+    mk = sorted((m["properties"]["km"], m["geometry"]["coordinates"]) for m in json.loads((D7 / "km_markers.geojson").read_text(encoding="utf-8"))["features"])
+    qlon, qlat = q[0] / KX + lon, q[1] / KY + lat
+    km = min(mk, key=lambda k: (k[1][0] - qlon) ** 2 + (k[1][1] - qlat) ** 2)[0]
+    with rasterio.open(ROOT / "data/08_dem_topography/raw/Copernicus_DSM_COG_10_N14_00_E101_00_DEM.tif") as ds:
+        vals = [float(next(ds.sample([(lon + dx, lat + dy)]))[0]) for dx in (-0.0006, 0, 0.0006) for dy in (-0.0006, 0, 0.0006)]
+    pt = Point(lon, lat)
+    passes = []
+    for p in sorted(glob.glob(str(ROOT / "data/manual/shp_*"))):
+        n = os.path.basename(p)[4:]
+        r = shapefile.Reader(f"{p}/{n}.shp", encoding="latin-1")
+        inside, best = False, 1e12
+        for sh in r.shapes():
+            g = shape(sh.__geo_interface__)
+            if not g.is_valid:
+                g = g.buffer(0)
+            if g.contains(pt):
+                inside = True
+            best = min(best, g.distance(pt) * 111000.0)
+        passes.append({"pass": n, "inside": inside, "nearest_flood_m": None if inside else round(best)})
+    b, w, cr = _profile_levels(km)
+    g0 = _ground(km)
+    return {**NUC_POINT, "dist_to_canal_km": round(d, 2), "side": "ตะวันออก" if q[0] < 0 else "ตะวันตก", "canal_km": float(km),
+            "dsm_m": {"median": round(float(np.median(vals)), 1), "min": round(min(vals), 1), "max": round(max(vals), 1)},
+            "flood_passes": passes, "canal_at_km": {"ground_m": round(g0, 2), "water_msl_m": round(w, 2), "crest_msl_m": round(cr, 2)}}
 
 
 def nuclear_site(c):
@@ -1061,7 +1105,7 @@ def nuclear_site(c):
     k0, k1 = kms[0], kms[-1]
     b, w, cr = _profile_levels(52.0)   # ระดับน้ำออกแบบ/สันคันที่ กม.~52 (ตัวแทนช่วงนี้)
     g = _ground(52.0)
-    return {"web": NUC_WEB, "villages": rows, "dist_min_km": rows[0]["dist_km"], "dist_max_km": rows[-1]["dist_km"],
+    return {"web": NUC_WEB, "point": nuclear_point(), "villages": rows, "dist_min_km": rows[0]["dist_km"], "dist_max_km": rows[-1]["dist_km"],
             "all_east": all(x["side"] == "ตะวันออก" for x in rows), "canal_km_range": [k0, k1],
             "flood_2569": flood, "dem_range_m": [min(x["dem_m"] for x in rows if x["dem_m"] is not None and x["dem_m"] < 6),
                                                 max(x["dem_m"] for x in rows if x["dem_m"] is not None and x["dem_m"] < 6)],

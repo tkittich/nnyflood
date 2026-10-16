@@ -185,11 +185,27 @@ def resolve(d, relpath, index):
     for cand in (d / rel, d / "raw" / rel, d / "derived" / rel):
         if cand.is_file():
             return cand
-    hits = index.get(Path(rel).name)
-    if hits:
-        if len(hits) > 1:
-            AMBIGUOUS.append((str(d), rel, hits))
-        return hits[0]
+
+    p_rel = Path(rel)
+    parts = p_rel.parts
+    has_subdirs = len(parts) > 1
+    # ตัด prefix โฟลเดอร์ซ้ำ เช่น data/16_training_data/... หรือ absolute path ข้ามเครื่อง
+    if d.name in parts:
+        idx = parts.index(d.name)
+        sub = Path(*parts[idx + 1:])
+        has_subdirs = len(sub.parts) > 1
+        for cand in (d / sub, d / "raw" / sub, d / "derived" / sub):
+            if cand.is_file():
+                return cand
+
+    # ค้นหาด้วย basename สำรองเฉพาะเมื่อ rel ไม่ได้ระบุโฟลเดอร์ย่อย (ชื่อไฟล์ลอย ๆ)
+    # กันกรณีไฟล์ในโฟลเดอร์ที่ไม่เข้า git หาย แล้วดันไปจับคู่กับไฟล์ชื่อเดียวกันในโฟลเดอร์อื่น
+    if not has_subdirs:
+        hits = index.get(p_rel.name)
+        if hits:
+            if len(hits) > 1:
+                AMBIGUOUS.append((str(d), rel, hits))
+            return hits[0]
     return None
 
 

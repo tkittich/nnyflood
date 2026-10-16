@@ -130,3 +130,12 @@ def test_slash_path_regex_catches_paths_not_domains():
     hits = vi.SLASH_PATH.findall(line)
     assert "raw/FLOOD.rar" in hits
     assert not any("facebook" in h for h in hits)
+
+def test_explicit_subdir_missing_does_not_fallback_to_other_subdirs(tmp_path):
+    """ไฟล์ที่ระบุ path โฟลเดอร์ชัดเจน (เช่น sub1/x.dat) แต่ไม่มีบนดิสก์
+    ต้องนับเป็น MISSING (exit 2) ห้าม fallback ไปจับคู่กับ sub2/x.dat ที่ชื่อเหมือนกัน"""
+    _mk(tmp_path, "sub2/x.dat", b"content-B")
+    md = tmp_path / "manifest.md"
+    md.write_text(f"| `sub1/x.dat` | 9 B | `{'ab' * 32}` |\n", encoding="utf-8")
+    assert vi.main(["--only", str(tmp_path)]) == 2
+    assert vi.AMBIGUOUS == []

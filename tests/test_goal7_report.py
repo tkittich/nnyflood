@@ -248,7 +248,7 @@ def test_new_cases_regression():
     assert d["tide_rise_m"]["40"] > t[1]["rise_m"]["40"] * 3, "ขุดลึก: น้ำทะเลหนุนต้องส่งผลไกลกว่าแบบเดิมชัดเจน"
     assert abs(nc["tourism"]["water_area_km2"] - 10.3) < 0.2
     h = nc["hydro"]
-    assert h["pv_gwh_per_year"][0] / h["days_scenarios"]["90"]["gate_gwh"] >= 15
+    assert h["pv_gwh_per_year"][0] / h["days_scenarios"][sorted(h["days_scenarios"], key=int)[-1]]["gate_gwh"] >= 10
 
 
 def _pub():
@@ -321,3 +321,18 @@ def test_shared_tables_not_duplicated_across_builders():
         return {tuple(re.findall(r'"([^"]+)"', m)[:3]) for m in re.findall(r"table\(\[(.*?)\]", t, flags=re.S)}
     dup = heads(BUILDERS[0]) & heads(BUILDERS[1])
     assert not dup, f"ตารางซ้ำสอง builder (ย้ายไป goal7_blocks.py): {list(dup)[:3]}"
+
+
+def test_ocr_facts_and_diversion_days():
+    """ข้อเท็จจริงจาก OCR/ชั้นข้อความ (ocr_facts) ต้องมีครบ และจำนวนวันผันน้ำต้องคำนวณจากน้ำท่า S.26 ÷ 600 ลบ.ม./วินาที"""
+    c = json.loads(CAN.read_text(encoding="utf-8"))
+    ids = {f["id"] for f in c["ocr_facts"]["facts"]}
+    for k in ("mussel_notice_30d", "gate_committee", "scada_master", "s26_diversion_window", "chainat_pasak_rule", "tide_model_fig"):
+        assert k in ids, k
+    s = c["ocr_facts"]["s26"]
+    days = sorted(int(d) for d in c["new_cases"]["hydro"]["days_scenarios"])
+    assert days == [round(s["annual_min_mcm"] / s["full_flow_mcm_per_day"]), round(s["annual_mean_mcm"] / s["full_flow_mcm_per_day"]),
+                    round(s["annual_max_mcm"] / s["full_flow_mcm_per_day"])]
+    led = {g["id"]: g for g in json.loads((ROOT / "analysis/goal7/gaps.json").read_text(encoding="utf-8"))["gaps"]}
+    for k in ("mussel_notification", "telemetry_locations", "scanned_docs_unread"):
+        assert led[k]["status"] == "closed" and led[k].get("closed_by"), k

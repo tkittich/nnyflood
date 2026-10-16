@@ -539,6 +539,11 @@ def fig_tide():
     ax.plot(ks, [cs[1]["surface_msl"][str(k)] for k in ks], color=PURPLE, lw=2.2, label="น้ำเท้อ: อัดน้ำหลังประตู +2.5 · น้ำหลาก 600", zorder=4)
     ax.plot(ks, [cs[2]["surface_msl"][str(k)] for k in ks], color=TEAL, lw=2.2, ls="--", label="น้ำเท้อ: ผันน้ำน้อย 100 · ทะเลหนุน +2.49", zorder=4)
     ax.plot(kms, bed, color=GREY, lw=1.6, ls="--", label="ท้องคลอง", zorder=3)
+    OF = T["official_fig"]
+    ax.plot([p[0] for p in OF["points_max"]], [p[1] for p in OF["points_max"]], "s", color=INK, mfc="white", ms=7, zorder=6,
+            label="รูปที่ 2.5.1-4 ของรายงานฯ: ทะเลขึ้นสูงสุด (อ่านจากรูป)")
+    ax.plot([p[0] for p in OF["points_min"]], [p[1] for p in OF["points_min"]], "D", color=INK, mfc="white", ms=6, zorder=6,
+            label="รูปที่ 2.5.1-4 ของรายงานฯ: ทะเลลงต่ำสุด (อ่านจากรูป)")
     ax.axhline(T["y2554_max_m"], color=PURPLE, lw=1.0, ls=":", zorder=2)
     ax.text(133, -0.2, f"เส้นประม่วง = น้ำทะเลหนุนสูงสุดที่ใช้ทดสอบ +{T['y2554_max_m']} ม.รทก. (ปี 2554)", fontsize=8.3, color=PURPLE, ha="right", bbox=dict(facecolor="white", edgecolor="none", pad=1))
     ax.axhline(T["y2554_min_m"], color=GREY, lw=0.9, ls=":", zorder=2)
@@ -603,9 +608,11 @@ def fig_xsection_true():
 
 def fig_energy():
     H = C["new_cases"]["hydro"]
-    d60 = H["days_scenarios"]["60"]
+    _dk = sorted(H["days_scenarios"], key=int)
+    d60 = H["days_scenarios"][_dk[1]]
+    mid_d = _dk[1]
     labs = ["แผงเซลล์แสงอาทิตย์ลอยน้ำ\n(ปกคลุม 20% ผิวน้ำ)", "แผงเซลล์แสงอาทิตย์ลอยน้ำ\n(ปกคลุม 10%)",
-            "กังหันที่ประตูปลายคลอง\n(ผันน้ำเต็มกำลัง 60 วัน)", "กังหันกลางน้ำ 55 สถานี\n(60 วัน · ครอบ 20%)"]
+            f"กังหันที่ประตูปลายคลอง\n(ปีเฉลี่ย ผันเทียบเท่า {mid_d} วัน)", f"กังหันกลางน้ำ 55 สถานี\n({mid_d} วัน · ครอบ 20%)"]
     vals = [H["pv_gwh_per_year"][1], H["pv_gwh_per_year"][0], d60["gate_gwh"], d60["kinetic_gwh"][1]]
     cols = [ORANGE, ORANGE, BLUE, BLUE]
     fig, ax = plt.subplots(figsize=(7.6, 3.5))

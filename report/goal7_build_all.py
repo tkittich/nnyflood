@@ -24,3 +24,10 @@ for rnd in range(1, 4):
         break
 else:
     raise SystemExit("ผังหัวข้อไม่นิ่งภายใน 3 รอบ — ตรวจ key/โทเคนอ้างวน")
+
+sys.path.insert(0, str(ROOT / "report"))
+from goal7_engine import PENDING  # noqa: E402
+
+for f in ("คลองเจ้าพระยา2_ประชาชน.html", "คลองเจ้าพระยา2_วิชาการ.html"):
+    if PENDING in (ROOT / "report" / f).read_text(encoding="utf-8"):
+        raise SystemExit(f"{f}: ยังมีโทเคนอ้างข้ามฉบับที่ไม่พบ key (พิมพ์ผิด?)")

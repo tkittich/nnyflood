@@ -59,6 +59,15 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
    · `import pyshp` **ล้มเหลว** (ตรวจแล้ว: `ModuleNotFoundError: No module named 'pyshp'`
    ขณะที่ `import shapefile` คืนเวอร์ชัน 3.1.6) — อย่าเขียน `import pyshp` ในสคริปต์ใหม่
 
+## OCR ภาษาไทย (เป้าหมาย 7 — ติดตั้งแยก ไม่อยู่ใน requirements.txt)
+
+- เครื่องมือ: **RapidOCR** (รุ่นภาษาไทย PP-OCRv5 `th_PP-OCRv5_rec_mobile` + onnxruntime CPU) ใน venv **นอก repo** `E:/theera/ocr_env`
+  (`python -m venv E:/theera/ocr_env` แล้ว `pip install rapidocr onnxruntime pymupdf pillow numpy`) · โมเดลดาวน์โหลดครั้งแรกจาก modelscope (~8 MB)
+- ใช้กับ `analysis/goal7_ocr.py` (รันด้วย python ของ venv นั้น) · ความเร็วราว 1.4–1.7 วินาที/หน้า (200 dpi) · อ่านไทยพิมพ์ได้ดี
+  (ผิดเล็กน้อย: วรรณยุกต์/สระบางตัว หัวคอลัมน์บางช่อง) → ค้นด้วยข้อความตัดวรรณยุกต์ (`analysis/goal7_ocr_scan.py`) แล้ว**ตรวจภาพหน้าก่อนอ้าง**
+- ทางเลือกที่ตรวจแล้ว: Windows OCR ในเครื่องไม่มีภาษาไทย (ต้องสิทธิ์ผู้ดูแลเพิ่มแพ็ก) · ไม่มี tesseract/torch ในเครื่อง · python 3.14 ไม่มี wheel ของ torch ในเวลาที่ทดสอบ
+- ผลลัพธ์ OCR เก็บบนดิสก์ `data/32_goal7_chaophraya2/ocr/` (ไม่เข้า git) — ในไฟล์เก็บเฉพาะข้อเท็จจริงที่ตรวจภาพแล้ว (`analysis/goal7/ocr_findings.json` + `OCR_FACTS`)
+
 ## สิ่งที่ *ไม่* ต้องติดตั้ง
 
 - ไม่ต้องมี API key สำหรับ NASA POWER และ Open-Meteo (Historical Forecast)

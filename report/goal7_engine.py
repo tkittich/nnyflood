@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUTLINE_DIR = ROOT / "analysis/goal7"
 TOKEN = re.compile(r"⟦([^⟧]+)⟧")
+PENDING = "(เลขอ้างอิงจะปรากฏหลังสร้างรอบสอง)"
 _EDITION = {"ป": ("public", "ฉบับประชาชน"), "ว": ("academic", "ฉบับวิชาการ")}
 # ตัวอย่างหน้าพับได้ — ใส่ใน <style> ของหน้า (สีผ่านเกณฑ์ WCAG: ตัวอักษร ≥ 4.5)
 COLLAPSE_CSS = (
@@ -138,8 +139,8 @@ class Outline:
             for k in keys:
                 it = self._lookup(k, other)
                 if it is None:
-                    if other and not self._other:
-                        return "(เลขอ้างอิงจะปรากฏหลังสร้างรอบสอง)"
+                    if other:   # ผังของอีกฉบับยังไม่มี/ยังไม่มี key นี้ — รอบสองจะเติมให้ (goal7_build_all.py ตรวจว่าไม่เหลือ)
+                        return PENDING
                     missing.append(k)
                     continue
                 its.append(it)

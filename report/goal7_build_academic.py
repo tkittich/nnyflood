@@ -647,6 +647,7 @@ S.append(figure(fig_xsection_true(), "หน้าตัดมาตราส่
 S.append(blk.tbl_deep_cut())
 S.append(figure(fig_land_dev(), "รายได้จากการพัฒนาที่ดินสองฝั่งเทียบเงินกู้ในแผน"))
 S.append(blk.tbl_land_dev())
+S.append(blk.tbl_dev_mix())
 S.append(blk.tbl_tourism_numbers())
 S.append(figure(fig_energy(), "พลังงานไฟฟ้าต่อปี เทียบแผงเซลล์แสงอาทิตย์ลอยน้ำกับกังหันน้ำ"))
 S.append(blk.tbl_hydro_params())

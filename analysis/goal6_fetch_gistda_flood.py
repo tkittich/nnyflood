@@ -257,9 +257,16 @@ def main():
         print(f"บันทึกไฟล์กลุ่ม [{group}]: {out_file.relative_to(ROOT)} ({round(out_file.stat().st_size / 1024 / 1024, 2)} MB)")
         print(f"  สถิติ: {stats['total_flood_sqkm']} ตร.กม. | {stats['total_flood_rai']:,} ไร่ | {stats['features_count']:,} polygons\n")
 
-    # บันทึกไฟล์สรุปผล JSON
+    # บันทึกไฟล์สรุปผล JSON (รวมกับผลเดิมถ้ามี)
     summary_path = OUT_DIR / f"summary_{args.endpoint}.json"
-    summary_path.write_text(json.dumps(summary_report, ensure_ascii=False, indent=2), encoding="utf-8")
+    existing_summary = {}
+    if summary_path.exists():
+        try:
+            existing_summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        except Exception:
+            existing_summary = {}
+    existing_summary.update(summary_report)
+    summary_path.write_text(json.dumps(existing_summary, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"บันทึกบทสรุปสถิติ: {summary_path.relative_to(ROOT)}")
 
 

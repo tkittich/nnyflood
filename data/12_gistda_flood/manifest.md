@@ -62,6 +62,7 @@
 | `raw/gistda_flood_30days_bma.geojson` | 8.5 MB | กรุงเทพมหานคร สะสม 30 วัน (2,035 features) |
 | `raw/gistda_flood_flood-freq_nakhonnayok.geojson` | 158.9 MB | สถิติความถี่น้ำท่วม 14 ปี นครนายก (59,078 features) |
 | `raw/gistda_flood_flood-freq_bma.geojson` | 37.1 MB | สถิติความถี่น้ำท่วม 14 ปี กทม. (5,619 features) |
+| `raw/gistda_flood_flood-freq_bangpakong.geojson` | 966.2 MB | สถิติความถี่น้ำท่วม 14 ปี ลุ่มน้ำบางปะกง 4 จว. (369,759 features) |
 | `raw/summary_30days.json` | 1.4 KB | สรุปสถิติเชิงพื้นที่และประชากร 4 พื้นที่ |
 | `raw/summary_flood-freq.json` | 1.4 KB | สรุปสถิติความถี่รายปีและจำนวนแปลง |
 

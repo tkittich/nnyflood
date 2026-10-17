@@ -15,14 +15,14 @@ The project investigates catastrophic flooding in Thailand through empirical dat
 1. **Pillar 1 (Goals 1–5): Nakhon Nayok River Basin (Sep 26–29, 2026 Flash Flood)**  
    - Attribution of upstream rainfall band vs. Khun Dan Prakan Chon Dam release (88:12 ratio).
    - 1D Hydrodynamic Routing model (`analysis/hydraulic_1d_routing.py`) solving Saint-Venant kinematic/diffusive wave propagation from Ny.1B to Ny.7 (18.3 km key reach, 43 km full basin).
-   - Cross-sectional rating curves, bankfull discharge calculation ($666.3\ m^3/s$ at Ny.1B; $617.4\ m^3/s$ at Ny.7), wave celerity ($1.62\ m/s$), and flood travel time ($7.37 \pm 0.8$ hours).
+   - Cross-sectional rating curves, bankfull discharge calculation ($666.3\ m^3/s$ at Ny.1B; $617.4\ m^3/s$ at Ny.7), simulated peak travel time along key reach ($3.25$ hours for 18.3 km), and basin-wide flood lag ($7.37 \pm 0.8$ hours over 43 km natural river reach with average wave celerity $1.62\ m/s$).
    - Khun Dan 22-year operational baseline and stress analysis of 6 medium reservoirs.
    - Machine learning stage prediction (Model v1: 11 features, Ridge regression, +6h RMSE $0.17\ m$).
 2. **Pillar 2 (Goal 6): 6 National River Basins & 2011 Mega-Flood Benchmark**  
    - Multi-reservoir comparative operation across 24 major dams (EGAT hydroelectric vs. RID irrigation).
    - National stress index covering 461 medium reservoirs across Thailand.
    - 46-year ERA5 rainfall rarity and recurrence interval modeling.
-   - L3 Coastal-Coupled Model (`analysis/goal6_l3_coastal_model.py`): Coupling Chao Phraya River stage at C.12 Samsen with Bangkok Bridge tidal telemetry (CPY015) and Gulf of Thailand SWAN wind-wave heights (+6h RMSE reduced by 47.7% from 76.3 cm to 39.9 cm).
+   - L3 Coastal-Coupled Model (`analysis/goal6_l3_coastal_model.py`): Coupling Chao Phraya River stage at C.12 Samsen with Bangkok Bridge tidal telemetry (CPY015) and Gulf of Thailand SWAN wind-wave heights (+6h RMSE reduced by 50.5% from 72.7 cm to 36.0 cm).
    - Compound Flood Risk Matrix (`analysis/compound_flood_risk.py`): Non-linear backwater interaction between upstream river discharge and storm surge.
 3. **Pillar 3 (Goal 7): Chao Phraya 2 Bypass Floodway Project**  
    - 111-km Chainat–Pasak–Gulf of Thailand diversion canal (design discharge $600\ m^3/s$).
@@ -58,35 +58,35 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
 ### Dimension 1: 1D Hydrodynamic Routing (Nakhon Nayok River)
 * **Target Files**: `analysis/hydraulic_1d_routing.py` $\rightarrow$ `analysis/hydraulic_1d_routing_summary.json`
 * **Audit Checklist**:
-  1. Does the simplified Saint-Venant kinematic / diffusive wave routing accurately represent wave attenuation and backwater effects along the 18.3 km Ny.1B–Ny.7 reach?
-  2. Are the bankfull discharges ($666.3\ m^3/s$ at Ny.1B and $617.4\ m^3/s$ at Ny.7) mathematically sound given the surveyed cross-sections (`data/23_rid_swoc/raw/rid_telemetry_cross_sections.json` and `data/19_rid_cross_sections/`) and Manning’s equation?
-  3. Are the wave celerity ($1.62\ m/s$) and estimated lag time ($7.37 \pm 0.8$ hours) physically coherent with the bed slope ($S_0 \approx 0.00035–0.00065$) and Manning's roughness coefficient ($n \approx 0.0437$)?
+   1. Does the simplified Saint-Venant kinematic / diffusive wave routing accurately represent wave attenuation and backwater effects along the 18.3 km Ny.1B–Ny.7 reach?
+   2. Are the bankfull discharges ($666.3\ m^3/s$ at Ny.1B and $617.4\ m^3/s$ at Ny.7) mathematically sound given the surveyed cross-sections (`data/23_rid_swoc/raw/rid_telemetry_cross_sections.json` and `data/19_rid_cross_sections/`) and Manning’s equation?
+   3. Are the key reach simulated travel time ($3.25\text{ h}$ over 18.3 km) and basin-wide lag ($7.37 \pm 0.8\text{ h}$ over 43 km natural reach, celerity $1.62\ m/s$) physically coherent with the surveyed bed slope ($S_0 \approx 0.00035–0.00065$) and Manning's roughness coefficient ($n \approx 0.0437$)?
 
 ### Dimension 2: Coastal-Coupled Machine Learning Model (C.12 Samsen, Bangkok)
 * **Target Files**: `analysis/goal6_l3_coastal_model.py` $\rightarrow$ `analysis/goal6/l3_coastal_summary.json`
 * **Audit Checklist**:
-  1. The model incorporates Bangkok Bridge sea tides (CPY015) and Gulf of Thailand SWAN wave heights, cutting +6h RMSE by 47.7% (from 76.3 cm down to 39.9 cm). Is there any **temporal data leakage** (look-ahead bias) between the feature extraction window and target lead time?
-  2. Is the chronological train/test split strictly maintained (Train: 2020–2026 wet seasons up to Sep 20; Test: Sep 20 – Oct 9, 2026)?
+   1. The model incorporates Bangkok Bridge sea tides (CPY015) and Gulf of Thailand SWAN wave heights, cutting +6h RMSE by 50.5% (from 72.7 cm down to 36.0 cm for Linear Regression, and 24.5% for GBDT). Is there any **temporal data leakage** (look-ahead bias) between the causal trailing 24h rainfall feature and target lead time?
+   2. Is the chronological train/test split strictly maintained (Train: 2020–2026 wet seasons up to Sep 20; Test: Sep 20 – Oct 9, 2026)?
 
 ### Dimension 3: Compound Flood Risk Matrix (River Discharge vs. Storm Surge)
 * **Target Files**: `analysis/compound_flood_risk.py` $\rightarrow$ `analysis/compound_flood_risk_summary.json`
 * **Audit Checklist**:
-  1. Inspect the non-linear backwater formulation:
-     $$H_{C12} = H_{tide} + \Delta h_{wave} + c_1 \cdot \left(\frac{Q}{1000}\right)^{1.28}$$
-     Is the empirical exponent (1.28) dimensionally consistent and physically sound across both low-flow ($Q < 1000\ m^3/s$) and extreme-flow ($Q > 3500\ m^3/s$) regimes?
-  2. Are the 4 warning thresholds (Normal $<2.00$ m, Watch $2.00–2.40$ m, Warning $2.40–2.70$ m, Bangkok Overtopping Critical $>2.70$ m) adequately aligned with actual Bangkok floodwall crest elevations (+2.80 to +3.00 m MSL)?
+   1. Inspect the non-linear backwater formulation:
+      $$H_{C12} = H_{tide} + \Delta h_{wave} + c_1 \cdot \left(\frac{Q}{1000}\right)^{1.28}$$
+      Is the empirical exponent (1.28) dimensionally consistent and physically sound across both low-flow ($Q < 1000\ m^3/s$) and extreme-flow ($Q > 3500\ m^3/s$) regimes?
+   2. Are the 4 warning thresholds (Normal $<2.00$ m, Watch $2.00–2.40$ m, Warning $2.40–2.70$ m, Bangkok Overtopping Critical $>2.70$ m) adequately aligned with actual Bangkok floodwall crest elevations (+2.80 to +3.00 m MSL)?
 
 ### Dimension 4: Chao Phraya 2 Counterfactual Simulation
 * **Target Files**: `analysis/goal7_counterfactual_simulation.py` $\rightarrow$ `analysis/goal7/counterfactual_simulation_summary.json`
 * **Audit Checklist**:
-  1. The simulation models a constant $600\ m^3/s$ diversion capacity. What hydraulic bottlenecks or submergence issues arise when upstream head at Chao Phraya Dam approaches the diversion weir crest elevation (+10.25 m MSL)?
-  2. Does the claim that CP2 would have diverted 4,394.5 MCM (absorbing 40.0% of the 2011 excess volume) adequately account for tidal lockouts or coastal backwater at the Gulf of Thailand outlet?
+   1. The simulation models a constant $600\ m^3/s$ diversion capacity. What hydraulic bottlenecks or submergence issues arise when upstream head at Chao Phraya Dam approaches the diversion weir crest elevation (+10.25 m MSL)?
+   2. Does the claim that CP2 would have diverted 4,394.5 MCM (absorbing 40.0% of the 2011 excess volume) adequately account for tidal lockouts or coastal backwater at the Gulf of Thailand outlet?
 
 ### Dimension 5: Reservoir Operations & Statistical Baselines
 * **Target Files**: `analysis/goal6_pasak_24y_baseline.py`, `analysis/goal6_national_medium_reservoirs.py`, `analysis/goal2_khundan_22y_baseline.py`
 * **Audit Checklist**:
-  1. Are definitions of "active conservation storage", "surcharge retention", and "emergency spillway release" cleanly separated without conflating storage above the upper rule curve with structural dam overtopping?
-  2. Verify the 22-year Khun Dan baseline (inflow peak, storage filling 40 days ahead of normal) and 24-year Pasak baseline for mass balance and date alignment.
+   1. Are definitions of "active conservation storage", "surcharge retention", and "emergency spillway release" cleanly separated without conflating storage above the upper rule curve with structural dam overtopping?
+   2. Verify the 22-year Khun Dan baseline (inflow peak, storage filling 36.5 days ahead of median) and 24-year Pasak baseline for mass balance and date alignment.
 
 ### Dimension 6: Canonical Invariants & Code Standards
 * **Target Files**: `analysis/canonical_numbers.json`, `analysis/goal6/canonical.json`, `analysis/goal7/canonical.json`, `report/build_*.py`, `report/goal6_build_*.py`, `report/goal7_build_*.py`

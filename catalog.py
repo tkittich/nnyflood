@@ -164,6 +164,8 @@ CORE_GOVERNANCE = [
     ("docs/REVIEW_PROMPT_EN.md", "Comprehensive English Red-Team Audit Prompt (Full 3 Pillars & Models)"),
     ("tools/verify_all.py", "เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร (catalog, SHA-256, pytest)"),
     ("tests/test_thai_language_lint.py", "ระบบทดสอบและตรวจจับภาษาไทยอัตโนมัติ (Typo Registry, คำชน, คำทับศัพท์)"),
+    ("docs/reviews/AUDIT_REDTEAM_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 1 (Peer Review ฉบับเต็ม 3 เสาหลัก)"),
+    ("docs/reviews/AUDIT_ROUND2_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 2 (Delta Review & New Findings)"),
 ]
 
 

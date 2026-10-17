@@ -191,7 +191,7 @@ def main() -> None:
 
     # กราฟปี 2554
     days_idx_54 = np.arange(1, n_days_54 + 1)
-    ax1.plot(days_idx_54, inflow_2554, color="#c0392b", lw=2.0, label="น้ำหลากจริงปี 2554 (ไม่มีคลอง)")
+    ax1.plot(days_idx_54, inflow_2554, color="#c0392b", lw=2.0, label="น้ำหลากจำลองปี 2554 (ไม่มีคลอง)")
     ax1.plot(days_idx_54, res_54_600["downstream_daily_q"], color="#27ae60", lw=2.0, ls="-", label=f"มีคลองเจ้าพระยา 2 (600 ม³/วิ: ตัดยอด {res_54_600['peak_q_reduction_cms']:.0f} ม³/วิ)")
     ax1.plot(days_idx_54, res_54_1000["downstream_daily_q"], color="#2980b9", lw=1.8, ls="--", label=f"กรณีขยาย (1,000 ม³/วิ: ตัดยอด {res_54_1000['peak_q_reduction_cms']:.0f} ม³/วิ)")
     ax1.axhline(safe_cap_ayutthaya, color="#d35400", ls=":", lw=1.5, label=f"ขีดความจุปลอดภัยผ่านอยุธยา ({safe_cap_ayutthaya:.0f} ม³/วิ)")
@@ -204,7 +204,7 @@ def main() -> None:
 
     # กราฟปี 2569
     days_idx_69 = np.arange(1, n_days_69 + 1)
-    ax2.plot(days_idx_69, inflow_2569, color="#c0392b", lw=2.0, label="น้ำหลากจริงปี 2569 (ไม่มีคลอง)")
+    ax2.plot(days_idx_69, inflow_2569, color="#c0392b", lw=2.0, label="น้ำหลากจำลองปี 2569 (ไม่มีคลอง)")
     ax2.plot(days_idx_69, res_69_600["downstream_daily_q"], color="#27ae60", lw=2.0, ls="-", label=f"มีคลองเจ้าพระยา 2 (600 ม³/วิ: คุมน้ำให้อยู่ในตลิ่ง 100%)")
     ax2.axhline(safe_cap_ayutthaya, color="#d35400", ls=":", lw=1.5, label=f"ขีดความจุปลอดภัยผ่านอยุธยา ({safe_cap_ayutthaya:.0f} ม³/วิ)")
     ax2.fill_between(days_idx_69, res_69_600["downstream_daily_q"], inflow_2569, color="#2ecc71", alpha=0.3, label=f"ปริมาตรผันลงอ่าวไทย ({res_69_600['total_diverted_mcm']:,.0f} ล้าน ลบ.ม.)")

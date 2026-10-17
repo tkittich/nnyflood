@@ -120,11 +120,14 @@ med_dams = jload(ANA / "goal2_nny_medium_dams_summary.json")
 kd22 = jload(ANA / "goal2_khundan_22y_summary.json")
 
 # ---------- ภาคตัดขวางสำรวจจริง Ny.1B (RID SWOC Hydro App) ----------
+# หมายเหตุความสอดคล้อง (F-10 / N-02): bankfull_q_m3s = 244.6 ม³/วิ เป็นค่าตามตารางพิกัดเดิมของกรมชลฯ (Rating Curve ประวัติศาสตร์)
+# ขณะที่การจำลองชลศาสตร์ 1D ด้วยสมการ Manning จากภาคตัดขวางสำรวจ 61 จุด (r1d_ny1b_q_bankfull) ให้ค่า 666.3 ม³/วิ
 ny1b_xs = {
     "survey_points": 61,
     "bed_elevation_msl": 4.10,
     "bank_elevation_msl": 10.60,
     "bankfull_q_m3s": 244.6,
+    "historical_rating_note": "ค่าความจุลำน้ำเดิมตามตารางโทรมาตรประวัติศาสตร์ RID (เทียบกับ 666.3 ม³/วิ จากแบบจำลอง 1D Manning ภาคตัดขวางสำรวจจริง 61 จุด)",
     "peak_stage_msl": 11.23,
     "peak_q_m3s": 282.4,
     "overflow_depth_m": 0.63,

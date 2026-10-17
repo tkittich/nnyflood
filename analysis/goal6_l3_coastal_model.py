@@ -154,9 +154,9 @@ def main() -> None:
             u6 = upstream_data.get(all_hours[i - 6], u0)
             u12 = upstream_data.get(all_hours[i - 12], u0)
 
-            # ฝนสะสม 24 ชม. และ 72 ชม.
-            d_curr = t_curr.split()[0].replace("-", "")
-            r24 = rain_data.get(d_curr, 0.0)
+            # ฝนสะสม 24 ชม. ถึงสิ้นสุดเมื่อวาน (Strictly causal, ตามระเบียบ rain_window.py ป้องกัน look-ahead)
+            d_prev = (dt.datetime.strptime(t_curr.split()[0], "%Y-%m-%d") - dt.timedelta(days=1)).strftime("%Y%m%d")
+            r24 = rain_data.get(d_prev, 0.0)
 
             # ตัวแปรแบบจำลองเดิม (Uncoupled)
             feat_base = [h0, h0 - h1, h0 - h3, h0 - h6, u0, u0 - u6, u0 - u12, r24]

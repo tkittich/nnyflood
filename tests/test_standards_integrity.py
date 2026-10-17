@@ -153,3 +153,33 @@ def test_catalog_key_scripts_covered_in_project_map():
     assert not missing, "พบสคริปต์/โฟลเดอร์ใน catalog.py ที่ยังไม่ถูกบันทึกใน docs/PROJECT_MAP.md:\n" + "\n".join(missing)
 
 
+def test_canonical_mirrors_artifacts():
+    """canonical ledgers ต้องตรงกับ artifact JSON ที่คัดลอกมา 100% (ป้องกัน N-01 Canonical Stale Drift)"""
+    import json
+    # 1. Pillar 1-2 canonical_numbers.json
+    p_canon = ROOT / "analysis/canonical_numbers.json"
+    if p_canon.exists():
+        c_vals = json.loads(p_canon.read_text(encoding="utf-8"))["values"]
+        sources = {
+            "routing_1d": ROOT / "analysis/hydraulic_1d_routing_summary.json",
+            "khundan_22y": ROOT / "analysis/goal2_khundan_22y_summary.json",
+            "medium_dams": ROOT / "analysis/goal2_nny_medium_dams_summary.json",
+        }
+        for key, src_path in sources.items():
+            if src_path.exists():
+                src_data = json.loads(src_path.read_text(encoding="utf-8"))
+                assert c_vals.get(key) == src_data, f"canonical_numbers.json['values']['{key}'] ไม่ตรงกับ {src_path.name}"
+
+    # 2. Goal 6 canonical.json
+    g6_canon = ROOT / "analysis/goal6/canonical.json"
+    if g6_canon.exists():
+        g6_vals = json.loads(g6_canon.read_text(encoding="utf-8"))
+        g6_sources = {
+            "l3_coastal_coupled": ROOT / "analysis/goal6/l3_coastal_summary.json",
+        }
+        for key, src_path in g6_sources.items():
+            if src_path.exists():
+                src_data = json.loads(src_path.read_text(encoding="utf-8"))
+                assert g6_vals.get(key) == src_data, f"goal6/canonical.json['{key}'] ไม่ตรงกับ {src_path.name}"
+
+

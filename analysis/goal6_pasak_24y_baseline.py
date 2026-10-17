@@ -91,6 +91,10 @@ def analyze():
         })
 
     total_years = len(year_stats)
+    stats_by_be = {r["year_be"]: r for r in year_stats}
+    rec_53 = stats_by_be.get(2553, {})
+    rec_54 = stats_by_be.get(2554, {})
+    rec_69 = stats_by_be.get(2569, {})
     
     summary = {
         "metadata": {
@@ -113,22 +117,22 @@ def analyze():
             "over_1000mcm_pct": round((over_1000mcm_count / total_years) * 100, 1),
             "all_time_record_peak": {
                 "year_be": 2553,
-                "peak_storage_mcm": 1177.22,
-                "peak_pct_normal": 135.1,
-                "date": "2010-10-21",
+                "peak_storage_mcm": rec_53.get("peak_storage_mcm", 1177.22),
+                "peak_pct_normal": round(rec_53.get("peak_pct_normal", 135.1), 1),
+                "date": rec_53.get("peak_date", "2010-10-21"),
             },
             "year_2554_comparison": {
                 "year_be": 2554,
-                "peak_storage_mcm": 1086.34,
-                "peak_pct_normal": 124.7,
-                "days_over_normal": 86,
-                "max_outflow_mcm_day": 87.21,
+                "peak_storage_mcm": rec_54.get("peak_storage_mcm", 1086.34),
+                "peak_pct_normal": round(rec_54.get("peak_pct_normal", 124.7), 1),
+                "days_over_normal": rec_54.get("days_over_normal_storage", 94),
+                "max_outflow_mcm_day": rec_54.get("max_outflow_mcm_day", 84.78),
             },
             "year_2569_status": {
                 "year_be": 2569,
-                "peak_storage_mcm": 965.36,
-                "peak_pct_normal": 110.8,
-                "date": "2026-10-04",
+                "peak_storage_mcm": rec_69.get("peak_storage_mcm", 965.36),
+                "peak_pct_normal": round(rec_69.get("peak_pct_normal", 110.8), 1),
+                "date": rec_69.get("peak_date", "2026-10-04"),
             },
         },
         "annual_records": year_stats,
@@ -148,8 +152,8 @@ def analyze():
         f"- **การเดินเขื่อนเกินความจุปกติเป็นเรื่องปกติ (Operating Surcharge)**: ตลอด 24 ปี เขื่อนป่าสักชลสิทธิ์มีน้ำเกินความจุปกติ (871.5 ล้าน ลบ.ม.) ถึง **{over_normal_count} จาก {total_years} ปี ({summary['headline_metrics']['over_normal_pct']}%)**",
         f"- **ระดับวิกฤตเกิน 1,000 ล้าน ลบ.ม.**: เกิดขึ้นถึง **{over_1000mcm_count} จาก {total_years} ปี ({summary['headline_metrics']['over_1000mcm_pct']}%)** สูงสุดประวัติศาสตร์คือปี 2553 แตะ **1,177.22 ล้าน ลบ.ม. (135.1%)**",
         "- **เทียบปี 2554 vs 2569**:",
-        "  - ปี 2554 (มหาอุทกภัย): พีคแตะ **1,086.34 ล้าน ลบ.ม. (124.7%)** และปล่อยน้ำสูงสุดถึง **87.21 ล้าน ลบ.ม./วัน**",
-        "  - ปี 2569: พีคแตะ **965.36 ล้าน ลบ.ม. (110.8%)** เมื่อวันที่ 4 ต.ค. 2569",
+        f"  - ปี 2554 (มหาอุทกภัย): พีคแตะ **{rec_54.get('peak_storage_mcm', 1086.34)} ล้าน ลบ.ม. ({rec_54.get('peak_pct_normal', 124.7):.1f}%)** และปล่อยน้ำสูงสุดถึง **{rec_54.get('max_outflow_mcm_day', 84.78)} ล้าน ลบ.ม./วัน**",
+        f"  - ปี 2569: พีคแตะ **{rec_69.get('peak_storage_mcm', 965.36)} ล้าน ลบ.ม. ({rec_69.get('peak_pct_normal', 110.8):.1f}%)** เมื่อวันที่ {rec_69.get('peak_date', '2026-10-04')}",
         "",
         "## 2. ตารางสถิติรายปี (พ.ศ. 2546 – 2569)",
         "",

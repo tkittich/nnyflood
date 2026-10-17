@@ -19,7 +19,7 @@
     },
     "year_2026_anomaly": {
       "peak_date": "2026-09-27",
-      "days_earlier_than_median": 40,
+      "days_earlier_than_median": 36.5,
       "historical_rank_earliest": 1,
       "note": "ตลอด 22 ปี มีเพียง 2 ปีเท่านั้นที่น้ำเต็มพีคในเดือนกันยายน (2556 และ 2569) อีก 20 ปีที่เหลือพีคใน ต.ค.–พ.ย."
     }

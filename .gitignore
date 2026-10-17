@@ -123,3 +123,7 @@ data/32_goal7_chaophraya2/official_onwr_waterchart/*/*.json
 
 # OCR ภาษาไทย (เป้าหมาย 7 — เก็บบนดิสก์เท่านั้น: มีชื่อบุคคลในเอกสารต้นฉบับ/ไฟล์ใหญ่ · ผลสกัดที่จะอ้างอยู่ใน analysis/goal7/ocr_findings.json)
 data/32_goal7_chaophraya2/ocr/
+data/32_goal7_chaophraya2/typhoon_ocr/
+data/search_index.db*
+
+

@@ -1,0 +1,269 @@
+{
+  "Ny.7": {
+    "name": "สะพานหน้าจวนผู้ว่าฯ นครนายก",
+    "note": "เกจวัดท้องถิ่น = ม.รทก. + 1.59 ม. (ปรับแก้ h_msl = h_gauge - 1.59)",
+    "established_offset_m": -1.59,
+    "paired_offset_est_m": null,
+    "thaiwater_stats": {
+      "n_records": 768,
+      "min_val": 5.52,
+      "max_val": 9.23,
+      "mean_val": 6.326,
+      "std_val": 0.942,
+      "shifts_detected": []
+    },
+    "multistation_stats": {
+      "n_records": 2880,
+      "min_val": 0.0,
+      "max_val": 7.68,
+      "mean_val": 4.676,
+      "std_val": 0.999,
+      "shifts_detected": [
+        {
+          "time_before": "2026-09-02T03:30:00",
+          "val_before": 4.02,
+          "time_after": "2026-09-02T03:45:00",
+          "val_after": 0.0,
+          "jump_m": -4.02
+        },
+        {
+          "time_before": "2026-09-02T03:45:00",
+          "val_before": 0.0,
+          "time_after": "2026-09-02T04:00:00",
+          "val_after": 4.02,
+          "jump_m": 4.02
+        },
+        {
+          "time_before": "2026-09-20T19:30:00",
+          "val_before": 4.44,
+          "time_after": "2026-09-20T19:45:00",
+          "val_after": 0.0,
+          "jump_m": -4.44
+        },
+        {
+          "time_before": "2026-09-20T19:45:00",
+          "val_before": 0.0,
+          "time_after": "2026-09-20T20:00:00",
+          "val_after": 4.44,
+          "jump_m": 4.44
+        }
+      ]
+    },
+    "recommended_correction_formula": "h_msl = h_gauge + (-1.59)"
+  },
+  "Ny.1B": {
+    "name": "บ้านเขานางบวช",
+    "note": "เกจวัดปรับเป็น ม.รทก. แล้วโดยตรง (offset ≈ 0.00 ม.)",
+    "established_offset_m": 0.0,
+    "paired_offset_est_m": null,
+    "thaiwater_stats": {
+      "n_records": 768,
+      "min_val": 4.69,
+      "max_val": 11.07,
+      "mean_val": 5.987,
+      "std_val": 1.537,
+      "shifts_detected": []
+    },
+    "multistation_stats": {
+      "n_records": 2880,
+      "min_val": 0.0,
+      "max_val": 11.0,
+      "mean_val": 5.919,
+      "std_val": 1.627,
+      "shifts_detected": [
+        {
+          "time_before": "2026-09-07T12:15:00",
+          "val_before": 5.35,
+          "time_after": "2026-09-07T12:30:00",
+          "val_after": 0.0,
+          "jump_m": -5.35
+        },
+        {
+          "time_before": "2026-09-07T12:30:00",
+          "val_before": 0.0,
+          "time_after": "2026-09-07T12:45:00",
+          "val_after": 5.33,
+          "jump_m": 5.33
+        }
+      ]
+    },
+    "recommended_correction_formula": "h_msl = h_gauge (ไม่ต้องปรับแก้)"
+  },
+  "Ny.3": {
+    "name": "บ้านป่าขะ บ้านนา",
+    "note": "สถานีลุ่มน้ำบ้านนา ออฟไลน์บางช่วง",
+    "established_offset_m": 0.0,
+    "paired_offset_est_m": null,
+    "thaiwater_stats": {
+      "n_records": 745,
+      "min_val": 8.0,
+      "max_val": 11.77,
+      "mean_val": 9.375,
+      "std_val": 0.729,
+      "shifts_detected": [
+        {
+          "time_before": "2026-09-25 14:00",
+          "val_before": 9.379999999999999,
+          "time_after": "2026-09-26 06:00",
+          "val_after": 10.93,
+          "jump_m": 1.55
+        }
+      ]
+    },
+    "multistation_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "recommended_correction_formula": "h_msl = h_gauge (ไม่ต้องปรับแก้)"
+  },
+  "Ny.4": {
+    "name": "น้ำตกเหวนรก / สมอปูน",
+    "note": "โทรมาตรโครงการเขื่อนใช้เกณฑ์ระดับสันอ่าง (~376 ม.) ต่างจากเกจวัดลำน้ำ",
+    "established_offset_m": -365.0,
+    "paired_offset_est_m": null,
+    "thaiwater_stats": {
+      "n_records": 34,
+      "min_val": 377.13,
+      "max_val": 379.3,
+      "mean_val": 377.635,
+      "std_val": 0.529,
+      "shifts_detected": [
+        {
+          "time_before": "2026-09-24 06:00",
+          "val_before": 377.76000600000003,
+          "time_after": "2026-09-25 06:00",
+          "val_after": 378.840006,
+          "jump_m": 1.08
+        }
+      ]
+    },
+    "multistation_stats": {
+      "n_records": 2880,
+      "min_val": 375.958,
+      "max_val": 380.215,
+      "mean_val": 376.594,
+      "std_val": 0.719,
+      "shifts_detected": []
+    },
+    "recommended_correction_formula": "h_msl = h_gauge + (-365.00)"
+  },
+  "TNy10": {
+    "name": "คลองแม่น้ำใน องครักษ์",
+    "note": "จุดวัดทุ่งองครักษ์ ค่าอยู่ในระดับ ม.รทก. สอดคล้องกับระนาบน้ำท่วม (+2.35 ม.)",
+    "established_offset_m": 0.0,
+    "paired_offset_est_m": null,
+    "thaiwater_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "multistation_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "recommended_correction_formula": "h_msl = h_gauge (ไม่ต้องปรับแก้)"
+  },
+  "TNy11": {
+    "name": "เขื่อนนายก",
+    "note": "โทรมาตรระดับน้ำหน้าเขื่อนทดน้ำนายก",
+    "established_offset_m": 0.0,
+    "paired_offset_est_m": null,
+    "thaiwater_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "multistation_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "recommended_correction_formula": "h_msl = h_gauge (ไม่ต้องปรับแก้)"
+  },
+  "TNy12": {
+    "name": "เขื่อนขุนด่านปราการชล",
+    "note": "ระดับน้ำในอ่างเก็บน้ำเขื่อนขุนด่านฯ เทียบ ม.รทก. โดยตรง (+100 ถึง +110 ม.)",
+    "established_offset_m": 0.0,
+    "paired_offset_est_m": null,
+    "thaiwater_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "multistation_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "recommended_correction_formula": "h_msl = h_gauge (ไม่ต้องปรับแก้)"
+  },
+  "TNy9": {
+    "name": "สมบูรณ์",
+    "note": "จุดวัดลำน้ำสาขาฝั่งขวา",
+    "established_offset_m": 0.0,
+    "paired_offset_est_m": null,
+    "thaiwater_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "multistation_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "recommended_correction_formula": "h_msl = h_gauge (ไม่ต้องปรับแก้)"
+  },
+  "st28_tha_sung": {
+    "name": "ปตร.ท่าซุง",
+    "note": "ระดับหน้า-ท้าย ปตร. ท่าซุง ลุ่มน้ำตอนล่าง",
+    "established_offset_m": 0.0,
+    "paired_offset_est_m": null,
+    "thaiwater_stats": {
+      "n_records": 0,
+      "min_val": null,
+      "max_val": null,
+      "mean_val": null,
+      "std_val": null,
+      "shifts_detected": []
+    },
+    "multistation_stats": {
+      "n_records": 2795,
+      "min_val": 7.74,
+      "max_val": 9.58,
+      "mean_val": 8.298,
+      "std_val": 0.415,
+      "shifts_detected": []
+    },
+    "recommended_correction_formula": "h_msl = h_gauge (ไม่ต้องปรับแก้)"
+  }
+}

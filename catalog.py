@@ -10,6 +10,7 @@
 """
 from __future__ import annotations
 
+import ast
 import json
 import re
 import sys
@@ -219,6 +220,39 @@ def cmd_overview():
     print("=" * 76)
 
 
+SYNONYMS: dict[str, list[str]] = {
+    "ปตร": ["ปตร", "ประตูระบายน้ำ", "watergate", "sluice"],
+    "ประตูระบายน้ำ": ["ปตร", "ประตูระบายน้ำ", "watergate", "sluice"],
+    "สูบ": ["สูบ", "ปั๊ม", "pump", "สถานีสูบ", "เครื่องสูบ"],
+    "ปั๊ม": ["สูบ", "ปั๊ม", "pump", "สถานีสูบ", "เครื่องสูบ"],
+    "องครักษ์": ["องครักษ์", "ongkharak", "tny10", "tny9", "ny.7", "nyk000"],
+    "รังสิต": ["รังสิต", "rangsit", "atg101", "bkk014", "bkk015", "คลอง 13", "พระธรรมราชา", "หกวา"],
+    "ขุนด่าน": ["ขุนด่าน", "khun dan", "ท่าด่าน"],
+    "บางปะกง": ["บางปะกง", "bang pakong", "bpk001", "bpk003", "tkgt58", "tkgt60"],
+    "บางน้ำเปรี้ยว": ["บางน้ำเปรี้ยว", "bpk003", "bkk016", "bang nam priao"],
+    "คลองหกวา": ["คลองหกวา", "หกวา", "bkk014", "bkk015"],
+    "เจ้าพระยา 2": ["เจ้าพระยา 2", "cp2", "ชัยนาท-ป่าสัก", "คลองระบายน้ำหลาก"],
+    "rule curve": ["rule curve", "เส้นกำกับ", "urc", "lrc"],
+    "eia": ["eia", "รายงานผลกระทบสิ่งแวดล้อม", "eia_structs"],
+    "สทนช": ["สทนช", "onwr", "ผังน้ำ"],
+    "ชลประทาน": ["ชลประทาน", "rid", "swoc"],
+    "ดาวเทียม": ["ดาวเทียม", "satellite", "sentinel", "s1", "gistda"],
+    "แบบจำลอง": ["แบบจำลอง", "model", "routing", "counterfactual", "hydraulic"],
+}
+
+
+def _expand_query(query: str) -> list[str]:
+    q_clean = query.strip().lower()
+    terms = [q_clean]
+    for syn_key, syn_list in SYNONYMS.items():
+        if syn_key.lower() in q_clean or q_clean in syn_key.lower():
+            for s in syn_list:
+                s_lower = s.lower()
+                if s_lower not in terms:
+                    terms.append(s_lower)
+    return terms
+
+
 def _search_json_keys(data, query: str, prefix="") -> list[tuple[str, str]]:
     results = []
     q_lower = query.lower()
@@ -242,9 +276,138 @@ def _search_json_keys(data, query: str, prefix="") -> list[tuple[str, str]]:
     return results
 
 
+def _search_code_ast(terms: list[str]) -> list[tuple[str, int, str, str]]:
+    """ค้นหาชื่อโมดูล, docstring, ฟังก์ชัน และคลาสใน analysis/, report/, tools/ ด้วย AST"""
+    results = []
+    for sub in ["analysis", "report", "tools"]:
+        sub_path = ROOT / sub
+        if not sub_path.exists():
+            continue
+        for p in sorted(sub_path.glob("**/*.py")):
+            try:
+                content = p.read_text(encoding="utf-8", errors="ignore")
+                content_lower = content.lower()
+                if not any(t in content_lower for t in terms):
+                    continue
+                tree = ast.parse(content, filename=str(p))
+                mod_doc = ast.get_docstring(tree) or ""
+                rel_path = p.relative_to(ROOT).as_posix()
+
+                if any(t in mod_doc.lower() for t in terms):
+                    first_line = mod_doc.strip().splitlines()[0] if mod_doc.strip() else ""
+                    results.append((rel_path, 1, "module", first_line[:100]))
+
+                for node in ast.walk(tree):
+                    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                        kind = "class" if isinstance(node, ast.ClassDef) else "def"
+                        fn_doc = ast.get_docstring(node) or ""
+                        name_match = any(t in node.name.lower() for t in terms)
+                        doc_match = any(t in fn_doc.lower() for t in terms)
+                        if name_match:
+                            desc = f"{node.name}()" if kind == "def" else node.name
+                            if fn_doc:
+                                desc += f" — {fn_doc.strip().splitlines()[0][:70]}"
+                            results.append((rel_path, node.lineno, kind, desc))
+                        elif doc_match:
+                            doc_first = fn_doc.strip().splitlines()[0][:70]
+                            results.append((rel_path, node.lineno, kind, f"{node.name}(): {doc_first}"))
+            except Exception:
+                pass
+    return results
+
+
+def _search_data_manifests(terms: list[str]) -> list[tuple[str, str, list[str]]]:
+    """ค้นหาข้อมูลใน data/**/manifest.md ครอบคลุมคลังข้อมูล 200GB โดยไม่ต้องอ่านไฟล์ไบนารีขนาดใหญ่"""
+    results = []
+    data_dir = ROOT / "data"
+    if not data_dir.exists():
+        return results
+
+    for p in sorted(data_dir.glob("**/manifest.md")):
+        try:
+            content = p.read_text(encoding="utf-8", errors="ignore")
+            content_lower = content.lower()
+            if not any(t in content_lower for t in terms):
+                continue
+            lines = content.splitlines()
+            title = lines[0].lstrip("#").strip() if lines else p.parent.name
+            matched_lines = []
+            for i, line in enumerate(lines, 1):
+                line_lower = line.lower()
+                if any(t in line_lower for t in terms) and not line.startswith("#"):
+                    clean = line.strip().lstrip("-* ").replace("`", "")
+                    if clean and len(clean) > 3:
+                        matched_lines.append(f"L{i}: {clean[:90]}")
+                        if len(matched_lines) >= 3:
+                            break
+            rel_dir = p.parent.relative_to(ROOT).as_posix()
+            results.append((rel_dir, title, matched_lines))
+        except Exception:
+            pass
+    return results
+
+
+def _search_telemetry_stations(terms: list[str]) -> list[tuple[str, str, str]]:
+    """ค้นหาสถานีโทรมาตรและประตูระบายน้ำจากฐานข้อมูล ThaiWater"""
+    results = []
+    seen = set()
+
+    # 1. ฐานข้อมูลประตูระบายน้ำพร้อมค่าปัจจุบัน
+    wg_file = ROOT / "data/02_thaiwater/raw/2026-10-09_watergate_load.json"
+    if wg_file.exists():
+        try:
+            with open(wg_file, encoding="utf-8") as f:
+                d = json.load(f)
+            for item in d.get("watergate_data", {}).get("data", []):
+                st = item.get("station", {})
+                name_th = (st.get("tele_station_name") or {}).get("th", "")
+                code = st.get("tele_station_oldcode") or ""
+                check_str = f"{code} {name_th}".lower()
+                if any(t in check_str for t in terms):
+                    if code and code not in seen:
+                        seen.add(code)
+                        win = item.get("watergate_in")
+                        wout = item.get("watergate_out")
+                        details = f"ระดับน้ำ เหนือ: {win} / ท้าย: {wout} ม.รทก."
+                        full_name = name_th if (name_th.startswith("ปตร") or name_th.startswith("ประตู")) else f"ปตร.{name_th}"
+                        results.append((code, full_name, details))
+        except Exception:
+            pass
+
+    # 2. ฐานข้อมูลสถานีโทรมาตรทั่วประเทศ 11,483 จุด
+    st_file = ROOT / "data/02_thaiwater/raw/station_all.json"
+    if st_file.exists():
+        try:
+            with open(st_file, encoding="utf-8") as f:
+                d = json.load(f)
+            for item in d.get("data", []):
+                code = item.get("station_old_code") or ""
+                name_th = (item.get("station_name") or {}).get("th", "")
+                prov = (item.get("province_name") or {}).get("th", "")
+                amphoe = (item.get("amphoe_name") or {}).get("th", "")
+                lat = item.get("station_lat")
+                lon = item.get("station_long")
+                check_str = f"{code} {name_th} {prov} {amphoe}".lower()
+                if any(t in check_str for t in terms):
+                    if code and code not in seen:
+                        seen.add(code)
+                        loc_str = f"อ.{amphoe} จ.{prov}" if amphoe and prov else (prov or "")
+                        results.append((code, f"{name_th} ({loc_str})", f"พิกัด: {lat}, {lon}"))
+                        if len(results) >= 15:
+                            break
+        except Exception:
+            pass
+
+    return results
+
+
 def cmd_find(query: str):
     print_banner()
-    print(f"🔍 ผลการค้นหาสำหรับ: '{query}'\n")
+    terms = _expand_query(query)
+    term_str = f"'{query}'"
+    if len(terms) > 1:
+        term_str += f" (ขยายคำพ้อง: {', '.join(terms[1:5])})"
+    print(f"🔍 ผลการค้นหาสำหรับ: {term_str}\n")
     found_any = False
 
     # 1. ค้นหาในชื่อไฟล์
@@ -253,19 +416,43 @@ def cmd_find(query: str):
         p = ROOT / sub
         if p.exists():
             for f in p.glob("**/*"):
-                if f.is_file() and query.lower() in f.name.lower():
+                if f.is_file() and any(t in f.name.lower() for t in terms):
                     matched_files.append(f.relative_to(ROOT))
 
     if matched_files:
         found_any = True
         print(f"📁 ชื่อไฟล์ที่ตรงกัน ({len(matched_files)} ไฟล์):")
-        for f in matched_files[:15]:
+        for f in matched_files[:12]:
             print(f"   • {f}")
-        if len(matched_files) > 15:
-            print(f"     ... และอีก {len(matched_files) - 15} ไฟล์")
+        if len(matched_files) > 12:
+            print(f"     ... และอีก {len(matched_files) - 12} ไฟล์")
         print()
 
-    # 2. ค้นหาใน Canonical JSONs
+    # 2. ค้นหาในโค้ด (AST: Module docstring, Class, Function)
+    code_matches = _search_code_ast(terms)
+    if code_matches:
+        found_any = True
+        print(f"💻 ฟังก์ชัน คลาส และสคริปต์วิเคราะห์ ({len(code_matches)} จุด):")
+        for fpath, lno, kind, desc in code_matches[:12]:
+            print(f"   • {fpath}:{lno} [{kind}] {desc}")
+        if len(code_matches) > 12:
+            print(f"     ... และอีก {len(code_matches) - 12} รายการ")
+        print()
+
+    # 3. ค้นหาในสารบัญข้อมูลดิบ 200GB (Data Manifests)
+    manifest_matches = _search_data_manifests(terms)
+    if manifest_matches:
+        found_any = True
+        print(f"📦 ข้อมูลดิบและเมทาดาตาใน data/ ({len(manifest_matches)} โฟลเดอร์):")
+        for fdir, title, snippets in manifest_matches[:8]:
+            print(f"   • {fdir} — {title}")
+            for s in snippets[:2]:
+                print(f"       ↳ {s}")
+        if len(manifest_matches) > 8:
+            print(f"     ... และอีก {len(manifest_matches) - 8} โฟลเดอร์")
+        print()
+
+    # 4. ค้นหาใน Canonical JSONs และทะเบียนช่องว่าง
     canonical_files = [
         ("เป้าหมาย 1–5", ROOT / "analysis/canonical_numbers.json"),
         ("เป้าหมาย 6", ROOT / "analysis/goal6/canonical.json"),
@@ -279,19 +466,27 @@ def cmd_find(query: str):
         try:
             with open(cpath, encoding="utf-8") as f:
                 cdata = json.load(f)
-            matches = _search_json_keys(cdata, query)
-            if matches:
+            matches = []
+            for t in terms:
+                matches.extend(_search_json_keys(cdata, t))
+            unique_matches = []
+            seen_keys = set()
+            for k, v in matches:
+                if k not in seen_keys:
+                    seen_keys.add(k)
+                    unique_matches.append((k, v))
+            if unique_matches:
                 found_any = True
                 print(f"🔢 ตัวเลขและคีย์ใน {label} ({cpath.relative_to(ROOT)}):")
-                for k, v in matches[:8]:
+                for k, v in unique_matches[:6]:
                     print(f"   • {k}: {v}")
-                if len(matches) > 8:
-                    print(f"     ... พบทั้งหมด {len(matches)} จุดในไฟล์นี้")
+                if len(unique_matches) > 6:
+                    print(f"     ... พบทั้งหมด {len(unique_matches)} จุดในไฟล์นี้")
                 print()
         except Exception:
             pass
 
-    # 3. ค้นหาในหัวข้อ Markdown (docs/)
+    # 5. ค้นหาในหัวข้อ Markdown (docs/)
     matched_docs = []
     for doc in sorted((ROOT / "docs").glob("*.md")) + [ROOT / "START_HERE.md", ROOT / "README.md", ROOT / "AGENTS.md"]:
         if not doc.exists():
@@ -299,7 +494,7 @@ def cmd_find(query: str):
         try:
             lines = doc.read_text(encoding="utf-8").splitlines()
             for i, line in enumerate(lines, 1):
-                if line.startswith("#") and query.lower() in line.lower():
+                if line.startswith("#") and any(t in line.lower() for t in terms):
                     matched_docs.append((doc.relative_to(ROOT), i, line.strip()))
         except Exception:
             pass
@@ -307,13 +502,40 @@ def cmd_find(query: str):
     if matched_docs:
         found_any = True
         print(f"📄 หัวข้อในเอกสารที่ตรงกัน ({len(matched_docs)} จุด):")
-        for doc_rel, line_no, text in matched_docs[:10]:
+        for doc_rel, line_no, text in matched_docs[:8]:
             print(f"   • {doc_rel}:{line_no} — {text}")
+        if len(matched_docs) > 8:
+            print(f"     ... และอีก {len(matched_docs) - 8} จุด")
+        print()
+
+    # 6. ค้นหาเนื้อหาเต็มเชิงลึก (Mini-FTS Full-Text Search)
+    try:
+        from tools.mini_fts import search as fts_search
+        fts_res = fts_search(query, limit=5)
+        if fts_res:
+            found_any = True
+            print(f"📖 ข้อความในเอกสารและการวิเคราะห์ (Mini-FTS {len(fts_res)} รายการ):")
+            for r in fts_res:
+                print(f"   • [{r['category'].upper()}] {r['title']} ({r['path']})")
+                print(f"       ↳ {r['snippet']}")
+            print()
+    except Exception:
+        pass
+
+    # 7. ค้นหาสถานีโทรมาตรและประตูระบายน้ำ
+    tele_matches = _search_telemetry_stations(terms)
+    if tele_matches:
+        found_any = True
+        print(f"📡 สถานีโทรมาตรและประตูน้ำ ({len(tele_matches)} จุด):")
+        for code, name, detail in tele_matches[:10]:
+            print(f"   • [{code}] {name} — {detail}")
+        if len(tele_matches) > 10:
+            print(f"     ... และอีก {len(tele_matches) - 10} สถานี")
         print()
 
     if not found_any:
         print(f"❌ ไม่พบผลลัพธ์ที่ตรงกับ '{query}'")
-        print("💡 ลองค้นหาด้วยคำที่กว้างขึ้น เช่น 'เขื่อน', 'ฝน', 'คัน', 's1', 'model' หรือ 'rule curve'")
+        print("💡 ลองค้นหาด้วยคำที่กว้างขึ้น เช่น 'เขื่อน', 'ฝน', 'ปตร', 'สูบ', 'องครักษ์', 's1', 'model'")
     print("=" * 76)
 
 

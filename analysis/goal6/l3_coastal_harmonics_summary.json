@@ -1,0 +1,94 @@
+{
+  "title": "แบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่างผสานฮาร์มอนิกดาราศาสตร์ (Astronomical Harmonics Coupled)",
+  "target_station": "C.12 (กรมชลประทานสามเสน กรุงเทพฯ)",
+  "downstream_boundary": "CPY015 (สะพานกรุงเทพ)",
+  "upstream_boundary": "BKK001 (ปทุมธานี)",
+  "test_window": "2026-09-20 00:00 เป็นต้นไป",
+  "astronomical_harmonics_calibrated": {
+    "S0": 0.2015,
+    "constituents": {
+      "M2": {
+        "name": "ดวงจันทร์กึ่งรายวันหลัก (Principal lunar semidiurnal)",
+        "period_hours": 12.4206012,
+        "amplitude_m": 0.4299,
+        "phase_degrees": 200.64,
+        "a_cos": -0.4023,
+        "b_sin": 0.1516
+      },
+      "S2": {
+        "name": "ดวงอาทิตย์กึ่งรายวันหลัก (Principal solar semidiurnal)",
+        "period_hours": 12.0,
+        "amplitude_m": 0.2948,
+        "phase_degrees": 154.48,
+        "a_cos": -0.266,
+        "b_sin": -0.127
+      },
+      "K1": {
+        "name": "ดวงจันทร์-ดวงอาทิตย์รายวัน (Lunar diurnal)",
+        "period_hours": 23.9344721,
+        "amplitude_m": 0.6031,
+        "phase_degrees": 23.98,
+        "a_cos": 0.5511,
+        "b_sin": -0.2452
+      },
+      "O1": {
+        "name": "ดวงจันทร์รายวันหลัก (Principal lunar diurnal)",
+        "period_hours": 25.8193417,
+        "amplitude_m": 0.4125,
+        "phase_degrees": 27.11,
+        "a_cos": 0.3672,
+        "b_sin": -0.188
+      }
+    }
+  },
+  "lead_skill_evaluations": {
+    "lead_6h": {
+      "lead_hours": 6,
+      "n_train": 1150,
+      "n_test": 262,
+      "rmse_model_m": 0.6,
+      "mae_model_m": 0.522,
+      "r2_model": -0.293,
+      "rmse_persistence_m": 0.618,
+      "rmse_astro_baseline_m": 0.563,
+      "skill_gain_vs_persistence_pct": 2.9,
+      "skill_gain_vs_astro_baseline_pct": -6.6
+    },
+    "lead_12h": {
+      "lead_hours": 12,
+      "n_train": 1078,
+      "n_test": 261,
+      "rmse_model_m": 0.595,
+      "mae_model_m": 0.532,
+      "r2_model": -0.285,
+      "rmse_persistence_m": 0.577,
+      "rmse_astro_baseline_m": 0.536,
+      "skill_gain_vs_persistence_pct": -3.0,
+      "skill_gain_vs_astro_baseline_pct": -10.9
+    },
+    "lead_24h": {
+      "lead_hours": 24,
+      "n_train": 1499,
+      "n_test": 274,
+      "rmse_model_m": 0.218,
+      "mae_model_m": 0.164,
+      "r2_model": 0.826,
+      "rmse_persistence_m": 0.212,
+      "rmse_astro_baseline_m": 0.205,
+      "skill_gain_vs_persistence_pct": -2.7,
+      "skill_gain_vs_astro_baseline_pct": -6.3
+    },
+    "lead_48h": {
+      "lead_hours": 48,
+      "n_train": 1493,
+      "n_test": 274,
+      "rmse_model_m": 0.392,
+      "mae_model_m": 0.312,
+      "r2_model": 0.375,
+      "rmse_persistence_m": 0.376,
+      "rmse_astro_baseline_m": 0.361,
+      "skill_gain_vs_persistence_pct": -4.2,
+      "skill_gain_vs_astro_baseline_pct": -8.6
+    }
+  }
+}

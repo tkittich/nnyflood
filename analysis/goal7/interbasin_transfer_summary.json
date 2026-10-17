@@ -1,0 +1,105 @@
+{
+  "title": "การวิเคราะห์เวกเตอร์การผันน้ำข้ามลุ่มรายคลองเชื่อมโยง (Inter-basin Transfer Vectors)",
+  "timestamp_analyzed": "2026-10-09 Snapshot",
+  "key_gate_snapshots": {
+    "ATG05": {
+      "name": "ปตร.พระนารายน์ (คลองระพีพัฒน์แยกตก/ใต้)",
+      "lat": 14.558294,
+      "lon": 100.76207,
+      "water_in_msl_m": 8.266,
+      "water_out_msl_m": 6.456,
+      "head_diff_m": 1.81
+    },
+    "ATG07": {
+      "name": "ปตร.พระศรีศิลป์ (คลองระพีพัฒน์แยกใต้)",
+      "lat": 14.331148,
+      "lon": 100.87292,
+      "water_in_msl_m": null,
+      "water_out_msl_m": 3.204,
+      "head_diff_m": null
+    },
+    "ATG08": {
+      "name": "ปตร.พระธรรมราชา (คลอง 13 สายล่าง)",
+      "lat": 14.077689,
+      "lon": 100.89208,
+      "water_in_msl_m": 2.931,
+      "water_out_msl_m": 2.324,
+      "head_diff_m": 0.607
+    },
+    "ATG09": {
+      "name": "ปตร.พระอินทราชา (คลองระพีพัฒน์แยกตก)",
+      "lat": 14.144052,
+      "lon": 100.62136,
+      "water_in_msl_m": 2.866,
+      "water_out_msl_m": 2.678,
+      "head_diff_m": 0.188
+    },
+    "ATG101": {
+      "name": "ปตร.จุฬาลงกรณ์ (รังสิตสู่แม่น้ำเจ้าพระยา)",
+      "lat": 13.98135,
+      "lon": 100.6057,
+      "water_in_msl_m": 1.177,
+      "water_out_msl_m": 2.175,
+      "head_diff_m": -0.998
+    }
+  },
+  "interbasin_vectors": [
+    {
+      "route_id": "pasak_to_rangsit",
+      "name": "คลองระพีพัฒน์แยกใต้ (ป่าสัก -> รังสิต)",
+      "upstream_station": "ATG05 (ปตร.พระนารายน์)",
+      "downstream_station": "ATG08 (ปตร.พระธรรมราชา)",
+      "upstream_h_msl_m": 6.456,
+      "downstream_h_msl_m": 2.931,
+      "net_head_m": 3.525,
+      "distance_km": 54.8,
+      "hydraulic_slope": 6.4e-05,
+      "flow_direction": "เหนือ -> ใต้ (North to South)",
+      "regime": "ผันน้ำตามแรงโน้มถ่วงเต็มกำลัง (Gravity Transfer)"
+    },
+    {
+      "route_id": "rangsit_east_to_west",
+      "name": "คลองรังสิตสายกลาง (คลอง 13 -> คลอง 1 / จุฬาลงกรณ์)",
+      "upstream_station": "ATG08 (ท้าย ปตร.พระธรรมราชา)",
+      "downstream_station": "ATG101 (ใน ปตร.จุฬาลงกรณ์)",
+      "upstream_h_msl_m": 2.324,
+      "downstream_h_msl_m": 1.177,
+      "net_head_m": 1.147,
+      "distance_km": 31.0,
+      "hydraulic_slope": 3.7e-05,
+      "flow_direction": "ตะวันออก -> ตะวันตก (East to West)",
+      "regime": "ไหลลาดสู่สถานีสูบน้ำจุฬาลงกรณ์"
+    },
+    {
+      "route_id": "chula_to_chaophraya_lock",
+      "name": "จุดบรรจบแม่น้ำเจ้าพระยา (ปตร.จุฬาลงกรณ์)",
+      "upstream_station": "ใน ปตร.จุฬาลงกรณ์ (คลองรังสิต)",
+      "downstream_station": "ท้าย ปตร.จุฬาลงกรณ์ (แม่น้ำเจ้าพระยา)",
+      "upstream_h_msl_m": 1.177,
+      "downstream_h_msl_m": 2.175,
+      "net_head_m": -0.998,
+      "distance_km": 0.05,
+      "hydraulic_slope": "น้ำเทินย้อนกลับ (Reverse Gradient)",
+      "flow_direction": "ถูกกดทับด้วยระดับแม่น้ำเจ้าพระยา (+2.18 ม. vs +1.18 ม.)",
+      "regime": "ติดน้ำเทินสมบูรณ์ (Hydraulic Lock) — บานประตูปิด ระบายน้ำได้ด้วยเครื่องสูบน้ำเท่านั้น"
+    },
+    {
+      "route_id": "rangsit_to_ongkharak_boundary",
+      "name": "รอยต่อลุ่มน้ำเจ้าพระยา-นครนายก (คลอง 13 -> ทุ่งองครักษ์)",
+      "upstream_station": "ATG08 (ท้าย ปตร.พระธรรมราชา)",
+      "downstream_station": "TNy10 (คลองแม่น้ำใน)",
+      "upstream_h_msl_m": 2.324,
+      "downstream_h_msl_m": 2.35,
+      "net_head_m": -0.026,
+      "distance_km": 14.5,
+      "hydraulic_slope": -2e-06,
+      "flow_direction": "แทบหยุดนิ่ง / ผันผวนตามการสูบน้ำ (Quasi-stagnant / Backwater Pool)",
+      "regime": "ระนาบน้ำแบนราบข้ามลุ่ม (+2.32 ถึง +2.35 ม.รทก.) น้ำทุ่งเชื่อมกันเป็นผืนเดียว"
+    }
+  ],
+  "conclusions": [
+    "1. น้ำจากลุ่มน้ำป่าสักไหลลงทุ่งรังสิตผ่านคลองระพีพัฒน์แยกใต้ด้วยความลาดชัน 6.5x10^-5 (Head drop +3.53 ม.)",
+    "2. น้ำในคลองรังสิตไหลมุ่งหน้าสู่แม่น้ำเจ้าพระยา (Head drop +1.15 ม.) แต่ไม่สามารถเปิดระบายตามแรงโน้มถ่วงได้ เนื่องจากระดับแม่น้ำเจ้าพระยาสูงกว่าคลองถึง 0.998 ม.",
+    "3. รอยต่อระหว่างทุ่งรังสิตฝั่งตะวันออกกับทุ่งองครักษ์มีระดับผิวน้ำแทบเท่ากัน (+2.32 ม. vs +2.35 ม.รทก.) ส่งผลให้พื้นที่ดังกล่าวเป็นแอ่งกักเก็บน้ำแบนราบที่น้ำไหลถ่ายเทไปมาตามการเดินเครื่องสูบน้ำ"
+  ]
+}

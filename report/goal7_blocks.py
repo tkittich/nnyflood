@@ -201,3 +201,141 @@ def tbl_dev_mix() -> str:
     rows.append(["รวม (เฉลี่ยถ่วงน้ำหนัก)", 100, f"{M['rai']:,}", M["blend_mb_per_rai"], f"{M['total_mb']:,}", f"เท่ากับร้อยละ {M['cover_loan_pct']} ของเงินกู้"])
     return table(["การใช้ที่ดิน (ตัวอย่าง)", "สัดส่วนพื้นที่ (%)", "พื้นที่ (ไร่)", "รายได้สุทธิ (ล้านบาท/ไร่)", "รวม (ล้านบาท)", "เงื่อนไขสำคัญ"], rows,
                  f"สมมติฐานของผู้จัดทำ ไม่ใช่ข้อมูลตลาด · แถบข้างละ {M['strip_m_each_side']} ม. ตลอดแนวคลอง · ต้องแก้ตัวเลขตามราคาที่ดินจริงก่อนใช้ตัดสินใจ")
+
+
+def tbl_construction_phases() -> str:
+    EC = C["eia_construction"]
+    rows = []
+    for r in EC["contracts_table"]:
+        rows.append([r["phase"], r["contract"], r["reach"], r["km"], f"พ.ศ. {r['start_fy']}–{r['end_fy']}", r["scope"]])
+    cap = (
+        f"แหล่ง: {EC['src']} · ลำดับงานก่อสร้าง: <b>{EC['direction']}</b> — {EC['rationale']} · "
+        f"ระยะเวลาก่อสร้าง {EC['duration_years_eia']} ปี (พ.ศ. {EC['fiscal_years_eia']}) ตามรายงานผลกระทบสิ่งแวดล้อม หรือ {EC['duration_years_cabinet']} ปี (พ.ศ. {EC['fiscal_years_cabinet']}) ตามกรอบมติ ครม."
+    )
+    return table(["ระยะการก่อสร้าง", "สัญญา", "ช่วงพื้นที่", "หลัก กม.", "ปีงบประมาณ", "ขอบเขตงานสำคัญ"], rows, cap)
+
+
+def tbl_ongkharak_oct2026_status() -> str:
+    OF = C["ongkharak_flood"]
+    st = OF["stations_oct2026"]
+    rows = [
+        [f"สถานี {st['atg101_chula']['code']} ({st['atg101_chula']['name']})", f"นอก ปตร. (เจ้าพระยา) {st['atg101_chula']['watergate_out_msl']:.2f} / ในคลอง {st['atg101_chula']['watergate_in_msl']:.2f} ม.รทก.", "เจ้าพระยาสูงกว่าในคลอง 1.0 ม.", st['atg101_chula']['status']],
+        [f"สถานี {st['atg08_dhammaraja']['code']} ({st['atg08_dhammaraja']['name']})", f"เหนือน้ำ {st['atg08_dhammaraja']['watergate_in_msl']:.2f} / ท้ายน้ำ {st['atg08_dhammaraja']['watergate_out_msl']:.2f} ม.รทก.", "สูบและผลักน้ำข้าม ปตร. ไปทิศตะวันออก", st['atg08_dhammaraja']['status']],
+        ["อ.องครักษ์ (พื้นที่ลุ่มต่ำท้ายลุ่ม / TNy10)", f"มัธยฐาน DEM {OF['dem_median_m']['องครักษ์']} ม.รทก. (น้ำคลอง {st['tny10_ongkharak']['level_m_oct17']:.2f} ม.)", "น้ำยังท่วมขังต่อเนื่องถึงกลาง ต.ค. 2569", f"หมู่บ้าน {OF['low_villages_count']} แห่งในโซนท้ายลุ่ม ระดับดินต่ำ 1.0–2.5 ม.รทก. ขังค้างในแอ่ง"],
+        [f"สถานี {st['ny7_mueang']['code']} ({st['ny7_mueang']['name']})", f"ระดับน้ำ {st['ny7_mueang']['level_m_oct17']:.2f} ม. (ระดับตลิ่ง {st['ny7_mueang']['bank_m']} ม.)", "ลดลงสู่ระดับปกติแล้ว", st['ny7_mueang']['status']],
+        [f"สถานี {st['bpk003_bangnampriao']['code']} ({st['bpk003_bangnampriao']['name']})", f"ระดับน้ำ {st['bpk003_bangnampriao']['level_m_oct17']:.2f} ม.รทก. (ช่วง {st['bpk003_bangnampriao']['oct17_range_m'][0]:.2f}–{st['bpk003_bangnampriao']['oct17_range_m'][1]:.2f} ม.)", "ทรงตัวสูงต่อเนื่อง", st['bpk003_bangnampriao']['status']],
+        [f"สถานี {st['bpk001_bangpakong']['code']} ({st['bpk001_bangpakong']['name']})", f"น้ำขึ้นสูงสุด +{st['bpk001_bangpakong']['high_tide_m']:.2f} / น้ำลงต่ำสุด {st['bpk001_bangpakong']['low_tide_m']:.2f} ม.รทก.", f"แกว่งตัววันละ {st['bpk001_bangpakong']['swing_m']:.2f} ม.", st['bpk001_bangpakong']['status']],
+    ]
+    cap = (
+        f"สถานะ ณ {OF['status_as_of']} · ความลาดชันชลศาสตร์ระหว่างทุ่งองครักษ์กับปลายน้ำ: {OF['hydraulic_gradient']} · "
+        f"ลักษณะดิน: {OF['soil_property']} · ภาระรับน้ำ: {OF['retardation_dual']}"
+    )
+    return table(["จุดสังเกตการณ์ / สถานี", "ระดับน้ำ / ความสูงพื้นดิน", "สถานะน้ำท่วม", "กลไกและการระบาย"], rows, cap)
+
+
+def tbl_ongkharak_water_balance() -> str:
+    H = C.get("ongkharak_hydraulics", {}).get("water_balance", {})
+    if not H:
+        return ""
+    inf = H["inflows_mcm_day"]
+    outf = H["outflows_mcm_day"]
+    rows = [
+        ["1. การสูบและผลักดันน้ำจากทุ่งรังสิต (คลอง 13)", f"{inf['rangsit_pumped_inflow']:.2f} ล้าน ลบ.ม./วัน", f"{H['attribution_shares']['hypothesis_1_rangsit_pumping']}", "สูบข้าม ปตร.พระธรรมราชา มุ่งหน้าทิศตะวันออก"],
+        ["2. น้ำหลากตกค้างจากต้นน้ำ (อ.เมือง/บ้านนา)", f"{inf['upstream_residual_runoff']:.2f} ล้าน ลบ.ม./วัน", f"{H['attribution_shares']['hypothesis_2_upstream_estuary_bottleneck'].split(' ')[0]} (ร่วมกับปากอ่าว)", "น้ำหลากค้างทุ่งไหลหลากลงสู่พื้นที่ลุ่มต่ำ"],
+        ["3. ฝนตกสะสมในพื้นที่ทุ่งองครักษ์", f"{inf['local_rainfall']:.2f} ล้าน ลบ.ม./วัน", "-", "ฝนตกบนพื้นที่รับน้ำ 286 ตร.กม."],
+        ["<b>รวมน้ำไหลเข้าทุ่งทั้งหมด</b>", f"<b>{inf['total_inflow']:.2f} ล้าน ลบ.ม./วัน</b>", "100.0%", "อัตราการเติมน้ำเข้าแอ่งก้นกระทะ"],
+        ["4. อัตราการระบายออกจริงสู่อ่าวไทย", f"<b>{outf['effective_gravity_and_pump']:.2f} ล้าน ลบ.ม./วัน</b>", "-", f"ติดน้ำทะเลหนุน ระบายได้เฉลี่ยวันละ {outf['effective_hours_per_day']} ชม. (สัดส่วน {outf['tide_gate_open_ratio']*100:.0f}%)"],
+        ["<b>สมดุลมวลน้ำสุทธิสะสม</b>", f"<b>+{H['net_balance_mcm_day']:.2f} ล้าน ลบ.ม./วัน</b>", "-", f"น้ำท่วมขังสะสมในแอ่ง {H['total_stored_water_mcm']} ล้าน ลบ.ม. ต้องใช้เวลาระบาย {H['drain_duration_days_estimate']} วัน"],
+    ]
+    cap = (
+        f"การคำนวณสมดุลมวลน้ำทุ่งองครักษ์ (พื้นที่ลุ่มต่ำ {H['basin_area_sqkm']} ตร.กม. น้ำท่วมขัง {H['inundated_area_sqkm']} ตร.กม. ลึกเฉลี่ย {H['avg_depth_m']*100:.0f} ซม.) · "
+        f"ข้อสรุป: {H['conclusion']}"
+    )
+    return table(["องค์ประกอบสมดุลมวลน้ำ", "ปริมาณน้ำต่อวัน", "สัดส่วนสาเหตุ", "รายละเอียดและกลไกชลศาสตร์"], rows, cap)
+
+
+def tbl_reach_hydraulic_vectors() -> str:
+    vecs = C.get("ongkharak_hydraulics", {}).get("reach_vectors", [])
+    if not vecs:
+        return ""
+    rows = []
+    for v in vecs:
+        rows.append([
+            f"{v['reach_id']}: {v['name']}",
+            f"{v['upstream_stage_m']:.2f} vs {v['downstream_stage_m']:.2f} ม.",
+            f"{v['head_diff_m']:+.2f} ม. ({v['slope_cm_per_km']:+.2f} ซม./กม.)",
+            v['net_flow_direction'],
+            f"{v['velocity_ms']:.2f} ม./วิ ({v['discharge_cms']:.1f} ลบ.ม./วิ)",
+        ])
+    cap = "เวกเตอร์ความลาดเทผิวน้ำ ทิศทางการไหล และความเร็วชลศาสตร์ (คำนวณตามสมการแมนนิ่ง สภาพคลองดินมีวัชพืช รัศมีชลศาสตร์ 2.0 ม.)"
+    return table(["ช่วงลำน้ำและคลองระบาย", "ระดับน้ำต้นทาง vs ปลายทาง", "ความต่างระดับ (ความลาดชัน)", "ทิศทางการไหลสุทธิ", "ความเร็วชลศาสตร์ (อัตราการไหล)"], rows, cap)
+
+
+def tbl_dam_to_gulf_corridors() -> str:
+    C_data = C.get("dam_to_gulf_corridors", {})
+    if not C_data:
+        return ""
+    rows = []
+    for ckey, clabel in [
+        ("corridor_1_khundan", "1. นครนายก–บางปะกง (เขื่อนขุนด่านฯ)"),
+        ("corridor_2_pasak", "2. ป่าสัก–เจ้าพระยา2 (เขื่อนป่าสักฯ)"),
+        ("corridor_3_chaophraya", "3. เจ้าพระยาสายหลัก (เขื่อนเจ้าพระยา)"),
+    ]:
+        c = C_data.get(ckey, {})
+        if not c:
+            continue
+        for s in c["segments"]:
+            rows.append([
+                clabel,
+                s["segment_name"],
+                f"{s['dist_km']:.1f} กม.",
+                f"{s['head_diff_m']:+.2f} ม. ({s['slope_cm_per_km']:+.2f} ซม./กม.)",
+                f"{s['velocity_ms']:.2f} ม./วิ",
+                f"{s['travel_hours']:.1f} ชม.",
+                s["flow_regime"].split("(")[0].strip(),
+            ])
+    cap = (
+        f"การวิเคราะห์เปรียบเทียบชลศาสตร์และเวลาเดินทางน้ำหลากจากแหล่งต้นน้ำ (เขื่อน) สู่ปากอ่าวไทย 3 ระเบียงหลัก · "
+        f"ระเบียงนครนายก (132 กม. รวม {C_data['corridor_1_khundan']['total_travel_days']} วัน) ติดคอขวดที่ช่วงองครักษ์–บางน้ำเปรี้ยว · "
+        f"ระเบียงป่าสัก–คลองใหม่ (182 กม. รวม {C_data['corridor_2_pasak']['total_travel_days']} วัน) · "
+        f"ระเบียงเจ้าพระยาสายหลัก (235 กม. รวม {C_data['corridor_3_chaophraya']['total_travel_days']} วัน)"
+    )
+    return table(["ระเบียงชลศาสตร์", "ช่วงเส้นทางลำน้ำ", "ระยะทาง", "ความต่างระดับ (ความลาดชัน)", "ความเร็วผิวน้ำ", "เวลาเดินทาง", "ลักษณะการไหล"], rows, cap)
+
+
+def tbl_dam_to_gulf_accuracy_assessment() -> str:
+    C_data = C.get("dam_to_gulf_corridors", {})
+    acc = C_data.get("boundary_and_accuracy_assessment", {})
+    if not acc:
+        return ""
+
+    rows_acc = []
+    for item in acc.get("accuracy_summary", []):
+        rows_acc.append([
+            item["aspect"],
+            item["accuracy_level"],
+            item["basis"],
+        ])
+    t1 = table(["มิติการวิเคราะห์ชลศาสตร์", "ระดับความแม่นยำ", "เกณฑ์และหลักฐานเชิงประจักษ์"], rows_acc, "การประเมินความแม่นยำของการวิเคราะห์เวกเตอร์การไหลและสมดุลน้ำ")
+
+    rows_sources = []
+    for s in acc.get("sources_included", []):
+        rows_sources.append([
+            "รวมอยู่ในการวิเคราะห์แล้ว",
+            s["category"],
+            s["inclusion_type"],
+            s["detail"],
+        ])
+    for s in acc.get("sources_to_be_included", []):
+        rows_sources.append([
+            "ข้อเสนอเพิ่มเติมเพื่อความสมบูรณ์",
+            s["category"],
+            s["needed_model"],
+            s["importance"],
+        ])
+    t2 = table(["สถานะการผสานข้อมูล", "องค์ประกอบแหล่งน้ำและขอบเขต", "วิธีการ/แบบจำลอง", "คำอธิบายเชิงวิศวกรรม"], rows_sources, "การจำแนกแหล่งน้ำ ข้อมูลระดับความสูงภูมิประเทศ (DEM) และเงื่อนไขขอบเขตชลศาสตร์")
+
+    return t1 + "\n" + t2
+
+
+

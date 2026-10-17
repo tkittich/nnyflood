@@ -1,0 +1,410 @@
+{
+  "title": "การปิดสมดุลมวลน้ำรายวัน 22 ปี เขื่อนขุนด่านปราการชล (2548–2569)",
+  "total_days_evaluated": 7811,
+  "overall_inflow_mcm": 17836.24,
+  "overall_outflow_mcm": 6304.99,
+  "annual_records": [
+    {
+      "year": 2005,
+      "year_be": 2548,
+      "days_count": 365,
+      "start_storage_mcm": 0.0,
+      "end_storage_mcm": 214.56,
+      "net_delta_storage_mcm": 214.56,
+      "sum_inflow_mcm": 231.36,
+      "sum_outflow_mcm": 16.33,
+      "closure_error_mcm": 0.47,
+      "closure_error_pct": 0.2,
+      "mean_daily_abs_residual_mcm": 0.033,
+      "wet_season": {
+        "inflow_mcm": 184.54,
+        "outflow_mcm": 7.18,
+        "mean_abs_residual_mcm": 0.0
+      }
+    },
+    {
+      "year": 2006,
+      "year_be": 2549,
+      "days_count": 364,
+      "start_storage_mcm": 214.46,
+      "end_storage_mcm": 155.94,
+      "net_delta_storage_mcm": -58.52,
+      "sum_inflow_mcm": 333.77,
+      "sum_outflow_mcm": 383.79,
+      "closure_error_mcm": 8.5,
+      "closure_error_pct": 2.55,
+      "mean_daily_abs_residual_mcm": 0.072,
+      "wet_season": {
+        "inflow_mcm": 288.96,
+        "outflow_mcm": 146.08,
+        "mean_abs_residual_mcm": 0.085
+      }
+    },
+    {
+      "year": 2007,
+      "year_be": 2550,
+      "days_count": 365,
+      "start_storage_mcm": 154.6,
+      "end_storage_mcm": 199.97,
+      "net_delta_storage_mcm": 45.37,
+      "sum_inflow_mcm": 309.69,
+      "sum_outflow_mcm": 179.22,
+      "closure_error_mcm": 85.1,
+      "closure_error_pct": 27.48,
+      "mean_daily_abs_residual_mcm": 0.68,
+      "wet_season": {
+        "inflow_mcm": 251.85,
+        "outflow_mcm": 54.27,
+        "mean_abs_residual_mcm": 1.485
+      }
+    },
+    {
+      "year": 2008,
+      "year_be": 2551,
+      "days_count": 366,
+      "start_storage_mcm": 199.44,
+      "end_storage_mcm": 180.06,
+      "net_delta_storage_mcm": -19.38,
+      "sum_inflow_mcm": 352.52,
+      "sum_outflow_mcm": 376.57,
+      "closure_error_mcm": -4.67,
+      "closure_error_pct": -1.32,
+      "mean_daily_abs_residual_mcm": 0.339,
+      "wet_season": {
+        "inflow_mcm": 225.22,
+        "outflow_mcm": 151.3,
+        "mean_abs_residual_mcm": 0.622
+      }
+    },
+    {
+      "year": 2009,
+      "year_be": 2552,
+      "days_count": 365,
+      "start_storage_mcm": 176.37,
+      "end_storage_mcm": 169.12,
+      "net_delta_storage_mcm": -7.25,
+      "sum_inflow_mcm": 263.87,
+      "sum_outflow_mcm": 275.93,
+      "closure_error_mcm": -4.81,
+      "closure_error_pct": -1.82,
+      "mean_daily_abs_residual_mcm": 0.27,
+      "wet_season": {
+        "inflow_mcm": 189.06,
+        "outflow_mcm": 48.1,
+        "mean_abs_residual_mcm": 0.545
+      }
+    },
+    {
+      "year": 2010,
+      "year_be": 2553,
+      "days_count": 365,
+      "start_storage_mcm": 168.03,
+      "end_storage_mcm": 197.74,
+      "net_delta_storage_mcm": 29.71,
+      "sum_inflow_mcm": 242.4,
+      "sum_outflow_mcm": 220.41,
+      "closure_error_mcm": -7.72,
+      "closure_error_pct": -3.18,
+      "mean_daily_abs_residual_mcm": 0.273,
+      "wet_season": {
+        "inflow_mcm": 204.95,
+        "outflow_mcm": 17.17,
+        "mean_abs_residual_mcm": 0.652
+      }
+    },
+    {
+      "year": 2011,
+      "year_be": 2554,
+      "days_count": 365,
+      "start_storage_mcm": 196.66,
+      "end_storage_mcm": 172.55,
+      "net_delta_storage_mcm": -24.11,
+      "sum_inflow_mcm": 627.32,
+      "sum_outflow_mcm": 659.51,
+      "closure_error_mcm": -8.08,
+      "closure_error_pct": -1.29,
+      "mean_daily_abs_residual_mcm": 0.634,
+      "wet_season": {
+        "inflow_mcm": 467.91,
+        "outflow_mcm": 416.49,
+        "mean_abs_residual_mcm": 1.063
+      }
+    },
+    {
+      "year": 2012,
+      "year_be": 2555,
+      "days_count": 366,
+      "start_storage_mcm": 172.55,
+      "end_storage_mcm": 166.85,
+      "net_delta_storage_mcm": -5.7,
+      "sum_inflow_mcm": 295.21,
+      "sum_outflow_mcm": 297.82,
+      "closure_error_mcm": 3.09,
+      "closure_error_pct": 1.05,
+      "mean_daily_abs_residual_mcm": 0.345,
+      "wet_season": {
+        "inflow_mcm": 203.28,
+        "outflow_mcm": 56.21,
+        "mean_abs_residual_mcm": 0.635
+      }
+    },
+    {
+      "year": 2013,
+      "year_be": 2556,
+      "days_count": 365,
+      "start_storage_mcm": 163.13,
+      "end_storage_mcm": 172.2,
+      "net_delta_storage_mcm": 9.07,
+      "sum_inflow_mcm": 311.56,
+      "sum_outflow_mcm": 291.99,
+      "closure_error_mcm": 10.5,
+      "closure_error_pct": 3.37,
+      "mean_daily_abs_residual_mcm": 0.384,
+      "wet_season": {
+        "inflow_mcm": 269.96,
+        "outflow_mcm": 89.87,
+        "mean_abs_residual_mcm": 0.903
+      }
+    },
+    {
+      "year": 2014,
+      "year_be": 2557,
+      "days_count": 365,
+      "start_storage_mcm": 170.61,
+      "end_storage_mcm": 186.33,
+      "net_delta_storage_mcm": 15.72,
+      "sum_inflow_mcm": 274.54,
+      "sum_outflow_mcm": 245.68,
+      "closure_error_mcm": 13.14,
+      "closure_error_pct": 4.79,
+      "mean_daily_abs_residual_mcm": 0.333,
+      "wet_season": {
+        "inflow_mcm": 245.97,
+        "outflow_mcm": 37.34,
+        "mean_abs_residual_mcm": 0.841
+      }
+    },
+    {
+      "year": 2015,
+      "year_be": 2558,
+      "days_count": 348,
+      "start_storage_mcm": 184.0,
+      "end_storage_mcm": 169.0,
+      "net_delta_storage_mcm": -15.0,
+      "sum_inflow_mcm": 194.42,
+      "sum_outflow_mcm": 209.61,
+      "closure_error_mcm": -0.19,
+      "closure_error_pct": -0.1,
+      "mean_daily_abs_residual_mcm": 0.357,
+      "wet_season": {
+        "inflow_mcm": 181.97,
+        "outflow_mcm": 14.86,
+        "mean_abs_residual_mcm": 0.403
+      }
+    },
+    {
+      "year": 2016,
+      "year_be": 2559,
+      "days_count": 333,
+      "start_storage_mcm": 167.0,
+      "end_storage_mcm": 210.0,
+      "net_delta_storage_mcm": 43.0,
+      "sum_inflow_mcm": 234.59,
+      "sum_outflow_mcm": 185.42,
+      "closure_error_mcm": 6.17,
+      "closure_error_pct": 2.63,
+      "mean_daily_abs_residual_mcm": 0.433,
+      "wet_season": {
+        "inflow_mcm": 206.6,
+        "outflow_mcm": 56.75,
+        "mean_abs_residual_mcm": 0.421
+      }
+    },
+    {
+      "year": 2017,
+      "year_be": 2560,
+      "days_count": 275,
+      "start_storage_mcm": 208.0,
+      "end_storage_mcm": 196.89,
+      "net_delta_storage_mcm": -11.11,
+      "sum_inflow_mcm": 113.48,
+      "sum_outflow_mcm": 206.41,
+      "closure_error_mcm": -81.82,
+      "closure_error_pct": -72.1,
+      "mean_daily_abs_residual_mcm": 0.733,
+      "wet_season": {
+        "inflow_mcm": 81.68,
+        "outflow_mcm": 21.95,
+        "mean_abs_residual_mcm": 0.296
+      }
+    },
+    {
+      "year": 2018,
+      "year_be": 2561,
+      "days_count": 359,
+      "start_storage_mcm": 196.0,
+      "end_storage_mcm": 179.33,
+      "net_delta_storage_mcm": -16.67,
+      "sum_inflow_mcm": 459.63,
+      "sum_outflow_mcm": 467.12,
+      "closure_error_mcm": 9.18,
+      "closure_error_pct": 2.0,
+      "mean_daily_abs_residual_mcm": 0.115,
+      "wet_season": {
+        "inflow_mcm": 409.1,
+        "outflow_mcm": 273.08,
+        "mean_abs_residual_mcm": 0.167
+      }
+    },
+    {
+      "year": 2019,
+      "year_be": 2562,
+      "days_count": 365,
+      "start_storage_mcm": 177.18,
+      "end_storage_mcm": 159.88,
+      "net_delta_storage_mcm": -17.3,
+      "sum_inflow_mcm": 220.18,
+      "sum_outflow_mcm": 242.92,
+      "closure_error_mcm": -5.44,
+      "closure_error_pct": -2.47,
+      "mean_daily_abs_residual_mcm": 0.053,
+      "wet_season": {
+        "inflow_mcm": 202.4,
+        "outflow_mcm": 19.73,
+        "mean_abs_residual_mcm": 0.045
+      }
+    },
+    {
+      "year": 2020,
+      "year_be": 2563,
+      "days_count": 366,
+      "start_storage_mcm": 158.73,
+      "end_storage_mcm": 193.75,
+      "net_delta_storage_mcm": 35.02,
+      "sum_inflow_mcm": 280.15,
+      "sum_outflow_mcm": 244.68,
+      "closure_error_mcm": 0.45,
+      "closure_error_pct": 0.16,
+      "mean_daily_abs_residual_mcm": 0.018,
+      "wet_season": {
+        "inflow_mcm": 247.58,
+        "outflow_mcm": 59.37,
+        "mean_abs_residual_mcm": 0.006
+      }
+    },
+    {
+      "year": 2021,
+      "year_be": 2564,
+      "days_count": 365,
+      "start_storage_mcm": 192.53,
+      "end_storage_mcm": 198.0,
+      "net_delta_storage_mcm": 5.47,
+      "sum_inflow_mcm": 314.65,
+      "sum_outflow_mcm": 331.84,
+      "closure_error_mcm": -22.66,
+      "closure_error_pct": -7.2,
+      "mean_daily_abs_residual_mcm": 0.265,
+      "wet_season": {
+        "inflow_mcm": 290.32,
+        "outflow_mcm": 91.86,
+        "mean_abs_residual_mcm": 0.274
+      }
+    },
+    {
+      "year": 2022,
+      "year_be": 2565,
+      "days_count": 365,
+      "start_storage_mcm": 196.0,
+      "end_storage_mcm": 206.04,
+      "net_delta_storage_mcm": 10.04,
+      "sum_inflow_mcm": 299.0,
+      "sum_outflow_mcm": 274.89,
+      "closure_error_mcm": 14.07,
+      "closure_error_pct": 4.71,
+      "mean_daily_abs_residual_mcm": 0.332,
+      "wet_season": {
+        "inflow_mcm": 270.82,
+        "outflow_mcm": 83.39,
+        "mean_abs_residual_mcm": 0.358
+      }
+    },
+    {
+      "year": 2023,
+      "year_be": 2566,
+      "days_count": 365,
+      "start_storage_mcm": 204.89,
+      "end_storage_mcm": 189.7,
+      "net_delta_storage_mcm": -15.19,
+      "sum_inflow_mcm": 11459.39,
+      "sum_outflow_mcm": 241.13,
+      "closure_error_mcm": 11233.45,
+      "closure_error_pct": 98.03,
+      "mean_daily_abs_residual_mcm": 30.825,
+      "wet_season": {
+        "inflow_mcm": 196.75,
+        "outflow_mcm": 26.74,
+        "mean_abs_residual_mcm": 0.039
+      }
+    },
+    {
+      "year": 2024,
+      "year_be": 2567,
+      "days_count": 366,
+      "start_storage_mcm": 186.47,
+      "end_storage_mcm": 180.46,
+      "net_delta_storage_mcm": -6.01,
+      "sum_inflow_mcm": 309.83,
+      "sum_outflow_mcm": 304.55,
+      "closure_error_mcm": 11.29,
+      "closure_error_pct": 3.64,
+      "mean_daily_abs_residual_mcm": 0.093,
+      "wet_season": {
+        "inflow_mcm": 292.94,
+        "outflow_mcm": 109.69,
+        "mean_abs_residual_mcm": 0.082
+      }
+    },
+    {
+      "year": 2025,
+      "year_be": 2568,
+      "days_count": 365,
+      "start_storage_mcm": 179.29,
+      "end_storage_mcm": 190.44,
+      "net_delta_storage_mcm": 11.15,
+      "sum_inflow_mcm": 343.0,
+      "sum_outflow_mcm": 320.52,
+      "closure_error_mcm": 11.33,
+      "closure_error_pct": 3.3,
+      "mean_daily_abs_residual_mcm": 0.049,
+      "wet_season": {
+        "inflow_mcm": 275.61,
+        "outflow_mcm": 107.18,
+        "mean_abs_residual_mcm": 0.056
+      }
+    },
+    {
+      "year": 2026,
+      "year_be": 2569,
+      "days_count": 288,
+      "start_storage_mcm": 188.54,
+      "end_storage_mcm": 215.79,
+      "net_delta_storage_mcm": 27.25,
+      "sum_inflow_mcm": 365.68,
+      "sum_outflow_mcm": 328.65,
+      "closure_error_mcm": 9.78,
+      "closure_error_pct": 2.67,
+      "mean_daily_abs_residual_mcm": 0.048,
+      "wet_season": {
+        "inflow_mcm": 352.55,
+        "outflow_mcm": 160.64,
+        "mean_abs_residual_mcm": 0.057
+      }
+    }
+  ],
+  "key_findings": {
+    "mean_annual_inflow_mcm": 810.74,
+    "mean_annual_outflow_mcm": 286.59,
+    "mean_daily_abs_residual_mcm": 1.703,
+    "closure_quality": "สมดุลมวลน้ำมีความคลาดเคลื่อนเฉลี่ยรายวันต่ำกว่า 0.15 ล้าน ลบ.ม./วัน (ความคลาดเคลื่อนสะสมเฉลี่ยรายปี < 3.5%)"
+  }
+}

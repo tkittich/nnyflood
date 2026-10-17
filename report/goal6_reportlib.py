@@ -107,7 +107,7 @@ def thai(text: str, strict: bool = False) -> str:
         r"^(?:[A-Z][a-zA-Z]*\.[0-9A-Za-z]*|Sentinel-[12]$|Sentinel-$|Landsat$|GRD$|COG$|SCL$|MNDWI$|URC$|"
         r"LRC$|NASA$|POWER$|ERA5$|GISTDA$|CDSE$|API$|DEM$|S1$|S2$|GBDT$|HH$|MM$|"
         r"GB$|MB$|km$|ม\.|ตร\.|ลลบ\.|มม\.|ม³$|รทก\.|UTC$|T4[0-9][A-Z]{3}$|"
-        r"BKK$|BKC$|CPY$|GLF$|AIT$|CAN$|Kgt$|Ny$|QA$|RMSE$|MAE$|VH$|VV$|FOI$|"
+        r"BKK$|BKC$|CPY$|GLF$|AIT$|CAN$|Kgt$|Ny$|BPK$|ATG$|TNy$|QA$|RMSE$|MAE$|VH$|VV$|FOI$|"
         r"Copernicus$|GLO$|GLO-$|SHA$|SHA-$|SDV$|SUSPECT$|linear$|persistence$|"
         r"benchmark$|fluvial$|pluvial$|canonical$|mask$|opening$|datum$|pass$|"
         r"analysis$|goal\d*$|json$|raw$|vs$|N[0-9]+$|Q[0-9]+$|H[0-9]+$|lt$|gt$)"

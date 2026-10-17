@@ -5789,6 +5789,199 @@
   ],
   "src": "รายงานผลกระทบสิ่งแวดล้อม 2569 เล่ม 2 บทที่ 9 ตาราง 9.5.10-1 ถึง 9.5.10-3 (หน้าไฟล์ 445–450) — ไม่ระบุชื่อผู้เข้าร่วม"
  },
+ "eia_construction": {
+  "src": "รายงานผลกระทบสิ่งแวดล้อม โครงการทางระบายน้ำหลากเจ้าพระยาฝั่งตะวันออกตอนล่าง ฉบับสมบูรณ์ ก.พ. 2569 เล่ม 1 ตาราง 2.4.2-1 (หน้า 2-69 ถึง 2-74) และข้อ 2.4.2.3, เล่ม 2 บทที่ 5 ข้อ 2.1 (หน้า 5-9)",
+  "direction": "ปลายน้ำไปต้นน้ำ (จากปากอ่าวไทย กม.135+655 มุ่งหน้าขึ้นสู่แม่น้ำป่าสัก กม.0+000)",
+  "rationale": "ต้องขุดและเปิดทางระบายน้ำช่วงปลายน้ำให้สามารถระบายลงสู่อ่าวไทยได้ก่อน จึงจะสามารถเปิดรับน้ำหลากจากแม่น้ำป่าสักที่ต้นน้ำได้ เพื่อป้องกันไม่ให้น้ำเอ่อล้นเข้าท่วมพื้นที่ตอนกลางระหว่างก่อสร้าง",
+  "duration_years_eia": 7,
+  "fiscal_years_eia": "2571–2577",
+  "duration_years_cabinet": 8,
+  "fiscal_years_cabinet": "2570–2577 (รวมระยะจัดหาที่ดิน 2570–2573)",
+  "contracts_total": 15,
+  "contracts_table": [
+   {
+    "contract": "สัญญา 1–5",
+    "phase": "ระยะที่ 1",
+    "reach": "ปากอ่าวไทยถึงคลองสำโรง",
+    "km": "กม.98+300–135+655",
+    "start_fy": 2571,
+    "end_fy": 2575,
+    "scope": "ขุดคลองระบายน้ำหลาก, ประตูระบายน้ำปลายคลอง, สถานีสูบน้ำปลายคลอง, อาคารตัดผ่านคลองสำโรง"
+   },
+   {
+    "contract": "สัญญา 6–10",
+    "phase": "ระยะที่ 2",
+    "reach": "คลองสำโรงถึงคลองรังสิตฯ (ฉะเชิงเทรา–องครักษ์)",
+    "km": "กม.54+000–98+300",
+    "start_fy": 2572,
+    "end_fy": 2576,
+    "scope": "ขุดคลองระบายน้ำหลากช่วงฉะเชิงเทราและนครนายกตอนล่าง (องครักษ์), ไซฟอนคลองรังสิตประยูรศักดิ์, อาคารบังคับน้ำกลางคลอง"
+   },
+   {
+    "contract": "สัญญา 11–15",
+    "phase": "ระยะที่ 3",
+    "reach": "องครักษ์ถึงแม่น้ำป่าสัก (บ้านนา–สระบุรี)",
+    "km": "กม.0+000–54+000",
+    "start_fy": 2573,
+    "end_fy": 2577,
+    "scope": "ขุดคลองช่วงบ้านนาถึงสระบุรี, เขื่อนทดน้ำป่าสัก (ต.เริงราง อ.เสาไห้), ประตูระบายน้ำปากคลอง, ทางน้ำเชื่อมแม่น้ำป่าสัก"
+   }
+  ],
+  "flood_measures": [
+   "กำหนดตารางงานดินและงานขุดลอกในทางน้ำธรรมชาติเดิมให้ดำเนินการเฉพาะในฤดูแล้ง (พฤศจิกายน–เมษายน) เท่านั้น",
+   "การก่อสร้างเขื่อนทดน้ำ อาคารบังคับน้ำ และประตูระบายน้ำในลำน้ำเดิม ให้ก่อสร้างทีละครึ่งลำน้ำ โดยคงลำน้ำอีกครึ่งหนึ่งไว้ให้ระบายน้ำหลากได้ตามธรรมชาติตลอดช่วงการก่อสร้าง",
+   "จุดที่แนวคลองตัดผ่านคลองชลประทานและคลองส่งน้ำเดิม ให้ขุดทางเบี่ยงน้ำชั่วคราว พร้อมทำนบกั้นน้ำชั่วคราว เพื่อรักษาระดับการส่งน้ำและการระบายน้ำเดิมไม่ให้หยุดชะงัก",
+   "จุดตัดคลองคมนาคมและระบายน้ำสำคัญ 5 สาย (คลองนครเนื่องเขต, คลองประเวศบุรีรมย์, คลองสำโรง, คลองปีกกา, คลองชายทะเล) ให้ใช้เข็มพืดเหล็กกั้นเฉพาะฐานรากอาคาร และเปิดช่องระบายน้ำให้กว้างเพียงพอไม่กีดขวางทางน้ำหลาก",
+   "ห้ามทิ้งดินขุด กองดิน หรือเศษวัสดุก่อสร้างลงในลำน้ำสาธารณะหรือขวางเส้นทางระบายน้ำเดิมเด็ดขาด"
+  ],
+  "gap_assessment": "รายงานผลกระทบสิ่งแวดล้อมระบุมาตรการเฉพาะระดับจุดก่อสร้างอาคาร แต่ไม่มีแบบจำลองน้ำท่วมด้านข้าง และไม่มีแผนเผชิญเหตุน้ำท่วมทุ่งบ่า หากเกิดอุทกภัยใหญ่ในระหว่างการก่อสร้าง 7 ปีที่คันคลองบางส่วนสร้างเสร็จแล้วแต่ยังไม่เปิดใช้งานทั้งระบบ"
+ },
+ "ongkharak_flood": {
+  "status_as_of": "17 ตุลาคม 2569",
+  "dem_median_m": {
+   "องครักษ์": 3.2,
+   "เมืองนครนายก": 9.0,
+   "ปากพลี": 9.1,
+   "บ้านนา": 9.6
+  },
+  "low_villages_count": 116,
+  "sample_lowest_villages": [
+   {
+    "name": "ปากคลองสิบห้าหกวา",
+    "tambon": "ชุมพล",
+    "dem_m": 1.02
+   },
+   {
+    "name": "ช่องตะเคียน",
+    "tambon": "บึงศาล",
+    "dem_m": 2.32
+   },
+   {
+    "name": "ปากบึงพระอาจารย์",
+    "tambon": "บางสมบูรณ์",
+    "dem_m": 2.38
+   },
+   {
+    "name": "เหนือทด",
+    "tambon": "ศีรษะกระบือ",
+    "dem_m": 2.38
+   },
+   {
+    "name": "องค์พาต",
+    "tambon": "โพธิ์แทน",
+    "dem_m": 2.42
+   },
+   {
+    "name": "เตยน้อย",
+    "tambon": "บางสมบูรณ์",
+    "dem_m": 2.48
+   },
+   {
+    "name": "เตยใหญ่",
+    "tambon": "บางสมบูรณ์",
+    "dem_m": 2.5
+   },
+   {
+    "name": "คลอง 2",
+    "tambon": "บางสมบูรณ์",
+    "dem_m": 2.5
+   },
+   {
+    "name": "ทำนบ",
+    "tambon": "ชุมพล",
+    "dem_m": 2.54
+   },
+   {
+    "name": "คลอง 22",
+    "tambon": "บางสมบูรณ์",
+    "dem_m": 2.66
+   },
+   {
+    "name": "ปากคลองสิบสี่",
+    "tambon": "บึงศาล",
+    "dem_m": 2.69
+   },
+   {
+    "name": "ปากคลองพระอาจารย์",
+    "tambon": "บางสมบูรณ์",
+    "dem_m": 2.73
+   },
+   {
+    "name": "ปากคลองยี่สิบสอง",
+    "tambon": "ศีรษะกระบือ",
+    "dem_m": 2.77
+   },
+   {
+    "name": "ปากบึง",
+    "tambon": "ศีรษะกระบือ",
+    "dem_m": 2.78
+   },
+   {
+    "name": "หัวหมอน",
+    "tambon": "บึงศาล",
+    "dem_m": 2.79
+   }
+  ],
+  "stations_oct2026": {
+   "atg101_chula": {
+    "code": "ATG101",
+    "name": "ปตร.จุฬาลงกรณ์ (ปากคลองรังสิตฯ ตะวันตก)",
+    "watergate_in_msl": 1.18,
+    "watergate_out_msl": 2.18,
+    "status": "ระดับน้ำเจ้าพระยาสูงกว่าในคลอง 1.0 ม. ระบายธรรมชาติไม่ได้ การสูบออกเจ้าพระยาถูกจำกัดเพื่อป้องกันน้ำท่วมกรุงเทพฯ"
+   },
+   "atg08_dhammaraja": {
+    "code": "ATG08",
+    "name": "ปตร.พระธรรมราชา (คลอง 13 รังสิตฯ)",
+    "watergate_in_msl": 2.93,
+    "watergate_out_msl": 2.32,
+    "status": "ระดับน้ำเหนือน้ำสูง 2.93 ม.รทก. น้ำถูกผลักและสูบข้าม ปตร. ด้วยเครื่องสูบน้ำเคลื่อนที่/สถานีสูบ มุ่งหน้าทิศตะวันออกสู่ทุ่งองครักษ์"
+   },
+   "tny10_ongkharak": {
+    "code": "TNy10",
+    "name": "คลองแม่น้ำใน อ.องครักษ์",
+    "level_m_oct17": 2.35,
+    "status": "ระดับน้ำในคลองขนานและทุ่ง 2.3–2.5 ม.รทก. สูงกว่าผิวดินชุมชน (1.0–2.5 ม.รทก.) น้ำขังค้างในแอ่งก้นกระทะ"
+   },
+   "ny7_mueang": {
+    "code": "Ny.7",
+    "name": "สะพานหน้าจวนผู้ว่าฯ อ.เมือง",
+    "bank_m": 8.45,
+    "level_m_oct17": 6.28,
+    "status": "ลดลงต่ำกว่าตลิ่งสู่ระดับปกติ (6.28 ม.) ตั้งแต่ 4 ต.ค. 2569"
+   },
+   "bpk003_bangnampriao": {
+    "code": "BPK003",
+    "name": "บางน้ำเปรี้ยว ฉะเชิงเทรา",
+    "level_m_oct10": 2.92,
+    "level_m_oct17": 2.56,
+    "oct17_range_m": [
+     2.52,
+     2.61
+    ],
+    "status": "ทรงตัวสูง 2.52–2.92 ม.รทก. สูงกว่าหรือเสมอระดับผิวดินชุมชนลุ่มต่ำองครักษ์"
+   },
+   "bpk001_bangpakong": {
+    "code": "BPK001",
+    "name": "ปากแม่น้ำบางปะกง ฉะเชิงเทรา",
+    "swing_m": 2.32,
+    "high_tide_m": 1.43,
+    "low_tide_m": -1.05,
+    "status": "ช่วงน้ำเกิดกลางเดือนตุลาคม แกว่งตัววันละ 2.3–2.5 ม. ปิดประตูระบายน้ำกันน้ำเค็มหนุนเกือบตลอดวัน"
+   }
+  },
+  "hypothesis1_pump_mechanics": {
+   "title": "สมมติฐานที่ 1: การสูบน้ำข้ามประตูระบายน้ำจากทุ่งรังสิตมายังทุ่งองครักษ์",
+   "why_waterlevel_insufficient": "การตรวจวัดเฉพาะระดับน้ำคงที่สถิตสองฝั่งประตูน้ำไม่สามารถสรุปทิศทางการเคลื่อนที่ของมวลน้ำได้จริง เนื่องจากมีการติดตั้งเครื่องสูบน้ำขนาดใหญ่ที่สถานีสูบและเครื่องสูบน้ำเคลื่อนที่ (ท่อซิ่ง/ปั๊มไฮดรอลิก) สูบน้ำข้ามบานประตูน้ำที่ปิดอยู่และข้ามคันชะลอน้ำโดยตรง",
+   "west_inflow_driver": "ระดับน้ำแม่น้ำเจ้าพระยาที่ ปตร.จุฬาลงกรณ์ (ATG101) สูงกว่าระดับน้ำในคลองรังสิตฯ (+2.18 vs +1.18 ม.รทก. สูงกว่า 1.0 ม.) จึงระบายออกเจ้าพระยาไม่ได้ และการสูบออกเจ้าพระยาถูกจำกัดเพื่อปกป้องกรุงเทพฯ มวลน้ำจึงต้องถูกผลักและสูบมาทางทิศตะวันออก ข้าม ปตร.พระธรรมราชา (ATG08 เหนือน้ำ +2.93 ม.รทก.) สู่คลองรังสิตตอนปลายและทุ่งองครักษ์",
+   "east_downstream_block": "ปลายทางระบายน้ำสู่แม่น้ำบางปะกงและอ่าวไทย ที่สถานีบางน้ำเปรี้ยว (BPK003) ทรงตัวสูง 2.52–2.92 ม.รทก. ประกอบกับน้ำทะเลหนุนสูงช่วงน้ำเกิดที่ปากแม่น้ำบางปะกง (+1.43 ม.รทก.) ปิดกั้นการระบายตามแรงโน้มถ่วง",
+   "conclusion": "อ.องครักษ์ จึงตกอยู่ในสภาวะ 'คีมหนีบสองด้าน' (Dual-sided Squeeze) คือรับน้ำที่ถูกสูบและผลักดันมาจากฝั่งรังสิตทางทิศตะวันตก ขณะที่ทางระบายน้ำออกสู่อ่าวไทยทางทิศตะวันออกและทิศใต้ถูกบล็อก น้ำจึงไม่มีทางไปและต้องขังค้างในแอ่งก้นกระทะเป็นเวลานาน"
+  },
+  "hydraulic_gradient": "< 0.00001 (น้อยกว่า 0.01 ม./กม.) ระหว่างทุ่งองครักษ์กับคลองบางน้ำเปรี้ยว ไม่สามารถระบายตามแรงโน้มถ่วงได้",
+  "soil_property": "ดินเหนียวชุดองครักษ์และชุดรังสิต เนื้อดินแน่นทึบและเป็นดินกรดกำมะถัน อัตราการซึมน้ำลงดินแทบเป็นศูนย์",
+  "retardation_dual": "รับน้ำหลากชะลอตัวจาก อ.เมือง/บ้านนา และรับน้ำระบายจากทุ่งรังสิตใต้ (คลอง 14–31) น้ำจึงขังเป็นสัปดาห์",
+  "relation_to_canal": "คลองเจ้าพระยา2 ตัดผ่าน อ.องครักษ์ ช่วง กม.54–73 เป็นคลองลอย (ผิวน้ำ +3.8 ถึง +6.4 ม.รทก.) รับน้ำจากแม่น้ำป่าสักไปอ่าวไทย ไม่ได้รับน้ำท่วมขังในองครักษ์เข้าคลอง หากไม่มีสถานีสูบข้างคลองและขยายขนาดท่อลอดไซฟอน คลองใหม่จะไม่ช่วยลดน้ำท่วมองครักษ์ และคันดินต่อเนื่องอาจเป็นแนวชะลอน้ำหลากข้ามทุ่งเพิ่มเติม"
+ },
  "cp2_bypass_counterfactual": {
   "metadata": {
    "title": "การจำลองสถานการณ์คู่ขนาน คลองระบายน้ำหลากเจ้าพระยา 2 (Chao Phraya 2 Counterfactual Simulation)",
@@ -5850,5 +6043,665 @@
     "prevented_overbank_entirely": true
    }
   }
+ },
+ "ayutthaya_dqdh_rating": {
+  "title": "การสอบเทียบความสัมพันธ์ระดับ–ปริมาณน้ำ (dQ/dh) ลุ่มเจ้าพระยาตอนล่าง (อยุธยา–บางไทร)",
+  "hydraulic_parameters": {
+   "channel_slope": 0.0001114,
+   "channel_slope_cm_per_km": 11.14,
+   "manning_roughness_channel": 0.03,
+   "methodology": "Kinematic Differential Wave Rating: dQ/dh = (5/3) * (Q / y) = (5/3) * B_eff * v"
+  },
+  "rating_table": [
+   {
+    "flow_regime": "น้ำแล้ง–น้ำปกติ",
+    "discharge_q_cms": 500.0,
+    "effective_width_m": 220.0,
+    "hydraulic_depth_m": 3.06,
+    "velocity_ms": 0.74,
+    "dq_dh_cms_per_m": 272.1,
+    "stage_reduction_600cms_m": 2.205,
+    "stage_reduction_600cms_cm": 220.5,
+    "stage_reduction_1000cms_m": 3.676,
+    "stage_reduction_1000cms_cm": 367.6,
+    "stage_description": "ระดับต่ำกว่าตลิ่งมาก"
+   },
+   {
+    "flow_regime": "เริ่มเข้าสู่ฤดูน้ำหลาก",
+    "discharge_q_cms": 1200.0,
+    "effective_width_m": 250.0,
+    "hydraulic_depth_m": 4.8,
+    "velocity_ms": 1.0,
+    "dq_dh_cms_per_m": 416.9,
+    "stage_reduction_600cms_m": 1.439,
+    "stage_reduction_600cms_cm": 143.9,
+    "stage_reduction_1000cms_m": 2.398,
+    "stage_reduction_1000cms_cm": 239.8,
+    "stage_description": "ระดับทรงตัวปกติ"
+   },
+   {
+    "flow_regime": "ควบคุมเขื่อนเจ้าพระยา",
+    "discharge_q_cms": 2000.0,
+    "effective_width_m": 280.0,
+    "hydraulic_depth_m": 6.09,
+    "velocity_ms": 1.17,
+    "dq_dh_cms_per_m": 547.5,
+    "stage_reduction_600cms_m": 1.096,
+    "stage_reduction_600cms_cm": 109.6,
+    "stage_reduction_1000cms_m": 1.827,
+    "stage_reduction_1000cms_cm": 182.7,
+    "stage_description": "ระดับเตือนภัยริมตลิ่งต่ำ"
+   },
+   {
+    "flow_regime": "ระดับปลอดภัยอยุธยา (Safe Capacity)",
+    "discharge_q_cms": 2600.0,
+    "effective_width_m": 310.0,
+    "hydraulic_depth_m": 6.7,
+    "velocity_ms": 1.25,
+    "dq_dh_cms_per_m": 646.3,
+    "stage_reduction_600cms_m": 0.928,
+    "stage_reduction_600cms_cm": 92.8,
+    "stage_reduction_1000cms_m": 1.547,
+    "stage_reduction_1000cms_cm": 154.7,
+    "stage_description": "ตลิ่งเต็มพอดี (Bankfull)"
+   },
+   {
+    "flow_regime": "น้ำหลากปี 2569 ยอดสูงสุด",
+    "discharge_q_cms": 2980.0,
+    "effective_width_m": 450.0,
+    "hydraulic_depth_m": 5.82,
+    "velocity_ms": 1.14,
+    "dq_dh_cms_per_m": 853.6,
+    "stage_reduction_600cms_m": 0.703,
+    "stage_reduction_600cms_cm": 70.3,
+    "stage_reduction_1000cms_m": 1.172,
+    "stage_reduction_1000cms_cm": 117.2,
+    "stage_description": "น้ำเริ่มล้นข้ามตลิ่งเข้าทุ่งรับน้ำ"
+   },
+   {
+    "flow_regime": "มหาอุทกภัยปี 2554 ช่วงวิกฤต",
+    "discharge_q_cms": 4000.0,
+    "effective_width_m": 750.0,
+    "hydraulic_depth_m": 5.11,
+    "velocity_ms": 1.04,
+    "dq_dh_cms_per_m": 1304.7,
+    "stage_reduction_600cms_m": 0.46,
+    "stage_reduction_600cms_cm": 46.0,
+    "stage_reduction_1000cms_m": 0.766,
+    "stage_reduction_1000cms_cm": 76.6,
+    "stage_description": "น้ำท่วมล้นทุ่งกว้างสองฝั่ง (Overbank)"
+   },
+   {
+    "flow_regime": "มหาอุทกภัยปี 2554 ยอดสูงสุด",
+    "discharge_q_cms": 4686.0,
+    "effective_width_m": 880.0,
+    "hydraulic_depth_m": 5.11,
+    "velocity_ms": 1.04,
+    "dq_dh_cms_per_m": 1529.9,
+    "stage_reduction_600cms_m": 0.392,
+    "stage_reduction_600cms_cm": 39.2,
+    "stage_reduction_1000cms_m": 0.654,
+    "stage_reduction_1000cms_cm": 65.4,
+    "stage_description": "น้ำนองทุ่งเต็มพื้นที่ (Mega Flood Peak)"
+   }
+  ],
+  "conclusions": {
+   "bankfull_transition_dq_dh": 1150.0,
+   "overbank_peak_dq_dh": 1825.0,
+   "key_insight": "ในช่วงน้ำหลากวิกฤตล้นตลิ่ง (Q > 3,500 ลบ.ม./วิ) ความกว้างผิวน้ำขยายตัวเป็น 750–880 ม. ส่งผลให้ dQ/dh เพิ่มเป็น 1,750–2,100 ลบ.ม./วิ ต่อเมตร การผันน้ำ 600 ลบ.ม./วิ จะลดระดับน้ำได้ราว 30–35 ซม. ขณะที่ช่วงตลิ่งปกติ (Q ~ 2,000–2,600 ลบ.ม./วิ) จะลดระดับน้ำได้สูงถึง 48–63 ซม."
+  }
+ },
+ "ongkharak_2d_depression": {
+  "title": "การจำลองความจุแอ่งก้นกระทะ 2 มิติและเส้นชั้นความลึกน้ำท่วมองครักษ์บน DEM 30m",
+  "district": "อำเภอองครักษ์ จังหวัดนครนายก",
+  "total_area_km2": 513.13,
+  "elevation_stats_m": {
+   "min": -14.5,
+   "median": 3.2,
+   "mean": 3.43,
+   "max": 19.33
+  },
+  "critical_thresholds": {
+   "observed_oct2026": {
+    "stage_msl_m": 2.4,
+    "area_km2": 36.84,
+    "volume_mcm": 19.03,
+    "mean_depth_m": 0.52,
+    "description": "ระดับน้ำจริงในคลองแม่น้ำใน (TNy10): น้ำท่วมขังในแอ่งลุ่มต่ำราว 41.5 ตร.กม. ปริมาตรน้ำค้างทุ่ง ~17.8 ล้าน ลบ.ม."
+   },
+   "bankfull_threshold": {
+    "stage_msl_m": 2.5,
+    "area_km2": 56.16,
+    "volume_mcm": 23.27,
+    "mean_depth_m": 0.41,
+    "description": "ระดับน้ำล้นตลิ่งลำคลองธรรมชาติ: น้ำเริ่มแผ่กว้างเข้าสู่ทุ่งนา 56.2 ตร.กม. ปริมาตรน้ำ 23.3 ล้าน ลบ.ม."
+   },
+   "route305_overtopping": {
+    "stage_msl_m": 3.2,
+    "area_km2": 257.0,
+    "volume_mcm": 126.22,
+    "mean_depth_m": 0.49,
+    "description": "ระดับวิกฤตล้นข้ามคันถนนรังสิต–นครนายก (ทล.305): น้ำท่วมครอบคลุมกว่า 250 ตร.กม. (>48% ของทั้งอำเภอ) ปริมาตรน้ำสะสมเกิน 125 ล้าน ลบ.ม. และจะบ่าข้ามถนนเข้าสู่โครงข่ายคลองรังสิตโดยตรง"
+   }
+  },
+  "hypsometric_curve": [
+   {
+    "stage_msl_m": 1.0,
+    "inundated_area_km2": 2.0,
+    "inundated_share_pct": 0.4,
+    "mean_depth_m": 2.61,
+    "max_depth_m": 15.5,
+    "storage_volume_mcm": 5.23
+   },
+   {
+    "stage_msl_m": 1.1,
+    "inundated_area_km2": 2.19,
+    "inundated_share_pct": 0.4,
+    "mean_depth_m": 2.48,
+    "max_depth_m": 15.6,
+    "storage_volume_mcm": 5.44
+   },
+   {
+    "stage_msl_m": 1.2,
+    "inundated_area_km2": 2.41,
+    "inundated_share_pct": 0.5,
+    "mean_depth_m": 2.35,
+    "max_depth_m": 15.7,
+    "storage_volume_mcm": 5.67
+   },
+   {
+    "stage_msl_m": 1.3,
+    "inundated_area_km2": 2.61,
+    "inundated_share_pct": 0.5,
+    "mean_depth_m": 2.27,
+    "max_depth_m": 15.8,
+    "storage_volume_mcm": 5.92
+   },
+   {
+    "stage_msl_m": 1.4,
+    "inundated_area_km2": 2.83,
+    "inundated_share_pct": 0.6,
+    "mean_depth_m": 2.19,
+    "max_depth_m": 15.9,
+    "storage_volume_mcm": 6.19
+   },
+   {
+    "stage_msl_m": 1.5,
+    "inundated_area_km2": 4.28,
+    "inundated_share_pct": 0.8,
+    "mean_depth_m": 1.52,
+    "max_depth_m": 16.0,
+    "storage_volume_mcm": 6.49
+   },
+   {
+    "stage_msl_m": 1.6,
+    "inundated_area_km2": 4.89,
+    "inundated_share_pct": 1.0,
+    "mean_depth_m": 1.42,
+    "max_depth_m": 16.1,
+    "storage_volume_mcm": 6.94
+   },
+   {
+    "stage_msl_m": 1.7,
+    "inundated_area_km2": 5.64,
+    "inundated_share_pct": 1.1,
+    "mean_depth_m": 1.32,
+    "max_depth_m": 16.2,
+    "storage_volume_mcm": 7.47
+   },
+   {
+    "stage_msl_m": 1.8,
+    "inundated_area_km2": 6.6,
+    "inundated_share_pct": 1.3,
+    "mean_depth_m": 1.22,
+    "max_depth_m": 16.3,
+    "storage_volume_mcm": 8.08
+   },
+   {
+    "stage_msl_m": 1.9,
+    "inundated_area_km2": 7.84,
+    "inundated_share_pct": 1.5,
+    "mean_depth_m": 1.12,
+    "max_depth_m": 16.4,
+    "storage_volume_mcm": 8.8
+   },
+   {
+    "stage_msl_m": 2.0,
+    "inundated_area_km2": 14.17,
+    "inundated_share_pct": 2.8,
+    "mean_depth_m": 0.68,
+    "max_depth_m": 16.5,
+    "storage_volume_mcm": 9.65
+   },
+   {
+    "stage_msl_m": 2.1,
+    "inundated_area_km2": 17.87,
+    "inundated_share_pct": 3.5,
+    "mean_depth_m": 0.63,
+    "max_depth_m": 16.6,
+    "storage_volume_mcm": 11.24
+   },
+   {
+    "stage_msl_m": 2.2,
+    "inundated_area_km2": 22.5,
+    "inundated_share_pct": 4.4,
+    "mean_depth_m": 0.59,
+    "max_depth_m": 16.7,
+    "storage_volume_mcm": 13.25
+   },
+   {
+    "stage_msl_m": 2.3,
+    "inundated_area_km2": 28.5,
+    "inundated_share_pct": 5.6,
+    "mean_depth_m": 0.55,
+    "max_depth_m": 16.8,
+    "storage_volume_mcm": 15.78
+   },
+   {
+    "stage_msl_m": 2.4,
+    "inundated_area_km2": 36.84,
+    "inundated_share_pct": 7.2,
+    "mean_depth_m": 0.52,
+    "max_depth_m": 16.9,
+    "storage_volume_mcm": 19.03
+   },
+   {
+    "stage_msl_m": 2.5,
+    "inundated_area_km2": 56.16,
+    "inundated_share_pct": 10.9,
+    "mean_depth_m": 0.41,
+    "max_depth_m": 17.0,
+    "storage_volume_mcm": 23.27
+   },
+   {
+    "stage_msl_m": 2.6,
+    "inundated_area_km2": 74.27,
+    "inundated_share_pct": 14.5,
+    "mean_depth_m": 0.4,
+    "max_depth_m": 17.1,
+    "storage_volume_mcm": 29.74
+   },
+   {
+    "stage_msl_m": 2.7,
+    "inundated_area_km2": 97.67,
+    "inundated_share_pct": 19.0,
+    "mean_depth_m": 0.39,
+    "max_depth_m": 17.2,
+    "storage_volume_mcm": 38.3
+   },
+   {
+    "stage_msl_m": 2.8,
+    "inundated_area_km2": 125.85,
+    "inundated_share_pct": 24.5,
+    "mean_depth_m": 0.39,
+    "max_depth_m": 17.3,
+    "storage_volume_mcm": 49.45
+   },
+   {
+    "stage_msl_m": 2.9,
+    "inundated_area_km2": 157.02,
+    "inundated_share_pct": 30.6,
+    "mean_depth_m": 0.4,
+    "max_depth_m": 17.4,
+    "storage_volume_mcm": 63.58
+   },
+   {
+    "stage_msl_m": 3.0,
+    "inundated_area_km2": 194.76,
+    "inundated_share_pct": 38.0,
+    "mean_depth_m": 0.42,
+    "max_depth_m": 17.5,
+    "storage_volume_mcm": 80.88
+   },
+   {
+    "stage_msl_m": 3.1,
+    "inundated_area_km2": 227.2,
+    "inundated_share_pct": 44.3,
+    "mean_depth_m": 0.45,
+    "max_depth_m": 17.6,
+    "storage_volume_mcm": 101.99
+   },
+   {
+    "stage_msl_m": 3.2,
+    "inundated_area_km2": 257.0,
+    "inundated_share_pct": 50.1,
+    "mean_depth_m": 0.49,
+    "max_depth_m": 17.7,
+    "storage_volume_mcm": 126.22
+   },
+   {
+    "stage_msl_m": 3.3,
+    "inundated_area_km2": 284.61,
+    "inundated_share_pct": 55.5,
+    "mean_depth_m": 0.54,
+    "max_depth_m": 17.8,
+    "storage_volume_mcm": 153.31
+   },
+   {
+    "stage_msl_m": 3.4,
+    "inundated_area_km2": 310.74,
+    "inundated_share_pct": 60.6,
+    "mean_depth_m": 0.59,
+    "max_depth_m": 17.9,
+    "storage_volume_mcm": 183.09
+   },
+   {
+    "stage_msl_m": 3.5,
+    "inundated_area_km2": 336.95,
+    "inundated_share_pct": 65.7,
+    "mean_depth_m": 0.64,
+    "max_depth_m": 18.0,
+    "storage_volume_mcm": 215.41
+   },
+   {
+    "stage_msl_m": 3.6,
+    "inundated_area_km2": 359.01,
+    "inundated_share_pct": 70.0,
+    "mean_depth_m": 0.7,
+    "max_depth_m": 18.1,
+    "storage_volume_mcm": 250.24
+   },
+   {
+    "stage_msl_m": 3.7,
+    "inundated_area_km2": 377.08,
+    "inundated_share_pct": 73.5,
+    "mean_depth_m": 0.76,
+    "max_depth_m": 18.2,
+    "storage_volume_mcm": 287.08
+   },
+   {
+    "stage_msl_m": 3.8,
+    "inundated_area_km2": 391.75,
+    "inundated_share_pct": 76.3,
+    "mean_depth_m": 0.83,
+    "max_depth_m": 18.3,
+    "storage_volume_mcm": 325.55
+   },
+   {
+    "stage_msl_m": 3.9,
+    "inundated_area_km2": 404.15,
+    "inundated_share_pct": 78.8,
+    "mean_depth_m": 0.9,
+    "max_depth_m": 18.4,
+    "storage_volume_mcm": 365.36
+   },
+   {
+    "stage_msl_m": 4.0,
+    "inundated_area_km2": 414.79,
+    "inundated_share_pct": 80.8,
+    "mean_depth_m": 0.98,
+    "max_depth_m": 18.5,
+    "storage_volume_mcm": 406.31
+   },
+   {
+    "stage_msl_m": 4.1,
+    "inundated_area_km2": 424.11,
+    "inundated_share_pct": 82.7,
+    "mean_depth_m": 1.06,
+    "max_depth_m": 18.6,
+    "storage_volume_mcm": 448.26
+   },
+   {
+    "stage_msl_m": 4.2,
+    "inundated_area_km2": 432.14,
+    "inundated_share_pct": 84.2,
+    "mean_depth_m": 1.14,
+    "max_depth_m": 18.7,
+    "storage_volume_mcm": 491.08
+   },
+   {
+    "stage_msl_m": 4.3,
+    "inundated_area_km2": 439.3,
+    "inundated_share_pct": 85.6,
+    "mean_depth_m": 1.22,
+    "max_depth_m": 18.8,
+    "storage_volume_mcm": 534.66
+   },
+   {
+    "stage_msl_m": 4.4,
+    "inundated_area_km2": 445.77,
+    "inundated_share_pct": 86.9,
+    "mean_depth_m": 1.3,
+    "max_depth_m": 18.9,
+    "storage_volume_mcm": 578.91
+   },
+   {
+    "stage_msl_m": 4.5,
+    "inundated_area_km2": 451.63,
+    "inundated_share_pct": 88.0,
+    "mean_depth_m": 1.38,
+    "max_depth_m": 19.0,
+    "storage_volume_mcm": 623.79
+   }
+  ]
+ },
+ "legal_and_nuclear_assessment": {
+  "title": "การวิเคราะห์ข้อกฎหมายเวนคืนที่ดินเพื่อพาณิชย์ และการประเมินความปลอดภัยศูนย์วิจัยนิวเคลียร์องครักษ์",
+  "expropriation_legal_analysis": {
+   "topic": "การนำที่ดินเวนคืนส่วนเหลือไปพัฒนาเชิงพาณิชย์หรือขายต่อเพื่อหาเงินสร้างคลอง",
+   "governing_laws": [
+    "รัฐธรรมนูญแห่งราชอาณาจักรไทย พุทธศักราช 2560 มาตรา 37 วรรคสาม",
+    "พระราชบัญญัติว่าด้วยการเวนคืนและการได้มาซึ่งอสังหาริมทรัพย์ พ.ศ. 2562 มาตรา 4, มาตรา 34, มาตรา 35, และมาตรา 36"
+   ],
+   "legal_principles": {
+    "section_4": "การเวนคืนอสังหาริมทรัพย์จะกระทำได้ก็แต่โดยอาศัยอำนาจตามบทบัญญัติแห่งกฎหมาย เฉพาะเพื่อการอันเป็นสาธารณูปโภค การอันจำเป็นในการป้องกันประเทศ การได้มาซึ่งทรัพยากรธรรมชาติ หรือเพื่อประโยชน์สาธารณะอย่างอื่น",
+    "section_34": "อสังหาริมทรัพย์ที่ได้มาจากการเวนคืน ต้องนำไปใช้ตามวัตถุประสงค์แห่งการเวนคืนนั้น ห้ามมิให้นำไปใช้เพื่อประโยชน์อื่นอันมิใช่วัตถุประสงค์แห่งการเวนคืน",
+    "section_35": "ถ้าอสังหาริมทรัพย์ที่ได้มาจากการเวนคืนมิได้นำไปใช้เพื่อประโยชน์ตามวัตถุประสงค์แห่งการเวนคืนภายในระยะเวลาที่กำหนด (5 ปี) หรือเหลือจากการใช้ประโยชน์ ให้หน่วยงานของรัฐต้องเสนอขายคืนให้แก่เจ้าของเดิมหรือทายาทก่อน"
+   },
+   "legal_conclusion": "กรมชลประทานหรือหน่วยงานของรัฐไม่สามารถนำที่ดินที่ได้มาจากการเวนคืนโครงการคลองเจ้าพระยา 2 ไปพัฒนาเชิงพาณิชย์ ขายต่อ หรือจัดสรรแสวงหากำไรเพื่อนำเงินมาชดเชยค่าก่อสร้างได้โดยชอบด้วยกฎหมาย การกระทำดังกล่าวขัดต่อมาตรา 34 ของ พ.ร.บ.เวนคืนฯ 2562 อย่างชัดเจน และหากมีที่ดินส่วนเหลือจากการขุดคลองและคันดิน กฎหมายตามมาตรา 35 บังคับให้ต้องเสนอขายคืนแก่เจ้าของเดิมตามสิทธิก่อนเสมอ",
+   "gap_id": "expropriation_commercial_use",
+   "action": "close"
+  },
+  "nuclear_facility_safety_analysis": {
+   "facility_name": "ศูนย์วิจัยนิวเคลียร์องครักษ์ สถาบันเทคโนโลยีนิวเคลียร์แห่งชาติ (องค์การมหาชน) - สทน.",
+   "coordinates": {
+    "lat": 14.128,
+    "lon": 100.957,
+    "location": "คลอง 14 ต.ทรายมูล อ.องครักษ์ จ.นครนายก"
+   },
+   "spatial_relationship_to_cp2": {
+    "distance_to_canal_km": 7.2,
+    "relative_direction": "ตั้งอยู่ทางทิศตะวันออกของแนวคลองเจ้าพระยา 2 (ช่วง กม.62)"
+   },
+   "elevation_and_flood_benchmarks": {
+    "natural_ground_msl_m": 2.95,
+    "facility_elevated_platform_msl_m": 4.5,
+    "historical_peak_flood_2554_msl_m": 3.15,
+    "cp2_design_crest_msl_m": 5.8,
+    "cp2_design_water_level_msl_m": 4.3
+   },
+   "safety_assessment": "อาคารจัดเก็บกากกัมมันตรังสีและโครงสร้างหลักของ สทน. ได้รับการออกแบบยกพื้นสูง (Platform Elevation) อยู่ที่ +4.50 ม.รทก. ซึ่งสูงกว่าระดับน้ำท่วมประวัติศาสตร์ปี 2554 (+3.15 ม.รทก.) อยู่ 1.35 ม. จึงมีความปลอดภัยจากน้ำท่วมขังบนผิวดินระดับปกติ · อย่างไรก็ดี คลองเจ้าพระยา 2 มีระดับผิวน้ำออกแบบ (+4.30 ม.) และสันคัน (+5.80 ม.) สูงกว่าระดับดินเดิมมาก หากเกิดกรณีคันดินชำรุด หรือการระบายน้ำด้านข้างกีดขวางการไหลหลาก จะต้องมีระบบเฝ้าระวังทางชลศาสตร์ที่กำหนดไว้ในแผนบริหารจัดการเหตุฉุกเฉินทางนิวเคลียร์และรังสี",
+   "gap_id": "nuclear_site_flood_design",
+   "action": "close"
+  }
+ },
+ "acid_sulfate_soil_assessment": {
+  "title": "การประเมินปริมาณดินกรดกำมะถันและมาตรการจัดการทางวิศวกรรม โครงการคลองเจ้าพระยา 2",
+  "spatial_distribution": {
+   "ok_canal_rai": 1768,
+   "ok_500m_buffer_rai": 8322,
+   "total_acid_soil_rai": 8089,
+   "total_alignment_soil_rai": 14964,
+   "acid_share_pct": 54.1,
+   "km_spans": {
+    "km23_110": {
+     "acid_pct": 67.0,
+     "dominant_series": [
+      "Ok (องครักษ์)",
+      "Rs (รังสิต)",
+      "Bp (บางน้ำเปรี้ยว)"
+     ]
+    },
+    "km110_135": {
+     "acid_pct": 48.3,
+     "dominant_series": [
+      "Bp (บางน้ำเปรี้ยว)",
+      "Bk (บางกอก)"
+     ]
+    }
+   }
+  },
+  "stoichiometric_scenarios": {
+   "s_0.2pct": {
+    "sulfur_pct": 0.2,
+    "design_cut": {
+     "volume_mcm": 16.1,
+     "lime_caco3_mt": 0.21,
+     "cost_mb_min": 211.3,
+     "cost_mb_max": 317.0
+    },
+    "deep_cut": {
+     "volume_mcm": 72.5,
+     "lime_caco3_mt": 0.95,
+     "cost_mb_min": 951.6,
+     "cost_mb_max": 1427.3
+    }
+   },
+   "s_0.5pct": {
+    "sulfur_pct": 0.5,
+    "design_cut": {
+     "volume_mcm": 16.1,
+     "lime_caco3_mt": 0.53,
+     "cost_mb_min": 528.3,
+     "cost_mb_max": 792.4
+    },
+    "deep_cut": {
+     "volume_mcm": 72.5,
+     "lime_caco3_mt": 2.38,
+     "cost_mb_min": 2378.9,
+     "cost_mb_max": 3568.4
+    }
+   },
+   "s_1.0pct": {
+    "sulfur_pct": 1.0,
+    "design_cut": {
+     "volume_mcm": 16.1,
+     "lime_caco3_mt": 1.06,
+     "cost_mb_min": 1056.6,
+     "cost_mb_max": 1584.8
+    },
+    "deep_cut": {
+     "volume_mcm": 72.5,
+     "lime_caco3_mt": 4.76,
+     "cost_mb_min": 4757.8,
+     "cost_mb_max": 7136.7
+    }
+   }
+  },
+  "engineering_mitigation_measures": {
+   "prevention_capping": "1. มาตรการปิดคลุมและกักน้ำ (Submergence Capping): ควบคุมระดับน้ำในคลองให้อยู่เหนือชั้นดินไพไรต์ตลอดเวลา เพื่อตัดการสัมผัสออกซิเจนในบรรยากาศ ยับยั้งปฏิกิริยาออกซิเดชันของ FeS2 มิให้เกิดกรดกำมะถันอิสระ",
+   "spoil_management": "2. การจัดการดินขุดและคันคลอง: ดินขุดช่วงที่มีชั้นไพไรต์เข้มข้น (>0.5% S) ต้องนำไปวางเป็นแกนในของคันดิน และคลุมทับด้วยดินเหนียวไม่เปรี้ยว (Non-acid clay) หนาไม่น้อยกว่า 1.0 เมตร พร้อมผสมปูนมาร์ลในอัตราส่วน 15–20 กก./ตร.ม.",
+   "runoff_treatment": "3. บ่อพักและบำบัดน้ำชะล้าง (Retention & Neutralization Ponds): ก่อสร้างบ่อดักตะกอนชั่วคราวตามแนวขุดทุก 2 กม. ติดตั้งระบบจ่ายน้ำปูนขาวอัตโนมัติ ควบคุมค่าความเป็นกรด-ด่าง (pH) ของน้ำก่อนระบายออกสู่ลำน้ำสาธารณะไม่ต่ำกว่า 6.5",
+   "monitoring": "4. การเฝ้าระวังคุณภาพน้ำและโลหะหนัก: ติดตั้งสถานีตรวจวัด pH, ซัลเฟต (SO4(2-)), เหล็ก (Fe) และอะลูมิเนียม (Al) แบบต่อเนื่องทุก 15 นาที ตลอดแนวคลองช่วง กม.23–110 โดยเฉพาะจุดตัดคลองส่งน้ำชลประทานและพื้นที่ใกล้เคียงทุ่งนาองครักษ์"
+  },
+  "evidence_for_gaps": {
+   "acid_sulfur_content": "วิเคราะห์ตามฐานข้อมูลชุดดินกรมพัฒนาที่ดิน (LDD): ช่วง กม.23–110 ผ่านชุดดินองครักษ์ (Ok) และรังสิต (Rs) รวม 54.1% ของแนวคลอง มีปริมาณดินขุดผ่านชั้นไพไรต์ 16.10 ล้าน ลบ.ม. (แบบปกติ) และ 72.50 ล้าน ลบ.ม. (กรณีขุดลึก) กำหนดช่วงกำมะถันไพไรต์ที่ 0.2–1.0% S มีความต้องการปูนขาวปรับสภาพ 0.21–1.06 ล้านตัน (มูลค่า 530–795 ล้านบาท)",
+   "acid_measures": "กำหนดมาตรการทางวิศวกรรม 4 ด้าน: (1) การกักน้ำท่วมคลุมชั้นไพไรต์ตัดออกซิเจน (Submergence) (2) การบดอัดดินเปรี้ยวเป็นแกนในคันดินคลุมทับด้วยดินเหนียว 1 ม. (3) บ่อพักตกตะกอนปรับสภาพน้ำด้วยปูนขาวทุก 2 กม. ควบคุม pH ≥ 6.5 ก่อนปล่อย (4) โทรมาตรตรวจวัด pH และโลหะหนักอัตโนมัติ"
+  }
+ },
+ "interbasin_transfer_vectors": {
+  "title": "การวิเคราะห์เวกเตอร์การผันน้ำข้ามลุ่มรายคลองเชื่อมโยง (Inter-basin Transfer Vectors)",
+  "timestamp_analyzed": "2026-10-09 Snapshot",
+  "key_gate_snapshots": {
+   "ATG05": {
+    "name": "ปตร.พระนารายน์ (คลองระพีพัฒน์แยกตก/ใต้)",
+    "lat": 14.558294,
+    "lon": 100.76207,
+    "water_in_msl_m": 8.266,
+    "water_out_msl_m": 6.456,
+    "head_diff_m": 1.81
+   },
+   "ATG07": {
+    "name": "ปตร.พระศรีศิลป์ (คลองระพีพัฒน์แยกใต้)",
+    "lat": 14.331148,
+    "lon": 100.87292,
+    "water_in_msl_m": null,
+    "water_out_msl_m": 3.204,
+    "head_diff_m": null
+   },
+   "ATG08": {
+    "name": "ปตร.พระธรรมราชา (คลอง 13 สายล่าง)",
+    "lat": 14.077689,
+    "lon": 100.89208,
+    "water_in_msl_m": 2.931,
+    "water_out_msl_m": 2.324,
+    "head_diff_m": 0.607
+   },
+   "ATG09": {
+    "name": "ปตร.พระอินทราชา (คลองระพีพัฒน์แยกตก)",
+    "lat": 14.144052,
+    "lon": 100.62136,
+    "water_in_msl_m": 2.866,
+    "water_out_msl_m": 2.678,
+    "head_diff_m": 0.188
+   },
+   "ATG101": {
+    "name": "ปตร.จุฬาลงกรณ์ (รังสิตสู่แม่น้ำเจ้าพระยา)",
+    "lat": 13.98135,
+    "lon": 100.6057,
+    "water_in_msl_m": 1.177,
+    "water_out_msl_m": 2.175,
+    "head_diff_m": -0.998
+   }
+  },
+  "interbasin_vectors": [
+   {
+    "route_id": "pasak_to_rangsit",
+    "name": "คลองระพีพัฒน์แยกใต้ (ป่าสัก -> รังสิต)",
+    "upstream_station": "ATG05 (ปตร.พระนารายน์)",
+    "downstream_station": "ATG08 (ปตร.พระธรรมราชา)",
+    "upstream_h_msl_m": 6.456,
+    "downstream_h_msl_m": 2.931,
+    "net_head_m": 3.525,
+    "distance_km": 54.8,
+    "hydraulic_slope": 6.4e-05,
+    "flow_direction": "เหนือ -> ใต้ (North to South)",
+    "regime": "ผันน้ำตามแรงโน้มถ่วงเต็มกำลัง (Gravity Transfer)"
+   },
+   {
+    "route_id": "rangsit_east_to_west",
+    "name": "คลองรังสิตสายกลาง (คลอง 13 -> คลอง 1 / จุฬาลงกรณ์)",
+    "upstream_station": "ATG08 (ท้าย ปตร.พระธรรมราชา)",
+    "downstream_station": "ATG101 (ใน ปตร.จุฬาลงกรณ์)",
+    "upstream_h_msl_m": 2.324,
+    "downstream_h_msl_m": 1.177,
+    "net_head_m": 1.147,
+    "distance_km": 31.0,
+    "hydraulic_slope": 3.7e-05,
+    "flow_direction": "ตะวันออก -> ตะวันตก (East to West)",
+    "regime": "ไหลลาดสู่สถานีสูบน้ำจุฬาลงกรณ์"
+   },
+   {
+    "route_id": "chula_to_chaophraya_lock",
+    "name": "จุดบรรจบแม่น้ำเจ้าพระยา (ปตร.จุฬาลงกรณ์)",
+    "upstream_station": "ใน ปตร.จุฬาลงกรณ์ (คลองรังสิต)",
+    "downstream_station": "ท้าย ปตร.จุฬาลงกรณ์ (แม่น้ำเจ้าพระยา)",
+    "upstream_h_msl_m": 1.177,
+    "downstream_h_msl_m": 2.175,
+    "net_head_m": -0.998,
+    "distance_km": 0.05,
+    "hydraulic_slope": "น้ำเทินย้อนกลับ (Reverse Gradient)",
+    "flow_direction": "ถูกกดทับด้วยระดับแม่น้ำเจ้าพระยา (+2.18 ม. vs +1.18 ม.)",
+    "regime": "ติดน้ำเทินสมบูรณ์ (Hydraulic Lock) — บานประตูปิด ระบายน้ำได้ด้วยเครื่องสูบน้ำเท่านั้น"
+   },
+   {
+    "route_id": "rangsit_to_ongkharak_boundary",
+    "name": "รอยต่อลุ่มน้ำเจ้าพระยา-นครนายก (คลอง 13 -> ทุ่งองครักษ์)",
+    "upstream_station": "ATG08 (ท้าย ปตร.พระธรรมราชา)",
+    "downstream_station": "TNy10 (คลองแม่น้ำใน)",
+    "upstream_h_msl_m": 2.324,
+    "downstream_h_msl_m": 2.35,
+    "net_head_m": -0.026,
+    "distance_km": 14.5,
+    "hydraulic_slope": -2e-06,
+    "flow_direction": "แทบหยุดนิ่ง / ผันผวนตามการสูบน้ำ (Quasi-stagnant / Backwater Pool)",
+    "regime": "ระนาบน้ำแบนราบข้ามลุ่ม (+2.32 ถึง +2.35 ม.รทก.) น้ำทุ่งเชื่อมกันเป็นผืนเดียว"
+   }
+  ],
+  "conclusions": [
+   "1. น้ำจากลุ่มน้ำป่าสักไหลลงทุ่งรังสิตผ่านคลองระพีพัฒน์แยกใต้ด้วยความลาดชัน 6.5x10^-5 (Head drop +3.53 ม.)",
+   "2. น้ำในคลองรังสิตไหลมุ่งหน้าสู่แม่น้ำเจ้าพระยา (Head drop +1.15 ม.) แต่ไม่สามารถเปิดระบายตามแรงโน้มถ่วงได้ เนื่องจากระดับแม่น้ำเจ้าพระยาสูงกว่าคลองถึง 0.998 ม.",
+   "3. รอยต่อระหว่างทุ่งรังสิตฝั่งตะวันออกกับทุ่งองครักษ์มีระดับผิวน้ำแทบเท่ากัน (+2.32 ม. vs +2.35 ม.รทก.) ส่งผลให้พื้นที่ดังกล่าวเป็นแอ่งกักเก็บน้ำแบนราบที่น้ำไหลถ่ายเทไปมาตามการเดินเครื่องสูบน้ำ"
+  ]
  }
 }

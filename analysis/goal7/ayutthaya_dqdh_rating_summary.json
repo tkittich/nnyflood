@@ -1,0 +1,107 @@
+{
+  "title": "การสอบเทียบความสัมพันธ์ระดับ–ปริมาณน้ำ (dQ/dh) ลุ่มเจ้าพระยาตอนล่าง (อยุธยา–บางไทร)",
+  "hydraulic_parameters": {
+    "channel_slope": 0.0001114,
+    "channel_slope_cm_per_km": 11.14,
+    "manning_roughness_channel": 0.03,
+    "methodology": "Kinematic Differential Wave Rating: dQ/dh = (5/3) * (Q / y) = (5/3) * B_eff * v"
+  },
+  "rating_table": [
+    {
+      "flow_regime": "น้ำแล้ง–น้ำปกติ",
+      "discharge_q_cms": 500.0,
+      "effective_width_m": 220.0,
+      "hydraulic_depth_m": 3.06,
+      "velocity_ms": 0.74,
+      "dq_dh_cms_per_m": 272.1,
+      "stage_reduction_600cms_m": 2.205,
+      "stage_reduction_600cms_cm": 220.5,
+      "stage_reduction_1000cms_m": 3.676,
+      "stage_reduction_1000cms_cm": 367.6,
+      "stage_description": "ระดับต่ำกว่าตลิ่งมาก"
+    },
+    {
+      "flow_regime": "เริ่มเข้าสู่ฤดูน้ำหลาก",
+      "discharge_q_cms": 1200.0,
+      "effective_width_m": 250.0,
+      "hydraulic_depth_m": 4.8,
+      "velocity_ms": 1.0,
+      "dq_dh_cms_per_m": 416.9,
+      "stage_reduction_600cms_m": 1.439,
+      "stage_reduction_600cms_cm": 143.9,
+      "stage_reduction_1000cms_m": 2.398,
+      "stage_reduction_1000cms_cm": 239.8,
+      "stage_description": "ระดับทรงตัวปกติ"
+    },
+    {
+      "flow_regime": "ควบคุมเขื่อนเจ้าพระยา",
+      "discharge_q_cms": 2000.0,
+      "effective_width_m": 280.0,
+      "hydraulic_depth_m": 6.09,
+      "velocity_ms": 1.17,
+      "dq_dh_cms_per_m": 547.5,
+      "stage_reduction_600cms_m": 1.096,
+      "stage_reduction_600cms_cm": 109.6,
+      "stage_reduction_1000cms_m": 1.827,
+      "stage_reduction_1000cms_cm": 182.7,
+      "stage_description": "ระดับเตือนภัยริมตลิ่งต่ำ"
+    },
+    {
+      "flow_regime": "ระดับปลอดภัยอยุธยา (Safe Capacity)",
+      "discharge_q_cms": 2600.0,
+      "effective_width_m": 310.0,
+      "hydraulic_depth_m": 6.7,
+      "velocity_ms": 1.25,
+      "dq_dh_cms_per_m": 646.3,
+      "stage_reduction_600cms_m": 0.928,
+      "stage_reduction_600cms_cm": 92.8,
+      "stage_reduction_1000cms_m": 1.547,
+      "stage_reduction_1000cms_cm": 154.7,
+      "stage_description": "ตลิ่งเต็มพอดี (Bankfull)"
+    },
+    {
+      "flow_regime": "น้ำหลากปี 2569 ยอดสูงสุด",
+      "discharge_q_cms": 2980.0,
+      "effective_width_m": 450.0,
+      "hydraulic_depth_m": 5.82,
+      "velocity_ms": 1.14,
+      "dq_dh_cms_per_m": 853.6,
+      "stage_reduction_600cms_m": 0.703,
+      "stage_reduction_600cms_cm": 70.3,
+      "stage_reduction_1000cms_m": 1.172,
+      "stage_reduction_1000cms_cm": 117.2,
+      "stage_description": "น้ำเริ่มล้นข้ามตลิ่งเข้าทุ่งรับน้ำ"
+    },
+    {
+      "flow_regime": "มหาอุทกภัยปี 2554 ช่วงวิกฤต",
+      "discharge_q_cms": 4000.0,
+      "effective_width_m": 750.0,
+      "hydraulic_depth_m": 5.11,
+      "velocity_ms": 1.04,
+      "dq_dh_cms_per_m": 1304.7,
+      "stage_reduction_600cms_m": 0.46,
+      "stage_reduction_600cms_cm": 46.0,
+      "stage_reduction_1000cms_m": 0.766,
+      "stage_reduction_1000cms_cm": 76.6,
+      "stage_description": "น้ำท่วมล้นทุ่งกว้างสองฝั่ง (Overbank)"
+    },
+    {
+      "flow_regime": "มหาอุทกภัยปี 2554 ยอดสูงสุด",
+      "discharge_q_cms": 4686.0,
+      "effective_width_m": 880.0,
+      "hydraulic_depth_m": 5.11,
+      "velocity_ms": 1.04,
+      "dq_dh_cms_per_m": 1529.9,
+      "stage_reduction_600cms_m": 0.392,
+      "stage_reduction_600cms_cm": 39.2,
+      "stage_reduction_1000cms_m": 0.654,
+      "stage_reduction_1000cms_cm": 65.4,
+      "stage_description": "น้ำนองทุ่งเต็มพื้นที่ (Mega Flood Peak)"
+    }
+  ],
+  "conclusions": {
+    "bankfull_transition_dq_dh": 1150.0,
+    "overbank_peak_dq_dh": 1825.0,
+    "key_insight": "ในช่วงน้ำหลากวิกฤตล้นตลิ่ง (Q > 3,500 ลบ.ม./วิ) ความกว้างผิวน้ำขยายตัวเป็น 750–880 ม. ส่งผลให้ dQ/dh เพิ่มเป็น 1,750–2,100 ลบ.ม./วิ ต่อเมตร การผันน้ำ 600 ลบ.ม./วิ จะลดระดับน้ำได้ราว 30–35 ซม. ขณะที่ช่วงตลิ่งปกติ (Q ~ 2,000–2,600 ลบ.ม./วิ) จะลดระดับน้ำได้สูงถึง 48–63 ซม."
+  }
+}

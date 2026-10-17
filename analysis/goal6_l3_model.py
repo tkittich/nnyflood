@@ -3,7 +3,9 @@
 โครงเดิมนครนายก: สูตรเส้นตรง 11 ตัวแปร vs persistence vs GBDT ที่ +6/+24/+48 ชม.
 ปรับต่อลุ่ม: จุดเป้าหมาย = จุดวัดเมืองหลักของลุ่ม (code ที่มีอนุกรมยาวสุด) ·
 ต้นน้ำ = จุดวัดใกล้เขื่อน · ฝน R24/R72/R168 จาก NASA POWER รายวันของจุดฝนลุ่มบน (data/22 rain_rarity raw มี 1981–2026)
-หน้าต่างฝึก: ทุกฤดูฝน 6 มิ.ย.–9 ต.ค. ที่มีข้อมูล (2020–2026 · H2 ยืดกริดถึง 9 ต.ค. 13 ต.ค. 69) · ทดสอบ: กลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 69
+หน้าต่างฝึก: ทุกฤดูฝน 6 มิ.ย.–9 ต.ค. ที่มีข้อมูล (2020–2026) — ตัดตัวอย่างที่เป้าหมาย +48 ชม. ทับช่วงทดสอบทิ้ง (purge)
+ชุดตรวจสอบ (ใช้เลือกโมเดล): ปลายฤดูฝน 2568 (1 ก.ย.–9 ต.ค. 68) — ไม่เลือกโมเดลจากชุดทดสอบ (รีวิวรอบ 4 BP F-02)
+ทดสอบ: กลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 69 · ฝนใช้ R24/R72/R168 = ผลรวมรายวัน "สิ้นสุดเมื่อวาน" (ไม่ใช่ 24 ชม.ย้อนหลัง — GLM F-06)
 ผลลัพธ์: analysis/goal6/<basin>/l3_model.json + l3_model.md
 รัน: python analysis/goal6_l3_model.py [--basin id,...]
 """
@@ -29,6 +31,12 @@ OUT_BASE = ROOT / "analysis/goal6"
 RAW_RAIN = ROOT / "data/22_goal6_network/raw/rain_rarity"
 RAW_ST = ROOT / "data/22_goal6_network/raw"
 READINESS = ROOT / "analysis/goal6_basin_readiness.json"
+
+# ชุดประเมิน (รีวิวรอบ 4 — BP F-02): แยก "ชุดตรวจสอบ" สำหรับเลือกโมเดล ออกจาก "ชุดทดสอบ" สำหรับรายงาน
+TEST_START = dt.datetime(2026, 9, 20)
+VAL_START = dt.datetime(2025, 9, 1)
+VAL_END = dt.datetime(2025, 10, 9, 23)
+HORIZON_MAX_H = 48
 
 # จุดเป้าหมายต่อลุ่ม (จุดวัดเมืองหลัก — เลือกด้วยมือจาก L1: อนุกรมยาว + จุดบริบทชัด)
 TARGET = {
@@ -161,11 +169,38 @@ def run_basin(bid: str, rec: dict, out_json: Path, out_md: Path) -> None:
     if len(X) < 2000:
         print(f"  {bid}: ตัวอย่างไม่พอ ({len(X)})", flush=True)
         return
-    te = np.array([t >= dt.datetime(2026, 9, 20) for t in T])
-    tr = ~te
+    te = np.array([t >= TEST_START for t in T])
+    # purge (BP F-02): ตัวอย่างฝึกที่เป้าหมายระยะไกลสุด (+48 ชม.) ยังไม่จบก่อนชุดทดสอบ = ห้ามฝึก
+    tr = (~te) & np.array([t + dt.timedelta(hours=HORIZON_MAX_H) < TEST_START for t in T])
+    # ชุดตรวจสอบสำหรับ "เลือกโมเดล" — ปลายฤดูฝน 2568 (ไม่ใช่ชุดทดสอบ; BP F-02)
+    va = np.array([VAL_START <= t <= VAL_END for t in T])
+    va_basis = "2025-09-01..2025-10-09 (ปลายฤดูฝน 2568)"
+    if int(va.sum()) < 200:
+        idx_tr = np.where(~te)[0]
+        n_va = max(200, int(0.15 * len(idx_tr)))
+        va = np.zeros(len(T), dtype=bool)
+        va[idx_tr[-n_va:]] = True
+        va_basis = f"15% ท้ายของชุดฝึก ({int(va.sum())} ตัวอย่าง — ฤดู 2568 มีข้อมูลไม่พอ)"
+    va_t0 = min(T[i] for i in np.where(va)[0]) if va.any() else None
+    # รอบเลือกโมเดล: ตัด va ทิ้งจากฝึก + ตัดตัวอย่างที่เป้าหมายทับช่วง va
+    tr_sel = (~te) & (~va) & np.array([
+        t + dt.timedelta(hours=HORIZON_MAX_H) < TEST_START
+        and (va_t0 is None or t + dt.timedelta(hours=HORIZON_MAX_H) < va_t0)
+        for t in T])
     results = {}
     for k, h in enumerate((6, 24, 48)):
-        ytr, yte = Y[tr, k], Y[te, k]
+        ytr, yte, yva = Y[tr, k], Y[te, k], Y[va, k]
+        # --- รอบเลือกโมเดล: ฝึกบน tr_sel → ประเมินบนชุดตรวจสอบ ---
+        lin_v = LinearRegression().fit(X[tr_sel], Y[tr_sel, k])
+        gb_v = HistGradientBoostingRegressor(max_iter=400, learning_rate=0.06, max_depth=4,
+                                             min_samples_leaf=40, random_state=0).fit(X[tr_sel], Y[tr_sel, k])
+        rmse_val = {
+            "persistence": round(float(np.sqrt(np.mean((X[va, 0] - yva) ** 2))) * 100, 1),
+            "linear": round(float(np.sqrt(np.mean((lin_v.predict(X[va]) - yva) ** 2))) * 100, 1),
+            "GBDT": round(float(np.sqrt(np.mean((gb_v.predict(X[va]) - yva) ** 2))) * 100, 1),
+        }
+        selected = min(rmse_val, key=rmse_val.get)
+        # --- รอบรายงาน: ฝึกบนชุดฝึกสมบูรณ์ (purged) → ประเมินบนชุดทดสอบ ---
         rows = []
         p_pers = X[te, 0]
         lin = LinearRegression().fit(X[tr], ytr)
@@ -173,32 +208,44 @@ def run_basin(bid: str, rec: dict, out_json: Path, out_md: Path) -> None:
         gb = HistGradientBoostingRegressor(max_iter=400, learning_rate=0.06, max_depth=4,
                                            min_samples_leaf=40, random_state=0).fit(X[tr], ytr)
         p_gb = gb.predict(X[te])
-        ev = np.array([dt.datetime(2026, 9, 25) <= t <= dt.datetime(2026, 10, 9) for t in T[te]])  # H2: ถึง 9 ต.ค.
+        ev = np.array([dt.datetime(2026, 9, 25) <= t <= dt.datetime(2026, 10, 9) for t in T[te]])
         for nm, p in (("persistence", p_pers), ("linear", p_lin), ("GBDT", p_gb)):
             rmse = np.sqrt(np.mean((p - yte) ** 2)) * 100
             mae = np.mean(np.abs(p - yte)) * 100
             rmse_ev = np.sqrt(np.mean((p[ev] - yte[ev]) ** 2)) * 100 if ev.any() else None
             rows.append({"model": nm, "rmse_cm": round(rmse, 1), "mae_cm": round(mae, 1),
-                         "rmse_event_cm": round(rmse_ev, 1) if rmse_ev is not None else None})
+                         "rmse_event_cm": round(rmse_ev, 1) if rmse_ev is not None else None,
+                         "rmse_val_cm": rmse_val[nm]})
+        sel_row = next(r for r in rows if r["model"] == selected)
         results[str(h)] = {"rows": rows, "coef_linear": [round(c, 4) for c in lin.coef_],
-                           "n_train": int(tr.sum()), "n_test": int(te.sum())}
-        best = min(rows, key=lambda r: r["rmse_cm"])
-        print(f"  {bid} +{h}ชม.: ดีสุด {best['model']} RMSE {best['rmse_cm']} ซม. "
-              f"(เหตุการณ์ {rows[1]['rmse_event_cm']})", flush=True)
+                           "selected": selected, "rmse_val_cm": rmse_val,
+                           "n_val": int(va.sum()), "n_train": int(tr.sum()), "n_test": int(te.sum())}
+        print(f"  {bid} +{h}ชม.: เลือกโดยชุดตรวจสอบ {selected} (val {rmse_val[selected]:.1f} ซม.) · "
+              f"ทดสอบ RMSE {sel_row['rmse_cm']} ซม. · ค่าเดิมคงที่ {rows[0]['rmse_cm']} ซม.", flush=True)
     out = {"basin": bid, "window_test": "2026-09-20..2026-10-09", "grid_end": "2026-10-09 23:00",
            "target": {"code": tgt_code, "name": tgt_name},
            "upstream": up_code, "rain_point": rain_label,
            "train_hours": int(tr.sum()), "test_hours": int(te.sum()),
+           "validation": {
+               "window": va_basis, "n_val": int(va.sum()),
+               "purge_hours": HORIZON_MAX_H,
+               "n_purged_before_test": int((~te).sum() - tr.sum()),
+               "selection_note": "เลือกโมเดลจากชุดตรวจสอบก่อนชุดทดสอบ — ไม่เลือกจากชุดทดสอบ (รีวิวรอบ 4 BP F-02)",
+               "rain_features_note": "R24/R72/R168 = ผลรวมฝนรายวัน (NASA POWER) สิ้นสุดเมื่อวาน — ไม่ใช่ 24 ชม.ย้อนหลัง (รีวิวรอบ 4 GLM F-06)",
+           },
            "results": results}
     out_json.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     md = [f"# L3 โมเดลทำนาย — {rec['label']} (จุดเป้าหมาย {tgt_code})", "",
-          f"> ฝึก {int(tr.sum())} ชม. (2020–2026 ฤดูฝน) · ทดสอบกลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 69 · "
-          f"ตัวแปร {X.shape[1]} (ระดับ+Δ3/24ชม. + ต้นน้ำ {up_code} + ฝน 24/72/168 ชม. POWER)", "",
-          "| ระยะ | โมเดล | RMSE ทดสอบ (ซม.) | RMSE เหตุการณ์ (ซม.) | MAE (ซม.) |", "|---|---|---|---|---|"]
+          f"> ฝึก {int(tr.sum())} ชม. (2020–2026 ฤดูฝน; ตัดตัวอย่างที่เป้าหมาย +48 ชม. ทับช่วงทดสอบแล้ว "
+          f"{out['validation']['n_purged_before_test']} ตัวอย่าง) · ชุดตรวจสอบ {va_basis} (ใช้เลือกโมเดล) · "
+          f"ทดสอบกลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 69 · "
+          f"ตัวแปร {X.shape[1]} (ระดับ+Δ3/24ชม. + ต้นน้ำ {up_code} + ฝน R24/R72/R168 ชม. POWER = ผลรวมวันสิ้นสุดเมื่อวาน)", "",
+          "| ระยะ | โมเดล | RMSE ทดสอบ (ซม.) | RMSE ชุดตรวจสอบ (ซม.) | RMSE เหตุการณ์ (ซม.) | MAE (ซม.) |", "|---|---|---|---|---|---|"]
     for h in ("6", "24", "48"):
         for r in results[h]["rows"]:
-            md.append(f"| +{h} ชม. | {r['model']} | {r['rmse_cm']} | {r['rmse_event_cm']} | {r['mae_cm']} |")
-    md += ["", "⚠️ เกณฑ์เทียบเดียวกับนครนายก: ระยะใช้งานจริง +6/+24 ชม. · ค่าอนุกรมมีช่องว่าง (ครอบคลุม 45–80%)", ""]
+            md.append(f"| +{h} ชม. | {r['model']} | {r['rmse_cm']} | {r['rmse_val_cm']} | {r['rmse_event_cm']} | {r['mae_cm']} |")
+    md += ["", f"⚠️ เกณฑ์เทียบเดียวกับนครนายก: ระยะใช้งานจริง +6/+24 ชม. · ค่าอนุกรมมีช่องว่าง (ครอบคลุม 45–80%) · "
+               f"เลือกโมเดลโดยชุดตรวจสอบ (ไม่ใช่ชุดทดสอบ — BP F-02) · R24 = ฝนวันก่อนหน้า ไม่ใช่ 24 ชม.ย้อนหลัง (GLM F-06)", ""]
     out_md.write_text("\n".join(md), encoding="utf-8")
 
 

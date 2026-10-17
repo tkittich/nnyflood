@@ -344,25 +344,36 @@ for bid, rec in cfg["basins"].items():
         l3_rows = []
         model_th = {"linear": "สูตรเส้นตรง", "persistence": "ค่าเดิมคงที่", "GBDT": "แบบจำลองต้นไม้"}
         for h in ("6", "24", "48"):
-            for r in l3["results"][h]["rows"]:
-                l3_rows.append([f"+{h} ชม.", esc(model_th.get(r["model"], r["model"])), num(r["rmse_cm"], 1),
-                                num(r["rmse_event_cm"], 1), num(r["mae_cm"], 1)])
-        S.append(table(["ระยะ", "โมเดล", "คลาดเคลื่อนรากเฉลี่ยกำลังสอง (ซม.)", "คลาดเคลื่อนรากเฉลี่ยกำลังสองเฉพาะเหตุการณ์ (ซม.)", "คลาดเคลื่อนสัมบูรณ์เฉลี่ย (ซม.)"],
+            blk = l3["results"][h]
+            sel_name = blk.get("selected") or min(blk["rows"], key=lambda r: r["rmse_cm"])["model"]
+            for r in blk["rows"]:
+                mark = " ✓" if r["model"] == sel_name else ""
+                l3_rows.append([f"+{h} ชม.", esc(model_th.get(r["model"], r["model"])) + mark, num(r["rmse_cm"], 1),
+                                num(r.get("rmse_val_cm"), 1), num(r["rmse_event_cm"], 1), num(r["mae_cm"], 1)])
+        S.append(table(["ระยะ", "โมเดล", "คลาดเคลื่อนรากเฉลี่ยกำลังสอง (ซม.)", "คลาดเคลื่อนรากเฉลี่ยกำลังสอง ชุดตรวจสอบ 2568 (ซม.)", "คลาดเคลื่อนรากเฉลี่ยกำลังสองเฉพาะเหตุการณ์ (ซม.)", "คลาดเคลื่อนสัมบูรณ์เฉลี่ย (ซม.)"],
                        l3_rows,
                        f"จุดเป้าหมาย {l3['target']['code']} ({l3['target']['name']}) · "
-                       f"ฝึก {l3['train_hours']:,} ชม. (2020–2026 ฤดูฝน) · ทดสอบกลางเหตุการณ์ "
-                       f"{l3['test_hours']:,} ชม. ({l3.get('window_test', '2026-09-20..2026-10-09').replace('..', ' ถึง ')}) · วิธีเดียวกับนครนายก"))
+                       f"ฝึก {l3['train_hours']:,} ชม. (2020–2026 ฤดูฝน — ตัดตัวอย่างที่เป้าหมายทับช่วงทดสอบ 48 ชม. แล้ว "
+                       f"{l3['validation']['n_purged_before_test']:,} ตัวอย่าง) · ทดสอบกลางเหตุการณ์ "
+                       f"{l3['test_hours']:,} ชม. ({l3.get('window_test', '2026-09-20..2026-10-09').replace('..', ' ถึง ')}) · "
+                       f"วิธีเดียวกับนครนายก · ✓ = โมเดลที่ 'เลือกโดยชุดตรวจสอบ' {esc(l3['validation']['window'])} ไม่ใช่ชุดทดสอบ · "
+                       "R24 = ฝนวันก่อนหน้า ไม่ใช่ 24 ชม.ย้อนหลัง"))
         model_th = {"linear": "สูตรเส้นตรง", "persistence": "ค่าเดิมคงที่", "GBDT": "แบบจำลองต้นไม้"}
-        best6 = min(l3["results"]["6"]["rows"], key=lambda r: r["rmse_cm"])
-        best24 = min(l3["results"]["24"]["rows"], key=lambda r: r["rmse_cm"])
-        best48 = min(l3["results"]["48"]["rows"], key=lambda r: r["rmse_cm"])
+
+        def _selected(h: str):
+            blk = l3["results"][h]
+            nm = blk.get("selected") or min(blk["rows"], key=lambda r: r["rmse_cm"])["model"]
+            return next(r for r in blk["rows"] if r["model"] == nm)
+
+        best6, best24, best48 = _selected("6"), _selected("24"), _selected("48")
         pers6 = next(r for r in l3["results"]["6"]["rows"] if r["model"] == "persistence")["rmse_cm"]
         pers24 = next(r for r in l3["results"]["24"]["rows"] if r["model"] == "persistence")["rmse_cm"]
         S.append(note(
-            f"สรุป: ที่ระยะใช้งานจริง วิธีที่ดีสุดคือ <b>{model_th.get(best6['model'], best6['model'])} (คลาดเคลื่อน {best6['rmse_cm']} ซม. ที่ +6 ชม.)</b> "
+            f"สรุป: ที่ระยะใช้งานจริง วิธีที่<b>เลือกโดยชุดตรวจสอบ</b> (ก่อนเหตุการณ์) คือ <b>{model_th.get(best6['model'], best6['model'])} (คลาดเคลื่อน {best6['rmse_cm']} ซม. ที่ +6 ชม.)</b> "
             f"และ <b>{model_th.get(best24['model'], best24['model'])} ({best24['rmse_cm']} ซม. ที่ +24 ชม.)</b> — "
             f"เทียบกับค่าเดิมคงที่ {pers6} ซม. และ {pers24} ซม. (ถ้าสองชุดใกล้กัน ความแม่นมาจากระดับน้ำเปลี่ยนช้า ไม่ใช่ฝีมือแบบจำลอง) · "
-            f"ที่ +48 ชม. ดีสุด {best48['rmse_cm']} ซม. ({model_th.get(best48['model'], best48['model'])}) · ทดสอบกับเหตุการณ์เดียว"
+            f"ที่ +48 ชม. {best48['rmse_cm']} ซม. ({model_th.get(best48['model'], best48['model'])}) · "
+            f"เลือกโมเดลด้วยฤดูปลายฝน 2568 ไม่ใช่ชุดทดสอบ (ตัดตัวอย่างที่เป้าหมายทับช่วงทดสอบออกจากชุดฝึก) · ทดสอบกับเหตุการณ์เดียวเท่านั้น"
         ))
     else:
         S.append(placeholder("L3 — โมเดลทำนายระดับน้ำ (สูตร/ค่าเดิมคงที่/GBDT วิธีเดียวกับนครนายก) รอเข้าคิว"))

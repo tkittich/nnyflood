@@ -210,6 +210,24 @@ def test_l3_skill_vs_persistence_present_and_report_not_overclaiming():
     assert "ทำนายได้แม่น" not in h3
 
 
+def test_l3_selection_protocol_is_validation_based():
+    """BP F-02 (รีวิวรอบ 4): เลือกโมเดลด้วยชุดตรวจสอบ (ไม่ใช่ชุดทดสอบ) + ตัดตัวอย่างทับ + เปิดเผยนิยามฝน R24"""
+    import json as _json
+    files = sorted((ROOT / "analysis/goal6").glob("*/l3_model.json"))
+    assert files, "ไม่พบไฟล์โมเดล L3"
+    for p in files:
+        d = _json.loads(p.read_text(encoding="utf-8"))
+        v = d["validation"]
+        assert v["purge_hours"] == 48, p
+        assert "ไม่ใช่ 24 ชม" in v["rain_features_note"], p
+        assert "ไม่เลือกจากชุดทดสอบ" in v["selection_note"], p
+        for h, blk in d["results"].items():
+            assert blk["selected"] in ("persistence", "linear", "GBDT"), (p, h)
+            assert set(blk["rmse_val_cm"]) == {"persistence", "linear", "GBDT"}, (p, h)
+            assert blk["selected"] == min(blk["rmse_val_cm"], key=blk["rmse_val_cm"].get), (p, h)
+            assert all("rmse_val_cm" in r for r in blk["rows"]), (p, h)
+
+
 def test_flood_area_printed_with_coverage_and_thai_time():
     """H2/P3: พื้นที่น้ำท่วมต้องมีสัดส่วนที่ฉากครอบ + เวลาไทย · ห้ามเรียก 'จุดสูงสุด 1 ต.ค.' ลอย ๆ"""
     d = _load()

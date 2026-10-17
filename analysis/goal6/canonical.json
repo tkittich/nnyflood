@@ -1143,71 +1143,80 @@
  "l3_best": {
   "bkk_lower": {
    "h6": {
-    "model": "linear",
-    "rmse_cm": 12.4,
+    "model": "persistence",
+    "rmse_cm": 17.7,
     "persistence_cm": 17.7,
-    "skill_vs_persistence": 0.299,
-    "near_persistence": false
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true,
+    "rmse_val_cm": 7.0
    },
    "h24": {
-    "model": "linear",
-    "rmse_cm": 37.4,
+    "model": "persistence",
+    "rmse_cm": 57.0,
     "persistence_cm": 57.0,
-    "skill_vs_persistence": 0.344,
-    "near_persistence": false
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true,
+    "rmse_val_cm": 18.3
    },
    "h48": {
-    "model": "linear",
-    "rmse_cm": 66.0,
+    "model": "persistence",
+    "rmse_cm": 96.6,
     "persistence_cm": 96.6,
-    "skill_vs_persistence": 0.317,
-    "near_persistence": false
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true,
+    "rmse_val_cm": 31.6
    }
   },
   "bp_prach": {
    "h6": {
-    "model": "linear",
-    "rmse_cm": 6.3,
+    "model": "GBDT",
+    "rmse_cm": 18.3,
     "persistence_cm": 10.0,
-    "skill_vs_persistence": 0.37,
-    "near_persistence": false
+    "skill_vs_persistence": -0.83,
+    "near_persistence": true,
+    "rmse_val_cm": 7.3
    },
    "h24": {
     "model": "GBDT",
-    "rmse_cm": 32.4,
+    "rmse_cm": 33.7,
     "persistence_cm": 37.8,
-    "skill_vs_persistence": 0.143,
-    "near_persistence": false
+    "skill_vs_persistence": 0.108,
+    "near_persistence": false,
+    "rmse_val_cm": 32.4
    },
    "h48": {
-    "model": "linear",
-    "rmse_cm": 68.7,
+    "model": "GBDT",
+    "rmse_cm": 67.0,
     "persistence_cm": 77.9,
-    "skill_vs_persistence": 0.118,
-    "near_persistence": false
+    "skill_vs_persistence": 0.14,
+    "near_persistence": false,
+    "rmse_val_cm": 66.6
    }
   },
   "maeklong": {
    "h6": {
-    "model": "persistence",
+    "model": "linear",
     "rmse_cm": 10.2,
     "persistence_cm": 10.2,
     "skill_vs_persistence": 0.0,
-    "near_persistence": true
+    "near_persistence": true,
+    "rmse_val_cm": 5.7
    },
    "h24": {
-    "model": "linear",
-    "rmse_cm": 19.3,
+    "model": "persistence",
+    "rmse_cm": 20.1,
     "persistence_cm": 20.1,
-    "skill_vs_persistence": 0.04,
-    "near_persistence": true
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true,
+    "rmse_val_cm": 6.3
    },
    "h48": {
-    "model": "linear",
-    "rmse_cm": 26.5,
+    "model": "persistence",
+    "rmse_cm": 31.5,
     "persistence_cm": 31.5,
-    "skill_vs_persistence": 0.159,
-    "near_persistence": false
+    "skill_vs_persistence": 0.0,
+    "near_persistence": true,
+    "rmse_val_cm": 7.1
    }
   },
   "pasak": {
@@ -1216,21 +1225,24 @@
     "rmse_cm": 20.8,
     "persistence_cm": 20.8,
     "skill_vs_persistence": 0.0,
-    "near_persistence": true
+    "near_persistence": true,
+    "rmse_val_cm": 12.1
    },
    "h24": {
-    "model": "persistence",
-    "rmse_cm": 68.6,
+    "model": "linear",
+    "rmse_cm": 83.4,
     "persistence_cm": 68.6,
-    "skill_vs_persistence": 0.0,
-    "near_persistence": true
+    "skill_vs_persistence": -0.216,
+    "near_persistence": true,
+    "rmse_val_cm": 26.5
    },
    "h48": {
-    "model": "persistence",
-    "rmse_cm": 125.9,
+    "model": "linear",
+    "rmse_cm": 126.5,
     "persistence_cm": 125.9,
-    "skill_vs_persistence": 0.0,
-    "near_persistence": true
+    "skill_vs_persistence": -0.005,
+    "near_persistence": true,
+    "rmse_val_cm": 35.7
    }
   },
   "ping_cp": {
@@ -1239,21 +1251,24 @@
     "rmse_cm": 4.4,
     "persistence_cm": 10.5,
     "skill_vs_persistence": 0.581,
-    "near_persistence": false
+    "near_persistence": false,
+    "rmse_val_cm": 2.3
    },
    "h24": {
     "model": "linear",
-    "rmse_cm": 24.9,
+    "rmse_cm": 25.0,
     "persistence_cm": 39.0,
-    "skill_vs_persistence": 0.362,
-    "near_persistence": false
+    "skill_vs_persistence": 0.359,
+    "near_persistence": false,
+    "rmse_val_cm": 9.7
    },
    "h48": {
     "model": "GBDT",
-    "rmse_cm": 60.6,
+    "rmse_cm": 56.8,
     "persistence_cm": 66.8,
-    "skill_vs_persistence": 0.093,
-    "near_persistence": true
+    "skill_vs_persistence": 0.15,
+    "near_persistence": false,
+    "rmse_val_cm": 19.7
    }
   },
   "thachin": {
@@ -1262,30 +1277,34 @@
     "rmse_cm": 13.0,
     "persistence_cm": 13.0,
     "skill_vs_persistence": 0.0,
-    "near_persistence": true
+    "near_persistence": true,
+    "rmse_val_cm": 19.3
    },
    "h24": {
     "model": "linear",
     "rmse_cm": 10.6,
     "persistence_cm": 11.7,
     "skill_vs_persistence": 0.094,
-    "near_persistence": true
+    "near_persistence": true,
+    "rmse_val_cm": 7.1
    },
    "h48": {
     "model": "linear",
     "rmse_cm": 19.4,
     "persistence_cm": 20.6,
     "skill_vs_persistence": 0.058,
-    "near_persistence": true
+    "near_persistence": true,
+    "rmse_val_cm": 12.9
    }
   }
  },
  "l3_summary": {
-  "n_near_persistence_h6": 3,
-  "n_near_persistence_h24": 3,
-  "n_near_persistence_h48": 3,
+  "n_near_persistence_h6": 5,
+  "n_near_persistence_h24": 4,
+  "n_near_persistence_h48": 4,
   "n_basins": 6,
-  "test_window_note": "ทดสอบกับเหตุการณ์เดียว (20 ก.ย.–9 ต.ค. 69) ประมาณ 7–15 วัน — ค่า RMSE ใช้เทียบเชิงคุณภาพ ไม่ใช่ความแม่นระยะยาว"
+  "test_window_note": "ทดสอบกับเหตุการณ์เดียว (20 ก.ย.–9 ต.ค. 69) ประมาณ 7–15 วัน — ค่า RMSE ใช้เทียบเชิงคุณภาพ ไม่ใช่ความแม่นระยะยาว",
+  "selection_note": "ค่าใน l3_best คือโมเดลที่ 'เลือกโดยชุดตรวจสอบ' (ฤดูปลายฝน 2568) แล้วรายงาน RMSE บนชุดทดสอบ — ไม่เลือกจากชุดทดสอบ · ตัดตัวอย่างฝึกที่เป้าหมายทับช่วงทดสอบ 48 ชม. (รีวิวรอบ 4 BP F-02)"
  },
  "c2_attribution": {
   "corr_release": -0.917,
@@ -1493,51 +1512,115 @@
    "tide_station": "CPY015 (สะพานกรุงเทพ ปากแม่น้ำเจ้าพระยา)",
    "test_window_declared": "2026-09-20..2026-10-09",
    "test_window_actual": "2026-09-20..2026-10-02 13:00",
-   "test_coverage_pct": 57.1,
+   "test_coverage_pct": 47.1,
+   "series_end": {
+    "target_C12": "2026-10-09 23:00",
+    "upstream_BKK001": "2026-10-02 15:00",
+    "tide_CPY015": "2026-10-09 23:00"
+   },
+   "truncation_cause": "ช่วงทดสอบสิ้นสุด (test_window_actual) เพราะอนุกรม BKK001 (ต้นน้ำ) สิ้นสุดก่อน C.12 และ CPY015 — ไม่ใช่ 'ข้อมูลเป้าหมายขาดช่วง 2–9 ต.ค.' (SB F-18) · ส่วนความครอบคลุมที่หายไปเกินเพดาน BKK001 มาจากชั่วโมงข้อมูลขาดของจุดเป้าหมาย/น้ำขึ้น–น้ำลง (ดู test_coverage_breakdown)",
+   "test_coverage_breakdown": {
+    "declared_hours": 480,
+    "cap_hours_if_BKK001_complete": 304,
+    "cap_pct_if_BKK001_complete": 63.3,
+    "usable_hours": 226,
+    "usable_pct": 47.1,
+    "note": "เพดาน = ชั่วโมงตั้งแต่ 20 ก.ย. ถึงเวลาสิ้นสุดของ BKK001 (ถ้าจุดอื่นไม่ขาด) · ค่าจริงต่ำกว่าเพราะชั่วโมงข้อมูลขาดในชุดเป้าหมาย/น้ำขึ้น–น้ำลงเมื่อบังคับครบทุกระยะ"
+   },
    "train_window_actual": "2026-07-01..2026-09-19",
-   "train_scope_note": "ฝึกด้วยข้อมูลปี 2569 เดียว ~47 วัน (1,130–1,467 ชม.) — ไม่ใช่ฤดูฝน 2020–2026",
-   "purge_note": "ตัดตัวอย่างฝึกที่เป้าหมาย (t+lead) ตกในช่วงทดสอบ เพื่อกันการรั่วของป้าย",
-   "coupling": "Tidal-Coupled (ไม่รวมคลื่น SWAN — ข้อมูลที่มีเป็น snapshot เดียวหลังช่วงทดสอบ)"
+   "train_scope_note": "ฝึกด้วยข้อมูลปี 2569 เดียว ~47 วัน — ไม่ใช่ฤดูฝน 2020–2026 · ยังไม่ fit หลายฤดู (ต้องรอข้อมูลฤดูถัดไป; GLM F-08 · SB F-16) จึงเป็น 'การพยากรณ์ในช่วงเหตุการณ์เดียว' ไม่ใช่การทดสอบวางนัยทั่วไป",
+   "purge_note": "ตัดตัวอย่างฝึกเมื่อ 'เป้าหมายของระยะนั้น' (t+lead) ตกในช่วงทดสอบ — n_train ต่างกันเล็กน้อยตามระยะ โดยออกแบบ (n_test เท่ากันทุกระยะ)",
+   "common_sample_note": "ทุกระยะใช้ชุดตัวอย่างชุดเดียวกัน (บังคับให้มีข้อมูลปลายทางและน้ำขึ้น–น้ำลงครบทั้ง +6/+24/+48 ชม.) — เทียบข้ามระยะได้ตรง (BP F-04)",
+   "coupling": "Tidal-Coupled (ไม่รวมคลื่น SWAN — ข้อมูลที่มีเป็น snapshot เดียวหลังช่วงทดสอบ)",
+   "feature_rank_check": {
+    "n_features": 12,
+    "rank": 12,
+    "note": "อันดับเมทริกซ์เต็ม (ไม่มีความซ้ำเชิงเส้น) — ถอด tide_head ออกแล้ว (BP F-03)"
+   },
+   "imputation_counters": {
+    "h1": 86,
+    "h3": 195,
+    "h6": 358,
+    "u6": 1,
+    "u12": 2,
+    "tide1": 10,
+    "rain_zero": 0,
+    "n_samples_all": 1317,
+    "note": "จำนวนตัวอย่างที่ต้องเติมค่าแทนจุดข้อมูลขาด: lag ระดับน้ำ (แทนด้วย h0), lag ต้นน้ำ (แทน u0), น้ำขึ้น–น้ำลง lag 1 ชม. (แทน tide0), ฝนวันก่อนหน้า (แทน 0) — เปิดเผยก่อนตีความ (GLM F-07 · SB F-17)"
+   },
+   "rain_note": "R24 = ผลรวมฝนรายวัน NASA POWER จุดกรุงเทพกลาง ของ 'วันก่อนหน้า' (ไม่ใช่ 24 ชม.ย้อนหลัง) · ข้อมูลฝนต้นทางเป็นรายวัน จึงสร้างหน้าต่าง 24 ชม. ย้อนหลังจริงไม่ได้ — ระบุเป็นข้อจำกัด (SB F-17) · จุดเดียว ไม่ใช่ฝนเฉลี่ยพื้นที่ · วันที่ฝนขาดนับเป็น 0 ตามจำนวนใน imputation_counters",
+   "persistence_note": "ฐานเทียบสองแบบ: ค่าเดิมคงที่ (ระดับน้ำไม่เปลี่ยน) และค่าเดิมคงที่แบบรู้ทะเล h0 + (tide(t+lead) − tide(t)) — ตัวหลังเป็นฐานที่เป็นธรรมกับโมเดลผสานทะเล (BP F-04 · GLM F-08)",
+   "statistical_power_note": "ช่วงความเชื่อมั่น 95% จาก bootstrap บนชุดทดสอบเดียว (2,000 ครั้ง, seed คงที่) — ส่วนต่างที่ช่วงคร่อมศูนย์ = 'ยังสรุปทิศทางไม่ได้' ห้ามนำไปเทียบเชิงกำลังกับส่วนต่างช่วงแคบ โดยเฉพาะ +24/+48 ชม. (GLM F-08)"
   },
   "horizons": {
    "6": {
     "lead_hours": 6,
-    "persistence_rmse_cm": 61.8,
-    "linear_base_rmse_cm": 73.6,
-    "linear_coastal_rmse_cm": 35.9,
-    "linear_improvement_pct": 51.2,
-    "linear_improvement_vs_persistence_pct": 41.8,
-    "gbdt_base_rmse_cm": 98.0,
-    "gbdt_coastal_rmse_cm": 75.1,
-    "gbdt_improvement_pct": 23.4,
-    "n_train": 1125,
-    "n_test": 262
+    "persistence_rmse_cm": 63.6,
+    "persistence_tide_rmse_cm": 48.9,
+    "linear_base_rmse_cm": 79.6,
+    "linear_coastal_rmse_cm": 37.4,
+    "linear_improvement_pct": 53.0,
+    "linear_improvement_vs_persistence_pct": 41.2,
+    "linear_improvement_vs_persistence_ci95_pct": [
+     34.2,
+     47.8
+    ],
+    "linear_improvement_vs_tide_persistence_pct": 23.4,
+    "linear_improvement_vs_tide_persistence_ci95_pct": [
+     13.3,
+     32.8
+    ],
+    "gbdt_base_rmse_cm": 88.8,
+    "gbdt_coastal_rmse_cm": 76.7,
+    "gbdt_improvement_pct": 13.5,
+    "n_train": 1087,
+    "n_test": 226
    },
    "24": {
     "lead_hours": 24,
-    "persistence_rmse_cm": 21.2,
-    "linear_base_rmse_cm": 20.3,
-    "linear_coastal_rmse_cm": 20.6,
-    "linear_improvement_pct": -1.9,
-    "linear_improvement_vs_persistence_pct": 2.9,
-    "gbdt_base_rmse_cm": 39.6,
-    "gbdt_coastal_rmse_cm": 41.6,
-    "gbdt_improvement_pct": -5.0,
-    "n_train": 1449,
-    "n_test": 274
+    "persistence_rmse_cm": 21.8,
+    "persistence_tide_rmse_cm": 14.3,
+    "linear_base_rmse_cm": 21.0,
+    "linear_coastal_rmse_cm": 20.2,
+    "linear_improvement_pct": 4.0,
+    "linear_improvement_vs_persistence_pct": 7.4,
+    "linear_improvement_vs_persistence_ci95_pct": [
+     1.5,
+     13.6
+    ],
+    "linear_improvement_vs_tide_persistence_pct": -41.3,
+    "linear_improvement_vs_tide_persistence_ci95_pct": [
+     -66.5,
+     -19.5
+    ],
+    "gbdt_base_rmse_cm": 38.3,
+    "gbdt_coastal_rmse_cm": 38.5,
+    "gbdt_improvement_pct": -0.5,
+    "n_train": 1078,
+    "n_test": 226
    },
    "48": {
     "lead_hours": 48,
-    "persistence_rmse_cm": 37.6,
-    "linear_base_rmse_cm": 34.9,
-    "linear_coastal_rmse_cm": 33.8,
-    "linear_improvement_pct": 3.2,
-    "linear_improvement_vs_persistence_pct": 10.3,
-    "gbdt_base_rmse_cm": 47.9,
-    "gbdt_coastal_rmse_cm": 52.1,
-    "gbdt_improvement_pct": -8.8,
-    "n_train": 1421,
-    "n_test": 274
+    "persistence_rmse_cm": 39.1,
+    "persistence_tide_rmse_cm": 23.4,
+    "linear_base_rmse_cm": 37.2,
+    "linear_coastal_rmse_cm": 34.0,
+    "linear_improvement_pct": 8.6,
+    "linear_improvement_vs_persistence_pct": 13.0,
+    "linear_improvement_vs_persistence_ci95_pct": [
+     7.0,
+     19.4
+    ],
+    "linear_improvement_vs_tide_persistence_pct": -45.1,
+    "linear_improvement_vs_tide_persistence_ci95_pct": [
+     -69.7,
+     -23.3
+    ],
+    "gbdt_base_rmse_cm": 48.2,
+    "gbdt_coastal_rmse_cm": 52.4,
+    "gbdt_improvement_pct": -8.7,
+    "n_train": 1066,
+    "n_test": 226
    }
   }
  },
@@ -2423,15 +2506,15 @@
   "usable_datum": "จุดที่เกณฑ์วิกฤตใช้ได้ = ไม่เกินวิกฤตทั้งอนุกรม และ max ไม่ต่ำกว่าตลิ่งต่ำสุดของตัวเอง (SUSPECT ทั้งที่เหลือ)",
   "flood_peak_km2": "พื้นที่น้ำใหม่ (กฎ canonical เทียบฉากก่อนเหตุการณ์) ในที่ราบ <60 ม. · สูงสุดต่อลุ่ม · bkk_after_sea = หลังตัดน้ำถาวรสถิติ",
   "days_over_urc": "วันที่น้ำเก็บเกินระดับกำกับบน · 'ทั้งปี' (days_over_urc) ต่างจาก 'ก.ย.–ต.ค.' (days_over_urc_sep_oct) และ 'กลางหน้าฝน' (days_over_urc_aug_sep) — ห้ามสลับ",
-  "l3_test_window": "โมเดลทดสอบกลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 2569 (กริดถึง 9 ต.ค. 23:00) · เหตุการณ์ = 25 ก.ย.–9 ต.ค. · ฝึก = ฤดูฝน 2020–2026 ก่อน 20 ก.ย. (เฉพาะโมเดล 6 ลุ่ม — ดู l3_coastal_window สำหรับโมเดลปากอ่าว)",
-  "l3_coastal_window": "โมเดลปากอ่าว (C.12) ฝึกด้วยข้อมูลปี 2569 เดียว 1 ก.ค.–19 ก.ย. (~47 วัน) · ทดสอบ 20 ก.ย.–2 ต.ค. 13:00 (ข้อมูลเป้าหมายขาดหลัง 2 ต.ค.) = ครอบคลุม 57.1% ของช่วงที่ประกาศ · มีการตัดตัวอย่างฝึกที่เป้าหมายตกในช่วงทดสอบ (purge)",
+  "l3_test_window": "โมเดลทดสอบกลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 2569 (กริดถึง 9 ต.ค. 23:00) · เหตุการณ์ = 25 ก.ย.–9 ต.ค. · ฝึก = ฤดูฝน 2020–2026 ตัดตัวอย่างที่เป้าหมาย +48 ชม. ทับช่วงทดสอบ · เลือกโมเดลด้วยชุดตรวจสอบฤดูปลายฝน 2568 ไม่ใช่ชุดทดสอบ (เฉพาะโมเดล 6 ลุ่ม — ดู l3_coastal_window สำหรับโมเดลปากอ่าว)",
+  "l3_coastal_window": "โมเดลปากอ่าว (C.12) ฝึกด้วยข้อมูลปี 2569 เดียว 1 ก.ค.–19 ก.ย. (~47 วัน) · ทดสอบ 20 ก.ย.–2 ต.ค. 13:00 = ครอบคลุม 47.1% ของช่วงที่ประกาศ · สาเหตุที่สิ้นสุด: อนุกรม BKK001 (ต้นน้ำ) สิ้นสุดก่อน C.12/CPY015 (SB F-18) · ทุกระยะใช้ชุดตัวอย่างร่วมกัน · ตัดตัวอย่างฝึกที่เป้าหมายตกในช่วงทดสอบ (purge รายระยะ) · ฐานเทียบมีทั้งค่าเดิมคงที่ธรรมดาและแบบรู้ทะเล h0+Δtide · ฝึกฤดูเดียว — ยังไม่สรุปกำลังสถิติ",
   "s1_rule": "ตรวจกฎตัดน้ำ: F1 + ช่วง 95% (bootstrap แปลง 6 กม.) · ฉากควบคุมก่อนท่วม · สัดส่วน 'น้ำใหม่' ที่ฉากอ้างอิงมืดอยู่แล้ว (VH≤−20) · พื้นที่เมื่อเลื่อนเกณฑ์ VH ±2 dB",
   "c2_scenario": "เพดานการลดพีค C.2 จากปล่อยล่วงหน้า = ปล่อยจริงของสองเขื่อนวันพีค × ความชันสมการระดับ↔ปริมาตร (ถ้าไม่ปล่อยเลยวันพีค) · สถานการณ์ 40–100 ลลบ.ม./วัน เดิมถูกถอน (เกินเพดาน)",
   "estuary_tide": "ระดับน้ำปากแม่น้ำสูงสุด (ม.รทก.) ช่วงน้ำเกิด 26–28 ก.ย. 2569 พร้อมจำนวนประตูระบายน้ำปากอ่าวและช่วงน้ำเกิดปกติ 14 ปี (2012–2025)",
   "estuary_salinity": "ความเค็ม (กรัม/ลิตร) และการนำไฟฟ้า (µS/cm) ที่สถานีสำแล พระนั่งเกล้า และบางปะกง ช่วงน้ำหลาก 2569 และเส้นฐาน 9 ปี",
   "gulf_marine_swan": "แบบจำลองคลื่น SWAN 31 สถานี ความสูงคลื่นนัยสำคัญ (เมตร) บริเวณอ่าวไทยตอนบนที่ต้านการระบายน้ำหลาก",
   "glofas_streamflow": "อัตราการไหลของน้ำท่าจำลองรายวัน (ลบ.ม./วินาที) ต่อเนื่อง 17 ปี (2553–2569 รวม 6,134 วัน) จาก Copernicus GloFAS",
-  "l3_coastal_coupled": "การประเมินแบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่าง (C.12 สามเสน) แบบผสานขอบเขตทะเลหนุน (CPY015 สะพานกรุงเทพ) เทียบกับ baseline เดิม — ผสานน้ำขึ้นน้ำลงเท่านั้น ไม่รวมคลื่น SWAN (ข้อมูลคลื่นที่มีเป็น snapshot เดียวหลังช่วงทดสอบ จึงไม่ใช้เป็นตัวแปร)",
+  "l3_coastal_coupled": "การประเมินแบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่าง (C.12 สามเสน) แบบผสานขอบเขตทะเลหนุน (CPY015 สะพานกรุงเทพ) — ผสานน้ำขึ้นน้ำลงเท่านั้น ไม่รวมคลื่น SWAN (ข้อมูลคลื่นที่มีเป็น snapshot เดียวหลังช่วงทดสอบ จึงไม่ใช้เป็นตัวแปร) · ฐานเทียบ 2 แบบ: ค่าเดิมคงที่ธรรมดา และค่าเดิมคงที่แบบรู้ทะเล h0+(tide(t+h)−tide(t)) · รายงานช่วงความเชื่อมั่น 95% (bootstrap) ของส่วนต่าง · ถอดตัวแปรซ้ำเชิงเส้น (tide_head) ออกแล้ว — ตรวจอันดับเมทริกซ์เต็ม",
   "compound_flood_risk": "เมทริกซ์ความเสี่ยงน้ำหลาก 7 ระดับน้ำ × 8 ช่วงเวลาน้ำหนุน ที่ C.12 สามเสน — โมดูลสำรวจสาธิต (สมการบวกตรง ไม่มีพจน์ปฏิสัมพันธ์ Q×tide) ยังไม่สอบเทียบกับเหตุการณ์จริง · ยังไม่เรนเดอร์ในรายงาน 3"
  },
  "retired": {

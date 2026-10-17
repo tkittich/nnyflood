@@ -8,8 +8,16 @@
  },
  "upstream": "S.28",
  "rain_point": "ลุ่มบนป่าสัก",
- "train_hours": 7448,
+ "train_hours": 7408,
  "test_hours": 299,
+ "validation": {
+  "window": "2025-09-01..2025-10-09 (ปลายฤดูฝน 2568)",
+  "n_val": 740,
+  "purge_hours": 48,
+  "n_purged_before_test": 40,
+  "selection_note": "เลือกโมเดลจากชุดตรวจสอบก่อนชุดทดสอบ — ไม่เลือกจากชุดทดสอบ (รีวิวรอบ 4 BP F-02)",
+  "rain_features_note": "R24/R72/R168 = ผลรวมฝนรายวัน (NASA POWER) สิ้นสุดเมื่อวาน — ไม่ใช่ 24 ชม.ย้อนหลัง (รีวิวรอบ 4 GLM F-06)"
+ },
  "results": {
   "6": {
    "rows": [
@@ -17,34 +25,44 @@
      "model": "persistence",
      "rmse_cm": 20.8,
      "mae_cm": 12.5,
-     "rmse_event_cm": 23.9
+     "rmse_event_cm": 23.9,
+     "rmse_val_cm": 12.1
     },
     {
      "model": "linear",
-     "rmse_cm": 44.0,
-     "mae_cm": 28.8,
-     "rmse_event_cm": 50.6
+     "rmse_cm": 44.3,
+     "mae_cm": 29.1,
+     "rmse_event_cm": 50.9,
+     "rmse_val_cm": 17.4
     },
     {
      "model": "GBDT",
-     "rmse_cm": 30.9,
-     "mae_cm": 21.2,
-     "rmse_event_cm": 36.2
+     "rmse_cm": 33.3,
+     "mae_cm": 25.0,
+     "rmse_event_cm": 39.1,
+     "rmse_val_cm": 36.2
     }
    ],
    "coef_linear": [
-    0.7129,
-    0.0836,
-    0.1169,
-    -0.58,
-    0.1205,
+    0.7114,
+    0.0834,
+    0.1168,
+    -0.5788,
+    0.1216,
     -0.0001,
-    -0.0465,
+    -0.0461,
     0.0046,
     -0.0014,
     0.0029
    ],
-   "n_train": 7448,
+   "selected": "persistence",
+   "rmse_val_cm": {
+    "persistence": 12.1,
+    "linear": 17.4,
+    "GBDT": 36.2
+   },
+   "n_val": 740,
+   "n_train": 7408,
    "n_test": 299
   },
   "24": {
@@ -53,34 +71,44 @@
      "model": "persistence",
      "rmse_cm": 68.6,
      "mae_cm": 40.0,
-     "rmse_event_cm": 69.3
+     "rmse_event_cm": 69.3,
+     "rmse_val_cm": 28.8
     },
     {
      "model": "linear",
-     "rmse_cm": 83.2,
-     "mae_cm": 51.3,
-     "rmse_event_cm": 87.3
+     "rmse_cm": 83.4,
+     "mae_cm": 51.5,
+     "rmse_event_cm": 87.5,
+     "rmse_val_cm": 26.5
     },
     {
      "model": "GBDT",
-     "rmse_cm": 74.6,
-     "mae_cm": 43.3,
-     "rmse_event_cm": 79.3
+     "rmse_cm": 75.1,
+     "mae_cm": 50.2,
+     "rmse_event_cm": 80.8,
+     "rmse_val_cm": 78.4
     }
    ],
    "coef_linear": [
-    0.609,
-    0.1091,
-    0.1135,
-    -0.4614,
-    0.3035,
+    0.6077,
+    0.1089,
+    0.1134,
+    -0.4604,
+    0.3046,
     0.0,
-    -0.189,
+    -0.1886,
     0.008,
     -0.001,
-    0.0034
+    0.0033
    ],
-   "n_train": 7448,
+   "selected": "linear",
+   "rmse_val_cm": {
+    "persistence": 28.8,
+    "linear": 26.5,
+    "GBDT": 78.4
+   },
+   "n_val": 740,
+   "n_train": 7408,
    "n_test": 299
   },
   "48": {
@@ -89,34 +117,44 @@
      "model": "persistence",
      "rmse_cm": 125.9,
      "mae_cm": 80.4,
-     "rmse_event_cm": 107.5
+     "rmse_event_cm": 107.5,
+     "rmse_val_cm": 53.3
     },
     {
      "model": "linear",
-     "rmse_cm": 126.3,
-     "mae_cm": 76.1,
-     "rmse_event_cm": 103.4
+     "rmse_cm": 126.5,
+     "mae_cm": 76.2,
+     "rmse_event_cm": 103.5,
+     "rmse_val_cm": 35.7
     },
     {
      "model": "GBDT",
-     "rmse_cm": 125.9,
-     "mae_cm": 81.4,
-     "rmse_event_cm": 114.0
+     "rmse_cm": 124.1,
+     "mae_cm": 80.1,
+     "rmse_event_cm": 111.3,
+     "rmse_val_cm": 112.2
     }
    ],
    "coef_linear": [
-    0.614,
-    0.1056,
-    0.1126,
-    -0.4636,
-    0.5811,
+    0.6127,
+    0.1054,
+    0.1127,
+    -0.4626,
+    0.5821,
     -0.0,
-    -0.4717,
+    -0.4715,
     0.0087,
     -0.0017,
     0.0045
    ],
-   "n_train": 7448,
+   "selected": "linear",
+   "rmse_val_cm": {
+    "persistence": 53.3,
+    "linear": 35.7,
+    "GBDT": 112.2
+   },
+   "n_val": 740,
+   "n_train": 7408,
    "n_test": 299
   }
  }

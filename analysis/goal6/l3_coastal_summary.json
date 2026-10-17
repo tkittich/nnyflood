@@ -6,51 +6,115 @@
     "tide_station": "CPY015 (สะพานกรุงเทพ ปากแม่น้ำเจ้าพระยา)",
     "test_window_declared": "2026-09-20..2026-10-09",
     "test_window_actual": "2026-09-20..2026-10-02 13:00",
-    "test_coverage_pct": 57.1,
+    "test_coverage_pct": 47.1,
+    "series_end": {
+      "target_C12": "2026-10-09 23:00",
+      "upstream_BKK001": "2026-10-02 15:00",
+      "tide_CPY015": "2026-10-09 23:00"
+    },
+    "truncation_cause": "ช่วงทดสอบสิ้นสุด (test_window_actual) เพราะอนุกรม BKK001 (ต้นน้ำ) สิ้นสุดก่อน C.12 และ CPY015 — ไม่ใช่ 'ข้อมูลเป้าหมายขาดช่วง 2–9 ต.ค.' (SB F-18) · ส่วนความครอบคลุมที่หายไปเกินเพดาน BKK001 มาจากชั่วโมงข้อมูลขาดของจุดเป้าหมาย/น้ำขึ้น–น้ำลง (ดู test_coverage_breakdown)",
+    "test_coverage_breakdown": {
+      "declared_hours": 480,
+      "cap_hours_if_BKK001_complete": 304,
+      "cap_pct_if_BKK001_complete": 63.3,
+      "usable_hours": 226,
+      "usable_pct": 47.1,
+      "note": "เพดาน = ชั่วโมงตั้งแต่ 20 ก.ย. ถึงเวลาสิ้นสุดของ BKK001 (ถ้าจุดอื่นไม่ขาด) · ค่าจริงต่ำกว่าเพราะชั่วโมงข้อมูลขาดในชุดเป้าหมาย/น้ำขึ้น–น้ำลงเมื่อบังคับครบทุกระยะ"
+    },
     "train_window_actual": "2026-07-01..2026-09-19",
-    "train_scope_note": "ฝึกด้วยข้อมูลปี 2569 เดียว ~47 วัน (1,130–1,467 ชม.) — ไม่ใช่ฤดูฝน 2020–2026",
-    "purge_note": "ตัดตัวอย่างฝึกที่เป้าหมาย (t+lead) ตกในช่วงทดสอบ เพื่อกันการรั่วของป้าย",
-    "coupling": "Tidal-Coupled (ไม่รวมคลื่น SWAN — ข้อมูลที่มีเป็น snapshot เดียวหลังช่วงทดสอบ)"
+    "train_scope_note": "ฝึกด้วยข้อมูลปี 2569 เดียว ~47 วัน — ไม่ใช่ฤดูฝน 2020–2026 · ยังไม่ fit หลายฤดู (ต้องรอข้อมูลฤดูถัดไป; GLM F-08 · SB F-16) จึงเป็น 'การพยากรณ์ในช่วงเหตุการณ์เดียว' ไม่ใช่การทดสอบวางนัยทั่วไป",
+    "purge_note": "ตัดตัวอย่างฝึกเมื่อ 'เป้าหมายของระยะนั้น' (t+lead) ตกในช่วงทดสอบ — n_train ต่างกันเล็กน้อยตามระยะ โดยออกแบบ (n_test เท่ากันทุกระยะ)",
+    "common_sample_note": "ทุกระยะใช้ชุดตัวอย่างชุดเดียวกัน (บังคับให้มีข้อมูลปลายทางและน้ำขึ้น–น้ำลงครบทั้ง +6/+24/+48 ชม.) — เทียบข้ามระยะได้ตรง (BP F-04)",
+    "coupling": "Tidal-Coupled (ไม่รวมคลื่น SWAN — ข้อมูลที่มีเป็น snapshot เดียวหลังช่วงทดสอบ)",
+    "feature_rank_check": {
+      "n_features": 12,
+      "rank": 12,
+      "note": "อันดับเมทริกซ์เต็ม (ไม่มีความซ้ำเชิงเส้น) — ถอด tide_head ออกแล้ว (BP F-03)"
+    },
+    "imputation_counters": {
+      "h1": 86,
+      "h3": 195,
+      "h6": 358,
+      "u6": 1,
+      "u12": 2,
+      "tide1": 10,
+      "rain_zero": 0,
+      "n_samples_all": 1317,
+      "note": "จำนวนตัวอย่างที่ต้องเติมค่าแทนจุดข้อมูลขาด: lag ระดับน้ำ (แทนด้วย h0), lag ต้นน้ำ (แทน u0), น้ำขึ้น–น้ำลง lag 1 ชม. (แทน tide0), ฝนวันก่อนหน้า (แทน 0) — เปิดเผยก่อนตีความ (GLM F-07 · SB F-17)"
+    },
+    "rain_note": "R24 = ผลรวมฝนรายวัน NASA POWER จุดกรุงเทพกลาง ของ 'วันก่อนหน้า' (ไม่ใช่ 24 ชม.ย้อนหลัง) · ข้อมูลฝนต้นทางเป็นรายวัน จึงสร้างหน้าต่าง 24 ชม. ย้อนหลังจริงไม่ได้ — ระบุเป็นข้อจำกัด (SB F-17) · จุดเดียว ไม่ใช่ฝนเฉลี่ยพื้นที่ · วันที่ฝนขาดนับเป็น 0 ตามจำนวนใน imputation_counters",
+    "persistence_note": "ฐานเทียบสองแบบ: ค่าเดิมคงที่ (ระดับน้ำไม่เปลี่ยน) และค่าเดิมคงที่แบบรู้ทะเล h0 + (tide(t+lead) − tide(t)) — ตัวหลังเป็นฐานที่เป็นธรรมกับโมเดลผสานทะเล (BP F-04 · GLM F-08)",
+    "statistical_power_note": "ช่วงความเชื่อมั่น 95% จาก bootstrap บนชุดทดสอบเดียว (2,000 ครั้ง, seed คงที่) — ส่วนต่างที่ช่วงคร่อมศูนย์ = 'ยังสรุปทิศทางไม่ได้' ห้ามนำไปเทียบเชิงกำลังกับส่วนต่างช่วงแคบ โดยเฉพาะ +24/+48 ชม. (GLM F-08)"
   },
   "horizons": {
     "6": {
       "lead_hours": 6,
-      "persistence_rmse_cm": 61.8,
-      "linear_base_rmse_cm": 73.6,
-      "linear_coastal_rmse_cm": 35.9,
-      "linear_improvement_pct": 51.2,
-      "linear_improvement_vs_persistence_pct": 41.8,
-      "gbdt_base_rmse_cm": 98.0,
-      "gbdt_coastal_rmse_cm": 75.1,
-      "gbdt_improvement_pct": 23.4,
-      "n_train": 1125,
-      "n_test": 262
+      "persistence_rmse_cm": 63.6,
+      "persistence_tide_rmse_cm": 48.9,
+      "linear_base_rmse_cm": 79.6,
+      "linear_coastal_rmse_cm": 37.4,
+      "linear_improvement_pct": 53.0,
+      "linear_improvement_vs_persistence_pct": 41.2,
+      "linear_improvement_vs_persistence_ci95_pct": [
+        34.2,
+        47.8
+      ],
+      "linear_improvement_vs_tide_persistence_pct": 23.4,
+      "linear_improvement_vs_tide_persistence_ci95_pct": [
+        13.3,
+        32.8
+      ],
+      "gbdt_base_rmse_cm": 88.8,
+      "gbdt_coastal_rmse_cm": 76.7,
+      "gbdt_improvement_pct": 13.5,
+      "n_train": 1087,
+      "n_test": 226
     },
     "24": {
       "lead_hours": 24,
-      "persistence_rmse_cm": 21.2,
-      "linear_base_rmse_cm": 20.3,
-      "linear_coastal_rmse_cm": 20.6,
-      "linear_improvement_pct": -1.9,
-      "linear_improvement_vs_persistence_pct": 2.9,
-      "gbdt_base_rmse_cm": 39.6,
-      "gbdt_coastal_rmse_cm": 41.6,
-      "gbdt_improvement_pct": -5.0,
-      "n_train": 1449,
-      "n_test": 274
+      "persistence_rmse_cm": 21.8,
+      "persistence_tide_rmse_cm": 14.3,
+      "linear_base_rmse_cm": 21.0,
+      "linear_coastal_rmse_cm": 20.2,
+      "linear_improvement_pct": 4.0,
+      "linear_improvement_vs_persistence_pct": 7.4,
+      "linear_improvement_vs_persistence_ci95_pct": [
+        1.5,
+        13.6
+      ],
+      "linear_improvement_vs_tide_persistence_pct": -41.3,
+      "linear_improvement_vs_tide_persistence_ci95_pct": [
+        -66.5,
+        -19.5
+      ],
+      "gbdt_base_rmse_cm": 38.3,
+      "gbdt_coastal_rmse_cm": 38.5,
+      "gbdt_improvement_pct": -0.5,
+      "n_train": 1078,
+      "n_test": 226
     },
     "48": {
       "lead_hours": 48,
-      "persistence_rmse_cm": 37.6,
-      "linear_base_rmse_cm": 34.9,
-      "linear_coastal_rmse_cm": 33.8,
-      "linear_improvement_pct": 3.2,
-      "linear_improvement_vs_persistence_pct": 10.3,
-      "gbdt_base_rmse_cm": 47.9,
-      "gbdt_coastal_rmse_cm": 52.1,
-      "gbdt_improvement_pct": -8.8,
-      "n_train": 1421,
-      "n_test": 274
+      "persistence_rmse_cm": 39.1,
+      "persistence_tide_rmse_cm": 23.4,
+      "linear_base_rmse_cm": 37.2,
+      "linear_coastal_rmse_cm": 34.0,
+      "linear_improvement_pct": 8.6,
+      "linear_improvement_vs_persistence_pct": 13.0,
+      "linear_improvement_vs_persistence_ci95_pct": [
+        7.0,
+        19.4
+      ],
+      "linear_improvement_vs_tide_persistence_pct": -45.1,
+      "linear_improvement_vs_tide_persistence_ci95_pct": [
+        -69.7,
+        -23.3
+      ],
+      "gbdt_base_rmse_cm": 48.2,
+      "gbdt_coastal_rmse_cm": 52.4,
+      "gbdt_improvement_pct": -8.7,
+      "n_train": 1066,
+      "n_test": 226
     }
   }
 }

@@ -246,10 +246,11 @@
       scrollWheelZoom: false
     });
 
-    // แผนที่ฐาน CartoDB Voyager สวยงาม มินิมอล อ่านสบายตา
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      maxZoom: 18
+    // แผนที่ฐาน OpenStreetMap — ไม่ต้องใช้คีย์ และป้ายชื่อสถานที่เป็นภาษาไทย
+    // (เดิมใช้ CARTO Voyager แต่ตั้งแต่ ส.ค. 2569 CARTO บังคับคีย์ — ไร้คีย์จะได้กระเบื้องลายน้ำ "API KEY REQUIRED")
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19
     }).addTo(map);
 
     // Layer Groups

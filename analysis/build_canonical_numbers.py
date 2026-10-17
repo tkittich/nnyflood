@@ -120,28 +120,38 @@ med_dams = jload(ANA / "goal2_nny_medium_dams_summary.json")
 # ---------- เขื่อนขุนด่านฯ สถิติ 22 ปีเต็ม 2548–2569 ----------
 kd22 = jload(ANA / "goal2_khundan_22y_summary.json")
 
+# ---------- แบบจำลองชลศาสตร์ 1 มิติ (1D Hydrodynamic Routing) ----------
+r1d_file = ANA / "hydraulic_1d_routing_summary.json"
+r1d = jload(r1d_file) if r1d_file.exists() else {}
+
 # ---------- ภาคตัดขวางสำรวจจริง Ny.1B (RID SWOC Hydro App) ----------
-# หมายเหตุความสอดคล้อง (F-10 / N-02): bankfull_q_m3s = 244.6 ม³/วิ เป็นค่าตามตารางพิกัดเดิมของกรมชลฯ (Rating Curve ประวัติศาสตร์)
-# ขณะที่การจำลองชลศาสตร์ 1D ด้วยสมการ Manning จากภาคตัดขวางสำรวจ 61 จุด (r1d_ny1b_q_bankfull) ให้ค่า 666.3 ม³/วิ
+# รีวิวรอบ 4 (Tier-2): ตัวเลขหลัก = ผลสมการ Manning บนภาคตัดขวางสำรวจ 61 จุด (ค่ากลางวิธีรวมหน้าตัด 666.3)
+# + ช่วงความไม่แน่นอน 488.9–893.0 (ปลายล่าง = ความลาดชันเรียบของช่วงท้ายน้ำ · ปลายบน = วิธีแบ่งช่อง)
+# ยึดระดับ/อัตราไหลสูงสุดกับโทรมาตรจริง (11.00 ม.รทก. / 675.3 ม³/วิ)
+# ค่าเก่าตามเส้นระดับ–ปริมาณน้ำเดิม (244.6 · 11.23 · 282.4) ปลดประจำการจากรายงาน — เก็บ note ไว้ในแฟ้มนี้เท่านั้น
 ny1b_xs = {
     "survey_points": 61,
     "bed_elevation_msl": 4.10,
-    "bank_elevation_msl": 10.60,
-    "bankfull_q_m3s": 244.6,
-    "historical_rating_note": "ค่าความจุลำน้ำเดิมตามตารางโทรมาตรประวัติศาสตร์ RID (เทียบกับ 666.3 ม³/วิ จากแบบจำลอง 1D Manning ภาคตัดขวางสำรวจจริง 61 จุด)",
-    "peak_stage_msl": 11.23,
-    "peak_q_m3s": 282.4,
-    "overflow_depth_m": 0.63,
-    "overflow_q_m3s": 37.8,
+    "bank_elevation_msl": r1d["ny1b_hydraulics"]["bankfull_crest_msl_m"],
+    "bankfull_q_m3s": r1d["ny1b_hydraulics"]["bankfull_capacity_q_cms"],
+    "bankfull_q_low_m3s": r1d["rating_sensitivity"]["ny1b_flat_slope"]["bankfull_crest_10.60"]["q_composite_cms"],
+    "bankfull_q_high_m3s": r1d["rating_sensitivity"]["ny1b"]["bankfull_crest_10.60"]["q_divided_cms"],
+    "legacy_rating_note": "ค่าเก่า 244.6 ม³/วิ มาจากตารางเส้นระดับ–ปริมาณน้ำ (rating) ประวัติศาสตร์ของกรมชลฯ ไม่ใช่ผลสมการ Manning — เลิกใช้ในรายงานแล้ว (รีวิวรอบ 4)",
+    "peak_stage_msl": r1d["ny1b_hydraulics"]["peak_stage_msl_m"],
+    "peak_q_m3s": r1d["ny1b_hydraulics"]["peak_q_cms"],
+    "overflow_depth_m": r1d["ny1b_hydraulics"]["peak_above_bankfull_m"],
+    "overflow_q_m3s": round(r1d["ny1b_hydraulics"]["peak_q_cms"] - r1d["ny1b_hydraulics"]["bankfull_capacity_q_cms"], 1),
 }
 
 checks = {
     "public": ["452.1", "363.6", "306.9", "51.5", "12%", "60%", "65 ชม.",
                "9.23", "9.80", "8.45", "6.86", "0.78 ม.", "1.18",
-               "1,058–1,416", "242", "26.96", "244.6", "10.60"],
+               "1,058–1,416", "242", "26.96", "666.3", "675.3", "488.9", "893.0",
+               "10.60", "0.40", "9.0", "7,811", "38.0"],
     "expert": ["452.1", "363.6", "306.9", "51.5", "12%", "60%", "65 ชม.",
                "9.23", "8.45", "7.64", "6.86", "8.21", "11.89", "117.6",
-               "1,058–1,416", "242(h−4.55)", "4.55", "26.96", "244.6", "10.60"],
+               "1,058–1,416", "242(h−4.55)", "4.55", "26.96", "666.3", "675.3", "488.9", "893.0",
+               "10.60", "0.40", "9.0", "7,811", "38.0", "4 พฤศจิกายน", "27 กันยายน"],
 }
 
 # ค่า/คำที่เลิกใช้ — ห้ามปรากฏใน HTML ที่ build (builders/tests ตรวจ absence — GL-10)
@@ -149,7 +159,9 @@ FORBIDDEN = ["เกินเส้นควบคุม 36 วัน", "ต่�
              "น้ำสูงสุดสูงสุด", "น้ำสูงสุดสุด", "ทำนายทำนาย", "น้ำน้ำ", "ผู้ว้าฯ",
              "509.3", "436.3", "62.2", "450.5", "364.5", "50.0", "202.3", "104.4", "75.8", "68.1",
              "176.0", "50.5", "≈380–450", "0.732", "0.676", "0.798",
-             "13,608", "26.6 ซม", "108.6", "159.5", "120.3", "153.5", "153.8"]
+             "13,608", "26.6 ซม", "108.6", "159.5", "120.3", "153.5", "153.8",
+             # รีวิวรอบ 4 (Tier-2): ค่า Ny.1B รุ่นเก่าตามเส้น rating เดิม · ค่ามัธยฐานขุนด่านแบบรวมปีเหตุการณ์ · จำนวนวันนับเก่า
+             "244.6", "11.23", "282.4", "36.5 วัน", "7,961", "7,945"]
 
 # ค่าที่เลิกใช้แล้ว "ในบริบทหนึ่ง" แต่ยังปรากฏอย่างถูกต้องในอีกบริบท (คนละปริมาณ/คนละโดเมน)
 # เหตุผล: FORBIDDEN เป็นรายการแบนราบ การจับแบบ substring ล้วนทำให้ค่าที่บังเอิญซ้ำกับ
@@ -186,9 +198,18 @@ _era_rank = _era_sorted.index(_era26) + 1
 # ตรวจกฎตัดน้ำ (รีวิว Sonnet M1/R9) — อ่านจาก analysis/goal6/s1_rule_validation.json (ผลิตโดย goal6_s1_rule_validation.py)
 _rv = json.loads((ANA / "goal6" / "s1_rule_validation.json").read_text(encoding="utf-8"))["nakhonnayok"]
 _pk_rows = [r for r in _rv["sensitivity"] if r["scene"] == "peak_27sep" and r["drop_vh"] == 0.5 and r["drop_vv"] == 1.5]
-# ---------- แบบจำลองชลศาสตร์ 1 มิติ (1D Hydrodynamic Routing) ----------
-r1d_file = ANA / "hydraulic_1d_routing_summary.json"
-r1d = jload(r1d_file) if r1d_file.exists() else {}
+# ตัวช่วยรูปแบบวันที่ไทยสำหรับ token (SB F-22 · SB F-23)
+TH_MONTHS = {1: "มกราคม", 2: "กุมภาพันธ์", 3: "มีนาคม", 4: "เมษายน", 5: "พฤษภาคม", 6: "มิถุนายน",
+             7: "กรกฎาคม", 8: "สิงหาคม", 9: "กันยายน", 10: "ตุลาคม", 11: "พฤศจิกายน", 12: "ธันวาคม"}
+
+
+def _th_date(iso: str) -> str:
+    """'2026-11-04' -> '4 พฤศจิกายน'"""
+    _y, _m, _d = iso.split("-")
+    return f"{int(_d)} {TH_MONTHS[int(_m)]}"
+
+
+_kd_full_years = [str(r["year_be"]) for r in kd22["annual_records"] if r["is_full_100pct"]]
 
 render = {
     "s1_pk_lo": f"{min(r['area_km2'] for r in _pk_rows):.0f}", "s1_pk_hi": f"{max(r['area_km2'] for r in _pk_rows):.0f}",
@@ -217,9 +238,17 @@ render = {
     "kd22_full_yr": f"{kd22['headline_metrics']['full_capacity_years']} จาก {kd22['metadata']['period_years']} ปี",
     "kd22_full_pct": f"{kd22['headline_metrics']['full_capacity_pct']:.1f}%",
     "kd22_days_early": f"{kd22['headline_metrics']['year_2026_anomaly']['days_earlier_than_median']}",
+    "kd22_days": f"{kd22['metadata']['total_days_analyzed']:,}",
+    "kd22_med_date": _th_date(kd22["headline_metrics"]["year_2026_anomaly"]["median_peak_date_excl_2026"]),
+    "kd22_pk_date": _th_date(kd22["headline_metrics"]["year_2026_anomaly"]["peak_date"]),
+    "kd22_full99": f"{kd22['headline_metrics']['full_capacity_thresholds']['pct_99']}",
+    "kd22_full98": f"{kd22['headline_metrics']['full_capacity_thresholds']['pct_98']}",
+    "kd22_full_years_list": ", ".join(_kd_full_years[:-1]) + f" และ {_kd_full_years[-1]}",
     "ny1b_pts": f"{ny1b_xs['survey_points']}",
     "ny1b_bank_msl": f"{ny1b_xs['bank_elevation_msl']:.2f}",
     "ny1b_q_bankfull": f"{ny1b_xs['bankfull_q_m3s']:.1f}",
+    "ny1b_q_low": f"{ny1b_xs['bankfull_q_low_m3s']:.1f}",
+    "ny1b_q_high": f"{ny1b_xs['bankfull_q_high_m3s']:.1f}",
     "ny1b_pk_msl": f"{ny1b_xs['peak_stage_msl']:.2f}",
     "ny1b_pk_q": f"{ny1b_xs['peak_q_m3s']:.1f}",
     "ny1b_ov_m": f"{ny1b_xs['overflow_depth_m']:.2f}",
@@ -250,7 +279,7 @@ out = {
             "levels": "โทรมาตร กช. + ภาคตัดขวาง data/19 (recorded constants)",
             "medium_dams": "analysis/goal2_nny_medium_dams_summary.json (SWOC RID 6 อ่างขนาดกลางนครนายก)",
             "khundan_22y": "analysis/goal2_khundan_22y_summary.json (SWOC RID สถิติ 22 ปี 2548–2569)",
-            "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด)",
+            "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด) + analysis/hydraulic_1d_routing_summary.json (ค่าหลัก 666.3 · ช่วง 488.9–893.0 · พีคโทรมาตร 11.00/675.3)",
             "hydraulic_1d_routing": "analysis/hydraulic_1d_routing_summary.json (Saint-Venant kinematic/diffusive wave Ny.1B -> Ny.7)",
         },
     },

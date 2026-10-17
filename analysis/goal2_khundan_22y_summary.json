@@ -13,6 +13,12 @@
   "headline_metrics": {
     "full_capacity_years": 9,
     "full_capacity_pct": 40.9,
+    "full_capacity_thresholds": {
+      "pct_100": 9,
+      "pct_99": 12,
+      "pct_98": 13,
+      "definition_note": "นิยาม 'เต็มความจุ' มี 3 เกณฑ์ที่ใช้ได้ทุกรายการจากชุดข้อมูลเดียวกัน: ≥100% ของความจุกักเก็บใช้งาน (เกณฑ์หัวข้อหลักของรายงาน = เข้มสุด) = 9 ปี · ≥99% = 12 ปี · ≥98% = 13 ปี (SB F-23)"
+    },
     "peak_month_distribution": {
       "september": 2,
       "september_pct": 9.1,
@@ -23,7 +29,12 @@
     },
     "year_2026_anomaly": {
       "peak_date": "2026-09-27",
-      "days_earlier_than_median": 36.5,
+      "days_earlier_than_median": 38.0,
+      "days_earlier_than_median_all22": 36.5,
+      "median_peak_doy_excl_2026": 308.0,
+      "median_peak_doy_all22": 306.5,
+      "median_peak_date_excl_2026": "2026-11-04",
+      "median_note": "ค่าหลักใช้มัธยฐานแบบ leave-one-out (ตัดปี 2569 ออก — SB F-22) · ค่าเดิมที่รวม 22 ปีทั้งหมดถูกปลดประจำการแล้ว (เก็บบันทึกไว้เทียบ)",
       "historical_rank_earliest": 1,
       "note": "ตลอด 22 ปี มีเพียง 2 ปีเท่านั้นที่น้ำเต็มพีคในเดือนกันยายน (2556 และ 2569) อีก 20 ปีที่เหลือพีคใน ต.ค.–พ.ย."
     }

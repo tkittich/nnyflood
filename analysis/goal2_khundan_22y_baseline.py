@@ -4,7 +4,7 @@
 คำถามวิจัย:
 1. ตลอดอายุการใช้งาน 22 ปี (2005–2026 / 7,811 วัน) เขื่อนขุนด่านฯ น้ำเต็มความจุ (≥ 224 ล้าน ลบ.ม.) กี่ปี?
 2. ปกติแล้วเขื่อนขุนด่านฯ น้ำเต็มพีคในช่วงวันและเดือนใดของปี?
-3. การที่เขื่อนน้ำเต็ม 100% ในวันที่ 27 กันยายน 2569 ถือเป็นความผิดปกติทางสถิติ (Temporal Anomaly) มากน้อยเพียงใด?
+3. การที่เขื่อนน้ำเต็ม 100% ในวันที่ 27 กันยายน 2569 ถือเป็นความผิดปกติทางสถิติ (Temporal Anomaly) มากน้อยเพียงใด? (ค่าฐานมัธยฐานแบบ leave-one-out — ตัดปี 2569)
 4. อัตราการเพิ่มของน้ำในอ่างช่วงเดือนกันยายนปี 2569 เทียบกับประวัติศาสตร์ 22 ปี
 
 แหล่งข้อมูล:
@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import json
 import statistics
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -104,13 +104,21 @@ def analyze():
     total_years = len(year_stats)
     
     # คำนวณมัธยฐานวันที่น้ำพีคสูงสุดของปี (Day of Year บนปีมาตรฐาน 365 วัน)
+    # ค่าหลักใช้ leave-one-out — ตัดปีที่กำลังวัด (2569) ออก กันค่าฐานกลืนปีเหตุการณ์เอง (SB F-22)
     doys_all = [
         datetime(2026, int(r["peak_date"][5:7]), int(r["peak_date"][8:10])).timetuple().tm_yday
         for r in year_stats
     ]
-    median_doy = float(statistics.median(doys_all))
+    doys_loo = [v for r, v in zip(year_stats, doys_all) if r["year_ce"] != 2026]
+    median_doy_all = float(statistics.median(doys_all))
+    median_doy_loo = float(statistics.median(doys_loo))
     doy_2026 = float(datetime(2026, 9, 27).timetuple().tm_yday)
-    days_early = round(median_doy - doy_2026, 1)
+    days_early_all = round(median_doy_all - doy_2026, 1)
+    days_early = round(median_doy_loo - doy_2026, 1)  # ค่าหลัก (LOO) — ค่าเดิมรวม 22 ปีถูกปลดประจำการ
+    med_loo_date = datetime(2026, 1, 1) + timedelta(days=int(round(median_doy_loo)) - 1)
+    # เกณฑ์ "เต็มความจุ" 3 นิยาม (SB F-23) — รายงานพร้อมป้ายกำกับ ห้ามใช้ชื่อเดียวครอบทุกนิยาม
+    n_ge99 = sum(1 for r in year_stats if r["peak_pct"] >= 99)
+    n_ge98 = sum(1 for r in year_stats if r["peak_pct"] >= 98)
 
     summary = {
         "metadata": {
@@ -127,6 +135,16 @@ def analyze():
         "headline_metrics": {
             "full_capacity_years": overflow_count,
             "full_capacity_pct": round((overflow_count / total_years) * 100, 1),
+            "full_capacity_thresholds": {
+                "pct_100": overflow_count,
+                "pct_99": n_ge99,
+                "pct_98": n_ge98,
+                "definition_note": (
+                    "นิยาม 'เต็มความจุ' มี 3 เกณฑ์ที่ใช้ได้ทุกรายการจากชุดข้อมูลเดียวกัน: "
+                    f"≥100% ของความจุกักเก็บใช้งาน (เกณฑ์หัวข้อหลักของรายงาน = เข้มสุด) = {overflow_count} ปี · "
+                    f"≥99% = {n_ge99} ปี · ≥98% = {n_ge98} ปี (SB F-23)"
+                ),
+            },
             "peak_month_distribution": {
                 "september": september_peaks,
                 "september_pct": round((september_peaks / total_years) * 100, 1),
@@ -138,6 +156,14 @@ def analyze():
             "year_2026_anomaly": {
                 "peak_date": "2026-09-27",
                 "days_earlier_than_median": days_early,
+                "days_earlier_than_median_all22": days_early_all,
+                "median_peak_doy_excl_2026": median_doy_loo,
+                "median_peak_doy_all22": median_doy_all,
+                "median_peak_date_excl_2026": med_loo_date.strftime("%Y-%m-%d"),
+                "median_note": (
+                    "ค่าหลักใช้มัธยฐานแบบ leave-one-out (ตัดปี 2569 ออก — SB F-22) · "
+                    "ค่าเดิมที่รวม 22 ปีทั้งหมดถูกปลดประจำการแล้ว (เก็บบันทึกไว้เทียบ)"
+                ),
                 "historical_rank_earliest": 1,
                 "note": "ตลอด 22 ปี มีเพียง 2 ปีเท่านั้นที่น้ำเต็มพีคในเดือนกันยายน (2556 และ 2569) อีก 20 ปีที่เหลือพีคใน ต.ค.–พ.ย.",
             },
@@ -152,12 +178,13 @@ def analyze():
         "# รายงานการวิเคราะห์พฤติกรรมการกักเก็บน้ำเขื่อนขุนด่านปราการชล 22 ปี (2548–2569)",
         "",
         "> แหล่งข้อมูล: [SWOC กรมชลประทาน](https://app.rid.go.th/reservoir/) (`data/23_rid_swoc/raw/khundan_dam_history_2005_2026.json`)  ",
-        f"> บันทึกตัวเลขทางการ: `{OUT_JSON.name}` | วิเคราะห์ครอบคลุม 7,811 วันต่อเนื่อง",
+        f"> บันทึกตัวเลขทางการ: `{OUT_JSON.name}` | วิเคราะห์ครอบคลุม {len(rows):,} วันต่อเนื่อง",
         "",
         "## 1. ตัวเลขหัวใจสำคัญ (Executive Summary)",
         "",
         f"- **ความถี่การเต็มความจุ 100%**: ตลอด 22 ปี เขื่อนขุนด่านฯ น้ำเต็มความจุ (≥ 224 ล้าน ลบ.ม.) ทั้งสิ้น **{overflow_count} จาก {total_years} ปี ({summary['headline_metrics']['full_capacity_pct']}%)**",
-        f"- **ความผิดปกติทางกาลเวลาของปี 2569**: การที่เขื่อนขุนด่านฯ น้ำเต็มพีคตั้งแต่วันที่ **27 กันยายน 2569** เป็นปรากฏการณ์ที่ **เกิดขึ้นเพียง 2 ครั้งในรอบ 22 ปี** (ปี 2556 วันที่ 27 ก.ย. และปี 2569 วันที่ 27 ก.ย.) เร็วกว่าค่ามัธยฐานปกติถึง {days_early} วัน",
+        f"- **ความผิดปกติทางกาลเวลาของปี 2569**: การที่เขื่อนขุนด่านฯ น้ำเต็มพีคตั้งแต่วันที่ **27 กันยายน 2569** เป็นปรากฏการณ์ที่ **เกิดขึ้นเพียง 2 ครั้งในรอบ 22 ปี** (ปี 2556 วันที่ 27 ก.ย. และปี 2569 วันที่ 27 ก.ย.) เร็วกว่าค่ามัธยฐานของปีอื่น ๆ (แบบ leave-one-out — ไม่นับปี 2569 เอง; SB F-22) ถึง {days_early} วัน (ค่าเดิมแบบรวม 22 ปี = {days_early_all} วัน — ปลดประจำการ)",
+        f"- **ความไวต่อนิยาม 'เต็มความจุ' (SB F-23)**: นับเข้มสุด ≥100% = {overflow_count} ปี · ผ่อนเป็น ≥99% = {n_ge99} ปี · ≥98% = {n_ge98} ปี",
         f"- **นิยามความจุที่ใช้ในตาราง**: {summary['metadata']['storage_definitions']['full_capacity_definition']}",
         "",
         "## 2. ตารางสถิติรายปี (พ.ศ. 2548 – 2569)",

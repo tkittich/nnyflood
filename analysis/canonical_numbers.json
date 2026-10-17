@@ -41,7 +41,13 @@
   "159.5",
   "120.3",
   "153.5",
-  "153.8"
+  "153.8",
+  "244.6",
+  "11.23",
+  "282.4",
+  "36.5 วัน",
+  "7,961",
+  "7,945"
  ],
  "forbidden_exceptions": {
   "คลองเจ้าพระยา2_วิชาการ.html": {
@@ -86,14 +92,22 @@
   "med_retain": "2.36",
   "kd22_full_yr": "9 จาก 22 ปี",
   "kd22_full_pct": "40.9%",
-  "kd22_days_early": "36.5",
+  "kd22_days_early": "38.0",
+  "kd22_days": "7,811",
+  "kd22_med_date": "4 พฤศจิกายน",
+  "kd22_pk_date": "27 กันยายน",
+  "kd22_full99": "12",
+  "kd22_full98": "13",
+  "kd22_full_years_list": "2550, 2557, 2561, 2563, 2564, 2565, 2566, 2568 และ 2569",
   "ny1b_pts": "61",
   "ny1b_bank_msl": "10.60",
-  "ny1b_q_bankfull": "244.6",
-  "ny1b_pk_msl": "11.23",
-  "ny1b_pk_q": "282.4",
-  "ny1b_ov_m": "0.63",
-  "ny1b_ov_q": "37.8",
+  "ny1b_q_bankfull": "666.3",
+  "ny1b_q_low": "488.9",
+  "ny1b_q_high": "893.0",
+  "ny1b_pk_msl": "11.00",
+  "ny1b_pk_q": "675.3",
+  "ny1b_ov_m": "0.40",
+  "ny1b_ov_q": "9.0",
   "ny7_peak_g": "9.23",
   "ny7_peak_msl": "7.64",
   "gistda_oct2": "306.9",
@@ -113,7 +127,7 @@
    "levels": "โทรมาตร กช. + ภาคตัดขวาง data/19 (recorded constants)",
    "medium_dams": "analysis/goal2_nny_medium_dams_summary.json (SWOC RID 6 อ่างขนาดกลางนครนายก)",
    "khundan_22y": "analysis/goal2_khundan_22y_summary.json (SWOC RID สถิติ 22 ปี 2548–2569)",
-   "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด)",
+   "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด) + analysis/hydraulic_1d_routing_summary.json (ค่าหลัก 666.3 · ช่วง 488.9–893.0 · พีคโทรมาตร 11.00/675.3)",
    "hydraulic_1d_routing": "analysis/hydraulic_1d_routing_summary.json (Saint-Venant kinematic/diffusive wave Ny.1B -> Ny.7)"
   }
  },
@@ -498,6 +512,12 @@
    "headline_metrics": {
     "full_capacity_years": 9,
     "full_capacity_pct": 40.9,
+    "full_capacity_thresholds": {
+     "pct_100": 9,
+     "pct_99": 12,
+     "pct_98": 13,
+     "definition_note": "นิยาม 'เต็มความจุ' มี 3 เกณฑ์ที่ใช้ได้ทุกรายการจากชุดข้อมูลเดียวกัน: ≥100% ของความจุกักเก็บใช้งาน (เกณฑ์หัวข้อหลักของรายงาน = เข้มสุด) = 9 ปี · ≥99% = 12 ปี · ≥98% = 13 ปี (SB F-23)"
+    },
     "peak_month_distribution": {
      "september": 2,
      "september_pct": 9.1,
@@ -508,7 +528,12 @@
     },
     "year_2026_anomaly": {
      "peak_date": "2026-09-27",
-     "days_earlier_than_median": 36.5,
+     "days_earlier_than_median": 38.0,
+     "days_earlier_than_median_all22": 36.5,
+     "median_peak_doy_excl_2026": 308.0,
+     "median_peak_doy_all22": 306.5,
+     "median_peak_date_excl_2026": "2026-11-04",
+     "median_note": "ค่าหลักใช้มัธยฐานแบบ leave-one-out (ตัดปี 2569 ออก — SB F-22) · ค่าเดิมที่รวม 22 ปีทั้งหมดถูกปลดประจำการแล้ว (เก็บบันทึกไว้เทียบ)",
      "historical_rank_earliest": 1,
      "note": "ตลอด 22 ปี มีเพียง 2 ปีเท่านั้นที่น้ำเต็มพีคในเดือนกันยายน (2556 และ 2569) อีก 20 ปีที่เหลือพีคใน ต.ค.–พ.ย."
     }
@@ -850,12 +875,14 @@
    "survey_points": 61,
    "bed_elevation_msl": 4.1,
    "bank_elevation_msl": 10.6,
-   "bankfull_q_m3s": 244.6,
-   "historical_rating_note": "ค่าความจุลำน้ำเดิมตามตารางโทรมาตรประวัติศาสตร์ RID (เทียบกับ 666.3 ม³/วิ จากแบบจำลอง 1D Manning ภาคตัดขวางสำรวจจริง 61 จุด)",
-   "peak_stage_msl": 11.23,
-   "peak_q_m3s": 282.4,
-   "overflow_depth_m": 0.63,
-   "overflow_q_m3s": 37.8
+   "bankfull_q_m3s": 666.3,
+   "bankfull_q_low_m3s": 488.9,
+   "bankfull_q_high_m3s": 893.0,
+   "legacy_rating_note": "ค่าเก่า 244.6 ม³/วิ มาจากตารางเส้นระดับ–ปริมาณน้ำ (rating) ประวัติศาสตร์ของกรมชลฯ ไม่ใช่ผลสมการ Manning — เลิกใช้ในรายงานแล้ว (รีวิวรอบ 4)",
+   "peak_stage_msl": 11.0,
+   "peak_q_m3s": 675.3,
+   "overflow_depth_m": 0.4,
+   "overflow_q_m3s": 9.0
   },
   "routing_1d": {
    "metadata": {
@@ -1010,8 +1037,15 @@
    "1,058–1,416",
    "242",
    "26.96",
-   "244.6",
-   "10.60"
+   "666.3",
+   "675.3",
+   "488.9",
+   "893.0",
+   "10.60",
+   "0.40",
+   "9.0",
+   "7,811",
+   "38.0"
   ],
   "expert": [
    "452.1",
@@ -1032,8 +1066,17 @@
    "242(h−4.55)",
    "4.55",
    "26.96",
-   "244.6",
-   "10.60"
+   "666.3",
+   "675.3",
+   "488.9",
+   "893.0",
+   "10.60",
+   "0.40",
+   "9.0",
+   "7,811",
+   "38.0",
+   "4 พฤศจิกายน",
+   "27 กันยายน"
   ]
  }
 }

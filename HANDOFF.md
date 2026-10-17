@@ -1,9 +1,9 @@
 # HANDOFF — สถานะส่งมอบ (อัปเดต 17 ต.ค. 2569)
 
-## อัปเดต 17 ต.ค. 2569 (บ่ายแก่) — แผนที่โต้ตอบ Leaflet, เมทริกซ์ความเสี่ยงน้ำหลากปะทะน้ำหนุน, รายงาน 1–2, และ CI
+## อัปเดต 17 ต.ค. 2569 (บ่ายแก่) — แผนที่โต้ตอบ Leaflet, เมทริกซ์ความเสี่ยงน้ำหลากปะทะน้ำหนุน, รายงาน 1–2, CI, และชุดคำสั่งตรวจสอบระบบ
 
 > **สถานะ**: ดำเนินการตามแผน [docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md](docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md) ครบถ้วน 100%  
-> ชุดทดสอบระบบผ่าน 120/120 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 82/82 รายการ · verify_data_integrity MISMATCH 0
+> ชุดทดสอบระบบผ่าน 120/120 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 83/83 รายการ · verify_data_integrity MISMATCH 0
 
 ### งานที่ส่งมอบในรอบนี้:
 1. **Interactive Knowledge Atlas บน `index.html` (Leaflet.js รองรับ GitHub Pages 100%)**:
@@ -19,6 +19,13 @@
    - Rebuild รายงานที่ 1 (ประชาชน) และ รายงานที่ 2 (วิชาการ) ผ่านการตรวจสอบ canonical 100%
 4. **ปรับปรุง GitHub Actions CI Pipeline**:
    - อัปเดต `.github/workflows/ci.yml` รัน `tools/verify_all.py` อัตโนมัติทุก push/PR
+5. **ชุดคำสั่งตรวจสอบระบบครบวงจรสำหรับ AI ภายนอก (Red-Team Audit Prompt)**:
+   - สร้างคู่มือและชุดคำสั่งเจาะลึก 3 เสาหลัก: `docs/REVIEW_PROMPT_COMPREHENSIVE.md`
+
+### รายการสำหรับ Session ถัดไป (Next Session Tasks — คงไว้สูงสุด 3 รายการตามกติกา):
+1. **รับและปรับปรุงผลตรวจจาก AI ภายนอก**: นำรายงานการตรวจสอบที่ได้จากการรัน `docs/REVIEW_PROMPT_COMPREHENSIVE.md` มาพิจารณาปรับปรุง
+2. **ติดตามผลการรัน CI บน GitHub Actions**: ยืนยันว่า workflow บน Cloud ทำงานผ่าน 100% หลังผู้ใช้ทำ `git push`
+3. **การขอข้อมูลข่าวสารราชการ (FOI) คลองเจ้าพระยา 2**: ยื่นขอแบบแปลนและระดับท้องคลองรายจุดตาม `docs/GOAL7_FOI_REQUESTS.md`
 
 ---
 

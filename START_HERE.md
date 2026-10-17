@@ -31,7 +31,7 @@ PY=python
 "$PY" -m pip install -r requirements.txt
 "$PY" tools/verify_all.py                        # ตรวจสอบระบบครบวงจร (catalog + SHA-256 + pytest 120 passed)
 # หรือแยกรันรายคำสั่ง:
-"$PY" catalog.py check                           # ตรวจสารบัญไฟล์ (82/82 รายการ)
+"$PY" catalog.py check                           # ตรวจสารบัญไฟล์ (83/83 รายการ)
 "$PY" analysis/verify_data_integrity.py --quick  # ตรวจ SHA-256 (MISMATCH 0)
 "$PY" -m pytest tests/ -q                        # ตรวจเทสต์ทั้งหมด (120 passed)
 ```

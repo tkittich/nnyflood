@@ -160,6 +160,7 @@ CORE_GOVERNANCE = [
     ("docs/DATA_SOURCES.md", "บัญชีแหล่งข้อมูล วิธีเชื่อมต่อ API Thaiwater, CDSE, Copernicus DEM"),
     ("docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md", "แผนงานและผลลัพธ์แบบจำลองขั้นสูง (1D Routing, CP2 Bypass, Coastal ML)"),
     ("docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md", "แผนงานบูรณาการรายงาน 1-2 แผนที่โต้ตอบ เมทริกซ์ความเสี่ยง และ CI"),
+    ("docs/REVIEW_PROMPT_COMPREHENSIVE.md", "กรอบการตรวจสอบและชุดคำสั่งสำหรับ AI ผู้ตรวจสอบอิสระ (Red-Team Audit)"),
     ("tools/verify_all.py", "เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร (catalog, SHA-256, pytest)"),
     ("tests/test_thai_language_lint.py", "ระบบทดสอบและตรวจจับภาษาไทยอัตโนมัติ (Typo Registry, คำชน, คำทับศัพท์)"),
 ]

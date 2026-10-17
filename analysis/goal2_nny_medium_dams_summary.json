@@ -1,0 +1,298 @@
+{
+  "metadata": {
+    "title": "การวิเคราะห์อ่างเก็บน้ำขนาดกลาง 6 แห่ง จ.นครนายก เหตุการณ์ 26–29 ก.ย. 2569",
+    "source": "SWOC RID (app.rid.go.th/reservoir)",
+    "unit_storage": "ล้าน ลบ.ม. (MCM)",
+    "unit_flow": "ล้าน ลบ.ม./วัน (MCM/day)"
+  },
+  "system_totals": {
+    "khundan_capacity_mcm": 224.0,
+    "medium_reservoirs_count": 6,
+    "total_medium_capacity_mcm": 26.96,
+    "medium_to_khundan_pct": 12.0
+  },
+  "event_26_29_sep": {
+    "total_inflow_mcm": 4.827,
+    "total_outflow_mcm": 2.47,
+    "net_retention_mcm": 2.357,
+    "retention_efficiency_pct": 48.8
+  },
+  "reservoir_details": {
+    "rsv380": {
+      "name": "อ่างเก็บน้ำห้วยปรือ",
+      "amphoe": "เมืองนครนายก",
+      "capacity_mcm": 8.87,
+      "receiving_stream": "คลองห้วยปรือ / คลองท่าด่าน",
+      "downstream_area": "ต.เขาพระ, ต.สาริกา อ.เมืองนครนายก",
+      "hydrological_role": "อ่างขนาดกลางที่ใหญ่ที่สุด กักน้ำหลากได้ดี (หน่วงน้ำ 86.4%)",
+      "peak_storage_mcm": 8.21,
+      "peak_storage_pct": 92.6,
+      "is_overflow": false,
+      "event_inflow_4days_mcm": 1.312,
+      "event_outflow_4days_mcm": 0.178,
+      "net_retention_4days_mcm": 1.134,
+      "retention_pct": 86.4,
+      "18y_overflow_stat": {
+        "total_years": 18,
+        "overflow_years": 7,
+        "overflow_pct": 38.9
+      },
+      "daily": {
+        "2026-09-26": {
+          "storage_mcm": 7.196,
+          "storage_pct": 81.127,
+          "inflow_mcm_day": 0.218,
+          "outflow_mcm_day": 0.021
+        },
+        "2026-09-27": {
+          "storage_mcm": 7.744,
+          "storage_pct": 87.306,
+          "inflow_mcm_day": 0.577,
+          "outflow_mcm_day": 0.108
+        },
+        "2026-09-28": {
+          "storage_mcm": 7.981,
+          "storage_pct": 89.977,
+          "inflow_mcm_day": 0.263,
+          "outflow_mcm_day": 0.025
+        },
+        "2026-09-29": {
+          "storage_mcm": 8.21,
+          "storage_pct": 92.559,
+          "inflow_mcm_day": 0.254,
+          "outflow_mcm_day": 0.024
+        }
+      }
+    },
+    "rsv381": {
+      "name": "อ่างเก็บน้ำคลองสีเสียด",
+      "amphoe": "เมืองนครนายก",
+      "capacity_mcm": 1.14,
+      "receiving_stream": "คลองสีเสียด",
+      "downstream_area": "ต.หนองแสง อ.ปากพลี",
+      "hydrological_role": "อ่างขนาดเล็ก กักน้ำได้เกือบทั้งหมด (ระบายออกน้อยมาก)",
+      "peak_storage_mcm": 1.075,
+      "peak_storage_pct": 94.3,
+      "is_overflow": false,
+      "event_inflow_4days_mcm": 0.128,
+      "event_outflow_4days_mcm": 0.016,
+      "net_retention_4days_mcm": 0.112,
+      "retention_pct": 87.5,
+      "18y_overflow_stat": {
+        "total_years": 18,
+        "overflow_years": 15,
+        "overflow_pct": 83.3
+      },
+      "daily": {
+        "2026-09-26": {
+          "storage_mcm": 0.992,
+          "storage_pct": 87.018,
+          "inflow_mcm_day": 0.032,
+          "outflow_mcm_day": 0.0
+        },
+        "2026-09-27": {
+          "storage_mcm": 1.047,
+          "storage_pct": 91.842,
+          "inflow_mcm_day": 0.055,
+          "outflow_mcm_day": 0.0
+        },
+        "2026-09-28": {
+          "storage_mcm": 1.075,
+          "storage_pct": 94.298,
+          "inflow_mcm_day": 0.029,
+          "outflow_mcm_day": 0.0
+        },
+        "2026-09-29": {
+          "storage_mcm": 1.071,
+          "storage_pct": 93.947,
+          "inflow_mcm_day": 0.012,
+          "outflow_mcm_day": 0.016
+        }
+      }
+    },
+    "rsv382": {
+      "name": "อ่างเก็บน้ำคลองโบด",
+      "amphoe": "เมืองนครนายก",
+      "capacity_mcm": 4.25,
+      "receiving_stream": "คลองโบด / คลองเหมือง",
+      "downstream_area": "ต.พรหมณี อ.เมืองนครนายก",
+      "hydrological_role": "น้ำในอ่างน้อย (17%) มีช่องว่างรับน้ำเหลือเฟือ",
+      "peak_storage_mcm": 0.741,
+      "peak_storage_pct": 17.4,
+      "is_overflow": false,
+      "event_inflow_4days_mcm": 0.173,
+      "event_outflow_4days_mcm": 0.035,
+      "net_retention_4days_mcm": 0.138,
+      "retention_pct": 79.8,
+      "18y_overflow_stat": {
+        "total_years": 18,
+        "overflow_years": 3,
+        "overflow_pct": 16.7
+      },
+      "daily": {
+        "2026-09-26": {
+          "storage_mcm": 0.627,
+          "storage_pct": 14.753,
+          "inflow_mcm_day": 0.055,
+          "outflow_mcm_day": 0.002
+        },
+        "2026-09-27": {
+          "storage_mcm": 0.69,
+          "storage_pct": 16.235,
+          "inflow_mcm_day": 0.066,
+          "outflow_mcm_day": 0.002
+        },
+        "2026-09-28": {
+          "storage_mcm": 0.737,
+          "storage_pct": 17.341,
+          "inflow_mcm_day": 0.05,
+          "outflow_mcm_day": 0.022
+        },
+        "2026-09-29": {
+          "storage_mcm": 0.741,
+          "storage_pct": 17.435,
+          "inflow_mcm_day": 0.002,
+          "outflow_mcm_day": 0.009
+        }
+      }
+    },
+    "rsv383": {
+      "name": "อ่างเก็บน้ำทรายทอง",
+      "amphoe": "เมืองนครนายก",
+      "capacity_mcm": 2.0,
+      "receiving_stream": "คลองทรายทอง",
+      "downstream_area": "ต.เขาพระ, เทศบาลเมืองนครนายก",
+      "hydrological_role": "น้ำเต็ม 100% ตั้งแต่ก่อนฝนตกหนัก น้ำหลากล้นผ่าน 99.5% ซ้ำเติมน้ำท่วม ต.เขาพระ",
+      "peak_storage_mcm": 2.153,
+      "peak_storage_pct": 107.7,
+      "is_overflow": true,
+      "event_inflow_4days_mcm": 1.519,
+      "event_outflow_4days_mcm": 1.511,
+      "net_retention_4days_mcm": 0.008,
+      "retention_pct": 0.5,
+      "18y_overflow_stat": {
+        "total_years": 18,
+        "overflow_years": 15,
+        "overflow_pct": 83.3
+      },
+      "daily": {
+        "2026-09-26": {
+          "storage_mcm": 2.122,
+          "storage_pct": 106.1,
+          "inflow_mcm_day": 0.365,
+          "outflow_mcm_day": 0.348
+        },
+        "2026-09-27": {
+          "storage_mcm": 2.153,
+          "storage_pct": 107.65,
+          "inflow_mcm_day": 0.487,
+          "outflow_mcm_day": 0.455
+        },
+        "2026-09-28": {
+          "storage_mcm": 2.153,
+          "storage_pct": 107.65,
+          "inflow_mcm_day": 0.456,
+          "outflow_mcm_day": 0.455
+        },
+        "2026-09-29": {
+          "storage_mcm": 2.111,
+          "storage_pct": 105.55,
+          "inflow_mcm_day": 0.211,
+          "outflow_mcm_day": 0.253
+        }
+      }
+    },
+    "rsv384": {
+      "name": "อ่างเก็บน้ำคลองวังบอน",
+      "amphoe": "ปากพลี",
+      "capacity_mcm": 7.6,
+      "receiving_stream": "คลองวังบอน",
+      "downstream_area": "ต.นาหินลาด, อ.ปากพลี",
+      "hydrological_role": "น้ำเต็ม 100% ตลอดช่วง ระบาย/ล้นออกต่อเนื่องลงสู่ อ.ปากพลี",
+      "peak_storage_mcm": 7.725,
+      "peak_storage_pct": 101.6,
+      "is_overflow": true,
+      "event_inflow_4days_mcm": 0.788,
+      "event_outflow_4days_mcm": 0.709,
+      "net_retention_4days_mcm": 0.079,
+      "retention_pct": 10.0,
+      "18y_overflow_stat": {
+        "total_years": 18,
+        "overflow_years": 7,
+        "overflow_pct": 38.9
+      },
+      "daily": {
+        "2026-09-26": {
+          "storage_mcm": 7.665,
+          "storage_pct": 100.855,
+          "inflow_mcm_day": 0.285,
+          "outflow_mcm_day": 0.244
+        },
+        "2026-09-27": {
+          "storage_mcm": 7.7,
+          "storage_pct": 101.316,
+          "inflow_mcm_day": 0.203,
+          "outflow_mcm_day": 0.167
+        },
+        "2026-09-28": {
+          "storage_mcm": 7.725,
+          "storage_pct": 101.645,
+          "inflow_mcm_day": 0.192,
+          "outflow_mcm_day": 0.166
+        },
+        "2026-09-29": {
+          "storage_mcm": 7.7,
+          "storage_pct": 101.316,
+          "inflow_mcm_day": 0.108,
+          "outflow_mcm_day": 0.132
+        }
+      }
+    },
+    "rsv386": {
+      "name": "อ่างเก็บน้ำคลองกลาง",
+      "amphoe": "ปากพลี",
+      "capacity_mcm": 3.1,
+      "receiving_stream": "คลองกลาง",
+      "downstream_area": "ต.นาหินลาด, อ.ปากพลี",
+      "hydrological_role": "กักเก็บน้ำได้ 100% ไม่ปล่อยน้ำออกเลยในช่วงพีค 26–28 ก.ย. ช่วยหน่วงน้ำ อ.ปากพลี",
+      "peak_storage_mcm": 3.073,
+      "peak_storage_pct": 99.1,
+      "is_overflow": false,
+      "event_inflow_4days_mcm": 0.907,
+      "event_outflow_4days_mcm": 0.021,
+      "net_retention_4days_mcm": 0.886,
+      "retention_pct": 97.7,
+      "18y_overflow_stat": {
+        "total_years": 18,
+        "overflow_years": 14,
+        "overflow_pct": 77.8
+      },
+      "daily": {
+        "2026-09-26": {
+          "storage_mcm": 2.318,
+          "storage_pct": 74.774,
+          "inflow_mcm_day": 0.128,
+          "outflow_mcm_day": 0.0
+        },
+        "2026-09-27": {
+          "storage_mcm": 2.807,
+          "storage_pct": 90.548,
+          "inflow_mcm_day": 0.49,
+          "outflow_mcm_day": 0.0
+        },
+        "2026-09-28": {
+          "storage_mcm": 2.949,
+          "storage_pct": 95.129,
+          "inflow_mcm_day": 0.143,
+          "outflow_mcm_day": 0.0
+        },
+        "2026-09-29": {
+          "storage_mcm": 3.073,
+          "storage_pct": 99.129,
+          "inflow_mcm_day": 0.146,
+          "outflow_mcm_day": 0.021
+        }
+      }
+    }
+  }
+}

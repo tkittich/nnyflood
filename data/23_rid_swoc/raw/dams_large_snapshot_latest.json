@@ -1,0 +1,811 @@
+{
+  "type": "FeatureCollection",
+  "totalFeatures": 35,
+  "features": [
+    {
+      "type": "Feature",
+      "id": "100208",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.8401,
+          14.5944
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนลำพระเพลิง",
+        "date": "2026-10-17",
+        "max_capacity": 242,
+        "active_storage": 155,
+        "avalible_storage": 153.6,
+        "dead_storage": 1.4,
+        "volume": 127.1,
+        "percent": 82,
+        "inflow": 1.642,
+        "outflow": 0.499
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100602",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.79311,
+          12.462558
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนปราณบุรี",
+        "date": "2026-10-17",
+        "max_capacity": 490,
+        "active_storage": 391,
+        "avalible_storage": 373.41,
+        "dead_storage": 17.59,
+        "volume": 313.37,
+        "percent": 80.15,
+        "inflow": 4.074,
+        "outflow": 2.914
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100301",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.06615,
+          14.8613
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนป่าสักชลสิทธิ์",
+        "date": "2026-10-17",
+        "max_capacity": 1036.16,
+        "active_storage": 871.5,
+        "avalible_storage": 871.5,
+        "dead_storage": 14.64,
+        "volume": 798.14,
+        "percent": 91.58,
+        "inflow": 9.83,
+        "outflow": 12.67
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100505",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.57,
+          13.028
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนประแสร์",
+        "date": "2026-10-17",
+        "max_capacity": 322,
+        "active_storage": 295,
+        "avalible_storage": 275,
+        "dead_storage": 20,
+        "volume": 266.04,
+        "percent": 90.18,
+        "inflow": 1.33,
+        "outflow": 0.28
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100503",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9632,
+          13.2148
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนบางพระ",
+        "date": "2026-10-17",
+        "max_capacity": 127,
+        "active_storage": 117,
+        "avalible_storage": 104.94,
+        "dead_storage": 12.06,
+        "volume": 103.37,
+        "percent": 88.35,
+        "inflow": 1.114,
+        "outflow": 0.343
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200604",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.268,
+          6.155
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนบางลาง",
+        "date": "2026-10-17",
+        "max_capacity": 1590,
+        "active_storage": 1454.36,
+        "avalible_storage": 1178.08,
+        "dead_storage": 276.28,
+        "volume": 747.23,
+        "percent": 51.38,
+        "inflow": 6.71,
+        "outflow": 4.02
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100302",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.4482,
+          15.54369
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนทับเสลา",
+        "date": "2026-10-17",
+        "max_capacity": 190,
+        "active_storage": 160,
+        "avalible_storage": 143,
+        "dead_storage": 17,
+        "volume": 144.48,
+        "percent": 90.3,
+        "inflow": 4.6,
+        "outflow": 0.45
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100207",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5604,
+          14.8652
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนลำตะคอง",
+        "date": "2026-10-17",
+        "max_capacity": 445,
+        "active_storage": 314.49,
+        "avalible_storage": 291.79,
+        "dead_storage": 22.7,
+        "volume": null,
+        "percent": null,
+        "inflow": null,
+        "outflow": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100209",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.1474,
+          14.484
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนมูลบน",
+        "date": "2026-10-17",
+        "max_capacity": 350,
+        "active_storage": 141,
+        "avalible_storage": 134,
+        "dead_storage": 7,
+        "volume": null,
+        "percent": null,
+        "inflow": null,
+        "outflow": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200102",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.5646,
+          17.7656
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนสิริกิติ์",
+        "date": "2026-10-17",
+        "max_capacity": 10508,
+        "active_storage": 9510,
+        "avalible_storage": 6660,
+        "dead_storage": 2850,
+        "volume": 7769.63,
+        "percent": 81.7,
+        "inflow": 11.09,
+        "outflow": 7.97
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200402",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.5929,
+          14.7982
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนวชิราลงกรณ",
+        "date": "2026-10-17",
+        "max_capacity": 11000,
+        "active_storage": 8860,
+        "avalible_storage": 5848,
+        "dead_storage": 3012,
+        "volume": 8579.34,
+        "percent": 96.83,
+        "inflow": 14.56,
+        "outflow": 24.99
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100104",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.121978,
+          18.92348
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนแม่กวงอุดมธารา",
+        "date": "2026-10-17",
+        "max_capacity": 295,
+        "active_storage": 263,
+        "avalible_storage": 249,
+        "dead_storage": 14,
+        "volume": 182.47,
+        "percent": 69.38,
+        "inflow": null,
+        "outflow": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100107",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.327,
+          17.023
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนแควน้อยบำรุงแดน",
+        "date": "2026-10-17",
+        "max_capacity": 1080,
+        "active_storage": 939,
+        "avalible_storage": 896,
+        "dead_storage": 43,
+        "volume": 789.8,
+        "percent": 84.11,
+        "inflow": 3.09,
+        "outflow": 0.86
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100504",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.251,
+          12.969
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนหนองปลาไหล",
+        "date": "2026-10-17",
+        "max_capacity": 205.85,
+        "active_storage": 163.75,
+        "avalible_storage": 150.25,
+        "dead_storage": 13.5,
+        "volume": 183.09,
+        "percent": 111.81,
+        "inflow": 4.21,
+        "outflow": 1.58
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100108",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.42361467,
+          17.20818657
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนแม่มอก",
+        "date": "2026-10-17",
+        "max_capacity": 110,
+        "active_storage": 110,
+        "avalible_storage": 94.1,
+        "dead_storage": 15.9,
+        "volume": 98.24,
+        "percent": 89.31,
+        "inflow": 0.12,
+        "outflow": 0.12
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100211",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.764,
+          14.3012
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนลำนางรอง",
+        "date": "2026-10-17",
+        "max_capacity": 196.67,
+        "active_storage": 121.41,
+        "avalible_storage": 118.41,
+        "dead_storage": 3,
+        "volume": 61.79,
+        "percent": 50.89,
+        "inflow": 0.088,
+        "outflow": 0.042
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100514",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.0149,
+          14.0446
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนนฤบดินทรจินดา",
+        "date": "2026-10-17",
+        "max_capacity": 338,
+        "active_storage": 295,
+        "avalible_storage": 280.75,
+        "dead_storage": 14.25,
+        "volume": 289.46,
+        "percent": 98.12,
+        "inflow": 0.97,
+        "outflow": 0.1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100502",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.65,
+          13.45
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนคลองสียัด",
+        "date": "2026-10-17",
+        "max_capacity": 450,
+        "active_storage": 420,
+        "avalible_storage": 390,
+        "dead_storage": 30,
+        "volume": 360.5,
+        "percent": 85.83,
+        "inflow": 2.65,
+        "outflow": 0.01
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200204",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.65,
+          16.533333333
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนจุฬาภรณ์",
+        "date": "2026-10-17",
+        "max_capacity": 188,
+        "active_storage": 163.75,
+        "avalible_storage": 126.56,
+        "dead_storage": 37.19,
+        "volume": 135.5,
+        "percent": 82.75,
+        "inflow": 0.31,
+        "outflow": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100105",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.6239,
+          18.5239
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนกิ่วลม",
+        "date": "2026-10-17",
+        "max_capacity": 106.22,
+        "active_storage": 106.22,
+        "avalible_storage": 102.67,
+        "dead_storage": 3.55,
+        "volume": 98.73,
+        "percent": 92.95,
+        "inflow": 1.516,
+        "outflow": 1.594
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100106",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.64,
+          18.8
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนกิ่วคอหมา",
+        "date": "2026-10-17",
+        "max_capacity": 208.6,
+        "active_storage": 170,
+        "avalible_storage": 163.8,
+        "dead_storage": 6.2,
+        "volume": 165.4,
+        "percent": 97.29,
+        "inflow": 0.126,
+        "outflow": 0.394
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200205",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.619,
+          16.774
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนอุบลรัตน์",
+        "date": "2026-10-17",
+        "max_capacity": 2431,
+        "active_storage": 2431,
+        "avalible_storage": 1850,
+        "dead_storage": 581,
+        "volume": 1466.39,
+        "percent": 60.32,
+        "inflow": 4.37,
+        "outflow": 2.99
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200603",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.806,
+          8.9726
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนรัชชประภา",
+        "date": "2026-10-17",
+        "max_capacity": 6144,
+        "active_storage": 5638.84,
+        "avalible_storage": 4287.3,
+        "dead_storage": 1351.54,
+        "volume": 4238.22,
+        "percent": 75.16,
+        "inflow": 6.43,
+        "outflow": 3.01
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100206",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.441,
+          16.602595
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนลำปาว",
+        "date": "2026-10-17",
+        "max_capacity": 2450,
+        "active_storage": 1980,
+        "avalible_storage": 1880,
+        "dead_storage": 100,
+        "volume": 1195.6,
+        "percent": 60.38,
+        "inflow": 0.86,
+        "outflow": 4.3
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200101",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.971,
+          17.247
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนภูมิพล",
+        "date": "2026-10-17",
+        "max_capacity": 13462,
+        "active_storage": 13462,
+        "avalible_storage": 9662,
+        "dead_storage": 3800,
+        "volume": 9444.07,
+        "percent": 70.15,
+        "inflow": 17.51,
+        "outflow": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200212",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.428,
+          15.207
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนสิรินธร",
+        "date": "2026-10-17",
+        "max_capacity": 1966,
+        "active_storage": 1966,
+        "avalible_storage": 1134.62,
+        "dead_storage": 831.38,
+        "volume": 1847.88,
+        "percent": 93.99,
+        "inflow": 0.94,
+        "outflow": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100303",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.6645,
+          14.835957
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนกระเสียว",
+        "date": "2026-10-17",
+        "max_capacity": 390,
+        "active_storage": 299,
+        "avalible_storage": 259,
+        "dead_storage": 40,
+        "volume": 188.5,
+        "percent": 63.04,
+        "inflow": 10.71,
+        "outflow": 0.06
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200103",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.04011,
+          19.16138
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนแม่งัดสมบูรณ์ชล",
+        "date": "2026-10-17",
+        "max_capacity": 323,
+        "active_storage": 265,
+        "avalible_storage": 253,
+        "dead_storage": 12,
+        "volume": 253.22,
+        "percent": 95.56,
+        "inflow": 0.591,
+        "outflow": 0.425
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200203",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.9707,
+          16.977
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนน้ำพุง",
+        "date": "2026-10-17",
+        "max_capacity": 200,
+        "active_storage": 165,
+        "avalible_storage": 157,
+        "dead_storage": 8,
+        "volume": 86.84,
+        "percent": 52.63,
+        "inflow": 0.22,
+        "outflow": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100210",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.2836,
+          14.4084
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนลำแชะ",
+        "date": "2026-10-17",
+        "max_capacity": 325,
+        "active_storage": 275,
+        "avalible_storage": 268,
+        "dead_storage": 7,
+        "volume": null,
+        "percent": null,
+        "inflow": null,
+        "outflow": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200601",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.62814,
+          12.93162
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนแก่งกระจาน",
+        "date": "2026-10-17",
+        "max_capacity": 900,
+        "active_storage": 710,
+        "avalible_storage": 645,
+        "dead_storage": 65,
+        "volume": 720.43,
+        "percent": 101.47,
+        "inflow": 7.1,
+        "outflow": 9.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100201",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.583,
+          17.364
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนห้วยหลวง",
+        "date": "2026-10-17",
+        "max_capacity": 135.57,
+        "active_storage": 135.57,
+        "avalible_storage": 128.98,
+        "dead_storage": 6.59,
+        "volume": 84.33,
+        "percent": 62.2,
+        "inflow": null,
+        "outflow": 0.68
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100501",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.319,
+          14.312
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนขุนด่านปราการชล",
+        "date": "2026-10-17",
+        "max_capacity": 224.9,
+        "active_storage": 224,
+        "avalible_storage": 219.48,
+        "dead_storage": 4.52,
+        "volume": 217.37,
+        "percent": 97.04,
+        "inflow": 1.078,
+        "outflow": 0.577
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "100202",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.7428,
+          17.3095
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนน้ำอูน",
+        "date": "2026-10-17",
+        "max_capacity": 780,
+        "active_storage": 520,
+        "avalible_storage": 475,
+        "dead_storage": 45,
+        "volume": 313.75,
+        "percent": 60.34,
+        "inflow": 0.291,
+        "outflow": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200401",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.1284,
+          14.4091
+        ]
+      },
+      "properties": {
+        "name": "เขื่อนศรีนครินทร์",
+        "date": "2026-10-17",
+        "max_capacity": 18770,
+        "active_storage": 17745,
+        "avalible_storage": 7480,
+        "dead_storage": 10265,
+        "volume": 17494.43,
+        "percent": 98.59,
+        "inflow": 84.73,
+        "outflow": 17.08
+      }
+    }
+  ]
+}

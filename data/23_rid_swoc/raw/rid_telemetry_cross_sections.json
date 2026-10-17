@@ -1,0 +1,792 @@
+{
+  "metadata": {
+    "source": "https://hyd-app-db.rid.go.th/webservice/HDService.svc",
+    "fetched_at": "2026-10-17T02:08:48.248336+00:00"
+  },
+  "stations": {
+    "Ny.1B": {
+      "station_info": {
+        "GroundLevel": null,
+        "QMax": 266.8999938964844,
+        "ShowDailyReport": 1,
+        "ShowDailyReportString": "แสดง",
+        "ShowHourlyReport": 1,
+        "ShowHourlyReportString": "แสดง",
+        "TelemetryID": 0,
+        "TelemetrySource": null,
+        "UseMSL": 0,
+        "UseMSLString": "ม.รสม.",
+        "UseQAuto": 1,
+        "UseQAutoString": "ใช้ Q อัตโนมัติ",
+        "WLCriteria": null,
+        "ZG": 0,
+        "addbyuser": "Sompom S.porn(13/05/2560 16:35)",
+        "addbyuserid": 0,
+        "adddate": "/Date(1494668112623+0700)/",
+        "amphurcode": 0,
+        "amphurname": "เมืองนครนายก",
+        "basinid": 0,
+        "basinname": "ลุ่มน้ำบางปะกง",
+        "braelevel": 8.8100004196167,
+        "editbyuser": "Hydrology Eastern Region(27/09/2569 02:34)",
+        "editbyuserid": 0,
+        "editdate": "/Date(1790451255260+0700)/",
+        "hydroid": 6,
+        "hydroname": "ภาคตะวันออก(ชลบุรี)",
+        "indexcount": 0,
+        "latitude": 14.245820045471191,
+        "longitude": 101.27424621582031,
+        "name": "Ny.1B",
+        "note": null,
+        "orderno": 22,
+        "provincecode": 26000000,
+        "provincename": "นครนายก",
+        "river": null,
+        "stationcode": "Ny.1B",
+        "stationdetail": "บ้านเขานางบวช",
+        "stationid": 380,
+        "timecount": 0,
+        "wateryear": 2559
+      },
+      "cross_section_points": [
+        {
+          "StationID": 0,
+          "X": -100,
+          "Y": 11.71,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -90,
+          "Y": 11.53,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -80,
+          "Y": 11.41,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -70,
+          "Y": 11.46,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -60,
+          "Y": 11.43,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -50,
+          "Y": 11.45,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -40,
+          "Y": 11.47,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -30,
+          "Y": 11.48,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -20,
+          "Y": 11.49,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -10,
+          "Y": 11.49,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 2,
+          "Y": 10.53,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 4,
+          "Y": 10.09,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 6,
+          "Y": 9.91,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 8,
+          "Y": 9.82,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 10,
+          "Y": 9.51,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 12,
+          "Y": 9.48,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 14,
+          "Y": 9.34,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 16,
+          "Y": 8.81,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 18,
+          "Y": 8.45,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 22,
+          "Y": 7.76,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 24,
+          "Y": 7.15,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 26,
+          "Y": 6.71,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 28,
+          "Y": 6.35,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 30,
+          "Y": 5.83,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 32,
+          "Y": 5.5,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 34,
+          "Y": 4.6,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 35,
+          "Y": 3.9,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 40,
+          "Y": 3.8,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 45,
+          "Y": 3.05,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 50,
+          "Y": 2.7,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 55,
+          "Y": 3.1,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 60,
+          "Y": 3.1,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 65,
+          "Y": 4.6,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 66,
+          "Y": 5.04,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 68,
+          "Y": 5.26,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 70,
+          "Y": 5.4,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 72,
+          "Y": 6.31,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 74,
+          "Y": 6.62,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 76,
+          "Y": 7.11,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 78,
+          "Y": 7.31,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 80,
+          "Y": 7.45,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 82,
+          "Y": 7.98,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 84,
+          "Y": 8.08,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 86,
+          "Y": 8.18,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 88,
+          "Y": 8.35,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 92,
+          "Y": 8.67,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 94,
+          "Y": 8.66,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 96,
+          "Y": 9.25,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 98,
+          "Y": 9.64,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 100,
+          "Y": 10,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 100,
+          "Y": 11.54,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 110,
+          "Y": 11.43,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 120,
+          "Y": 11.35,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 130,
+          "Y": 11.27,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 140,
+          "Y": 11.22,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 150,
+          "Y": 11.35,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 160,
+          "Y": 11.35,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 170,
+          "Y": 11.31,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 180,
+          "Y": 11.33,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 190,
+          "Y": 11.31,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 200,
+          "Y": 11.28,
+          "addbyuserid": 0
+        }
+      ]
+    },
+    "C.2": {
+      "station_info": {
+        "GroundLevel": null,
+        "QMax": 3735,
+        "ShowDailyReport": 1,
+        "ShowDailyReportString": "แสดง",
+        "ShowHourlyReport": 1,
+        "ShowHourlyReportString": "แสดง",
+        "TelemetryID": 0,
+        "TelemetrySource": null,
+        "UseMSL": 1,
+        "UseMSLString": "ม.รทก.",
+        "UseQAuto": 0,
+        "UseQAutoString": "ระบุค่า Q",
+        "WLCriteria": null,
+        "ZG": null,
+        "addbyuser": "Sompom S.porn(13/05/2560 16:35)",
+        "addbyuserid": 0,
+        "adddate": "/Date(1494668112520+0700)/",
+        "amphurcode": 0,
+        "amphurname": "เมืองนครสวรรค์",
+        "basinid": 0,
+        "basinname": "ลุ่มน้ำเจ้าพระยา",
+        "braelevel": 25.700000762939453,
+        "editbyuser": "ทิวากร ศิริวัฒน์(23/04/2569 12:10)",
+        "editbyuserid": 0,
+        "editdate": "/Date(1776921034217+0700)/",
+        "hydroid": 5,
+        "hydroname": "ภาคกลาง(ชัยนาท)",
+        "indexcount": 0,
+        "latitude": 15.6705904006958,
+        "longitude": 100.10935974121094,
+        "name": "C.2",
+        "note": null,
+        "orderno": 499,
+        "provincecode": 60000000,
+        "provincename": "นครสวรรค์",
+        "river": null,
+        "stationcode": "C.2",
+        "stationdetail": "ค่ายจิรประวัติ",
+        "stationid": 315,
+        "timecount": 0,
+        "wateryear": 2559
+      },
+      "cross_section_points": [
+        {
+          "StationID": 0,
+          "X": -50,
+          "Y": 25.86,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -40,
+          "Y": 25.83,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -30,
+          "Y": 25.78,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -20,
+          "Y": 25.73,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -10,
+          "Y": 25.65,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": -4,
+          "Y": 25.73,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 0,
+          "Y": 25.71,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 5,
+          "Y": 25.22,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 5,
+          "Y": 24.47,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 8,
+          "Y": 23.03,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 10,
+          "Y": 22.5,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 15,
+          "Y": 20.85,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 20,
+          "Y": 20.22,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 30,
+          "Y": 19.77,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 40,
+          "Y": 19.34,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 50,
+          "Y": 18.22,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 53,
+          "Y": 17.32,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 60,
+          "Y": 15.62,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 70,
+          "Y": 14.82,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 80,
+          "Y": 13.92,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 90,
+          "Y": 13.57,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 100,
+          "Y": 13.42,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 110,
+          "Y": 13.42,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 120,
+          "Y": 13.49,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 130,
+          "Y": 13.52,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 140,
+          "Y": 13.42,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 150,
+          "Y": 13.32,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 160,
+          "Y": 13.37,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 170,
+          "Y": 13.52,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 180,
+          "Y": 13.52,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 190,
+          "Y": 13.52,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 200,
+          "Y": 13.37,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 210,
+          "Y": 13.72,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 220,
+          "Y": 14.47,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 230,
+          "Y": 14.62,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 240,
+          "Y": 13.67,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 250,
+          "Y": 14.72,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 267,
+          "Y": 17.32,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 270,
+          "Y": 17.95,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 275,
+          "Y": 18.55,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 280,
+          "Y": 21.37,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 290,
+          "Y": 21.77,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 300,
+          "Y": 22.67,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 305,
+          "Y": 23.85,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 313,
+          "Y": 24.22,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 313,
+          "Y": 26.1,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 320,
+          "Y": 26.18,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 330,
+          "Y": 26.25,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 340,
+          "Y": 26.38,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 350,
+          "Y": 26.4,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 360,
+          "Y": 26.36,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 370,
+          "Y": 26.35,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 380,
+          "Y": 26.38,
+          "addbyuserid": 0
+        },
+        {
+          "StationID": 0,
+          "X": 390,
+          "Y": 26.36,
+          "addbyuserid": 0
+        }
+      ]
+    }
+  }
+}

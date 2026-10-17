@@ -97,3 +97,25 @@
 
 เงื่อนไขการใช้: WorldCover/WorldPop = CC BY 4.0 · JRC = เปิด (อ้าง Pekel et al. 2016) · OSM = ODbL (© OpenStreetMap contributors) —
 ข้อมูลเหล่านี้ไม่ถูก redistribute ใน git (disk-only); ผลสรุปที่ track เป็นตัวเลขรวม
+
+---
+
+## 7. ศูนย์ปฏิบัติการน้ำอัจฉริยะ กรมชลประทาน (SWOC) ✅
+
+> เพิ่ม 17 ต.ค. 2569 — คู่มือสถาปัตยกรรมและสารบัญ Endpoint ฉบับเต็ม: [docs/RID_SWOC_GUIDE.md](file:///e:/theera/code/flood/docs/RID_SWOC_GUIDE.md)
+
+- **พอร์ทัลหลัก**: `https://swoc.rid.go.th/`
+- **ระบบฐานข้อมูลอ่างเก็บน้ำ (Backend)**: `https://app.rid.go.th/reservoir/`
+- **บริการโทรมาตรและรูปตัดลำน้ำ (WebService)**: `https://hyd-app-db.rid.go.th/webservice/HDService.svc`
+- **ที่เก็บข้อมูลในโปรเจกต์**: [data/23_rid_swoc/](file:///e:/theera/code/flood/data/23_rid_swoc/) พร้อม [manifest.md](file:///e:/theera/code/flood/data/23_rid_swoc/manifest.md)
+- **สคริปต์ดึงข้อมูล**: [analysis/common_fetch_rid_swoc.py](file:///e:/theera/code/flood/analysis/common_fetch_rid_swoc.py)
+
+| Endpoint | วิธีเรียก | ข้อมูลที่ได้ | ขอบเขตย้อนหลังที่พิสูจน์แล้ว |
+|---|---|---|---|
+| `api/damsGeojson` | GET (ไม่ต้อง auth) | สแนปช็อตเขื่อนขนาดใหญ่ 35 แห่งทั่วประเทศ (ความจุ, ปริมาตร, น้ำเข้า, น้ำออก, ระดับน้ำ) | ค่าล่าสุดประจำวัน |
+| `api/dam` | GET (`dam_id`, `date_start`, `date_end`) | อนุกรมเวลารายวันเขื่อนขนาดใหญ่ (ระดับน้ำ รทก., ปริมาตร, น้ำเข้า, น้ำออก) | ภูมิพล/สิริกิติ์: 1995+ · ป่าสักฯ: 2003+ (8,425 วัน) · ขุนด่านฯ: 2005+ (7,811 วัน) · แควน้อยฯ: 2009+ |
+| `api/rsvmiddlesGeojson` | GET (`date_start`, `date_end`) | สแนปช็อตอ่างเก็บน้ำขนาดกลาง 461 แห่งทั่วประเทศ | ค่ารายวันทั่วประเทศ |
+| `api/rsvmiddle` | GET (`rsvmiddle`, `date_start`, `date_end`) | อนุกรมเวลารายวันอ่างเก็บน้ำขนาดกลาง (รวม 6 แห่ง จ.นครนายก) | 2009–2026 (6,258 วัน/อ่าง) |
+| `HDService.svc/getStationFromStationCode` | POST (`StationCode`) | ระดับตลิ่งจริง (`braelevel`), ความจุลำน้ำสูงสุด (`QMax`), Zero Gauge (`ZG`) | ข้อมูลปัจจุบันทางการของสถานี |
+| `HDService.svc/GetCrosssectionFromStationID` | POST (`StationID`) | **รูปตัดขวางลำน้ำจริง (X, Y)** จากการสำรวจของกรมชลประทาน (เช่น Ny.1B 61 จุด, C.2 54 จุด) | ข้อมูลสำรวจจริง |
+

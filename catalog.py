@@ -40,18 +40,23 @@ PILLARS = {
             "docs/METHODS.md",
             "docs/DATA_DICTIONARY.md",
             "docs/ANALYSIS_PLAN.md",
+            "docs/RID_SWOC_GUIDE.md",
             "analysis/goal5_policy_proposals.md",
         ],
         "key_scripts": [
             "analysis/attribution_share.py",
             "analysis/s1_peak_flood_map.py",
             "analysis/goal4_model_v1.py",
+            "analysis/goal2_nny_medium_dams.py",
+            "analysis/goal2_khundan_22y_baseline.py",
+            "analysis/common_fetch_rid_swoc.py",
             "analysis/rid_cross_section_stage_rating.py",
         ],
         "data_dirs": [
             "data/01_rid_khun_dan",
             "data/02_thaiwater",
             "data/13_sentinel1_copernicus",
+            "data/23_rid_swoc",
         ],
     },
     "2": {
@@ -81,6 +86,8 @@ PILLARS = {
         "key_scripts": [
             "analysis/goal6_build_all.py",
             "analysis/goal6_dam_history_all.py",
+            "analysis/goal6_pasak_24y_baseline.py",
+            "analysis/goal6_national_medium_reservoirs.py",
             "analysis/goal6_basin_rain.py",
             "analysis/goal6_rain_rarity.py",
             "analysis/goal6_s1_landcover.py",

@@ -71,7 +71,23 @@
   "ev24m": "1.18 ม.",
   "m4drop": "0.522",
   "trainh": "11,221",
-  "pisai": "≈382–452"
+  "pisai": "≈382–452",
+  "med_cnt": "6",
+  "med_cap": "26.96",
+  "med_pct": "12.0%",
+  "med_inflow": "4.83",
+  "med_outflow": "2.47",
+  "med_retain": "2.36",
+  "kd22_full_yr": "9 จาก 22 ปี",
+  "kd22_full_pct": "40.9%",
+  "kd22_days_early": "40",
+  "ny1b_pts": "61",
+  "ny1b_bank_msl": "10.60",
+  "ny1b_q_bankfull": "244.6",
+  "ny1b_pk_msl": "11.23",
+  "ny1b_pk_q": "282.4",
+  "ny1b_ov_m": "0.63",
+  "ny1b_ov_q": "37.8"
  },
  "meta": {
   "generated_by": "analysis/build_canonical_numbers.py",
@@ -83,7 +99,10 @@
    "counterfactual": "analysis/goal4_counterfactual_summary.json",
    "model_v1": "analysis/goal4_model_v1_results.json",
    "backtest": "analysis/goal4_model_backtest_long.json",
-   "levels": "โทรมาตร กช. + ภาคตัดขวาง data/19 (recorded constants)"
+   "levels": "โทรมาตร กช. + ภาคตัดขวาง data/19 (recorded constants)",
+   "medium_dams": "analysis/goal2_nny_medium_dams_summary.json (SWOC RID 6 อ่างขนาดกลางนครนายก)",
+   "khundan_22y": "analysis/goal2_khundan_22y_summary.json (SWOC RID สถิติ 22 ปี 2548–2569)",
+   "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด)"
   }
  },
  "values": {
@@ -153,6 +172,673 @@
    "bankfull_msl_m": 8.21,
    "floodplain_onset_msl_m": 6.86,
    "note": "bankfull_gauge 8.45 = ระดับเริ่มท่วมที่ราบย่านเมือง (≡ 6.86 ม.รทก.) · bankfull_msl 8.21 = สันตลิ่งจริง (เกจ 9.80) — คนละความหมาย"
+  },
+  "medium_dams": {
+   "metadata": {
+    "title": "การวิเคราะห์อ่างเก็บน้ำขนาดกลาง 6 แห่ง จ.นครนายก เหตุการณ์ 26–29 ก.ย. 2569",
+    "source": "SWOC RID (app.rid.go.th/reservoir)",
+    "unit_storage": "ล้าน ลบ.ม. (MCM)",
+    "unit_flow": "ล้าน ลบ.ม./วัน (MCM/day)"
+   },
+   "system_totals": {
+    "khundan_capacity_mcm": 224.0,
+    "medium_reservoirs_count": 6,
+    "total_medium_capacity_mcm": 26.96,
+    "medium_to_khundan_pct": 12.0
+   },
+   "event_26_29_sep": {
+    "total_inflow_mcm": 4.827,
+    "total_outflow_mcm": 2.47,
+    "net_retention_mcm": 2.357,
+    "retention_efficiency_pct": 48.8
+   },
+   "reservoir_details": {
+    "rsv380": {
+     "name": "อ่างเก็บน้ำห้วยปรือ",
+     "amphoe": "เมืองนครนายก",
+     "capacity_mcm": 8.87,
+     "receiving_stream": "คลองห้วยปรือ / คลองท่าด่าน",
+     "downstream_area": "ต.เขาพระ, ต.สาริกา อ.เมืองนครนายก",
+     "hydrological_role": "อ่างขนาดกลางที่ใหญ่ที่สุด กักน้ำหลากได้ดี (หน่วงน้ำ 86.4%)",
+     "peak_storage_mcm": 8.21,
+     "peak_storage_pct": 92.6,
+     "is_overflow": false,
+     "event_inflow_4days_mcm": 1.312,
+     "event_outflow_4days_mcm": 0.178,
+     "net_retention_4days_mcm": 1.134,
+     "retention_pct": 86.4,
+     "18y_overflow_stat": {
+      "total_years": 18,
+      "overflow_years": 7,
+      "overflow_pct": 38.9
+     },
+     "daily": {
+      "2026-09-26": {
+       "storage_mcm": 7.196,
+       "storage_pct": 81.127,
+       "inflow_mcm_day": 0.218,
+       "outflow_mcm_day": 0.021
+      },
+      "2026-09-27": {
+       "storage_mcm": 7.744,
+       "storage_pct": 87.306,
+       "inflow_mcm_day": 0.577,
+       "outflow_mcm_day": 0.108
+      },
+      "2026-09-28": {
+       "storage_mcm": 7.981,
+       "storage_pct": 89.977,
+       "inflow_mcm_day": 0.263,
+       "outflow_mcm_day": 0.025
+      },
+      "2026-09-29": {
+       "storage_mcm": 8.21,
+       "storage_pct": 92.559,
+       "inflow_mcm_day": 0.254,
+       "outflow_mcm_day": 0.024
+      }
+     }
+    },
+    "rsv381": {
+     "name": "อ่างเก็บน้ำคลองสีเสียด",
+     "amphoe": "เมืองนครนายก",
+     "capacity_mcm": 1.14,
+     "receiving_stream": "คลองสีเสียด",
+     "downstream_area": "ต.หนองแสง อ.ปากพลี",
+     "hydrological_role": "อ่างขนาดเล็ก กักน้ำได้เกือบทั้งหมด (ระบายออกน้อยมาก)",
+     "peak_storage_mcm": 1.075,
+     "peak_storage_pct": 94.3,
+     "is_overflow": false,
+     "event_inflow_4days_mcm": 0.128,
+     "event_outflow_4days_mcm": 0.016,
+     "net_retention_4days_mcm": 0.112,
+     "retention_pct": 87.5,
+     "18y_overflow_stat": {
+      "total_years": 18,
+      "overflow_years": 15,
+      "overflow_pct": 83.3
+     },
+     "daily": {
+      "2026-09-26": {
+       "storage_mcm": 0.992,
+       "storage_pct": 87.018,
+       "inflow_mcm_day": 0.032,
+       "outflow_mcm_day": 0.0
+      },
+      "2026-09-27": {
+       "storage_mcm": 1.047,
+       "storage_pct": 91.842,
+       "inflow_mcm_day": 0.055,
+       "outflow_mcm_day": 0.0
+      },
+      "2026-09-28": {
+       "storage_mcm": 1.075,
+       "storage_pct": 94.298,
+       "inflow_mcm_day": 0.029,
+       "outflow_mcm_day": 0.0
+      },
+      "2026-09-29": {
+       "storage_mcm": 1.071,
+       "storage_pct": 93.947,
+       "inflow_mcm_day": 0.012,
+       "outflow_mcm_day": 0.016
+      }
+     }
+    },
+    "rsv382": {
+     "name": "อ่างเก็บน้ำคลองโบด",
+     "amphoe": "เมืองนครนายก",
+     "capacity_mcm": 4.25,
+     "receiving_stream": "คลองโบด / คลองเหมือง",
+     "downstream_area": "ต.พรหมณี อ.เมืองนครนายก",
+     "hydrological_role": "น้ำในอ่างน้อย (17%) มีช่องว่างรับน้ำเหลือเฟือ",
+     "peak_storage_mcm": 0.741,
+     "peak_storage_pct": 17.4,
+     "is_overflow": false,
+     "event_inflow_4days_mcm": 0.173,
+     "event_outflow_4days_mcm": 0.035,
+     "net_retention_4days_mcm": 0.138,
+     "retention_pct": 79.8,
+     "18y_overflow_stat": {
+      "total_years": 18,
+      "overflow_years": 3,
+      "overflow_pct": 16.7
+     },
+     "daily": {
+      "2026-09-26": {
+       "storage_mcm": 0.627,
+       "storage_pct": 14.753,
+       "inflow_mcm_day": 0.055,
+       "outflow_mcm_day": 0.002
+      },
+      "2026-09-27": {
+       "storage_mcm": 0.69,
+       "storage_pct": 16.235,
+       "inflow_mcm_day": 0.066,
+       "outflow_mcm_day": 0.002
+      },
+      "2026-09-28": {
+       "storage_mcm": 0.737,
+       "storage_pct": 17.341,
+       "inflow_mcm_day": 0.05,
+       "outflow_mcm_day": 0.022
+      },
+      "2026-09-29": {
+       "storage_mcm": 0.741,
+       "storage_pct": 17.435,
+       "inflow_mcm_day": 0.002,
+       "outflow_mcm_day": 0.009
+      }
+     }
+    },
+    "rsv383": {
+     "name": "อ่างเก็บน้ำทรายทอง",
+     "amphoe": "เมืองนครนายก",
+     "capacity_mcm": 2.0,
+     "receiving_stream": "คลองทรายทอง",
+     "downstream_area": "ต.เขาพระ, เทศบาลเมืองนครนายก",
+     "hydrological_role": "น้ำเต็ม 100% ตั้งแต่ก่อนฝนตกหนัก น้ำหลากล้นผ่าน 99.5% ซ้ำเติมน้ำท่วม ต.เขาพระ",
+     "peak_storage_mcm": 2.153,
+     "peak_storage_pct": 107.7,
+     "is_overflow": true,
+     "event_inflow_4days_mcm": 1.519,
+     "event_outflow_4days_mcm": 1.511,
+     "net_retention_4days_mcm": 0.008,
+     "retention_pct": 0.5,
+     "18y_overflow_stat": {
+      "total_years": 18,
+      "overflow_years": 15,
+      "overflow_pct": 83.3
+     },
+     "daily": {
+      "2026-09-26": {
+       "storage_mcm": 2.122,
+       "storage_pct": 106.1,
+       "inflow_mcm_day": 0.365,
+       "outflow_mcm_day": 0.348
+      },
+      "2026-09-27": {
+       "storage_mcm": 2.153,
+       "storage_pct": 107.65,
+       "inflow_mcm_day": 0.487,
+       "outflow_mcm_day": 0.455
+      },
+      "2026-09-28": {
+       "storage_mcm": 2.153,
+       "storage_pct": 107.65,
+       "inflow_mcm_day": 0.456,
+       "outflow_mcm_day": 0.455
+      },
+      "2026-09-29": {
+       "storage_mcm": 2.111,
+       "storage_pct": 105.55,
+       "inflow_mcm_day": 0.211,
+       "outflow_mcm_day": 0.253
+      }
+     }
+    },
+    "rsv384": {
+     "name": "อ่างเก็บน้ำคลองวังบอน",
+     "amphoe": "ปากพลี",
+     "capacity_mcm": 7.6,
+     "receiving_stream": "คลองวังบอน",
+     "downstream_area": "ต.นาหินลาด, อ.ปากพลี",
+     "hydrological_role": "น้ำเต็ม 100% ตลอดช่วง ระบาย/ล้นออกต่อเนื่องลงสู่ อ.ปากพลี",
+     "peak_storage_mcm": 7.725,
+     "peak_storage_pct": 101.6,
+     "is_overflow": true,
+     "event_inflow_4days_mcm": 0.788,
+     "event_outflow_4days_mcm": 0.709,
+     "net_retention_4days_mcm": 0.079,
+     "retention_pct": 10.0,
+     "18y_overflow_stat": {
+      "total_years": 18,
+      "overflow_years": 7,
+      "overflow_pct": 38.9
+     },
+     "daily": {
+      "2026-09-26": {
+       "storage_mcm": 7.665,
+       "storage_pct": 100.855,
+       "inflow_mcm_day": 0.285,
+       "outflow_mcm_day": 0.244
+      },
+      "2026-09-27": {
+       "storage_mcm": 7.7,
+       "storage_pct": 101.316,
+       "inflow_mcm_day": 0.203,
+       "outflow_mcm_day": 0.167
+      },
+      "2026-09-28": {
+       "storage_mcm": 7.725,
+       "storage_pct": 101.645,
+       "inflow_mcm_day": 0.192,
+       "outflow_mcm_day": 0.166
+      },
+      "2026-09-29": {
+       "storage_mcm": 7.7,
+       "storage_pct": 101.316,
+       "inflow_mcm_day": 0.108,
+       "outflow_mcm_day": 0.132
+      }
+     }
+    },
+    "rsv386": {
+     "name": "อ่างเก็บน้ำคลองกลาง",
+     "amphoe": "ปากพลี",
+     "capacity_mcm": 3.1,
+     "receiving_stream": "คลองกลาง",
+     "downstream_area": "ต.นาหินลาด, อ.ปากพลี",
+     "hydrological_role": "กักเก็บน้ำได้ 100% ไม่ปล่อยน้ำออกเลยในช่วงพีค 26–28 ก.ย. ช่วยหน่วงน้ำ อ.ปากพลี",
+     "peak_storage_mcm": 3.073,
+     "peak_storage_pct": 99.1,
+     "is_overflow": false,
+     "event_inflow_4days_mcm": 0.907,
+     "event_outflow_4days_mcm": 0.021,
+     "net_retention_4days_mcm": 0.886,
+     "retention_pct": 97.7,
+     "18y_overflow_stat": {
+      "total_years": 18,
+      "overflow_years": 14,
+      "overflow_pct": 77.8
+     },
+     "daily": {
+      "2026-09-26": {
+       "storage_mcm": 2.318,
+       "storage_pct": 74.774,
+       "inflow_mcm_day": 0.128,
+       "outflow_mcm_day": 0.0
+      },
+      "2026-09-27": {
+       "storage_mcm": 2.807,
+       "storage_pct": 90.548,
+       "inflow_mcm_day": 0.49,
+       "outflow_mcm_day": 0.0
+      },
+      "2026-09-28": {
+       "storage_mcm": 2.949,
+       "storage_pct": 95.129,
+       "inflow_mcm_day": 0.143,
+       "outflow_mcm_day": 0.0
+      },
+      "2026-09-29": {
+       "storage_mcm": 3.073,
+       "storage_pct": 99.129,
+       "inflow_mcm_day": 0.146,
+       "outflow_mcm_day": 0.021
+      }
+     }
+    }
+   }
+  },
+  "khundan_22y": {
+   "metadata": {
+    "title": "สถิติพฤติกรรมการกักเก็บน้ำของเขื่อนขุนด่านปราการชล 22 ปี (2548–2569)",
+    "source": "SWOC RID (app.rid.go.th/reservoir)",
+    "capacity_mcm": 224.0,
+    "period_years": 22,
+    "total_days_analyzed": 7811
+   },
+   "headline_metrics": {
+    "full_capacity_years": 9,
+    "full_capacity_pct": 40.9,
+    "peak_month_distribution": {
+     "september": 2,
+     "september_pct": 9.1,
+     "october": 8,
+     "october_pct": 36.4,
+     "november": 12,
+     "november_pct": 54.5
+    },
+    "year_2026_anomaly": {
+     "peak_date": "2026-09-27",
+     "days_earlier_than_median": 40,
+     "historical_rank_earliest": 1,
+     "note": "ตลอด 22 ปี มีเพียง 2 ปีเท่านั้นที่น้ำเต็มพีคในเดือนกันยายน (2556 และ 2569) อีก 20 ปีที่เหลือพีคใน ต.ค.–พ.ย."
+    }
+   },
+   "annual_records": [
+    {
+     "year_ce": 2005,
+     "year_be": 2548,
+     "total_days": 365,
+     "peak_storage_mcm": 218.01,
+     "peak_pct": 97.33,
+     "is_full_100pct": false,
+     "peak_date": "2005-11-16",
+     "peak_month": 11,
+     "peak_day": 16,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 99.32,
+     "sep_outflow_mcm": 0.0,
+     "sep_storage_gain_mcm": 98.86
+    },
+    {
+     "year_ce": 2006,
+     "year_be": 2549,
+     "total_days": 364,
+     "peak_storage_mcm": 222.39,
+     "peak_pct": 99.28,
+     "is_full_100pct": false,
+     "peak_date": "2006-10-28",
+     "peak_month": 10,
+     "peak_day": 28,
+     "month_group": "ตุลาคม (ปกติ)",
+     "sep_inflow_mcm": 55.63,
+     "sep_outflow_mcm": 34.47,
+     "sep_storage_gain_mcm": 17.25
+    },
+    {
+     "year_ce": 2007,
+     "year_be": 2550,
+     "total_days": 365,
+     "peak_storage_mcm": 224.0,
+     "peak_pct": 100.0,
+     "is_full_100pct": true,
+     "peak_date": "2007-10-26",
+     "peak_month": 10,
+     "peak_day": 26,
+     "month_group": "ตุลาคม (ปกติ)",
+     "sep_inflow_mcm": 104.02,
+     "sep_outflow_mcm": 17.3,
+     "sep_storage_gain_mcm": 83.46
+    },
+    {
+     "year_ce": 2008,
+     "year_be": 2551,
+     "total_days": 366,
+     "peak_storage_mcm": 212.74,
+     "peak_pct": 94.97,
+     "is_full_100pct": false,
+     "peak_date": "2008-11-11",
+     "peak_month": 11,
+     "peak_day": 11,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 88.93,
+     "sep_outflow_mcm": 61.21,
+     "sep_storage_gain_mcm": 25.68
+    },
+    {
+     "year_ce": 2009,
+     "year_be": 2552,
+     "total_days": 365,
+     "peak_storage_mcm": 188.59,
+     "peak_pct": 84.19,
+     "is_full_100pct": false,
+     "peak_date": "2009-11-21",
+     "peak_month": 11,
+     "peak_day": 21,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 64.44,
+     "sep_outflow_mcm": 4.64,
+     "sep_storage_gain_mcm": 58.92
+    },
+    {
+     "year_ce": 2010,
+     "year_be": 2553,
+     "total_days": 365,
+     "peak_storage_mcm": 219.25,
+     "peak_pct": 97.88,
+     "is_full_100pct": false,
+     "peak_date": "2010-11-04",
+     "peak_month": 11,
+     "peak_day": 4,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 49.05,
+     "sep_outflow_mcm": 4.83,
+     "sep_storage_gain_mcm": 49.15
+    },
+    {
+     "year_ce": 2011,
+     "year_be": 2554,
+     "total_days": 365,
+     "peak_storage_mcm": 216.48,
+     "peak_pct": 96.64,
+     "is_full_100pct": false,
+     "peak_date": "2011-11-09",
+     "peak_month": 11,
+     "peak_day": 9,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 134.19,
+     "sep_outflow_mcm": 80.22,
+     "sep_storage_gain_mcm": 52.83
+    },
+    {
+     "year_ce": 2012,
+     "year_be": 2555,
+     "total_days": 366,
+     "peak_storage_mcm": 181.59,
+     "peak_pct": 81.07,
+     "is_full_100pct": false,
+     "peak_date": "2012-11-15",
+     "peak_month": 11,
+     "peak_day": 15,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 59.85,
+     "sep_outflow_mcm": 7.12,
+     "sep_storage_gain_mcm": 51.36
+    },
+    {
+     "year_ce": 2013,
+     "year_be": 2556,
+     "total_days": 365,
+     "peak_storage_mcm": 221.64,
+     "peak_pct": 98.95,
+     "is_full_100pct": false,
+     "peak_date": "2013-09-27",
+     "peak_month": 9,
+     "peak_day": 27,
+     "month_group": "กันยายน (เร็วผิดปกติ)",
+     "sep_inflow_mcm": 119.53,
+     "sep_outflow_mcm": 50.08,
+     "sep_storage_gain_mcm": 61.69
+    },
+    {
+     "year_ce": 2014,
+     "year_be": 2557,
+     "total_days": 365,
+     "peak_storage_mcm": 224.19,
+     "peak_pct": 100.08,
+     "is_full_100pct": true,
+     "peak_date": "2014-11-06",
+     "peak_month": 11,
+     "peak_day": 6,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 72.49,
+     "sep_outflow_mcm": 10.87,
+     "sep_storage_gain_mcm": 58.85
+    },
+    {
+     "year_ce": 2015,
+     "year_be": 2558,
+     "total_days": 348,
+     "peak_storage_mcm": 193.0,
+     "peak_pct": 86.16,
+     "is_full_100pct": false,
+     "peak_date": "2015-10-28",
+     "peak_month": 10,
+     "peak_day": 28,
+     "month_group": "ตุลาคม (ปกติ)",
+     "sep_inflow_mcm": 75.31,
+     "sep_outflow_mcm": 2.2,
+     "sep_storage_gain_mcm": 77.0
+    },
+    {
+     "year_ce": 2016,
+     "year_be": 2559,
+     "total_days": 333,
+     "peak_storage_mcm": 222.0,
+     "peak_pct": 99.11,
+     "is_full_100pct": false,
+     "peak_date": "2016-11-10",
+     "peak_month": 11,
+     "peak_day": 10,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 73.22,
+     "sep_outflow_mcm": 13.62,
+     "sep_storage_gain_mcm": 62.0
+    },
+    {
+     "year_ce": 2017,
+     "year_be": 2560,
+     "total_days": 275,
+     "peak_storage_mcm": 222.44,
+     "peak_pct": 99.3,
+     "is_full_100pct": false,
+     "peak_date": "2017-11-01",
+     "peak_month": 11,
+     "peak_day": 1,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 2.14,
+     "sep_outflow_mcm": 0.2,
+     "sep_storage_gain_mcm": 0.91
+    },
+    {
+     "year_ce": 2018,
+     "year_be": 2561,
+     "total_days": 359,
+     "peak_storage_mcm": 224.14,
+     "peak_pct": 100.06,
+     "is_full_100pct": true,
+     "peak_date": "2018-10-20",
+     "peak_month": 10,
+     "peak_day": 20,
+     "month_group": "ตุลาคม (ปกติ)",
+     "sep_inflow_mcm": 123.23,
+     "sep_outflow_mcm": 111.42,
+     "sep_storage_gain_mcm": 12.64
+    },
+    {
+     "year_ce": 2019,
+     "year_be": 2562,
+     "total_days": 365,
+     "peak_storage_mcm": 210.01,
+     "peak_pct": 93.75,
+     "is_full_100pct": false,
+     "peak_date": "2019-10-26",
+     "peak_month": 10,
+     "peak_day": 26,
+     "month_group": "ตุลาคม (ปกติ)",
+     "sep_inflow_mcm": 91.13,
+     "sep_outflow_mcm": 1.8,
+     "sep_storage_gain_mcm": 86.13
+    },
+    {
+     "year_ce": 2020,
+     "year_be": 2563,
+     "total_days": 366,
+     "peak_storage_mcm": 224.14,
+     "peak_pct": 100.06,
+     "is_full_100pct": true,
+     "peak_date": "2020-11-04",
+     "peak_month": 11,
+     "peak_day": 4,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 103.75,
+     "sep_outflow_mcm": 5.98,
+     "sep_storage_gain_mcm": 96.42
+    },
+    {
+     "year_ce": 2021,
+     "year_be": 2564,
+     "total_days": 365,
+     "peak_storage_mcm": 225.0,
+     "peak_pct": 100.45,
+     "is_full_100pct": true,
+     "peak_date": "2021-10-16",
+     "peak_month": 10,
+     "peak_day": 16,
+     "month_group": "ตุลาคม (ปกติ)",
+     "sep_inflow_mcm": 64.38,
+     "sep_outflow_mcm": 23.82,
+     "sep_storage_gain_mcm": 38.0
+    },
+    {
+     "year_ce": 2022,
+     "year_be": 2565,
+     "total_days": 365,
+     "peak_storage_mcm": 225.0,
+     "peak_pct": 100.45,
+     "is_full_100pct": true,
+     "peak_date": "2022-10-15",
+     "peak_month": 10,
+     "peak_day": 15,
+     "month_group": "ตุลาคม (ปกติ)",
+     "sep_inflow_mcm": 79.89,
+     "sep_outflow_mcm": 36.82,
+     "sep_storage_gain_mcm": 39.0
+    },
+    {
+     "year_ce": 2023,
+     "year_be": 2566,
+     "total_days": 365,
+     "peak_storage_mcm": 224.65,
+     "peak_pct": 100.29,
+     "is_full_100pct": true,
+     "peak_date": "2023-10-13",
+     "peak_month": 10,
+     "peak_day": 13,
+     "month_group": "ตุลาคม (ปกติ)",
+     "sep_inflow_mcm": 82.46,
+     "sep_outflow_mcm": 2.97,
+     "sep_storage_gain_mcm": 76.44
+    },
+    {
+     "year_ce": 2024,
+     "year_be": 2567,
+     "total_days": 366,
+     "peak_storage_mcm": 219.0,
+     "peak_pct": 97.77,
+     "is_full_100pct": false,
+     "peak_date": "2024-11-08",
+     "peak_month": 11,
+     "peak_day": 8,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 89.02,
+     "sep_outflow_mcm": 27.65,
+     "sep_storage_gain_mcm": 61.64
+    },
+    {
+     "year_ce": 2025,
+     "year_be": 2568,
+     "total_days": 365,
+     "peak_storage_mcm": 224.65,
+     "peak_pct": 100.29,
+     "is_full_100pct": true,
+     "peak_date": "2025-11-05",
+     "peak_month": 11,
+     "peak_day": 5,
+     "month_group": "พฤศจิกายน (ปกติ)",
+     "sep_inflow_mcm": 71.1,
+     "sep_outflow_mcm": 20.01,
+     "sep_storage_gain_mcm": 49.88
+    },
+    {
+     "year_ce": 2026,
+     "year_be": 2569,
+     "total_days": 288,
+     "peak_storage_mcm": 224.34,
+     "peak_pct": 100.15,
+     "is_full_100pct": true,
+     "peak_date": "2026-09-27",
+     "peak_month": 9,
+     "peak_day": 27,
+     "month_group": "กันยายน (เร็วผิดปกติ)",
+     "sep_inflow_mcm": 145.09,
+     "sep_outflow_mcm": 103.6,
+     "sep_storage_gain_mcm": 34.97
+    }
+   ]
+  },
+  "ny1b_cross_section": {
+   "survey_points": 61,
+   "bed_elevation_msl": 4.1,
+   "bank_elevation_msl": 10.6,
+   "bankfull_q_m3s": 244.6,
+   "peak_stage_msl": 11.23,
+   "peak_q_m3s": 282.4,
+   "overflow_depth_m": 0.63,
+   "overflow_q_m3s": 37.8
   }
  },
  "checks": {
@@ -171,7 +857,10 @@
    "0.78 ม.",
    "1.18",
    "1,058–1,416",
-   "242"
+   "242",
+   "26.96",
+   "244.6",
+   "10.60"
   ],
   "expert": [
    "452.1",
@@ -190,7 +879,10 @@
    "117.6",
    "1,058–1,416",
    "242(h−4.55)",
-   "4.55"
+   "4.55",
+   "26.96",
+   "244.6",
+   "10.60"
   ]
  }
 }

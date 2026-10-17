@@ -342,10 +342,55 @@ def main() -> None:
             },
         }
 
+    # ---- อ่างเก็บน้ำขนาดกลางระดับชาติ 461 แห่ง (SWOC RID) ----
+    nmr_file = A / "goal6/national_medium_reservoirs_summary.json"
+    if nmr_file.exists():
+        nmr = json.loads(nmr_file.read_text(encoding="utf-8"))
+        meta = nmr["metadata"]
+        out["national_medium_reservoirs"] = {
+            "total_dams": meta["total_medium_dams"],
+            "total_capacity_mcm": meta["total_capacity_mcm"],
+            "current_storage_mcm": meta["current_storage_mcm"],
+            "storage_percent": meta["storage_percent"],
+            "dams_over_100_count": meta["dams_over_100_count"],
+            "dams_over_100_pct": meta["dams_over_100_pct"],
+            "dams_stress_total_count": meta["dams_stress_total_count"],
+            "dams_stress_total_pct": meta["dams_stress_total_pct"],
+            "ratio_to_large_dams_cap_pct": meta["large_dams_comparison"]["medium_cap_ratio_to_large_pct"],
+            "regional_summary": {
+                r["region"]: {
+                    "dam_count": r["dam_count"],
+                    "total_cap_mcm": r["total_cap_mcm"],
+                    "storage_pct": r["storage_percent"],
+                    "over_100_count": r["over_100_count"],
+                }
+                for r in nmr["regions"]
+            },
+        }
+
+    # ---- สถิติพฤติกรรมการเดินเขื่อนป่าสักชลสิทธิ์ 24 ปี (2546–2569) ----
+    ps24_file = A / "goal6/pasak_24y_summary.json"
+    if ps24_file.exists():
+        ps24 = json.loads(ps24_file.read_text(encoding="utf-8"))
+        hl = ps24["headline_metrics"]
+        out["pasak_24y_baseline"] = {
+            "years_analyzed": ps24["metadata"]["period_years"],
+            "over_normal_years": hl["over_normal_years"],
+            "over_normal_pct": hl["over_normal_pct"],
+            "over_1000mcm_years": hl["over_1000mcm_years"],
+            "over_1000mcm_pct": hl["over_1000mcm_pct"],
+            "record_peak_mcm": hl["all_time_record_peak"]["peak_storage_mcm"],
+            "record_peak_year": hl["all_time_record_peak"]["year_be"],
+            "y2569_peak_mcm": hl["year_2569_status"]["peak_storage_mcm"],
+            "y2569_peak_pct": hl["year_2569_status"]["peak_pct_normal"],
+        }
+
     # ---- ตัวเลขที่ปลดประจำการ (retired ledger) — เทสสแกนว่าห้ามปรากฏใน HTML/เอกสาร ----
     # ---- นิยามหน้าต่าง/เกณฑ์ของตัวเลขหลัก (รากเหตุ M2: ตัวเลขเดียวกัน 2–3 นิยาม) ----
     # กติกา: อ้างตัวเลขในรายงานต้องใช้นิยามตามที่จดที่นี่ — ถ้านิยามต่างจากนี้ ต้องเป็น field ใหม่ ไม่ใช่แทนที่
     out["definitions"] = {
+        "national_medium_reservoirs": "สถิติอ่างเก็บน้ำขนาดกลาง 461 แห่งทั่วประเทศ (ความจุ 5,493.7 ล้าน ลบ.ม.) จากศูนย์ปฏิบัติการน้ำอัจฉริยะ กรมชลประทาน",
+        "pasak_24y_baseline": "สถิติพฤติกรรมการเก็บกักและระบายน้ำเขื่อนป่าสักชลสิทธิ์ 24 ปี (2546–2569 รวม 8,425 วัน)",
         "rain_top3": "จำนวนจุดวัดที่ฝนสะสมสูงสุด 7 วัน (ก.ค.–ต.ค. ของปีนั้น) ติดอันดับ 1–3 จาก 46 ปี (1981–2026) · Weibull (n+1)/อันดับ",
         "grid_cell": "ช่องกริด POWER MERRA-2 0.5° lat × 0.625° lon — จุดวัดในช่องเดียวกันได้ค่าเดียวกัน (dedup ตามนี้)",
         "event_over_crit": "จุดวัดที่มีชั่วโมงเกินระดับวิกฤต (ตาม API) ในหน้าต่าง 1 ก.ค.–9 ต.ค. 2569 · นับ 'พีคในระลอก' จาก max_dt ≥ 23 ก.ย.",

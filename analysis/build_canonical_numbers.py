@@ -113,13 +113,31 @@ assert abs((levels["bankfull_gauge_m"] - GAUGE_OFFSET) - 6.86) < 0.005
 # ---------- ชุด string ที่รายงานแต่ละฉบับต้องมี (ตรวจด้วย exact substring ไม่ใช่ regex —
 # regex ที่มีจุดไปแมตช์ base64 ขยะได้) สองฉบับเลือกนำเสนอคนละหน่วยโดยดีไซน์:
 # ประชาชนใช้เกจ 9.80/9.23 + RMSE เป็นเมตร (1.09) · วิชาการใช้ ม.รทก. (7.64/8.21) + 11.89 ----------
+# ---------- อ่างเก็บน้ำขนาดกลาง 6 แห่ง นครนายก (SWOC RID) ----------
+med_dams = jload(ANA / "goal2_nny_medium_dams_summary.json")
+
+# ---------- เขื่อนขุนด่านฯ สถิติ 22 ปีเต็ม 2548–2569 ----------
+kd22 = jload(ANA / "goal2_khundan_22y_summary.json")
+
+# ---------- ภาคตัดขวางสำรวจจริง Ny.1B (RID SWOC Hydro App) ----------
+ny1b_xs = {
+    "survey_points": 61,
+    "bed_elevation_msl": 4.10,
+    "bank_elevation_msl": 10.60,
+    "bankfull_q_m3s": 244.6,
+    "peak_stage_msl": 11.23,
+    "peak_q_m3s": 282.4,
+    "overflow_depth_m": 0.63,
+    "overflow_q_m3s": 37.8,
+}
+
 checks = {
     "public": ["452.1", "363.6", "306.9", "51.5", "12%", "60%", "65 ชม.",
                "9.23", "9.80", "8.45", "6.86", "0.78 ม.", "1.18",
-               "1,058–1,416", "242"],
+               "1,058–1,416", "242", "26.96", "244.6", "10.60"],
     "expert": ["452.1", "363.6", "306.9", "51.5", "12%", "60%", "65 ชม.",
                "9.23", "8.45", "7.64", "6.86", "8.21", "11.89", "117.6",
-               "1,058–1,416", "242(h−4.55)", "4.55"],
+               "1,058–1,416", "242(h−4.55)", "4.55", "26.96", "244.6", "10.60"],
 }
 
 # ค่า/คำที่เลิกใช้ — ห้ามปรากฏใน HTML ที่ build (builders/tests ตรวจ absence — GL-10)
@@ -170,6 +188,22 @@ render = {
     "m4drop": f"{cf['M4_volume_budget']['corridor_drop_m']}",
     "trainh": f"{model_v1['train_h']:,}",
     "pisai": f"≈{round(s1['peak_km2'] * 306.9 / s1['oct2_ours_km2'])}–{pk_short if False else round(s1['peak_km2'])}",
+    "med_cnt": f"{med_dams['system_totals']['medium_reservoirs_count']}",
+    "med_cap": f"{med_dams['system_totals']['total_medium_capacity_mcm']}",
+    "med_pct": f"{med_dams['system_totals']['medium_to_khundan_pct']:.1f}%",
+    "med_inflow": f"{med_dams['event_26_29_sep']['total_inflow_mcm']:.2f}",
+    "med_outflow": f"{med_dams['event_26_29_sep']['total_outflow_mcm']:.2f}",
+    "med_retain": f"{med_dams['event_26_29_sep']['net_retention_mcm']:.2f}",
+    "kd22_full_yr": f"{kd22['headline_metrics']['full_capacity_years']} จาก {kd22['metadata']['period_years']} ปี",
+    "kd22_full_pct": f"{kd22['headline_metrics']['full_capacity_pct']:.1f}%",
+    "kd22_days_early": f"{kd22['headline_metrics']['year_2026_anomaly']['days_earlier_than_median']}",
+    "ny1b_pts": f"{ny1b_xs['survey_points']}",
+    "ny1b_bank_msl": f"{ny1b_xs['bank_elevation_msl']:.2f}",
+    "ny1b_q_bankfull": f"{ny1b_xs['bankfull_q_m3s']:.1f}",
+    "ny1b_pk_msl": f"{ny1b_xs['peak_stage_msl']:.2f}",
+    "ny1b_pk_q": f"{ny1b_xs['peak_q_m3s']:.1f}",
+    "ny1b_ov_m": f"{ny1b_xs['overflow_depth_m']:.2f}",
+    "ny1b_ov_q": f"{ny1b_xs['overflow_q_m3s']:.1f}",
 }
 
 out = {
@@ -186,6 +220,9 @@ out = {
             "model_v1": "analysis/goal4_model_v1_results.json",
             "backtest": "analysis/goal4_model_backtest_long.json",
             "levels": "โทรมาตร กช. + ภาคตัดขวาง data/19 (recorded constants)",
+            "medium_dams": "analysis/goal2_nny_medium_dams_summary.json (SWOC RID 6 อ่างขนาดกลางนครนายก)",
+            "khundan_22y": "analysis/goal2_khundan_22y_summary.json (SWOC RID สถิติ 22 ปี 2548–2569)",
+            "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด)",
         },
     },
     "values": {
@@ -193,6 +230,9 @@ out = {
         "counterfactual": counterfactual, "model_v1": model_v1,
         "backtest_beats_persistence_every_season": backtest_beats_persistence_every_season,
         "levels": levels,
+        "medium_dams": med_dams,
+        "khundan_22y": kd22,
+        "ny1b_cross_section": ny1b_xs,
     },
     "checks": checks,
 }

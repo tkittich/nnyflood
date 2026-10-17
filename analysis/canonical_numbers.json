@@ -489,7 +489,11 @@
     "source": "SWOC RID (app.rid.go.th/reservoir)",
     "capacity_mcm": 224.0,
     "period_years": 22,
-    "total_days_analyzed": 7811
+    "total_days_analyzed": 7811,
+    "storage_definitions": {
+     "full_capacity_definition": "'น้ำเต็มความจุ' และ '% ความจุ' ในแฟ้มนี้เทียบกับความจุกักเก็บใช้งาน 224.0 ล้าน ลบ.ม. (DAM_QStore ของระบบ SWOC RID) · ปริมาณที่ใช้งานไม่ได้ (DUL_Useless) ราว 4.52 ล้าน ลบ.ม. ไม่ถูกนับ · DAM_QMax 224.90 ล้าน ลบ.ม. คือค่าสูงสุดที่ระบบรายงาน",
+     "scope_note": "แฟ้ม SWOC RID ไม่แยกระดับน้ำตาย/ช่องความจุเผื่อวิกฤตของเขื่อนขุนด่านฯ เป็นช่วงระดับ (ต่างจากแฟ้มป่าสักที่ระบุครบ: ปกติ 871.5 → หน่วงน้ำหลาก 1,036.16)"
+    }
    },
    "headline_metrics": {
     "full_capacity_years": 9,

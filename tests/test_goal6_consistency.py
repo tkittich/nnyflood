@@ -113,6 +113,17 @@ def test_builder_source_has_no_metric_literals():
         code = "\n".join(code_lines)
         for lit in ("224.34", "241 วัน", "164 วัน", "127 วัน"):
             assert lit not in code, f"{b}: ตัวเลข hardcode {lit!r} — อ่านจาก dam_history_all.json"
+    # ขยาย (T1-04 · กลั่นกรองรอบ 4 — GLM F-14, BP F-12, SB F-12): ตัวเลขฝังตรงชุดอื่น + ครอบทุกไบล์เดอร์ใน report/
+    extra_banned = ["67 จาก 199", "32 จาก 99", "151 จาก 199", "2,264", "5,493.7"]
+    builders = sorted(p.relative_to(ROOT).as_posix() for p in (ROOT / "report").glob("*.py"))
+    assert len(builders) >= 10, f"พบไบล์เดอร์น้อยผิดปกติ: {builders}"
+    for b in builders:
+        code = "\n".join(
+            ln for ln in (ROOT / b).read_text(encoding="utf-8").splitlines()
+            if not ln.strip().startswith("#")
+        )
+        for lit in extra_banned:
+            assert lit not in code, f"{b}: ตัวเลข hardcode {lit!r} — ต้องเรนเดอร์จาก canonical เท่านั้น"
     # corr ต้องมาจาก c2_attribution.json — builder ห้ามมี "−0.92" ลอย ๆ
     t3 = (ROOT / "report/goal6_build_report3_draft.py").read_text(encoding="utf-8")
     code3 = "\n".join(ln for ln in t3.splitlines() if not ln.strip().startswith("#"))

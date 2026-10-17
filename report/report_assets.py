@@ -429,7 +429,7 @@ ax.annotate("2 ต.ค.: เรา 363.6 · GISTDA 306.9", xy=(ours[5][0], 395),
 ax.annotate("8.3 — ต่ำกว่าพื้นที่จริงมาก (น้ำขณะถ่าย ≈ ระดับน้ำสูงสุด)", xy=gistda[1][:2], xytext=(10, 10),
             textcoords="offset points", fontsize=7.5, color="#ef6c00", va="bottom")
 ax.annotate("28 ก.ย. 18:19 = 0 ในแถบครอบ 9% ตะวันออก (ส่วนใหญ่เป็นป่าเขา ไม่ใช่พื้นที่ท่วมหลัก จึงไม่จุด)",
-            xy=(datetime(2026, 9, 29, 6), 432), fontsize=7.5, color="#78909c", ha="right")
+            xy=(datetime(2026, 9, 29, 6), 432), fontsize=7.5, color="#5a6b7b", ha="right")
 ax.margins(x=0.07)
 ax.set_ylabel("พื้นที่น้ำท่วม (ตร.กม.)")
 ax.set_title("อนุกรมพื้นที่น้ำท่วมนครนายก — ทุกจุดข้อมูลที่มี (15 ก.ย. – 2 ต.ค. 2569)")

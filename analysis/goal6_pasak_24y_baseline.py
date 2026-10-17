@@ -95,6 +95,7 @@ def analyze():
     rec_53 = stats_by_be.get(2553, {})
     rec_54 = stats_by_be.get(2554, {})
     rec_69 = stats_by_be.get(2569, {})
+    data_through = max(str(r.get("DATE_curr") or "") for r in rows)
     
     summary = {
         "metadata": {
@@ -104,6 +105,8 @@ def analyze():
             "max_capacity_mcm": MAX_CAP,
             "period_years": total_years,
             "total_days_analyzed": len(rows),
+            "data_through": data_through,
+            "partial_year_note": "ปี 2569 เป็นปีบางส่วน — ข้อมูลในแฟ้มสิ้นสุดที่วันดังกล่าว (ยอดสูงสุดรายปียังเทียบได้ แต่จำนวนวัน/ปริมาณสะสมของปี 2569 จะต่ำกว่าปีเต็ม)",
             "storage_definitions": {
                 "normal_conservation_storage": "ความจุกักเก็บปกติ 871.5 ล้าน ลบ.ม. (ระดับเก็บกักปกติ +42.0 ม.รทก.)",
                 "surcharge_flood_pool": "ช่องความจุหน่วงน้ำหลากวิกฤต (Surcharge Storage) 871.5–1,036.16 ล้าน ลบ.ม. (ระดับน้ำสูงสุด +43.0 ม.รทก.)",
@@ -153,7 +156,7 @@ def analyze():
         f"- **ระดับวิกฤตเกิน 1,000 ล้าน ลบ.ม.**: เกิดขึ้นถึง **{over_1000mcm_count} จาก {total_years} ปี ({summary['headline_metrics']['over_1000mcm_pct']}%)** สูงสุดประวัติศาสตร์คือปี 2553 แตะ **1,177.22 ล้าน ลบ.ม. (135.1%)**",
         "- **เทียบปี 2554 vs 2569**:",
         f"  - ปี 2554 (มหาอุทกภัย): พีคแตะ **{rec_54.get('peak_storage_mcm', 1086.34)} ล้าน ลบ.ม. ({rec_54.get('peak_pct_normal', 124.7):.1f}%)** และปล่อยน้ำสูงสุดถึง **{rec_54.get('max_outflow_mcm_day', 84.78)} ล้าน ลบ.ม./วัน**",
-        f"  - ปี 2569: พีคแตะ **{rec_69.get('peak_storage_mcm', 965.36)} ล้าน ลบ.ม. ({rec_69.get('peak_pct_normal', 110.8):.1f}%)** เมื่อวันที่ {rec_69.get('peak_date', '2026-10-04')}",
+        f"  - ปี 2569: พีคแตะ **{rec_69.get('peak_storage_mcm', 965.36)} ล้าน ลบ.ม. ({rec_69.get('peak_pct_normal', 110.8):.1f}%)** เมื่อวันที่ {rec_69.get('peak_date', '2026-10-04')} · *หมายเหตุ: ปี 2569 เป็นปีบางส่วน — ข้อมูลสิ้นสุด {summary['metadata']['data_through']} (จำนวนวัน/ปริมาณสะสมของปีนี้ต่ำกว่าปีเต็ม)*",
         "",
         "## 2. ตารางสถิติรายปี (พ.ศ. 2546 – 2569)",
         "",

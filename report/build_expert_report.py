@@ -193,7 +193,7 @@ html = r"""<!DOCTYPE html>
 <div class="eq">Q<sub>สถานการณ์</sub>(t) = Q<sub>จริง</sub>(t) − Q<sub>ปล่อยจริง</sub>(t−lag) + Q<sub>ปล่อยสมมติ</sub>(t−lag) · แปลงกลับเป็นระดับด้วย rating ผกผัน · Q≥15 ม³/วิ</div>
 <p>เงื่อนไขสมมติ: (S1) ปล่อย ≤12 ลลบ.ม./วัน ตั้งแต่ 27 ก.ย. (ตรวจสมดุลอ่างแล้ว: ต้องลดน้ำเก็บลง URC ก่อนพายุ มิฉะนั้นอ่างล้น) · (S2) ปล่อย 0 ระหว่าง 25–30 ก.ย. (ขอบบนของการช่วยเหลือ) · ตัวชี้วัด = น้ำสูงสุดระดับ, ชั่วโมง ≥8.45, ปริมาณน้ำเหนือตลิ่งอินทิเกรต (Q−420)⁺</p>
 <table>
-<tr><th>กรณี</th><th class="num">น้ำสูงสุด (ม.เกจ)</th><th class="num">ชม. ≥8.45</th><th class="num">ล้นออกนอกตลิ่ง (ลลบ.ม.)</th></tr>
+<tr><th>กรณี</th><th class="num">น้ำสูงสุด (ม.ตามมาตรวัด)</th><th class="num">ชม. ≥8.45</th><th class="num">ล้นออกนอกตลิ่ง (ลลบ.ม.)</th></tr>
 <tr><td>จริง (อนุกรมวัด)</td><td class="num">@@R:ny7_peak_g@@</td><td class="num">@@R:cf_ov_h@@</td><td class="num">12.0</td></tr>
 <tr><td>S1 URC + กะปล่อย ≤12</td><td class="num">@@R:ny7_peak_g@@</td><td class="num">12</td><td class="num">2.7 (−78%)</td></tr>
 <tr><td>S2 URC + กักช่วงน้ำสูงสุด</td><td class="num">8.75</td><td class="num">8</td><td class="num">0.8 (−94%)</td></tr>
@@ -314,7 +314,7 @@ html = r"""<!DOCTYPE html>
 <h3>6.5.3 สถานการณ์บริหารด้วยพยากรณ์ (ทุกแผนผ่านการตรวจความจุอ่าง ≤225.4 ลลบ.ม.)</h3>
 <p>กรอบ: การใช้พยากรณ์ปรับระดับน้ำล่วงหน้า (forecast-informed operation) เป็นแนวปฏิบัติที่กรมชลประทาน/สทนช. นำไปใช้ได้จริง — URC เป็นเส้นบน การเก็บน้ำต่ำกว่า URC เป็นดุลยพินิจที่ทำได้อยู่แล้ว (ขอเพียงไม่ต่ำกว่า LRC)</p>
 <table>
-<tr><th>สถานการณ์</th><th class="num">ล้นออกนอกตลิ่ง</th><th class="num">ชม. ≥8.45</th><th class="num">น้ำสูงสุด (ม.เกจ)</th><th>แผน/เงื่อนไข</th></tr>
+<tr><th>สถานการณ์</th><th class="num">ล้นออกนอกตลิ่ง</th><th class="num">ชม. ≥8.45</th><th class="num">น้ำสูงสุด (ม.ตามมาตรวัด)</th><th>แผน/เงื่อนไข</th></tr>
 <tr><td>จริง</td><td class="num">~12 ลลบ.ม.</td><td class="num">@@R:cf_ov_h@@ ± 6</td><td class="num">@@R:ny7_peak_g@@</td><td>ปล่อยจริง 31.7 ลลบ.ม. วันที่ 27 (ค่าน้ำสูงสุดใช้เกจ thaiwater @@R:ny7_peak_g@@ = @@R:ny7_peak_msl@@ ม.รทก. ตามค่ามาตรฐานใน DATA_DICTIONARY; ฟีด khundan อ่าน 9.27 — ต่างกัน 4 ซม.)</td></tr>
 <tr><td>R1 กฎ URC (ไม่มีโมเดล)</td><td class="num">~5 (−55%)</td><td class="num">18 ± 6</td><td class="num">ไม่เปลี่ยน*</td><td>ระบายลดระดับจนถึง URC ตั้งแต่ 19 ก.ย. วัน 27 ปล่อย 13.9 อ่างเต็มพอดี · การจำกัดอัตราปล่อยช่วงน้ำสูงสุด = สมมติฐานการปฏิบัติ (ยังไม่มีระเบียบรองรับ — FOI)</td></tr>
 <tr><td>M1 โมเดล (ในกรอบ URC)</td><td class="num">~5 (−55%)</td><td class="num">18 ± 6</td><td class="num">ไม่เปลี่ยน*</td><td>แผนรายวัน = R1 (ความละเอียดรายวันถึงเพดานเดียวกัน)</td></tr>
@@ -454,7 +454,7 @@ sha256sum data/13_sentinel1_copernicus/*.zip   # เทียบ data/13_.../man
 <tr><td>7 ต.ค.</td><td class="num">215.69</td><td class="num">—</td><td class="num">6.27</td><td class="num">6.12</td></tr>
 </table>
 <p class="cap">แถว 5–6 ต.ค. จาก API thaiwater (ดึง 7 ต.ค.) · แถว 7 ต.ค. จากรายงานประจำวันของโครงการ (ภาพผู้ใช้ 569968.jpg — ระบาย 6.12 นับฐานต่างจาก API ดู §7) · น้ำเก็บยังเหนือ URC ต่อเนื่อง</p></details>
-<details><summary>10.2 ระดับน้ำรายชั่วโมงสำคัญที่ Ny.7 (ม.เกจ · Q จาก rating ±20%)</summary>
+<details><summary>10.2 ระดับน้ำรายชั่วโมงสำคัญที่ Ny.7 (ม.ตามมาตรวัด · Q จาก rating ±20%)</summary>
 <table>
 <tr><th>เวลา</th><th class="num">เกจ</th><th class="num">Q ประมาณ</th></tr>
 <tr><td>26 ก.ย. 12:00</td><td class="num">7.39</td><td class="num">280</td></tr>

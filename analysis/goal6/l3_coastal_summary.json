@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "title": "เปรียบเทียบแบบจำลองพยากรณ์ผสานขอบเขตทะเลหนุนลุ่มเจ้าพระยาตอนล่าง (L3 Coastal-Coupled Model)",
+    "target_station": "C.12 (กรมชลประทานสามเสน กรุงเทพฯ)",
+    "upstream_station": "BKK001 (เจ้าพระยาตอนบน)",
+    "tide_station": "CPY015 (สะพานกรุงเทพ ปากแม่น้ำเจ้าพระยา)",
+    "test_window": "2026-09-20..2026-10-09 (ระลอกมหาอุทกภัย)"
+  },
+  "horizons": {
+    "6": {
+      "lead_hours": 6,
+      "persistence_rmse_cm": 61.8,
+      "linear_base_rmse_cm": 76.3,
+      "linear_coastal_rmse_cm": 39.9,
+      "linear_improvement_pct": 47.7,
+      "gbdt_base_rmse_cm": 92.0,
+      "gbdt_coastal_rmse_cm": 75.9,
+      "gbdt_improvement_pct": 17.4,
+      "n_train": 1130,
+      "n_test": 262
+    },
+    "24": {
+      "lead_hours": 24,
+      "persistence_rmse_cm": 21.2,
+      "linear_base_rmse_cm": 20.3,
+      "linear_coastal_rmse_cm": 20.8,
+      "linear_improvement_pct": -2.6,
+      "gbdt_base_rmse_cm": 39.2,
+      "gbdt_coastal_rmse_cm": 39.5,
+      "gbdt_improvement_pct": -0.9,
+      "n_train": 1467,
+      "n_test": 274
+    },
+    "48": {
+      "lead_hours": 48,
+      "persistence_rmse_cm": 37.6,
+      "linear_base_rmse_cm": 34.6,
+      "linear_coastal_rmse_cm": 33.4,
+      "linear_improvement_pct": 3.3,
+      "gbdt_base_rmse_cm": 47.6,
+      "gbdt_coastal_rmse_cm": 52.3,
+      "gbdt_improvement_pct": -9.9,
+      "n_train": 1462,
+      "n_test": 274
+    }
+  }
+}

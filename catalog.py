@@ -57,6 +57,7 @@ PILLARS = {
             "analysis/common_fetch_rain_stations.py",
             "analysis/common_fetch_weather_forecasts.py",
             "analysis/rid_cross_section_stage_rating.py",
+            "analysis/hydraulic_1d_routing.py",
         ],
         "data_dirs": [
             "data/01_rid_khun_dan",
@@ -104,6 +105,7 @@ PILLARS = {
             "analysis/goal6_s1_landcover.py",
             "analysis/goal6_s1_rule_validation.py",
             "analysis/goal6_fetch_gistda_flood.py",
+            "analysis/goal6_l3_coastal_model.py",
         ],
         "data_dirs": [
             "data/12_gistda_flood",
@@ -140,6 +142,7 @@ PILLARS = {
             "analysis/goal7_eia_structs.py",
             "analysis/goal7_waterchart_overlay.py",
             "analysis/goal7_gaps_check.py",
+            "analysis/goal7_counterfactual_simulation.py",
         ],
         "data_dirs": [
             "data/32_goal7_chaophraya2",
@@ -154,6 +157,8 @@ CORE_GOVERNANCE = [
     ("docs/PROJECT_MAP.md", "แผนที่นำทางและแคตตาล็อกระบบฉบับเต็ม (Topic Discovery Matrix)"),
     ("docs/LEGAL_REVIEW.md", "แนวปฏิบัติทางกฎหมาย: การหมิ่นประมาท (เน้นระบบ ไม่เน้นตัวบุคคล) และ PDPA"),
     ("docs/DATA_SOURCES.md", "บัญชีแหล่งข้อมูล วิธีเชื่อมต่อ API Thaiwater, CDSE, Copernicus DEM"),
+    ("docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md", "แผนงานและผลลัพธ์แบบจำลองขั้นสูง (1D Routing, CP2 Bypass, Coastal ML)"),
+    ("tools/verify_all.py", "เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร (catalog, SHA-256, pytest)"),
     ("tests/test_thai_language_lint.py", "ระบบทดสอบและตรวจจับภาษาไทยอัตโนมัติ (Typo Registry, คำชน, คำทับศัพท์)"),
 ]
 

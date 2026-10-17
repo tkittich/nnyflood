@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "title": "แบบจำลองชลศาสตร์ 1 มิติ แม่น้ำนครนายก (1D Hydrodynamic Routing)",
+    "reach_ny1b_to_ny7_km": 18.3,
+    "manning_n": 0.0437,
+    "slope_reach1": 0.00065,
+    "slope_reach2": 0.00035,
+    "sim_time_step_min": 15
+  },
+  "ny1b_hydraulics": {
+    "station": "Ny.1B (บ้านเขานางบวช)",
+    "bank_msl_m": 10.6,
+    "bankfull_width_m": 121.9,
+    "bankfull_area_m2": 471.8,
+    "bankfull_q_cms": 666.3,
+    "peak_stage_msl_m": 11.0,
+    "peak_q_cms": 675.3,
+    "overflow_depth_m": 0.4,
+    "overflow_q_cms": 9.0
+  },
+  "ny7_hydraulics": {
+    "station": "Ny.7 (สะพานเทศบาลนครนายก)",
+    "bank_msl_m": 8.21,
+    "terrace_start_msl_m": 6.86,
+    "bankfull_width_m": 160.0,
+    "bankfull_area_m2": 606.9,
+    "bankfull_q_cms": 617.4,
+    "peak_stage_msl_m": 7.68,
+    "peak_q_cms": 648.3
+  },
+  "routing_performance": {
+    "travel_time_hours_sim": 2.0,
+    "travel_time_hours_obs": 24.25,
+    "rmse_discharge_cms": 126.13,
+    "rmse_stage_cm": 106.9,
+    "q_peak_sim_cms": 578.7,
+    "q_peak_obs_cms": 648.3
+  }
+}

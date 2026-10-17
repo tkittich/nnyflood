@@ -5788,5 +5788,57 @@
    ]
   ],
   "src": "รายงานผลกระทบสิ่งแวดล้อม 2569 เล่ม 2 บทที่ 9 ตาราง 9.5.10-1 ถึง 9.5.10-3 (หน้าไฟล์ 445–450) — ไม่ระบุชื่อผู้เข้าร่วม"
+ },
+ "counterfactual_simulation": {
+  "metadata": {
+   "title": "การจำลองสถานการณ์คู่ขนาน คลองระบายน้ำหลากเจ้าพระยา 2 (Chao Phraya 2 Counterfactual Simulation)",
+   "safe_capacity_ayutthaya_cms": 2600.0,
+   "canal_design_capacity_cms": 600.0,
+   "canal_expanded_capacity_cms": 1000.0
+  },
+  "event_2554_mega_flood": {
+   "title": "มหาอุทกภัยปี 2554 (1 ส.ค.–30 พ.ย. 2554)",
+   "simulation_days": 122,
+   "case_600_cms": {
+    "total_diverted_mcm": 4394.5,
+    "peak_q_reduction_cms": 582.9,
+    "peak_stage_reduction_m": 0.53,
+    "days_over_safe_no_canal": 102,
+    "days_over_safe_with_canal": 83,
+    "days_saved": 19,
+    "share_of_excess_flood_pct": 40.0
+   },
+   "case_1000_cms": {
+    "total_diverted_mcm": 7052.6,
+    "peak_q_reduction_cms": 965.1,
+    "peak_stage_reduction_m": 0.88,
+    "days_over_safe_no_canal": 102,
+    "days_over_safe_with_canal": 68,
+    "days_saved": 34,
+    "share_of_excess_flood_pct": 64.1
+   }
+  },
+  "event_2569_september_wave": {
+   "title": "ระลอกปลาย ก.ย. 2569 (15 ก.ย.–15 ต.ค. 2569)",
+   "simulation_days": 31,
+   "case_600_cms": {
+    "total_diverted_mcm": 215.8,
+    "peak_q_reduction_cms": 383.8,
+    "peak_stage_reduction_m": 0.35,
+    "days_over_safe_no_canal": 9,
+    "days_over_safe_with_canal": 0,
+    "days_saved": 9,
+    "prevented_overbank_entirely": true
+   },
+   "case_1000_cms": {
+    "total_diverted_mcm": 215.8,
+    "peak_q_reduction_cms": 383.8,
+    "peak_stage_reduction_m": 0.35,
+    "days_over_safe_no_canal": 9,
+    "days_over_safe_with_canal": 0,
+    "days_saved": 9,
+    "prevented_overbank_entirely": true
+   }
+  }
  }
 }

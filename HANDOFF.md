@@ -1,6 +1,37 @@
 # HANDOFF — สถานะส่งมอบ (อัปเดต 17 ต.ค. 2569)
 
-## อัปเดต 17 ต.ค. 2569 — บูรณาการคลังข้อมูล SWOC กรมชลประทาน (SWOC RID) และงานวิเคราะห์ใหม่ 4 ด้าน
+## อัปเดต 17 ต.ค. 2569 (บ่าย) — แบบจำลองขั้นสูง 3 ด้าน และระบบตรวจสอบครบวงจร (Advanced Modeling & System Maintenance)
+
+> **สถานะ**: ดำเนินการตามแผนงาน [docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md](docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md) ครบถ้วน 100%  
+> ชุดทดสอบระบบผ่าน 120/120 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 80/80 รายการ · verify_data_integrity MISMATCH 0
+
+### 1. แบบจำลองชลศาสตร์และปัญญาประดิษฐ์ขั้นสูง 3 ด้าน (Suggestions 1–3):
+1. **แบบจำลองชลศาสตร์ 1 มิติ แม่น้ำนครนายก (1D Hydrodynamic Routing Ny.1B $\rightarrow$ Ny.7, 43 กม.)**:
+   - สคริปต์: `analysis/hydraulic_1d_routing.py` $\rightarrow$ `analysis/hydraulic_1d_routing_summary.json`
+   - แผนภาพ: `report/assets/hydraulic_1d_nakhonnayok_profiles.png`
+   - สรุปผล: ลำน้ำจริงรองรับน้ำล้นตลิ่ง (Bankfull) ได้ 666.3 ลบ.ม./วินาที ที่ Ny.1B (ระดับ 10.60 ม.รทก.) และ 617.4 ลบ.ม./วินาที ที่ Ny.7 (ระดับ 8.21 ม.รทก., ชานพักเริ่ม 6.86 ม.รทก.) · ความเร็วคลื่นน้ำหลาก 1.62 ม./วินาที (ใช้เวลาเคลื่อนตัว $7.37 \pm 0.8$ ชม.) สอดคล้องกับฮิสโตแกรมความล่าช้า 6–8 ชม.
+2. **แบบจำลองสมมติคลองระบายน้ำหลากเจ้าพระยา 2 (Chao Phraya 2 Bypass Counterfactual 2554 vs 2569)**:
+   - สคริปต์: `analysis/goal7_counterfactual_simulation.py` $\rightarrow$ `analysis/goal7/counterfactual_simulation_summary.json`
+   - แผนภาพ: `report/assets/goal7/cp2_counterfactual_2011_2026.png`
+   - สรุปผล: ผันน้ำเข้าคลอง 600 ลบ.ม./วินาที
+     - **ปี 2554 (มหาอุทกภัย)**: ผันน้ำรวม 4,394.5 ล้าน ลบ.ม. (ตัดยอดน้ำหลากส่วนเกินได้ 40.0%) ลดระดับน้ำสูงสุดที่ท้ายเขื่อน 0.53 ม.
+     - **ปี 2569 (ระลอกปลาย ก.ย.)**: ผันน้ำรวม 215.8 ล้าน ลบ.ม. ลดระดับน้ำสูงสุด 0.35 ม. และป้องกันระดับน้ำล้นตลิ่งวิกฤตได้ 100% (`days_over_safe_with_canal: 0`)
+   - บูรณาการ: ผสานเข้า `analysis/goal7_analysis.py`, `analysis/goal7/canonical.json`, และเรนเดอร์ในรายงานฉบับประชาชนและวิชาการเรียบร้อยแล้ว
+3. **แบบจำลองพยากรณ์ผสานขอบเขตทะเลหนุนปากแม่น้ำ (L3 Coastal-Coupled Model C.12 สามเสน)**:
+   - สคริปต์: `analysis/goal6_l3_coastal_model.py` $\rightarrow$ `analysis/goal6/l3_coastal_summary.json`
+   - สรุปผล: ผสานตัวแปรขอบเขตระดับน้ำทะเลหนุน (CPY015 สะพานกรุงเทพ) และแรงต้านคลื่นลมทะเลอ่าวไทย (SWAN)
+     - ที่ระยะพยากรณ์ล่วงหน้า +6 ชม. ความคลาดเคลื่อน (RMSE) ของแบบจำลองเชิงเส้นลดลงจาก 76.3 ซม. เหลือ 39.9 ซม. (**ความแม่นยำดีขึ้น 47.7%**) และ GBDT ดีขึ้น 17.4%
+   - บูรณาการ: ผสานเข้า `analysis/goal6_canonical.py` และ `analysis/goal6/canonical.json` ผ่านการตรวจสอบความสอดคล้อง 100%
+
+### 2. การปรับปรุงระบบและการกำกับดูแล (System Maintenance & Governance):
+1. **สร้างเครื่องมือตรวจความถูกต้องแบบครบวงจร**: `tools/verify_all.py` (รัน catalog check + data integrity SHA-256 + pytest lint + pytest suite)
+2. **ปรับปรุงสารบัญระบบ**: `catalog.py` ลงทะเบียนสคริปต์ใหม่ครบ 80 รายการ
+3. **ปรับปรุงแผนที่นำทางระบบ**: `docs/PROJECT_MAP.md` เพิ่มตาราง Topic Discovery Matrix และหมวดหมู่งานแบบจำลอง
+4. **ปรับปรุงเอกสารเริ่มต้น**: `START_HERE.md` ปรับคำแนะนำการตรวจสุขภาพระบบเป็น 120 ผ่าน
+
+---
+
+## อัปเดต 17 ต.ค. 2569 (เช้า) — บูรณาการคลังข้อมูล SWOC กรมชลประทาน (SWOC RID) และงานวิเคราะห์ใหม่ 4 ด้าน
 
 > **สถานะ**: นำเข้าข้อมูลดิบครบ 11 ชุด บันทึกแฮช SHA-256 ลง data/23_rid_swoc/_hashes.txt (22 ไฟล์ OK, MISMATCH 0)  
 > คู่มือระบบและ API: [docs/RID_SWOC_GUIDE.md](docs/RID_SWOC_GUIDE.md) · สารบัญและเกณฑ์เลือกใช้: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md) §8–10

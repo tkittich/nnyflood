@@ -29,9 +29,11 @@ cd <โฟลเดอร์ repo>
 PY=python
 
 "$PY" -m pip install -r requirements.txt
-"$PY" -m pytest tests/ -q                        # ต้องได้: 114 passed
-"$PY" analysis/verify_data_integrity.py --quick # ต้องได้: MISMATCH 0 (MISSING = ไฟล์ใหญ่นอก git ถือว่าปกติ)
-"$PY" catalog.py check                          # ต้องได้: ผ่านการตรวจสอบสมบูรณ์ (55/55 รายการ)
+"$PY" tools/verify_all.py                        # ตรวจสอบระบบครบวงจร (catalog + SHA-256 + pytest 120 passed)
+# หรือแยกรันรายคำสั่ง:
+"$PY" catalog.py check                           # ตรวจสารบัญไฟล์ (80/80 รายการ)
+"$PY" analysis/verify_data_integrity.py --quick  # ตรวจ SHA-256 (MISMATCH 0)
+"$PY" -m pytest tests/ -q                        # ตรวจเทสต์ทั้งหมด (120 passed)
 ```
 
 - สคริปต์ทั้งหมด derive path จาก `Path(__file__)` แล้ว → **รันจากโฟลเดอร์ไหนก็ได้**

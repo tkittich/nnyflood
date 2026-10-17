@@ -131,3 +131,25 @@ def test_active_reports_have_provenance_box():
         assert "canonical.json" in html, f"{path.name} ขาดการอ้างอิง canonical.json"
         assert "github.com/tkittich/nnyflood" in html, f"{path.name} ขาดลิงก์คลังโค้ดสาธารณะ"
 
+
+def test_catalog_key_scripts_covered_in_project_map():
+    """ทุก key_scripts และ data_dirs ใน catalog.py ต้องได้รับการบันทึกใน docs/PROJECT_MAP.md"""
+    map_path = ROOT / "docs/PROJECT_MAP.md"
+    assert map_path.exists(), "ต้องมีไฟล์ docs/PROJECT_MAP.md"
+    map_text = map_path.read_text(encoding="utf-8")
+
+    missing = []
+    for p_id, p_info in catalog.PILLARS.items():
+        for s in p_info["key_scripts"]:
+            s_name = Path(s).name
+            if s_name not in map_text and s not in map_text:
+                missing.append(f"เสาที่ {p_id} สคริปต์: {s}")
+
+        for d in p_info["data_dirs"]:
+            d_name = Path(d).name
+            if d_name not in map_text and d not in map_text:
+                missing.append(f"เสาที่ {p_id} โฟลเดอร์ข้อมูล: {d}")
+
+    assert not missing, "พบสคริปต์/โฟลเดอร์ใน catalog.py ที่ยังไม่ถูกบันทึกใน docs/PROJECT_MAP.md:\n" + "\n".join(missing)
+
+

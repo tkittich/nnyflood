@@ -36,13 +36,18 @@ graph TD
 |---|---|---|---|---|
 | **สัดส่วนสาเหตุ ฝน vs เขื่อนขุนด่านฯ (88% : 12%)** | รายงาน 1, 2 | `analysis/attribution_share.py` | `data/01_rid_khun_dan/`, `data/02_thaiwater/` | `analysis/canonical_numbers.json` $\rightarrow$ `attribution` |
 | **ระดับน้ำและอัตราไหลแม่น้ำนครนายก (NY.1B, NY.7)** | รายงาน 1, 2 | `analysis/rid_cross_section_stage_rating.py`<br>`analysis/fetch_multistation_levels.py` | `data/02_thaiwater/`<br>`analysis/multistation_levels_sep2026_30d.json` | `docs/METHODS.md`<br>`analysis/rid_cross_section_stage_rating.json` |
+| **อ่างขนาดกลาง 6 แห่ง จ.นครนายก (สมดุลน้ำ & การล้น)** | รายงาน 1, 2 | `analysis/goal2_nny_medium_dams.py` | `data/23_rid_swoc/` | `analysis/goal2_nny_medium_dams_summary.json`<br>`analysis/goal2_nny_medium_dams_report.md` |
+| **เส้นฐานเขื่อนขุนด่านฯ 22 ปี & น้ำพีคเร็วกว่าปกติ** | รายงาน 1, 2 | `analysis/goal2_khundan_22y_baseline.py` | `data/23_rid_swoc/` | `analysis/goal2_khundan_22y_summary.json`<br>`analysis/goal2_khundan_22y_report.md` |
 | **ภาพถ่ายดาวเทียมน้ำท่วมนครนายก (Sentinel-1)** | รายงาน 1 | `analysis/s1_peak_flood_map.py`<br>`analysis/s1_change_detect.py` | `data/13_sentinel1_copernicus/`<br>`analysis/s1_peak_flood_map_27sep1828.png` | `analysis/canonical_numbers.json` $\rightarrow$ `flood_extent` |
 | **โมเดลทำนายระดับน้ำล่วงหน้า (Model v1, 11 ตัวแปร)** | รายงาน 2 | `analysis/goal4_model_v1.py`<br>`analysis/goal4_thachang_model.py` | `analysis/waterlevel_hourly_Ny7_2025_2026.csv`<br>`analysis/dam_khun_dan_daily_2013_2026.csv` | `analysis/goal4_model_v1_results.json`<br>`docs/ANALYSIS_PLAN.md` |
 | **ข้อเสนอเชิงนโยบายการบริหารน้ำ (Policy Proposals)** | รายงาน 1, 2 | - | - | `analysis/goal5_policy_proposals.md`<br>`analysis/firo_dynamic_rulecurve_proposal.md` |
 | **น้ำท่วม 6 ลุ่มน้ำระลอกปลาย ก.ย. 69 (ดาวเทียม)** | รายงาน 3 | `analysis/goal6_s1_landcover.py`<br>`analysis/goal6_s1_rule_validation.py` | `data/22_goal6_network/`<br>`data/31_external_landcover/` | `analysis/goal6/canonical.json` $\rightarrow$ `basins` |
 | **ชั้นข้อมูลน้ำท่วมทางการ GISTDA (Disaster Platform)** | รายงาน 1, 2, 3 | `analysis/goal6_fetch_gistda_flood.py`<br>`analysis/gistda_georef_compare.py` | `data/12_gistda_flood/` | `analysis/gistda_platform_findings.md`<br>`analysis/goal6/canonical.json` |
 | **การบริหารน้ำ 24 เขื่อนใหญ่ (กฟผ. vs ชลประทาน)** | รายงาน 3, 4 | `analysis/goal6_dam_history_all.py`<br>`analysis/goal6_dam_inflow.py` | `data/02_thaiwater/`<br>`analysis/goal6/canonical.json` | `analysis/goal6/canonical.json` $\rightarrow$ `dams` |
+| **เส้นฐานเขื่อนป่าสักฯ 24 ปี & การหน่วงน้ำวิกฤต (Surcharge)** | รายงาน 3, 4 | `analysis/goal6_pasak_24y_baseline.py` | `data/23_rid_swoc/` | `analysis/goal6/pasak_24y_summary.json`<br>`analysis/goal6/pasak_24y_report.md` |
+| **ดัชนีความเค้นอ่างขนาดกลาง 461 แห่งทั่วประเทศ** | รายงาน 3, 4 | `analysis/goal6_national_medium_reservoirs.py` | `data/23_rid_swoc/` | `analysis/goal6/national_medium_reservoirs_summary.json`<br>`analysis/goal6/national_medium_reservoirs_report.md` |
 | **สถิติฝนตกหนักย้อนหลัง 46 ปี (ERA5/POWER)** | รายงาน 3, 4 | `analysis/goal6_rain_rarity.py`<br>`analysis/goal6_basin_rain.py` | `data/22_goal6_network/`<br>`analysis/goal6/canonical.json` | `analysis/goal6/canonical.json` $\rightarrow$ `rainfall_stats` |
+| **สถาปัตยกรรมข้อมูลศูนย์ปฏิบัติการน้ำ (SWOC RID)** | ทุกรายงาน | `analysis/common_fetch_rid_swoc.py` | `data/23_rid_swoc/` | `docs/RID_SWOC_GUIDE.md`<br>`docs/DATA_SOURCES.md` §7 |
 | **คลองเจ้าพระยา 2: ทำไมคันคลองสูง 3.2–4.8 ม. (คลองลอย)** | รายงาน 7, 8 | `analysis/goal7_analysis.py` | `data/32_goal7_chaophraya2/`<br>`data/manual/` | `analysis/goal7/canonical.json` $\rightarrow$ `embankment` |
 | **คลองเจ้าพระยา 2: ท่อลอด/ไซฟอนตัดคลองเดิม (34 จุด)** | รายงาน 7, 8 | `analysis/goal7_eia_structs.py`<br>`analysis/goal7_analysis.py` | `data/manual/ป่าสัก-อ่าวไทย-ระยะที่2/`<br>`analysis/goal7/canonical.json` | `analysis/goal7/canonical.json` $\rightarrow$ `eia_structs` |
 | **คลองเจ้าพระยา 2: ผลกระทบต่อ อ.องครักษ์ & ผังน้ำ สทนช.** | รายงาน 7, 8 | `analysis/goal7_waterchart_overlay.py` | `data/manual/` | `analysis/goal7/canonical.json` $\rightarrow$ `waterchart` |
@@ -57,6 +62,7 @@ graph TD
 เพื่อลดความสับสนของไฟล์กว่า 199 ไฟล์ใน `analysis/` สคริปต์ทั้งหมดถูกจัดกลุ่มตามหน้าที่หลักดังนี้:
 
 ### กลุ่ม ก: สคริปต์ดึงและรวบรวมข้อมูลดิบ (Data Ingestion & Extraction)
+- `common_fetch_rid_swoc.py`: ดึงประวัติเขื่อนใหญ่-กลาง 20–30 ปี และรูปตัดขวางลำน้ำจริงจาก SWOC RID
 - `fetch_khundan_*.py`: ดึงข้อมูลโทรมาตรและระดับน้ำเขื่อนขุนด่านฯ ย้อนหลังหลายปี
 - `fetch_multistation_levels.py`: ดึงระดับน้ำแม่น้ำรายชั่วโมงข้ามสถานี
 - `goal6_s1_download.py`, `goal6_s1_queue.py`: ดาวน์โหลดและจัดการคิวดาวเทียม Sentinel-1 จาก CDSE
@@ -67,6 +73,10 @@ graph TD
 ### กลุ่ม ข: สถิติอุทกวิทยาและฝน (Hydrology & Rainfall Statistics)
 - `attribution_share.py`: แยกส่วนสาเหตุฝน vs เขื่อนขุนด่านฯ (เป้าหมาย 3)
 - `rain_window.py`: คำนวณฝนสะสมตามหน้าต่างเวลา (ฟังก์ชันร่วม)
+- `goal2_nny_medium_dams.py`: วิเคราะห์สมดุลน้ำและการล้นของอ่างขนาดกลาง 6 แห่ง จ.นครนายก (2552–2569)
+- `goal2_khundan_22y_baseline.py`: สร้างเส้นฐาน 22 ปีเขื่อนขุนด่านฯ และวิเคราะห์ความผิดปกติของช่วงเวลาน้ำสูงสุด
+- `goal6_pasak_24y_baseline.py`: สร้างเส้นฐาน 24 ปีเขื่อนป่าสักชลสิทธิ์ และการหน่วงน้ำในช่องความจุเผื่อวิกฤต (Surcharge)
+- `goal6_national_medium_reservoirs.py`: วิเคราะห์ดัชนีความเค้นและสัดส่วนน้ำล้นของอ่างขนาดกลาง 461 แห่งทั่วประเทศ
 - `goal6_basin_rain.py`: คำนวณปริมาณฝนเฉลี่ยรายลุ่มน้ำ (HydroBASINS × POWER)
 - `goal6_rain_rarity.py`, `goal6_rain_rarity_2554.py`: วิเคราะห์รอบปีการเกิดซ้ำ (Return Period) ของฝน 46 ปี
 - `goal6_dam_inflow.py`: คำนวณสมดุลน้ำเข้า–ออก–เก็บรายวัน
@@ -106,6 +116,7 @@ graph TD
 | [REPORT_CONVENTIONS.md](file:///e:/theera/code/flood/docs/REPORT_CONVENTIONS.md) | **ข้อตกลงการทำรายงาน**: เอ็นจิน key+โทเคน, ชิ้นส่วนร่วม, ธีมและสี WCAG, สรีรศาสตร์สายตา (สเกลบ้าน 2 ชั้น), ป้ายหน้ารวม, ตัวตรวจภาษาไทย |
 | [LEGAL_REVIEW.md](file:///e:/theera/code/flood/docs/LEGAL_REVIEW.md) | **คู่มือกฎหมาย**: แนวปฏิบัติป้องกันการหมิ่นประมาท (เน้นวิจารณ์ระบบ ไม่วิจารณ์บุคคล) และการคุ้มครองข้อมูลส่วนบุคคล (PDPA) |
 | [DATA_SOURCES.md](file:///e:/theera/code/flood/docs/DATA_SOURCES.md) | **บัญชีแหล่งข้อมูล**: วิธีเชื่อมต่อ API Thaiwater, CDSE Sentinel, Copernicus DEM, ข้อมูลผังน้ำ สทนช. |
+| [RID_SWOC_GUIDE.md](file:///e:/theera/code/flood/docs/RID_SWOC_GUIDE.md) | **คู่มือระบบศูนย์ปฏิบัติการน้ำอัจฉริยะ (SWOC RID)**: สถาปัตยกรรม API, พารามิเตอร์, ข้อมูลอ่างขนาดกลาง 461 แห่ง, ประวัติเขื่อน 20–30 ปี และรูปตัดขวางลำน้ำจริง |
 | [DATA_DICTIONARY.md](file:///e:/theera/code/flood/docs/DATA_DICTIONARY.md) | **พจนานุกรมข้อมูล (เป้าหมาย 1–5)**: นิยามตัวแปร ค่าอ้างอิงความสูง (datum) ตัวเลขน้ำสูงสุด และพื้นที่น้ำท่วม |
 | [METHODS.md](file:///e:/theera/code/flood/docs/METHODS.md) | **วิธีวิทยา (เป้าหมาย 1–5)**: ชั้นหลักฐาน `[F]/[I]/[O]`, การปรับเทียบระดับน้ำ, การกำกับความถูกต้อง |
 | [ANALYSIS_PLAN.md](file:///e:/theera/code/flood/docs/ANALYSIS_PLAN.md) | **แผนการวิเคราะห์ดั้งเดิม**: กรอบการทำงานเป้าหมาย 1–5 |

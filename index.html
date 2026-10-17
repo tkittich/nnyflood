@@ -3,12 +3,102 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>น้ำท่วมนครนายก 26–29 ก.ย. 2569 — อ่านรายงาน</title>
+<title>คลังข้อมูลการสืบสวนอุทกวิทยาและการบริหารจัดการน้ำ — nnyflood</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <style>
-  body{font-family:"Segoe UI","Noto Sans Thai",Tahoma,sans-serif;max-width:720px;margin:0 auto;
+  body{font-family:"Segoe UI","Noto Sans Thai",Tahoma,sans-serif;max-width:760px;margin:0 auto;
        padding:2.5rem 1.25rem;color:#1a2433;line-height:1.75;background:#fafaf8}
-  h1{font-size:1.5rem;margin:0 0 .4rem}
-  .sub{color:#5a6675;margin:0 0 2rem}
+  h1{font-size:1.55rem;margin:0 0 .4rem;color:#0f172a}
+  .sub{color:#5a6675;margin:0 0 1.5rem}
+  
+  /* Atlas & Map Components */
+  .atlas-container {
+    background: #ffffff;
+    border: 1.5px solid #d8dee6;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin: 1.5rem 0 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  .kpi-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    background: #f8fafc;
+    padding: 0.65rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+  }
+  .kpi-item {
+    text-align: center;
+  }
+  .kpi-num {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e6fb8;
+    line-height: 1.2;
+  }
+  .kpi-label {
+    font-size: 0.72rem;
+    color: #475569;
+  }
+  .atlas-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+  .atlas-btn {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .atlas-btn:hover {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+  }
+  .atlas-btn.active {
+    background: #1e6fb8;
+    border-color: #1e6fb8;
+    color: #ffffff;
+  }
+  #portal-map {
+    width: 100%;
+    height: 380px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #f1f5f9;
+    z-index: 1;
+  }
+  .atlas-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.75rem;
+    font-size: 0.78rem;
+    color: #334155;
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* Report Cards */
   a.card{display:block;border:1.5px solid #d8dee6;border-radius:12px;padding:1.1rem 1.4rem;
          margin:0 0 1rem;text-decoration:none;color:inherit;background:#fff;
          transition:border-color .15s, box-shadow .15s}
@@ -21,7 +111,7 @@
   .badge-feat{background:#fef7eb;color:#8a4b08;border:1px solid #f6ddb6}
   .card h2{font-size:1.12rem;margin:0 0 .3rem;color:#1e6fb8}
   .card p{margin:0;color:#5a6675;font-size:.95rem}
-  .note{font-size:.9rem;color:#7a8494;border-left:3px solid #d8dee6;padding:.2rem 0 .2rem .9rem;margin:1.6rem 0}
+  .note{font-size:.9rem;color:#475569;border-left:3px solid #d8dee6;padding:.2rem 0 .2rem .9rem;margin:1.6rem 0}
   details.tech-drawer{border:1.5px solid #d8dee6;border-radius:12px;padding:0.9rem 1.2rem;margin:2rem 0 1rem;background:#fff}
   details.tech-drawer summary{font-weight:600;font-size:1rem;color:#1e6fb8;cursor:pointer;user-select:none}
   .drawer-content{margin-top:1rem;font-size:0.92rem;color:#333}
@@ -29,15 +119,53 @@
   .arch-table th{background:#f0f4f8;color:#1c2b33;padding:0.55rem 0.7rem;border:1px solid #d8dee6;text-align:left}
   .arch-table td{padding:0.55rem 0.7rem;border:1px solid #d8dee6;vertical-align:top;line-height:1.5}
   .arch-table code{background:#f0f4f8;padding:0.15rem 0.35rem;border-radius:4px;font-size:0.8rem;color:#145388}
-  footer{margin-top:2.5rem;font-size:.88rem;color:#7a8494}
+  footer{margin-top:2.5rem;font-size:.88rem;color:#475569}
   footer a{color:#1e6fb8}
+
+  @media (max-width: 600px) {
+    .kpi-bar {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    #portal-map {
+      height: 300px;
+    }
+  }
 </style>
 </head>
 <body>
-<h1>น้ำท่วมนครนายก 26–29 กันยายน 2569</h1>
-<p class="sub">การวิเคราะห์บทบาทของฝนตกหนักเป็นแถบเทียบกับการบริหารน้ำเขื่อนขุนด่านปราการชล
-— ด้วยข้อมูลเปิดเผยสาธารณะ + การประมวลผลดาวเทียม Sentinel-1 เอง</p>
+<h1>คลังข้อมูลการสืบสวนอุทกวิทยาและการบริหารจัดการน้ำ</h1>
+<p class="sub">การวิเคราะห์เชิงหลักฐาน 3 เสาหลัก: ลุ่มน้ำนครนายก (เหตุการณ์ 26–29 ก.ย. 2569) · 6 ลุ่มน้ำทั่วประเทศ &amp; เทียบปี 2554 · โครงการคลองระบายน้ำหลากเจ้าพระยา 2 (111 กม.)</p>
 
+<!-- คอมโพเนนต์แผนที่สืบค้นเชิงโต้ตอบ (Interactive Knowledge Atlas) รองรับ GitHub Pages 100% -->
+<div class="atlas-container">
+  <h2 style="font-size:1.15rem;margin:0 0 0.3rem;color:#1e6fb8">🗺️ แผนที่สืบค้นเชิงโต้ตอบ 3 เสาหลัก (Interactive Knowledge Atlas)</h2>
+  <p style="margin:0 0 0.8rem;font-size:0.88rem;color:#5a6675">คลิกหมวดหมู่เพื่อสลับดูข้อมูลเชิงพื้นที่ของแต่ละเสาหลัก หรือคลิกที่หมุดบนแผนที่เพื่อดูข้อมูลระดับน้ำและเชื่อมโยงสู่รายงาน</p>
+
+  <div class="kpi-bar">
+    <div class="kpi-item"><span class="kpi-num">3</span><span class="kpi-label">เสาหลักการวิเคราะห์</span></div>
+    <div class="kpi-item"><span class="kpi-num">24 + 461</span><span class="kpi-label">เขื่อนใหญ่ &amp; อ่างกลาง</span></div>
+    <div class="kpi-item"><span class="kpi-num">111 กม.</span><span class="kpi-label">คลองระบายน้ำหลาก CP2</span></div>
+    <div class="kpi-item"><span class="kpi-num">46 ปี</span><span class="kpi-label">สถิติฝนตกหนักย้อนหลัง</span></div>
+  </div>
+
+  <div class="atlas-controls">
+    <button type="button" class="atlas-btn active" data-mode="all">ภาพรวม 3 เสาหลัก</button>
+    <button type="button" class="atlas-btn" data-mode="p1">เสาที่ 1: นครนายก</button>
+    <button type="button" class="atlas-btn" data-mode="p2">เสาที่ 2: 6 ลุ่มน้ำทั่วประเทศ</button>
+    <button type="button" class="atlas-btn" data-mode="p3">เสาที่ 3: คลองเจ้าพระยา 2</button>
+  </div>
+
+  <div id="portal-map"></div>
+
+  <div class="atlas-legend">
+    <span class="legend-item"><span class="legend-dot" style="background:#0284c7"></span> สถานีวัดนครนายก (เสา 1)</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#0d9488"></span> โทรมาตรหลักเจ้าพระยา (เสา 2)</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#d97706"></span> เขื่อนและอ่างเก็บน้ำ</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#e11d48"></span> แนวคลองเจ้าพระยา 2 (เสา 3)</span>
+  </div>
+</div>
+
+<h2 style="font-size:1.25rem;margin:1.8rem 0 .4rem;color:#0f172a">เสาที่ 1: ลุ่มน้ำนครนายก (เป้าหมาย 1–5)</h2>
 <a class="card" href="report/น้ำท่วมนครนายก2569_ประชาชน.html">
   <div class="badges">
     <span class="badge badge-public">ฉบับประชาชน</span>
@@ -53,21 +181,22 @@
   <div class="badges">
     <span class="badge badge-academic">ฉบับวิชาการ</span>
     <span class="badge badge-scope">นครนายก</span>
-    <span class="badge badge-feat">สมการ & คู่มือทำซ้ำ</span>
+    <span class="badge badge-feat">สมการ &amp; คู่มือทำซ้ำ</span>
   </div>
   <h2>รายงานที่ 2 — ฉบับวิชาการ (ตรวจสอบย้อนกลับได้ทุกตัวเลข)</h2>
-  <p>วิธีวิทยา สมการ พารามิเตอร์ การตรวจไขว้ ข้อจำกัด และคู่มือทำซ้ำทุกขั้นตอน</p>
+  <p>วิธีวิทยา สมการ พารามิเตอร์ การตรวจไขว้ ข้อจำกัด ชลศาสตร์ 1D ลำน้ำจริง และคู่มือทำซ้ำทุกขั้นตอน</p>
 </a>
 
+<h2 style="font-size:1.25rem;margin:2.2rem 0 .4rem;color:#0f172a">เสาที่ 2: 6 ลุ่มน้ำทั่วประเทศ &amp; ชุดเทียบมาตรฐานปี 2554 (เป้าหมาย 6)</h2>
 <a class="card" href="report/ระลอกปลายกย2569.html">
   <div class="badges">
     <span class="badge badge-public">ฉบับประชาชน/นโยบาย</span>
     <span class="badge badge-scope">6 ลุ่มน้ำทั่วประเทศ</span>
     <span class="badge badge-feat">สถิติฝนรอบ 46 ปี · กฟผ. vs ชลประทาน</span>
   </div>
-  <h2>รายงานที่ 3 — ระลอกปลาย ก.ย. 2569: 6 ลุ่มน้ำทั่วประเทศ (ร่าง)</h2>
+  <h2>รายงานที่ 3 — ระลอกปลาย ก.ย. 2569: 6 ลุ่มน้ำทั่วประเทศ</h2>
   <p>นำวิธีการสืบสวนแบบเดียวกับนครนายกไปใช้กับ 6 ลุ่มน้ำ: ฝนคาบคืน · เขื่อนเทียบแผน ·
-     พื้นที่น้ำท่วมจากดาวเทียม · แบบจำลองทำนาย · รวมบท กทม.–เจ้าพระยาตอนล่าง</p>
+     พื้นที่น้ำท่วมจากดาวเทียม · แบบจำลองทำนายผสานขอบเขตทะเลหนุน · เมทริกซ์ความเสี่ยงน้ำหลากปะทะน้ำหนุน</p>
 </a>
 
 <a class="card" href="report/ชุดเทียบมาตรฐาน2554.html">
@@ -76,15 +205,13 @@
     <span class="badge badge-scope">เขื่อนทั่วประเทศ</span>
     <span class="badge badge-feat">เทียบมาตรฐาน 2554 vs 2569</span>
   </div>
-  <h2>รายงานที่ 4 — ชุดเทียบมาตรฐาน: เขื่อนทั่วประเทศ ปี 2554 เทียบ 2569 (ร่าง)</h2>
+  <h2>รายงานที่ 4 — ชุดเทียบมาตรฐาน: เขื่อนทั่วประเทศ ปี 2554 เทียบ 2569</h2>
   <p>สองปีสองรูปแบบ: 2554 เขื่อนชลประทานเก็บน้ำเกินระดับกำกับทั้งฤดู ·
      2569 เกินเฉพาะระลอก · เขื่อนการไฟฟ้าฝ่ายผลิตฯ ไม่เคยเกินทั้งสองปี</p>
 </a>
 
-
-<h2 style="font-size:1.2rem;margin:2.2rem 0 .3rem">เป้าหมาย 7 — คลองเจ้าพระยา2 (คลองระบายน้ำหลากชัยนาท–ป่าสัก–อ่าวไทย)</h2>
-<p class="sub" style="margin-bottom:1rem">ใช้เอกสารทางการ (รายงานผลกระทบสิ่งแวดล้อม 2561–2569 · ผังน้ำ สทนช.) แยกข้อเท็จจริง การตีความ และสิ่งที่ยังไม่รู้
-— แนวคลองจากแผนที่ผู้ใช้ไม่เป็นทางการ ตัวเลขตำแหน่งจึงเป็นค่าประมาณ</p>
+<h2 style="font-size:1.25rem;margin:2.2rem 0 .4rem;color:#0f172a">เสาที่ 3: โครงการคลองเจ้าพระยา 2 (เป้าหมาย 7)</h2>
+<p class="sub" style="margin-bottom:1rem">ใช้เอกสารทางการ (รายงานผลกระทบสิ่งแวดล้อม 2561–2569 · ผังน้ำ สทนช.) แยกข้อเท็จจริง การตีความ และสิ่งที่ยังไม่รู้</p>
 
 <a class="card" href="report/คลองเจ้าพระยา2_ประชาชน.html">
   <div class="badges">
@@ -92,8 +219,8 @@
     <span class="badge badge-scope">คลองเจ้าพระยา 2 (ชัยนาท–อ่าวไทย)</span>
     <span class="badge badge-feat">ถาม–ตอบ 23 ข้อ · ภาพสัดส่วนจริง</span>
   </div>
-  <h2>รายงานที่ 7 — คลองเจ้าพระยา2 ฉบับประชาชน</h2>
-  <p>เล่าเป็นเรื่อง: โครงการคืออะไร ทำไมคันสูง (3.2–4.8 ม.) ผลต่อองครักษ์ ท่อลอดคลองเดิม — พร้อมถาม–ตอบ 23 ข้อ ที่ดิน ค่าชดเชย กำหนดการ ประตู ความปลอดภัย แผนที่และกราฟ</p>
+  <h2>รายงานที่ 7 — คลองเจ้าพระยา 2 ฉบับประชาชน</h2>
+  <p>เล่าเป็นเรื่อง: โครงการคืออะไร ทำไมคันสูง (3.2–4.8 ม.) ผลต่อองครักษ์ ท่อลอดคลองเดิม — พร้อมถาม–ตอบ 23 ข้อ และผลจำลองตัดยอดน้ำหลาก</p>
 </a>
 
 <a class="card" href="report/คลองเจ้าพระยา2_วิชาการ.html">
@@ -102,12 +229,12 @@
     <span class="badge badge-scope">คลองเจ้าพระยา 2 (ชัยนาท–อ่าวไทย)</span>
     <span class="badge badge-feat">อาคาร 99 รายการ · ผังน้ำ สทนช.</span>
   </div>
-  <h2>รายงานที่ 8 — คลองเจ้าพระยา2 ฉบับวิชาการ</h2>
-  <p>ข้อมูลทั้งหมด: ตัวแปรออกแบบ · ตารางอาคาร 99 รายการ · EIA ฉบับ 2561/2564/2566/2569 · ผังน้ำ 3 ลุ่มน้ำ · ประมาณผลความสูงคัน · ทะเบียนข้อกังวล 13 ข้อ · ภาพหน้าตัด แผนที่ผังน้ำ กราฟท่อลอด</p>
+  <h2>รายงานที่ 8 — คลองเจ้าพระยา 2 ฉบับวิชาการ</h2>
+  <p>ข้อมูลทั้งหมด: ตัวแปรออกแบบ · ตารางอาคาร 99 รายการ · แบบจำลองสมมติการผันน้ำ 2554 vs 2569 · ผังน้ำ 3 ลุ่มน้ำ · ทะเบียนข้อกังวล 13 ข้อ</p>
 </a>
 
 <details class="tech-drawer">
-  <summary>แผนผังข้อมูลและสถาปัตยกรรมการวิเคราะห์ (Data & Code Architecture)</summary>
+  <summary>แผนผังข้อมูลและสถาปัตยกรรมการวิเคราะห์ (Data &amp; Code Architecture)</summary>
   <div class="drawer-content">
     <p>ตารางเชื่อมโยงระหว่างรายงาน ข้อมูลดิบ สคริปต์วิเคราะห์ และเอกสารสเปก (รายละเอียดฉบับสมบูรณ์ดูได้ที่ <a href="docs/PROJECT_MAP.md" style="color:#1e6fb8">docs/PROJECT_MAP.md</a>):</p>
     <table class="arch-table">
@@ -122,20 +249,20 @@
       <tbody>
         <tr>
           <td><strong>รายงาน 1, 2</strong><br>(นครนายก)</td>
-          <td>โทรมาตรเขื่อนขุนด่านฯ (RID), ระดับน้ำราย ชม. (Thaiwater), 6 อ่างขนาดกลาง &amp; รูปตัดลำน้ำ (SWOC RID), ฝนโทรมาตร 4,593 จุด (Thaiwater), ดาวเทียม Sentinel-1 (CDSE)</td>
-          <td><code>attribution_share.py</code><br><code>s1_peak_flood_map.py</code><br><code>goal4_model_v1.py</code></td>
+          <td>โทรมาตรเขื่อนขุนด่านฯ (RID), ระดับน้ำราย ชม. (Thaiwater), 6 อ่างขนาดกลาง &amp; รูปตัดลำน้ำจริง 1D (SWOC RID), ฝนโทรมาตร 4,593 จุด (Thaiwater), ดาวเทียม Sentinel-1 (CDSE)</td>
+          <td><code>attribution_share.py</code><br><code>hydraulic_1d_routing.py</code><br><code>goal4_model_v1.py</code></td>
           <td><code>analysis/canonical_numbers.json</code></td>
         </tr>
         <tr>
           <td><strong>รายงาน 3, 4</strong><br>(6 ลุ่มน้ำ &amp; ปี 54)</td>
-          <td>24 เขื่อนใหญ่ (RID/EGAT), ประวัติเขื่อน 30 ปี &amp; 461 อ่างขนาดกลาง (SWOC RID), คลื่นอ่าวไทย SWAN &amp; ความเค็มปากน้ำ, พยากรณ์น้ำท่า GloFAS 17 ปี, ฝนสะสม 46 ปี (ERA5/POWER), ผิวดิน WorldCover</td>
-          <td><code>goal6_dam_history_all.py</code><br><code>goal6_basin_rain.py</code><br><code>goal6_s1_landcover.py</code></td>
+          <td>24 เขื่อนใหญ่ (RID/EGAT), ประวัติเขื่อน 30 ปี &amp; 461 อ่างขนาดกลาง (SWOC RID), คลื่นอ่าวไทย SWAN &amp; ความเค็มปากน้ำ, พยากรณ์น้ำท่า GloFAS 17 ปี, โมเดล L3 Coastal ML, ฝนสะสม 46 ปี (ERA5/POWER), ผิวดิน WorldCover</td>
+          <td><code>goal6_dam_history_all.py</code><br><code>goal6_l3_coastal_model.py</code><br><code>compound_flood_risk.py</code></td>
           <td><code>analysis/goal6/canonical.json</code></td>
         </tr>
         <tr>
           <td><strong>รายงาน 7, 8</strong><br>(คลองเจ้าพระยา 2)</td>
-          <td>EIA 4 ฉบับ (2561–2569), แผนที่รายช่วง 111 กม., ผังน้ำ 3 ลุ่มน้ำ (สทนช.)</td>
-          <td><code>goal7_analysis.py</code><br><code>goal7_eia_structs.py</code><br><code>goal7_waterchart_overlay.py</code></td>
+          <td>EIA 4 ฉบับ (2561–2569), แผนที่รายช่วง 111 กม., ผังน้ำ 3 ลุ่มน้ำ (สทนช.), แบบจำลองสมมติการตัดน้ำหลาก 600 cms</td>
+          <td><code>goal7_analysis.py</code><br><code>goal7_counterfactual_simulation.py</code><br><code>goal7_waterchart_overlay.py</code></td>
           <td><code>analysis/goal7/canonical.json</code><br><code>analysis/goal7/gaps.json</code></td>
         </tr>
       </tbody>
@@ -146,12 +273,15 @@
   </div>
 </details>
 
-<p class="note">รายงานฉบับประชาชน/วิชาการเป็น "ไฟล์เดียวจบ" (ภาพและกราฟฝังในไฟล์)
-จึงดาวน์โหลดไปเปิดได้ถาวรแม้ไม่มีอินเทอร์เน็ต ·
-ผลวิเคราะห์นี้จัดทำโดย AI ควรได้รับการตรวจทานโดยผู้เชี่ยวชาญด้านอุทกวิทยา/วิศวกรรมก่อนนำไปใช้อ้างอิง</p>
+<p class="note">รายงานทุกฉบับออกแบบเป็น "ไฟล์เดียวจบ" (Self-contained) จึงดาวน์โหลดไปเปิดดูแบบออฟไลน์ได้ถาวร ·
+ผลวิเคราะห์นี้จัดทำขึ้นโดยการสืบสวนทางอุทกวิทยาเชิงประจักษ์ ควรได้รับการตรวจทานโดยผู้เชี่ยวชาญด้านวิศวกรรมชลศาสตร์ก่อนนำไปใช้ในกระบวนการทางกฎหมาย</p>
 
 <footer>ซอร์สโค้ด ข้อมูลต้นฉบับ (พร้อม SHA-256) และสคริปต์ทำซ้ำทั้งหมดอยู่ที่
 <a href="https://github.com/tkittich/nnyflood">github.com/tkittich/nnyflood</a>
 · เริ่มอ่านจาก <a href="START_HERE.md">START_HERE.md</a> · แผนที่ระบบ <a href="docs/PROJECT_MAP.md">docs/PROJECT_MAP.md</a> · ข้อตกลง <a href="docs/REPORT_CONVENTIONS.md">docs/REPORT_CONVENTIONS.md</a> · แหล่งข้อมูล <a href="docs/DATA_SOURCES.md">docs/DATA_SOURCES.md</a></footer>
+
+<!-- Leaflet Library & Portal Map Script (Static Client-Side) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="report/assets/portal_map.js"></script>
 </body>
 </html>

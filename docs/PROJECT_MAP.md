@@ -59,6 +59,7 @@ graph TD
 | **คลองเจ้าพระยา 2: จำลองสถานการณ์สมมติ (2554 vs 2569)** | รายงาน 7, 8 | `analysis/goal7_counterfactual_simulation.py` | `data/02_thaiwater/`<br>`analysis/goal7/canonical.json` | `analysis/goal7/canonical.json` $\rightarrow$ `counterfactual_simulation` |
 | **1D Hydrodynamic Routing แม่น้ำนครนายก (Ny.1B ถึง Ny.7)** | รายงาน 1, 2 | `analysis/hydraulic_1d_routing.py` | `data/19_rid_cross_sections/`<br>`data/02_thaiwater/` | `analysis/hydraulic_1d_routing_summary.json` |
 | **โมเดล L3 ผสานขอบเขตทะเลหนุน & คลื่นอ่าวไทย (C.12 สามเสน)** | รายงาน 3, 4 | `analysis/goal6_l3_coastal_model.py` | `data/22_goal6_network/`<br>`data/25_gulf_marine_tides/` | `analysis/goal6/canonical.json` $\rightarrow$ `l3_coastal_coupled` |
+| **เมทริกซ์ความเสี่ยงน้ำหลากปะทะน้ำหนุน (C.12 สามเสน)** | รายงาน 3 | `analysis/compound_flood_risk.py` | `data/22_goal6_network/`<br>`data/25_gulf_marine_tides/` | `analysis/compound_flood_risk_summary.json` |
 | **สรีรศาสตร์สายตา, กราฟภาษาไทย, มาตรฐาน WCAG** | ทุกรายงาน | `report/goal7_common.py`<br>`report/goal6_reportlib.py` | - | `docs/REPORT_CONVENTIONS.md`<br>`AGENTS.md` |
 | **ตัวตรวจภาษาไทยอัตโนมัติ (Typo, คำชน, คำทับศัพท์)** | ทุกเอกสาร | `tests/test_thai_language_lint.py` | - | `tests/test_thai_language_lint.py`<br>`docs/REPORT_CONVENTIONS.md §11` |
 | **เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร** | ระบบกลาง | `tools/verify_all.py` | - | `tools/verify_all.py` (catalog + SHA-256 + pytest) |
@@ -108,6 +109,7 @@ graph TD
 - `goal4_counterfactual_model.py`: จำลองฉากทัศน์เปรียบเทียบกรณีปรับเกณฑ์บริหารน้ำ
 - `goal6_l3_model.py`: โมเดลระดับชาติ 6 ลุ่มน้ำ
 - `goal6_l3_coastal_model.py`: โมเดลพยากรณ์ระดับน้ำเจ้าพระยาตอนล่างผสานขอบเขตทะเลหนุนปากแม่น้ำ (CPY015) และคลื่นลมทะเลอ่าวไทย
+- `compound_flood_risk.py`: เมทริกซ์ประเมินความเสี่ยงน้ำเหนือหลากปะทะน้ำทะเลหนุน (C.12 สามเสน กทม.)
 - `hecras_lite_channel.py`: การคำนวณทางชลศาสตร์เบื้องต้นของคลอง
 
 ### กลุ่ม จ: การสืบค้นและวิเคราะห์คลองเจ้าพระยา 2 (Goal 7 Analysis)
@@ -137,6 +139,7 @@ graph TD
 | [ESTUARY_AND_WEATHER_GUIDE.md](file:///e:/theera/code/flood/docs/ESTUARY_AND_WEATHER_GUIDE.md) | **คู่มือข้อมูลคุณภาพน้ำปากแม่น้ำ คลื่นอ่าวไทย ฝนโทรมาตร และการพยากรณ์น้ำท่า**: สถาปัตยกรรม API คุณภาพน้ำ 112 สถานี, ลิ่มความเค็มสำแล, คลื่น SWAN 31 สถานี, ฝนโทรมาตร 4,593 จุด, และพยากรณ์ ECMWF/GloFAS |
 | [REMOTE_SENSING_APIS.md](file:///e:/theera/code/flood/docs/REMOTE_SENSING_APIS.md) | **คู่มือ API ดาวเทียมและข้อมูลกริดระดับชาติ**: GISTDA Disaster Platform, NASA POWER ฝน 46 ปี, Copernicus CDSE Sentinel-1/2 OData และ S3 |
 | [IMPLEMENTATION_PLAN_ADVANCED_MODELING.md](file:///e:/theera/code/flood/docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md) | **แผนและผลลัพธ์แบบจำลองขั้นสูง**: แบบจำลอง 1D Routing นครนายก, การจำลองสมมติคลองเจ้าพระยา 2 (2554 vs 2569), โมเดลพยากรณ์ผสานขอบเขตทะเลหนุน |
+| [IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md](file:///e:/theera/code/flood/docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md) | **แผนงานยกระดับพอร์ทัลและวิเคราะห์ขั้นสูง**: บูรณาการรายงาน 1–2, แผนที่โต้ตอบ Leaflet บน GitHub Pages, เมทริกซ์ความเสี่ยง, และ GitHub Actions CI |
 | [DATA_DICTIONARY.md](file:///e:/theera/code/flood/docs/DATA_DICTIONARY.md) | **พจนานุกรมข้อมูล (เป้าหมาย 1–5)**: นิยามตัวแปร ค่าอ้างอิงความสูง (datum) ตัวเลขน้ำสูงสุด และพื้นที่น้ำท่วม |
 | [METHODS.md](file:///e:/theera/code/flood/docs/METHODS.md) | **วิธีวิทยา (เป้าหมาย 1–5)**: ชั้นหลักฐาน `[F]/[I]/[O]`, การปรับเทียบระดับน้ำ, การกำกับความถูกต้อง |
 | [ANALYSIS_PLAN.md](file:///e:/theera/code/flood/docs/ANALYSIS_PLAN.md) | **แผนการวิเคราะห์ดั้งเดิม**: กรอบการทำงานเป้าหมาย 1–5 |

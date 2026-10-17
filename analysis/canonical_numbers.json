@@ -87,7 +87,10 @@
   "ny1b_pk_msl": "11.23",
   "ny1b_pk_q": "282.4",
   "ny1b_ov_m": "0.63",
-  "ny1b_ov_q": "37.8"
+  "ny1b_ov_q": "37.8",
+  "r1d_ny1b_q_bankfull": "666.3",
+  "r1d_ny7_q_bankfull": "617.4",
+  "r1d_reach_km": "18.3"
  },
  "meta": {
   "generated_by": "analysis/build_canonical_numbers.py",
@@ -102,7 +105,8 @@
    "levels": "โทรมาตร กช. + ภาคตัดขวาง data/19 (recorded constants)",
    "medium_dams": "analysis/goal2_nny_medium_dams_summary.json (SWOC RID 6 อ่างขนาดกลางนครนายก)",
    "khundan_22y": "analysis/goal2_khundan_22y_summary.json (SWOC RID สถิติ 22 ปี 2548–2569)",
-   "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด)"
+   "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด)",
+   "hydraulic_1d_routing": "analysis/hydraulic_1d_routing_summary.json (Saint-Venant kinematic/diffusive wave Ny.1B -> Ny.7)"
   }
  },
  "values": {
@@ -839,6 +843,45 @@
    "peak_q_m3s": 282.4,
    "overflow_depth_m": 0.63,
    "overflow_q_m3s": 37.8
+  },
+  "routing_1d": {
+   "metadata": {
+    "title": "แบบจำลองชลศาสตร์ 1 มิติ แม่น้ำนครนายก (1D Hydrodynamic Routing)",
+    "reach_ny1b_to_ny7_km": 18.3,
+    "manning_n": 0.0437,
+    "slope_reach1": 0.00065,
+    "slope_reach2": 0.00035,
+    "sim_time_step_min": 15
+   },
+   "ny1b_hydraulics": {
+    "station": "Ny.1B (บ้านเขานางบวช)",
+    "bank_msl_m": 10.6,
+    "bankfull_width_m": 121.9,
+    "bankfull_area_m2": 471.8,
+    "bankfull_q_cms": 666.3,
+    "peak_stage_msl_m": 11.0,
+    "peak_q_cms": 675.3,
+    "overflow_depth_m": 0.4,
+    "overflow_q_cms": 9.0
+   },
+   "ny7_hydraulics": {
+    "station": "Ny.7 (สะพานเทศบาลนครนายก)",
+    "bank_msl_m": 8.21,
+    "terrace_start_msl_m": 6.86,
+    "bankfull_width_m": 160.0,
+    "bankfull_area_m2": 606.9,
+    "bankfull_q_cms": 617.4,
+    "peak_stage_msl_m": 7.68,
+    "peak_q_cms": 648.3
+   },
+   "routing_performance": {
+    "travel_time_hours_sim": 2.0,
+    "travel_time_hours_obs": 24.25,
+    "rmse_discharge_cms": 126.13,
+    "rmse_stage_cm": 106.9,
+    "q_peak_sim_cms": 578.7,
+    "q_peak_obs_cms": 648.3
+   }
   }
  },
  "checks": {

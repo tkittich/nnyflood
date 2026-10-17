@@ -20,13 +20,6 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Verify catalog and project map integrity
-        run: python catalog.py check
-      - name: Run test suite
-        run: python -m pytest tests/ -q
-      - name: Data integrity (fail only on MISMATCH — MISSING = ไฟล์ใหญ่นอก git เป็นเรื่องปกติ)
-        run: |
-          code=0
-          python analysis/verify_data_integrity.py --quick --max-bytes 50000000 || code=$?  # 50MB: hash ไฟล์ tracked ใหญ่ด้วย (เดิม --quick ตัดที่ 5MB ทำให้ evidence ไฟล์ใหญ่รอดจาก gate)
-          if [ "$code" -eq 1 ]; then exit 1; fi
-          if [ "$code" -gt 2 ]; then exit "$code"; fi
+      - name: Run unified verification runner (catalog + integrity + lint + pytest)
+        run: python tools/verify_all.py
+

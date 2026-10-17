@@ -168,6 +168,10 @@ _era_rank = _era_sorted.index(_era26) + 1
 # ตรวจกฎตัดน้ำ (รีวิว Sonnet M1/R9) — อ่านจาก analysis/goal6/s1_rule_validation.json (ผลิตโดย goal6_s1_rule_validation.py)
 _rv = json.loads((ANA / "goal6" / "s1_rule_validation.json").read_text(encoding="utf-8"))["nakhonnayok"]
 _pk_rows = [r for r in _rv["sensitivity"] if r["scene"] == "peak_27sep" and r["drop_vh"] == 0.5 and r["drop_vv"] == 1.5]
+# ---------- แบบจำลองชลศาสตร์ 1 มิติ (1D Hydrodynamic Routing) ----------
+r1d_file = ANA / "hydraulic_1d_routing_summary.json"
+r1d = jload(r1d_file) if r1d_file.exists() else {}
+
 render = {
     "s1_pk_lo": f"{min(r['area_km2'] for r in _pk_rows):.0f}", "s1_pk_hi": f"{max(r['area_km2'] for r in _pk_rows):.0f}",
     "s1_pk_f1": f"{_rv['peak_27sep']['f1']:.2f}",
@@ -204,6 +208,9 @@ render = {
     "ny1b_pk_q": f"{ny1b_xs['peak_q_m3s']:.1f}",
     "ny1b_ov_m": f"{ny1b_xs['overflow_depth_m']:.2f}",
     "ny1b_ov_q": f"{ny1b_xs['overflow_q_m3s']:.1f}",
+    "r1d_ny1b_q_bankfull": f"{r1d.get('ny1b_hydraulics', {}).get('bankfull_q_cms', 666.3):.1f}",
+    "r1d_ny7_q_bankfull": f"{r1d.get('ny7_hydraulics', {}).get('bankfull_q_cms', 617.4):.1f}",
+    "r1d_reach_km": f"{r1d.get('metadata', {}).get('reach_ny1b_to_ny7_km', 18.3):.1f}",
 }
 
 out = {
@@ -223,6 +230,7 @@ out = {
             "medium_dams": "analysis/goal2_nny_medium_dams_summary.json (SWOC RID 6 อ่างขนาดกลางนครนายก)",
             "khundan_22y": "analysis/goal2_khundan_22y_summary.json (SWOC RID สถิติ 22 ปี 2548–2569)",
             "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด)",
+            "hydraulic_1d_routing": "analysis/hydraulic_1d_routing_summary.json (Saint-Venant kinematic/diffusive wave Ny.1B -> Ny.7)",
         },
     },
     "values": {
@@ -233,6 +241,7 @@ out = {
         "medium_dams": med_dams,
         "khundan_22y": kd22,
         "ny1b_cross_section": ny1b_xs,
+        "routing_1d": r1d,
     },
     "checks": checks,
 }

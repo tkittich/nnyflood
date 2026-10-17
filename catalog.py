@@ -106,6 +106,7 @@ PILLARS = {
             "analysis/goal6_s1_rule_validation.py",
             "analysis/goal6_fetch_gistda_flood.py",
             "analysis/goal6_l3_coastal_model.py",
+            "analysis/compound_flood_risk.py",
         ],
         "data_dirs": [
             "data/12_gistda_flood",
@@ -158,6 +159,7 @@ CORE_GOVERNANCE = [
     ("docs/LEGAL_REVIEW.md", "แนวปฏิบัติทางกฎหมาย: การหมิ่นประมาท (เน้นระบบ ไม่เน้นตัวบุคคล) และ PDPA"),
     ("docs/DATA_SOURCES.md", "บัญชีแหล่งข้อมูล วิธีเชื่อมต่อ API Thaiwater, CDSE, Copernicus DEM"),
     ("docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md", "แผนงานและผลลัพธ์แบบจำลองขั้นสูง (1D Routing, CP2 Bypass, Coastal ML)"),
+    ("docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md", "แผนงานบูรณาการรายงาน 1-2 แผนที่โต้ตอบ เมทริกซ์ความเสี่ยง และ CI"),
     ("tools/verify_all.py", "เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร (catalog, SHA-256, pytest)"),
     ("tests/test_thai_language_lint.py", "ระบบทดสอบและตรวจจับภาษาไทยอัตโนมัติ (Typo Registry, คำชน, คำทับศัพท์)"),
 ]

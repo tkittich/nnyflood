@@ -1,0 +1,864 @@
+{
+  "metadata": {
+    "title": "เมทริกซ์ประเมินความเสี่ยงน้ำเหนือหลากปะทะน้ำทะเลหนุน (Compound Flood Risk Matrix)",
+    "target_location": "แม่น้ำเจ้าพระยาตอนล่าง (สถานี C.12 สามเสน กรุงเทพมหานคร)",
+    "floodwall_crest_msl_m": 2.8,
+    "watch_threshold_msl_m": 2.0,
+    "warning_threshold_msl_m": 2.4,
+    "critical_threshold_msl_m": 2.7
+  },
+  "historical_benchmarks": [
+    {
+      "event": "มหาอุทกภัยปี 2554 (จุดสูงสุด ต.ค. 54)",
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 2.35,
+      "c12_stage_msl_m": 3.15,
+      "status": "น้ำล้นคันกั้นน้ำหลายจุด ท่วมกรุงเทพฯ ฝั่งตะวันตกและเหนือ"
+    },
+    {
+      "event": "ระลอกปลาย ก.ย. 2569 (เหตุการณ์จริง)",
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 2.12,
+      "c12_stage_msl_m": 2.57,
+      "status": "ระดับน้ำสูงสุดแตะระดับเฝ้าระวัง ท่วมเฉพาะชุมชนนอกแนวคันกั้นน้ำ"
+    },
+    {
+      "event": "กรณีสมมติ: ระลอก 2569 หากเกิดน้ำทะเลหนุนสูงสุด (+2.40 ม.)",
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.85,
+      "status": "เข้าสู่ระดับเตือนภัยสีส้ม (2.84 ม.) ชุมชนริมแม่น้ำต้องเฝ้าระวังสูงสุด"
+    },
+    {
+      "event": "กรณีสมมติ: ผันน้ำด้วยคลองเจ้าพระยา 2 (-600 ลบ.ม./วิ)",
+      "q_bangsai_m3s": 1650,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.73,
+      "status": "ลดระดับน้ำลงเหลือ 2.73 ม. ช่วยพ้นภาวะวิกฤตล้นคัน"
+    }
+  ],
+  "risk_levels_definition": {
+    "normal": "ระดับน้ำปลอดภัย (< 2.00 ม.รทก.) การระบายน้ำในท่อเป็นปกติ",
+    "watch": "ระดับเฝ้าระวัง (2.00–2.40 ม.รทก.) น้ำเริ่มดันปากท่อระบายน้ำ กทม. ต้องเดินเครื่องสูบ",
+    "warning": "ระดับเตือนภัย (2.40–2.70 ม.รทก.) น้ำท่วมชุมชนนอกแนวคันกั้นน้ำ ท่าเรือ ทางเดินริมน้ำ",
+    "critical": "ระดับวิกฤต (> 2.70 ม.รทก.) เสี่ยงน้ำล้นสันคันกั้นน้ำ กทม. (2.80–3.00 ม.) และเกิดแนวกระสอบทรายรั่วซึม"
+  },
+  "matrix_grid": [
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 1.7,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 1.75,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 1.8,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 1.85,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 1.91,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 1.96,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 2.02,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 2.08,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 2.14,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 2.2,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 1.4,
+        "c12_stage_msl_m": 2.26,
+        "risk_level": "watch"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 1.8,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 1.85,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 1.9,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 1.95,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 2.01,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 2.06,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 2.12,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 2.18,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 2.24,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 2.3,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 1.5,
+        "c12_stage_msl_m": 2.36,
+        "risk_level": "watch"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 1.9,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 1.95,
+        "risk_level": "normal"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 2.0,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 2.05,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 2.11,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 2.16,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 2.22,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 2.28,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 2.34,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 2.4,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 1.6,
+        "c12_stage_msl_m": 2.46,
+        "risk_level": "warning"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.0,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.05,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.1,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.15,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.21,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.26,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.32,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.38,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.44,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.5,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 1.7,
+        "c12_stage_msl_m": 2.56,
+        "risk_level": "warning"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.1,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.15,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.2,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.25,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.31,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.36,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.42,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.48,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.54,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.6,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 1.8,
+        "c12_stage_msl_m": 2.66,
+        "risk_level": "warning"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.2,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.25,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.3,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.35,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.41,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.46,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.52,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.58,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.64,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.7,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 1.9,
+        "c12_stage_msl_m": 2.76,
+        "risk_level": "critical"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.3,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.35,
+        "risk_level": "watch"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.4,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.45,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.51,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.56,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.62,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.68,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.74,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.8,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 2.0,
+        "c12_stage_msl_m": 2.86,
+        "risk_level": "critical"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.4,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.45,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.5,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.55,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.61,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.66,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.72,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.78,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.84,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.9,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 2.1,
+        "c12_stage_msl_m": 2.96,
+        "risk_level": "critical"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 2.5,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 2.55,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 2.6,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 2.65,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 2.71,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 2.76,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 2.82,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 2.88,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 2.94,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 3.0,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 2.2,
+        "c12_stage_msl_m": 3.06,
+        "risk_level": "critical"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 2.6,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 2.65,
+        "risk_level": "warning"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 2.7,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 2.75,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 2.81,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 2.86,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 2.92,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 2.98,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 3.04,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 3.1,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 2.3,
+        "c12_stage_msl_m": 3.16,
+        "risk_level": "critical"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 2.7,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 2.75,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 2.8,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 2.85,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 2.91,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 2.96,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 3.02,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 3.08,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 3.14,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 3.2,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 2.4,
+        "c12_stage_msl_m": 3.26,
+        "risk_level": "critical"
+      }
+    ],
+    [
+      {
+        "q_bangsai_m3s": 1500,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 2.8,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 1750,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 2.85,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2000,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 2.9,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2250,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 2.95,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2500,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 3.01,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 2750,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 3.06,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3000,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 3.12,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3250,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 3.18,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3500,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 3.24,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 3750,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 3.3,
+        "risk_level": "critical"
+      },
+      {
+        "q_bangsai_m3s": 4000,
+        "tide_msl_m": 2.5,
+        "c12_stage_msl_m": 3.36,
+        "risk_level": "critical"
+      }
+    ]
+  ]
+}

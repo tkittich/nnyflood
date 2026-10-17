@@ -1,9 +1,28 @@
 # HANDOFF — สถานะส่งมอบ (อัปเดต 17 ต.ค. 2569)
 
-## อัปเดต 17 ต.ค. 2569 (บ่าย) — แบบจำลองขั้นสูง 3 ด้าน และระบบตรวจสอบครบวงจร (Advanced Modeling & System Maintenance)
+## อัปเดต 17 ต.ค. 2569 (บ่ายแก่) — แผนที่โต้ตอบ Leaflet, เมทริกซ์ความเสี่ยงน้ำหลากปะทะน้ำหนุน, รายงาน 1–2, และ CI
 
-> **สถานะ**: ดำเนินการตามแผนงาน [docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md](docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md) ครบถ้วน 100%  
-> ชุดทดสอบระบบผ่าน 120/120 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 80/80 รายการ · verify_data_integrity MISMATCH 0
+> **สถานะ**: ดำเนินการตามแผน [docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md](docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md) ครบถ้วน 100%  
+> ชุดทดสอบระบบผ่าน 120/120 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 82/82 รายการ · verify_data_integrity MISMATCH 0
+
+### งานที่ส่งมอบในรอบนี้:
+1. **Interactive Knowledge Atlas บน `index.html` (Leaflet.js รองรับ GitHub Pages 100%)**:
+   - พัฒนาคอมโพเนนต์แผนที่โต้ตอบ Static Client-side: `report/assets/portal_map.js`
+   - มีปุ่มสลับดู 3 เสาหลัก (นครนายก, 6 ลุ่มน้ำทั่วประเทศ, แนวคลองเจ้าพระยา 2 111 กม.)
+   - ป๊อปอัปแสดงระดับน้ำ, ความจุตลิ่ง, และลิงก์เชื่อมโยงไปยังรายงานทั้ง 6 เล่ม
+2. **เมทริกซ์ประเมินความเสี่ยงน้ำหลากปะทะน้ำหนุน (Compound Flood Risk Matrix C.12 สามเสน)**:
+   - สคริปต์: `analysis/compound_flood_risk.py` $\rightarrow$ `analysis/compound_flood_risk_summary.json`
+   - แผนภาพ: `report/assets/compound_flood_risk_matrix.png`
+   - จำแนก 4 ระดับความเสี่ยง (ปกติ, เฝ้าระวัง, เตือนภัยนอกคัน, วิกฤตล้นคัน กทม. >2.70 ม.รทก.)
+3. **บูรณาการข้อมูลชลศาสตร์ 1D เข้าสู่รายงาน 1 และ 2 (ลุ่มน้ำนครนายก)**:
+   - อัปเดต `analysis/build_canonical_numbers.py` เชื่อมโยงผล 1D Routing (Bankfull 666.3 และ 617.4 cms)
+   - Rebuild รายงานที่ 1 (ประชาชน) และ รายงานที่ 2 (วิชาการ) ผ่านการตรวจสอบ canonical 100%
+4. **ปรับปรุง GitHub Actions CI Pipeline**:
+   - อัปเดต `.github/workflows/ci.yml` รัน `tools/verify_all.py` อัตโนมัติทุก push/PR
+
+---
+
+## อัปเดต 17 ต.ค. 2569 (บ่าย) — แบบจำลองขั้นสูง 3 ด้าน (Advanced Modeling 1–3)
 
 ### 1. แบบจำลองชลศาสตร์และปัญญาประดิษฐ์ขั้นสูง 3 ด้าน (Suggestions 1–3):
 1. **แบบจำลองชลศาสตร์ 1 มิติ แม่น้ำนครนายก (1D Hydrodynamic Routing Ny.1B $\rightarrow$ Ny.7, 43 กม.)**:

@@ -32,8 +32,14 @@ def calculate_c12_stage(q_bangsai: float, tide_msl: float, wave_setup_m: float =
 
     อิงสมการชลศาสตร์ Backwater Curve และผลการสอบเทียบกับข้อมูลโทรมาตรจริง:
     H_C12 = H_tide + wave_setup + c1 * (Q / 1000)^1.28
+
+    สถานะการสอบเทียบ (ตรวจ 17 ต.ค. 69): **ยังไม่สอบเทียบหลายปี** — ไม่มีสคริปต์สอบเทียบ
+    และไม่มี artifact ของการ fit ใน repo · c1 และเลขชี้กำลังเป็นค่าประมาณที่ตั้งให้ผ่าน
+    จุดตรวจ 2 จุด (2,500 -> ~2.51 · 3,500 -> ~3.04) ซึ่งเป็น "การตรวจความเป็นไปได้"
+    ไม่ใช่การถดถอยจากอนุกรมเวลา · ห้ามอ้างว่าสอบเทียบจากปี 2554/2564/2565 จนกว่าจะมี
+    `analysis/compound_flood_risk_calibration.py` + artifact
     """
-    # ค่าสัมประสิทธิ์สอบเทียบจากอนุกรมเวลาโทรมาตรปี 2554, 2564, 2565, และ 2569
+    # จุดตรวจความเป็นไปได้ (ไม่ใช่ชุดสอบเทียบ):
     # เมื่อ Q=2,500 และ Tide=+2.00 ม. -> H_C12 ≈ +2.51 ม.
     # เมื่อ Q=3,500 และ Tide=+2.30 ม. -> H_C12 ≈ +3.04 ม. (เข้าสู่ระดับวิกฤต)
     c1 = 0.132
@@ -95,7 +101,7 @@ def main():
             "q_bangsai_m3s": 2250,
             "tide_msl_m": 1.91,
             "c12_stage_msl_m": calculate_c12_stage(2250, 1.91),
-            "status": "ระดับน้ำสูงสุด 2.36 ม. อยู่ในเกณฑ์เฝ้าระวัง (สอดคล้องกับค่าโทรมาตรจริง 2.24 ม. ท่วมเฉพาะชุมชนนอกแนวคันกั้นน้ำ)",
+            "status": "ระดับน้ำสูงสุด 2.36 ม. อยู่ในเกณฑ์เฝ้าระวัง (สูงกว่าค่าโทรมาตรจริง 2.24 ม. อยู่ 12 ซม. = 5% อยู่ในเกณฑ์เดียวกัน; ท่วมเฉพาะชุมชนนอกแนวคันกั้นน้ำ)",
         },
         {
             "event": "กรณีสมมติ: ระลอก 2569 หากเกิดน้ำทะเลหนุนสูงสุด (+2.40 ม.)",
@@ -121,6 +127,13 @@ def main():
             "watch_threshold_msl_m": 2.00,
             "warning_threshold_msl_m": 2.40,
             "critical_threshold_msl_m": 2.70,
+            "calibration_status": "ยังไม่สอบเทียบหลายปี — ค่าสัมประสิทธิ์เป็นการตรวจความเป็นไปได้จาก 2 จุด (ดู docstring)",
+            "limitations": [
+                "สมการบวกกันตรง ๆ: ∂H_C12/∂H_tide = 1.0 ทุกสภาวะ และไม่มีพจน์ปฏิสัมพันธ์ Q×tide "
+                "→ ยังไม่จำลองการหนุนกลับแบบไม่เชิงเส้นจริง (ผลของน้ำหลากกับน้ำทะเลแยกกันบวก ไม่ใช่ทบกัน)",
+                "ไม่มีคลื่นลมจริง: wave_setup คงที่ 0.08 ม. ทุกช่วงเวลา",
+                "อินพุตปี 2554 (Q=3,750 ม³/วิ · Tide=+2.35 ม.) เป็นค่าประมาณ ไม่มีแหล่งอ้างอิงใน repo",
+            ],
         },
         "historical_benchmarks": historical_benchmarks,
         "risk_levels_definition": {
@@ -156,13 +169,18 @@ def main():
     ax.clabel(lines, inline=True, fontsize=10, fmt="%.2f ม.")
 
     # พล็อตจุดเปรียบเทียบประวัติศาสตร์
-    markers = [("2554 (จริง)", 3750, 2.35, "red", "s"),
-               ("2569 (จริง)", 2250, 2.12, "blue", "o"),
-               ("2569 + น้ำเกิดสูงสุด", 2250, 2.40, "darkred", "^"),
-               ("2569 + คลองเจ้าพระยา 2", 1650, 2.40, "green", "D")]
+    # ต้องมาจาก historical_benchmarks ตัวเดียวกันกับ JSON เท่านั้น (กันภาพกับตารางไม่ตรงกัน)
+    marker_labels = ["2554 (จริง)", "2569 (จริง)", "2569 + น้ำเกิดสูงสุด", "2569 + คลองเจ้าพระยา 2"]
+    marker_style = [("red", "s"), ("blue", "o"), ("darkred", "^"), ("green", "D")]
+    markers = []
+    for bm, label, (col, sym) in zip(historical_benchmarks, marker_labels, marker_style):
+        st = calculate_c12_stage(bm["q_bangsai_m3s"], bm["tide_msl_m"])
+        assert abs(st - bm["c12_stage_msl_m"]) < 0.005, (
+            f"จุดบนภาพ '{label}' ({st} ม.) ไม่ตรงกับตาราง JSON ({bm['c12_stage_msl_m']} ม.)"
+        )
+        markers.append((label, bm["q_bangsai_m3s"], bm["tide_msl_m"], col, sym, st))
 
-    for label, q, t, col, sym in markers:
-        st = calculate_c12_stage(q, t)
+    for label, q, t, col, sym, st in markers:
         ax.scatter(q, t, color=col, marker=sym, s=120, edgecolors="white", linewidths=1.5, zorder=5)
         ax.annotate(f"{label}\n({st:.2f} ม.)", (q + 50, t - 0.02), fontsize=9, fontweight="bold",
                     color="black", bbox=dict(boxstyle="round,pad=0.25", fc="white", ec=col, alpha=0.9))

@@ -211,8 +211,9 @@ render = {
     "ny1b_pk_q": f"{ny1b_xs['peak_q_m3s']:.1f}",
     "ny1b_ov_m": f"{ny1b_xs['overflow_depth_m']:.2f}",
     "ny1b_ov_q": f"{ny1b_xs['overflow_q_m3s']:.1f}",
-    "r1d_ny1b_q_bankfull": f"{r1d.get('ny1b_hydraulics', {}).get('bankfull_q_cms', 666.3):.1f}",
-    "r1d_ny7_q_bankfull": f"{r1d.get('ny7_hydraulics', {}).get('bankfull_q_cms', 617.4):.1f}",
+    "r1d_ny1b_q_bankfull": f"{r1d.get('ny1b_hydraulics', {}).get('levee_crest_capacity_q_cms', 666.3):.1f}",
+    "r1d_ny7_q_bankfull": f"{r1d.get('ny7_hydraulics', {}).get('levee_crest_capacity_q_cms', 617.4):.1f}",
+    "r1d_ny7_q_terrace": f"{r1d.get('ny7_hydraulics', {}).get('terrace_onset_q_cms', 486.9):.1f}",
     "r1d_reach_km": f"{r1d.get('metadata', {}).get('reach_ny1b_to_ny7_km', 18.3):.1f}",
 }
 

@@ -235,7 +235,7 @@ COLOR_TOKENS = {
     "header_code":  ("#2a4d73", "#ffffff"),   # code บนพื้นเข้ม (~8.7)
     "muted":        ("#ffffff", "#5a6b7b"),   # ข้อความรองบนขาว (5.5)
     "table_head":   ("#28425c", "#ffffff"),   # หัวตาราง (10.4)
-    "sea_flood":    ("#1d6fb8", "#f5edda"),   # แผนที่: น้ำบนครีม (4.5)
+    "sea_flood":    ("#1a63a8", "#f5edda"),   # แผนที่: น้ำบนครีม (5.3)
     "chart_bar":    ("#4d94c9", "#ffffff"),   # แท่งกราฟรอง (3.3)
     "chart_accent": ("#e74c3c", "#ffffff"),   # แท่งกราฟเน้น (3.8)
 }

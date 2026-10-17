@@ -66,7 +66,7 @@ html = r"""<!DOCTYPE html>
   --c-header-code: #2a4d73; --c-header-code-fg: #ffffff;
   --c-muted: #ffffff; --c-muted-fg: #5a6b7b;
   --c-table-head: #28425c; --c-table-head-fg: #ffffff;
-  --c-sea-flood: #1d6fb8; --c-sea-flood-fg: #f5edda;
+  --c-sea-flood: #1a63a8; --c-sea-flood-fg: #f5edda;
   --c-chart-bar: #4d94c9; --c-chart-bar-fg: #ffffff;
   --c-chart-accent: #e74c3c; --c-chart-accent-fg: #ffffff;
 }

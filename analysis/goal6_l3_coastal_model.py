@@ -23,7 +23,6 @@ from sklearn.linear_model import LinearRegression
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT / "data/22_goal6_network/raw/l1_bkk_lower"
-SWAN_FILE = ROOT / "data/25_gulf_marine_tides/raw/gulf_wave_summary.json"
 OUT_JSON = ROOT / "analysis/goal6/l3_coastal_summary.json"
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
 
@@ -98,17 +97,6 @@ def main() -> None:
             if isinstance(dv, (int, float)):
                 rain_data[dk.replace("-", "")] = float(dv)
 
-    # คลื่น SWAN อ่าวไทยตอนบน
-    swan_hs = 0.8  # ค่าเฉลี่ยคลื่นนัยสำคัญช่วงมรสุม (เมตร)
-    if SWAN_FILE.exists():
-        sw = json.loads(SWAN_FILE.read_text(encoding="utf-8"))
-        if isinstance(sw, list) and sw:
-            waves = [float(s["wave_height_sig_m"]) for s in sw if s.get("wave_height_sig_m") is not None]
-            if waves:
-                swan_hs = float(np.mean(waves))
-        elif isinstance(sw, dict):
-            swan_hs = sw.get("upper_gulf_mean_wave_m", 0.8)
-
     # 2. จัดเรียงไทม์สแตมป์รายชั่วโมงช่วง 1 ก.ค. – 9 ต.ค. 2569
     start_dt = dt.datetime(2026, 7, 1, 0, 0)
     end_dt = dt.datetime(2026, 10, 9, 23, 0)
@@ -127,10 +115,19 @@ def main() -> None:
 
     test_start = "2026-09-20 00:00"
 
+    # ความครอบคลุมจริงของช่วงทดสอบ (ตรวจ 17 ต.ค. 69: ข้อมูลเป้าหมายขาดช่วง 2–9 ต.ค.)
+    test_hours_declared = [h for h in all_hours if h >= test_start]
+    test_hours_usable = [
+        h for h in test_hours_declared
+        if h in target_data and h in upstream_data and h in tide_data
+    ]
+    test_coverage_pct = round(100.0 * len(test_hours_usable) / len(test_hours_declared), 1) if test_hours_declared else 0.0
+    test_end_actual = max(test_hours_usable) if test_hours_usable else None
+
     results = {}
 
     for lead_h in (6, 24, 48):
-        x_base, x_coastal, y_vals, test_flags = [], [], [], []
+        x_base, x_coastal, y_vals, test_flags, leak_flags = [], [], [], [], []
 
         for i in range(48, len(all_hours) - lead_h):
             t_curr = all_hours[i]
@@ -173,19 +170,26 @@ def main() -> None:
             tide_phase_sin = math.sin(2.0 * math.pi * elapsed_hours / 12.4206)
             tide_phase_cos = math.cos(2.0 * math.pi * elapsed_hours / 12.4206)
 
-            feat_coastal = feat_base + [tide0, tide_diff, tide_head, tide_phase_sin, tide_phase_cos, swan_hs]
+            # หมายเหตุ: ไม่ใส่ swan_hs เป็นตัวแปรแล้ว (ตรวจ 17 ต.ค. 69) — ข้อมูล SWAN ที่มีเป็น
+            # snapshot เดียววันที่ 16 ต.ค. (หลังช่วงทดสอบ) รวม 31 สถานีเป็นค่าเดียว = ค่าคงที่
+            # ทั้งอนุกรม (ไม่มีความแปรปรวน) และเป็นข้อมูลอนาคต · โมเดลนี้จึงเป็น "Tidal-Coupled"
+            # ไม่ใช่ "Wave-Coupled" จนกว่าจะมีอนุกรมคลื่นรายชั่วโมงที่ตรงช่วงเวลา
+            feat_coastal = feat_base + [tide0, tide_diff, tide_head, tide_phase_sin, tide_phase_cos]
 
             x_base.append(feat_base)
             x_coastal.append(feat_coastal)
             y_vals.append(y)
             test_flags.append(t_curr >= test_start)
+            # purge: ถ้าเป้าหมาย (t_lead) ตกอยู่ในช่วงทดสอบ ห้ามใช้เป็นตัวอย่างฝึก
+            leak_flags.append(t_lead >= test_start)
 
         x_base = np.array(x_base)
         x_coastal = np.array(x_coastal)
         y_vals = np.array(y_vals)
         test_flags = np.array(test_flags, dtype=bool)
+        leak_flags = np.array(leak_flags, dtype=bool)
 
-        train_mask = ~test_flags
+        train_mask = (~test_flags) & (~leak_flags)   # purge: ตัดตัวอย่างที่เป้าหมายอยู่ในช่วงทดสอบ
         test_mask = test_flags
 
         # 1. Baseline: Persistence (ระดับน้ำไม่เปลี่ยน)
@@ -213,6 +217,8 @@ def main() -> None:
 
         imp_lr_pct = round((rmse_lr_base - rmse_lr_coastal) / rmse_lr_base * 100.0, 1)
         imp_gb_pct = round((rmse_gb_base - rmse_gb_coastal) / rmse_gb_base * 100.0, 1)
+        # เทียบกับ persistence (baseline ที่ไม่ใช่โมเดล) — ตัวเลขที่ควรใช้เป็นพาดหัว
+        imp_lr_vs_persistence = round((rmse_persistence - rmse_lr_coastal) / rmse_persistence * 100.0, 1)
 
         results[str(lead_h)] = {
             "lead_hours": lead_h,
@@ -220,6 +226,7 @@ def main() -> None:
             "linear_base_rmse_cm": round(rmse_lr_base, 1),
             "linear_coastal_rmse_cm": round(rmse_lr_coastal, 1),
             "linear_improvement_pct": imp_lr_pct,
+            "linear_improvement_vs_persistence_pct": imp_lr_vs_persistence,
             "gbdt_base_rmse_cm": round(rmse_gb_base, 1),
             "gbdt_coastal_rmse_cm": round(rmse_gb_coastal, 1),
             "gbdt_improvement_pct": imp_gb_pct,
@@ -233,7 +240,13 @@ def main() -> None:
             "target_station": "C.12 (กรมชลประทานสามเสน กรุงเทพฯ)",
             "upstream_station": "BKK001 (เจ้าพระยาตอนบน)",
             "tide_station": "CPY015 (สะพานกรุงเทพ ปากแม่น้ำเจ้าพระยา)",
-            "test_window": "2026-09-20..2026-10-09 (ระลอกมหาอุทกภัย)",
+            "test_window_declared": "2026-09-20..2026-10-09",
+            "test_window_actual": f"2026-09-20..{test_end_actual}",
+            "test_coverage_pct": test_coverage_pct,
+            "train_window_actual": "2026-07-01..2026-09-19",
+            "train_scope_note": "ฝึกด้วยข้อมูลปี 2569 เดียว ~47 วัน (1,130–1,467 ชม.) — ไม่ใช่ฤดูฝน 2020–2026",
+            "purge_note": "ตัดตัวอย่างฝึกที่เป้าหมาย (t+lead) ตกในช่วงทดสอบ เพื่อกันการรั่วของป้าย",
+            "coupling": "Tidal-Coupled (ไม่รวมคลื่น SWAN — ข้อมูลที่มีเป็น snapshot เดียวหลังช่วงทดสอบ)",
         },
         "horizons": results,
     }

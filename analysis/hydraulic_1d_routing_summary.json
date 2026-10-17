@@ -2,7 +2,10 @@
   "metadata": {
     "title": "แบบจำลองชลศาสตร์ 1 มิติ แม่น้ำนครนายก (1D Hydrodynamic Routing)",
     "reach_ny1b_to_ny7_km": 18.3,
+    "model_scope_note": "ครอบคลุม Ny.1B–Ny.7 (18.3 กม.) เท่านั้น — ยังไม่มีเงื่อนไขขอบเขตท้ายน้ำที่ Kgt.30",
     "manning_n": 0.0437,
+    "manning_n_note": "n สอบเทียบกับวิธี composite (A_total, P_total) — ยังไม่สอบเทียบใหม่สำหรับวิธี divided",
+    "conveyance_method": "composite",
     "slope_reach1": 0.00065,
     "slope_reach2": 0.00035,
     "sim_time_step_min": 15,
@@ -10,32 +13,96 @@
   },
   "ny1b_hydraulics": {
     "station": "Ny.1B (บ้านเขานางบวช)",
-    "bank_msl_m": 10.6,
-    "bankfull_width_m": 121.9,
-    "bankfull_area_m2": 471.8,
-    "bankfull_q_cms": 666.3,
+    "levee_crest_msl_m": 10.6,
+    "levee_crest_width_m": 121.9,
+    "levee_crest_area_m2": 471.8,
+    "levee_crest_capacity_q_cms": 666.3,
     "peak_stage_msl_m": 11.0,
     "peak_q_cms": 675.3,
-    "overflow_depth_m": 0.4,
-    "overflow_q_cms": 9.0
+    "peak_above_levee_m": 0.4,
+    "rid_declared_braelevel_msl_m": 8.81,
+    "note": "ระดับตลิ่งที่กรมชลฯ ประกาศ (braelevel 8.81) กับสันหน้าตัดที่สำรวจ (10.60) ต่างกัน 1.79 ม. — ยังไม่กระทบกัน"
   },
   "ny7_hydraulics": {
     "station": "Ny.7 (สะพานเทศบาลนครนายก)",
-    "bank_msl_m": 8.21,
-    "terrace_start_msl_m": 6.86,
-    "bankfull_width_m": 160.0,
-    "bankfull_area_m2": 606.9,
-    "bankfull_q_cms": 617.4,
+    "levee_crest_msl_m": 8.21,
+    "terrace_onset_msl_m": 6.86,
+    "levee_crest_width_m": 160.0,
+    "levee_crest_area_m2": 606.9,
+    "levee_crest_capacity_q_cms": 617.4,
+    "terrace_onset_q_cms": 486.9,
     "peak_stage_msl_m": 7.68,
-    "peak_q_cms": 648.3
+    "peak_q_cms": 648.3,
+    "note": "levee_crest = สันตลิ่ง/ตอม่อสำรวจ 8.213 · terrace_onset = ระดับเริ่มท่วมที่ราบ 6.86 (คนละนิยาม)"
   },
   "routing_performance": {
     "travel_time_hours_sim": 3.25,
     "travel_time_stage_obs": 9.0,
     "travel_time_hours_obs": 24.25,
+    "travel_time_caveat": "ทั้งสองค่านับจากยอดของอนุกรมที่ต่างกัน · Q และ H ที่สถานีเดียวกันมียอดเหลื่อมกัน (+6.5 ชม. Ny.1B · −8.75 ชม. Ny.7) → ยังใช้เป็นเวลาเดินทางของคลื่นไม่ได้",
     "rmse_discharge_cms": 128.78,
-    "rmse_stage_cm": 105.8,
+    "rmse_stage_cm": 106.0,
     "q_peak_sim_cms": 613.0,
     "q_peak_obs_cms": 648.3
+  },
+  "rating_sensitivity": {
+    "note": "Manning สองวิธีบนหน้าตัดเดียวกัน · composite = วิธีที่ n ถูกสอบเทียบมาด้วย · divided = แบ่งช่อง (เอกภาพแต่ให้ค่าสูงกว่า ~30%) — ช่วงนี้คือความไม่แน่นอนของ rating",
+    "ny1b": {
+      "terrace_onset_6.86": {
+        "stage_msl_m": 6.86,
+        "q_composite_cms": 191.2,
+        "q_divided_cms": 225.3
+      },
+      "levee_crest_10.60": {
+        "stage_msl_m": 10.6,
+        "q_composite_cms": 666.3,
+        "q_divided_cms": 893.0
+      },
+      "peak_11.00": {
+        "stage_msl_m": 11.0,
+        "q_composite_cms": 578.4,
+        "q_divided_cms": 1009.1
+      }
+    },
+    "ny7": {
+      "terrace_onset_6.86": {
+        "stage_msl_m": 6.86,
+        "q_composite_cms": 486.9,
+        "q_divided_cms": 560.1
+      },
+      "peak_7.68": {
+        "stage_msl_m": 7.68,
+        "q_composite_cms": 548.5,
+        "q_divided_cms": 719.7
+      },
+      "levee_crest_8.213": {
+        "stage_msl_m": 8.21,
+        "q_composite_cms": 617.4,
+        "q_divided_cms": 842.8
+      }
+    }
+  },
+  "grid_convergence": {
+    "note": "RMSE ไม่ลดลงเมื่อแบ่งช่วงย่อยละเอียดขึ้น → ผลที่ n_sub=12 เป็นค่าที่ 'พอดี' ไม่ใช่ค่าที่ลู่เข้า · ห้ามอ้างว่าเป็นคำตอบเชิงกายภาพ",
+    "n_sub_6": {
+      "q_peak_cms": 591.7,
+      "rmse_q_cms": 126.4,
+      "rmse_h_cm": 103.8
+    },
+    "n_sub_12": {
+      "q_peak_cms": 613.0,
+      "rmse_q_cms": 128.8,
+      "rmse_h_cm": 106.0
+    },
+    "n_sub_24": {
+      "q_peak_cms": 627.5,
+      "rmse_q_cms": 130.2,
+      "rmse_h_cm": 107.3
+    },
+    "n_sub_48": {
+      "q_peak_cms": 638.9,
+      "rmse_q_cms": 131.1,
+      "rmse_h_cm": 108.0
+    }
   }
 }

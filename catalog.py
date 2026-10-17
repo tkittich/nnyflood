@@ -166,6 +166,8 @@ CORE_GOVERNANCE = [
     ("tests/test_thai_language_lint.py", "ระบบทดสอบและตรวจจับภาษาไทยอัตโนมัติ (Typo Registry, คำชน, คำทับศัพท์)"),
     ("docs/reviews/AUDIT_REDTEAM_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 1 (Peer Review ฉบับเต็ม 3 เสาหลัก)"),
     ("docs/reviews/AUDIT_ROUND2_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 2 (Delta Review & New Findings)"),
+    ("REVIEW.DeepSeek-V4.1-Flash.md", "ผลการตรวจสอบอิสระรอบที่ 3 (DeepSeek-V4.1-Flash) — 3 เสาหลัก 22 ประเด็น พร้อมการแก้ไขที่ปิดแล้ว"),
+    ("REVIEW.gemini_3.8_flash.md", "ผลการตรวจสอบอิสระรอบที่ 3 (Gemini 3.8 Flash) — ฉบับ 3 เสาหลัก (ต่างจาก docs/reviews/REVIEW.gemini_3.8_flash.md ซึ่งตรวจเฉพาะเป้าหมาย 7)"),
 ]
 
 

@@ -55,6 +55,7 @@ def analyze():
     
     by_region: dict[str, dict] = {}
     over_100_list = []
+    n_missing = 0
     
     for f in features:
         p = f["properties"]
@@ -64,18 +65,26 @@ def analyze():
         code = p.get("cresv") or f.get("id") or ""
         cap = float(p.get("cap_resv") or 0)
         vol = float(p.get("qdisc") or 0)
-        pct = float(p.get("percent_rsv") or 0)
         inflow = float(p.get("q_info") or 0)
         outflow = float(p.get("q_outfo") or 0)
-        
+
+        # ค่าที่หายไปต้องไม่ถูกนับเป็น 0 (ซึ่งจะตกไปอยู่กลุ่ม "ต่ำกว่า 80%" = ปลอดภัย)
+        # อ่างที่ไม่มี percent_rsv ถือเป็น "ไม่ทราบสถานะ" และถูกคัดออกจากตัวหารทุกตัว
+        pct_raw = p.get("percent_rsv")
+        missing = pct_raw is None or p.get("cap_resv") is None
+        pct = float(pct_raw) if pct_raw is not None else None
+
         total_cap += cap
         total_vol += vol
         total_inflow += inflow
         total_outflow += outflow
-        
+        if missing:
+            n_missing += 1
+
         reg_stat = by_region.setdefault(reg, {
             "region": reg,
             "count": 0,
+            "n_missing": 0,
             "total_cap_mcm": 0.0,
             "current_vol_mcm": 0.0,
             "avg_pct": 0.0,
@@ -93,8 +102,11 @@ def analyze():
         reg_stat["inflow_mcm_day"] += inflow
         reg_stat["outflow_mcm_day"] += outflow
         reg_stat["provinces"].add(prov)
-        
-        if pct >= 100.0:
+
+        if missing:
+            # ไม่มีข้อมูล = ไม่ทราบสถานะ · ห้ามนับเป็น "ต่ำกว่า 80%" (จะทำให้ดัชนีดูปลอดภัยเกินจริง)
+            reg_stat["n_missing"] += 1
+        elif pct >= 100.0:
             reg_stat["over_100_count"] += 1
             over_100_list.append({
                 "code": code,
@@ -121,21 +133,24 @@ def analyze():
             continue
         st = by_region[r_name]
         c = st["count"]
+        c_assessed = c - st["n_missing"]
         cap = st["total_cap_mcm"]
         vol = st["current_vol_mcm"]
         pct_storage = round((vol / cap * 100), 2) if cap > 0 else 0.0
-        
+
         region_summary.append({
             "region": r_name,
             "dam_count": c,
+            "n_missing": st["n_missing"],
+            "dam_count_assessed": c_assessed,
             "total_cap_mcm": round(cap, 2),
             "current_vol_mcm": round(vol, 2),
             "storage_percent": pct_storage,
             "over_100_count": st["over_100_count"],
-            "over_100_pct_of_region": round((st["over_100_count"] / c) * 100, 2),
+            "over_100_pct_of_region": round((st["over_100_count"] / c_assessed) * 100, 2) if c_assessed else 0.0,
             "between_80_100_count": st["between_80_100_count"],
             "stress_high_count": st["over_100_count"] + st["between_80_100_count"],
-            "stress_high_pct": round(((st["over_100_count"] + st["between_80_100_count"]) / c) * 100, 2),
+            "stress_high_pct": round(((st["over_100_count"] + st["between_80_100_count"]) / c_assessed) * 100, 2) if c_assessed else 0.0,
             "inflow_mcm_day": round(st["inflow_mcm_day"], 2),
             "outflow_mcm_day": round(st["outflow_mcm_day"], 2),
             "num_provinces": len(st["provinces"])
@@ -145,21 +160,25 @@ def analyze():
     national_pct = round((total_vol / total_cap * 100), 2) if total_cap > 0 else 0.0
     total_over_100 = len(over_100_list)
     total_stress_80_100 = sum(r["between_80_100_count"] for r in region_summary)
-    
+    n_assessed = total_med - n_missing
+
     summary = {
         "metadata": {
             "source": "ศูนย์ปฏิบัติการน้ำอัจฉริยะ กรมชลประทาน (SWOC RID)",
             "total_medium_dams": total_med,
+            "n_missing_data": n_missing,
+            "n_assessed": n_assessed,
+            "missing_data_note": "อ่างที่ไม่มี percent_rsv/cap_resv ถูกนับเป็น 'ไม่ทราบสถานะ' และตัดออกจากตัวหารทุกตัว (เดิมนับเป็น 0% = กลุ่มปลอดภัย ทำให้ดัชนีความเค้นต่ำเกินจริง)",
             "total_capacity_mcm": round(total_cap, 2),
             "current_storage_mcm": round(total_vol, 2),
             "storage_percent": national_pct,
             "total_inflow_mcm_day": round(total_inflow, 2),
             "total_outflow_mcm_day": round(total_outflow, 2),
             "dams_over_100_count": total_over_100,
-            "dams_over_100_pct": round((total_over_100 / total_med) * 100, 2),
+            "dams_over_100_pct": round((total_over_100 / n_assessed) * 100, 2) if n_assessed else 0.0,
             "dams_stress_80_to_100_count": total_stress_80_100,
             "dams_stress_total_count": total_over_100 + total_stress_80_100,
-            "dams_stress_total_pct": round(((total_over_100 + total_stress_80_100) / total_med) * 100, 2),
+            "dams_stress_total_pct": round(((total_over_100 + total_stress_80_100) / n_assessed) * 100, 2) if n_assessed else 0.0,
             "large_dams_comparison": {
                 "count": large_count,
                 "total_cap_mcm": round(large_cap, 2),

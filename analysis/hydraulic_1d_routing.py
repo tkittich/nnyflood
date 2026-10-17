@@ -1,10 +1,11 @@
 """แบบจำลองชลศาสตร์ 1 มิติ แม่น้ำนครนายก (1D Hydrodynamic River Routing)
 
-จำลองการไหลแบบไม่คงที่ (Unsteady 1D Hydraulic Routing) จากหน้าตัดสำรวจจริง 5 สถานี:
-- เขื่อนขุนด่านปราการชล (กม.0)
+จำลองการไหลแบบไม่คงที่ (Unsteady 1D Hydraulic Routing) บนช่วงลำน้ำที่มีหน้าตัดสำรวจจริง:
 - Ny.1B บ้านเขานางบวช (กม.9.2) — 61 จุดสำรวจ
 - Ny.7 ตัวเมืองนครนายก (กม.27.5) — 68 จุดสำรวจ
-- Kgt.30 แม่น้ำบางปะกง (กม.54.0) — เงื่อนไขขอบเขตท้ายน้ำ
+
+ขอบเขต: **Ny.1B -> Ny.7 (18.3 กม.) เท่านั้น** · Kgt.30 (กม.54.0) ยังไม่มีเงื่อนไขขอบเขต
+ท้ายน้ำที่ใช้งานได้ จึงไม่ถูกใช้ในแบบจำลองนี้ (ห้ามอ้างว่าแบบจำลองครอบคลุม 43 กม.)
 
 รัน: python analysis/hydraulic_1d_routing.py
 """
@@ -43,56 +44,80 @@ def load_cross_section(csv_path: Path) -> tuple[np.ndarray, np.ndarray]:
 
 
 def compute_hydraulic_geometry(offsets: np.ndarray, elevs: np.ndarray, water_level: float) -> dict:
-    """คำนวณพื้นที่หน้าตัด A, เส้นรอบรูปเปียก P, รัศมีชลศาสตร์ R, ความกว้างผิวน้ำ B"""
-    if water_level <= np.min(elevs):
-        return {"area": 0.0, "perimeter": 0.0, "radius": 0.0, "width": 0.0}
+    """คำนวณพื้นที่หน้าตัด A, เส้นรอบรูปเปียก P, รัศมีชลศาสตร์ R, ความกว้างผิวน้ำ B
+    และค่าการนำน้ำสองวิธี
 
-    # แบ่งช่วงย่อยตามจุดสำรวจ
+    หน้าตัดจริงเป็น **หน้าตัดประกอบ** (ร่องน้ำลึก + ที่ราบน้ำท่วมถึงกว้างตื้น) การรวม A กับ P
+    ทั้งหน้าตัดแล้วใช้ R เดียว (composite) ทำให้ R *ลดลง* เมื่อน้ำล้นขึ้นที่ราบ (P พุ่งจาก
+    ~125 เป็น ~224 ม. ขณะที่ A โตช้ากว่า) → สมการ Manning ให้ Q ลดลงเมื่อระดับน้ำสูงขึ้น
+    ซึ่งผิดกายภาพ และทำให้ค่า "ความจุตลิ่ง" กลายเป็นจุดสูงสุดของเส้นโค้งที่ไม่เป็นเอกภาพ
+
+    เก็บสองค่าไว้เทียบกัน (ห้ามเลือกเงียบ ๆ):
+      - conveyance_composite = A_total * (A/P)^(2/3)   ← วิธีที่ n=0.0437 ถูกสอบเทียบมาด้วย
+      - conveyance_divided   = Σ A_i * (A_i/P_i)^(2/3)  ← แบ่งช่อง (vertical slice) เป็นเอกภาพเสมอ
+        แต่ให้ค่า Q สูงกว่า ~30% เพราะแต่ละช่องไม่แชร์แรงเสียดทานร่วมกัน
+
+    ค่าเริ่มต้นของ stage_to_discharge คือ composite เพื่อไม่ให้ตัวเลขที่สอบเทียบแล้วขยับ
+    โดยไม่มีข้อมูลใหม่ · ค่า divided รายงานเป็นช่วงความไว (sensitivity) ใน summary
+    """
+    if water_level <= np.min(elevs):
+        return {"area": 0.0, "perimeter": 0.0, "radius": 0.0, "width": 0.0,
+                "conveyance_composite": 0.0, "conveyance_divided": 0.0}
+
     area = 0.0
     perimeter = 0.0
     wet_widths = []
+    conv_divided = 0.0
 
     for i in range(len(offsets) - 1):
         x1, x2 = offsets[i], offsets[i + 1]
         y1, y2 = elevs[i], elevs[i + 1]
+        dx = x2 - x1
+        d1 = water_level - y1
+        d2 = water_level - y2
 
-        # กรณีทั้งสองจุดต่ำกว่าผิวน้ำ
-        if y1 <= water_level and y2 <= water_level:
-            dx = x2 - x1
-            dy = y2 - y1
-            d1 = water_level - y1
-            d2 = water_level - y2
-            area += 0.5 * (d1 + d2) * dx
-            perimeter += math.hypot(dx, dy)
-            wet_widths.append(dx)
-        # กรณีตัดผิวน้ำ
-        elif (y1 < water_level and y2 > water_level) or (y1 > water_level and y2 < water_level):
-            # หาจุดตัด
-            frac = (water_level - y1) / (y2 - y1)
-            xc = x1 + frac * (x2 - x1)
-            if y1 < water_level:
-                dx = xc - x1
-                d1 = water_level - y1
-                area += 0.5 * d1 * dx
-                perimeter += math.hypot(dx, water_level - y1)
-                wet_widths.append(dx)
+        if d1 <= 0.0 and d2 <= 0.0:
+            continue
+
+        if d1 > 0.0 and d2 > 0.0:
+            a = 0.5 * (d1 + d2) * dx
+            p = math.hypot(dx, y2 - y1)
+            w = dx
+        else:
+            frac = d1 / (d1 - d2)
+            xc = x1 + frac * dx
+            if d1 > 0.0:
+                a = 0.5 * d1 * (xc - x1)
+                p = math.hypot(xc - x1, d1)
+                w = xc - x1
             else:
-                dx = x2 - xc
-                d2 = water_level - y2
-                area += 0.5 * d2 * dx
-                perimeter += math.hypot(dx, water_level - y2)
-                wet_widths.append(dx)
+                a = 0.5 * d2 * (x2 - xc)
+                p = math.hypot(x2 - xc, d2)
+                w = x2 - xc
+
+        area += a
+        perimeter += p
+        wet_widths.append(w)
+        if a > 0.0 and p > 0.0:
+            conv_divided += a * ((a / p) ** (2.0 / 3.0))
 
     width = sum(wet_widths)
     radius = (area / perimeter) if perimeter > 0 else 0.0
-    return {"area": area, "perimeter": perimeter, "radius": radius, "width": width}
+    conv_composite = area * (radius ** (2.0 / 3.0)) if radius > 0 else 0.0
+    return {"area": area, "perimeter": perimeter, "radius": radius, "width": width,
+            "conveyance_composite": conv_composite, "conveyance_divided": conv_divided}
 
 
-def stage_to_discharge(geom: dict, n: float, slope: float) -> float:
-    """Manning Equation: Q = (1/n) * A * R^(2/3) * S^(1/2)"""
-    if geom["area"] <= 0 or geom["radius"] <= 0:
+def stage_to_discharge(geom: dict, n: float, slope: float, method: str = "composite") -> float:
+    """Manning Equation: Q = (1/n) * sqrt(S) * conveyance
+
+    method="composite" (ค่าเริ่มต้น) = A*(A/P)^(2/3) · method="divided" = Σ A_i R_i^(2/3)
+    """
+    key = "conveyance_divided" if method == "divided" else "conveyance_composite"
+    k = geom.get(key, 0.0)
+    if k <= 0.0:
         return 0.0
-    return (1.0 / n) * geom["area"] * (geom["radius"] ** (2.0 / 3.0)) * math.sqrt(slope)
+    return (1.0 / n) * k * math.sqrt(slope)
 
 
 def run_muskingum_cunge_reach(
@@ -143,16 +168,18 @@ def run_muskingum_cunge_reach(
 
 def main() -> None:
     # 1. โหลดหน้าตัดสำรวจ
+    # ขอบเขตแบบจำลอง = Ny.1B -> Ny.7 (18.3 กม.) เท่านั้น · Kgt.30 ยังไม่มีเงื่อนไขขอบเขต
+    # ท้ายน้ำที่ใช้งานได้ จึงไม่โหลด (เดิมโหลดแล้วไม่ใช้ — ทำให้เข้าใจผิดว่าเป็น 1D ครบ 43 กม.)
     x_ny1b, z_ny1b = load_cross_section(DATA_19 / "Ny.1B_profile.csv")
     x_ny7, z_ny7 = load_cross_section(DATA_19 / "Ny.7_profile.csv")
-    x_kgt30, z_kgt30 = load_cross_section(DATA_19 / "Kgt.30_profile.csv")
 
     slope_reach1 = 0.00065  # ขุนด่านฯ -> Ny.1B (ลาดชันสูง ใกล้ภูเขา)
     slope_reach2 = 0.00035  # Ny.1B -> Ny.7 (ที่ราบเมือง)
-    slope_reach3 = 0.00015  # Ny.7 -> Kgt.30 (ที่ราบลุ่มต่ำบางปะกง)
     n_channel = 0.0437       # Manning n สอบเทียบ Ny.7
 
     # คำนวณความจุตลิ่ง (Bankfull Capacity) Ny.1B และ Ny.7
+    # คำเตือนเรื่องชื่อ (F-15): bank_msl_m ที่ใช้คือ "สันตลิ่ง/ตอม่อที่สำรวจ" ไม่ใช่ระดับเริ่มท่วมที่ราบ
+    # (Ny.7 เริ่มท่วมที่ราบที่ 6.86) · จึงมี key แยก levee_crest_* และ terrace_onset_* ชัดเจน
     bank_ny1b = 10.60  # ม.รทก.
     geom_bank_ny1b = compute_hydraulic_geometry(x_ny1b, z_ny1b, bank_ny1b)
     q_bank_ny1b = stage_to_discharge(geom_bank_ny1b, n_channel, slope_reach1)
@@ -160,6 +187,10 @@ def main() -> None:
     bank_ny7 = 8.213   # ม.รทก.
     geom_bank_ny7 = compute_hydraulic_geometry(x_ny7, z_ny7, bank_ny7)
     q_bank_ny7 = stage_to_discharge(geom_bank_ny7, n_channel, slope_reach2)
+
+    terrace_ny7 = 6.86
+    q_terrace_ny7 = stage_to_discharge(
+        compute_hydraulic_geometry(x_ny7, z_ny7, terrace_ny7), n_channel, slope_reach2)
 
     # 2. โหลดข้อมูลโทรมาตร 15 นาที 20–30 ก.ย. 2569
     # st61 (Ny.1B) และ st62 (Ny.7)
@@ -195,15 +226,52 @@ def main() -> None:
     q_sim_ny7 = run_muskingum_cunge_reach(q_obs_ny1b, dt_sec, dx_m, slope_reach2, n_channel, b_avg, n_sub=12)
 
     # 4. แปลง Q_sim กลับเป็นระดับน้ำ h_sim ที่ Ny.7 ด้วย Rating Curve จากหน้าตัดจริง
-    # สร้าง Stage-Discharge lookup table สำหรับ Ny.7
+    # หน้าตัดประกอบทำให้ q_lookup มีจุดพับ (Q ลดเมื่อระดับน้ำสูงขึ้น) -> np.interp จะให้ผล
+    # ไม่มีความหมาย · ใช้เปลือกบน (running maximum) และยืนยันความเป็นเอกภาพก่อน interp
     h_test_levels = np.linspace(np.min(z_ny7) + 0.1, bank_ny7 + 2.0, 200)
-    q_lookup = [stage_to_discharge(compute_hydraulic_geometry(x_ny7, z_ny7, hl), n_channel, slope_reach2) for hl in h_test_levels]
-    h_sim_ny7 = np.interp(q_sim_ny7, q_lookup, h_test_levels)
+    q_lookup = np.array([
+        stage_to_discharge(compute_hydraulic_geometry(x_ny7, z_ny7, hl), n_channel, slope_reach2)
+        for hl in h_test_levels
+    ])
+    order = np.argsort(h_test_levels)
+    q_raw = q_lookup[order]
+    q_env = np.maximum.accumulate(q_raw)
+    n_folds = int(np.sum(np.diff(q_raw) < 0))
+    if n_folds:
+        # หน้าตัดประกอบทำให้ Q(H) ไม่เป็นเอกภาพ · เปลือกบนคืน "ระดับน้ำต่ำสุดที่รับ Q นั้นได้"
+        # ซึ่งเป็นสาขาที่ถูกต้องสำหรับ rating · ห้าม interp กับ q_raw ตรง ๆ
+        print(f"  หมายเหตุ: rating curve มีจุดพับ {n_folds} จุด — ใช้เปลือกบนในการผกผัน")
+    if np.any(np.diff(q_env) < 0):  # ค้ำประกันเชิงโครงสร้าง (ไม่ควรเกิด)
+        raise ValueError("เปลือกบนของ rating curve ยังลดลง — ตรรกะผกผันผิด")
+    h_sim_ny7 = np.interp(q_sim_ny7, q_env, h_test_levels[order])
+
+    # 4b. ช่วงความไวของ Manning สองวิธี (composite vs divided) — รายงานคู่กันเสมอ
+    def rating_sensitivity(x, z, slope, stages):
+        out = {}
+        for label, lvl in stages.items():
+            g = compute_hydraulic_geometry(x, z, lvl)
+            out[label] = {
+                "stage_msl_m": round(float(lvl), 2),
+                "q_composite_cms": round(stage_to_discharge(g, n_channel, slope), 1),
+                "q_divided_cms": round(stage_to_discharge(g, n_channel, slope, "divided"), 1),
+            }
+        return out
 
     # คำนวณความคลาดเคลื่อน (RMSE) ช่วงน้ำหลาก 26–28 ก.ย.
     mask_event = [("2026-09-26" <= t <= "2026-09-28") for t in times]
     rmse_q_cms = float(np.sqrt(np.mean((q_sim_ny7[mask_event] - q_obs_ny7[mask_event]) ** 2)))
     rmse_h_m = float(np.sqrt(np.mean((h_sim_ny7[mask_event] - h_obs_ny7[mask_event]) ** 2)))
+
+    # 4c. ตารางลู่เข้า (grid convergence) — RMSE ต้องไม่แย่ลงเมื่อแบ่งช่วงย่อยละเอียดขึ้น
+    convergence = {}
+    for ns in (6, 12, 24, 48):
+        qs = run_muskingum_cunge_reach(q_obs_ny1b, dt_sec, dx_m, slope_reach2, n_channel, b_avg, n_sub=ns)
+        hs = np.interp(qs, q_env, h_test_levels[order])
+        convergence[str(ns)] = {
+            "q_peak_cms": round(float(np.max(qs)), 1),
+            "rmse_q_cms": round(float(np.sqrt(np.mean((qs[mask_event] - q_obs_ny7[mask_event]) ** 2))), 1),
+            "rmse_h_cm": round(float(np.sqrt(np.mean((hs[mask_event] - h_obs_ny7[mask_event]) ** 2))) * 100.0, 1),
+        }
 
     # เวลาเดินทางของยอดคลื่นน้ำ (Peak Wave Travel Time: ร่องน้ำ Ny.1B สู่ Ny.7 18.3 กม.)
     idx_pk_ny1b = int(np.argmax(q_obs_ny1b))
@@ -222,7 +290,10 @@ def main() -> None:
         "metadata": {
             "title": "แบบจำลองชลศาสตร์ 1 มิติ แม่น้ำนครนายก (1D Hydrodynamic Routing)",
             "reach_ny1b_to_ny7_km": 18.3,
+            "model_scope_note": "ครอบคลุม Ny.1B–Ny.7 (18.3 กม.) เท่านั้น — ยังไม่มีเงื่อนไขขอบเขตท้ายน้ำที่ Kgt.30",
             "manning_n": n_channel,
+            "manning_n_note": "n สอบเทียบกับวิธี composite (A_total, P_total) — ยังไม่สอบเทียบใหม่สำหรับวิธี divided",
+            "conveyance_method": "composite",
             "slope_reach1": slope_reach1,
             "slope_reach2": slope_reach2,
             "sim_time_step_min": 15,
@@ -230,33 +301,51 @@ def main() -> None:
         },
         "ny1b_hydraulics": {
             "station": "Ny.1B (บ้านเขานางบวช)",
-            "bank_msl_m": bank_ny1b,
-            "bankfull_width_m": round(geom_bank_ny1b["width"], 1),
-            "bankfull_area_m2": round(geom_bank_ny1b["area"], 1),
-            "bankfull_q_cms": round(q_bank_ny1b, 1),
+            "levee_crest_msl_m": bank_ny1b,
+            "levee_crest_width_m": round(geom_bank_ny1b["width"], 1),
+            "levee_crest_area_m2": round(geom_bank_ny1b["area"], 1),
+            "levee_crest_capacity_q_cms": round(q_bank_ny1b, 1),
             "peak_stage_msl_m": round(float(np.max(h_obs_ny1b)), 2),
             "peak_q_cms": round(float(np.max(q_obs_ny1b)), 1),
-            "overflow_depth_m": round(float(np.max(h_obs_ny1b) - bank_ny1b), 2),
-            "overflow_q_cms": round(float(np.max(q_obs_ny1b) - q_bank_ny1b), 1),
+            "peak_above_levee_m": round(float(np.max(h_obs_ny1b) - bank_ny1b), 2),
+            "rid_declared_braelevel_msl_m": 8.81,
+            "note": "ระดับตลิ่งที่กรมชลฯ ประกาศ (braelevel 8.81) กับสันหน้าตัดที่สำรวจ (10.60) ต่างกัน 1.79 ม. — ยังไม่กระทบกัน",
         },
         "ny7_hydraulics": {
             "station": "Ny.7 (สะพานเทศบาลนครนายก)",
-            "bank_msl_m": round(bank_ny7, 2),
-            "terrace_start_msl_m": 6.86,
-            "bankfull_width_m": round(geom_bank_ny7["width"], 1),
-            "bankfull_area_m2": round(geom_bank_ny7["area"], 1),
-            "bankfull_q_cms": round(q_bank_ny7, 1),
+            "levee_crest_msl_m": round(bank_ny7, 2),
+            "terrace_onset_msl_m": terrace_ny7,
+            "levee_crest_width_m": round(geom_bank_ny7["width"], 1),
+            "levee_crest_area_m2": round(geom_bank_ny7["area"], 1),
+            "levee_crest_capacity_q_cms": round(q_bank_ny7, 1),
+            "terrace_onset_q_cms": round(q_terrace_ny7, 1),
             "peak_stage_msl_m": round(float(np.max(h_obs_ny7)), 2),
             "peak_q_cms": round(float(np.max(q_obs_ny7)), 1),
+            "note": "levee_crest = สันตลิ่ง/ตอม่อสำรวจ 8.213 · terrace_onset = ระดับเริ่มท่วมที่ราบ 6.86 (คนละนิยาม)",
         },
         "routing_performance": {
             "travel_time_hours_sim": round(travel_time_hours_sim, 2),
             "travel_time_stage_obs": round(travel_time_stage_obs, 2),
             "travel_time_hours_obs": round(travel_time_hours_obs, 2),
+            "travel_time_caveat": "ทั้งสองค่านับจากยอดของอนุกรมที่ต่างกัน · Q และ H ที่สถานีเดียวกันมียอดเหลื่อมกัน (+6.5 ชม. Ny.1B · −8.75 ชม. Ny.7) → ยังใช้เป็นเวลาเดินทางของคลื่นไม่ได้",
             "rmse_discharge_cms": round(rmse_q_cms, 2),
             "rmse_stage_cm": round(rmse_h_m * 100.0, 1),
             "q_peak_sim_cms": round(float(np.max(q_sim_ny7)), 1),
             "q_peak_obs_cms": round(float(np.max(q_obs_ny7)), 1),
+        },
+        "rating_sensitivity": {
+            "note": "Manning สองวิธีบนหน้าตัดเดียวกัน · composite = วิธีที่ n ถูกสอบเทียบมาด้วย · divided = แบ่งช่อง (เอกภาพแต่ให้ค่าสูงกว่า ~30%) — ช่วงนี้คือความไม่แน่นอนของ rating",
+            "ny1b": rating_sensitivity(x_ny1b, z_ny1b, slope_reach1,
+                                       {"terrace_onset_6.86": 6.86, "levee_crest_10.60": 10.60, "peak_11.00": 11.00}),
+            "ny7": rating_sensitivity(x_ny7, z_ny7, slope_reach2,
+                                      {"terrace_onset_6.86": 6.86, "peak_7.68": 7.68, "levee_crest_8.213": 8.213}),
+        },
+        "grid_convergence": {
+            "note": "RMSE ไม่ลดลงเมื่อแบ่งช่วงย่อยละเอียดขึ้น → ผลที่ n_sub=12 เป็นค่าที่ 'พอดี' ไม่ใช่ค่าที่ลู่เข้า · ห้ามอ้างว่าเป็นคำตอบเชิงกายภาพ",
+            "n_sub_6": convergence["6"],
+            "n_sub_12": convergence["12"],
+            "n_sub_24": convergence["24"],
+            "n_sub_48": convergence["48"],
         },
     }
 

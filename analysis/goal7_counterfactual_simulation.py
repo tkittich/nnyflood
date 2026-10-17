@@ -63,6 +63,10 @@ def simulate_event(
     vol_diverted_mcm = diverted_q * 86400.0 / 1e6
     total_diverted_mcm = float(np.sum(vol_diverted_mcm))
 
+    # ปริมาตรส่วนเกินเหนือขีดปลอดภัย — ตัวหารของ "สัดส่วนที่ผันได้" (เดิมใช้ค่าคงที่ 11,000)
+    excess_q = np.maximum(inflow_q_cms - safe_capacity_cms, 0.0)
+    excess_mcm = float(np.sum(excess_q) * 86400.0 / 1e6)
+
     # จำนวนวันที่น้ำเกินความจุปลอดภัย
     days_over_safe_no_canal = int(np.sum(inflow_q_cms > safe_capacity_cms))
     days_over_safe_with_canal = int(np.sum(downstream_q_with_canal > safe_capacity_cms))
@@ -72,13 +76,20 @@ def simulate_event(
     peak_q_with_canal = float(np.max(downstream_q_with_canal))
     peak_q_reduction = peak_q_no_canal - peak_q_with_canal
 
-    # ประเมินระดับน้ำลดลงที่อยุธยา (สมการ Stage-Discharge: dh ≈ dQ / (B * v))
-    # ที่อยุธยา แม่น้ำกว้าง ~250 ม. v ~ 1.5 ม./วิ -> B*v ≈ 375 ม²/วิ -> ลดได้ ~dQ / 375
-    peak_stage_reduction_m = peak_q_reduction / 1100.0  # ปรับเทียบ rating curve ช่วงน้ำหลากทุ่ง
+    # ประเมินระดับน้ำลดลงที่อยุธยา (สมการ Stage-Discharge: dh ≈ dQ / (dQ/dh))
+    # dQ/dh = ความกว้างผิวน้ำที่ระบายได้จริง × ความเร็วเฉลี่ย
+    #   ช่วงน้ำหลากปี 2554 ที่อยุธยา น้ำกระจายเต็มที่ราบ: B_eff ≈ 730 ม. × v ≈ 1.5 ม./วิ
+    #   -> dQ/dh ≈ 1,100 ตร.ม./วิ  (ค่าที่ใช้จริงด้านล่าง)
+    # หมายเหตุ: ข้อความเดิมในโค้ดเขียนว่า B·v ≈ 375 ซึ่งคิดจากร่องน้ำกว้าง 250 ม. เท่านั้น
+    # (ไม่รวมที่ราบน้ำท่วมถึง) — 375 จะให้ dh สูงเกินจริงราว 3 เท่าในเหตุการณ์ที่น้ำล้นที่ราบ
+    # ค่า 1,100 เป็น "สมมติฐานที่เขียนไว้" ไม่ใช่ค่าสอบเทียบ · ยังต้องรอภาคตัดขวางที่อยุธยา
+    dq_dh_m2s = 1100.0
+    peak_stage_reduction_m = peak_q_reduction / dq_dh_m2s
 
     return {
         "canal_capacity_cms": canal_capacity_cms,
         "total_diverted_mcm": round(total_diverted_mcm, 1),
+        "excess_mcm": round(excess_mcm, 1),
         "peak_q_no_canal_cms": round(peak_q_no_canal, 1),
         "peak_q_with_canal_cms": round(peak_q_with_canal, 1),
         "peak_q_reduction_cms": round(peak_q_reduction, 1),
@@ -136,6 +147,15 @@ def main() -> None:
             "safe_capacity_ayutthaya_cms": safe_cap_ayutthaya,
             "canal_design_capacity_cms": 600.0,
             "canal_expanded_capacity_cms": 1000.0,
+            "hydrograph_source": "SYNTHETIC — ทั้งสองเหตุการณ์สร้างจากฟังก์ชันไซน์ + สุ่มปรกติ (seed 42) ไม่ใช่ข้อมูลวัดจริง",
+            "hydrograph_detail": "2554: 2200 + 2486·sin(t)^1.3 + N(0,45) · 2569: 1600 + 1380·sin(t)^2.2 + N(0,25)",
+            "stage_reduction_assumption": "dh = dQ / 1,100 ตร.ม./วิ (B_eff ~730 ม. × v ~1.5 ม./วิ) — สมมติฐานที่เขียนไว้ ยังไม่สอบเทียบกับภาคตัดขวางที่อยุธยา",
+            "limitations": [
+                "ไม่มีช่วงที่ประตูปลายคลองปิดเพราะน้ำทะเลสูงกว่าผิวน้ำในคลอง (tidal lockout) — "
+                "ประสิทธิภาพถูกจำกัดต่ำสุดที่ 0.80–0.84 ไม่เคยเป็น 0 ทั้งที่รายงานระบุว่าผิวน้ำในคลองจะนิ่งตอนน้ำขึ้นสูงสุด",
+                "ไม่มีการหนุนกลับจากอ่าวไทยที่ปลายคลอง",
+                "ผลทุกตัวเป็นผลของรูปคลื่นที่สมมติขึ้น — ห้ามอ่านเป็น hindcast ของปี 2554",
+            ],
         },
         "event_2554_mega_flood": {
             "title": "มหาอุทกภัยปี 2554 (1 ส.ค.–30 พ.ย. 2554)",
@@ -147,7 +167,8 @@ def main() -> None:
                 "days_over_safe_no_canal": res_54_600["days_over_safe_no_canal"],
                 "days_over_safe_with_canal": res_54_600["days_over_safe_with_canal"],
                 "days_saved": res_54_600["days_over_safe_saved"],
-                "share_of_excess_flood_pct": round(res_54_600["total_diverted_mcm"] / 11000.0 * 100.0, 1),
+                "excess_mcm": res_54_600["excess_mcm"],
+                "share_of_excess_flood_pct": round(res_54_600["total_diverted_mcm"] / res_54_600["excess_mcm"] * 100.0, 1),
             },
             "case_1000_cms": {
                 "total_diverted_mcm": res_54_1000["total_diverted_mcm"],
@@ -156,7 +177,8 @@ def main() -> None:
                 "days_over_safe_no_canal": res_54_1000["days_over_safe_no_canal"],
                 "days_over_safe_with_canal": res_54_1000["days_over_safe_with_canal"],
                 "days_saved": res_54_1000["days_over_safe_saved"],
-                "share_of_excess_flood_pct": round(res_54_1000["total_diverted_mcm"] / 11000.0 * 100.0, 1),
+                "excess_mcm": res_54_1000["excess_mcm"],
+                "share_of_excess_flood_pct": round(res_54_1000["total_diverted_mcm"] / res_54_1000["excess_mcm"] * 100.0, 1),
             },
         },
         "event_2569_september_wave": {

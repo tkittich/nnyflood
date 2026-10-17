@@ -1376,7 +1376,8 @@ def main():
     c["nn_water_users"] = NN_WATER_USERS
     cf_file = OUT / "counterfactual_simulation_summary.json"
     if cf_file.exists():
-        c["counterfactual_simulation"] = json.loads(cf_file.read_text(encoding="utf-8"))
+        # รีวิวรอบ 4: ตั้งชื่อ key ระบุโดเมน (คลองเจ้าพระยา 2) — กันชื่อชนกับสถานการณ์ของงานลุ่มนครนายก
+        c["cp2_bypass_counterfactual"] = json.loads(cf_file.read_text(encoding="utf-8"))
     (OUT / "canonical.json").write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: c[k] for k in ("structures", "c2", "pasak_dam", "corridor_area", "flood_band")}, ensure_ascii=False, indent=1)[:5000])
 

@@ -70,14 +70,15 @@ dam_share = {
     "p2_dam_mcm": w["P2_sustained"]["dam_release_mcm"],
 }
 
-# ---------- สถานการณ์จำลอง ----------
+# ---------- สถานการณ์จำลอง (ลุ่มน้ำนครนายก — ขุนด่านฯ ปล่อยน้ำ/น้ำล้นตลิ่ง) ----------
+# ตั้งชื่อ key ระบุโดเมนให้ชัด (รีวิวรอบ 4): คนละความหมายกับ cp2_bypass_counterfactual ของเป้าหมาย 7
 cf = jload(ANA / "goal4_counterfactual_summary.json")
-counterfactual = {
+khundan_overflow_counterfactual = {
     k: {"overflow_mcm": cf[k]["overflow_mcm"], "hours_above_bankfull": cf[k]["hours_above_bankfull"]}
     for k in ("actual", "R1", "M1", "M2", "M3")
 }
-counterfactual["m4_drain_mcm"] = cf["M4_volume_budget"]["drain_mcm"]
-counterfactual["m4_peak_drop_m"] = cf["M4_volume_budget"]["peak_drop_m"]
+khundan_overflow_counterfactual["m4_drain_mcm"] = cf["M4_volume_budget"]["drain_mcm"]
+khundan_overflow_counterfactual["m4_peak_drop_m"] = cf["M4_volume_budget"]["peak_drop_m"]
 
 # ---------- โมเดลทำนาย (แถว = [model, RMSE ทั้งช่วง, RMSE wet, RMSE เหตุการณ์, ...]) ----------
 v1 = jload(ANA / "goal4_model_v1_results.json")
@@ -228,8 +229,8 @@ render = {
     "ny7_peak_g": f"{levels['peak_gauge_m']:.2f}",
     "ny7_peak_msl": f"{levels['peak_gauge_m'] - levels['datum_offset_m']:.2f}",
     "gistda_oct2": f"{gistda['oct2_km2']:.1f}",
-    "cf_ov_mcm": f"{counterfactual['actual']['overflow_mcm']:.2f}",
-    "cf_ov_h": f"{counterfactual['actual']['hours_above_bankfull']}",
+    "cf_ov_mcm": f"{khundan_overflow_counterfactual['actual']['overflow_mcm']:.2f}",
+    "cf_ov_h": f"{khundan_overflow_counterfactual['actual']['hours_above_bankfull']}",
 }
 
 out = {
@@ -243,7 +244,7 @@ out = {
             "s1": "data/13_sentinel1_copernicus/derived/flood_*.npy + analysis/s1_flood_series.json (กฎคาลิเบรตใหม่ 8 ต.ค. 69: 0.5/1.5/−20 · F1=0.732)",
             "gistda": "analysis/gistda_pass_areas_nn.json",
             "dam_share": "analysis/attribution_share.json (อินทิกราล 15 นาที)",
-            "counterfactual": "analysis/goal4_counterfactual_summary.json",
+            "khundan_overflow_counterfactual": "analysis/goal4_counterfactual_summary.json (สถานการณ์น้ำล้นตลิ่งลุ่มนครนายก — คนละโดเมนกับ cp2_bypass_counterfactual ของเป้าหมาย 7)",
             "model_v1": "analysis/goal4_model_v1_results.json",
             "backtest": "analysis/goal4_model_backtest_long.json",
             "levels": "โทรมาตร กช. + ภาคตัดขวาง data/19 (recorded constants)",
@@ -255,7 +256,7 @@ out = {
     },
     "values": {
         "s1": s1, "gistda": gistda, "dam_share": dam_share,
-        "counterfactual": counterfactual, "model_v1": model_v1,
+        "khundan_overflow_counterfactual": khundan_overflow_counterfactual, "model_v1": model_v1,
         "backtest_beats_persistence_every_season": backtest_beats_persistence_every_season,
         "levels": levels,
         "medium_dams": med_dams,

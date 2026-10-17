@@ -129,3 +129,21 @@ def test_forbidden_exceptions_are_auditable():
                 f"{name}: {token} ต้องมีเหตุผลประกอบ"
             assert token in html, \
                 f"{name}: ข้อยกเว้น {token} ค้างอยู่ (ไม่พบในไฟล์แล้ว) — ลบออกจาก canonical"
+
+
+def test_routing_summary_naming_and_scope_notes():
+    """รีวิวรอบ 4 (SB F-14/F-15/F-02/F-24): ชื่อ key ต้องเป็น bankfull_* + มีหมายเหตุขอบเขตครบ
+
+    - ห้ามเหลือ levee_crest_* (สันสำรวจไม่ใช่คันดิน — ตั้งชื่อเดิมทำให้อ่านผิดความหมาย)
+    - ต้องมีหมายเหตุ: n สอบเทียบที่ Ny.7 แห่งเดียว · ค่า X ถูกบีบเป็น 0 · bias แยกจาก RMSE
+    """
+    j = _load("analysis/hydraulic_1d_routing_summary.json")
+    for blk in ("ny1b_hydraulics", "ny7_hydraulics"):
+        assert not any(k.startswith("levee_crest") or k == "peak_above_levee_m"
+                       for k in j[blk]), f"{blk}: ยังมีชื่อชุด levee_crest_*"
+    assert "bankfull_capacity_q_cms" in j["ny1b_hydraulics"]
+    assert "Ny.7" in j["metadata"]["manning_n_note"]
+    assert "X = 0" in j["metadata"]["muskingum_x_note"]
+    assert "ny1b_flat_slope" in j["rating_sensitivity"]
+    perf = j["routing_performance"]
+    assert "stage_bias_cm" in perf and "stage_residual_cm" in perf

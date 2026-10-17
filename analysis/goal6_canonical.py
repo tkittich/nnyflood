@@ -385,11 +385,49 @@ def main() -> None:
             "y2569_peak_pct": hl["year_2569_status"]["peak_pct_normal"],
         }
 
+    # ---- สี่นิยาม "ปีที่น้ำเกิน" ของป่าสักชลสิทธิ์ (GLM F-16 รีวิวรอบ 4) — แยก field + นิยาม กันสลับกัน ----
+    _pk_years = dams["ป่าสักชลสิทธิ์"]["years"]
+    _pkc = {
+        "urc_days_full_year": {
+            "count": sum(1 for y in _pk_years if y.get("days_over_urc", 0) > 0),
+            "of": sum(1 for y in _pk_years if y.get("days_over_urc") is not None),
+        },
+        "urc_days_aug_sep": {
+            "count": sum(1 for y in _pk_years if (y.get("days_over_urc_aug_sep") or 0) > 0),
+            "of": sum(1 for y in _pk_years if y.get("days_over_urc_aug_sep") is not None),
+        },
+    }
+    _p24f = A / "goal6/pasak_24y_summary.json"
+    if _p24f.exists():
+        _p24 = json.loads(_p24f.read_text(encoding="utf-8"))
+        _pkc["over_normal_storage_24y"] = {
+            "count": _p24["headline_metrics"]["over_normal_years"],
+            "of": _p24["metadata"]["period_years"],
+        }
+        _pkc["over_1000mcm_24y"] = {
+            "count": _p24["headline_metrics"]["over_1000mcm_years"],
+            "of": _p24["metadata"]["period_years"],
+        }
+    out["pasak_year_counts"] = _pkc
+
     # ---- โมเดล L3 ผสานอิทธิพลทะเลหนุนและคลื่นอ่าวไทย (L3 Coastal-Coupled Model) ----
     l3_coastal_file = A / "goal6/l3_coastal_summary.json"
     if l3_coastal_file.exists():
         l3_c = json.loads(l3_coastal_file.read_text(encoding="utf-8"))
         out["l3_coastal_coupled"] = l3_c
+
+    # ---- เมทริกซ์ความเสี่ยงน้ำหลากปะทะน้ำหนุน (C.12 สามเสน) — โมดูลสำรวจ (SB F-08 รีวิวรอบ 4) ----
+    # เดิมอยู่นอกสัญญา canonical ทั้งที่เอกสารอ้างถึง → ลงทะเบียนพร้อมสถานะสอบเทียบให้ตรวจได้
+    compound_file = A / "compound_flood_risk_summary.json"
+    if compound_file.exists():
+        cpr = json.loads(compound_file.read_text(encoding="utf-8"))
+        out["compound_flood_risk"] = {
+            "metadata": cpr["metadata"],
+            "risk_levels_definition": cpr["risk_levels_definition"],
+            "matrix_grid": cpr["matrix_grid"],
+            "historical_benchmarks": cpr["historical_benchmarks"],
+            "publication_status": "ยังไม่เรนเดอร์ในรายงาน 3 — โมดูลสำรวจสาธิต ยังไม่สอบเทียบกับเหตุการณ์จริง",
+        }
 
     # ---- ตัวเลขที่ปลดประจำการ (retired ledger) — เทสสแกนว่าห้ามปรากฏใน HTML/เอกสาร ----
     # ---- นิยามหน้าต่าง/เกณฑ์ของตัวเลขหลัก (รากเหตุ M2: ตัวเลขเดียวกัน 2–3 นิยาม) ----
@@ -397,6 +435,7 @@ def main() -> None:
     out["definitions"] = {
         "national_medium_reservoirs": "สถิติอ่างเก็บน้ำขนาดกลาง 461 แห่งทั่วประเทศ (ความจุ 5,493.7 ล้าน ลบ.ม.) จากศูนย์ปฏิบัติการน้ำอัจฉริยะ กรมชลประทาน",
         "pasak_24y_baseline": "สถิติพฤติกรรมการเก็บกักและระบายน้ำเขื่อนป่าสักชลสิทธิ์ 24 ปี (2546–2569 รวม 8,425 วัน) · ปี 2569 เป็นปีบางส่วน (ข้อมูลถึง 15 ต.ค. 2569)",
+        "pasak_year_counts": "สี่นิยาม 'ปีที่น้ำเกิน' ของป่าสักชลสิทธิ์ ห้ามสลับ: urc_days_full_year = ปีที่มีวันเก็บน้ำเกินระดับกำกับบน (URC) อย่างน้อย 1 วัน ตลอดทั้งปี ในชุด 22 ปี (20/22) · urc_days_aug_sep = นับเฉพาะ ส.ค.–ก.ย. ในชุดเดียวกัน (16/22) · over_normal_storage_24y = ปีที่ยอดเก็บสูงสุด ≥ ความจุกักเก็บปกติ 871.5 ล้าน ลบ.ม. ในชุด 24 ปี 2546–2569 (17/24) · over_1000mcm_24y = ปีที่ยอดเก็บ ≥ 1,000 ล้าน ลบ.ม. ในชุด 24 ปี (8/24) — สองรายการหลังเป็นคนละชุดปีกับสองรายการแรก",
         "rain_top3": "จำนวนจุดวัดที่ฝนสะสมสูงสุด 7 วัน (ก.ค.–ต.ค. ของปีนั้น) ติดอันดับ 1–3 จาก 46 ปี (1981–2026) · Weibull (n+1)/อันดับ",
         "grid_cell": "ช่องกริด POWER MERRA-2 0.5° lat × 0.625° lon — จุดวัดในช่องเดียวกันได้ค่าเดียวกัน (dedup ตามนี้)",
         "event_over_crit": "จุดวัดที่มีชั่วโมงเกินระดับวิกฤต (ตาม API) ในหน้าต่าง 1 ก.ค.–9 ต.ค. 2569 · นับ 'พีคในระลอก' จาก max_dt ≥ 23 ก.ย.",
@@ -412,6 +451,7 @@ def main() -> None:
         "gulf_marine_swan": "แบบจำลองคลื่น SWAN 31 สถานี ความสูงคลื่นนัยสำคัญ (เมตร) บริเวณอ่าวไทยตอนบนที่ต้านการระบายน้ำหลาก",
         "glofas_streamflow": "อัตราการไหลของน้ำท่าจำลองรายวัน (ลบ.ม./วินาที) ต่อเนื่อง 17 ปี (2553–2569 รวม 6,134 วัน) จาก Copernicus GloFAS",
         "l3_coastal_coupled": "การประเมินแบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่าง (C.12 สามเสน) แบบผสานขอบเขตทะเลหนุน (CPY015 สะพานกรุงเทพ) เทียบกับ baseline เดิม — ผสานน้ำขึ้นน้ำลงเท่านั้น ไม่รวมคลื่น SWAN (ข้อมูลคลื่นที่มีเป็น snapshot เดียวหลังช่วงทดสอบ จึงไม่ใช้เป็นตัวแปร)",
+        "compound_flood_risk": "เมทริกซ์ความเสี่ยงน้ำหลาก 7 ระดับน้ำ × 8 ช่วงเวลาน้ำหนุน ที่ C.12 สามเสน — โมดูลสำรวจสาธิต (สมการบวกตรง ไม่มีพจน์ปฏิสัมพันธ์ Q×tide) ยังไม่สอบเทียบกับเหตุการณ์จริง · ยังไม่เรนเดอร์ในรายงาน 3",
     }
     out["retired"] = {
         "note": "ตัวเลขเก่าที่ถูกแทน — ห้ามปรากฏในรายงาน/HANDOFF/GOAL6_PLAN/START_HERE (เทสตกถ้าเจอ)",
@@ -428,7 +468,7 @@ def main() -> None:
             "1,200 ตร.กม.": "เดียวกัน",
             "17 จาก 22": "นับจาก JSON = 20 จาก 22 (H7)",
             "ป่าสักเกิน 17": "เดียวกัน",
-            "17/22": "M2 — กลางหน้าฝน = 16/22 (ทั้งปี 20/22)",
+            "17/22": "M2 — กลางหน้าฝน = 16/22 (ทั้งปี 20/22) · นิยามครบ 4 แบบดู pasak_year_counts",
             "~17/22": "เดียวกัน",
             "SUSPECT 18": "เกณฑ์ partial เพิ่ม → 19",
             "12 จาก 13": "ฝนระดับชาติ 67/199 แทน",

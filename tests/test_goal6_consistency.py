@@ -66,6 +66,15 @@ def test_headline_numbers_present_in_canonical():
     assert c2["release_at_peak_mcm_day"] / 225.5 < 0.05
     assert "scenarios" not in c2, "สถานการณ์ลบส่วนเกินถูกถอนแล้ว (รีวิว Sonnet H1)"
     assert d["pasak_over_years"] == "20/22"
+    # GLM F-16 / SB F-08 (รีวิวรอบ 4): สี่นิยาม "ปีที่น้ำเกิน" ต้องแยก field + เมทริกซ์ความเสี่ยงอยู่ในสัญญา canonical
+    pkc = d["pasak_year_counts"]
+    assert (pkc["urc_days_full_year"]["count"], pkc["urc_days_full_year"]["of"]) == (20, 22)
+    assert (pkc["urc_days_aug_sep"]["count"], pkc["urc_days_aug_sep"]["of"]) == (16, 22)
+    assert pkc["over_normal_storage_24y"]["count"] == 17
+    assert pkc["over_1000mcm_24y"]["count"] == 8
+    cp = d["compound_flood_risk"]
+    assert "ยังไม่สอบเทียบ" in cp["metadata"]["calibration_status"]
+    assert cp["publication_status"].startswith("ยังไม่เรนเดอร์")
     tide = d["estuary_tide"]
     assert tide["cpy015_peak_m"] == 1.91
     assert tide["c12_peak_m"] == 2.24

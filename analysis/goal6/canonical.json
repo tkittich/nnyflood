@@ -1467,6 +1467,24 @@
   "y2569_peak_mcm": 965.36,
   "y2569_peak_pct": 110.8
  },
+ "pasak_year_counts": {
+  "urc_days_full_year": {
+   "count": 20,
+   "of": 22
+  },
+  "urc_days_aug_sep": {
+   "count": 16,
+   "of": 22
+  },
+  "over_normal_storage_24y": {
+   "count": 17,
+   "of": 24
+  },
+  "over_1000mcm_24y": {
+   "count": 8,
+   "of": 24
+  }
+ },
  "l3_coastal_coupled": {
   "metadata": {
    "title": "เปรียบเทียบแบบจำลองพยากรณ์ผสานขอบเขตทะเลหนุนลุ่มเจ้าพระยาตอนล่าง (L3 Coastal-Coupled Model)",
@@ -1523,9 +1541,882 @@
    }
   }
  },
+ "compound_flood_risk": {
+  "metadata": {
+   "title": "เมทริกซ์ประเมินความเสี่ยงน้ำเหนือหลากปะทะน้ำทะเลหนุน (Compound Flood Risk Matrix)",
+   "target_location": "แม่น้ำเจ้าพระยาตอนล่าง (สถานี C.12 สามเสน กรุงเทพมหานคร)",
+   "floodwall_crest_msl_m": 2.8,
+   "watch_threshold_msl_m": 2.0,
+   "warning_threshold_msl_m": 2.4,
+   "critical_threshold_msl_m": 2.7,
+   "calibration_status": "ยังไม่สอบเทียบหลายปี — ค่าสัมประสิทธิ์เป็นการตรวจความเป็นไปได้จาก 2 จุด (ดู docstring)",
+   "limitations": [
+    "สมการบวกกันตรง ๆ: ∂H_C12/∂H_tide = 1.0 ทุกสภาวะ และไม่มีพจน์ปฏิสัมพันธ์ Q×tide → ยังไม่จำลองการหนุนกลับแบบไม่เชิงเส้นจริง (ผลของน้ำหลากกับน้ำทะเลแยกกันบวก ไม่ใช่ทบกัน)",
+    "ไม่มีคลื่นลมจริง: wave_setup คงที่ 0.08 ม. ทุกช่วงเวลา (ไม่ผสานคลื่น SWAN เป็นตัวแปร)",
+    "อินพุตปี 2554 (Q=3,750 ม³/วิ · Tide=+2.35 ม.) เป็นค่าประมาณ ไม่มีแหล่งอ้างอิงใน repo",
+    "อินพุตปี 2569 (Q=2,250 ม³/วิ · Tide=+1.91 ม.) เป็นค่าประมาณจากบริบทเหตุการณ์ — Q ซ้ำกับค่าที่ใช้ในแบบจำลองคลองเจ้าพระยา 2 (ดูช่องว่าง cp2_q_bangsai_2250) และยังไม่ขึ้นทะเบียน canonical (F-08)"
+   ]
+  },
+  "risk_levels_definition": {
+   "normal": "ระดับน้ำปลอดภัย (< 2.00 ม.รทก.) การระบายน้ำในท่อเป็นปกติ",
+   "watch": "ระดับเฝ้าระวัง (2.00–2.40 ม.รทก.) น้ำเริ่มดันปากท่อระบายน้ำ กทม. ต้องเดินเครื่องสูบ",
+   "warning": "ระดับเตือนภัย (2.40–2.70 ม.รทก.) น้ำท่วมชุมชนนอกแนวคันกั้นน้ำ ท่าเรือ ทางเดินริมน้ำ",
+   "critical": "ระดับวิกฤต (> 2.70 ม.รทก.) เสี่ยงน้ำล้นสันคันกั้นน้ำ กทม. (2.80–3.00 ม.) และเกิดแนวกระสอบทรายรั่วซึม"
+  },
+  "matrix_grid": [
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 1.7,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 1.75,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 1.8,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 1.85,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 1.91,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 1.96,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 2.02,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 2.08,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 2.14,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 2.2,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 1.4,
+     "c12_stage_msl_m": 2.26,
+     "risk_level": "watch"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 1.8,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 1.85,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 1.9,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 1.95,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 2.01,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 2.06,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 2.12,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 2.18,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 2.24,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 2.3,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 1.5,
+     "c12_stage_msl_m": 2.36,
+     "risk_level": "watch"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 1.9,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 1.95,
+     "risk_level": "normal"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 2.0,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 2.05,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 2.11,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 2.16,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 2.22,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 2.28,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 2.34,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 2.4,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 1.6,
+     "c12_stage_msl_m": 2.46,
+     "risk_level": "warning"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.0,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.05,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.1,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.15,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.21,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.26,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.32,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.38,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.44,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.5,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 1.7,
+     "c12_stage_msl_m": 2.56,
+     "risk_level": "warning"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.1,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.15,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.2,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.25,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.31,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.36,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.42,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.48,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.54,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.6,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 1.8,
+     "c12_stage_msl_m": 2.66,
+     "risk_level": "warning"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.2,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.25,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.3,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.35,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.41,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.46,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.52,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.58,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.64,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.7,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 1.9,
+     "c12_stage_msl_m": 2.76,
+     "risk_level": "critical"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.3,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.35,
+     "risk_level": "watch"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.4,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.45,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.51,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.56,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.62,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.68,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.74,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.8,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 2.0,
+     "c12_stage_msl_m": 2.86,
+     "risk_level": "critical"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.4,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.45,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.5,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.55,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.61,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.66,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.72,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.78,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.84,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.9,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 2.1,
+     "c12_stage_msl_m": 2.96,
+     "risk_level": "critical"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 2.5,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 2.55,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 2.6,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 2.65,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 2.71,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 2.76,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 2.82,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 2.88,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 2.94,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 3.0,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 2.2,
+     "c12_stage_msl_m": 3.06,
+     "risk_level": "critical"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 2.6,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 2.65,
+     "risk_level": "warning"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 2.7,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 2.75,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 2.81,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 2.86,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 2.92,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 2.98,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 3.04,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 3.1,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 2.3,
+     "c12_stage_msl_m": 3.16,
+     "risk_level": "critical"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 2.7,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 2.75,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 2.8,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 2.85,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 2.91,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 2.96,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 3.02,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 3.08,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 3.14,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 3.2,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 2.4,
+     "c12_stage_msl_m": 3.26,
+     "risk_level": "critical"
+    }
+   ],
+   [
+    {
+     "q_bangsai_m3s": 1500,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 2.8,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 1750,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 2.85,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2000,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 2.9,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2250,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 2.95,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2500,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 3.01,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 2750,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 3.06,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3000,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 3.12,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3250,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 3.18,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3500,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 3.24,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 3750,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 3.3,
+     "risk_level": "critical"
+    },
+    {
+     "q_bangsai_m3s": 4000,
+     "tide_msl_m": 2.5,
+     "c12_stage_msl_m": 3.36,
+     "risk_level": "critical"
+    }
+   ]
+  ],
+  "historical_benchmarks": [
+   {
+    "event": "มหาอุทกภัยปี 2554 (จุดสูงสุด ต.ค. 54)",
+    "q_bangsai_m3s": 3750,
+    "tide_msl_m": 2.35,
+    "c12_stage_msl_m": 3.15,
+    "status": "น้ำล้นคันกั้นน้ำหลายจุด ท่วมกรุงเทพฯ ฝั่งตะวันตกและเหนือ"
+   },
+   {
+    "event": "ระลอกปลาย ก.ย. 2569 (เหตุการณ์จริง)",
+    "q_bangsai_m3s": 2250,
+    "tide_msl_m": 1.91,
+    "c12_stage_msl_m": 2.36,
+    "status": "ระดับน้ำสูงสุด 2.36 ม. อยู่ในเกณฑ์เฝ้าระวัง (สูงกว่าค่าโทรมาตรจริง 2.24 ม. อยู่ 12 ซม. = 5% อยู่ในเกณฑ์เดียวกัน; ท่วมเฉพาะชุมชนนอกแนวคันกั้นน้ำ)"
+   },
+   {
+    "event": "กรณีสมมติ: ระลอก 2569 หากเกิดน้ำทะเลหนุนสูงสุด (+2.40 ม.)",
+    "q_bangsai_m3s": 2250,
+    "tide_msl_m": 2.4,
+    "c12_stage_msl_m": 2.85,
+    "status": "เข้าสู่ระดับวิกฤตล้นคันกั้นน้ำ (2.85 ม. เกินคันกั้นน้ำ 2.80 ม.) ต้องเสริมแนวกระสอบทรายทันที"
+   },
+   {
+    "event": "กรณีสมมติ: ผันน้ำด้วยคลองเจ้าพระยา 2 (-600 ลบ.ม./วิ)",
+    "q_bangsai_m3s": 1650,
+    "tide_msl_m": 2.4,
+    "c12_stage_msl_m": 2.73,
+    "status": "ลดระดับน้ำลงเหลือ 2.73 ม. (ต่ำกว่าสันคันกั้นน้ำ 2.80 ม. แต่ยังอยู่ในเกณฑ์วิกฤตที่ต้องเฝ้าระวังใกล้ชิด)"
+   }
+  ],
+  "publication_status": "ยังไม่เรนเดอร์ในรายงาน 3 — โมดูลสำรวจสาธิต ยังไม่สอบเทียบกับเหตุการณ์จริง"
+ },
  "definitions": {
   "national_medium_reservoirs": "สถิติอ่างเก็บน้ำขนาดกลาง 461 แห่งทั่วประเทศ (ความจุ 5,493.7 ล้าน ลบ.ม.) จากศูนย์ปฏิบัติการน้ำอัจฉริยะ กรมชลประทาน",
   "pasak_24y_baseline": "สถิติพฤติกรรมการเก็บกักและระบายน้ำเขื่อนป่าสักชลสิทธิ์ 24 ปี (2546–2569 รวม 8,425 วัน) · ปี 2569 เป็นปีบางส่วน (ข้อมูลถึง 15 ต.ค. 2569)",
+  "pasak_year_counts": "สี่นิยาม 'ปีที่น้ำเกิน' ของป่าสักชลสิทธิ์ ห้ามสลับ: urc_days_full_year = ปีที่มีวันเก็บน้ำเกินระดับกำกับบน (URC) อย่างน้อย 1 วัน ตลอดทั้งปี ในชุด 22 ปี (20/22) · urc_days_aug_sep = นับเฉพาะ ส.ค.–ก.ย. ในชุดเดียวกัน (16/22) · over_normal_storage_24y = ปีที่ยอดเก็บสูงสุด ≥ ความจุกักเก็บปกติ 871.5 ล้าน ลบ.ม. ในชุด 24 ปี 2546–2569 (17/24) · over_1000mcm_24y = ปีที่ยอดเก็บ ≥ 1,000 ล้าน ลบ.ม. ในชุด 24 ปี (8/24) — สองรายการหลังเป็นคนละชุดปีกับสองรายการแรก",
   "rain_top3": "จำนวนจุดวัดที่ฝนสะสมสูงสุด 7 วัน (ก.ค.–ต.ค. ของปีนั้น) ติดอันดับ 1–3 จาก 46 ปี (1981–2026) · Weibull (n+1)/อันดับ",
   "grid_cell": "ช่องกริด POWER MERRA-2 0.5° lat × 0.625° lon — จุดวัดในช่องเดียวกันได้ค่าเดียวกัน (dedup ตามนี้)",
   "event_over_crit": "จุดวัดที่มีชั่วโมงเกินระดับวิกฤต (ตาม API) ในหน้าต่าง 1 ก.ค.–9 ต.ค. 2569 · นับ 'พีคในระลอก' จาก max_dt ≥ 23 ก.ย.",
@@ -1540,7 +2431,8 @@
   "estuary_salinity": "ความเค็ม (กรัม/ลิตร) และการนำไฟฟ้า (µS/cm) ที่สถานีสำแล พระนั่งเกล้า และบางปะกง ช่วงน้ำหลาก 2569 และเส้นฐาน 9 ปี",
   "gulf_marine_swan": "แบบจำลองคลื่น SWAN 31 สถานี ความสูงคลื่นนัยสำคัญ (เมตร) บริเวณอ่าวไทยตอนบนที่ต้านการระบายน้ำหลาก",
   "glofas_streamflow": "อัตราการไหลของน้ำท่าจำลองรายวัน (ลบ.ม./วินาที) ต่อเนื่อง 17 ปี (2553–2569 รวม 6,134 วัน) จาก Copernicus GloFAS",
-  "l3_coastal_coupled": "การประเมินแบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่าง (C.12 สามเสน) แบบผสานขอบเขตทะเลหนุน (CPY015 สะพานกรุงเทพ) เทียบกับ baseline เดิม — ผสานน้ำขึ้นน้ำลงเท่านั้น ไม่รวมคลื่น SWAN (ข้อมูลคลื่นที่มีเป็น snapshot เดียวหลังช่วงทดสอบ จึงไม่ใช้เป็นตัวแปร)"
+  "l3_coastal_coupled": "การประเมินแบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่าง (C.12 สามเสน) แบบผสานขอบเขตทะเลหนุน (CPY015 สะพานกรุงเทพ) เทียบกับ baseline เดิม — ผสานน้ำขึ้นน้ำลงเท่านั้น ไม่รวมคลื่น SWAN (ข้อมูลคลื่นที่มีเป็น snapshot เดียวหลังช่วงทดสอบ จึงไม่ใช้เป็นตัวแปร)",
+  "compound_flood_risk": "เมทริกซ์ความเสี่ยงน้ำหลาก 7 ระดับน้ำ × 8 ช่วงเวลาน้ำหนุน ที่ C.12 สามเสน — โมดูลสำรวจสาธิต (สมการบวกตรง ไม่มีพจน์ปฏิสัมพันธ์ Q×tide) ยังไม่สอบเทียบกับเหตุการณ์จริง · ยังไม่เรนเดอร์ในรายงาน 3"
  },
  "retired": {
   "note": "ตัวเลขเก่าที่ถูกแทน — ห้ามปรากฏในรายงาน/HANDOFF/GOAL6_PLAN/START_HERE (เทสตกถ้าเจอ)",
@@ -1557,7 +2449,7 @@
    "1,200 ตร.กม.": "เดียวกัน",
    "17 จาก 22": "นับจาก JSON = 20 จาก 22 (H7)",
    "ป่าสักเกิน 17": "เดียวกัน",
-   "17/22": "M2 — กลางหน้าฝน = 16/22 (ทั้งปี 20/22)",
+   "17/22": "M2 — กลางหน้าฝน = 16/22 (ทั้งปี 20/22) · นิยามครบ 4 แบบดู pasak_year_counts",
    "~17/22": "เดียวกัน",
    "SUSPECT 18": "เกณฑ์ partial เพิ่ม → 19",
    "12 จาก 13": "ฝนระดับชาติ 67/199 แทน",

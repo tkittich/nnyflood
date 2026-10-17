@@ -5789,7 +5789,7 @@
   ],
   "src": "รายงานผลกระทบสิ่งแวดล้อม 2569 เล่ม 2 บทที่ 9 ตาราง 9.5.10-1 ถึง 9.5.10-3 (หน้าไฟล์ 445–450) — ไม่ระบุชื่อผู้เข้าร่วม"
  },
- "counterfactual_simulation": {
+ "cp2_bypass_counterfactual": {
   "metadata": {
    "title": "การจำลองสถานการณ์คู่ขนาน คลองระบายน้ำหลากเจ้าพระยา 2 (Chao Phraya 2 Counterfactual Simulation)",
    "safe_capacity_ayutthaya_cms": 2600.0,

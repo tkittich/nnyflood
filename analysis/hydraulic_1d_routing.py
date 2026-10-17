@@ -175,11 +175,13 @@ def main() -> None:
 
     slope_reach1 = 0.00065  # ขุนด่านฯ -> Ny.1B (ลาดชันสูง ใกล้ภูเขา)
     slope_reach2 = 0.00035  # Ny.1B -> Ny.7 (ที่ราบเมือง)
-    n_channel = 0.0437       # Manning n สอบเทียบ Ny.7
+    # Manning n สอบเทียบที่ Ny.7 จากคู่ (Q,H) สังเกต — ใช้ค่าเดียวตลอดช่วง Ny.1B–Ny.7 (ความลาดชันต่างกัน ~2 เท่า)
+    # · ยังไม่สอบเทียบแยกหน้าตัด (SB F-15 รีวิวรอบ 4)
+    n_channel = 0.0437
 
     # คำนวณความจุตลิ่ง (Bankfull Capacity) Ny.1B และ Ny.7
-    # คำเตือนเรื่องชื่อ (F-15): bank_msl_m ที่ใช้คือ "สันตลิ่ง/ตอม่อที่สำรวจ" ไม่ใช่ระดับเริ่มท่วมที่ราบ
-    # (Ny.7 เริ่มท่วมที่ราบที่ 6.86) · จึงมี key แยก levee_crest_* และ terrace_onset_* ชัดเจน
+    # คำเตือนเรื่องชื่อ (SB F-14 รีวิวรอบ 4): ค่าที่ใช้คือ "สันตลิ่ง/ตอม่อที่สำรวจ" ไม่ใช่คันดินชลประทาน
+    # และไม่ใช่ระดับเริ่มท่วมที่ราบ (Ny.7 เริ่มท่วมที่ราบที่ 6.86) · key จึงใช้ bankfull_* และ terrace_onset_* เท่านั้น
     bank_ny1b = 10.60  # ม.รทก.
     geom_bank_ny1b = compute_hydraulic_geometry(x_ny1b, z_ny1b, bank_ny1b)
     q_bank_ny1b = stage_to_discharge(geom_bank_ny1b, n_channel, slope_reach1)
@@ -223,6 +225,21 @@ def main() -> None:
     dx_m = 18300.0        # 18.3 กม.
     b_avg = 0.5 * (geom_bank_ny1b["width"] + geom_bank_ny7["width"])
 
+    # ตรวจค่า X ดิบของ Muskingum–Cunge ก่อนบีบ (SB F-02 รีวิวรอบ 4) — จุดตรวจ 10–1,500 ลบ.ม./วินาที ที่ n_sub=12
+    _dx_sub = dx_m / 12.0
+    _x_raw = []
+    for _q in np.linspace(10.0, 1500.0, 30):
+        _q = float(_q)
+        _y = max(0.5, ((n_channel * _q) / (b_avg * math.sqrt(slope_reach2))) ** 0.6)
+        _c_wave = (5.0 / 3.0) * (_q / (b_avg * _y))
+        _x_raw.append(0.5 * (1.0 - _q / (b_avg * slope_reach2 * _c_wave * _dx_sub)))
+    x_param_probe = {
+        "q_probe_range_cms": [10.0, 1500.0],
+        "x_raw_min": round(min(_x_raw), 3),
+        "x_raw_max": round(max(_x_raw), 3),
+        "negative_share": round(sum(1 for v in _x_raw if v < 0) / len(_x_raw), 3),
+    }
+
     q_sim_ny7 = run_muskingum_cunge_reach(q_obs_ny1b, dt_sec, dx_m, slope_reach2, n_channel, b_avg, n_sub=12)
 
     # 4. แปลง Q_sim กลับเป็นระดับน้ำ h_sim ที่ Ny.7 ด้วย Rating Curve จากหน้าตัดจริง
@@ -261,6 +278,8 @@ def main() -> None:
     mask_event = [("2026-09-26" <= t <= "2026-09-28") for t in times]
     rmse_q_cms = float(np.sqrt(np.mean((q_sim_ny7[mask_event] - q_obs_ny7[mask_event]) ** 2)))
     rmse_h_m = float(np.sqrt(np.mean((h_sim_ny7[mask_event] - h_obs_ny7[mask_event]) ** 2)))
+    # แยกองค์ประกอบความคลาดเคลื่อนระดับน้ำ (SB F-24 รีวิวรอบ 4): ความเอนเอียงคงที่ + ส่วนที่เหลือ
+    bias_h_m = float(np.mean(h_sim_ny7[mask_event] - h_obs_ny7[mask_event]))
 
     # 4c. ตารางลู่เข้า (grid convergence) — RMSE ต้องไม่แย่ลงเมื่อแบ่งช่วงย่อยละเอียดขึ้น
     convergence = {}
@@ -297,7 +316,9 @@ def main() -> None:
             "reach_ny1b_to_ny7_km": 18.3,
             "model_scope_note": "ครอบคลุม Ny.1B–Ny.7 (18.3 กม.) เท่านั้น — ยังไม่มีเงื่อนไขขอบเขตท้ายน้ำที่ Kgt.30",
             "manning_n": n_channel,
-            "manning_n_note": "n สอบเทียบกับวิธี composite (A_total, P_total) — ยังไม่สอบเทียบใหม่สำหรับวิธี divided",
+            "manning_n_note": "n สอบเทียบที่ Ny.7 เท่านั้น (คู่ Q,H สังเกต) แล้วใช้ค่าเดียวตลอดช่วง Ny.1B–Ny.7 แม้ความลาดชันต่างกัน · สอบเทียบกับวิธี composite (A_total, P_total) — ยังไม่สอบเทียบใหม่สำหรับวิธี divided และยังไม่สอบเทียบ n แยกหน้าตัด (SB F-15)",
+            "muskingum_x_note": "ค่า X ในสูตร x = 0.5·(1 − q/(B·S·c·dx)) · ตรวจเส้น 10–1,500 ลบ.ม./วินาที (n_sub=12) ค่าดิบติดลบทุกจุดที่อัตราไหลช่วงน้ำหลาก (q ≳ 100) → โค้ดบีบเป็น X = 0 โดยปริยาย (เดินเป็นคลื่นแพร่ ไม่ใช่ค่า X ที่สอบเทียบ) · ยังไม่ทดลองแผนผลต่าง–แพร่ที่ลู่เข้า (SB F-02)",
+            "x_param_probe": x_param_probe,
             "conveyance_method": "composite",
             "slope_reach1": slope_reach1,
             "slope_reach2": slope_reach2,
@@ -306,27 +327,27 @@ def main() -> None:
         },
         "ny1b_hydraulics": {
             "station": "Ny.1B (บ้านเขานางบวช)",
-            "levee_crest_msl_m": bank_ny1b,
-            "levee_crest_width_m": round(geom_bank_ny1b["width"], 1),
-            "levee_crest_area_m2": round(geom_bank_ny1b["area"], 1),
-            "levee_crest_capacity_q_cms": round(q_bank_ny1b, 1),
+            "bankfull_crest_msl_m": bank_ny1b,
+            "bankfull_top_width_m": round(geom_bank_ny1b["width"], 1),
+            "bankfull_area_m2": round(geom_bank_ny1b["area"], 1),
+            "bankfull_capacity_q_cms": round(q_bank_ny1b, 1),
             "peak_stage_msl_m": round(float(np.max(h_obs_ny1b)), 2),
             "peak_q_cms": round(float(np.max(q_obs_ny1b)), 1),
-            "peak_above_levee_m": round(float(np.max(h_obs_ny1b) - bank_ny1b), 2),
+            "peak_above_bankfull_m": round(float(np.max(h_obs_ny1b) - bank_ny1b), 2),
             "rid_declared_braelevel_msl_m": 8.81,
-            "note": "ระดับตลิ่งที่กรมชลฯ ประกาศ (braelevel 8.81) กับสันหน้าตัดที่สำรวจ (10.60) ต่างกัน 1.79 ม. — ยังไม่กระทบกัน",
+            "note": "bankfull = สันตลิ่ง/ตอม่อที่สำรวจ (10.60) ไม่ใช่คันดินชลประทาน · ระดับตลิ่งที่กรมชลฯ ประกาศ (braelevel 8.81) ต่างจากสันหน้าตัด 1.79 ม. — คนละนิยาม (SB F-14)",
         },
         "ny7_hydraulics": {
             "station": "Ny.7 (สะพานเทศบาลนครนายก)",
-            "levee_crest_msl_m": round(bank_ny7, 2),
+            "bankfull_crest_msl_m": round(bank_ny7, 2),
             "terrace_onset_msl_m": terrace_ny7,
-            "levee_crest_width_m": round(geom_bank_ny7["width"], 1),
-            "levee_crest_area_m2": round(geom_bank_ny7["area"], 1),
-            "levee_crest_capacity_q_cms": round(q_bank_ny7, 1),
+            "bankfull_top_width_m": round(geom_bank_ny7["width"], 1),
+            "bankfull_area_m2": round(geom_bank_ny7["area"], 1),
+            "bankfull_capacity_q_cms": round(q_bank_ny7, 1),
             "terrace_onset_q_cms": round(q_terrace_ny7, 1),
             "peak_stage_msl_m": round(float(np.max(h_obs_ny7)), 2),
             "peak_q_cms": round(float(np.max(q_obs_ny7)), 1),
-            "note": "levee_crest = สันตลิ่ง/ตอม่อสำรวจ 8.213 · terrace_onset = ระดับเริ่มท่วมที่ราบ 6.86 (คนละนิยาม)",
+            "note": "bankfull = สันตลิ่ง/ตอม่อสำรวจ 8.213 · terrace_onset = ระดับเริ่มท่วมที่ราบ 6.86 (คนละนิยาม — SB F-14)",
         },
         "routing_performance": {
             "travel_time_hours_sim": round(travel_time_hours_sim, 2),
@@ -343,15 +364,20 @@ def main() -> None:
             ),
             "rmse_discharge_cms": round(rmse_q_cms, 2),
             "rmse_stage_cm": round(rmse_h_m * 100.0, 1),
+            "stage_bias_cm": round(bias_h_m * 100.0, 1),
+            "stage_residual_cm": round(math.sqrt(max(rmse_h_m ** 2 - bias_h_m ** 2, 0.0)) * 100.0, 1),
+            "stage_error_note": "RMSE ระดับน้ำแยกเป็นความเอนเอียงคงที่ (bias) + ส่วนที่เหลือ · ส่วนหลักของความคลาดเคลื่อนมาจากเส้นระดับ–ปริมาณน้ำ (rating) ที่ยังไม่สอบเทียบ ไม่ใช่ทักษะการเดินตัวของแบบจำลอง (SB F-24)",
             "q_peak_sim_cms": round(float(np.max(q_sim_ny7)), 1),
             "q_peak_obs_cms": round(float(np.max(q_obs_ny7)), 1),
         },
         "rating_sensitivity": {
-            "note": "Manning สองวิธีบนหน้าตัดเดียวกัน · composite = วิธีที่ n ถูกสอบเทียบมาด้วย · divided = แบ่งช่อง (เอกภาพแต่ให้ค่าสูงกว่า ~30%) — ช่วงนี้คือความไม่แน่นอนของ rating",
+            "note": "Manning สองวิธีบนหน้าตัดเดียวกัน · composite = วิธีที่ n ถูกสอบเทียบมาด้วย · divided = แบ่งช่อง (เอกภาพแต่ให้ค่าสูงกว่า ~30%) · ny1b_flat_slope = Ny.1B บนความลาดชันเรียบช่วงท้ายน้ำ (0.00035) — ปลายล่างของช่วงความไม่แน่นอน · ช่วงนี้คือความไม่แน่นอนของ rating (SB F-01)",
             "ny1b": rating_sensitivity(x_ny1b, z_ny1b, slope_reach1,
-                                       {"terrace_onset_6.86": 6.86, "levee_crest_10.60": 10.60, "peak_11.00": 11.00}),
+                                       {"terrace_onset_6.86": 6.86, "bankfull_crest_10.60": 10.60, "peak_11.00": 11.00}),
+            "ny1b_flat_slope": rating_sensitivity(x_ny1b, z_ny1b, slope_reach2,
+                                                  {"bankfull_crest_10.60": 10.60, "peak_11.00": 11.00}),
             "ny7": rating_sensitivity(x_ny7, z_ny7, slope_reach2,
-                                      {"terrace_onset_6.86": 6.86, "peak_7.68": 7.68, "levee_crest_8.213": 8.213}),
+                                      {"terrace_onset_6.86": 6.86, "peak_7.68": 7.68, "bankfull_crest_8.213": 8.213}),
         },
         "grid_convergence": {
             "note": "RMSE ไม่ลดลงเมื่อแบ่งช่วงย่อยละเอียดขึ้น → ผลที่ n_sub=12 เป็นค่าที่ 'พอดี' ไม่ใช่ค่าที่ลู่เข้า · ห้ามอ้างว่าเป็นคำตอบเชิงกายภาพ",

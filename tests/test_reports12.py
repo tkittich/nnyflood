@@ -51,6 +51,32 @@ def test_reports12_embedded_images_valid():
             assert raw[:8] == b"\x89PNG\r\n\x1a\n" if kind == "png" else raw[:2] == b"\xff\xd8", f.name
 
 
+def test_reports12_builders_have_no_metric_literals():
+    """F-18: builder รายงาน 1–2 ห้ามพิมพ์ตัวเลข metric เป็น literal — ต้องมาจาก @@R: เท่านั้น
+
+    กติกา AGENTS.md หลัก 2 (เดิมบังคับเฉพาะเป้าหมาย 6) — ตัวเลขที่ขยับตามการ rerun
+    ต้องผูกกับ analysis/canonical_numbers.json ไม่ใช่พิมพ์มือในเทมเพลต
+    """
+    import json
+    canon = json.loads((ROOT / "analysis/canonical_numbers.json").read_text(encoding="utf-8"))
+    render = canon["render"]
+    builders = [ROOT / "report/build_report_html.py", ROOT / "report/build_expert_report.py"]
+    literals = {
+        "ny7_peak_g": render["ny7_peak_g"],
+        "ny7_peak_msl": render["ny7_peak_msl"],
+        "gistda_oct2": render["gistda_oct2"],
+        "cf_ov_mcm": render["cf_ov_mcm"],
+    }
+    for b in builders:
+        src = b.read_text(encoding="utf-8")
+        for key, val in literals.items():
+            assert val not in src, (
+                f"{b.name}: ตัวเลข metric {val!r} ({key}) ถูกพิมพ์เป็น literal — ใช้ @@R:{key}@@ แทน")
+        # 65 เปล่า ๆ ชนกับปี พ.ศ. (2564/65/67/68) จึงตรวจเฉพาะรูปที่ใช้จริงในข้อความ
+        assert f"{render['cf_ov_h']} ชม." not in src, (
+            f"{b.name}: '65 ชม.' ถูกพิมพ์เป็น literal — ใช้ @@R:cf_ov_h@@ ชม. แทน")
+
+
 def test_urc_streak_matches_data():
     """29 วันจนถึงน้ำสูงสุด 27 ก.ย. (36 วันถึง 4 ต.ค.) — คำนวณสดจาก CSV ไม่ใช่ตัวเลขพิมพ์"""
     import csv

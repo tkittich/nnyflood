@@ -7,6 +7,7 @@
 **Method:** every claim below was re-derived by executing the project's own code, re-reading its own inputs, or recomputing from the raw telemetry. No finding rests on reading a docstring alone.
 **Revision 2 (2026-10-17, 15:20):** triaged against `REVIEW.gemini_3.8_flash.md` — full verdict table in §7. Two findings added (F-21, F-22), two materially strengthened (F-10, F-17), and one claim in that review rejected as stale. Total: **22 findings**.
 **Revision 3 (2026-10-17):** remediation round — §8 records what was fixed in code, what was disclosed rather than changed, what remains open, and one new finding (**F-23**, documentation drift) that the fixes themselves exposed.
+**Revision 4 (2026-10-17):** the three items left open in Revision 3 are closed — F-18 (metric literals now rendered from canonical, with a regression test), F-15 (the three "bankfull" numbers reconciled), F-04 (the invalid Q-based travel time removed). See §8.3.
 
 ---
 
@@ -528,21 +529,38 @@ The repository owner asked for every actionable finding to be fixed. This sectio
 - **F-10.** The fabricated multi-year calibration claim is deleted; `calibration_status` plus three `limitations` entries (including `∂H/∂H_tide = 1.0` and the missing `Q × tide` term) are in the metadata.
 - **F-13.** The 2011 hydrograph is still synthetic. It is now prefixed `SYNTHETIC—` in `hydrograph_source`, with `hydrograph_detail` describing the reconstruction.
 - **F-14.** Tidal lockout is still absent; it is listed in `limitations` rather than silently ignored.
-- **F-15.** Keys renamed so the three capacities are distinguishable (`levee_crest_capacity_q_cms` 617.4, `terrace_onset_q_cms` **486.9**), but `DATA_DICTIONARY.md`'s **420–425** empirical rating is untouched and still unexplained.
+- **F-15.** Keys renamed so the three capacities are distinguishable (`levee_crest_capacity_q_cms` 617.4, `terrace_onset_q_cms` **486.9**); the 420–425 empirical rating is reconciled in Revision 4 — see §8.3.
 - **F-17.** All four Ny.1B candidates (244.6 / 266.9 / 399.5 / 666.3) are now documented; the dual-state block is not split.
 
-### 8.3 Still open
+### 8.3 Closed in Revision 4 — the three items left open in Revision 3
 
-- **F-18** — metric literals in `report/build_expert_report.py` (`9.23`×9, `306.9`×5, `7.64`×4). Re-verified as still present.
-- **F-04 root cause** — the opposite-signed Q/H peak offsets (+6.5 h, −8.75 h) remain unexplained; only the unsupported claims were removed.
-- **F-15** — the 420–425 discrepancy against the Manning figures.
+**F-18 — metric literals in the report builders.** `build_expert_report.py` and `build_report_html.py` now render every one of these from `analysis/canonical_numbers.json` through the `@@R:` token mechanism the project already used elsewhere. Five tokens were added (`ny7_peak_g` 9.23, `ny7_peak_msl` 7.64, `gistda_oct2` 306.9, `cf_ov_mcm` 11.89, `cf_ov_h` 65) and all 23 literal occurrences replaced. The only surviving `65` is the Buddhist-era year in `2564/65/67/68`, which is not the metric. Both builders still pass their canonical checks (20/20 and 18/18), and a new test — `test_reports12_builders_have_no_metric_literals` — fails if any of these values is typed into a builder again.
 
-### 8.4 New finding F-23 — documentation drift created by these fixes (Medium, fixed)
+**F-15 — three numbers called "Ny.7 bankfull capacity".** They are not rivals: two methods at one stage, plus one different stage.
+
+| Definition | Stage | Method | Q (m³/s) |
+|---|---|---|---|
+| terrace onset | 6.86 m MSL | empirical rating `242(h−4.55)^0.66` | **420.5** |
+| terrace onset | 6.86 m MSL | Manning, composite conveyance | **486.9** |
+| levee crest | 8.213 m MSL | Manning, composite conveyance | **617.4** |
+
+The first two differ by +15.8 %, which sits inside the ±18–20 % rating band the reports already state. The third is a different stage entirely. `docs/DATA_DICTIONARY.md` now carries this table, plus the divided-channel values (560.1 and 842.8) for completeness.
+
+**F-04 — the opposite-signed Q/H peak offsets.** Root cause established from the raw 15-minute series: `q_cms` is station-reported and does not track `level_msl_m` through any single rating. At the event peak, Q peaks **6.5 h before** stage at Ny.1B and **8.75 h after** stage at Ny.7. With opposite signs at the two ends, a Q-to-Q "travel time" was never a travel time at all. That figure (24.25 h) is now removed from the artifact and from the canonical ledger, replaced by the two offsets as explicit evidence fields. The surviving `travel_time_stage_obs` = 9.0 h is stage-to-stage and interpretable, and the caveat now also states that the simulated 3.25 h is Q-to-Q, so the two are not directly comparable.
+
+One thing is still a genuine information gap rather than a defect: *why* the station's Q series peaks early at Ny.1B needs the station's own rating or derivation metadata, which the repository does not hold. That is the same gap as §5 item 3.
+
+### 8.4 Still open
+
+- **F-17** — the dual `peak_q` / `peak_stage` state at Ny.1B is documented but not split; resolving it needs the confirmed datum.
+- **Ny.1B datum** — upstream of F-17 and of most Pillar-1 uncertainty; no code change can close it.
+
+### 8.5 New finding F-23 — documentation drift created by these fixes (Medium, fixed)
 
 Changing artifact values left four documents that restate them behind. `docs/REVIEW_PROMPT_EN.md:25,68` still told auditors the L3 model ingests SWAN and cuts +6 h RMSE *"by 50.5 % (72.7 → 36.0 cm)"*; `docs/REVIEW_PROMPT_COMPREHENSIVE.md:49` carried an even older pair (**47.7 %**, 76.3 → 39.9); `HANDOFF.md:44` still said **40.0 %** for CP2; both prompts still described training as *"2020–2026"*; and `HANDOFF.md:36` labelled the modelled reach **43 กม.** when the model covers 18.3 km.
 
 This is the same class as round 2's N-01/N-04, and precisely the failure mode the project's own AGENTS.md rule (4) exists to prevent: a number that lives in six places drifts in five of them. All four documents are corrected, and the three round-3 review artifacts are registered in `catalog.py` (**86 → 88** entries) and `docs/PROJECT_MAP.md`.
 
-**Verification after every change above:** `tools/verify_all.py` **4/4**, `catalog.py check` **88/88**, `pytest tests/` **121 passed**.
+**Verification after every change above:** `tools/verify_all.py` **4/4**, `catalog.py check` **88/88**, `pytest tests/` **122 passed** (121 + the new F-18 guard).
 
 **One methodological note.** Running pytest with its stdout redirected to a file produced three spurious failures (`OSError: [WinError 6]` inside `subprocess.run`, raised from `_winapi.DuplicateHandle`). The same suite passes cleanly with stdio inherited. This is a sandbox handle restriction, not a defect in the tests — worth recording so the next auditor does not chase it.

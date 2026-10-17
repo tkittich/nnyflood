@@ -282,8 +282,13 @@ def main() -> None:
     idx_pk_h_ny1b = int(np.argmax(h_obs_ny1b))
     idx_pk_h_ny7 = int(np.argmax(h_obs_ny7))
     travel_time_stage_obs = (idx_pk_h_ny7 - idx_pk_h_ny1b) * 0.25
-    idx_pk_ny7_obs = int(np.argmax(q_obs_ny7))
-    travel_time_hours_obs = (idx_pk_ny7_obs - idx_pk_ny1b) * 0.25
+
+    # F-04: ยอดของ q_cms (สถานีรายงานเอง) ไม่ตรงกับยอดของ level_msl_m ที่สถานีเดียวกัน
+    # และเหลื่อมคนละทิศ — วัดส่วนเหลื่อมไว้เป็นหลักฐานแทนการรายงาน "เวลาเดินทาง" ที่ผิดความหมาย
+    idx_pk_q_ny1b = int(np.argmax(q_obs_ny1b))
+    idx_pk_q_ny7 = int(np.argmax(q_obs_ny7))
+    q_h_offset_ny1b_h = (idx_pk_h_ny1b - idx_pk_q_ny1b) * 0.25   # + = ยอด Q มาก่อนยอด H
+    q_h_offset_ny7_h = (idx_pk_h_ny7 - idx_pk_q_ny7) * 0.25
 
     # สรุปผล
     summary = {
@@ -326,8 +331,16 @@ def main() -> None:
         "routing_performance": {
             "travel_time_hours_sim": round(travel_time_hours_sim, 2),
             "travel_time_stage_obs": round(travel_time_stage_obs, 2),
-            "travel_time_hours_obs": round(travel_time_hours_obs, 2),
-            "travel_time_caveat": "ทั้งสองค่านับจากยอดของอนุกรมที่ต่างกัน · Q และ H ที่สถานีเดียวกันมียอดเหลื่อมกัน (+6.5 ชม. Ny.1B · −8.75 ชม. Ny.7) → ยังใช้เป็นเวลาเดินทางของคลื่นไม่ได้",
+            "q_h_peak_offset_ny1b_h": round(q_h_offset_ny1b_h, 2),
+            "q_h_peak_offset_ny7_h": round(q_h_offset_ny7_h, 2),
+            "travel_time_caveat": (
+                "ใช้ยอด *ระดับน้ำ* เป็นหลักเท่านั้น · q_cms เป็นค่าที่สถานีรายงานเอง "
+                "ไม่ได้คำนวณจาก level_msl_m ด้วยเส้นความสัมพันธ์เส้นเดียว — ยอด Q เหลื่อมจากยอด H "
+                f"ที่ Ny.1B {q_h_offset_ny1b_h:+.2f} ชม. และที่ Ny.7 {q_h_offset_ny7_h:+.2f} ชม. "
+                "จึงไม่มี 'เวลาเดินทางที่นับจากยอด Q' รายงานในไฟล์นี้ (ค่าที่เคยรายงานถูกถอนออกแล้ว) "
+                "· travel_time_hours_sim เป็น Q→Q ของแบบจำลอง ส่วน travel_time_stage_obs เป็น H→H "
+                "ของข้อมูลจริง สองค่านี้จึงเทียบกันตรง ๆ ไม่ได้"
+            ),
             "rmse_discharge_cms": round(rmse_q_cms, 2),
             "rmse_stage_cm": round(rmse_h_m * 100.0, 1),
             "q_peak_sim_cms": round(float(np.max(q_sim_ny7)), 1),

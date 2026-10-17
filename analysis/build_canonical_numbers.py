@@ -215,6 +215,13 @@ render = {
     "r1d_ny7_q_bankfull": f"{r1d.get('ny7_hydraulics', {}).get('levee_crest_capacity_q_cms', 617.4):.1f}",
     "r1d_ny7_q_terrace": f"{r1d.get('ny7_hydraulics', {}).get('terrace_onset_q_cms', 486.9):.1f}",
     "r1d_reach_km": f"{r1d.get('metadata', {}).get('reach_ny1b_to_ny7_km', 18.3):.1f}",
+    # F-18: ค่าที่รายงาน 1–2 เคยพิมพ์เป็น literal ใน builder — ผูกกับ canonical แทน
+    # (AGENTS.md หลัก 2: builder ห้ามพิมพ์ตัวเลข metric เป็น literal)
+    "ny7_peak_g": f"{levels['peak_gauge_m']:.2f}",
+    "ny7_peak_msl": f"{levels['peak_gauge_m'] - levels['datum_offset_m']:.2f}",
+    "gistda_oct2": f"{gistda['oct2_km2']:.1f}",
+    "cf_ov_mcm": f"{counterfactual['actual']['overflow_mcm']:.2f}",
+    "cf_ov_h": f"{counterfactual['actual']['hours_above_bankfull']}",
 }
 
 out = {

@@ -19,11 +19,12 @@
    - Rebuild รายงานที่ 1 (ประชาชน) และ รายงานที่ 2 (วิชาการ) ผ่านการตรวจสอบ canonical 100%
 4. **ปรับปรุง GitHub Actions CI Pipeline**:
    - อัปเดต `.github/workflows/ci.yml` รัน `tools/verify_all.py` อัตโนมัติทุก push/PR
-5. **ชุดคำสั่งตรวจสอบระบบครบวงจรสำหรับ AI ภายนอก (Red-Team Audit Prompt)**:
-   - สร้างคู่มือและชุดคำสั่งเจาะลึก 3 เสาหลัก: `docs/REVIEW_PROMPT_COMPREHENSIVE.md`
+5. **ชุดคำสั่งตรวจสอบระบบครบวงจรสำหรับ AI ภายนอก (Red-Team Audit Prompts)**:
+   - ฉบับภาษาไทย: `docs/REVIEW_PROMPT_COMPREHENSIVE.md`
+   - ฉบับภาษาอังกฤษ (English Master): `docs/REVIEW_PROMPT_EN.md`
 
 ### รายการสำหรับ Session ถัดไป (Next Session Tasks — คงไว้สูงสุด 3 รายการตามกติกา):
-1. **รับและปรับปรุงผลตรวจจาก AI ภายนอก**: นำรายงานการตรวจสอบที่ได้จากการรัน `docs/REVIEW_PROMPT_COMPREHENSIVE.md` มาพิจารณาปรับปรุง
+1. **รับและปรับปรุงผลตรวจจาก AI ภายนอก**: นำรายงานการตรวจสอบที่ได้จากการรัน `docs/REVIEW_PROMPT_EN.md` หรือ `docs/REVIEW_PROMPT_COMPREHENSIVE.md` มาพิจารณาปรับปรุง
 2. **ติดตามผลการรัน CI บน GitHub Actions**: ยืนยันว่า workflow บน Cloud ทำงานผ่าน 100% หลังผู้ใช้ทำ `git push`
 3. **การขอข้อมูลข่าวสารราชการ (FOI) คลองเจ้าพระยา 2**: ยื่นขอแบบแปลนและระดับท้องคลองรายจุดตาม `docs/GOAL7_FOI_REQUESTS.md`
 

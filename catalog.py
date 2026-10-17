@@ -161,6 +161,7 @@ CORE_GOVERNANCE = [
     ("docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md", "แผนงานและผลลัพธ์แบบจำลองขั้นสูง (1D Routing, CP2 Bypass, Coastal ML)"),
     ("docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md", "แผนงานบูรณาการรายงาน 1-2 แผนที่โต้ตอบ เมทริกซ์ความเสี่ยง และ CI"),
     ("docs/REVIEW_PROMPT_COMPREHENSIVE.md", "กรอบการตรวจสอบและชุดคำสั่งสำหรับ AI ผู้ตรวจสอบอิสระ (Red-Team Audit)"),
+    ("docs/REVIEW_PROMPT_EN.md", "Comprehensive English Red-Team Audit Prompt (Full 3 Pillars & Models)"),
     ("tools/verify_all.py", "เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร (catalog, SHA-256, pytest)"),
     ("tests/test_thai_language_lint.py", "ระบบทดสอบและตรวจจับภาษาไทยอัตโนมัติ (Typo Registry, คำชน, คำทับศัพท์)"),
 ]

@@ -73,7 +73,7 @@ dam_share = {
 # ---------- สถานการณ์จำลอง ----------
 cf = jload(ANA / "goal4_counterfactual_summary.json")
 counterfactual = {
-    k: {"overflow_mcm": cf[k][0], "hours_above_bankfull": cf[k][1]}
+    k: {"overflow_mcm": cf[k]["overflow_mcm"], "hours_above_bankfull": cf[k]["hours_above_bankfull"]}
     for k in ("actual", "R1", "M1", "M2", "M3")
 }
 counterfactual["m4_drain_mcm"] = cf["M4_volume_budget"]["drain_mcm"]
@@ -192,10 +192,8 @@ render = {
     "gbdt48": f"{model_v1['gbdt48_event_cm']:.1f}",
     "all24m": f"{model_v1['rmse24_all_cm'] / 100:.2f} ม.",
     "ev24m": f"{model_v1['rmse24_event_cm'] / 100:.2f} ม.",
-    "m4drop": f"{cf['M4_volume_budget']['corridor_drop_m']}",
     "trainh": f"{model_v1['train_h']:,}",
     "pisai": f"≈{round(s1['peak_km2'] * 306.9 / s1['oct2_ours_km2'])}–{pk_short if False else round(s1['peak_km2'])}",
-    "med_cnt": f"{med_dams['system_totals']['medium_reservoirs_count']}",
     "med_cap": f"{med_dams['system_totals']['total_medium_capacity_mcm']}",
     "med_pct": f"{med_dams['system_totals']['medium_to_khundan_pct']:.1f}%",
     "med_inflow": f"{med_dams['event_26_29_sep']['total_inflow_mcm']:.2f}",
@@ -211,10 +209,6 @@ render = {
     "ny1b_pk_q": f"{ny1b_xs['peak_q_m3s']:.1f}",
     "ny1b_ov_m": f"{ny1b_xs['overflow_depth_m']:.2f}",
     "ny1b_ov_q": f"{ny1b_xs['overflow_q_m3s']:.1f}",
-    "r1d_ny1b_q_bankfull": f"{r1d.get('ny1b_hydraulics', {}).get('levee_crest_capacity_q_cms', 666.3):.1f}",
-    "r1d_ny7_q_bankfull": f"{r1d.get('ny7_hydraulics', {}).get('levee_crest_capacity_q_cms', 617.4):.1f}",
-    "r1d_ny7_q_terrace": f"{r1d.get('ny7_hydraulics', {}).get('terrace_onset_q_cms', 486.9):.1f}",
-    "r1d_reach_km": f"{r1d.get('metadata', {}).get('reach_ny1b_to_ny7_km', 18.3):.1f}",
     # F-18: ค่าที่รายงาน 1–2 เคยพิมพ์เป็น literal ใน builder — ผูกกับ canonical แทน
     # (AGENTS.md หลัก 2: builder ห้ามพิมพ์ตัวเลข metric เป็น literal)
     "ny7_peak_g": f"{levels['peak_gauge_m']:.2f}",

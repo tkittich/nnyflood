@@ -61,6 +61,20 @@ def test_catalog_registered_paths_exist():
     assert not missing, f"พบ {len(missing)} จาก {total} รายการใน catalog.py ที่ไม่มีอยู่จริงบนดิสก์:\n" + "\n".join(missing)
 
 
+def test_all_top_level_docs_are_registered():
+    """ตรวจย้อนกลับ: เอกสารทุกไฟล์ที่ root และ docs/ ต้องลงทะเบียนใน catalog.py
+
+    test_catalog_registered_paths_exist ตรวจทิศเดียว (ลงทะเบียน→มีจริง) จึงจับไฟล์ใหม่
+    ที่ไม่มีใครลงทะเบียนไม่ได้ — ซึ่งคือที่มาของ N-04 (รายงานตรวจสอบวางที่ root แล้วหลุด 2 รอบ)
+    กฎนี้ไม่มี allowlist: ไฟล์ใหม่ต้องลงทะเบียนหรือย้ายออกจากพื้นที่
+    """
+    un = catalog.unregistered_docs()
+    assert not un, (
+        "พบเอกสารที่ยังไม่ลงทะเบียนใน catalog.py (root *.md หรือ docs/*.md):\n  "
+        + "\n  ".join(un)
+        + "\n→ เพิ่มใน CORE_GOVERNANCE พร้อมคำอธิบาย หรือย้ายไฟล์ออกจากพื้นที่")
+
+
 def test_index_html_cards_have_required_badges():
     """การ์ดรายงานทุกใบใน index.html ต้องมีป้ายบอกกลุ่มเป้าหมาย (public/academic) และขอบเขต (scope) เสมอ"""
     index_path = ROOT / "index.html"

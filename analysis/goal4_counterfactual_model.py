@@ -221,7 +221,22 @@ print(f"    สรุปที่ควรใช้: จริง ล้น ~{r_
 print(f"M2: ระดับน้ำเก็บต่ำสุด {minS_m2:.1f} ลลบ.ม. (LRC ~96, อ่างเต็ม 225.4) | ระบายออกมากเพิ่มก่อนพายุ {extra_pre:.1f} ลลบ.ม.")
 print(f"M3: ล้น {r_m3[0]:.2f} ({100*(1-r_m3[0]/r_act[0]):.0f}%) ชม. {r_m3[1]} น้ำสูงสุด {r_m3[3]+GAUGE_OFFSET:.2f} | ระดับน้ำเก็บต่ำสุด {min(v[0] for v in TM3.values()):.1f}")
 
-json.dump({**{k: [round(v[0], 2), v[1], round(v[2], 1), round(v[3], 2), str(v[4])]
+def _scenario_record(v):
+    """ทูเพิลจาก evaluate_q → ออบเจ็กต์มีชื่อ
+
+    เดิมเก็บเป็นลิสต์เรียงตำแหน่ง [ล้น, ชม., Q สูงสุด, ระดับสูงสุด, เวลา] — แทรกฟิลด์ใหม่
+    ที่ตำแหน่งใดตำแหน่งหนึ่งแล้วผู้บริโภคทั้งหมดอ่านผิดเงียบ ๆ โดยไม่มีเทสต์จับ (แก้ตาม F-3 ของแผน)
+    """
+    return {
+        "overflow_mcm": round(v[0], 2),
+        "hours_above_bankfull": v[1],
+        "peak_q_cms": round(v[2], 1),
+        "peak_stage_msl_m": round(v[3], 2),
+        "peak_time": str(v[4]),
+    }
+
+
+json.dump({**{k: _scenario_record(v)
               for k, v in [("actual", r_act), ("R1", r_r1), ("M1", r_m1), ("M2", r_m2), ("M3", r_m3)]},
            "M4_volume_budget": {
                "drain_cms": DRAIN_Q, "window_h": DRAIN_WINDOW_H,

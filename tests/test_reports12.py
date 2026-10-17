@@ -77,6 +77,27 @@ def test_reports12_builders_have_no_metric_literals():
             f"{b.name}: '65 ชม.' ถูกพิมพ์เป็น literal — ใช้ @@R:cf_ov_h@@ ชม. แทน")
 
 
+def test_token_contract_is_two_way():
+    """สัญญา token สองทาง: ใช้แล้วต้องมี · มีแล้วต้องใช้
+
+    - builder ใช้ @@R:key@@ แต่ canonical ไม่มี key → build พัง (ดักได้ก่อน build)
+    - canonical มี key แต่ไม่มี builder ไหนใช้ → token ตาย (ลบทิ้ง หรือผูกให้ใช้จริง)
+
+    ไม่มี allowlist โดยเจตนา: token ใหม่ต้องมาพร้อมการใช้ใน commit เดียวกัน
+    """
+    import json
+    canon = json.loads((ROOT / "analysis/canonical_numbers.json").read_text(encoding="utf-8"))
+    render = set(canon["render"])
+    builders = [ROOT / "report/build_report_html.py", ROOT / "report/build_expert_report.py"]
+    used: set[str] = set()
+    for b in builders:
+        used |= set(re.findall(r"@@R:([A-Za-z0-9_]+)@@", b.read_text(encoding="utf-8")))
+    assert not (used - render), (
+        f"builder ใช้ token ที่ไม่มีใน canonical render: {sorted(used - render)}")
+    assert not (render - used), (
+        f"canonical render มี token ที่ไม่มี builder ใช้ (token ตาย): {sorted(render - used)}")
+
+
 def test_urc_streak_matches_data():
     """29 วันจนถึงน้ำสูงสุด 27 ก.ย. (36 วันถึง 4 ต.ค.) — คำนวณสดจาก CSV ไม่ใช่ตัวเลขพิมพ์"""
     import csv

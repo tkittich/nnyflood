@@ -1,39 +1,39 @@
 {
- "actual": [
-  11.89,
-  65,
-  513.9,
-  7.68,
-  "2026-09-27 10:00:00"
- ],
- "R1": [
-  5.39,
-  18,
-  567.2,
-  8.18,
-  "2026-09-27 10:00:00"
- ],
- "M1": [
-  5.39,
-  18,
-  567.2,
-  8.18,
-  "2026-09-27 10:00:00"
- ],
- "M2": [
-  0.83,
-  8,
-  466.3,
-  7.25,
-  "2026-09-27 10:00:00"
- ],
- "M3": [
-  0.83,
-  9,
-  466.3,
-  7.25,
-  "2026-09-27 10:00:00"
- ],
+ "actual": {
+  "overflow_mcm": 11.89,
+  "hours_above_bankfull": 65,
+  "peak_q_cms": 513.9,
+  "peak_stage_msl_m": 7.68,
+  "peak_time": "2026-09-27 10:00:00"
+ },
+ "R1": {
+  "overflow_mcm": 5.39,
+  "hours_above_bankfull": 18,
+  "peak_q_cms": 567.2,
+  "peak_stage_msl_m": 8.18,
+  "peak_time": "2026-09-27 10:00:00"
+ },
+ "M1": {
+  "overflow_mcm": 5.39,
+  "hours_above_bankfull": 18,
+  "peak_q_cms": 567.2,
+  "peak_stage_msl_m": 8.18,
+  "peak_time": "2026-09-27 10:00:00"
+ },
+ "M2": {
+  "overflow_mcm": 0.83,
+  "hours_above_bankfull": 8,
+  "peak_q_cms": 466.3,
+  "peak_stage_msl_m": 7.25,
+  "peak_time": "2026-09-27 10:00:00"
+ },
+ "M3": {
+  "overflow_mcm": 0.83,
+  "hours_above_bankfull": 9,
+  "peak_q_cms": 466.3,
+  "peak_stage_msl_m": 7.25,
+  "peak_time": "2026-09-27 10:00:00"
+ },
  "M4_volume_budget": {
   "drain_cms": 40.0,
   "window_h": 36.0,

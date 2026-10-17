@@ -8,6 +8,7 @@
 **Revision 2 (2026-10-17, 15:20):** triaged against `REVIEW.gemini_3.8_flash.md` — full verdict table in §7. Two findings added (F-21, F-22), two materially strengthened (F-10, F-17), and one claim in that review rejected as stale. Total: **22 findings**.
 **Revision 3 (2026-10-17):** remediation round — §8 records what was fixed in code, what was disclosed rather than changed, what remains open, and one new finding (**F-23**, documentation drift) that the fixes themselves exposed.
 **Revision 4 (2026-10-17):** the three items left open in Revision 3 are closed — F-18 (metric literals now rendered from canonical, with a regression test), F-15 (the three "bankfull" numbers reconciled), F-04 (the invalid Q-based travel time removed). See §8.3.
+**Revision 5 (2026-10-17):** three structural fixes so the F-18 / N-01 / N-04 failure *mechanisms* stop recurring — a two-way token contract, a reverse catalog check, and named (non-positional) counterfactual records. No reported number changed; both report HTMLs rebuild byte-identical. See §8.6.
 
 ---
 
@@ -15,7 +16,7 @@
 
 **Overall Scientific & Engineering Reliability: Medium.**
 
-The evidence discipline of this repository is genuinely unusual and it works: the canonical-mirror invariant that was broken in the previous round is now fixed and enforced, all 121 tests pass, and the two prior "duplicated source of truth" regressions are gone. What remains is not bookkeeping. It is **hydraulics and model provenance**: three of the four physical models publish headline numbers whose sign or magnitude is set by an assumption the code does not test, and one model's training-set description is contradicted by its own loader.
+The evidence discipline of this repository is genuinely unusual and it works: the canonical-mirror invariant that was broken in the previous round is now fixed and enforced, all 124 tests pass, and the two prior "duplicated source of truth" regressions are gone. What remains is not bookkeeping. It is **hydraulics and model provenance**: three of the four physical models publish headline numbers whose sign or magnitude is set by an assumption the code does not test, and one model's training-set description is contradicted by its own loader.
 
 **Key system strengths (validated, not assumed)**
 
@@ -564,3 +565,19 @@ This is the same class as round 2's N-01/N-04, and precisely the failure mode th
 **Verification after every change above:** `tools/verify_all.py` **4/4**, `catalog.py check` **88/88**, `pytest tests/` **122 passed** (121 + the new F-18 guard).
 
 **One methodological note.** Running pytest with its stdout redirected to a file produced three spurious failures (`OSError: [WinError 6]` inside `subprocess.run`, raised from `_winapi.DuplicateHandle`). The same suite passes cleanly with stdio inherited. This is a sandbox handle restriction, not a defect in the tests — worth recording so the next auditor does not chase it.
+
+### 8.6 Revision 5 — three structural fixes so this class of finding stops recurring (maintainability, not correctness)
+
+The findings above were each fixed individually. Three of them, however, shared a *mechanism* that made them recur across audit rounds: F-18 (hardcoded metric literals) survived four rounds because nothing checked for literals; the N-01/N-04 class recurred because the catalog check only ran in one direction; and F-15's confusion was possible because an artifact stored its fields positionally. Those three mechanisms are now closed at the structural level.
+
+**1. The token contract is two-way.** `@@R:` substitution already existed, but only **14 of 53** `render` tokens were covered by `checks["expert"]` (12 of 53 for the public report). The other 39 could be typed as literals into a template and no assertion would notice — exactly the hole F-18 fell through. `test_token_contract_is_two_way` now computes the set of tokens the two builders actually use and asserts set equality with `render` in both directions: an undefined token fails (as before), and a **defined-but-unused** token now fails too. Six dead tokens were deleted as a direct result (`m4drop`, `med_cnt`, `r1d_ny1b_q_bankfull`, `r1d_ny7_q_bankfull`, `r1d_ny7_q_terrace`, `r1d_reach_km`), taking `render` from 53 to **47**.
+
+**2. The catalog check runs in reverse.** `catalog.py check` verified *registered → exists*. It structurally could not see a file that exists but was never registered, which is why N-04 recurred. `catalog.py audit` now walks `*.md` and `docs/*.md` and reports anything on disk that is absent from the catalog. The scope is deliberately narrow: a blanket rule over all 181 files flagged 115, because `analysis/` is a curated 27 %-coverage atlas by design, not an inventory. Documents are where the failure actually occurred, and there it is now **32/32 registered, 0 unregistered**, with `test_all_top_level_docs_are_registered` enforcing it without an allowlist.
+
+**3. Positional records are gone.** `analysis/goal4_counterfactual_summary.json` stored each scenario as `[11.89, 65, 513.9, 7.68, "2026-09-27 10:00:00"]`, and `build_canonical_numbers.py` mapped those by index. Inserting one field anywhere would have silently relabelled every downstream number with no error and no test failure. `_scenario_record()` now emits named keys (`overflow_mcm`, `hours_above_bankfull`, `peak_q_cms`, `peak_stage_msl_m`, `peak_time`), and the consumers read by name.
+
+**Evidence that the refactor is value-neutral:** both report HTMLs were regenerated from the new artifact chain and came back **byte-identical** — `git status` shows no modification to either file after the rebuild. All scenario values are unchanged (`actual` 11.89 / 65 / 513.9 / 7.68; `R1` = `M1` 5.39 / 18 / 567.2 / 8.18; `M2` 0.83 / 8 / 466.3 / 7.25; `M3` 0.83 / 9 / 466.3 / 7.25).
+
+**Guards were proven non-vacuous by mutation, not assumed.** Injecting a `__mutation_probe__` token into a builder made the contract test fail; creating `PROBE_UNREGISTERED.md` made the catalog test fail. Both probes were then removed.
+
+**Verification after this round:** `tools/verify_all.py` **4/4**, `catalog.py check` **97/97**, `catalog.py audit` **32/32** with 0 unregistered, `pytest tests/` **124 passed**. Documentation counts refreshed (`START_HERE.md` 88→97 entries and 121→124 tests; `HANDOFF.md` likewise), and the stale "121 passed" bullet in `HANDOFF.md:59` — itself an instance of the drift class this section is about — corrected.

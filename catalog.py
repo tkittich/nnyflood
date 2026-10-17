@@ -154,6 +154,10 @@ PILLARS = {
 
 CORE_GOVERNANCE = [
     ("AGENTS.md", "กติกาบังคับสำหรับ AI session (หลักฐาน, กฎหมาย, ตัวเลข, ภาษา, และ git)"),
+    ("START_HERE.md", "จุดเริ่มอ่าน: โปรเจกต์คืออะไร วิธีรันตัวเลข และคำสั่งตรวจสุขภาพระบบ"),
+    ("README.md", "ภาพรวมโปรเจกต์สำหรับผู้เปิด repo ครั้งแรก"),
+    ("HANDOFF.md", "สถานะส่งมอบ: งานที่เสร็จ งานค้าง และกับดักที่เจอแล้ว — อ่านก่อนลงมือ"),
+    ("THIRD_PARTY_NOTICES.md", "ประกาศข้อมูลบุคคลที่สามที่ใช้/อ้างอิงในโปรเจกต์"),
     ("docs/REPORT_CONVENTIONS.md", "ข้อตกลงการทำรายงาน: เอ็นจิน key+โทเคน, ธีม WCAG, สรีรศาสตร์สายตา, และป้ายหน้ารวม"),
     ("docs/PROJECT_MAP.md", "แผนที่นำทางและแคตตาล็อกระบบฉบับเต็ม (Topic Discovery Matrix)"),
     ("docs/LEGAL_REVIEW.md", "แนวปฏิบัติทางกฎหมาย: การหมิ่นประมาท (เน้นระบบ ไม่เน้นตัวบุคคล) และ PDPA"),
@@ -162,10 +166,15 @@ CORE_GOVERNANCE = [
     ("docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md", "แผนงานบูรณาการรายงาน 1-2 แผนที่โต้ตอบ เมทริกซ์ความเสี่ยง และ CI"),
     ("docs/REVIEW_PROMPT_COMPREHENSIVE.md", "กรอบการตรวจสอบและชุดคำสั่งสำหรับ AI ผู้ตรวจสอบอิสระ (Red-Team Audit)"),
     ("docs/REVIEW_PROMPT_EN.md", "Comprehensive English Red-Team Audit Prompt (Full 3 Pillars & Models)"),
+    ("docs/REVIEW_PROMPT.md", "ชุดคำสั่งรีวิวฉบับก่อน (เน้นเป้าหมาย 7) — ถูกแทนที่ด้วย REVIEW_PROMPT_COMPREHENSIVE.md"),
+    ("docs/ENVIRONMENT.md", "บันทึกสภาพแวดล้อมที่ใช้รันจริง (เวอร์ชัน Python/แพ็กเกจ) สำหรับทำซ้ำตัวเลข"),
+    ("docs/MAJOR_UPDATES_REPORT1_4_PLAN.md", "แผนยกระดับรายงาน 1–4 ให้ผูกกับฐานข้อมูลชุดใหม่"),
+    ("docs/OFFLINE_DATA_BACKLOG.md", "รายการข้อมูลที่ยังไม่มีออนไลน์และต้องรอดำเนินการ"),
     ("tools/verify_all.py", "เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร (catalog, SHA-256, pytest)"),
     ("tests/test_thai_language_lint.py", "ระบบทดสอบและตรวจจับภาษาไทยอัตโนมัติ (Typo Registry, คำชน, คำทับศัพท์)"),
     ("docs/reviews/AUDIT_REDTEAM_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 1 (Peer Review ฉบับเต็ม 3 เสาหลัก)"),
     ("docs/reviews/AUDIT_ROUND2_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 2 (Delta Review & New Findings)"),
+    ("AUDIT_ROUND2_2026-10-17.md", "สำเนาที่ root ของรายงานตรวจสอบรอบที่ 2 (ต้นฉบับอยู่ที่ docs/reviews/) — ลงทะเบียนไว้เพื่อให้กฎ 'เอกสารที่ root ต้องลงทะเบียนครบ' ผ่านโดยไม่ต้องลบไฟล์"),
     ("REVIEW.DeepSeek-V4.1-Flash.md", "ผลการตรวจสอบอิสระรอบที่ 3 (DeepSeek-V4.1-Flash) — 3 เสาหลัก 22 ประเด็น พร้อมการแก้ไขที่ปิดแล้ว"),
     ("REVIEW.gemini_3.8_flash.md", "ผลการตรวจสอบอิสระรอบที่ 3 (Gemini 3.8 Flash) — ฉบับ 3 เสาหลัก (ต่างจาก docs/reviews/REVIEW.gemini_3.8_flash.md ซึ่งตรวจเฉพาะเป้าหมาย 7)"),
 ]
@@ -350,6 +359,54 @@ def cmd_goal(goal_num: str):
     print("=" * 76)
 
 
+def registered_paths() -> set[str]:
+    """ทุกพาธที่ลงทะเบียนในสารบัญ — ใช้ตรวจย้อนกลับ (ไฟล์บนดิสก์ที่ยังไม่ลงทะเบียน)"""
+    reg: set[str] = set()
+    for p in PILLARS.values():
+        for r in p["reports"]:
+            reg.add(r["html"])
+            reg.add(r["builder"])
+        reg.add(p["canonical"])
+        reg.add(p["canonical_builder"])
+        reg.update(p["docs"])
+        reg.update(p["key_scripts"])
+        reg.update(p["data_dirs"])
+    reg.update(doc for doc, _ in CORE_GOVERNANCE)
+    return reg
+
+
+# พื้นผิวเอกสารที่ "ต้องลงทะเบียนครบ" — ไฟล์ใหม่ที่ถูกวางที่ root หรือ docs/ คือที่มาของ N-04
+# (เจอจริง: รีวิว/รายงานตรวจสอบถูกวางที่ root แล้วไม่มีใครลงทะเบียน 2 รอบติด)
+DOC_SURFACES = ("*.md", "docs/*.md")
+
+
+def unregistered_docs() -> list[str]:
+    """ไฟล์เอกสารบนดิสก์ที่ยังไม่ลงทะเบียนในสารบัญ (เรียงตามพาธ)"""
+    reg = registered_paths()
+    found: set[str] = set()
+    for pat in DOC_SURFACES:
+        for p in ROOT.glob(pat):
+            found.add(p.relative_to(ROOT).as_posix())
+    return sorted(found - reg)
+
+
+def cmd_audit() -> int:
+    """ตรวจย้อนกลับ: cmd_check ตรวจ 'ลงทะเบียน→มีจริง' แต่จับไฟล์ที่ไม่มีใครลงทะเบียนไม่ได้"""
+    print_banner()
+    print("🔍 ตรวจย้อนกลับ: เอกสารบนดิสก์ที่ยังไม่ลงทะเบียนในสารบัญ (root *.md + docs/*.md)...\n")
+    un = unregistered_docs()
+    if un:
+        print(f"⚠️ พบ {len(un)} ไฟล์ที่ยังไม่ลงทะเบียน — เพิ่มใน CORE_GOVERNANCE หรือย้ายออกจากพื้นที่:")
+        for u in un:
+            print(f"   ❌ {u}")
+        print("=" * 76)
+        return 1
+    total = sum(len(list(ROOT.glob(p))) for p in DOC_SURFACES)
+    print(f"✅ เอกสารทุกไฟล์ลงทะเบียนครบ ({total} ไฟล์จาก {' + '.join(DOC_SURFACES)})")
+    print("=" * 76)
+    return 0
+
+
 def cmd_check():
     print_banner()
     print("🧪 กำลังตรวจสอบความมีอยู่จริงของไฟล์และโฟลเดอร์ทั้งหมดในสารบัญ...\n")
@@ -397,6 +454,8 @@ def main():
         cmd_goal(args[1])
     elif args[0] in ["check", "verify", "test"]:
         cmd_check()
+    elif args[0] in ["audit", "reverse"]:
+        sys.exit(cmd_audit())
     else:
         # ถ้าพิมพ์คำค้นเดี่ยว ๆ เช่น python catalog.py คันคลอง
         cmd_find(" ".join(args))

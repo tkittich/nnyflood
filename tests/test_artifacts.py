@@ -13,11 +13,11 @@ def _load(rel):
 def test_counterfactual_headline_rows():
     """ตารางสถานการณ์บริหารที่รายงานอ้าง: จริง 11.9/65 · R1=M1 5.39/18 · M2=M3 0.83 (8/9 ชม.)"""
     j = _load("analysis/goal4_counterfactual_summary.json")
-    assert abs(j["actual"][0] - 11.89) < 0.2 and j["actual"][1] == 65
+    assert abs(j["actual"]["overflow_mcm"] - 11.89) < 0.2 and j["actual"]["hours_above_bankfull"] == 65
     for k in ("R1", "M1"):
-        assert abs(j[k][0] - 5.39) < 0.2 and j[k][1] == 18, k
+        assert abs(j[k]["overflow_mcm"] - 5.39) < 0.2 and j[k]["hours_above_bankfull"] == 18, k
     for k, h in (("M2", 8), ("M3", 9)):
-        assert abs(j[k][0] - 0.83) < 0.1 and j[k][1] == h, k
+        assert abs(j[k]["overflow_mcm"] - 0.83) < 0.1 and j[k]["hours_above_bankfull"] == h, k
 
 
 def test_counterfactual_m4_volume_budget():

@@ -29,11 +29,12 @@ cd <โฟลเดอร์ repo>
 PY=python
 
 "$PY" -m pip install -r requirements.txt
-"$PY" tools/verify_all.py                        # ตรวจสอบระบบครบวงจร (catalog + SHA-256 + pytest 121 passed)
+"$PY" tools/verify_all.py                        # ตรวจสอบระบบครบวงจร (catalog + SHA-256 + pytest 124 passed)
 # หรือแยกรันรายคำสั่ง:
-"$PY" catalog.py check                           # ตรวจสารบัญไฟล์ (88/88 รายการ)
+"$PY" catalog.py check                           # ตรวจสารบัญไฟล์ (97/97 รายการ)
+"$PY" catalog.py audit                           # ตรวจย้อนกลับ: เอกสารที่ root/docs ลงทะเบียนครบไหม
 "$PY" analysis/verify_data_integrity.py --quick  # ตรวจ SHA-256 (MISMATCH 0)
-"$PY" -m pytest tests/ -q                        # ตรวจเทสต์ทั้งหมด (121 passed)
+"$PY" -m pytest tests/ -q                        # ตรวจเทสต์ทั้งหมด (124 passed)
 ```
 
 - สคริปต์ทั้งหมด derive path จาก `Path(__file__)` แล้ว → **รันจากโฟลเดอร์ไหนก็ได้**

@@ -5,6 +5,8 @@
 
 ## 1. API คลังข้อมูลน้ำแห่งชาติ (thaiwater.net) ✅
 
+> คู่มือสถาปัตยกรรม, Endpoint, Gotchas และโค้ดตัวอย่างฉบับสมบูรณ์: [`docs/THAIWATER_API_GUIDE.md`](docs/THAIWATER_API_GUIDE.md)
+
 - Base: `https://api-v3.thaiwater.net/api/v1/thaiwater30/...` — **GET ไม่ต้อง auth**
 - วิธีค้นพบ endpoint: แงะ JS bundle ของ `https://www.thaiwater.net/dist/js/app.chunk.js` แล้ว grep ชื่อ path (เว็บเป็น SPA หน้าเว็บเองไม่มีข้อมูล)
 - Endpoint ที่ใช้จริง:
@@ -44,6 +46,8 @@
 | ที' ลมฟ้าอากาศ (พยากรณ์อิสระ) | ✅ screenshot 4 ใบ + manifest | `data/11_external_forecasters/` |
 
 ## 5. ดาวเทียมและข้อมูลเชิงพื้นที่ ✅
+
+> คู่มือการเรียกใช้ API ดาวเทียมและข้อมูลกริด (GISTDA, NASA POWER, CDSE): [`docs/REMOTE_SENSING_APIS.md`](docs/REMOTE_SENSING_APIS.md)
 
 | แหล่ง | สถานะ | หมายเหตุ |
 |---|---|---|

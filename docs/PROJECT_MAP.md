@@ -117,6 +117,8 @@ graph TD
 | [LEGAL_REVIEW.md](file:///e:/theera/code/flood/docs/LEGAL_REVIEW.md) | **คู่มือกฎหมาย**: แนวปฏิบัติป้องกันการหมิ่นประมาท (เน้นวิจารณ์ระบบ ไม่วิจารณ์บุคคล) และการคุ้มครองข้อมูลส่วนบุคคล (PDPA) |
 | [DATA_SOURCES.md](file:///e:/theera/code/flood/docs/DATA_SOURCES.md) | **บัญชีแหล่งข้อมูล**: วิธีเชื่อมต่อ API Thaiwater, CDSE Sentinel, Copernicus DEM, ข้อมูลผังน้ำ สทนช. |
 | [RID_SWOC_GUIDE.md](file:///e:/theera/code/flood/docs/RID_SWOC_GUIDE.md) | **คู่มือระบบศูนย์ปฏิบัติการน้ำอัจฉริยะ (SWOC RID)**: สถาปัตยกรรม API, พารามิเตอร์, ข้อมูลอ่างขนาดกลาง 461 แห่ง, ประวัติเขื่อน 20–30 ปี และรูปตัดขวางลำน้ำจริง |
+| [THAIWATER_API_GUIDE.md](file:///e:/theera/code/flood/docs/THAIWATER_API_GUIDE.md) | **คู่มือ API คลังข้อมูลน้ำแห่งชาติและโทรมาตรเขื่อนขุนด่านฯ**: การเรียกข้อมูลเขื่อน, โทรมาตรแม่น้ำรายชั่วโมง, ฝนรายสถานี (31 วัน), ประตูระบายน้ำ 2,315 แห่ง, โทรมาตร 15 นาที 19 สถานี |
+| [REMOTE_SENSING_APIS.md](file:///e:/theera/code/flood/docs/REMOTE_SENSING_APIS.md) | **คู่มือ API ดาวเทียมและข้อมูลกริดระดับชาติ**: GISTDA Disaster Platform, NASA POWER ฝน 46 ปี, Copernicus CDSE Sentinel-1/2 OData และ S3 |
 | [DATA_DICTIONARY.md](file:///e:/theera/code/flood/docs/DATA_DICTIONARY.md) | **พจนานุกรมข้อมูล (เป้าหมาย 1–5)**: นิยามตัวแปร ค่าอ้างอิงความสูง (datum) ตัวเลขน้ำสูงสุด และพื้นที่น้ำท่วม |
 | [METHODS.md](file:///e:/theera/code/flood/docs/METHODS.md) | **วิธีวิทยา (เป้าหมาย 1–5)**: ชั้นหลักฐาน `[F]/[I]/[O]`, การปรับเทียบระดับน้ำ, การกำกับความถูกต้อง |
 | [ANALYSIS_PLAN.md](file:///e:/theera/code/flood/docs/ANALYSIS_PLAN.md) | **แผนการวิเคราะห์ดั้งเดิม**: กรอบการทำงานเป้าหมาย 1–5 |

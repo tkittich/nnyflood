@@ -41,6 +41,7 @@ PILLARS = {
             "docs/DATA_DICTIONARY.md",
             "docs/ANALYSIS_PLAN.md",
             "docs/RID_SWOC_GUIDE.md",
+            "docs/THAIWATER_API_GUIDE.md",
             "analysis/goal5_policy_proposals.md",
         ],
         "key_scripts": [
@@ -82,6 +83,7 @@ PILLARS = {
             "docs/GOAL6_PLAN.md",
             "docs/GOAL6_HYDRO2D_PLAN.md",
             "docs/GOAL6_PUBLIC_RELEASE_REVIEW.md",
+            "docs/REMOTE_SENSING_APIS.md",
         ],
         "key_scripts": [
             "analysis/goal6_build_all.py",

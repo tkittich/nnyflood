@@ -142,6 +142,7 @@ graph TD
 | [IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md](file:///e:/theera/code/flood/docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md) | **แผนงานยกระดับพอร์ทัลและวิเคราะห์ขั้นสูง**: บูรณาการรายงาน 1–2, แผนที่โต้ตอบ Leaflet บน GitHub Pages, เมทริกซ์ความเสี่ยง, และ GitHub Actions CI |
 | [REVIEW_PROMPT_COMPREHENSIVE.md](file:///e:/theera/code/flood/docs/REVIEW_PROMPT_COMPREHENSIVE.md) | **ชุดคำสั่งตรวจสอบระบบครบวงจร (Red-Team Audit Prompt)**: กรอบคำสั่งและเกณฑ์การตรวจสอบทางชลศาสตร์และวิทยาศาสตร์ข้อมูลสำหรับ AI ภายนอก |
 | [REVIEW_PROMPT_EN.md](file:///e:/theera/code/flood/docs/REVIEW_PROMPT_EN.md) | **English Red-Team Review Prompt**: Comprehensive independent audit prompt for external LLMs / peer-reviewers (3 Pillars & Models) |
+| [AUDIT_REDTEAM_2026-10-17.md](file:///e:/theera/code/flood/docs/reviews/AUDIT_REDTEAM_2026-10-17.md) | **รายงานผลการตรวจทานทางชลศาสตร์และวิทยาศาสตร์ข้อมูล (`docs/reviews/AUDIT_REDTEAM_2026-10-17.md`)**: ผลการตรวจสอบ 10 ประเด็น พร้อมการแก้ไขเสถียรภาพ 1D Routing, แก้ไข Feature รั่วไหล L3 ML, และการปรับปรุงกราฟจำลอง CP2 |
 | [DATA_DICTIONARY.md](file:///e:/theera/code/flood/docs/DATA_DICTIONARY.md) | **พจนานุกรมข้อมูล (เป้าหมาย 1–5)**: นิยามตัวแปร ค่าอ้างอิงความสูง (datum) ตัวเลขน้ำสูงสุด และพื้นที่น้ำท่วม |
 | [METHODS.md](file:///e:/theera/code/flood/docs/METHODS.md) | **วิธีวิทยา (เป้าหมาย 1–5)**: ชั้นหลักฐาน `[F]/[I]/[O]`, การปรับเทียบระดับน้ำ, การกำกับความถูกต้อง |
 | [ANALYSIS_PLAN.md](file:///e:/theera/code/flood/docs/ANALYSIS_PLAN.md) | **แผนการวิเคราะห์ดั้งเดิม**: กรอบการทำงานเป้าหมาย 1–5 |

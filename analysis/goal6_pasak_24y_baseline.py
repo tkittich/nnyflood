@@ -100,6 +100,11 @@ def analyze():
             "max_capacity_mcm": MAX_CAP,
             "period_years": total_years,
             "total_days_analyzed": len(rows),
+            "storage_definitions": {
+                "normal_conservation_storage": "ความจุกักเก็บปกติ 871.5 ล้าน ลบ.ม. (ระดับเก็บกักปกติ +42.0 ม.รทก.)",
+                "surcharge_flood_pool": "ช่องความจุหน่วงน้ำหลากวิกฤต (Surcharge Storage) 871.5–1,036.16 ล้าน ลบ.ม. (ระดับน้ำสูงสุด +43.0 ม.รทก.)",
+                "emergency_freeboard_buffer": "ช่องเผื่อความปลอดภัยฉุกเฉินต่ำกว่าสันเขื่อน (>1,036.16 ล้าน ลบ.ม. สันเขื่อน +44.5 ม.รทก.) ไม่ใช่การล้นข้ามสันเขื่อน",
+            },
         },
         "headline_metrics": {
             "over_normal_years": over_normal_count,

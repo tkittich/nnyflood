@@ -82,9 +82,21 @@ def main() -> None:
     p_rain = RAW_DIR / "nasa_power_2026.json"
     if p_rain.exists():
         raw_r = json.loads(p_rain.read_text(encoding="utf-8"))
-        for k, v in raw_r.items():
-            if isinstance(v, (int, float)):
-                rain_data[k] = float(v)
+        daily_dict = {}
+        if "กรุงเทพกลาง" in raw_r and isinstance(raw_r["กรุงเทพกลาง"], dict):
+            daily_dict = raw_r["กรุงเทพกลาง"].get("daily", {})
+        elif "daily" in raw_r and isinstance(raw_r["daily"], dict):
+            daily_dict = raw_r["daily"]
+        else:
+            for k, v in raw_r.items():
+                if isinstance(v, dict) and "daily" in v:
+                    daily_dict = v["daily"]
+                    break
+                elif isinstance(v, (int, float)):
+                    rain_data[k.replace("-", "")] = float(v)
+        for dk, dv in daily_dict.items():
+            if isinstance(dv, (int, float)):
+                rain_data[dk.replace("-", "")] = float(dv)
 
     # คลื่น SWAN อ่าวไทยตอนบน
     swan_hs = 0.8  # ค่าเฉลี่ยคลื่นนัยสำคัญช่วงมรสุม (เมตร)
@@ -156,10 +168,10 @@ def main() -> None:
             tide_diff = tide0 - tide1
             tide_head = tide0 - h0  # ความชันระดับน้ำปากอ่าวเทียบระดับน้ำในแม่น้ำ (ตรวจ Backwater)
 
-            # เฟสดาราศาสตร์ (กึ่งวัฏจักร 12.42 ชม. ของน้ำขึ้น-น้ำลง)
-            hour_float = dt.datetime.fromisoformat(t_curr).hour
-            tide_phase_sin = math.sin(2.0 * math.pi * hour_float / 12.42)
-            tide_phase_cos = math.cos(2.0 * math.pi * hour_float / 12.42)
+            # เฟสดาราศาสตร์น้ำขึ้น-น้ำลงกึ่งวัน (Semidiurnal M2: คาบ 12.4206 ชั่วโมง) คำนวณจากเวลาสะสมต่อเนื่อง
+            elapsed_hours = (dt.datetime.fromisoformat(t_curr) - start_dt).total_seconds() / 3600.0
+            tide_phase_sin = math.sin(2.0 * math.pi * elapsed_hours / 12.4206)
+            tide_phase_cos = math.cos(2.0 * math.pi * elapsed_hours / 12.4206)
 
             feat_coastal = feat_base + [tide0, tide_diff, tide_head, tide_phase_sin, tide_phase_cos, swan_hs]
 

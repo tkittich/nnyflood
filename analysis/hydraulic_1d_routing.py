@@ -102,33 +102,43 @@ def run_muskingum_cunge_reach(
     slope: float,
     manning_n: float,
     b_avg: float,
+    n_sub: int = 12,
 ) -> np.ndarray:
-    """จำลองการเคลื่อนตัวของมวลน้ำหลากแบบ Muskingum-Cunge 1D Unsteady"""
-    n_steps = len(inflow_q)
-    outflow_q = np.zeros(n_steps)
-    outflow_q[0] = inflow_q[0]
+    """จำลองการเคลื่อนตัวของมวลน้ำหลากแบบ Muskingum-Cunge 1D Unsteady
+    
+    แบ่งช่วงย่อย n_sub ช่วง เพื่อให้สอดคล้องกับเกณฑ์เสถียรภาพ Courant:
+    dx_sub ≈ c_wave * dt_sec (ป้องกันค่าสัมประสิทธิ์ c1 ติดลบ และขจัด numerical dip)
+    """
+    dx_sub = dx_m / float(n_sub)
+    curr_inflow = inflow_q.copy()
 
-    for t in range(n_steps - 1):
-        q_ref = max(10.0, 0.5 * (inflow_q[t] + outflow_q[t]))
-        # ความเร็วคลื่น c = dQ/dA ≈ (5/3) * v (Manning)
-        # v = Q / (B * y), y ≈ (n*Q / (B * S^0.5))^(3/5)
-        y_est = max(0.5, ((manning_n * q_ref) / (b_avg * math.sqrt(slope))) ** 0.6)
-        v_est = q_ref / (b_avg * y_est)
-        c_wave = (5.0 / 3.0) * v_est  # m/s
+    for _ in range(n_sub):
+        n_steps = len(curr_inflow)
+        outflow_q = np.zeros(n_steps)
+        outflow_q[0] = curr_inflow[0]
 
-        k_sec = dx_m / max(0.5, c_wave)
-        x_param = 0.5 * (1.0 - q_ref / (b_avg * slope * c_wave * dx_m))
-        x_param = max(0.0, min(0.45, x_param))  # เสถียรภาพตัวแปร
+        for t in range(n_steps - 1):
+            q_ref = max(10.0, 0.5 * (curr_inflow[t] + outflow_q[t]))
+            # ความเร็วคลื่น c = dQ/dA ≈ (5/3) * v (Manning)
+            y_est = max(0.5, ((manning_n * q_ref) / (b_avg * math.sqrt(slope))) ** 0.6)
+            v_est = q_ref / (b_avg * y_est)
+            c_wave = (5.0 / 3.0) * v_est  # m/s
 
-        denom = 2.0 * k_sec * (1.0 - x_param) + dt_sec
-        c1 = (dt_sec - 2.0 * k_sec * x_param) / denom
-        c2 = (dt_sec + 2.0 * k_sec * x_param) / denom
-        c3 = (2.0 * k_sec * (1.0 - x_param) - dt_sec) / denom
+            k_sec = dx_sub / max(0.5, c_wave)
+            x_param = 0.5 * (1.0 - q_ref / (b_avg * slope * c_wave * dx_sub))
+            x_param = max(0.0, min(0.45, x_param))  # เสถียรภาพตัวแปร
 
-        q_next = c1 * inflow_q[t + 1] + c2 * inflow_q[t] + c3 * outflow_q[t]
-        outflow_q[t + 1] = max(0.0, q_next)
+            denom = 2.0 * k_sec * (1.0 - x_param) + dt_sec
+            c1 = (dt_sec - 2.0 * k_sec * x_param) / denom
+            c2 = (dt_sec + 2.0 * k_sec * x_param) / denom
+            c3 = (2.0 * k_sec * (1.0 - x_param) - dt_sec) / denom
 
-    return outflow_q
+            q_next = c1 * curr_inflow[t + 1] + c2 * curr_inflow[t] + c3 * outflow_q[t]
+            outflow_q[t + 1] = max(0.0, q_next)
+
+        curr_inflow = outflow_q
+
+    return curr_inflow
 
 
 def main() -> None:
@@ -182,7 +192,7 @@ def main() -> None:
     dx_m = 18300.0        # 18.3 กม.
     b_avg = 0.5 * (geom_bank_ny1b["width"] + geom_bank_ny7["width"])
 
-    q_sim_ny7 = run_muskingum_cunge_reach(q_obs_ny1b, dt_sec, dx_m, slope_reach2, n_channel, b_avg)
+    q_sim_ny7 = run_muskingum_cunge_reach(q_obs_ny1b, dt_sec, dx_m, slope_reach2, n_channel, b_avg, n_sub=12)
 
     # 4. แปลง Q_sim กลับเป็นระดับน้ำ h_sim ที่ Ny.7 ด้วย Rating Curve จากหน้าตัดจริง
     # สร้าง Stage-Discharge lookup table สำหรับ Ny.7
@@ -195,11 +205,16 @@ def main() -> None:
     rmse_q_cms = float(np.sqrt(np.mean((q_sim_ny7[mask_event] - q_obs_ny7[mask_event]) ** 2)))
     rmse_h_m = float(np.sqrt(np.mean((h_sim_ny7[mask_event] - h_obs_ny7[mask_event]) ** 2)))
 
-    # เวลาเดินทางของยอดคลื่นน้ำ (Peak Travel Time)
+    # เวลาเดินทางของยอดคลื่นน้ำ (Peak Wave Travel Time: ร่องน้ำ Ny.1B สู่ Ny.7 18.3 กม.)
     idx_pk_ny1b = int(np.argmax(q_obs_ny1b))
     idx_pk_ny7_sim = int(np.argmax(q_sim_ny7))
-    idx_pk_ny7_obs = int(np.argmax(q_obs_ny7))
     travel_time_hours_sim = (idx_pk_ny7_sim - idx_pk_ny1b) * 0.25
+
+    # เวลาเดินทางสังเกตจากระดับน้ำจริง (Stage Peak Lag: Ny.1B สู่ Ny.7 รวมการหน่วงทุ่ง)
+    idx_pk_h_ny1b = int(np.argmax(h_obs_ny1b))
+    idx_pk_h_ny7 = int(np.argmax(h_obs_ny7))
+    travel_time_stage_obs = (idx_pk_h_ny7 - idx_pk_h_ny1b) * 0.25
+    idx_pk_ny7_obs = int(np.argmax(q_obs_ny7))
     travel_time_hours_obs = (idx_pk_ny7_obs - idx_pk_ny1b) * 0.25
 
     # สรุปผล
@@ -211,6 +226,7 @@ def main() -> None:
             "slope_reach1": slope_reach1,
             "slope_reach2": slope_reach2,
             "sim_time_step_min": 15,
+            "n_subreaches": 12,
         },
         "ny1b_hydraulics": {
             "station": "Ny.1B (บ้านเขานางบวช)",
@@ -235,6 +251,7 @@ def main() -> None:
         },
         "routing_performance": {
             "travel_time_hours_sim": round(travel_time_hours_sim, 2),
+            "travel_time_stage_obs": round(travel_time_stage_obs, 2),
             "travel_time_hours_obs": round(travel_time_hours_obs, 2),
             "rmse_discharge_cms": round(rmse_q_cms, 2),
             "rmse_stage_cm": round(rmse_h_m * 100.0, 1),

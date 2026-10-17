@@ -5,7 +5,8 @@
     "manning_n": 0.0437,
     "slope_reach1": 0.00065,
     "slope_reach2": 0.00035,
-    "sim_time_step_min": 15
+    "sim_time_step_min": 15,
+    "n_subreaches": 12
   },
   "ny1b_hydraulics": {
     "station": "Ny.1B (บ้านเขานางบวช)",
@@ -29,11 +30,12 @@
     "peak_q_cms": 648.3
   },
   "routing_performance": {
-    "travel_time_hours_sim": 2.0,
+    "travel_time_hours_sim": 3.25,
+    "travel_time_stage_obs": 9.0,
     "travel_time_hours_obs": 24.25,
-    "rmse_discharge_cms": 126.13,
-    "rmse_stage_cm": 106.9,
-    "q_peak_sim_cms": 578.7,
+    "rmse_discharge_cms": 128.78,
+    "rmse_stage_cm": 105.8,
+    "q_peak_sim_cms": 613.0,
     "q_peak_obs_cms": 648.3
   }
 }

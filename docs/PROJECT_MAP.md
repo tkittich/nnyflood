@@ -48,6 +48,10 @@ graph TD
 | **ดัชนีความเค้นอ่างขนาดกลาง 461 แห่งทั่วประเทศ** | รายงาน 3, 4 | `analysis/goal6_national_medium_reservoirs.py` | `data/23_rid_swoc/` | `analysis/goal6/national_medium_reservoirs_summary.json`<br>`analysis/goal6/national_medium_reservoirs_report.md` |
 | **สถิติฝนตกหนักย้อนหลัง 46 ปี (ERA5/POWER)** | รายงาน 3, 4 | `analysis/goal6_rain_rarity.py`<br>`analysis/goal6_basin_rain.py` | `data/22_goal6_network/`<br>`analysis/goal6/canonical.json` | `analysis/goal6/canonical.json` $\rightarrow$ `rainfall_stats` |
 | **สถาปัตยกรรมข้อมูลศูนย์ปฏิบัติการน้ำ (SWOC RID)** | ทุกรายงาน | `analysis/common_fetch_rid_swoc.py` | `data/23_rid_swoc/` | `docs/RID_SWOC_GUIDE.md`<br>`docs/DATA_SOURCES.md` §7 |
+| **คุณภาพน้ำและความเค็มปากแม่น้ำ (ลิ่มความเค็มสำแล)** | ทุกรายงาน | `analysis/common_fetch_water_quality.py` | `data/24_estuary_waterquality/` | `docs/ESTUARY_AND_WEATHER_GUIDE.md` §2 |
+| **ความลึกและแบบจำลองคลื่นอ่าวไทย (SWAN 31 สถานี)** | รายงาน 3, 4 | `analysis/common_fetch_gulf_marine.py` | `data/25_gulf_marine_tides/` | `docs/ESTUARY_AND_WEATHER_GUIDE.md` §3 |
+| **ฝนสถานีโทรมาตรอัตโนมัติทั่วประเทศ (4,593 จุด)** | รายงาน 1, 3 | `analysis/common_fetch_rain_stations.py` | `data/26_national_rainfall_stations/` | `docs/ESTUARY_AND_WEATHER_GUIDE.md` §4 |
+| **พยากรณ์อากาศและน้ำท่า (ECMWF & GloFAS 17 ปี)** | รายงาน 1, 2, 3 | `analysis/common_fetch_weather_forecasts.py` | `data/27_weather_flood_forecasts/` | `docs/ESTUARY_AND_WEATHER_GUIDE.md` §5 |
 | **คลองเจ้าพระยา 2: ทำไมคันคลองสูง 3.2–4.8 ม. (คลองลอย)** | รายงาน 7, 8 | `analysis/goal7_analysis.py` | `data/32_goal7_chaophraya2/`<br>`data/manual/` | `analysis/goal7/canonical.json` $\rightarrow$ `embankment` |
 | **คลองเจ้าพระยา 2: ท่อลอด/ไซฟอนตัดคลองเดิม (34 จุด)** | รายงาน 7, 8 | `analysis/goal7_eia_structs.py`<br>`analysis/goal7_analysis.py` | `data/manual/ป่าสัก-อ่าวไทย-ระยะที่2/`<br>`analysis/goal7/canonical.json` | `analysis/goal7/canonical.json` $\rightarrow$ `eia_structs` |
 | **คลองเจ้าพระยา 2: ผลกระทบต่อ อ.องครักษ์ & ผังน้ำ สทนช.** | รายงาน 7, 8 | `analysis/goal7_waterchart_overlay.py` | `data/manual/` | `analysis/goal7/canonical.json` $\rightarrow$ `waterchart` |
@@ -63,6 +67,10 @@ graph TD
 
 ### กลุ่ม ก: สคริปต์ดึงและรวบรวมข้อมูลดิบ (Data Ingestion & Extraction)
 - `common_fetch_rid_swoc.py`: ดึงประวัติเขื่อนใหญ่-กลาง 20–30 ปี และรูปตัดขวางลำน้ำจริงจาก SWOC RID
+- `common_fetch_water_quality.py`: ดึงคุณภาพน้ำและความเค็มปากแม่น้ำ 4 สาย ย้อนหลัง 9 ปี (2561–2569) และสแนปช็อต 112 สถานี
+- `common_fetch_gulf_marine.py`: ดึงแบบจำลองคลื่น SWAN และความลึกทะเลอ่าวไทย 31 สถานี
+- `common_fetch_rain_stations.py`: ดึงฝนสถานีโทรมาตรอัตโนมัติ 4,593 จุดทั่วประเทศ (5 หน่วยงาน)
+- `common_fetch_weather_forecasts.py`: ดึงพยากรณ์อากาศ ECMWF IFS 16 วัน และน้ำท่า GloFAS 16 วัน + ประวัติน้ำท่า 17 ปี (2553–2569)
 - `fetch_khundan_*.py`: ดึงข้อมูลโทรมาตรและระดับน้ำเขื่อนขุนด่านฯ ย้อนหลังหลายปี
 - `fetch_multistation_levels.py`: ดึงระดับน้ำแม่น้ำรายชั่วโมงข้ามสถานี
 - `goal6_s1_download.py`, `goal6_s1_queue.py`: ดาวน์โหลดและจัดการคิวดาวเทียม Sentinel-1 จาก CDSE
@@ -118,6 +126,7 @@ graph TD
 | [DATA_SOURCES.md](file:///e:/theera/code/flood/docs/DATA_SOURCES.md) | **บัญชีแหล่งข้อมูล**: วิธีเชื่อมต่อ API Thaiwater, CDSE Sentinel, Copernicus DEM, ข้อมูลผังน้ำ สทนช. |
 | [RID_SWOC_GUIDE.md](file:///e:/theera/code/flood/docs/RID_SWOC_GUIDE.md) | **คู่มือระบบศูนย์ปฏิบัติการน้ำอัจฉริยะ (SWOC RID)**: สถาปัตยกรรม API, พารามิเตอร์, ข้อมูลอ่างขนาดกลาง 461 แห่ง, ประวัติเขื่อน 20–30 ปี และรูปตัดขวางลำน้ำจริง |
 | [THAIWATER_API_GUIDE.md](file:///e:/theera/code/flood/docs/THAIWATER_API_GUIDE.md) | **คู่มือ API คลังข้อมูลน้ำแห่งชาติและโทรมาตรเขื่อนขุนด่านฯ**: การเรียกข้อมูลเขื่อน, โทรมาตรแม่น้ำรายชั่วโมง, ฝนรายสถานี (31 วัน), ประตูระบายน้ำ 2,315 แห่ง, โทรมาตร 15 นาที 19 สถานี |
+| [ESTUARY_AND_WEATHER_GUIDE.md](file:///e:/theera/code/flood/docs/ESTUARY_AND_WEATHER_GUIDE.md) | **คู่มือข้อมูลคุณภาพน้ำปากแม่น้ำ คลื่นอ่าวไทย ฝนโทรมาตร และการพยากรณ์น้ำท่า**: สถาปัตยกรรม API คุณภาพน้ำ 112 สถานี, ลิ่มความเค็มสำแล, คลื่น SWAN 31 สถานี, ฝนโทรมาตร 4,593 จุด, และพยากรณ์ ECMWF/GloFAS |
 | [REMOTE_SENSING_APIS.md](file:///e:/theera/code/flood/docs/REMOTE_SENSING_APIS.md) | **คู่มือ API ดาวเทียมและข้อมูลกริดระดับชาติ**: GISTDA Disaster Platform, NASA POWER ฝน 46 ปี, Copernicus CDSE Sentinel-1/2 OData และ S3 |
 | [DATA_DICTIONARY.md](file:///e:/theera/code/flood/docs/DATA_DICTIONARY.md) | **พจนานุกรมข้อมูล (เป้าหมาย 1–5)**: นิยามตัวแปร ค่าอ้างอิงความสูง (datum) ตัวเลขน้ำสูงสุด และพื้นที่น้ำท่วม |
 | [METHODS.md](file:///e:/theera/code/flood/docs/METHODS.md) | **วิธีวิทยา (เป้าหมาย 1–5)**: ชั้นหลักฐาน `[F]/[I]/[O]`, การปรับเทียบระดับน้ำ, การกำกับความถูกต้อง |

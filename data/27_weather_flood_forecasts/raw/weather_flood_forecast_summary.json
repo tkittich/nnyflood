@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "source": "Copernicus GloFAS & ECMWF IFS (via Open-Meteo API)",
+    "retrieval_datetime": "2026-10-17 12:00:00+07:00",
+    "basins_covered": 7,
+    "historical_period": "2010-01-01 ถึง 2026-10-17 (6,134 วัน)",
+    "forecast_period": "16 วันล่วงหน้า (รายชั่วโมงสำหรับอากาศ, รายวันกลุ่มสำหรับน้ำท่า)"
+  },
+  "basins": {
+    "nakhon_nayok": {
+      "name": "นครนายก",
+      "lat": 14.2,
+      "lon": 101.21
+    },
+    "bang_pakong": {
+      "name": "บางปะกง_ฉะเชิงเทรา",
+      "lat": 13.69,
+      "lon": 101.07
+    },
+    "pasak_saraburi": {
+      "name": "ป่าสัก_สระบุรี",
+      "lat": 14.53,
+      "lon": 100.91
+    },
+    "chao_phraya_ayutthaya": {
+      "name": "เจ้าพระยา_อยุธยา",
+      "lat": 14.35,
+      "lon": 100.57
+    },
+    "chao_phraya_c2": {
+      "name": "เจ้าพระยา_นครสวรรค์_C2",
+      "lat": 15.67,
+      "lon": 100.12
+    },
+    "tha_chin": {
+      "name": "ท่าจีน_สุพรรณบุรี",
+      "lat": 14.47,
+      "lon": 100.12
+    },
+    "mae_klong": {
+      "name": "แม่กลอง_กาญจนบุรี",
+      "lat": 14.02,
+      "lon": 99.53
+    }
+  }
+}

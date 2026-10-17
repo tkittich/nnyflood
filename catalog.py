@@ -42,6 +42,7 @@ PILLARS = {
             "docs/ANALYSIS_PLAN.md",
             "docs/RID_SWOC_GUIDE.md",
             "docs/THAIWATER_API_GUIDE.md",
+            "docs/ESTUARY_AND_WEATHER_GUIDE.md",
             "analysis/goal5_policy_proposals.md",
         ],
         "key_scripts": [
@@ -51,6 +52,10 @@ PILLARS = {
             "analysis/goal2_nny_medium_dams.py",
             "analysis/goal2_khundan_22y_baseline.py",
             "analysis/common_fetch_rid_swoc.py",
+            "analysis/common_fetch_water_quality.py",
+            "analysis/common_fetch_gulf_marine.py",
+            "analysis/common_fetch_rain_stations.py",
+            "analysis/common_fetch_weather_forecasts.py",
             "analysis/rid_cross_section_stage_rating.py",
         ],
         "data_dirs": [
@@ -58,6 +63,10 @@ PILLARS = {
             "data/02_thaiwater",
             "data/13_sentinel1_copernicus",
             "data/23_rid_swoc",
+            "data/24_estuary_waterquality",
+            "data/25_gulf_marine_tides",
+            "data/26_national_rainfall_stations",
+            "data/27_weather_flood_forecasts",
         ],
     },
     "2": {

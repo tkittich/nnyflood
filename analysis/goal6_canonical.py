@@ -292,6 +292,37 @@ def main() -> None:
             "astronomical_spring_range_m": [1.80, 2.25],
         }
 
+    # ---- คุณภาพน้ำและความเค็มปากแม่น้ำ (estuary salinity & drinking water defense) ----
+    out["estuary_salinity"] = {
+        "source": "ThaiWater WaterQuality API (112 สถานี)",
+        "samlae_salinity_min_gl": 0.11,
+        "samlae_salinity_max_gl": 0.21,
+        "samlae_warning_threshold_gl": 0.25,
+        "samlae_mwa_standard_gl": 0.50,
+        "phranangklao_9y_sep_avg_gl": 0.12,
+        "bangpakong_peak_salinity_gl": 6.63,
+        "bangpakong_peak_ec_us_cm": 13627.9,
+        "salinity_defense_success": True,
+    }
+
+    # ---- คลื่นลมทะเลอ่าวไทย (Gulf SWAN Marine Wave Model) ----
+    out["gulf_marine_swan"] = {
+        "source": "ThaiWater SWAN Wave Model (31 สถานี)",
+        "stations_count": 31,
+        "upper_gulf_wave_height_sig_min_m": 0.4,
+        "upper_gulf_wave_height_sig_max_m": 1.2,
+        "hydraulic_damming_observed": True,
+    }
+
+    # ---- สถิติน้ำท่าจำลอง 17 ปี GloFAS (2553–2569) ----
+    out["glofas_streamflow"] = {
+        "source": "Copernicus GloFAS River Discharge (17 ปี 2553–2569)",
+        "nakhonnayok_peak_q_m3s": 13.0,
+        "nakhonnayok_peak_date": "2026-09-29",
+        "bangpakong_peak_q_m3s": 4101.0,
+        "continuous_days_count": 6134,
+    }
+
     # ---- GISTDA Disaster Platform (สะสม 30 วัน + สถิติความถี่ 14 ปี) ----
     gistda_summary_file = ROOT / "data/12_gistda_flood/raw/summary_30days.json"
     if gistda_summary_file.exists():
@@ -325,6 +356,9 @@ def main() -> None:
         "s1_rule": "ตรวจกฎตัดน้ำ: F1 + ช่วง 95% (bootstrap แปลง 6 กม.) · ฉากควบคุมก่อนท่วม · สัดส่วน 'น้ำใหม่' ที่ฉากอ้างอิงมืดอยู่แล้ว (VH≤−20) · พื้นที่เมื่อเลื่อนเกณฑ์ VH ±2 dB",
         "c2_scenario": "เพดานการลดพีค C.2 จากปล่อยล่วงหน้า = ปล่อยจริงของสองเขื่อนวันพีค × ความชันสมการระดับ↔ปริมาตร (ถ้าไม่ปล่อยเลยวันพีค) · สถานการณ์ 40–100 ลลบ.ม./วัน เดิมถูกถอน (เกินเพดาน)",
         "estuary_tide": "ระดับน้ำปากแม่น้ำสูงสุด (ม.รทก.) ช่วงน้ำเกิด 26–28 ก.ย. 2569 พร้อมจำนวนประตูระบายน้ำปากอ่าวและช่วงน้ำเกิดปกติ 14 ปี (2012–2025)",
+        "estuary_salinity": "ความเค็ม (กรัม/ลิตร) และการนำไฟฟ้า (µS/cm) ที่สถานีสำแล พระนั่งเกล้า และบางปะกง ช่วงน้ำหลาก 2569 และเส้นฐาน 9 ปี",
+        "gulf_marine_swan": "แบบจำลองคลื่น SWAN 31 สถานี ความสูงคลื่นนัยสำคัญ (เมตร) บริเวณอ่าวไทยตอนบนที่ต้านการระบายน้ำหลาก",
+        "glofas_streamflow": "อัตราการไหลของน้ำท่าจำลองรายวัน (ลบ.ม./วินาที) ต่อเนื่อง 17 ปี (2553–2569 รวม 6,134 วัน) จาก Copernicus GloFAS",
     }
     out["retired"] = {
         "note": "ตัวเลขเก่าที่ถูกแทน — ห้ามปรากฏในรายงาน/HANDOFF/GOAL6_PLAN/START_HERE (เทสตกถ้าเจอ)",

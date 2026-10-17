@@ -31,6 +31,14 @@ A = ROOT / "analysis"
 OUT = ROOT / "report" / "assets"
 OUT.mkdir(exist_ok=True)
 
+# rating curve + datum: ใช้ค่าชุดเดียวกับทั้งโครงการ (analysis/common.py) ห้ามพิมพ์ซ้ำที่นี่
+# — ชั้นภาพเคยคำนวณ rating/datum เองด้วย literal ทำให้ภาพที่เผยแพร่แยกจาก canonical ได้เงียบ ๆ
+import sys
+sys.path.insert(0, str(A))
+from common import GAUGE_OFFSET, RATING_A, RATING_B, RATING_C, BANKFULL_MSL  # noqa: E402
+
+BANKFULL_GAUGE = round(BANKFULL_MSL + GAUGE_OFFSET, 2)  # ระดับล้นตลิ่งในหน่วยเกจ (8.45 ม.)
+
 BLUE, RED, ORANGE, GREEN, GRAY = "#1565c0", "#c62828", "#ef6c00", "#2e7d32", "#546e7a"
 
 # ---------- C1 rain ----------
@@ -61,21 +69,21 @@ dam = {r["date"]: r for r in csv.DictReader(open(A / "dam_khun_dan_daily_2013_20
 rel_daily = {"2026-09-24": 1.50, "2026-09-25": 2.21, "2026-09-26": 4.61, "2026-09-27": 31.66,
              "2026-09-28": 19.43, "2026-09-29": 13.41, "2026-09-30": 5.48, "2026-10-01": 1.27, "2026-10-02": 6.38}
 def q_of(g):
-    h = g - 1.59
-    return 242 * (h - 4.55) ** 0.66 if h > 4.55 else 0.0
+    h = g - GAUGE_OFFSET
+    return RATING_A * (h - RATING_B) ** RATING_C if h > RATING_B else 0.0
 def stage_of(Q):
     if Q <= 62:
         return 6.14 + Q / 62 * 0.2
-    return 4.55 + (Q / 242) ** (1 / 0.66) + 1.59
-QBANK = q_of(8.45)
+    return RATING_B + (Q / RATING_A) ** (1 / RATING_C) + GAUGE_OFFSET
+QBANK = q_of(BANKFULL_GAUGE)
 
 # ---------- C2 level + release ----------
 fig, ax = plt.subplots(figsize=(10, 4.8), dpi=150)
 seg = [(t, g) for t, g in ny7 if datetime(2026, 9, 24) <= t <= datetime(2026, 10, 2)]
 ts = [t for t, _ in seg]; gs = [g for _, g in seg]
 ax.plot(ts, gs, color=BLUE, lw=2, label="ระดับน้ำแม่น้ำที่ตัวเมือง (สถานี Ny.7)")
-ax.axhline(8.45, color=RED, ls="--", lw=1.4)
-ax.text(datetime(2026, 9, 24, 2), 8.5, "ระดับล้นตลิ่ง ~8.45 ม. (น้ำเริ่มท่วมบ้านเรือน)", color=RED, fontsize=9, fontweight="bold")
+ax.axhline(BANKFULL_GAUGE, color=RED, ls="--", lw=1.4)
+ax.text(datetime(2026, 9, 24, 2), 8.5, f"ระดับล้นตลิ่ง ~{BANKFULL_GAUGE:g} ม. (น้ำเริ่มท่วมบ้านเรือน)", color=RED, fontsize=9, fontweight="bold")
 rel_ts = list(rel_daily.keys()); rel_vs = [v * 11.574 for v in rel_daily.values()]
 ax2 = ax.twinx()
 ax2.step([datetime.strptime(d, "%Y-%m-%d") + timedelta(hours=12) for d in rel_ts], rel_vs, where="post", color=ORANGE, lw=2)
@@ -153,8 +161,8 @@ ax.plot([t for t, _ in s1], [g for _, g in s1], color=ORANGE, lw=1.8, ls="--",
         label="ทำตาม URC + กะปล่อย ≤140 ม³/วิ ตั้งแต่ 27 ก.ย. (ล้นตลิ่งเหลือ 12 ชม.)")
 ax.plot([t for t, _ in s2], [g for _, g in s2], color=GREEN, lw=1.8, ls="-.",
         label="URC + กักน้ำไว้ช่วงน้ำสูงสุด (น้ำสูงสุด 8.75 ม. · เหลือ 8 ชม.)")
-ax.fill_between(ts, 8.45, gs, where=np.array(gs) > 8.45, color=RED, alpha=0.14)
-ax.axhline(8.45, color=RED, ls=":", lw=1.2)
+ax.fill_between(ts, BANKFULL_GAUGE, gs, where=np.array(gs) > BANKFULL_GAUGE, color=RED, alpha=0.14)
+ax.axhline(BANKFULL_GAUGE, color=RED, ls=":", lw=1.2)
 ax.text(datetime(2026, 9, 25), 8.5, "ระดับล้นตลิ่ง", color=RED, fontsize=9)
 ax.set_ylabel("ระดับน้ำ (ม. เกจ)")
 ax.xaxis.set_major_formatter(THAI_DAY_FMT)

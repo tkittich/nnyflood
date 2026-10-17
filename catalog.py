@@ -6,6 +6,7 @@
     python catalog.py find <คำค้น>         # ค้นหาคำสำคัญในตัวเลข canonical, สเปก, และชื่อไฟล์
     python catalog.py goal <1..7>         # ดูไฟล์ที่เกี่ยวข้องกับเป้าหมายที่ระบุ
     python catalog.py check               # ตรวจสอบว่าไฟล์และโฟลเดอร์ทั้งหมดในสารบัญมีอยู่จริง
+    python catalog.py audit               # ตรวจย้อนกลับ: เอกสารบนดิสก์ที่ยังไม่ลงทะเบียน (กัน N-04)
 """
 from __future__ import annotations
 
@@ -209,7 +210,7 @@ def cmd_overview():
         print(f"   [{exists}] {doc:<32} : {desc}")
 
     print("\n🧪 สถานะการทดสอบระบบ:")
-    print("   • คำสั่งรันเทสต์ครบชุด: python -m pytest tests/ (114 ผ่าน)")
+    print("   • คำสั่งรันเทสต์ครบชุด: python -m pytest tests/ (จำนวนที่ผ่านแสดงท้ายการรัน — ไม่ hardcode ที่นี่)")
     print("   • คำสั่งตรวจข้อมูลดิบ : python analysis/verify_data_integrity.py --quick")
     print("=" * 76)
 

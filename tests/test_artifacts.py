@@ -1,6 +1,7 @@
 # ตรวจ artifact หัวใจของรายงาน — กัน "ตัวเลขในเอกสาร" กับ "ไฟล์ผลจริง" แยกจากกัน
 # (ครอบคลุมช่องที่ test_core.py ยังไม่ครอบ: สถานการณ์บริหาร · backtest หลายฤดู · สัดส่วนเขื่อน/ฝน)
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -59,6 +60,72 @@ def test_reports_contain_canonical_numbers():
         html = (ROOT / "report" / fname).read_text(encoding="utf-8")
         missing = [s for s in canon[key] if s not in html]
         assert not missing, f"{fname} ขาดตัวเลข canonical: {missing}"
-        # ชั้นกลับ: ค่า/คำที่เลิกใช้ห้ามกลับเข้ามา (GL-10 — จับ "ค่าเก่าค้างคู่ค่าใหม่")
-        present = [t for t in canon.get("forbidden", []) if t in html]
-        assert not present, f"{fname} มีค่า/คำที่เลิกใช้: {present}"
+
+
+# ---------- GL-10: ค่า/คำที่เลิกใช้ต้องไม่กลับมาบนพื้นผิวที่เผยแพร่ทุกชิ้น ----------
+_NUMERIC = re.compile(r"[\d,]+(?:\.\d+)?%?")
+
+
+def _num_pattern(token):
+    """ขอบเขตของ token ที่เป็นตัวเลขล้วน — กัน 62.2 ไปจับใน 162.2
+
+    lookbehind กันการเป็นส่วนท้ายของเลขอื่น (162.2, 11,050) · lookahead กันการเป็น
+    ส่วนต้นของทศนิยมอื่น (62.25) แต่ปล่อยให้มีเครื่องหมายวรรคตอนต่อท้ายได้ (1,050,)
+    token ที่ลงท้ายด้วย % ไม่ต้องมี lookahead เพราะ % ทำหน้าที่ปิดตัวเลขเอง
+    """
+    post = r"(?!\d)" if token[-1].isdigit() else ""
+    return r"(?<![\d.,])" + re.escape(token) + post
+
+
+def _hits(tokens, html):
+    out = []
+    for t in tokens:
+        if _NUMERIC.fullmatch(t):
+            if re.search(_num_pattern(t), html):
+                out.append(t)
+        elif t in html:
+            out.append(t)
+    return out
+
+
+def test_no_retired_values_in_published_surfaces():
+    """ค่า/คำที่เลิกใช้ (canonical_numbers.json:forbidden) ห้ามปรากฏใน HTML ที่เผยแพร่ทุกไฟล์
+
+    ประวัติ: เวอร์ชันก่อนหน้าอ่าน `_load(...)["checks"].get("forbidden")` ซึ่งคืน [] เสมอ
+    → การตรวจนี้ไม่เคยทำงานเลย (42 รายการ ไม่ถูกตรวจสักครั้ง) และไม่เคยครอบ Goal 6/7
+    ตอนนี้ตรวจทั้ง 6 ไฟล์ โดยมีข้อยกเว้นที่ต้องระบุเหตุผล (forbidden_exceptions)
+    """
+    canon = _load("analysis/canonical_numbers.json")
+    forbidden = canon["forbidden"]
+    exceptions = canon.get("forbidden_exceptions", {})
+    surfaces = sorted(p.name for p in (ROOT / "report").glob("*.html"))
+    assert len(surfaces) >= 6, f"พบ HTML ที่เผยแพร่น้อยกว่าที่ควร: {surfaces}"
+
+    offenders = {}
+    for name in surfaces:
+        allowed = exceptions.get(name, {})
+        html = (ROOT / "report" / name).read_text(encoding="utf-8")
+        hits = [t for t in _hits(forbidden, html) if t not in allowed]
+        if hits:
+            offenders[name] = hits
+    assert not offenders, f"พบค่า/คำที่เลิกใช้บนพื้นผิวที่เผยแพร่: {offenders}"
+
+
+def test_forbidden_exceptions_are_auditable():
+    """ข้อยกเว้นต้องมีเหตุผล · ต้องอ้าง token ที่อยู่ใน forbidden จริง · ต้องยังจำเป็น
+
+    กันไม่ให้ forbidden_exceptions กลายเป็นช่องเลี่ยงการแบนค่าใหม่ และกันข้อยกเว้นค้าง
+    ที่ token หายไปจากไฟล์แล้ว (จะทำให้การตรวจอ่อนลงโดยไม่มีใครรู้)
+    """
+    canon = _load("analysis/canonical_numbers.json")
+    forbidden = set(canon["forbidden"])
+    for name, mapping in canon.get("forbidden_exceptions", {}).items():
+        path = ROOT / "report" / name
+        assert path.exists(), f"ข้อยกเว้นอ้างไฟล์ที่ไม่มีอยู่: {name}"
+        html = path.read_text(encoding="utf-8")
+        for token, reason in mapping.items():
+            assert token in forbidden, f"{name}: ข้อยกเว้น {token} ไม่ได้อยู่ใน forbidden"
+            assert isinstance(reason, str) and len(reason.strip()) >= 20, \
+                f"{name}: {token} ต้องมีเหตุผลประกอบ"
+            assert token in html, \
+                f"{name}: ข้อยกเว้น {token} ค้างอยู่ (ไม่พบในไฟล์แล้ว) — ลบออกจาก canonical"

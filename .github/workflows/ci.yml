@@ -12,14 +12,25 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # production จริงคือ 3.14.5 (docs/ENVIRONMENT.md) — ผลบน 3.14 ต้องมองเห็นได้
+          # แต่ runner อาจยังไม่มี wheel ครบ (numpy/scikit-learn) จึงปล่อยแบบ non-blocking
+          # จนกว่า 3.14 จะเขียวถาวร แล้วค่อยเปลี่ยน blocking: true
+          - python-version: "3.13"
+            blocking: true    # เวอร์ชันที่ wheel ครบ — เป็นด่านบังคับ
+          - python-version: "3.14"
+            blocking: false   # เวอร์ชันที่ใช้จริง — แจ้งเตือนก่อน ไม่บล็อก
+    continue-on-error: ${{ !matrix.blocking }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"   # production ใช้ 3.14.5 (docs/ENVIRONMENT.md) — 3.13 = เวอร์ชันที่ wheel ครบบน runner
+          python-version: ${{ matrix.python-version }}
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run unified verification runner (catalog + integrity + lint + pytest)
         run: python tools/verify_all.py
-

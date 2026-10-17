@@ -9,6 +9,7 @@
 **Revision 3 (2026-10-17):** remediation round — §8 records what was fixed in code, what was disclosed rather than changed, what remains open, and one new finding (**F-23**, documentation drift) that the fixes themselves exposed.
 **Revision 4 (2026-10-17):** the three items left open in Revision 3 are closed — F-18 (metric literals now rendered from canonical, with a regression test), F-15 (the three "bankfull" numbers reconciled), F-04 (the invalid Q-based travel time removed). See §8.3.
 **Revision 5 (2026-10-17):** three structural fixes so the F-18 / N-01 / N-04 failure *mechanisms* stop recurring — a two-way token contract, a reverse catalog check, and named (non-positional) counterfactual records. No reported number changed; both report HTMLs rebuild byte-identical. See §8.6.
+**Revision 6 (2026-10-17):** the retired-value guard was found to be **vacuous** — it had never checked anything. Repairing it exposed two genuine defects in Reports 1–2, which are now fixed; the figure layer was also re-pointed at the shared constants. See §8.7.
 
 ---
 
@@ -16,7 +17,7 @@
 
 **Overall Scientific & Engineering Reliability: Medium.**
 
-The evidence discipline of this repository is genuinely unusual and it works: the canonical-mirror invariant that was broken in the previous round is now fixed and enforced, all 124 tests pass, and the two prior "duplicated source of truth" regressions are gone. What remains is not bookkeeping. It is **hydraulics and model provenance**: three of the four physical models publish headline numbers whose sign or magnitude is set by an assumption the code does not test, and one model's training-set description is contradicted by its own loader.
+The evidence discipline of this repository is genuinely unusual and it works: the canonical-mirror invariant that was broken in the previous round is now fixed and enforced, all 129 tests pass, and the two prior "duplicated source of truth" regressions are gone. What remains is not bookkeeping. It is **hydraulics and model provenance**: three of the four physical models publish headline numbers whose sign or magnitude is set by an assumption the code does not test, and one model's training-set description is contradicted by its own loader.
 
 **Key system strengths (validated, not assumed)**
 
@@ -581,3 +582,36 @@ The findings above were each fixed individually. Three of them, however, shared 
 **Guards were proven non-vacuous by mutation, not assumed.** Injecting a `__mutation_probe__` token into a builder made the contract test fail; creating `PROBE_UNREGISTERED.md` made the catalog test fail. Both probes were then removed.
 
 **Verification after this round:** `tools/verify_all.py` **4/4**, `catalog.py check` **97/97**, `catalog.py audit` **32/32** with 0 unregistered, `pytest tests/` **124 passed**. Documentation counts refreshed (`START_HERE.md` 88→97 entries and 121→124 tests; `HANDOFF.md` likewise), and the stale "121 passed" bullet in `HANDOFF.md:59` — itself an instance of the drift class this section is about — corrected.
+
+### 8.7 Revision 6 — the retired-value guard was vacuous; repairing it found two real defects
+
+**The guard never ran.** `test_reports_contain_canonical_numbers` did:
+
+```python
+canon = _load("analysis/canonical_numbers.json")["checks"]   # <- the checks dict
+present = [t for t in canon.get("forbidden", []) if t in html]  # <- always []
+```
+
+`forbidden` is a **top-level** key, so `.get("forbidden")` on the `checks` sub-dict returned an empty list. The loop iterated nothing and the assertion passed unconditionally. **42 retired-value entries had never been checked against any surface** — not two of six, zero of six. This is the most consequential finding of the whole review, and it is a defect in the *audit apparatus*, not in the analysis: the project believed it had a GL-10 guard because the test existed and passed.
+
+Three independent things had to be wrong for this to survive: the wrong lookup path, a `.get()` with a default that silently absorbs a missing key, and an assertion whose failure mode is indistinguishable from success. The fix reads the top-level key and would raise `KeyError` if it ever disappeared.
+
+**Repairing it immediately found two defects in Reports 1–2** — precisely the surfaces the guard was built to protect:
+
+1. `build_expert_report.py:294` compared the GBDT's *current* +48 h value (140.6) against the **superseded** linear value 159.5. The current canonical figure is 163.7. An old number sitting beside a new one in the same sentence is the exact pattern GL-10 was created to catch. Now rendered from `@@R:rmse48@@`.
+2. `build_expert_report.py:296` presented **108.6 cm** as the "full model" (ฉบับเต็ม). It is not: 108.6 belongs to the 12-feature diagnostic arm that predates v1's 11-feature set; the current model is 117.6 (`@@R:rmse24@@`). The sentence is rewritten to name the diagnostic run explicitly and to cite the current value.
+
+The repaired guard then caught a regression **I introduced in that very edit** — I had written "12 ตัวแปร", which is itself a retired claim (v1 uses 11 features). That is the strongest available evidence that the check is live rather than decorative.
+
+**Scope widened to all six published HTMLs**, with two mechanisms that keep it honest:
+
+- *Boundary-aware numeric matching.* Naive substring matching made `62.2` fire on `162.2` — a false positive that would have made the widened check unusable. Numeric tokens now require a non-digit, non-comma, non-dot boundary on each side; text tokens still match as substrings. Verified against nine cases including `62.2`/`162.2`, `1,050`/`11,050`, and `57%`/`26% / 57%`.
+- *Auditable exceptions.* The same numeral can be a legitimate value for a different quantity — `11.95` is also the Goal 7 project's EIRR, and `57%` is also a dam rule-curve percentile in the 2554 comparison table. A flat blacklist cannot express that. `forbidden_exceptions` maps `{surface: {token: reason}}`, and a second test enforces that every exception has a reason of real length, references a token that is genuinely in `forbidden`, and **still matches the file** (so stale exceptions that silently weaken the check fail).
+
+**The figure layer re-derived the rating curve.** `report/report_assets.py` hardcoded the datum and rating constants inline — `1.59` twice, `242`, `4.55`, `0.66`, and `QBANK = q_of(8.45)` — and `report/` never imported `analysis/common.py`, which already declares itself the single source of truth. This is F-18's class in the layer that produces *published images*, where no token mechanism reaches. It now imports `GAUGE_OFFSET / RATING_A / RATING_B / RATING_C / BANKFULL_MSL` and derives `BANKFULL_GAUGE = 6.86 + 1.59`. All regenerated PNGs are **byte-identical**, confirming the refactor was value-neutral.
+
+**Two governance fixes.** `pyproject.toml` carried `addopts = "-q"`, so a manual `-q` became `-qq` and suppressed the summary line — it hid the result twice during this review; removed. And the AGENTS.md naming rule was **amended rather than enforced**: 42 of 112 `analysis/*.py` violate it, but the violators are the load-bearing core (`common.py`, `build_canonical_numbers.py`, `hydraulic_1d_routing.py`, …), so the rule as written was contradicted by the architecture. It now recognises two categories, and `tests/test_naming_convention.py` holds an explicit grouped `CORE_MODULES` allowlist with ghost and redundancy checks, so new unclassified files fail while existing core is grandfathered deliberately. CI also gained a **non-blocking Python 3.14** entry, since production runs 3.14.5 while CI only tested 3.13.
+
+**Verification after this round:** `tools/verify_all.py` **4/4**, `catalog.py check` **97/97**, `catalog.py audit` **32/32**, `pytest tests/` **129 passed**. Guards were mutation-tested, not assumed: injecting `509.3` into the previously-uncovered Goal 7 public report failed the retired-value test; creating `analysis/probe_unclassified.py` failed the naming test. Both probes removed.
+
+**One item surfaced but not silently changed:** the ablation figures 119.1 / ~10 cm in `build_expert_report.py:296` still come from the 12-feature diagnostic run and predate the current model. They are now labelled as such, but if the claim is to be stated against v1, `goal4_feature_diagnostics.py` should be re-run on the 11-feature set. That is a model re-run with published-number consequences, so it is flagged here rather than done unilaterally.

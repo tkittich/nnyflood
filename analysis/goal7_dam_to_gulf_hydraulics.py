@@ -82,19 +82,19 @@ def build_corridor_1_khundan_to_gulf() -> dict:
 
         # จำแนกความเร็วการไหลชลศาสตร์ตามความลาดชัน
         if slope_cm_per_km > 100.0:
-            regime = "การไหลเชี่ยวกรากในเขตเชิงเขา (Rapid Torrential Flow)"
+            regime = "การไหลเชี่ยวกรากในเขตเชิงเขา"
             velocity_ms = 2.10
         elif slope_cm_per_km > 20.0:
-            regime = "การไหลอิสระตามแรงโน้มถ่วงในที่ราบดอน (Free Gravity Flow)"
+            regime = "การไหลอิสระตามแรงโน้มถ่วงในที่ราบดอน"
             velocity_ms = 1.05
         elif slope_cm_per_km > 2.0:
-            regime = "การไหลเอื่อยในที่ราบลุ่มต่ำ (Sluggish Lowland Flow)"
+            regime = "การไหลเอื่อยในที่ราบลุ่มต่ำ"
             velocity_ms = 0.42
         elif slope_cm_per_km >= 0.0:
-            regime = "การไหลหน่วงชะลอตัวใกล้จุดคอขวด (Throttled Drainage)"
+            regime = "การไหลหน่วงชะลอตัวใกล้จุดคอขวด"
             velocity_ms = 0.15
         else:
-            regime = "สภาวะปิดกั้นชลศาสตร์/ไหลย้อนกลับ (Hydraulic Lock / Backwater)"
+            regime = "สภาวะปิดกั้นชลศาสตร์หรือน้ำหนุนย้อนกลับ"
             velocity_ms = 0.03
 
         travel_hours = (dist_m / velocity_ms) / 3600.0
@@ -182,16 +182,16 @@ def build_corridor_2_pasak_to_gulf() -> dict:
         slope_cm_per_km = slope * 100000.0
 
         if slope_cm_per_km > 20.0:
-            regime = "การไหลตามแรงโน้มถ่วงในแม่น้ำธรรมชาติ (Natural River Gravity Flow)"
+            regime = "การไหลตามแรงโน้มถ่วงในแม่น้ำธรรมชาติ"
             velocity_ms = 1.15
         elif slope_cm_per_km > 5.0:
-            regime = "การไหลในคลองส่งน้ำและคลองระบาย (Regulated Canal Flow)"
+            regime = "การไหลในคลองส่งน้ำและคลองระบาย"
             velocity_ms = 0.85
         elif slope_cm_per_km > 0.0:
-            regime = "การไหลในคลองลอย/คลองระบายความลาดชันต่ำ (Engineered Low-Slope Canal)"
+            regime = "การไหลในคลองลอยและคลองระบายความลาดชันต่ำ"
             velocity_ms = 0.65
         else:
-            regime = "การสูบส่งด้วยแรงดันชลศาสตร์ (Pump-Forced Transmission)"
+            regime = "การสูบส่งด้วยแรงดันชลศาสตร์"
             velocity_ms = 0.90
 
         travel_hours = (dist_m / velocity_ms) / 3600.0
@@ -285,16 +285,16 @@ def build_corridor_3_chaophraya_to_gulf() -> dict:
         slope_cm_per_km = slope * 100000.0
 
         if slope_cm_per_km > 8.0:
-            regime = "การไหลในแม่น้ำสายใหญ่ตอนบน (Upper River Rapid Conveyance)"
+            regime = "การไหลในแม่น้ำสายใหญ่ตอนบน"
             velocity_ms = 1.25
         elif slope_cm_per_km > 3.0:
-            regime = "การไหลรวมมวลน้ำหลาก (Main-Stem Flood Conveyance)"
+            regime = "การไหลรวมมวลน้ำหลาก"
             velocity_ms = 1.10
         elif slope_cm_per_km > 1.0:
-            regime = "การไหลหน่วงในเขตชุมชนเมือง (Urban Estuary Transition)"
+            regime = "การไหลหน่วงในเขตชุมชนเมือง"
             velocity_ms = 0.70
         else:
-            regime = "การไหลสลับทิศทางตามน้ำขึ้น-น้ำลง (Tidal Reversal Flow)"
+            regime = "การไหลสลับทิศทางตามน้ำขึ้น-น้ำลง"
             velocity_ms = 0.45
 
         travel_hours = (dist_m / velocity_ms) / 3600.0
@@ -323,78 +323,78 @@ def build_corridor_3_chaophraya_to_gulf() -> dict:
 
 
 def build_accuracy_and_boundary_assessment() -> dict:
-    """การประเมินความแม่นยำและการรวมแหล่งน้ำ (Rainfall & DEM) ในการวิเคราะห์ชลศาสตร์และเวกเตอร์การไหล"""
+    """การประเมินความแม่นยำและการรวมแหล่งน้ำ (ปริมาณฝนและแบบจำลองความสูงภูมิประเทศ) ในการวิเคราะห์ชลศาสตร์และเวกเตอร์การไหล"""
     return {
-        "title": "การประเมินความแม่นยำและการรวมแหล่งน้ำ (Rainfall & DEM) ในการวิเคราะห์ชลศาสตร์และเวกเตอร์การไหล",
+        "title": "การประเมินความแม่นยำและการรวมแหล่งน้ำ (ปริมาณฝนและแบบจำลองความสูงภูมิประเทศ) ในการวิเคราะห์ชลศาสตร์และเวกเตอร์การไหล",
         "sources_included": [
             {
-                "category": "ระดับน้ำโทรมาตรจริง (Observed River Stage Telemetry)",
-                "detail": "ระดับน้ำจริงรายชั่วโมงเทียบ ม.รทก. จากสถานี HII และ กรมชลประทาน (เช่น Ny.1B, Ny.7, TNy10, BPK003, Tkg.60, BPK001, C.2, C.13, C.29A, Fort Chula)",
-                "inclusion_type": "ข้อมูลวัดจริงตรง (Empirical Direct Observation)",
+                "category": "ระดับน้ำโทรมาตรจริง",
+                "detail": "ระดับน้ำจริงรายชั่วโมงเทียบ ม.รทก. จากสถานีโทรมาตรสารสนเทศน้ำและกรมชลประทาน (เช่น <code>Ny.1B</code>, <code>Ny.7</code>, <code>TNy10</code>, <code>BPK003</code>, <code>Tkg.60</code>, <code>BPK001</code>, <code>C.2</code>, <code>C.13</code>, <code>C.29A</code>, สถานีป้อมพระจุลฯ)",
+                "inclusion_type": "ข้อมูลตรวจวัดจริงโดยตรง",
                 "confidence": "สูงมาก (>95%)",
             },
             {
-                "category": "ความลาดชันผิวน้ำชลศาสตร์ (Hydraulic Gradient)",
-                "detail": "คำนวณจากผลต่างระดับน้ำจริงเทียบระยะทางตามลำน้ำ (Δh/L) สะท้อนความดันขับเคลื่อนการไหลแท้จริง ไม่ใช่ความลาดชันเฉลี่ยของภูมิประเทศ",
-                "inclusion_type": "คำนวณจากสถานีโทรมาตร",
+                "category": "ความลาดชันผิวน้ำชลศาสตร์",
+                "detail": "คำนวณจากผลต่างระดับน้ำจริงเทียบระยะทางตามลำน้ำ สะท้อนความดันขับเคลื่อนการไหลแท้จริง ไม่ใช่ความลาดชันเฉลี่ยของภูมิประเทศ",
+                "inclusion_type": "คำนวณจากผลต่างระดับสถานี",
                 "confidence": "สูงมาก (>95%)",
             },
             {
-                "category": "ปริมาณน้ำฝนสะสมเฉพาะพื้นที่ (Local Rainfall Volume)",
+                "category": "ปริมาณน้ำฝนสะสมเฉพาะพื้นที่",
                 "detail": "คำนวณมวลน้ำฝนตกตรงลงบนพื้นที่แอ่งก้นกระทะองครักษ์ 68 มม. เหนือพื้นที่น้ำท่วมขัง 50 ตร.กม. คิดเป็นมวลน้ำฝน 3.40 ล้าน ลบ.ม.",
-                "inclusion_type": "สมดุลมวลน้ำรวมเฉพาะแอ่ง (Lumped Mass Balance)",
+                "inclusion_type": "สมดุลมวลน้ำรวมเฉพาะแอ่ง",
                 "confidence": "ปานกลาง-สูง (±15%)",
             },
             {
-                "category": "ระดับความสูงอ้างอิงและรูปตัดตามยาว (Canal Profile & Gauge Datums)",
-                "detail": "ระดับดินเดิมและระดับธรณีคลอง/คันดิน จากแบบตัดตามยาวของกรมชลประทานและหมุดระดับสถานี (องครักษ์ 1.0–2.5 ม., บางน้ำเปรี้ยว 2.5–3.0 ม.รทก.)",
+                "category": "ระดับความสูงอ้างอิงและรูปตัดตามยาว",
+                "detail": "ระดับดินเดิมและระดับธรณีคลองหรือคันดิน จากแบบตัดตามยาวของกรมชลประทานและหมุดระดับสถานี (องครักษ์ 1.0–2.5 ม., บางน้ำเปรี้ยว 2.5–3.0 ม.รทก.)",
                 "inclusion_type": "ระดับอ้างอิงหมุดสำรวจและรูปตัดคลอง",
                 "confidence": "สูง (±0.2 ม.)",
             },
             {
-                "category": "ขอบเขตน้ำทะเลหนุนปากอ่าว (Tidal Boundary Condition)",
-                "detail": "ช่วงแกว่งตัวของน้ำขึ้น-น้ำลงจริง 2.48 ม. ที่ปากแม่น้ำบางปะกง (BPK001) และป้อมพระจุลฯ อ่าวไทย",
-                "inclusion_type": "เงื่อนไขขอบเขตวัดจริง (Measured Boundary Condition)",
+                "category": "ขอบเขตน้ำทะเลหนุนปากอ่าว",
+                "detail": "ช่วงแกว่งตัวของน้ำขึ้น-น้ำลงจริง 2.48 ม. ที่ปากแม่น้ำบางปะกง (<code>BPK001</code>) และป้อมพระจุลฯ อ่าวไทย",
+                "inclusion_type": "เงื่อนไขขอบเขตวัดจริง",
                 "confidence": "สูงมาก (>95%)",
             },
         ],
         "sources_to_be_included": [
             {
-                "category": "น้ำท่ากระจายตัวตามลุ่มน้ำย่อย (Distributed Catchment Runoff & Lateral Inflow)",
-                "needed_model": "แบบจำลองฝน-น้ำท่ากระจายตัว (SCS-CN / Green-Ampt) ร่วมกับกริดฝนเรดาร์ QPE",
-                "importance": "เพื่อคำนวณมวลน้ำหลากข้างลำน้ำ (Lateral Inflow q_lat) จากแปลงนาและทุ่งเกษตรกรรมสองฝั่งคลองย่อยเข้าสู่ลำคลอง",
+                "category": "น้ำท่ากระจายตัวตามลุ่มน้ำย่อย",
+                "needed_model": "แบบจำลองฝน-น้ำท่ากระจายตัว (<code>SCS-CN</code> / <code>Green-Ampt</code>) ร่วมกับกริดฝนเรดาร์",
+                "importance": "เพื่อคำนวณมวลน้ำหลากข้างลำน้ำจากแปลงนาและทุ่งเกษตรกรรมสองฝั่งคลองย่อยเข้าสู่ลำคลอง",
             },
             {
-                "category": "แบบจำลองภูมิประเทศ 2 มิติความละเอียดสูง (2D Overland DEM Mesh Routing)",
-                "needed_model": "แบบจำลอง 2D Hydrodynamic (HEC-RAS 2D) บนกริด Copernicus DEM 30 ม. หรือ LiDAR DTM 1–5 ม.",
-                "importance": "เพื่อจำลองการบ่าล้นข้ามคันถนน (Overbank Spillage) เช่น ถนนรังสิต-นครนายก (ทล.305) ที่ทำหน้าที่เป็นคันกั้นน้ำธรรมชาติ",
+                "category": "แบบจำลองภูมิประเทศ 2 มิติความละเอียดสูง",
+                "needed_model": "แบบจำลองชลศาสตร์ 2 มิติ (<code>HEC-RAS 2D</code>) บนกริดความสูงภูมิประเทศหรือ <code>LiDAR DTM</code>",
+                "importance": "เพื่อจำลองการบ่าล้นข้ามคันถนน เช่น ถนนรังสิต–นครนายก ที่ทำหน้าที่เป็นคันกั้นน้ำธรรมชาติ",
             },
             {
-                "category": "ประวัติเปิดบาน ปตร. รายชั่วโมง และบันทึกเดินเครื่องสูบน้ำจริง (Gate & Pump Hydrographs)",
-                "needed_model": "ตารางประวัติรายชั่วโมงจากการขอข้อมูลข่าวสารราชการ (FOI-01 และ FOI-02)",
-                "importance": "ปัจจุบันระบบออนไลน์แสดงสถานะ pump_on เป็น null ทั้ง 2,315 ปตร. ทั่วประเทศ จึงต้องใช้ค่าสูบน้ำจากการจำลองสมดุลน้ำแทน",
+                "category": "ประวัติเปิดบาน ปตร. รายชั่วโมง และบันทึกเดินเครื่องสูบน้ำจริง",
+                "needed_model": "ตารางประวัติรายชั่วโมงจากการขอข้อมูลข่าวสารราชการ (<code>FOI-01</code> และ <code>FOI-02</code>)",
+                "importance": "ปัจจุบันระบบออนไลน์แสดงสถานะเครื่องสูบน้ำเป็นค่าว่างทั้ง 2,315 ปตร. ทั่วประเทศ จึงต้องใช้ค่าสูบน้ำจากการจำลองสมดุลน้ำแทน",
             },
             {
-                "category": "คลื่นน้ำขึ้น-น้ำลงแบบพลวัต (Dynamic Unsteady Tidal Wave Propagation)",
-                "needed_model": "สมการ Saint-Venant 1D/2D Unsteady Flow เชื่อมโยงปากอ่าวสู่ตอนใน",
-                "importance": "เพื่อคำนวณระยะทางและช่วงเวลาที่ยอดคลื่นหนุนย้อนกลับ (Tidal Bore / Backwater Front) ขึ้นมาถึงฉะเชิงเทรา (กม.98) และปากเกร็ด (กม.175)",
+                "category": "คลื่นน้ำขึ้น-น้ำลงแบบพลวัต",
+                "needed_model": "สมการคลื่นน้ำหลากแบบไม่คงที่ (<code>Saint-Venant 1D/2D Unsteady Flow</code>) เชื่อมโยงปากอ่าวสู่ตอนใน",
+                "importance": "เพื่อคำนวณระยะทางและช่วงเวลาที่ยอดคลื่นหนุนย้อนกลับขึ้นมาถึงฉะเชิงเทรา (กม.98) และปากเกร็ด (กม.175)",
             },
         ],
         "accuracy_summary": [
             {
-                "aspect": "ทิศทางการไหลสุทธิและสภาวะปิดกั้นชลศาสตร์ (Flow Direction & Hydraulic Lock)",
+                "aspect": "ทิศทางการไหลสุทธิและสภาวะปิดกั้นชลศาสตร์",
                 "accuracy_level": "สูงมาก (>95%)",
                 "basis": "เป็นข้อเท็จจริงเชิงประจักษ์จากความต่างระดับน้ำจริงผิวน้ำที่วัดได้ — เมื่อปลายทางบางน้ำเปรี้ยว (+2.56 ม.) สูงกว่าต้นทางองครักษ์ (+2.35 ม.) น้ำไม่สามารถไหลลงใต้ตามแรงโน้มถ่วงได้จริงตามกฎฟิสิกส์",
             },
             {
-                "aspect": "ปริมาตรสมดุลน้ำสุทธิ (Water Balance Volume ΔS = +4.09 ล้าน ลบ.ม./วัน)",
+                "aspect": "ปริมาตรสมดุลน้ำสุทธิ (สมดุลน้ำสุทธิเพิ่มขึ้น +4.09 ล้าน ลบ.ม./วัน)",
                 "accuracy_level": "ปานกลาง-สูง (±15%)",
                 "basis": "คุมด้วยอัตราการเพิ่มขึ้นของระดับน้ำท่วมขังและพื้นที่น้ำท่วมจริง สอดคล้องกับมวลน้ำปล่อยจากลำน้ำนครนายก",
             },
             {
-                "aspect": "ความเร็วชลศาสตร์และเวลาเดินทาง (Velocity & Travel Time)",
+                "aspect": "ความเร็วชลศาสตร์และเวลาเดินทาง",
                 "accuracy_level": "ระดับวิศวกรรม (±20–30%)",
-                "basis": "แปรผันตามสัมประสิทธิ์ความขรุขระแมนนิ่งจริง (n=0.035–0.050) สิ่งกีดขวางวัชพืช และการตกตะกอนในลำคลองชั้นล่าง",
+                "basis": "แปรผันตามสัมประสิทธิ์ความขรุขระแมนนิ่งจริง สิ่งกีดขวางวัชพืช และการตกตะกอนในลำคลองชั้นล่าง",
             },
         ],
     }
@@ -413,6 +413,12 @@ def run_all_corridors():
         "corridor_3_chaophraya": c3,
         "boundary_and_accuracy_assessment": acc,
     }
+
+    summary_path = ROOT / "analysis/goal7/dam_to_gulf_summary.json"
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(summary_path, "w", encoding="utf-8") as f:
+        json.dump(res, f, ensure_ascii=False, indent=1)
+    print(f"✅ บันทึกผลวิเคราะห์ลง {summary_path.name} สำเร็จ")
 
     if CANONICAL_PATH.exists():
         with open(CANONICAL_PATH, encoding="utf-8") as f:

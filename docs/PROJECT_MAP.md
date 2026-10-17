@@ -117,6 +117,8 @@ graph TD
 - `goal7_eia_structs.py`: จำแนกตารางอาคารประกอบ 99 แห่ง และไซฟอนลอดคลองเดิม 34 จุด
 - `goal7_gaps_check.py`: ตรวจสอบและรายงานสถานะทะเบียนช่องว่างข้อมูล (`gaps.json`)
 - `goal7_counterfactual_simulation.py`: จำลองสมดุลน้ำและการตัดยอดน้ำหลากกรณีมีคลองเจ้าพระยา 2 ในมหาอุทกภัย 2554 และ 2569
+- `goal7_dam_to_gulf_hydraulics.py`: วิเคราะห์ 3 ระเบียงชลศาสตร์ เวกเตอร์การไหล และเวลาเดินทางจากเขื่อนสู่ปากอ่าวไทย
+- `goal7_bangban_bangsai_comparison.py`: วิเคราะห์เปรียบเทียบเชิงวิศวกรรมและเศรษฐศาสตร์ คลองบางบาล–บางไทร สู่เจ้าพระยา 2
 
 ### กลุ่ม ฉ: ผู้สร้างตัวเลขทางการและการตรวจสอบระบบ (Canonical Builders & QA)
 - `build_canonical_numbers.py` $\rightarrow$ ผลิต `analysis/canonical_numbers.json` (เป้าหมาย 1–5)
@@ -134,6 +136,7 @@ graph TD
 | [REPORT_CONVENTIONS.md](file:///e:/theera/code/flood/docs/REPORT_CONVENTIONS.md) | **ข้อตกลงการทำรายงาน**: เอ็นจิน key+โทเคน, ชิ้นส่วนร่วม, ธีมและสี WCAG, สรีรศาสตร์สายตา (สเกลบ้าน 2 ชั้น), ป้ายหน้ารวม, ตัวตรวจภาษาไทย |
 | [LEGAL_REVIEW.md](file:///e:/theera/code/flood/docs/LEGAL_REVIEW.md) | **คู่มือกฎหมาย**: แนวปฏิบัติป้องกันการหมิ่นประมาท (เน้นวิจารณ์ระบบ ไม่วิจารณ์บุคคล) และการคุ้มครองข้อมูลส่วนบุคคล (PDPA) |
 | [DATA_SOURCES.md](file:///e:/theera/code/flood/docs/DATA_SOURCES.md) | **บัญชีแหล่งข้อมูล**: วิธีเชื่อมต่อ API Thaiwater, CDSE Sentinel, Copernicus DEM, ข้อมูลผังน้ำ สทนช. |
+| [BANGBAN_BANGSAI_COMPARISON.md](file:///e:/theera/code/flood/docs/BANGBAN_BANGSAI_COMPARISON.md) | **บทเรียนเชิงวิศวกรรมและเศรษฐศาสตร์**: การศึกษาเปรียบเทียบคลองระบายน้ำหลากบางบาล–บางไทร (อยุธยา) สู่โครงการเจ้าพระยา 2 (สาเหตุความล่าช้า งบบานปลาย และฉากทัศน์ความเสี่ยง) |
 | [RID_SWOC_GUIDE.md](file:///e:/theera/code/flood/docs/RID_SWOC_GUIDE.md) | **คู่มือระบบศูนย์ปฏิบัติการน้ำอัจฉริยะ (SWOC RID)**: สถาปัตยกรรม API, พารามิเตอร์, ข้อมูลอ่างขนาดกลาง 461 แห่ง, ประวัติเขื่อน 20–30 ปี และรูปตัดขวางลำน้ำจริง |
 | [THAIWATER_API_GUIDE.md](file:///e:/theera/code/flood/docs/THAIWATER_API_GUIDE.md) | **คู่มือ API คลังข้อมูลน้ำแห่งชาติและโทรมาตรเขื่อนขุนด่านฯ**: การเรียกข้อมูลเขื่อน, โทรมาตรแม่น้ำรายชั่วโมง, ฝนรายสถานี (31 วัน), ประตูระบายน้ำ 2,315 แห่ง, โทรมาตร 15 นาที 19 สถานี |
 | [ESTUARY_AND_WEATHER_GUIDE.md](file:///e:/theera/code/flood/docs/ESTUARY_AND_WEATHER_GUIDE.md) | **คู่มือข้อมูลคุณภาพน้ำปากแม่น้ำ คลื่นอ่าวไทย ฝนโทรมาตร และการพยากรณ์น้ำท่า**: สถาปัตยกรรม API คุณภาพน้ำ 112 สถานี, ลิ่มความเค็มสำแล, คลื่น SWAN 31 สถานี, ฝนโทรมาตร 4,593 จุด, และพยากรณ์ ECMWF/GloFAS |

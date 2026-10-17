@@ -1467,6 +1467,8 @@ def main():
         ("legal_and_nuclear_summary.json", "legal_and_nuclear_assessment"),
         ("acid_sulfate_soil_summary.json", "acid_sulfate_soil_assessment"),
         ("interbasin_transfer_summary.json", "interbasin_transfer_vectors"),
+        ("dam_to_gulf_summary.json", "dam_to_gulf_corridors"),
+        ("bangban_bangsai_comparison.json", "bangban_bangsai_case"),
     ]:
         fpath = OUT / fname
         if fpath.exists():

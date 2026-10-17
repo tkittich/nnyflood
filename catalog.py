@@ -138,6 +138,7 @@ PILLARS = {
         "docs": [
             "docs/GOAL7_PLAN.md",
             "docs/GOAL7_FOI_REQUESTS.md",
+            "docs/BANGBAN_BANGSAI_COMPARISON.md",
         ],
         "key_scripts": [
             "report/goal7_build_all.py",
@@ -146,6 +147,8 @@ PILLARS = {
             "analysis/goal7_waterchart_overlay.py",
             "analysis/goal7_gaps_check.py",
             "analysis/goal7_counterfactual_simulation.py",
+            "analysis/goal7_dam_to_gulf_hydraulics.py",
+            "analysis/goal7_bangban_bangsai_comparison.py",
         ],
         "data_dirs": [
             "data/32_goal7_chaophraya2",

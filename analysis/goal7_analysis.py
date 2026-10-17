@@ -1469,6 +1469,7 @@ def main():
         ("interbasin_transfer_summary.json", "interbasin_transfer_vectors"),
         ("dam_to_gulf_summary.json", "dam_to_gulf_corridors"),
         ("bangban_bangsai_comparison.json", "bangban_bangsai_case"),
+        ("operational_economics_summary.json", "operational_economics"),
     ]:
         fpath = OUT / fname
         if fpath.exists():

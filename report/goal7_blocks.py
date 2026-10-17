@@ -398,5 +398,95 @@ def tbl_bangban_bangsai_scenarios() -> str:
     return table(["ฉากทัศน์การประเมิน", "ระยะเวลาก่อสร้าง (ปีแล้วเสร็จ)", "งบประมาณรวม", "ส่วนต่างงบประมาณที่เพิ่มขึ้น", "ต้นทุนเฉลี่ยต่อ กม.", "เงื่อนไขและข้อสมมติ"], rows, cap)
 
 
+# ---------- หน้าต่างการใช้งานจริง เศรษฐศาสตร์ และคอขวดอาคารตัดขวาง (operational_economics) ----------
+def tbl_s26_operational_economics() -> str:
+    OE = C.get("operational_economics", {})
+    if not OE:
+        return ""
+    prof = OE["s26_operational_profile"]
+    rows = [
+        ["ปริมาณน้ำท่ารายปีต่ำสุด (ปีน้ำแล้ง)", f"{prof['annual_min_mcm']:,.0f} ล้าน ลบ.ม.", f"{prof['days_dry_year']} วัน", "เปิดผันน้ำได้น้อยมาก"],
+        ["ปริมาณน้ำท่าเฉลี่ยช่วงน้ำหลาก (ส.ค.–พ.ย.)", f"{prof['flood_season_mean_mcm']:,.0f} ล้าน ลบ.ม.", f"{prof['days_average_year']} วัน", f"เฉลี่ยคิดเป็นร้อยละ {prof['annual_utilization_avg_pct']}% ของทั้งปี"],
+        ["ปริมาณน้ำท่ารายปีสูงสุด (มหาอุทกภัย 2554)", f"{prof['annual_max_mcm']:,.0f} ล้าน ลบ.ม.", f"{prof['days_extreme_flood_year']} วัน", "ผันน้ำต่อเนื่องเต็มอัตราออกแบบ"],
+    ]
+    cap = (
+        f"สถิติน้ำท่าสถานี {prof['station_code']} ({prof['station_name']}) รอบ 39 ปี (พ.ศ. {prof['record_years']}) "
+        f"เทียบกับขีดความสามารถการผันน้ำ 600 ลบ.ม./วินาที ({prof['canal_capacity_mcm_per_day']} ล้าน ลบ.ม./วัน) · "
+        f"{prof['summary_th']}"
+    )
+    return table(["สถานการณ์น้ำท่า (ท้ายเขื่อนพระรามหก)", "ปริมาณน้ำท่า", "จำนวนวันผันน้ำเต็มกำลังเทียบเท่า", "ลักษณะการใช้งานจริง"], rows, cap)
+
+
+def tbl_lifecycle_economics() -> str:
+    OE = C.get("operational_economics", {})
+    if not OE:
+        return ""
+    le = OE["lifecycle_economics"]
+    rows_disc = []
+    for s in le["discount_scenarios"]:
+        rows_disc.append([
+            f"คิดลด {s['discount_rate_pct']:.0f}%",
+            f"{s['crf']:.6f}",
+            f"{s['annualized_capital_mb']:,.1f} ล้านบาท/ปี",
+            f"{s['total_annual_cost_mb']:,.1f} ล้านบาท/ปี",
+            f"{s['cost_per_m3_diverted_baht']:.2f} บาท/ลบ.ม.",
+        ])
+    t1 = table(["อัตราคิดลด", "สัมประสิทธิ์คืนทุน", "ภาระเงินลงทุนรายปี (30 ปี)", "ภาระค่าใช้จ่ายรวมรายปี (รวมค่าบำรุงรักษา)", "ต้นทุนต่อน้ำผันจริง"],
+               rows_disc, f"การคำนวณต้นทุนวงจรชีวิตโครงการ วงเงินลงทุน {le['capex_mb']:,.0f} ล้านบาท ค่าบำรุงรักษา {le['opex_annual_mb']:,.0f} ล้านบาท/ปี ผันน้ำเฉลี่ย {le['annual_diverted_mcm']:,.0f} ล้าน ลบ.ม./ปี")
+
+    rows_alt = []
+    for a in le["alternatives_benchmark"]:
+        rows_alt.append([
+            a["measure"],
+            a["cost_per_m3_baht"],
+            a["type"],
+            a["risk_profile"],
+        ])
+    t2 = table(["มาตรการบริหารจัดการน้ำหลาก", "ต้นทุนต่อ ลบ.ม. น้ำ", "รูปแบบวิศวกรรม", "ลักษณะความเสี่ยงและการบริหาร"], rows_alt, "การเปรียบเทียบต้นทุนต่อหน่วยน้ำผัน/หน่วงหลาก ระหว่างคลองเจ้าพระยา 2 กับมาตรการทางเลือก")
+    return t1 + "\n\n" + t2
+
+
+def tbl_eia_rejection_history() -> str:
+    OE = C.get("operational_economics", {})
+    if not OE:
+        return ""
+    rounds = OE.get("eia_rejection_history", [])
+    rows = []
+    for r in rounds:
+        objs = " • ".join(f"<b>{o['section']}</b>: {o['issue']} ({o['detail']})" for o in r["key_objections"])
+        rows.append([
+            f"รอบที่ {r['round_no']} ({r['submission_date']})",
+            f"{r['resolution_date']}<br>{r['official_letter']}",
+            r["resolution"],
+            objs,
+            r["outcome_th"],
+        ])
+    cap = "ประวัติการพิจารณารายงานผลกระทบสิ่งแวดล้อม (<code>EIA</code>) และมติคณะกรรมการผู้ชำนาญการฯ (คชก.) สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.) ทั้ง 3 รอบ"
+    return table(["รอบการยื่นรายงาน", "วันที่มีมติและหนังสือแจ้ง", "มติ คชก.", "ข้อท้วงติงสำคัญและข้อสั่งการ", "ผลลัพธ์และการปรับปรุง"], rows, cap)
+
+
+def tbl_cross_drainage_bottlenecks() -> str:
+    OE = C.get("operational_economics", {})
+    if not OE:
+        return ""
+    cd = OE.get("cross_drainage_bottlenecks", {})
+    rows = []
+    for b in cd.get("critical_bottleneck_canals", []):
+        rows.append([
+            b["canal_name"],
+            f"กม. {b['km']:.1f}",
+            b["province"],
+            b["type"],
+            b["risk"],
+        ])
+    cap = (
+        f"คลังข้อมูลอาคารตัดขวางคลองระบายน้ำหลากเจ้าพระยา 2 รวม {cd['total_crossing_structures']} แห่ง "
+        f"(ท่อลอด/ไซฟอนหลัก {cd['eia_primary_siphons_and_culverts']} แห่ง สะพานรถยนต์ {cd['road_bridges']} แห่ง ประตูเรือ {cd['navigation_locks']} แห่ง) "
+        f"และจุดคอขวดเสี่ยงน้ำท่วมขังข้างแนวคลอง · {cd['siphon_siltation_risk_assessment']}"
+    )
+    return table(["ลำคลองที่ถูกตัดขวาง", "หลัก กม.", "จังหวัด", "ประเภทอาคารเชื่อมต่อ", "ความเสี่ยงชลศาสตร์และตะกอนทับถม"], rows, cap)
+
+
+
 
 

@@ -80,6 +80,8 @@ def index_all(verbose: bool = True) -> int:
         ROOT / "analysis/goal7/canonical.json",
         ROOT / "analysis/goal7/gaps.json",
         ROOT / "analysis/goal7/ocr_findings.json",
+        ROOT / "analysis/goal7/dam_to_gulf_summary.json",
+        ROOT / "analysis/goal7/bangban_bangsai_comparison.json",
     ]:
         if not p.exists():
             continue
@@ -118,8 +120,36 @@ def index_all(verbose: bool = True) -> int:
     return indexed_count
 
 
+def is_stale(db_path: Path = DB_PATH) -> bool:
+    """ตรวจสอบว่ามีเอกสารใหม่หรือไฟล์วิเคราะห์แก้ไขหลังจากทำดัชนีครั้งล่าสุดหรือไม่"""
+    if not db_path.exists():
+        return True
+    db_mtime = db_path.stat().st_mtime
+    # 1. ตรวจสอบไฟล์ Markdown เอกสารและข้อกำหนด
+    for md in list(ROOT.glob("*.md")) + list(ROOT.glob("docs/**/*.md")):
+        if ".git" in str(md) or "node_modules" in str(md):
+            continue
+        try:
+            if md.stat().st_mtime > db_mtime:
+                return True
+        except Exception:
+            pass
+    # 2. ตรวจสอบไฟล์การวิเคราะห์หลัก
+    for p in [
+        ROOT / "analysis/canonical_numbers.json",
+        ROOT / "analysis/goal6/canonical.json",
+        ROOT / "analysis/goal7/canonical.json",
+        ROOT / "analysis/goal7/gaps.json",
+        ROOT / "analysis/goal7/dam_to_gulf_summary.json",
+        ROOT / "analysis/goal7/bangban_bangsai_comparison.json",
+    ]:
+        if p.exists() and p.stat().st_mtime > db_mtime:
+            return True
+    return False
+
+
 def search(query: str, limit: int = 10) -> list[dict]:
-    if not DB_PATH.exists():
+    if not DB_PATH.exists() or is_stale():
         index_all(verbose=False)
 
     conn = get_db()

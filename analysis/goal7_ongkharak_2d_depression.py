@@ -31,7 +31,7 @@ def analyze_depression():
     mask_ong = np.load(MASK_ONG_PATH)
 
     ong_dem = dem[mask_ong]
-    ong_valid = ong_dem[~np.isnan(ong_dem)]
+    ong_valid = ong_dem[~np.isnan(ong_dem) & (ong_dem >= 0.0)]
     total_area_km2 = float(len(ong_valid) * (30.0 * 30.0) / 1e6)
 
     # กวาดหาระดับน้ำตั้งแต่ +1.0 ถึง +4.5 ม.รทก. ขั้นละ 0.1 ม.
@@ -65,7 +65,7 @@ def analyze_depression():
 
     # สกัดจุดสำคัญทางชลศาสตร์
     # 1. ระดับน้ำสังเกตการณ์จริง ณ 17 ต.ค. 2569 (TNy10 = +2.35 ม.รทก.)
-    stage_obs = next(c for c in curve if abs(c["stage_msl_m"] - 2.35) < 0.05)
+    stage_obs = next(c for c in curve if abs(c["stage_msl_m"] - 2.35) < 0.06)
     # 2. จุดเริ่มล้นตลิ่งชุมชนริมคลอง (+2.50 ม.รทก.)
     stage_bankfull = next(c for c in curve if abs(c["stage_msl_m"] - 2.50) < 0.05)
     # 3. จุดเริ่มบ่าล้นคันทางหลวง 305 (+3.20 ม.รทก.)
@@ -87,21 +87,21 @@ def analyze_depression():
                 "area_km2": stage_obs["inundated_area_km2"],
                 "volume_mcm": stage_obs["storage_volume_mcm"],
                 "mean_depth_m": stage_obs["mean_depth_m"],
-                "description": "ระดับน้ำจริงในคลองแม่น้ำใน (TNy10): น้ำท่วมขังในแอ่งลุ่มต่ำราว 41.5 ตร.กม. ปริมาตรน้ำค้างทุ่ง ~17.8 ล้าน ลบ.ม.",
+                "description": f"ระดับน้ำจริงในคลองแม่น้ำใน (TNy10): น้ำท่วมขังในแอ่งลุ่มต่ำราว {stage_obs['inundated_area_km2']:.1f} ตร.กม. ปริมาตรน้ำค้างทุ่ง ~{stage_obs['storage_volume_mcm']:.1f} ล้าน ลบ.ม.",
             },
             "bankfull_threshold": {
                 "stage_msl_m": stage_bankfull["stage_msl_m"],
                 "area_km2": stage_bankfull["inundated_area_km2"],
                 "volume_mcm": stage_bankfull["storage_volume_mcm"],
                 "mean_depth_m": stage_bankfull["mean_depth_m"],
-                "description": "ระดับน้ำล้นตลิ่งลำคลองธรรมชาติ: น้ำเริ่มแผ่กว้างเข้าสู่ทุ่งนา 56.2 ตร.กม. ปริมาตรน้ำ 23.3 ล้าน ลบ.ม.",
+                "description": f"ระดับน้ำล้นตลิ่งลำคลองธรรมชาติ: น้ำเริ่มแผ่กว้างเข้าสู่ทุ่งนา {stage_bankfull['inundated_area_km2']:.1f} ตร.กม. ปริมาตรน้ำ ~{stage_bankfull['storage_volume_mcm']:.1f} ล้าน ลบ.ม.",
             },
             "route305_overtopping": {
                 "stage_msl_m": stage_spill_route305["stage_msl_m"],
                 "area_km2": stage_spill_route305["inundated_area_km2"],
                 "volume_mcm": stage_spill_route305["storage_volume_mcm"],
                 "mean_depth_m": stage_spill_route305["mean_depth_m"],
-                "description": "ระดับวิกฤตล้นข้ามคันถนนรังสิต–นครนายก (ทล.305): น้ำท่วมครอบคลุมกว่า 250 ตร.กม. (>48% ของทั้งอำเภอ) ปริมาตรน้ำสะสมเกิน 125 ล้าน ลบ.ม. และจะบ่าข้ามถนนเข้าสู่โครงข่ายคลองรังสิตโดยตรง",
+                "description": f"ระดับสมมติฐานล้นข้ามคันถนนรังสิต–นครนายก (ทล.305): น้ำท่วมครอบคลุมราว {stage_spill_route305['inundated_area_km2']:.1f} ตร.กม. ({stage_spill_route305['inundated_share_pct']:.1f}% ของอำเภอ) ปริมาตรน้ำสะสม ~{stage_spill_route305['storage_volume_mcm']:.1f} ล้าน ลบ.ม. ตามแบบจำลองสมมติฐาน",
             },
         },
         "hypsometric_curve": curve,

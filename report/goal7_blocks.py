@@ -455,9 +455,9 @@ def tbl_eia_rejection_history() -> str:
     for r in rounds:
         objs = " • ".join(f"<b>{o['section']}</b>: {o['issue']} ({o['detail']})" for o in r["key_objections"])
         detail_fold = (
-            f"<details style='margin-top:4px'><summary style='cursor:pointer;color:#0284c7;font-size:0.85em'>📄 ข้อความจากหนังสือราชการจริง</summary>"
+            f"<details style='margin-top:4px'><summary style='cursor:pointer;color:#0284c7;font-size:0.85em'>📄 สรุปสาระสำคัญตามหนังสือราชการ</summary>"
             f"<div style='font-size:0.82em;background:#f8fafc;padding:6px 10px;border-left:3px solid #0284c7;margin-top:4px'>"
-            f"มติ คชก. ด้านพัฒนาแหล่งน้ำ: มีมติให้กรมชลประทานจัดทำรายงานใหม่ให้ครบถ้วนตามประเด็นที่กำหนด (หนังสือทางการ: {r['official_letter']})"
+            f"มติ คณะกรรมการผู้ชำนาญการฯ (คชก.): มีมติให้กรมชลประทานจัดทำรายงานใหม่ให้ครบถ้วนตามประเด็นที่กำหนด (หนังสือทางการ: {r['official_letter']})"
             f"</div></details>"
         )
         rows.append([
@@ -509,7 +509,10 @@ def tbl_ongkharak_2d_hypsometric() -> str:
             elif stg == 2.5:
                 desc = "<b>เกณฑ์น้ำล้นตลิ่งลำคลองธรรมชาติ</b>: น้ำเริ่มแผ่กว้างเข้าสู่พื้นที่เกษตรกรรม"
             elif stg == 3.2:
-                desc = "🚨 <b>จุดเปลี่ยนวิกฤต (<code>Tipping Point</code>) — คันทางหลวง 305 ถูกน้ำบ่าข้าม</b>: ปริมาตรน้ำสะสมเกิน 126 ล้าน ลบ.ม. น้ำบ่าข้ามถนนรังสิต–นครนายก สู่โครงข่ายคลองรังสิตโดยตรง"
+                desc = (
+                    f"<b>ระดับมัธยฐานภูมิประเทศ (+3.20 ม.รทก.)</b>: ปริมาตรน้ำสะสม ~{pt['storage_volume_mcm']:.1f} ล้าน ลบ.ม. "
+                    "เป็นระดับสมมติฐานการบ่าข้ามคันทางหลวง 305 สู่โครงข่ายคลองรังสิต (รอผลสำรวจระดับสันทางจริงจากกรมทางหลวง)"
+                )
             elif stg >= 4.0:
                 desc = "สภาวะน้ำท่วมเต็มพื้นที่ราบทั้งอำเภอองครักษ์"
             rows.append([
@@ -522,8 +525,9 @@ def tbl_ongkharak_2d_hypsometric() -> str:
             ])
     cap = (
         f"เส้นความสัมพันธ์ระดับ–พื้นที่–ปริมาตร 2 มิติ (<code>2D Hypsometric</code>) ของแอ่งก้นกระทะ อ.องครักษ์ "
-        f"(พื้นที่รวม {dep.get('total_area_km2', 513.1):.1f} ตร.กม. มัธยฐานความสูง {dep.get('elevation_stats_m', {}).get('median', 3.19):.2f} ม.รทก.) "
-        f"วิเคราะห์จากแบบจำลองระดับความสูงภูมิประเทศ 1 ม. (<code>LiDAR</code> ผสาน <code>FABDEM</code> และ <code>Copernicus</code> 30 ม.) — ชี้ชัดจุดเปลี่ยนวิกฤตที่ระดับ +3.20 ม.รทก."
+        f"(พื้นที่รวม {dep.get('total_area_km2', 512.4):.1f} ตร.กม. มัธยฐานความสูง {dep.get('elevation_stats_m', {}).get('median', 3.20):.2f} ม.รทก.) "
+        f"วิเคราะห์จากแบบจำลองระดับความสูงภูมิประเทศ 30 ม. (<code>Copernicus DEM 30m</code> ความคลาดเคลื่อนทางดิ่ง ±2–4 ม. · ยังไม่มีข้อมูลสำรวจความละเอียดสูง 1 ม.) — "
+        f"ระดับ +3.20 ม.รทก. คือระดับมัธยฐานพื้นที่ตามแบบจำลองสมมติฐาน"
     )
     return table(["ระดับผิวน้ำ", "พื้นที่น้ำท่วม (ตร.กม.)", "สัดส่วนพื้นที่อำเภอ (%)", "ปริมาตรน้ำสะสม (ล้าน ลบ.ม.)", "ความลึกเฉลี่ย (ม.)", "นัยสำคัญทางชลศาสตร์และการบ่าข้าม"], rows, cap)
 

@@ -40,7 +40,8 @@ def build_operational_economics_data() -> dict:
 
     # คำนวณวันเปิดผันน้ำเต็มกำลังเทียบเท่า (Equivalent Full-Capacity Operational Days)
     days_dry = round(s26_stats["annual_min_mcm"] / cap_day, 1)  # 8.7 วัน
-    days_avg = round(s26_stats["flood_season_mean_mcm"] / cap_day, 1)  # 38.3 วัน
+    days_avg = round(s26_stats["flood_season_mean_mcm"] / cap_day, 1)  # 38.3 วัน (ฤดูน้ำหลาก ส.ค.–พ.ย.)
+    days_annual_avg = round(s26_stats["annual_mean_mcm"] / cap_day, 1)  # 52.5 วัน (ทั้งปี)
     days_flood = round(min(s26_stats["annual_max_mcm"] / cap_day, 80.0), 1)  # สูงสุด ~60–80 วัน
     utilization_avg_pct = round(days_avg / 365.0 * 100, 2)  # 10.49%
 
@@ -48,10 +49,15 @@ def build_operational_economics_data() -> dict:
         **s26_stats,
         "days_dry_year": days_dry,
         "days_average_year": days_avg,
+        "days_annual_mean_equivalent": days_annual_avg,
         "days_extreme_flood_year": days_flood,
         "annual_utilization_avg_pct": utilization_avg_pct,
         "idle_months_per_year": round((365.0 - days_avg) / 30.4, 1),  # ~10.8 เดือน
-        "summary_th": f"ในรอบ 39 ปี คลองเจ้าพระยา 2 จะเปิดผันน้ำหลากเต็มกำลังได้เฉลี่ยเทียบเท่าเพียง {days_avg} วันต่อปี (คิดเป็นร้อยละ {utilization_avg_pct} ของทั้งปี) ส่วนอีกกว่า 10 เดือนจะอยู่ในสถานะกักน้ำนิ่งหรือไม่มีน้ำหลากให้ผัน",
+        "summary_th": (
+            f"ในรอบ 39 ปี คลองเจ้าพระยา 2 จะเปิดผันน้ำหลากช่วงฤดูน้ำหลาก (ส.ค.–พ.ย. เฉลี่ย 1,988 ล้าน ลบ.ม.) เต็มกำลังได้เฉลี่ยเทียบเท่าเพียง {days_avg} วันต่อปี "
+            f"(หรือหากคิดเทียบจากปริมาณน้ำท่ารวมทั้งปี 2,720 ล้าน ลบ.ม. จะเทียบเท่า {days_annual_avg} วันต่อปี คิดเป็นร้อยละ {utilization_avg_pct} ของทั้งปี) "
+            "ส่วนช่วงนอกฤดูน้ำหลากกว่า 10 เดือนจะอยู่ในสถานะกักน้ำนิ่งหรือไม่มีน้ำหลากให้ผัน"
+        ),
     }
 
     # 2. เศรษฐศาสตร์วงจรชีวิตและต้นทุนต่อหน่วยน้ำผัน
@@ -143,7 +149,7 @@ def build_operational_economics_data() -> dict:
             "round_no": 1,
             "submission_date": "27 พ.ย. 2561",
             "resolution_date": "1 ก.พ. 2562 (คชก. ครั้งที่ 2/2562)",
-            "official_letter": "หนังสือ สผ. ที่ ทส 1010.6/2233 ลงวันที่ 18 ก.พ. 2562",
+            "official_letter": "หนังสือ สผ. ที่ ทส 1010.6/2233 ลงวันที่ 14 ก.พ. 2562",
             "resolution": "มีมติไม่เห็นชอบรายงาน และให้จัดทำรายงานฉบับใหม่ (16 ข้อสั่งการและข้อวิจารณ์รอบด้าน)",
             "key_objections": [
                 {
@@ -164,7 +170,7 @@ def build_operational_economics_data() -> dict:
                 {
                     "section": "ข้อ 1.12",
                     "issue": "ระยะเวลาก่อสร้าง 3 ปีไม่สมเหตุสมผล",
-                    "detail": "การกำหนดเวลาก่อสร้าง 3 ปีสำหรับโครงการขุดคลอง 135.9 กม. เป็นไปไม่ได้ในทางปฏิบัติ ส่งผลให้การคิดลดผลตอบแทนทางเศรษฐศาสตร์ (<code>EIRR</code> 14.52%) สูงเกินจริงอย่างมีนัยสำคัญ",
+                    "detail": "การกำหนดเวลาก่อสร้าง 3 ปีสำหรับโครงการขุดคลอง 135.9 กม. เป็นไปไม่ได้ในทางปฏิบัติ ส่งผลให้การคิดลดผลตอบแทนทางเศรษฐศาสตร์ (<code>EIRR</code> 14.52% ตามรายงานผลกระทบสิ่งแวดล้อมเดิม) สูงเกินจริงอย่างมีนัยสำคัญ",
                 },
                 {
                     "section": "ข้อ 1.16",
@@ -341,21 +347,29 @@ def build_operational_economics_data() -> dict:
     }
 
     # 5. การวิเคราะห์ความจุเก็บกักใช้การจริงของคลอง (Active Storage Reality)
+    # รูปตัดสี่เหลี่ยมคางหมู: ท้องคลอง b = 48.0 ม., ลึก H = 7.0 ม., ยาว L = 135.9 กม.
+    # ความจุรวม EIA 55.4 ล้าน ลบ.ม. (พื้นที่หน้าตัดเฉลี่ย ~407.7 ตร.ม. เทียบเท่าลาดข้าง z ≈ 1.46)
+    # ที่ระดับน้ำก้นคลอง 2.0 ม.: พื้นที่หน้าตัด ~101.9 ตร.ม. ปริมาตรน้ำก้นคลอง (Dead Storage) = 13.9 ล้าน ลบ.ม.
+    total_storage = 55.4
+    dead_storage = 13.9
+    active_storage = round(total_storage - dead_storage, 1)  # 41.5 ล้าน ลบ.ม.
+    buffer_hours = round(active_storage / 51.84 * 24.0, 1)  # 19.2 ชั่วโมง
+
     canal_storage_reality = {
         "canal_length_km": 135.9,
         "design_depth_m": 7.0,
         "bed_width_m": 48.0,
-        "total_storage_mcm": 55.4,
+        "total_storage_mcm": total_storage,
         "dead_storage_depth_m": 2.0,
-        "dead_storage_mcm": 21.0,
-        "active_storage_mcm": 34.4,
+        "dead_storage_mcm": dead_storage,
+        "active_storage_mcm": active_storage,
         "design_discharge_m3s": 600.0,
         "design_discharge_mcm_day": 51.84,
-        "buffer_duration_hours": 15.9,
+        "buffer_duration_hours": buffer_hours,
         "assessment": (
             "คลองเจ้าพระยา 2 ไม่ใช่แหล่งเก็บกักน้ำ (<code>Reservoir</code>) แต่เป็นทางระบายน้ำผ่าน (<code>Conveyance Channel</code>) "
-            "เนื่องจากมีปริมาตรกักเก็บใช้การจริงเพียง 34.4 ล้าน ลบ.ม. (หลังหักน้ำก้นคลอง 2.0 ม. จำนวน 21.0 ล้าน ลบ.ม. "
-            "เพื่อรักษาเสถียรภาพลาดตลิ่งดินเหนียวอ่อน) ซึ่งรองรับอัตราการผันน้ำออกแบบ 600 ลบ.ม./วินาที ได้เพียง 15.9 ชั่วโมง "
+            f"เนื่องจากมีปริมาตรกักเก็บใช้การจริงเพียง {active_storage} ล้าน ลบ.ม. (หลังหักน้ำก้นคลอง 2.0 ม. จำนวน {dead_storage} ล้าน ลบ.ม. "
+            f"ตามหลักเรขาคณิตรูปตัดคางหมูเพื่อรักษาเสถียรภาพลาดตลิ่งดินเหนียวอ่อน) ซึ่งรองรับอัตราการผันน้ำออกแบบ 600 ลบ.ม./วินาที ได้เพียง {buffer_hours} ชั่วโมง "
             "หากสถานีสูบน้ำปลายคลองไม่สามารถสูบออกสู่อ่าวไทยได้อย่างต่อเนื่อง คลองจะเต็มความจุภายในเวลาไม่ถึง 1 วัน"
         ),
     }

@@ -1,324 +1,324 @@
 {
   "title": "การจำลองความจุแอ่งก้นกระทะ 2 มิติและเส้นชั้นความลึกน้ำท่วมองครักษ์บน DEM 30m",
   "district": "อำเภอองครักษ์ จังหวัดนครนายก",
-  "total_area_km2": 513.13,
+  "total_area_km2": 512.4,
   "elevation_stats_m": {
-    "min": -14.5,
+    "min": 0.0,
     "median": 3.2,
-    "mean": 3.43,
+    "mean": 3.45,
     "max": 19.33
   },
   "critical_thresholds": {
     "observed_oct2026": {
-      "stage_msl_m": 2.4,
-      "area_km2": 36.84,
-      "volume_mcm": 19.03,
-      "mean_depth_m": 0.52,
-      "description": "ระดับน้ำจริงในคลองแม่น้ำใน (TNy10): น้ำท่วมขังในแอ่งลุ่มต่ำราว 41.5 ตร.กม. ปริมาตรน้ำค้างทุ่ง ~17.8 ล้าน ลบ.ม."
+      "stage_msl_m": 2.3,
+      "area_km2": 27.76,
+      "volume_mcm": 10.13,
+      "mean_depth_m": 0.36,
+      "description": "ระดับน้ำจริงในคลองแม่น้ำใน (TNy10): น้ำท่วมขังในแอ่งลุ่มต่ำราว 27.8 ตร.กม. ปริมาตรน้ำค้างทุ่ง ~10.1 ล้าน ลบ.ม."
     },
     "bankfull_threshold": {
       "stage_msl_m": 2.5,
-      "area_km2": 56.16,
-      "volume_mcm": 23.27,
-      "mean_depth_m": 0.41,
-      "description": "ระดับน้ำล้นตลิ่งลำคลองธรรมชาติ: น้ำเริ่มแผ่กว้างเข้าสู่ทุ่งนา 56.2 ตร.กม. ปริมาตรน้ำ 23.3 ล้าน ลบ.ม."
+      "area_km2": 55.42,
+      "volume_mcm": 17.48,
+      "mean_depth_m": 0.32,
+      "description": "ระดับน้ำล้นตลิ่งลำคลองธรรมชาติ: น้ำเริ่มแผ่กว้างเข้าสู่ทุ่งนา 55.4 ตร.กม. ปริมาตรน้ำ ~17.5 ล้าน ลบ.ม."
     },
     "route305_overtopping": {
       "stage_msl_m": 3.2,
-      "area_km2": 257.0,
-      "volume_mcm": 126.22,
-      "mean_depth_m": 0.49,
-      "description": "ระดับวิกฤตล้นข้ามคันถนนรังสิต–นครนายก (ทล.305): น้ำท่วมครอบคลุมกว่า 250 ตร.กม. (>48% ของทั้งอำเภอ) ปริมาตรน้ำสะสมเกิน 125 ล้าน ลบ.ม. และจะบ่าข้ามถนนเข้าสู่โครงข่ายคลองรังสิตโดยตรง"
+      "area_km2": 256.27,
+      "volume_mcm": 119.91,
+      "mean_depth_m": 0.47,
+      "description": "ระดับสมมติฐานล้นข้ามคันถนนรังสิต–นครนายก (ทล.305): น้ำท่วมครอบคลุมราว 256.3 ตร.กม. (50.0% ของอำเภอ) ปริมาตรน้ำสะสม ~119.9 ล้าน ลบ.ม. ตามแบบจำลองสมมติฐาน"
     }
   },
   "hypsometric_curve": [
     {
       "stage_msl_m": 1.0,
-      "inundated_area_km2": 2.0,
-      "inundated_share_pct": 0.4,
-      "mean_depth_m": 2.61,
-      "max_depth_m": 15.5,
-      "storage_volume_mcm": 5.23
+      "inundated_area_km2": 1.27,
+      "inundated_share_pct": 0.2,
+      "mean_depth_m": 0.42,
+      "max_depth_m": 1.0,
+      "storage_volume_mcm": 0.53
     },
     {
       "stage_msl_m": 1.1,
-      "inundated_area_km2": 2.19,
-      "inundated_share_pct": 0.4,
-      "mean_depth_m": 2.48,
-      "max_depth_m": 15.6,
-      "storage_volume_mcm": 5.44
+      "inundated_area_km2": 1.46,
+      "inundated_share_pct": 0.3,
+      "mean_depth_m": 0.46,
+      "max_depth_m": 1.1,
+      "storage_volume_mcm": 0.67
     },
     {
       "stage_msl_m": 1.2,
-      "inundated_area_km2": 2.41,
-      "inundated_share_pct": 0.5,
-      "mean_depth_m": 2.35,
-      "max_depth_m": 15.7,
-      "storage_volume_mcm": 5.67
+      "inundated_area_km2": 1.68,
+      "inundated_share_pct": 0.3,
+      "mean_depth_m": 0.49,
+      "max_depth_m": 1.2,
+      "storage_volume_mcm": 0.82
     },
     {
       "stage_msl_m": 1.3,
-      "inundated_area_km2": 2.61,
-      "inundated_share_pct": 0.5,
-      "mean_depth_m": 2.27,
-      "max_depth_m": 15.8,
-      "storage_volume_mcm": 5.92
+      "inundated_area_km2": 1.87,
+      "inundated_share_pct": 0.4,
+      "mean_depth_m": 0.53,
+      "max_depth_m": 1.3,
+      "storage_volume_mcm": 1.0
     },
     {
       "stage_msl_m": 1.4,
-      "inundated_area_km2": 2.83,
-      "inundated_share_pct": 0.6,
-      "mean_depth_m": 2.19,
-      "max_depth_m": 15.9,
-      "storage_volume_mcm": 6.19
+      "inundated_area_km2": 2.1,
+      "inundated_share_pct": 0.4,
+      "mean_depth_m": 0.57,
+      "max_depth_m": 1.4,
+      "storage_volume_mcm": 1.2
     },
     {
       "stage_msl_m": 1.5,
-      "inundated_area_km2": 4.28,
-      "inundated_share_pct": 0.8,
-      "mean_depth_m": 1.52,
-      "max_depth_m": 16.0,
-      "storage_volume_mcm": 6.49
+      "inundated_area_km2": 3.54,
+      "inundated_share_pct": 0.7,
+      "mean_depth_m": 0.4,
+      "max_depth_m": 1.5,
+      "storage_volume_mcm": 1.42
     },
     {
       "stage_msl_m": 1.6,
-      "inundated_area_km2": 4.89,
-      "inundated_share_pct": 1.0,
-      "mean_depth_m": 1.42,
-      "max_depth_m": 16.1,
-      "storage_volume_mcm": 6.94
+      "inundated_area_km2": 4.15,
+      "inundated_share_pct": 0.8,
+      "mean_depth_m": 0.43,
+      "max_depth_m": 1.6,
+      "storage_volume_mcm": 1.8
     },
     {
       "stage_msl_m": 1.7,
-      "inundated_area_km2": 5.64,
-      "inundated_share_pct": 1.1,
-      "mean_depth_m": 1.32,
-      "max_depth_m": 16.2,
-      "storage_volume_mcm": 7.47
+      "inundated_area_km2": 4.9,
+      "inundated_share_pct": 1.0,
+      "mean_depth_m": 0.46,
+      "max_depth_m": 1.7,
+      "storage_volume_mcm": 2.26
     },
     {
       "stage_msl_m": 1.8,
-      "inundated_area_km2": 6.6,
-      "inundated_share_pct": 1.3,
-      "mean_depth_m": 1.22,
-      "max_depth_m": 16.3,
-      "storage_volume_mcm": 8.08
+      "inundated_area_km2": 5.86,
+      "inundated_share_pct": 1.1,
+      "mean_depth_m": 0.48,
+      "max_depth_m": 1.8,
+      "storage_volume_mcm": 2.79
     },
     {
       "stage_msl_m": 1.9,
-      "inundated_area_km2": 7.84,
-      "inundated_share_pct": 1.5,
-      "mean_depth_m": 1.12,
-      "max_depth_m": 16.4,
-      "storage_volume_mcm": 8.8
+      "inundated_area_km2": 7.11,
+      "inundated_share_pct": 1.4,
+      "mean_depth_m": 0.48,
+      "max_depth_m": 1.9,
+      "storage_volume_mcm": 3.44
     },
     {
       "stage_msl_m": 2.0,
-      "inundated_area_km2": 14.17,
-      "inundated_share_pct": 2.8,
-      "mean_depth_m": 0.68,
-      "max_depth_m": 16.5,
-      "storage_volume_mcm": 9.65
+      "inundated_area_km2": 13.43,
+      "inundated_share_pct": 2.6,
+      "mean_depth_m": 0.31,
+      "max_depth_m": 2.0,
+      "storage_volume_mcm": 4.22
     },
     {
       "stage_msl_m": 2.1,
-      "inundated_area_km2": 17.87,
-      "inundated_share_pct": 3.5,
-      "mean_depth_m": 0.63,
-      "max_depth_m": 16.6,
-      "storage_volume_mcm": 11.24
+      "inundated_area_km2": 17.13,
+      "inundated_share_pct": 3.3,
+      "mean_depth_m": 0.33,
+      "max_depth_m": 2.1,
+      "storage_volume_mcm": 5.73
     },
     {
       "stage_msl_m": 2.2,
-      "inundated_area_km2": 22.5,
-      "inundated_share_pct": 4.4,
-      "mean_depth_m": 0.59,
-      "max_depth_m": 16.7,
-      "storage_volume_mcm": 13.25
+      "inundated_area_km2": 21.76,
+      "inundated_share_pct": 4.2,
+      "mean_depth_m": 0.35,
+      "max_depth_m": 2.2,
+      "storage_volume_mcm": 7.67
     },
     {
       "stage_msl_m": 2.3,
-      "inundated_area_km2": 28.5,
-      "inundated_share_pct": 5.6,
-      "mean_depth_m": 0.55,
-      "max_depth_m": 16.8,
-      "storage_volume_mcm": 15.78
+      "inundated_area_km2": 27.76,
+      "inundated_share_pct": 5.4,
+      "mean_depth_m": 0.36,
+      "max_depth_m": 2.3,
+      "storage_volume_mcm": 10.13
     },
     {
       "stage_msl_m": 2.4,
-      "inundated_area_km2": 36.84,
-      "inundated_share_pct": 7.2,
-      "mean_depth_m": 0.52,
-      "max_depth_m": 16.9,
-      "storage_volume_mcm": 19.03
+      "inundated_area_km2": 36.11,
+      "inundated_share_pct": 7.0,
+      "mean_depth_m": 0.37,
+      "max_depth_m": 2.4,
+      "storage_volume_mcm": 13.3
     },
     {
       "stage_msl_m": 2.5,
-      "inundated_area_km2": 56.16,
-      "inundated_share_pct": 10.9,
-      "mean_depth_m": 0.41,
-      "max_depth_m": 17.0,
-      "storage_volume_mcm": 23.27
+      "inundated_area_km2": 55.42,
+      "inundated_share_pct": 10.8,
+      "mean_depth_m": 0.32,
+      "max_depth_m": 2.5,
+      "storage_volume_mcm": 17.48
     },
     {
       "stage_msl_m": 2.6,
-      "inundated_area_km2": 74.27,
-      "inundated_share_pct": 14.5,
-      "mean_depth_m": 0.4,
-      "max_depth_m": 17.1,
-      "storage_volume_mcm": 29.74
+      "inundated_area_km2": 73.53,
+      "inundated_share_pct": 14.4,
+      "mean_depth_m": 0.32,
+      "max_depth_m": 2.6,
+      "storage_volume_mcm": 23.87
     },
     {
       "stage_msl_m": 2.7,
-      "inundated_area_km2": 97.67,
-      "inundated_share_pct": 19.0,
-      "mean_depth_m": 0.39,
-      "max_depth_m": 17.2,
-      "storage_volume_mcm": 38.3
+      "inundated_area_km2": 96.93,
+      "inundated_share_pct": 18.9,
+      "mean_depth_m": 0.33,
+      "max_depth_m": 2.7,
+      "storage_volume_mcm": 32.35
     },
     {
       "stage_msl_m": 2.8,
-      "inundated_area_km2": 125.85,
-      "inundated_share_pct": 24.5,
-      "mean_depth_m": 0.39,
-      "max_depth_m": 17.3,
-      "storage_volume_mcm": 49.45
+      "inundated_area_km2": 125.12,
+      "inundated_share_pct": 24.4,
+      "mean_depth_m": 0.35,
+      "max_depth_m": 2.8,
+      "storage_volume_mcm": 43.43
     },
     {
       "stage_msl_m": 2.9,
-      "inundated_area_km2": 157.02,
-      "inundated_share_pct": 30.6,
-      "mean_depth_m": 0.4,
-      "max_depth_m": 17.4,
-      "storage_volume_mcm": 63.58
+      "inundated_area_km2": 156.29,
+      "inundated_share_pct": 30.5,
+      "mean_depth_m": 0.37,
+      "max_depth_m": 2.9,
+      "storage_volume_mcm": 57.48
     },
     {
       "stage_msl_m": 3.0,
-      "inundated_area_km2": 194.76,
-      "inundated_share_pct": 38.0,
-      "mean_depth_m": 0.42,
-      "max_depth_m": 17.5,
-      "storage_volume_mcm": 80.88
+      "inundated_area_km2": 194.02,
+      "inundated_share_pct": 37.9,
+      "mean_depth_m": 0.39,
+      "max_depth_m": 3.0,
+      "storage_volume_mcm": 74.71
     },
     {
       "stage_msl_m": 3.1,
-      "inundated_area_km2": 227.2,
-      "inundated_share_pct": 44.3,
-      "mean_depth_m": 0.45,
-      "max_depth_m": 17.6,
-      "storage_volume_mcm": 101.99
+      "inundated_area_km2": 226.46,
+      "inundated_share_pct": 44.2,
+      "mean_depth_m": 0.42,
+      "max_depth_m": 3.1,
+      "storage_volume_mcm": 95.75
     },
     {
       "stage_msl_m": 3.2,
-      "inundated_area_km2": 257.0,
-      "inundated_share_pct": 50.1,
-      "mean_depth_m": 0.49,
-      "max_depth_m": 17.7,
-      "storage_volume_mcm": 126.22
+      "inundated_area_km2": 256.27,
+      "inundated_share_pct": 50.0,
+      "mean_depth_m": 0.47,
+      "max_depth_m": 3.2,
+      "storage_volume_mcm": 119.91
     },
     {
       "stage_msl_m": 3.3,
-      "inundated_area_km2": 284.61,
-      "inundated_share_pct": 55.5,
-      "mean_depth_m": 0.54,
-      "max_depth_m": 17.8,
-      "storage_volume_mcm": 153.31
+      "inundated_area_km2": 283.88,
+      "inundated_share_pct": 55.4,
+      "mean_depth_m": 0.52,
+      "max_depth_m": 3.3,
+      "storage_volume_mcm": 146.93
     },
     {
       "stage_msl_m": 3.4,
-      "inundated_area_km2": 310.74,
-      "inundated_share_pct": 60.6,
-      "mean_depth_m": 0.59,
-      "max_depth_m": 17.9,
-      "storage_volume_mcm": 183.09
+      "inundated_area_km2": 310.01,
+      "inundated_share_pct": 60.5,
+      "mean_depth_m": 0.57,
+      "max_depth_m": 3.4,
+      "storage_volume_mcm": 176.63
     },
     {
       "stage_msl_m": 3.5,
-      "inundated_area_km2": 336.95,
-      "inundated_share_pct": 65.7,
-      "mean_depth_m": 0.64,
-      "max_depth_m": 18.0,
-      "storage_volume_mcm": 215.41
+      "inundated_area_km2": 336.22,
+      "inundated_share_pct": 65.6,
+      "mean_depth_m": 0.62,
+      "max_depth_m": 3.5,
+      "storage_volume_mcm": 208.88
     },
     {
       "stage_msl_m": 3.6,
-      "inundated_area_km2": 359.01,
-      "inundated_share_pct": 70.0,
-      "mean_depth_m": 0.7,
-      "max_depth_m": 18.1,
-      "storage_volume_mcm": 250.24
+      "inundated_area_km2": 358.28,
+      "inundated_share_pct": 69.9,
+      "mean_depth_m": 0.68,
+      "max_depth_m": 3.6,
+      "storage_volume_mcm": 243.64
     },
     {
       "stage_msl_m": 3.7,
-      "inundated_area_km2": 377.08,
-      "inundated_share_pct": 73.5,
-      "mean_depth_m": 0.76,
-      "max_depth_m": 18.2,
-      "storage_volume_mcm": 287.08
+      "inundated_area_km2": 376.35,
+      "inundated_share_pct": 73.4,
+      "mean_depth_m": 0.75,
+      "max_depth_m": 3.7,
+      "storage_volume_mcm": 280.4
     },
     {
       "stage_msl_m": 3.8,
-      "inundated_area_km2": 391.75,
+      "inundated_area_km2": 391.01,
       "inundated_share_pct": 76.3,
-      "mean_depth_m": 0.83,
-      "max_depth_m": 18.3,
-      "storage_volume_mcm": 325.55
+      "mean_depth_m": 0.82,
+      "max_depth_m": 3.8,
+      "storage_volume_mcm": 318.79
     },
     {
       "stage_msl_m": 3.9,
-      "inundated_area_km2": 404.15,
-      "inundated_share_pct": 78.8,
-      "mean_depth_m": 0.9,
-      "max_depth_m": 18.4,
-      "storage_volume_mcm": 365.36
+      "inundated_area_km2": 403.42,
+      "inundated_share_pct": 78.7,
+      "mean_depth_m": 0.89,
+      "max_depth_m": 3.9,
+      "storage_volume_mcm": 358.53
     },
     {
       "stage_msl_m": 4.0,
-      "inundated_area_km2": 414.79,
+      "inundated_area_km2": 414.06,
       "inundated_share_pct": 80.8,
-      "mean_depth_m": 0.98,
-      "max_depth_m": 18.5,
-      "storage_volume_mcm": 406.31
+      "mean_depth_m": 0.96,
+      "max_depth_m": 4.0,
+      "storage_volume_mcm": 399.41
     },
     {
       "stage_msl_m": 4.1,
-      "inundated_area_km2": 424.11,
-      "inundated_share_pct": 82.7,
-      "mean_depth_m": 1.06,
-      "max_depth_m": 18.6,
-      "storage_volume_mcm": 448.26
+      "inundated_area_km2": 423.37,
+      "inundated_share_pct": 82.6,
+      "mean_depth_m": 1.04,
+      "max_depth_m": 4.1,
+      "storage_volume_mcm": 441.29
     },
     {
       "stage_msl_m": 4.2,
-      "inundated_area_km2": 432.14,
+      "inundated_area_km2": 431.4,
       "inundated_share_pct": 84.2,
-      "mean_depth_m": 1.14,
-      "max_depth_m": 18.7,
-      "storage_volume_mcm": 491.08
+      "mean_depth_m": 1.12,
+      "max_depth_m": 4.2,
+      "storage_volume_mcm": 484.03
     },
     {
       "stage_msl_m": 4.3,
-      "inundated_area_km2": 439.3,
+      "inundated_area_km2": 438.56,
       "inundated_share_pct": 85.6,
-      "mean_depth_m": 1.22,
-      "max_depth_m": 18.8,
-      "storage_volume_mcm": 534.66
+      "mean_depth_m": 1.2,
+      "max_depth_m": 4.3,
+      "storage_volume_mcm": 527.54
     },
     {
       "stage_msl_m": 4.4,
-      "inundated_area_km2": 445.77,
+      "inundated_area_km2": 445.04,
       "inundated_share_pct": 86.9,
-      "mean_depth_m": 1.3,
-      "max_depth_m": 18.9,
-      "storage_volume_mcm": 578.91
+      "mean_depth_m": 1.28,
+      "max_depth_m": 4.4,
+      "storage_volume_mcm": 571.72
     },
     {
       "stage_msl_m": 4.5,
-      "inundated_area_km2": 451.63,
+      "inundated_area_km2": 450.89,
       "inundated_share_pct": 88.0,
-      "mean_depth_m": 1.38,
-      "max_depth_m": 19.0,
-      "storage_volume_mcm": 623.79
+      "mean_depth_m": 1.37,
+      "max_depth_m": 4.5,
+      "storage_volume_mcm": 616.52
     }
   ]
 }

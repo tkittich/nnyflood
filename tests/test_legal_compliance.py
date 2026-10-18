@@ -43,6 +43,7 @@ BANNED_DEFAMATION_TERMS = [
 
 # รูปแบบข้อมูลส่วนบุคคล (PDPA)
 THAI_CITIZEN_ID = re.compile(r"(?<![\d])\b[1-8]\d{12}\b(?![\d])")
+THAI_CITIZEN_ID_HYPHEN = re.compile(r"\b[1-8]-\d{4}-\d{5}-\d{2}-\d\b")
 LAND_TITLE_DEED = re.compile(r"โฉนดที่ดินเลขที่\s*\d+")
 PHONE_NUMBER = re.compile(r"(?<![\d.\-a-fA-F])0[689]\d[- ]?\d{3}[- ]?\d{4}(?![\d.])")
 
@@ -51,6 +52,16 @@ ALLOW_LEGAL_DOCS = {
     "tests/test_legal_compliance.py",
     "tests/test_privacy.py",
 }
+
+
+def _is_valid_thai_citizen_id(s: str) -> bool:
+    clean = s.replace("-", "").strip()
+    if len(clean) != 13 or not clean.isdigit():
+        return False
+    digits = [int(c) for c in clean]
+    total = sum(digits[i] * (13 - i) for i in range(12))
+    check = (11 - (total % 11)) % 10
+    return check == digits[12]
 
 
 def _get_tracked_text_files() -> list[str]:
@@ -117,7 +128,7 @@ def test_enhanced_pdpa_no_citizen_identities():
         if rel_path in ALLOW_LEGAL_DOCS or rel_path.startswith("docs/reviews/"):
             continue
         fpath = ROOT / rel_path
-        if not fpath.exists() or fpath.stat().st_size > 3_000_000:
+        if not fpath.exists() or fpath.stat().st_size > 10_000_000:
             continue
         try:
             text = fpath.read_text(encoding="utf-8", errors="ignore")
@@ -131,6 +142,15 @@ def test_enhanced_pdpa_no_citizen_identities():
         # ตรวจสอบเลขโทรศัพท์ส่วนบุคคล
         if PHONE_NUMBER.search(text):
             violations.append(f"{rel_path}: พบเบอร์โทรศัพท์ส่วนบุคคล")
+
+        # ตรวจสอบเลขบัตรประชาชน 13 หลัก (ทั้งแบบมีขีดและไม่มีขีด)
+        if not rel_path.startswith("data/") and fpath.suffix.lower() in {".md", ".html", ".py", ".txt"}:
+            if THAI_CITIZEN_ID_HYPHEN.search(text):
+                violations.append(f"{rel_path}: พบเลขบัตรประชาชน 13 หลัก (รูปแบบมีขีด)")
+            for m in THAI_CITIZEN_ID.finditer(text):
+                if _is_valid_thai_citizen_id(m.group(0)):
+                    violations.append(f"{rel_path}: พบเลขบัตรประชาชน 13 หลักที่ถูกต้องตามอัลกอริทึม")
+                    break
 
     assert not violations, "พบข้อมูลส่วนบุคคลตาม PDPA ในคลังโค้ด:\n" + "\n".join(violations)
 

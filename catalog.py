@@ -191,6 +191,12 @@ CORE_GOVERNANCE = [
     ("docs/reviews/AUDIT_REDTEAM_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 1 (Peer Review ฉบับเต็ม 3 เสาหลัก)"),
     ("docs/reviews/AUDIT_ROUND2_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 2 (Delta Review & New Findings)"),
     ("AUDIT_ROUND2_2026-10-17.md", "สำเนาที่ root ของรายงานตรวจสอบรอบที่ 2 (ต้นฉบับอยู่ที่ docs/reviews/) — ลงทะเบียนไว้เพื่อให้กฎ 'เอกสารที่ root ต้องลงทะเบียนครบ' ผ่านโดยไม่ต้องลบไฟล์"),
+    ("docs/reviews/TRIAGE_ROUND5_2026-10-18.md", "การกลั่นกรองผลรีวิวอิสระรอบที่ 5 และแผนปฏิบัติการปรับปรุงระบบ"),
+    ("REVIEW.Claude-Sonnet-5.5.md", "รายงานการตรวจสอบอิสระโดย Claude Sonnet 5.5 (รอบที่ 5)"),
+    ("REVIEW.deepseek-v4.1-flash-free.md", "รายงานการตรวจสอบอิสระโดย DeepSeek V4.1 Flash (รอบที่ 5)"),
+    ("REVIEW.Gemini-3.8-Flash.md", "รายงานการตรวจสอบอิสระโดย Gemini 3.8 Flash (รอบที่ 5)"),
+    ("REVIEW.GLM-5.3-Flash-Free.md", "รายงานการตรวจสอบอิสระโดย GLM 5.3 Flash (รอบที่ 5)"),
+    ("REVIEW.space-bunny-free.md", "รายงานการตรวจสอบอิสระโดย Space Bunny (รอบที่ 5)"),
 ]
 
 

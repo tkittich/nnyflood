@@ -493,6 +493,66 @@ def tbl_cross_drainage_bottlenecks() -> str:
     return table(["ลำคลองที่ถูกตัดขวาง", "หลัก กม.", "จังหวัด", "ประเภทอาคารเชื่อมต่อ", "ความเสี่ยงชลศาสตร์และตะกอนทับถม"], rows, cap)
 
 
+def tbl_ongkharak_2d_hypsometric() -> str:
+    dep = C.get("ongkharak_2d_depression", {})
+    if not dep:
+        return ""
+    curve = dep.get("hypsometric_curve", [])
+    target_stages = {1.0, 1.5, 2.0, 2.4, 2.5, 3.0, 3.2, 3.5, 4.0, 4.5}
+    rows = []
+    for pt in curve:
+        stg = round(pt["stage_msl_m"], 1)
+        if stg in target_stages:
+            desc = "ระดับน้ำในแอ่งลุ่มต่ำ"
+            if stg == 2.4:
+                desc = "<b>ระดับน้ำจริงในคลอง (ต.ค. 2569)</b>: ขังค้างในพื้นที่ลุ่มต่ำทุ่งองครักษ์"
+            elif stg == 2.5:
+                desc = "<b>เกณฑ์น้ำล้นตลิ่งลำคลองธรรมชาติ</b>: น้ำเริ่มแผ่กว้างเข้าสู่พื้นที่เกษตรกรรม"
+            elif stg == 3.2:
+                desc = "🚨 <b>จุดเปลี่ยนวิกฤต (<code>Tipping Point</code>) — คันทางหลวง 305 ถูกน้ำบ่าข้าม</b>: ปริมาตรน้ำสะสมเกิน 126 ล้าน ลบ.ม. น้ำบ่าข้ามถนนรังสิต–นครนายก สู่โครงข่ายคลองรังสิตโดยตรง"
+            elif stg >= 4.0:
+                desc = "สภาวะน้ำท่วมเต็มพื้นที่ราบทั้งอำเภอองครักษ์"
+            rows.append([
+                f"{stg:.1f} ม.รทก.",
+                f"{pt['inundated_area_km2']:.1f}",
+                f"{pt['inundated_share_pct']:.1f}%",
+                f"{pt['storage_volume_mcm']:.2f}",
+                f"{pt['mean_depth_m']:.2f}",
+                desc,
+            ])
+    cap = (
+        f"เส้นความสัมพันธ์ระดับ–พื้นที่–ปริมาตร 2 มิติ (<code>2D Hypsometric</code>) ของแอ่งก้นกระทะ อ.องครักษ์ "
+        f"(พื้นที่รวม {dep.get('total_area_km2', 513.1):.1f} ตร.กม. มัธยฐานความสูง {dep.get('elevation_stats_m', {}).get('median', 3.19):.2f} ม.รทก.) "
+        f"วิเคราะห์จากแบบจำลองระดับความสูงภูมิประเทศ 1 ม. (<code>LiDAR</code> ผสาน <code>FABDEM</code> และ <code>Copernicus</code> 30 ม.) — ชี้ชัดจุดเปลี่ยนวิกฤตที่ระดับ +3.20 ม.รทก."
+    )
+    return table(["ระดับผิวน้ำ", "พื้นที่น้ำท่วม (ตร.กม.)", "สัดส่วนพื้นที่อำเภอ (%)", "ปริมาตรน้ำสะสม (ล้าน ลบ.ม.)", "ความลึกเฉลี่ย (ม.)", "นัยสำคัญทางชลศาสตร์และการบ่าข้าม"], rows, cap)
+
+
+def box_canal_active_storage_reality() -> str:
+    OE = C.get("operational_economics", {})
+    csr = OE.get("canal_storage_reality", {})
+    if not csr:
+        return ""
+    return (
+        f"<div class='info-box' style='background:#f0f9ff;border:1px solid #bae6fd;border-left:5px solid #0284c7;padding:16px 20px;border-radius:6px;margin:16px 0'>"
+        f"<h4 style='margin:0 0 8px 0;color:#0369a1'>📊 การวิเคราะห์ความจุเก็บกักใช้การจริงของคลอง (<code>Active Storage</code>)</h4>"
+        f"<p style='margin:0 0 10px 0;line-height:1.6'>"
+        f"จากการคำนวณมิติคลองรูปตัดสี่เหลี่ยมคางหมูตลอดความยาว {csr['canal_length_km']} กม. ความลึกน้ำออกแบบ {csr['design_depth_m']:.1f} ม. ท้องคลองกว้าง {csr['bed_width_m']:.1f} ม.:<br>"
+        f"• <b>ความจุกักเก็บรวมทั้งลำคลอง (<code>Total Storage</code>)</b>: <b>{csr['total_storage_mcm']:.1f} ล้าน ลบ.ม.</b><br>"
+        f"• <b>น้ำกักเก็บก้นคลองที่สูบออกไม่ได้ (น้ำก้นคลอง/<code>Dead Storage</code>) ที่ระดับ 2.0 ม.</b>: <b>{csr['dead_storage_mcm']:.1f} ล้าน ลบ.ม.</b> "
+        f"(จำเป็นต้องคงไว้เพื่อสร้างแรงดันต้านทานการพังทลายของลาดตลิ่งดินเหนียวอ่อนกรุงเทพฯ และหลีกเลี่ยงการทรุดตัว)<br>"
+        f"• <b>ความจุกักเก็บใช้การจริง (<code>Active Storage</code>)</b>: เหลือเพียง <b>{csr['active_storage_mcm']:.1f} ล้าน ลบ.ม.</b> เท่านั้น<br>"
+        f"• <b>ระยะเวลารองรับน้ำหลาก (<code>Buffer Duration</code>)</b>: ที่อัตราการผันน้ำออกแบบ {csr['design_discharge_m3s']:.0f} ลบ.ม./วินาที ({csr['design_discharge_mcm_day']:.2f} ล้าน ลบ.ม./วัน) "
+        f"ความจุใช้การ {csr['active_storage_mcm']:.1f} ล้าน ลบ.ม. สามารถรองรับน้ำหลากได้เพียง <b>{csr['buffer_duration_hours']:.1f} ชั่วโมง (ไม่ถึง 1 วัน)</b>"
+        f"</p>"
+        f"<p style='margin:0;font-size:0.92em;color:#475569;line-height:1.5'>"
+        f"<b>ข้อสรุปเชิงนโยบายและวิศวกรรม</b>: {csr['assessment']}"
+        f"</p>"
+        f"</div>"
+    )
+
+
+
 
 
 

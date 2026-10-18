@@ -105,7 +105,7 @@ def thai(text: str, strict: bool = False) -> str:
         scan = re.sub(r"<script.*?</script>", " ", scan, flags=re.S)
         scan = re.sub(r"<code>.*?</code>", " ", scan, flags=re.S)
         # อนุญาตคำอธิบาย/ศัพท์กำกับภาษาอังกฤษในวงเล็บ (Explanatory Glossing เช่น "รวมเอ็นจินรายงานเป็นหนึ่งเดียว (Unified Modular Report Kit)")
-        scan = re.sub(r"\([A-Za-z0-9\s\-–—/.,&'’:#]+\)", " ", scan)
+        scan = re.sub(r"\([A-Za-z0-9\s\-–—/.,&'’:#%]+\)", " ", scan)
         scan = re.sub(r"<[^>]+>", " ", scan)
         scan = re.sub(r"\b(?:style|href|id|class|src|alt|colspan)=\"[^\"]*\"", " ", scan)
         scan = re.sub(r"[a-z\-]+\s*:\s*[^;\"<>]+[;\"]", " ", scan)  # ทิ้งสิ่งที่เหลือแบบ CSS decl
@@ -118,6 +118,7 @@ def thai(text: str, strict: bool = False) -> str:
         r"BKK$|BKC$|CPY$|GLF$|AIT$|CAN$|Kgt$|Ny$|BPK$|ATG$|TNy$|QA$|RMSE$|MAE$|VH$|VV$|FOI$|"
         r"Copernicus$|GLO$|GLO-$|SHA$|SHA-$|SDV$|SUSPECT$|linear$|persistence$|"
         r"benchmark$|fluvial$|pluvial$|canonical$|mask$|opening$|datum$|pass$|"
+        r"LiDAR$|FABDEM$|EIRR$|"
         r"analysis$|goal\d*$|json$|raw$|vs$|N[0-9]+$|Q[0-9]+$|H[0-9]+$|lt$|gt$)"
     )
     suspicious = []

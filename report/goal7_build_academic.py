@@ -195,6 +195,7 @@ S.append(prose(
     f"ปลายคลองกว้างรวม {D65['outlet_corridor_m']} ม. · ถนนเลียบคลองสองฝั่ง ฝั่งละ {D65['road_lanes']} ช่องจราจร กว้าง {D65['road_width_m']} ม. · "
     "<b>การตีความ:</b> ตัวแปรชุดใหม่ (ท้อง 85 ม. ลึก 6 ม.) ใหญ่กว่าชุดปี 2565 (ท้อง 70 ม. ลึก 6 ม.) ที่ความลึกเท่ากัน — ตัวเลขทั้งสองชุดนี้ไม่ระบุสันคัน (ค่าสันคันมาจากรายงานผลกระทบสิ่งแวดล้อมฉบับเต็ม ดู⟦design_eia⟧)"  # gap: n/a
 ))
+S.append(blk.box_canal_active_storage_reality())
 S.append(OL.h3("design_eia", "ตัวแปรออกแบบตามรายงานผลกระทบสิ่งแวดล้อมฉบับเต็ม (ชั้น A)"))
 S.append(prose(
     f"แหล่ง: {_clean(EXC['source'])} · ระเบียน <code>{EXC['record']}</code> · {_clean(EXC['note']).replace('PDF', 'ไฟล์')} · "
@@ -818,6 +819,7 @@ S.append(blk.tbl_ongkharak_oct2026_status())
 S.append(blk.tbl_reach_hydraulic_vectors())
 S.append(blk.tbl_ongkharak_water_balance())
 S.append(blk.tbl_dam_to_gulf_corridors())
+S.append(blk.tbl_ongkharak_2d_hypsometric())
 S.append(OL.h3("hydraulics_accuracy_and_boundaries", "การประเมินความแม่นยำและการรวมแหล่งน้ำ (ปริมาณน้ำฝนและแบบจำลองความสูงภูมิประเทศ) ในการวิเคราะห์ชลศาสตร์"))
 S.append(prose(
     "<b>หลักเกณฑ์และความโปร่งใสของการวิเคราะห์ชลศาสตร์และเวกเตอร์การไหล:</b><br>"

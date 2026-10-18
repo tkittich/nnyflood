@@ -41,6 +41,8 @@ GLOBAL_RETIRED_PATTERNS = [
     ("81.3 ตร.กม.", "พื้นที่น้ำท่วมเก่าที่ยังไม่ได้คำนวณจริง"),
     ("18 ก.พ. 2562", "วันที่หนังสือราชการที่คลาดเคลื่อน (ของจริงคือ 14 ก.พ. 2562)"),
     ("21.0 ลลบ.ม.", "ความจุเก็บกักน้ำตายที่คำนวณผิดหลักเรขาคณิต (ของจริงคือ 13.9–14.4 ลลบ.ม.)"),
+    ("ไม่มีพิกัดแน่ชัด", "ข้อความขัดแย้ง — สถาบันเทคโนโลยีนิวเคลียร์แห่งชาติมีพิกัดหมุดยืนยันที่ 14.1221, 101.0275 กม.57 ห่างคลอง 5.78 กม."),
+    ("14.128", "พิกัด สทน. ที่คลาดเคลื่อน — พิกัดที่ถูกต้องคือ 14.1221, 101.0275"),
 ]
 
 
@@ -222,5 +224,27 @@ def test_figure_asset_caption_contract_raises_on_unrendered_promise(tmp_path):
     # ประกาศ layers=['telemetry'] ต้องผ่าน
     html = figure(dummy_img, "แผนที่ตำแหน่งอาคารบังคับน้ำ สถานีโทรมาตร และจุดตัด", layers=["telemetry"])
     assert "data:image/png;base64" in html
+
+
+def test_nuclear_facility_coordinates_consistency():
+    """ตรวจสอบความสอดคล้องของพิกัดศูนย์วิจัยนิวเคลียร์องครักษ์ (สทน.) ข้ามทุกส่วนใน canonical.json"""
+    can_path = ROOT / "analysis/goal7/canonical.json"
+    assert can_path.exists(), "ไม่พบ analysis/goal7/canonical.json"
+    data = json.loads(can_path.read_text(encoding="utf-8"))
+
+    # 1. พิกัดหมุดหลักจากผู้ใช้
+    pt = data["nuclear_site"]["point"]
+    assert round(pt["lat"], 4) == 14.1221, f"ละติจูดหมุดสถาบันต้องเป็น 14.1221 ได้ {pt['lat']}"
+    assert round(pt["lon"], 4) == 101.0275, f"ลองจิจูดหมุดสถาบันต้องเป็น 101.0275 ได้ {pt['lon']}"
+    assert pt["dist_to_canal_km"] == 5.78, f"ระยะห่างแนวคลองต้องเป็น 5.78 กม. ได้ {pt['dist_to_canal_km']}"
+    assert pt["canal_km"] == 57.0, f"จุดตรงข้ามคลองต้องเป็น กม.57 ได้ {pt['canal_km']}"
+    assert pt["side"] == "ตะวันออก", f"ต้องอยู่ฝั่งตะวันออก ได้ {pt['side']}"
+
+    # 2. พิกัดในบทวิเคราะห์ความปลอดภัยนิวเคลียร์ (Legal & Nuclear Assessment)
+    if "legal_and_nuclear_assessment" in data:
+        nfa = data["legal_and_nuclear_assessment"]["nuclear_facility_safety_analysis"]
+        assert nfa["coordinates"]["lat"] == 14.1221, "ละติจูดในการประเมินความปลอดภัยต้องตรงกับพิกัดหมุดหลัก"
+        assert nfa["coordinates"]["lon"] == 101.0275, "ลองจิจูดในการประเมินความปลอดภัยต้องตรงกับพิกัดหมุดหลัก"
+        assert nfa["spatial_relationship_to_cp2"]["distance_to_canal_km"] == 5.78, "ระยะห่างแนวคลองต้องตรงกัน (5.78 กม.)"
 
 

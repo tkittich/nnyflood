@@ -1,114 +1,107 @@
-# ทะเบียนการดำเนินการ — ข้อค้นพบจากรีวิวอีก 4 ฉบับ (รอบที่ 5)
+# ทะเบียนการดำเนินการ: ข้อค้นพบจากรีวิวอิสระรอบที่ 5 — 4 ฉบับ (Claude · DeepSeek · Gemini · GLM)
 
-> สร้างโดย `tools/round5_disposition.py` · ไม่แก้ด้วยมือ
+> สร้างอัตโนมัติโดย `python tools/round5_disposition.py` — **ห้ามแก้ไฟล์นี้ด้วยมือ** (ให้แก้ `analysis/goal7/round5_verified.json` แล้วรันสคริปต์ใหม่)
+> ต้นทาง (ไฟล์ที่ root ของ repo): `REVIEW.Claude-Sonnet-5.5.md` (20 ข้อ) · `REVIEW.deepseek-v4.1-flash-free.md` (8 ข้อ) · `REVIEW.Gemini-3.8-Flash.md` (17 ข้อ) · `REVIEW.GLM-5.3-Flash-Free.md` (15 ข้อ)
+> ฉบับ Space Bunny (37 ข้อ) ผู้ตรวจรอบที่ 5 สรุปทะเบียนเองไว้ที่ `docs/reviews/TRIAGE_ROUND5_2026-10-18.md` หัวข้อ 6
+> ข้อคงค้างทุกรายการมีรหัสติดตาม R6-xx / B-xx ใน `docs/OFFLINE_DATA_BACKLOG.md` หัวข้อ 6
 
-ทะเบียนนี้มีเพื่อแทนคำว่า "เก็บคัดกรองรอบที่ 6" ด้วยรายการที่มีผู้รับผิดชอบและวิธีตรวจ
-ตามข้อ F-30 ของผู้ตรวจรอบที่ 5 — ข้อค้นพบที่ไม่มีผลการดำเนินการจะหายถาวร
-
-## คำสัญญาของสถานะ
+**นิยามสถานะ** (ตรวจเทียบโค้ด/ผลลัพธ์จริงเป็นรายข้อ — ห้ามใช้คำว่า "ปิด" ถ้ายังไม่ได้ตรวจ):
 
 | สถานะ | ความหมาย |
 |---|---|
-| **ทำซ้ำไม่ได้** | ตรวจแล้ว ไม่พบปัญหาในโค้ดปัจจุบัน — รีวิวนี้เขียนจากโค้ดรุ่นก่อนแก้ |
-| **ปิดแล้ว** | ตรวจแล้ว ยืนยันว่าปัญหาหายไปจริงในไฟล์ที่เผยแพร่ |
-| **ยังค้าง** | ตรวจแล้ว ยืนยันว่ายังมีอยู่ — ต้องแก้ |
-| **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ระบุวิธีตรวจที่ต้องใช้ |
+| ปิดแล้ว | ตรวจแล้ว ปัญหาหายไปจริง |
+| ปิดบางส่วน | แก้บางส่วน — หมายเหตุระบุส่วนที่เหลือและที่พักงาน |
+| ผักผ่อน | พักตามข้อจำกัดข้อมูล/วิธีวิทยา — ต้องมีรหัสในทะเบียน B-xx/R6-xx |
+| ยังค้าง | ตรวจแล้ว ยังมีอยู่ครบ ยังไม่ได้แก้ |
+| ทำซ้ำไม่ได้ | ตรวจแล้ว ไม่พบปัญหาในโค้ด/ผลลัพธ์ปัจจุบัน (รวมรายการตรวจด้านบวก) |
+| ยังไม่ได้ตรวจ | ยังไม่ได้ตรวจ — ระบุวิธีตรวจให้ผู้สานงานต่อ |
 
-**ห้ามอ่าน "ยังไม่ได้ตรวจ" เป็น "ไม่มีปัญหา"** — เป็นการบันทึกความไม่รู้อย่างตรงไปตรงมา
+**สรุปจาก 60 ข้อ**: ปิดแล้ว 22 · ปิดบางส่วน 15 · ผักผ่อน 1 · ยังค้าง 21 · ทำซ้ำไม่ได้ 1 · ยังไม่ได้ตรวจ 0
 
-## gemini (14 ข้อ)
+## Claude Sonnet 5.5 (20 ข้อ)
 
-| รหัส | ข้อค้นพบ | สถานะ | ผลตรวจ / วิธีตรวจที่ต้องใช้ |
+| รหัส | ข้อค้นพบ (ถ้อยคำจากฉบับรีวิว) | สถานะ | หมายเหตุ/หลักฐานการตรวจ |
 |---|---|---|---|
-| F1 | goes beyond evidence / hydraulic flaw | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F2 | goes beyond evidence / engineering flaw | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F3 | inconsistent / stale text | **ยังไม่ได้ตรวจ** | ต้อง grep `2.5–4.8` ใน report/goal7_build_academic.py และเทียบกับ canonical |
-| F4 | legal risk / goes beyond evidence | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F5 | inconsistent / calculation error | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F6 | inconsistent / canonical rule violation | **ยังค้าง** | ยังไม่มีตัวตรวจแบบ test_goal6_consistency.py ครอบไบล์เดอร์เป้าหมาย 7 — มีแต่ SHARED_TEXT_MODULES ที่สแกนช่องว่าง ต้องเพิ่มการสแกนตัวเลข metric ที่พิมพ์เป็น literal |
-| F7 | factually wrong / overclaim | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F8 | goes beyond evidence / hydraulic limit | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F9 | inconsistent / profile drawing label | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F10 | goes beyond evidence / dismissal of ~6 m | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F11 | inconsistent / GIS metric mismatch | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F12 | inconsistent / source date and citation | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F13 | inconsistent / missing file in hash manifest | **ยังไม่ได้ตรวจ** | ต้องตรวจว่าไฟล์ PDF 161.6 MB ใน hashes.sha256 มีบนดิสก์จริงหรือไม่ และ manifest.md ระบุสถานะหรือไม่ |
-| F14 | inconsistent / superseded plan text | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
+| F-01 | 2011 and 2026 hydrographs are synthetic sine + noise; reported "4,394.5 MCM / 38.8 % / 0.53 m" and "prevented overbank 100 %" are properties of the assumed shape and a hand-set `dq_dh=1100` | **ปิดบางส่วน** | ชื่อกราฟ/ป้ายเปลี่ยนเป็น 'แบบจำลองสถานการณ์สมมติ' และเปิดเผยเพดานประสิทธิภาพปลายคลอง 0.80–0.84 แล้ว · ตัวแบบยังใช้ไฮโดรกราฟรูปคลื่น+สัญญาณรบกวน และ dq_dh=1100 ที่ตั้งด้วยมือ — ผักผ่อนส่วนที่เหลือไว้ที่ B-04/B-05 |
+| F-02 | "+3.20 m Route 305 crown" is a literal with no survey source; +3.20 ≈ DEM median (3.1986) so "50.1 % of district" is true by construction | **ปิดแล้ว** | 'จุดเปลี่ยน ทล.305 +3.20 ม.' เปลี่ยนเป็น 'ระดับมัธยฐานภูมิประเทศตามแบบจำลองสมมติฐาน' · ขึ้นทะเบียน route305_crown_elevation (open) + ผูกป้าย # gap: ในซอร์ส — เทสต์คุมทั้งสองด้าน (ต้องมีในซอร์ส ห้ามหลุดเข้าฉบับตีพิมพ์) |
+| F-03 | Headline 53.0 % uses an "uncoupled" baseline (79.6 cm) that is worse than persistence (63.6 cm). Vs tide-aware persistence: +23.4 % at +6 h, **−41.3 % / −45.1 %** at +24/+48 h | **ปิดบางส่วน** | l3_coastal_summary เพิ่มฐานเทียบ 3 แบบ (คงที่ 63.6 / รู้ทะเล 48.9 / เส้นตรง 79.6 ซม.) + ช่วงความเชื่อมั่น 95% ทุกค่า · ฟิลด์พาดหัว linear_improvement_pct=53.0 ยังเทียบฐานเทียบอ่อน แต่ไม่ปรากฏในรายงานที่เผยแพร่ (ตรวจด้วย grep = 0) — ทบทวนพาดหัวก่อนเผยแพร่ที่ R6-21 |
+| F-04 | Narrative is hard-coded and contradicts the table (R² −0.293/−0.285, skill +2.9/−3.0/−2.7/−4.2 %); "+-3.0 %" format bug | **ปิดแล้ว** | ข้อความสรุปฮาร์มอนิกแก้ตรงตาราง: +6 ชม. ดีขึ้น 2.9% · +12/+24/+48 ชม. แพ้ฐานเทียบ −2.7% ถึง −4.2% · บั๊กจัดรูปแบบเครื่องหมาย (+–3.0%) หายแล้ว (ดู l3_coastal_harmonics_findings.md หัวข้อ 3) |
+| F-05 | 38.3 d/yr = 1,988 MCM ÷ 51.84 assumes *all* Pasak flow is divertible; `days_extreme` capped at arbitrary 80 (true 130); 1,970 vs 1,988 MCM inconsistent; alternatives' unit costs are unsourced literals | **ปิดบางส่วน** | เพิ่มนิยามคู่ในข้อความสรุปแล้ว (38.3 วัน = เฉลี่ยฤดูน้ำหลาก ส.ค.–พ.ย. 1,988 ล้าน ลบ.ม. · เทียบเท่าปีเฉลี่ย 52.5 วัน) · เหลือชื่อฟิลด์ days_average_year, เพดาน days_flood 80 วัน (ค่าจริง ~130) และตัวหาร 1,970 ที่ไม่มีที่มา — ผูก R6-01 (ดู GLM F-03/F-04 และ SB F-28) |
+| F-06 | Metric literals hard-coded in builders (violates AGENTS contract rule 2 spirit; test does not scan Goal 7) | **ปิดบางส่วน** | ตัวเลข 81.3/257.2 ถูกอ่านจาก canonical แล้ว (หายจากไบล์เดอร์และ HTML) · ตัวตรวจยังเป็นรายการคำต้องห้ามคงที่ใน test_goal6_consistency และยังมีตัวเลข metric ฝังในไบล์เดอร์เป้าหมาย 7 — ขยายเป็นตัวสแกนอิง canonical ที่ R6-02 |
+| F-07 | Composite rating at Ny.1B is **non-monotonic**: Q(10.60 m)=666.3 > Q(11.00 m)=578.4 cms; "bankfull 666.3" is method-dependent (divided: 893.0, +34 %; flat slope: 488.9, −27 %) | **ปิดบางส่วน** | ตัวเลข 9.0 ลบ.ม./วินาที และประโยคเชิงเหตุผลถูกถอดออกจากรายงาน 1–2 แล้ว (ตรวจ 0 จุด) · เส้นความสัมพันธ์ระดับ–อัตราไหลแบบผสมที่ Ny.1B ยังไม่เป็นเอกภาพทางเดียว (แสดงเป็นช่วง 488.9–893.0 พร้อมวิธีที่มาแล้ว) — ผักผ่อนที่ B-02 |
+| F-08 | Model is Muskingum–Cunge, not Saint-Venant: no momentum, no backwater, no floodplain storage, no lateral inflow. Raw X<0 on 96.7 % of probe flows, clamped to 0; peak varies 591.7→638.9 cms (+8 %) wit… | **ผักผ่อน** | แบบจำลองยังเป็น Muskingum–Cunge (ไม่มีโมเมนตัม/การหนุนกลับ/ที่เก็บน้ำริมตลิ่ง) · ค่า X ถูกตัดเป็น 0 บนเกือบทุกอัตราไหล (96.7%) · ยังไม่มีศึกษาลู่เข้าของกริด — ผักผ่อนที่ B-02/MODEL-01 |
+| F-09 | `c1=0.132`, exponent 1.28 fit exactly through 2 points (2 params, 2 constraints) → zero validation; no Q×tide term | **ยังค้าง** | c1=0.132 กับเลขชี้กำลัง 1.28 ยังฟิตผ่านจุด 2 จุด (พารามิเตอร์ 2 ตัว/ข้อจำกัด 2 ตัว = ยืนยันไม่ได้) · ควรตรึงเลขชี้กำลัง = 1 แล้วประมาณ c1 (แบบเดียวกับข้อเสนอ SB F-09) — R6-04 |
+| F-10 | Code has **4** benchmarks, none of 2021/2022/2024; brief claims 5 classified events | **ยังค้าง** | ตารางเทียบมาตรฐานยังมี 4 เหตุการณ์ (2 รายการเป็นสมมติ) และไม่มี 2564/2565/2567 — ต้องใช้อนุกรมย้อนหลังจริง ผูก ACAD-06 · R6-05 |
+| F-11 | Harmonics fitted at one station (CPY015) only; GLF002 and C.29 appear nowhere; no purge of train rows whose target is in test (lead 24/48); phases referenced to arbitrary `t0`; 4 constituents on ~80… | **ปิดบางส่วน** | เพิ่มการตัดแถวฝึกที่เป้าหมายทับช่วงทดสอบทุกระยะ (purge รายระยะ) ในรอบแก้ไขนี้ (เทียบแบบเดียวกับ goal6_l3_coastal_model.py) · ยังเหลือข้อจำกัดสถานีเดียว (CPY015) และการแยก 4 องค์ประกอบจากช่วงข้อมูลสั้น — ผักผ่อนที่ B-08/ACAD-07 |
+| F-12 | iid bootstrap on 226 autocorrelated hourly points (CI too narrow); `CPY015` is an upriver city-reach gauge ~10 km from C.12, so "tide" shares river signal; GBDT +6 h 76.7 cm vs linear 37.4 cm (trees… | **ยังค้าง** | ช่วงความเชื่อมั่นยังใช้การสุ่มซ้ำแบบไม่มีความสัมพันธ์ (iid) กับอนุกรมรายชั่วโมงที่สหสัมพันธ์สูง (226 จุด) · อีกทั้ง CPY015 เป็นสถานีในตัวเมืองห่าง C.12 ราว 10 กม. ความหมายของ 'น้ำขึ้นน้ำลง' จึงเจือสัญญาณน้ำเหนือ — R6-03 |
+| F-13 | Dead storage 21.0 MCM has no calculation; stated geometry (b=48 m, 7 m deep, side slope 1.5–2.5) gives total 55.7–62.3 and 2 m pool **13.9–14.4 MCM**; "geotechnically necessary 2.0 m" has no source;… | **ปิดแล้ว** | คำนวณ A(h)·L จากเรขาคณิตจริงในโค้ด · ย้อนค่าลาดข้างจากปริมาตรรวม EIA ได้ z=1.462 → 13.8/41.6 ล้าน ลบ.ม. และหน่วง 19.3 ชม. · ขึ้นทะเบียน cp2_bed_width, cp2_dead_storage_depth พร้อมป้าย |
+| F-14 | 30-yr life for earthworks (CRF 0.0806) vs 50 yr (0.0725 → 6.15 THB/m³); flat OPEX 519 MB; benefit side absent, so "THB/m³ diverted" compares unlike things | **ยังค้าง** | อายุเศรษฐกิจยังใช้ 30 ปี (CRF 0.0806) และต้นทุนดำเนินงานคงที่ ไม่มีกรณี 50 ปี (CRF ~0.0725) หรือวิเคราะห์ความไว (ตรวจ goal7_operational_economics.py:66) — R6-09 |
+| F-15 | "Exceeded upper rule curve" implemented as `peak ≥ constant 871.5`; counts partial 2569; compares 17/24 (Pasak) vs 9/22 (Khun Dan) with different denominators; record peak 1,177.22 > `MAX_CAP` 1,036.… | **ยังค้าง** | เกณฑ์ 'เกินเส้นกำกับบน' ยังเทียบกับค่าคงที่ 871.5 ล้าน ลบ.ม. (ไม่ใช่เส้นกำกับรายวันตามฤดู) และยังนับปี 2569 บางส่วน · กรณีสูงสุด 1,177.22 เกิน 1,036.16 ยังไม่อธิบายที่มา — เส้นกำกับทางการ = FOI-17 |
+| F-16 | 2.70 m critical vs crest 2.80–3.00 leaves 0.10–0.30 m with model error ±0.12 m (self-reported); fine as watch level but "critical" label mixes crest and freeboard | **ยังค้าง** | เกณฑ์วิกฤตยังใช้ 2.70 ม.รทก. ขณะที่สันคันจริง 2.80–3.00 ม. — ต้องได้ระดับสันคันทางการ/สำรวจก่อน — R6-06 (ผูก ACAD-01) |
+| F-17 | "Tidal efficiency" never below 0.80 (never a lockout); chart line `#27ae60` contrast **2.87:1** < 3.0 WCAG for data marks | **ปิดบางส่วน** | สีเส้นกราฟแก้เป็น #1e8449 (คอนทราสต์ 4.18:1 ผ่านเกณฑ์ 3.0) + เทสต์คุมแล้ว · เพดานประสิทธิภาพปลายคลอง 0.80–0.84 ยังคงอยู่ (มีข้อความเปิดเผยในโค้ด) — ผักผ่อนที่ B-04 |
+| F-18 | Audit brief carries numbers that exist nowhere (`grep 73.6` hits only the brief) | **ปิดแล้ว** | เอกสารคำสั่งรีวิว (docs/REVIEW_PROMPT_EN.md) แก้ตัวเลขให้ตรง canonical แล้วใน commit 2334735 (ตรวจซ้ำ: 0 จุด) |
+| F-19 | Step 2 accepts exit code 2 ("missing files") as pass | **ยังค้าง** | tools/verify_all.py ขั้นตอนที่ 2 ยังรับ exit code 2 เป็น 'ผ่าน' โดยไม่แสดงคำเตือนเมื่อไฟล์ข้อมูลขนาดใหญ่หาย — R6-07 |
+| F-20 | Legal framing (deep dive): ข้อความเจตนาหน่วยงานในโค้ดเขื่อนป่าสัก + พาดหัว '38 วันต่อปี' | **ยังค้าง** | ประโยค 'ไม่ใช่ความผิดปกติเชิงบริหาร แต่เป็นหน้าที่ตามการออกแบบ' (ป่าสัก) ยังไม่มีที่มา/ป้ายแยกข้อเท็จจริง–ตีความ · พาดหัว '38 วันต่อปี' ยังอิงนิยามที่กำลังแก้ — R6-08 |
 
-## deepseek (16 ข้อ)
+## DeepSeek V4.1 Flash (8 ข้อ)
 
-| รหัส | ข้อค้นพบ | สถานะ | ผลตรวจ / วิธีตรวจที่ต้องใช้ |
+| รหัส | ข้อค้นพบ (ถ้อยคำจากฉบับรีวิว) | สถานะ | หมายเหตุ/หลักฐานการตรวจ |
 |---|---|---|---|
-| F-01 | **High** | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-02 | **High** | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-13 | **High** | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-03 | **High** | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-04 | Medium | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-05 | Medium | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-06 | Medium | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-07 | Medium | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-08 | Low | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-09 | Low | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-10 | Low | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-11 | Low | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-12 | Low | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-14 | Medium | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-15 | **High** | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| F-16 | **High** | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
+| F-1 | Published caption claims hypsometry from "1 m LiDAR fused FABDEM + Copernicus 30 m"; computation is pure Copernicus GLO-30 (30 m); no LiDAR data exists in repo; FABDEM is not an input to this computa… | **ปิดแล้ว** | คำบรรยายที่มา DEM เปลี่ยนเป็น Copernicus 30 ม. ±2–4 ม. (goal7_blocks.py:527) ตรงกับข้อมูลที่ใช้จริง — ตรวจซ้ำแล้ว |
+| F-2 | "Critical tipping point +3.20 m MSL" (Route 305 overtopping) is a hard-coded stage label; no crown elevation or derivation/source in repo; published as a headline critical threshold | **ปิดแล้ว** | จุดเปลี่ยน +3.20 ม. จัดกรอบเป็นสมมติฐานมัธยฐานภูมิประเทศ + ขึ้นทะเบียน route305_crown_elevation + ผูกป้าย # gap: ในซอร์ส |
+| F-3 | 816 DEM cells < 0 m (min −14.5 m; 177 cells < −10 m; 0.734 km²) are counted as real topography: 30.1% of the 19.03 MCM "observed" storage and 5.0% at +3.2 m; max "depth" columns show 15.5–17.7 m | **ปิดแล้ว** | เพิ่มตัวกรองพิกเซลติดลบ ong_valid >= 0.0 (goal7_ongkharak_2d_depression.py:34) · พื้นที่ 512.4 ตร.กม. · ปริมาตรที่ +3.20 ม. = 119.91 ล้าน ลบ.ม. |
+| F-4 | Observed row mislabeled: 2.4 m row rendered as "ระดับน้ำจริงในคลอง (ต.ค. 2569)" against a stated +2.35 m observation; row selection relies on float tolerance; JSON description (41.5 km²/17.8 MCM) con… | **ปิดแล้ว** | แถว 'ระดับน้ำจริงในคลอง (ต.ค. 2569)' และคำบรรยายสอดคล้องกับค่า/ช่วงเวลาที่แสดงแล้ว · ตรวจไฟล์ตัวเลขที่เรนเดอร์จริง (ฝั่งประชาชน) ไม่พบความขัดแย้งเดิม |
+| F-5 | Canal active-storage triplet is geometrically impossible (dead fraction 37.9% > 28.6% cap; implied side slopes from the three values are mutually irreconcilable); "derived from geometry" caption is f… | **ปิดแล้ว** | ความจุคำนวณจากเรขาคณิตจริง: 13.8/41.6 ล้าน ลบ.ม. · หน่วง 19.3 ชม. · ขึ้นทะเบียน cp2_bed_width, cp2_dead_storage_depth |
+| F-6 | Harmonics script: (a) auto-generated conclusion contradicts its own computed skill (claims "outstanding at +12/+24 h" where skill vs persistence is −3.0%/−2.7%; worse than astro baseline at all leads… | **ปิดบางส่วน** | รอบแก้ไขนี้เพิ่ม purge แถวฝึกที่เป้าหมายทับช่วงทดสอบ (แถวที่พบ 5/11/18/41 ตามระยะ 6/12/24/48 ชม.) และข้อความสรุปตรงตารางแล้ว · เหลือข้อจำกัดสถานีเดียว + การแยก K1/P1 จากข้อมูลสั้น — ผักผ่อนที่ B-08 |
+| F-7 | `docs/REVIEW_PROMPT_EN.md` (the audit brief) carries retired/stale values: 73.6→35.9 cm (51.2%), 57.1% coverage, "17 of 22" Pasak, "1 m LiDAR/FABDEM", median 3.19 | **ปิดแล้ว** | เอกสารคำสั่งรีวิวแก้ค่าที่หมดอายุแล้ว (commit 2334735) — ตรวจซ้ำ 0 จุด |
+| F-8 | Literal-number enforcement gap: guard scans a fixed string list only; canonical values remain hand-typed in builders (`8.21`, `6.86`, `486.9`, `126`, fallback `513.1`/`3.19`) — the `3.19` default equ… | **ยังค้าง** | ตัวตรวจจับตัวเลขฝังในไบล์เดอร์ยังเป็นรายการคำคงที่ — ขยายเป็นตัวสแกนอิง canonical จริงที่ R6-02 |
 
-## glm (31 ข้อ)
+## Gemini 3.8 Flash (17 ข้อ)
 
-| รหัส | ข้อค้นพบ | สถานะ | ผลตรวจ / วิธีตรวจที่ต้องใช้ |
+| รหัส | ข้อค้นพบ (ถ้อยคำจากฉบับรีวิว) | สถานะ | หมายเหตุ/หลักฐานการตรวจ |
 |---|---|---|---|
-| GL-01 | ป้าย "อินทิกราล 15 นาที" ขัดกับโค้ดที่สุ่มตัวรายชั่วโมง — ตัวเลข 12%/59% อาจเปลี่ยน | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-02 | `run_all.py` ล้มบนเครื่องอื่นทันที — คำสัญญา one-command reproducibility เป็นเท็จ | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-03 | ห่วงโซ่วิทยาศาสตร์ไม่มี behavioral test เลย — เทสปกป้อง artifact แช่แข็ง ไม่ได้ปกป้องตรรกะ | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-04 | การสอบเทียบ threshold S1 และตัวเลข GISTDA ราย pass ไม่มี producer ใน repo — "ทำซ้ำได้" ยัง | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-05 | `landsat_water.py` รันบนฉากที่รู้ว่าไม่ครอบจังหวัด แล้ว publish JSON f1=0.0 ออกไป | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-06 | กลุ่ม "12 ตัวแปร" ค้าง 11 จุดใน 9 ไฟล์ หลังตัด dH1B_6h (G-04) แล้ว | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-07 | GBDT +48 ชม. "151.1" เป็นค่าเก่า — artifact จริงคือ 153.81 และรายงานวิชาการพิมพ์ทั้งสองค่า | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-08 | Ny.1B: ใช้ 11.07 เป็น ม.รทก. โดยไม่มี datum — ได้ `manning_n_fitted: 0.0223` ใน artifact ท | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-09 | `goal4_counterfactual_summary.json` (artifact ที่ M4 อ้าง) มี placeholder ดิบค้าง + `area_ | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-10 | Guard ของ canonical เป็น presence-only + สตริงตรวจถูกพิมพ์มือ — จับ "ค่าเก่าค้าง" ไม่ได้ | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-11 | ตัวเลขหัวเรื่องเป็น literal ใน template ~170 จุด — canonical ยังเป็น tripwire ไม่ใช่ sourc | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-12 | กริด backscatter S1 คลาดครึ่งพิกเซล (~15 ม.) จากมาสก์ทุกใบ | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-13 | `gistda_georef_findings.md` ใช้สูตรพื้นที่คนละสูตร → S1 เป็น 433.3/505.8 ขัด canonical 436 | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-14 | สัดส่วน P1 (12%) อ่อนไหวสูงกับ lag 12 ชม. ที่ fix ไว้ — ไม่มีตาราง sensitivity ที่ไหนเลย | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-15 | fetch_khundan_training/fullyears: chunk ที่ retry ครบ 3 ครั้งแล้วหลุด**เงียบ ๆ** และ `hour | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-16 | ไฟล์รายงานประชาชน 9.0MB + ไม่มี CSS มือถือ — ผู้อ่านหลัก (ประชาชนบนมือถือ/เน็ตจำกัด) เสียป | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-17 | คำต้องห้ามของฉบับประชาชนหลุดเข้า**ในภาพ** — sweep ถึง HTML แต่ไม่ถึง PNG | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-18 | `verify_data_integrity.py`: basename ชนกันยัง hash ไฟล์แรกแบบ "เตือนแล้วผ่าน" — เคส hash ต | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-19 | "น้ำน้ำ" เหลือ 7 จุดใน 6 ไฟล์ (commit a39d7af แก้ไปแค่ 4 จุดของตระกูลเดียวกัน) | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-20 | ตระกูลคำซ้ำจาก global replace หลุดอยู่ใน**รายงานประชาชนที่ build แล้ว** (ผมอ่านเจอจากข้อคว | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-21 | "S2 เห็นน้ำมากกว่า S1 ~1.7 เท่า (7.4 vs 3.3)" — เลขคูณตัวเองไม่ตรง (7.4/3.3 = 2.24) | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-22 | ฝนพยากรณ์สองชุดตัวเลขไม่ไกล่เกลี่ยในฉบับประชาชน: "300–500 มม." (ECMWF ภาคตะวันออก+กลาง จาก | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-23 | `_old_s1cd.py` / `_orig_s1cd.py` ถูก track ที่ root — ไม่มีเอกสารใดอ้างถึง, ไม่อยู่ใน tree | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-24 | ความไม่สม่ำเสมอ CI/เครื่อง: `run_all` ใช้ `--quick` (cap 5MB) แต่ CI ใช้ 50MB → ไฟล์ track | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-25 | จุดบกพร่องเชิงเทคนิคที่ผลกระทบเล็กแต่ควรจด: wetted perimeter ตัดใบหน้าแนวตั้งชั้นในเมื่อหน | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-26 | สถานะเอกสาร drift: START_HERE:6 บอก "พร้อม publish" แต่ HANDOFF:6 บอก "publish แล้ว" · REA | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-27 | เทส/ตัวตรวจ: `INTEGRITY_EXCEPTIONS.md` (EXPLAINED) ยังไม่มีไฟล์จริงใน repo = dead code ไม่ | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-28 | ชื่อ "bankfull" สองนิยามใน canonical เอง: `bankfull_msl_m: 8.21` (สันตลิ่งจริงจากสำรวจ) แต | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-29 | dead/vestigial code ที่ควรติดป้ายหรือลบ: `georef_fit.py`/`georef_corner_match.py` (วิธีที่ | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-30 | NIT กลุ่มคำ/จัดหน้า (ฉบับประชาชน): `)แสดงว่า` ไม่มีวรรค (`build_report_html.py:161`-บริเวณ | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| GL-31 | NIT โครงสร้าง: docstring run_all บอก "10 ขั้น" แต่จริง 12 · `goal4_model_v1_results.json` | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
+| F-01 | 2011/2026 hydrographs are synthetic sine functions + noise; 0.53 m stage cut is an arbitrary division by $1,100\text{ m}^2/\text{s}$; tidal lockout floored at 0.80–0.84. | **ปิดบางส่วน** | ป้าย 'แบบจำลองสถานการณ์สมมติ' + เปิดเผยเพดาน 0.80–0.84 แล้ว · ตัวแบบยังเป็นสมมติ (การหักระดับ 0.53 ม. ด้วยการหาร 1,100 ตร.ม./วินาที ยังอยู่) — ผักผ่อนที่ B-04/B-05 |
+| F-02 | "+3.20 m Route 305 tipping point" is a hardcoded float equal to the DEM median (3.1986 m); "50.1% flooded" is an algebraic identity of the median. | **ปิดแล้ว** | จุดเปลี่ยน +3.20 ม. และตัวเลข 50.1% จัดกรอบใหม่เป็นสมมติฐานมัธยฐาน + ช่องว่างขึ้นทะเบียนแล้ว (เรื่องเดียวกับ Claude F-02 / DeepSeek F2) |
+| F-03 | Published report asserts analysis was conducted on "แบบจำลองระดับความสูงภูมิประเทศ 1 ม. (LiDAR ผสาน FABDEM)", but code strictly loads 30m Copernicus DSM. | **ปิดแล้ว** | คำบรรยายที่มา DEM ในรายงานแก้เป็น Copernicus 30 ม. แล้ว (บันทึกเดิมอ้าง LiDAR/FABDEM ซึ่งไม่ตรงกับโค้ดที่ใช้จริง) |
+| F-04 | Narrative claims "outstanding skill" and "ready for operational use" despite table showing negative $R^2$ (−0.293) and negative skill vs persistence (−3.0%, −2.7%). | **ปิดแล้ว** | ข้อความ 'ทักษะโดดเด่น/พร้อมใช้ปฏิบัติการ' ถูกถอดออก · สรุปฮาร์มอนิกตรงตารางจริงแล้ว (ดู l3_coastal_harmonics_findings.md หัวข้อ 3) |
+| F-05 | Headline 53.0% gain at +6h is measured against a degraded uncoupled baseline; coupled model loses to tide-aware persistence by −41.3% at +24h and −45.1% at +48h. | **ปิดบางส่วน** | เปิดเผยฐานเทียบ 3 แบบ + ช่วงความเชื่อมั่นใน l3_coastal_summary แล้ว · พาดหัว 53.0% ยังเทียบฐานเทียบอ่อน แต่ตัวเลขนี้ไม่ปรากฏในรายงานที่เผยแพร่ (ตรวจแล้ว) — R6-21 |
+| F-06 | Composite Manning rating at Ny.1B is non-monotonic ($Q$ drops from 666.3 to 578.4 m³/s at stage 11.0m); "9.0 m³/s overbank spill" subtracts incompatible methods. | **ปิดบางส่วน** | ตัวเลข 9.0 ลบ.ม./วินาที ถูกถอดออกจากรายงานแล้ว · ความไม่เป็นเอกภาพของเส้นความสัมพันธ์ระดับ–อัตราไหลแบบผสมที่ Ny.1B (666.3 > 578.4 ที่ 10.6→11.0 ม.) ยังอยู่ — แสดงเป็นช่วง 488.9–893.0 แล้ว ผักผ่อนที่ B-02 |
+| F-07 | Model is Muskingum-Cunge with $X$ clamped to 0 on 96.7% of flows (linear cascade); spatial refinement at fixed $\Delta t = 900\text{ s}$ violates Courant stability. | **ยังค้าง** | ค่า X ยังถูกตัดเป็น 0 บนเกือบทุกอัตราไหล และยังไม่มีศึกษาลู่เข้าของกริด — ผักผ่อนที่ B-02 |
+| F-08 | Formulates $\partial H_{C12}/\partial H_{tide} = 1.0$ without calibration; empirical telemetry shows $0.705 \pm 0.016$ ($18\sigma$ rejection), artificially shifting risk classes. | **ยังค้าง** | ∂H/∂tide ยังตั้ง = 1.0 โดยไม่สอบเทียบ ทั้งที่ข้อมูลของโครงการเองถดถอยได้ 0.705 ± 0.016 (ต่าง 18 เท่าของค่าคลาดเคลื่อนมาตรฐาน) — ผักผ่อนที่ B-03 + R6-04 |
+| F-09 | 21.0 MCM dead storage depth (2.0 m) is mathematically irreconcilable with stated canal geometry (48 m bed width yields 13.9–14.4 MCM); 2.0 m geotechnical basis unsourced. | **ปิดแล้ว** | ความจุน้ำตาย/ใช้งานคำนวณใหม่จากเรขาคณิตจริง (13.8/41.6/19.3) + ขึ้นทะเบียนความกว้างท้องคลองที่ยังไม่มีที่มา |
+| F-10 | Key hydrological and economic metrics are hardcoded as text literals in Goal 7 builders; test scanner only monitors Goal 6. | **ปิดบางส่วน** | เหมือน Claude F-06: ตัวเลขบางส่วนอ่านจาก canonical แล้ว · ตัวตรวจยังเป็นรายการคงที่ — R6-02 |
+| F-11 | Script contains only 4 benchmarks, 2 of which are hypothetical scenarios; 2021, 2022, and 2024 historical events are absent from the code. | **ยังค้าง** | ตารางเทียบมาตรฐานยังมี 4 เหตุการณ์ และ 2 รายการเป็นสมมติ — รอข้อมูลจริง (ACAD-06 · R6-05) |
+| F-12 | Harmonics decomposition is executed exclusively on CPY015 (1 station); claimed decomposition across 4 stations (C.29, BKK001, GLF002, GLF003) is absent. | **ปิดบางส่วน** | การรั่วไหลของแถวฝึก (เป้าหมายทับช่วงทดสอบ) แก้ในรอบนี้ · การสกัด 4 องค์ประกอบจากสถานีเดียวและช่วงสั้นยังจำกัดความแม่น — ผักผ่อนที่ B-08 |
+| F-13 | 38.3 days/year operation assumes 100% of Pa Sak runoff is diverted; alternatives benchmark unit costs (0.50–2.50 THB/m³) are unsourced literals. | **ยังค้าง** | 38.3 วัน/ปี ยังคิดจากการผันน้ำป่าสัก 100% + ตัวหาร 1,970 ที่ไม่มีที่มา + เพดาน 80 วัน — R6-01 |
+| F-14 | "Exceeded Rule Curve" is implemented as storage exceeding a static constant (871.5 MCM) rather than the dynamic seasonal Upper Rule Curve. | **ยังค้าง** | เกณฑ์ 'เกินเส้นกำกับบน' ยังใช้ค่าคงที่ 871.5 ล้าน ลบ.ม. — เส้นกำกับทางการรายวัน = FOI-17 (เรื่องเดียวกับ Claude F-15) |
+| F-15 | PDPA scanner skips files $> 3\text{ MB}$, completely exempting the two largest published citizen HTML reports (4.79 MB and 3.87 MB). | **ปิดแล้ว** | ตัวสแกน PDPA: เกณฑ์ขนาดไฟล์ 3 MB → 10 MB (ครอบรายงาน 4.79/3.87 MB) + เพิ่มการตรวจเลขบัตรประชาชน 13 หลัก |
+| F-16 | Counterfactual hydrograph plot uses `#27ae60` on white, yielding contrast 2.899:1 (fails WCAG AA 3.0:1 requirement for graphical data marks). | **ปิดแล้ว** | สี #27ae60 → #1e8449 คอนทราสต์ 4.18:1 (เทสต์ test_goal7_mark_colours_meet_wcag_data_floor) |
+| F-17 | Reverse catalog audit fails with exit code 1 whenever audit review files (`REVIEW.*.md`) are placed in the root directory. | **ปิดแล้ว** | catalog ยกเว้นลายชื่อผลงานรีวิว/ไฟล์กลั่นกรอง (ทั้งจุดและขีดล่าง) + เทสต์กันซ้ำ test_review_artifact_allowlist_matches_both_separators |
 
-## claude (14 ข้อ)
+## GLM 5.3 Flash (15 ข้อ)
 
-| รหัส | ข้อค้นพบ | สถานะ | ผลตรวจ / วิธีตรวจที่ต้องใช้ |
+| รหัส | ข้อค้นพบ (ถ้อยคำจากฉบับรีวิว) | สถานะ | หมายเหตุ/หลักฐานการตรวจ |
 |---|---|---|---|
-| H1 | The pre-release scenario contradicts the report's own 3 % result; the "1–2 m" headline has no physical basis. | **ปิดแล้ว** | ข้อความ 'ราว 1–2 ม.' และ 'ลดระดับพีคที่ C.2' ไม่ปรากฏในรายงาน 1–2 ที่เผยแพร่แล้ว (ตรวจด้วย grep ทั้ง 2 ไฟล์ = 0 ครั้ง) · ยังค้างส่วนที่เสนอให้ย้าย `analysis/goal6_prerelease_scenario.py` ไป `analysis/archive/` — ไฟล์ยังอยู่ที่ root ของ analysis |
-| H5 | Forecast headline ("พยากรณ์ระยะสั้นทำได้จริง", "พิสูจน์ว่า ... แม่นยำสูง") is not what `l3_model.json` shows. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| H6 | Tide/gate claims in the Q&A are not supported by any data in the repo, and contradict limitation (2). | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| M1 | Satellite rule: "ตรงกัน 72.7 %" is an in-sample F1, mis-described, and transferred unvalidated to 5 other basins. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| M2 | "25 gauges exceeded critical level" is mostly an artefact; and three SUSPECT gauges carry usable evidence. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| M3 | Pre-registration claim ("กำหนดไว้ก่อนดูผล") is not demonstrable and the window was changed after results. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| M5 | Cross-file stale numbers that the test-suite does not catch. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| M6 | Defamation framing (AGENTS.md / LEGAL_REVIEW) in reports 3 and 4. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| L1 | C.2 correlation is trend-driven. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| L2 | Weibull return period. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| L3 | Report 4 is thin relative to what report 3 promises. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| L4 | Readability / language. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| L5 | TLDR coverage. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
-| L6 | Duration maps. | **ยังไม่ได้ตรวจ** | ยังไม่ได้ตรวจ — ต้องเปิดไฟล์รีวิวและตรวจกับโค้ดจริง |
+| F-01 | Published caption claims Ongkharak 2-D hypsometry was "analyzed from a **1-m** digital elevation model (**LiDAR** merged with FABDEM and Copernicus 30 m)". Contradicted by its own canonical source | **ปิดแล้ว** | คำบรรยายที่มา DEM แก้เป็น Copernicus 30 ม. ±2–4 ม. แล้ว — ตรงกับแหล่งที่ใช้จริง |
+| F-02 | Narrative "ทักษะการพยากรณ์**โดดเด่น**ที่ระยะ +12 และ +24 ชม." contradicts its own table: skill vs persistence **−3.0% (+12h)**, **−2.7% (+24h)**, **−4.2% (+48h)**, R² −0.293/−0.285 at +6/12h; only +2… | **ปิดแล้ว** | ถอดคำ 'โดดเด่น' และแก้สรุปฮาร์มอนิกให้ตรงตารางจริงแล้ว (พบกับดักการพิมพ์เครื่องหมายบวกลบด้วย) |
+| F-03 | `days_average_year = 38.3 วัน/ปี (ร้อยละ 10.49)` is computed as **`flood_season_mean_mcm (1,988 ส.ค.–พ.ย.) / cap 51.84`** but is *labeled* "average year" / "ปีน้ำเฉลี่ย". The same record's annual mea… | **ปิดบางส่วน** | บันทึกนิยามแล้ว (38.3 = เฉลี่ยฤดูน้ำหลาก · เทียบเท่าปีเฉลี่ย 52.5 วัน) แต่ชื่อฟิลด์/พาดหัวยังไม่เปลี่ยน — รวมงานไว้ที่ R6-01 (ดู Claude F-05, SB F-28) |
+| F-04 | `diverted_volume_mcm = 1970.0` ("ปริมาณน้ำผันเฉลี่ยต่อปี") has **no derivation, no source comment**, and is inconsistent with both documented means in the same module (1,988 ≠ 1,970 ≠ 2,720). It is t… | **ยังค้าง** | ค่า diverted_volume_mcm = 1970.0 ยังไม่มีที่มา และไม่ตรงกับ 1,988 (ฤดูน้ำหลาก)/2,720 (ปีเฉลี่ย) · ยังถูกป้อนเป็นตัวเลขตรงในไบล์เดอร์ (var annualMcm) — R6-01/R6-02 |
+| F-05 | Dead-storage decomposition is **geometrically impossible**: bottom **2 of 7 m** depth claimed to hold `21.0` of `55.4` MCM = **37.9% of volume at 28.6% of depth** — for any cross-section widening upw… | **ปิดแล้ว** | ปริมาตรน้ำตายคำนวณจากเรขาคณิตจริงแล้ว (13.8/41.6/19.3 แทนชุดค่าที่เป็นไปไม่ได้) |
+| F-06 | Two partitions of the same "87 crossing structures" disagree **inside one record**: by-province 22+31+24+10 = **87 ✓**; by-type 34 (culvert+syphon) + 15 (road bridges) + 1 (railway) + 5 (locks) + 2 (… | **ยังค้าง** | การแบ่ง 87 อาคารตัดขวางตามประเภท (34+15+1+5+2 = 57) ยังไม่ลงกับยอด 87 — R6-12 |
+| F-07 | Goal-7 builders print **metric literals** (87, 135.7, 16,288, 1,378, 22.5/22.4, 25–35, 9.5/+90%, 193,575.6/193.6 k, 6.81, 1970, 38.3, 10.49%, and more) despite `goal7_common.py:2` stating "ห้ามพิมพ์ต… | **ปิดบางส่วน** | มีตัวตรวจกันค่าหมดอายุ (test_goal7_builders_have_no_stale_literals) · แต่ตัวเลข metric ยังฝังเป็นตัวเลขตรงในไบล์เดอร์เป้าหมาย 7 — ขยายตัวสแกนที่ R6-02 |
+| F-08 | Full-length values: **135.9 / 135.7 / 135.655** for "the same canal" appear in one artifact with **no definitional separation**, and province-count likewise flips 4↔5 (old-reach vs new-reach). AGENTS… | **ยังค้าง** | ความยาวคลอง 135.655/135.7/135.9 ยังใช้ปนกันในข้อความมนุษย์ · ที่มาแต่ละค่าเพิ่งบันทึกใน canonical — R6-10 |
+| F-09 | Same Bangban–Bangsai canal written as "**22.4** กม." in the policy TLDR and "**22.5** กม." in the academic report and canonical | **ยังค้าง** | คลองบางบาล–บางไส้ 22.4 กม. (สรุปผู้บริหาร) เทียบ 22.5 กม. (รายงานวิชาการ/ค่ากลาง) ยังไม่ตรงกัน — R6-11 |
+| F-10 | The `if q_in > safe+500: q_div = canal_cap` override diverts **full canal capacity regardless of same-day excess**, contradicting the `min(excess, cap)` rule two lines above. Effect: for the *-5,000… | **ยังค้าง** | เงื่อนไข 'q_div = canal_cap' เมื่อน้ำเกินยังขัดกับกฎ min(excess, cap) เหนือขึ้นไปสองบรรทัด (goal7_counterfactual_simulation.py:54-55) — ผักผ่อนที่ B-04/B-05 |
+| F-11 | Compound matrix is honestly labeled a 2-point feasibility prototype (c1=0.132, exp 1.28, wave=0.08 m, no Q×tide coupling); 2554/2569 input pairs admitted no-source. One *internal* contradiction remai… | **ยังค้าง** | ป้าย 'ต้นแบบความเป็นไปได้ 2 จุด' มีแล้ว · แต่ข้อขัดกันระหว่างค่าคงที่ 2.80 กับช่วงสันคัน 2.80–3.00 และการยังไม่สอบเทียบ ยังอยู่ — R6-04/R6-06 |
+| F-12 | (a) A **single Manning n = 0.0437** calibrated at Ny.7 (composite method) is used for both reaches whose slopes differ by ~2× (0.00065 vs 0.00035) — the code says so at `:176-180`, `summary.manning_n… | **ยังค้าง** | ความขรุขระประมาณจากจุดเดียว (Manning n เดียวสอบเทียบ Ny.7) + เส้นความสัมพันธ์แบบผสมไม่เป็นเอกภาพ + ไม่มีศึกษาลู่เข้าของกริด — ผักผ่อนที่ B-02 |
+| F-13 | The FABDEM-in-source claim in the audit brief ("1 m LiDAR/FABDEM") does not match the DEM mix actually shipped. Already under F-01; listed separately for the brief-vs-artifact table | **ปิดแล้ว** | เอกสารคำสั่งรีวิวไม่มีการอ้าง 'LiDAR/FABDEM' อีกแล้ว — ตรงกับ Copernicus 30 ม. ที่ใช้จริง |
+| F-14 | Gate "FAIL" is a **document-registration protocol bug, not a code bug**: 4 unregistered `REVIEW.<model>.md` files at repo root trigger it, and the count grew from 3 to 4 **while this audit ran** (a G… | **ปิดแล้ว** | ตัวตรวจทะเบียนเอกสารยกเว้นผลงานรีวิว — ต้นเหตุ 'FAIL' เป็นปัญหากระบวนการ ไม่ใช่ข้อบกพร่องของโค้ด |
+| F-15 | **Positive verifications** (attacked repeatedly, held): synthetic-hydrograph labeling exactly where data is invented (`SYNTHETIC... seed 42`), `safe_cap 2600` stamped "ไม่มีเอกสารอ้างอิง", `dq_dh = 1… | **ทำซ้ำไม่ได้** | ไม่ใช่ข้อบกพร่อง: เป็นรายการตรวจด้านบวกที่ยืนยันว่าป้ายกำกับสมมติฐานอยู่ครบ (SYNTHETIC·seed 42 · safe_cap 2,600 ที่ไม่มีเอกสารรองรับ · dq/dh 600–5,000) — ตรวจซ้ำแล้วไม่พบปัญหา |
 
-**รวม 75 ข้อ**
+---
+
+### บันทึกการแก้ไขตัวสร้าง (18 ต.ค. 2569)
+
+- รุ่นแรกของตัวสร้างชี้ `SOURCES` ไปไฟล์รีวิวรุ่นเก่าใน `docs/reviews/` (`REVIEW.claude-sonnet-5.5-goal6.md`, `REVIEW.deepseek.md`, `REVIEW.gemini_3.8_flash.md`, `REVIEW.glm.md`) ทำให้ทะเบียนที่เผยแพร่ก่อนหน้านี้อ้างข้อค้นพบคนละชุดกับรีวิวรอบที่ 5 ที่ส่งจริง (75 รายการจากฉบับเก่า และส่วนใหญ่ยังขึ้นว่า "ยังไม่ได้ตรวจ")
+- รอบนี้ชี้ไฟล์จริงที่ root ตามรายการข้างต้น และตรวจสถานะใหม่ครบทุกรายการเทียบโค้ด/ผลลัพธ์ ณ วันที่สร้าง
+- ตัวเลขยอดรายฉบับถูกบังคับด้วย `expect` ต่อไฟล์ — ถ้ารูปแบบตารางรีวิวเปลี่ยนจนดึงได้ไม่ครบ สคริปต์จะหยุดทันที

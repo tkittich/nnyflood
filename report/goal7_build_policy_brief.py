@@ -16,8 +16,19 @@ from goal6_reportlib import figure, h2, h3, note, page, prose, table, toc  # noq
 from goal7_common import C, fig_capacity, fig_map, fig_options, fig_overview  # noqa: E402
 import goal7_blocks as blk  # noqa: E402
 
+_RP = C.get("reconciled_parameters", {})
+_CAPEX_MB = _RP.get("project_budget", {}).get("canonical_eia_capex_mb", 160046)
+_LAND_RAI = _RP.get("land_acquisition", {}).get("canonical_new_reach_rai", 16288)
+_OPEX_MB = int(C.get("operational_economics", {}).get("lifecycle_economics", {}).get("opex_annual_mb", 519))
+_ANNUAL_MCM = int(C.get("operational_economics", {}).get("lifecycle_economics", {}).get("annual_diverted_mcm", 1970))
+_S26 = C.get("operational_economics", {}).get("s26_operational_profile", {})
+_LC = C.get("operational_economics", {}).get("lifecycle_economics", {})
+_SCEN0 = _LC.get("discount_scenarios", [{}])[0]
+_ANN_COST_MB = _SCEN0.get("total_annual_cost_mb", 13416.5)
+_COST_M3 = _SCEN0.get("cost_per_m3_diverted_baht", 6.81)
+
 def widget_policy_simulator() -> str:
-    return (
+    html = (
         '<div class="interactive-simulator" style="background:#f8fafc;border:2px solid #cbd5e1;border-radius:10px;padding:22px 24px;margin:24px 0">\n'
         '  <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e2e8f0;padding-bottom:10px;margin-bottom:16px">\n'
         '    <h3 style="margin:0;color:#0f172a;font-size:1.15rem">เครื่องมือจำลองภาระงบประมาณตามอัตราคิดลดและความล่าช้า (คำนวณสดในเบราว์เซอร์)</h3>\n'
@@ -55,15 +66,15 @@ def widget_policy_simulator() -> str:
         '  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:14px;text-align:center">\n'
         '    <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid #cbd5e1">\n'
         '      <div style="font-size:0.8rem;color:#64748b;margin-bottom:4px">เงินลงทุนปรับปรุง (ล้านบาท)</div>\n'
-        '      <div id="res_capex" style="font-size:1.25rem;font-weight:700;color:#0f172a">160,046</div>\n'
+        '      <div id="res_capex" style="font-size:1.25rem;font-weight:700;color:#0f172a">__CAPEX_MB__</div>\n'
         '    </div>\n'
         '    <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid #cbd5e1">\n'
         '      <div style="font-size:0.8rem;color:#64748b;margin-bottom:4px">ภาระรวมรายปี (ล้านบาท/ปี)</div>\n'
-        '      <div id="res_annual" style="font-size:1.25rem;font-weight:700;color:#0f172a">13,416</div>\n'
+        '      <div id="res_annual" style="font-size:1.25rem;font-weight:700;color:#0f172a">__ANN_COST_MB__</div>\n'
         '    </div>\n'
         '    <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid #cbd5e1">\n'
         '      <div style="font-size:0.8rem;color:#64748b;margin-bottom:4px">ต้นทุนต่อน้ำผันจริง (บาท/ลบ.ม.)</div>\n'
-        '      <div id="res_cost_m3" style="font-size:1.35rem;font-weight:800;color:#b91c1c">6.81</div>\n'
+        '      <div id="res_cost_m3" style="font-size:1.35rem;font-weight:800;color:#b91c1c">__COST_M3__</div>\n'
         '    </div>\n'
         '    <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid #cbd5e1">\n'
         '      <div style="font-size:0.8rem;color:#64748b;margin-bottom:4px">ระดับความเสี่ยงทางการคลัง</div>\n'
@@ -72,9 +83,9 @@ def widget_policy_simulator() -> str:
         '  </div>\n'
         '  <script>\n'
         '  (function(){\n'
-        '    var baseCapex = 160046;\n'
-        '    var baseOpex = 519;\n'
-        '    var annualMcm = 1970;\n'
+        '    var baseCapex = __RAW_CAPEX__;\n'
+        '    var baseOpex = __RAW_OPEX__;\n'
+        '    var annualMcm = __RAW_ANNUAL_MCM__;\n'
         '    var n = 30;\n'
         '    function update() {\n'
         '      var r = parseFloat(document.getElementById("input_discount").value) / 100.0;\n'
@@ -113,6 +124,12 @@ def widget_policy_simulator() -> str:
         '  </script>\n'
         '</div>'
     )
+    return html.replace("__CAPEX_MB__", f"{_CAPEX_MB:,}") \
+               .replace("__ANN_COST_MB__", f"{_ANN_COST_MB:,.0f}") \
+               .replace("__COST_M3__", f"{_COST_M3:.2f}") \
+               .replace("__RAW_CAPEX__", str(_CAPEX_MB)) \
+               .replace("__RAW_OPEX__", str(_OPEX_MB)) \
+               .replace("__RAW_ANNUAL_MCM__", str(_ANNUAL_MCM))
 
 
 OUT = ROOT / "report/สมุดปกขาว_เจ้าพระยา2.html"
@@ -124,12 +141,12 @@ def build_report() -> str:
     # 1. กล่องสรุปสั้น TLDR (อ่าน 2 นาที)
     sections.append(h2("สรุปสั้น (อ่าน 2 นาที)"))
     sections.append(prose(
-        "<b>1. ความคุ้มค่าและหน้าต่างการใช้งานจริง:</b> โครงการคลองเจ้าพระยา 2 มีกรอบเงินลงทุน 160,046 ล้านบาท "
+        f"<b>1. ความคุ้มค่าและหน้าต่างการใช้งานจริง:</b> โครงการคลองเจ้าพระยา 2 มีกรอบเงินลงทุน {_CAPEX_MB:,} ล้านบาท "
         "แต่สถิติน้ำท่าท้ายเขื่อนพระรามหก (สถานี S.26) ตลอด 39 ปี (พ.ศ. 2528–2566) พบว่ามีน้ำหลากให้ผันเต็มอัตราออกแบบ (600 ลบ.ม./วินาที) "
-        "เฉลี่ยเทียบเท่าเพียง <b>38.3 วันต่อปี (ร้อยละ 10.49 ของปี)</b> ส่งผลให้ต้นทุนเงินลงทุนและค่าบำรุงรักษาต่อลูกบาศก์เมตรน้ำผันจริงสูงถึง <b>6.81 บาท/ลบ.ม.</b> "
+        f"เฉลี่ยเทียบเท่าเพียง <b>38.3 วันต่อปี (ร้อยละ 10.49 ของปี)</b> ส่งผลให้ต้นทุนเงินลงทุนและค่าบำรุงรักษาต่อลูกบาศก์เมตรน้ำผันจริงสูงถึง <b>{_COST_M3:.2f} บาท/ลบ.ม.</b> "
         "(สูงกว่าแก้มลิงและการพัฒนาพื้นที่หน่วงน้ำ 5–10 เท่า)<br>"
         "<b>2. บทเรียนความเสี่ยงจากคลองบางบาล–บางไทร:</b> โครงการคลองบางบาล–บางไทร (ยาว 22.4 กม.) ประสบปัญหาล่าช้ากว่าแผนเดิมกว่า 5–7 ปี และงบบานปลายร้อยละ 20.6 "
-        "เนื่องจากเปิดประมูลก่อนเวนคืนที่ดินเสร็จสิ้น หากคลองเจ้าพระยา 2 (ยาว 135.7 กม. ตัดข้าม 87 อาคาร เวนคืน 16,288 ไร่) ไม่ปรับแนวทางการบริหารสัญญา "
+        f"เนื่องจากเปิดประมูลก่อนเวนคืนที่ดินเสร็จสิ้น หากคลองเจ้าพระยา 2 (ยาว 135.7 กม. ตัดข้าม 87 อาคาร เวนคืน {_LAND_RAI:,} ไร่) ไม่ปรับแนวทางการบริหารสัญญา "
         "จะมีความเสี่ยงสูงยิ่งที่งบประมาณจะบานปลายทะลุ 1.9–2.1 แสนล้านบาท<br>"
         "<b>3. ข้อเสนอธรรมาภิบาลสัญญา <code>No Land, No Contract</code>:</b> ภาครัฐต้องกำหนดเป็นเงื่อนไขบังคับว่า 'ห้ามลงนามสัญญาจ้างก่อสร้างก่อนส่งมอบพื้นที่ 100%' "
         "โดยแบ่งสัญญาออกเป็นสัญญาย่อยที่สมบูรณ์ในตัวเอง และตั้งกองทุนชดเชยและฟื้นฟูวิถีชีวิตร้อยละ 2–3 ของวงเงินโครงการ<br>"
@@ -168,8 +185,8 @@ def build_report() -> str:
     sections.append(h2("1. ภาพรวมและข้อขัดแย้งเชิงโครงสร้างระดับนโยบาย", anchor="sec_paradox"))
     sections.append(prose(
         "โครงการคลองระบายน้ำหลากเจ้าพระยาฝั่งตะวันออกตอนล่าง (ป่าสัก–อ่าวไทย) หรือ <b>'คลองเจ้าพระยา 2'</b> "
-        "เป็นหนึ่งในโครงการบริหารจัดการน้ำขนาดใหญ่ที่สุดในประวัติศาสตร์ ด้วยกรอบเงินลงทุนรวม <b>160,046 ล้านบาท</b> "
-        "ขุดคลองระบายน้ำหลากขนาดความจุ 600 ลบ.ม./วินาที ยาว 135.655 กม. ผ่าน 4 จังหวัด เวนคืนที่ดิน 16,288 ไร่ (3,957 แปลง) กระทบสิ่งปลูกสร้าง 1,378 หลัง · "
+        f"เป็นหนึ่งในโครงการบริหารจัดการน้ำขนาดใหญ่ที่สุดในประวัติศาสตร์ ด้วยกรอบเงินลงทุนรวม <b>{_CAPEX_MB:,} ล้านบาท</b> "
+        f"ขุดคลองระบายน้ำหลากขนาดความจุ 600 ลบ.ม./วินาที ยาว 135.655 กม. ผ่าน 4 จังหวัด เวนคืนที่ดิน {_LAND_RAI:,} ไร่ (3,957 แปลง) กระทบสิ่งปลูกสร้าง 1,378 หลัง · "
         "อย่างไรก็ตาม การศึกษาทางอุทกวิทยาชี้ให้เห็นถึง <b>'ความขัดแย้งเชิงโครงสร้าง'</b> สำคัญ 5 ประการ:"
     ))
     sections.append(prose(
@@ -192,9 +209,9 @@ def build_report() -> str:
     ))
     sections.append(blk.tbl_s26_operational_economics())
     sections.append(prose(
-        "เมื่อนำวงเงินลงทุน 160,046 ล้านบาท และค่าบำรุงรักษา 519 ล้านบาทต่อปี มาคำนวณภาระคืนทุนรายปีตลอดอายุโครงการ 30 ปี ที่อัตราคิดลดร้อยละ 7 "
-        "พบว่ามีภาระเงินลงทุนรายปี 12,897 ล้านบาท/ปี รวมกับค่าบำรุงรักษาเป็น <b>13,416 ล้านบาท/ปี</b> "
-        "เมื่อหารด้วยปริมาณน้ำผันเฉลี่ย 1,970 ล้าน ลบ.ม./ปี ต้นทุนต่อน้ำผันจริงจะอยู่ที่ <b>6.81 บาทต่อลูกบาศก์เมตร</b> "
+        f"เมื่อนำวงเงินลงทุน {_CAPEX_MB:,} ล้านบาท และค่าบำรุงรักษา {_OPEX_MB:,} ล้านบาทต่อปี มาคำนวณภาระคืนทุนรายปีตลอดอายุโครงการ 30 ปี ที่อัตราคิดลดร้อยละ 7 "
+        f"พบว่ามีภาระเงินลงทุนรายปี {_LC.get('discount_scenarios', [{}])[0].get('annualized_capital_mb', 12897.5):,.0f} ล้านบาท/ปี รวมกับค่าบำรุงรักษาเป็น <b>{_ANN_COST_MB:,.0f} ล้านบาท/ปี</b> "
+        f"เมื่อหารด้วยปริมาณน้ำผันเฉลี่ย {_ANNUAL_MCM:,} ล้าน ลบ.ม./ปี ต้นทุนต่อน้ำผันจริงจะอยู่ที่ <b>{_COST_M3:.2f} บาทต่อลูกบาศก์เมตร</b> "
         "ซึ่งสูงกว่าทางเลือกเชิงวิศวกรรมอื่นๆ อย่างมีนัยสำคัญ:"
     ))
     sections.append(blk.tbl_lifecycle_economics())

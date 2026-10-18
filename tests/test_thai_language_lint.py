@@ -25,6 +25,7 @@ ALL_REPORTS = [
     ROOT / "report/ชุดเทียบมาตรฐาน2554.html",
     ROOT / "report/คลองเจ้าพระยา2_ประชาชน.html",
     ROOT / "report/คลองเจ้าพระยา2_วิชาการ.html",
+    ROOT / "report/สมุดปกขาว_เจ้าพระยา2.html",
 ]
 
 DOC_FILES = [

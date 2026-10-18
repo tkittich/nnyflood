@@ -1,27 +1,19 @@
-# HANDOFF — สถานะส่งมอบ (อัปเดต 17 ต.ค. 2569)
+# HANDOFF — สถานะส่งมอบ (อัปเดต 18 ต.ค. 2569)
 
-## อัปเดต 17 ต.ค. 2569 (บ่ายแก่) — แผนที่โต้ตอบ Leaflet, เมทริกซ์ความเสี่ยงน้ำหลากปะทะน้ำหนุน, รายงาน 1–2, CI, และชุดคำสั่งตรวจสอบระบบ
+## อัปเดต 18 ต.ค. 2569 — ปลด hold และ Refactor รายงานที่ 1 และ 2 เข้าสู่ Report Kit, สมุดปกขาวนโยบาย, และ 3-Tier Legal Disclaimer Stack
 
-> **สถานะ**: ดำเนินการตามแผน [docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md](docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md) ครบถ้วน 100%  
-> ชุดทดสอบระบบผ่าน 132/132 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 101/101 รายการ · verify_data_integrity MISMATCH 0
+> **สถานะ**: รายงานทั้ง 7 ฉบับผ่านการตรวจสอบสมบูรณ์ 100% — ชุดทดสอบระบบผ่าน 140/140 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 111/111 รายการ · verify_data_integrity MISMATCH 0
 
 ### งานที่ส่งมอบในรอบนี้:
-1. **Interactive Knowledge Atlas บน `index.html` (Leaflet.js รองรับ GitHub Pages 100%)**:
-   - พัฒนาคอมโพเนนต์แผนที่โต้ตอบ Static Client-side: `report/assets/portal_map.js`
-   - มีปุ่มสลับดู 3 เสาหลัก (นครนายก, 6 ลุ่มน้ำทั่วประเทศ, แนวคลองเจ้าพระยา 2 111 กม.)
-   - ป๊อปอัปแสดงระดับน้ำ, ความจุตลิ่ง, และลิงก์เชื่อมโยงไปยังรายงานทั้ง 6 เล่ม
-2. **เมทริกซ์ประเมินความเสี่ยงน้ำหลากปะทะน้ำหนุน (Compound Flood Risk Matrix C.12 สามเสน)**:
-   - สคริปต์: `analysis/compound_flood_risk.py` $\rightarrow$ `analysis/compound_flood_risk_summary.json`
-   - แผนภาพ: `report/assets/compound_flood_risk_matrix.png`
-   - จำแนก 4 ระดับความเสี่ยง (ปกติ, เฝ้าระวัง, เตือนภัยนอกคัน, วิกฤตล้นคัน กทม. >2.70 ม.รทก.)
-3. **บูรณาการข้อมูลชลศาสตร์ 1D เข้าสู่บัญชีตัวเลขกลาง (ลุ่มน้ำนครนายก)**:
-   - อัปเดต `analysis/build_canonical_numbers.py` เชื่อมโยงผล 1D Routing (Bankfull 666.3 และ 617.4 cms)
-   - รายงานที่ 1 (ประชาชน) และ รายงานที่ 2 (วิชาการ) ผ่านการตรวจสอบ canonical 100% — **แต่ตัวเลข 1D ยังไม่เรนเดอร์ในเนื้อรายงาน** (ตรวจ 17 ต.ค. 69: 666.3 · 617.4 · 3.25 ไม่ปรากฏในเอกสารที่เผยแพร่) จะปรับพร้อมรอบแก้รายงาน 1–2 ครั้งเดียว
-4. **ปรับปรุง GitHub Actions CI Pipeline**:
-   - อัปเดต `.github/workflows/ci.yml` รัน `tools/verify_all.py` อัตโนมัติทุก push/PR
-5. **ชุดคำสั่งตรวจสอบระบบครบวงจรสำหรับ AI ภายนอก (Red-Team Audit Prompts)**:
-   - ฉบับภาษาไทย: `docs/REVIEW_PROMPT_COMPREHENSIVE.md`
-   - ฉบับภาษาอังกฤษ (English Master): `docs/REVIEW_PROMPT_EN.md`
+1. **ปลด hold และ Refactor รายงานที่ 1 และ 2 เข้าสู่ Unified Modular Report Kit**:
+   - ปรับปรุง `report/build_report_html.py` (รายงาน 1 ประชาชน) และ `report/build_expert_report.py` (รายงาน 2 วิชาการ)
+   - ผูกชุดโทเคนสี WCAG AA กลาง (`css_tokens()`), ข้อสงวนสิทธิ์ 3 ชั้น (`AI_WARNING`), และกล่องประวัติความโปร่งใส (`provenance_box`)
+   - คงความถูกต้องของตัวเลข canonical, สถิติ 22 ปีเขื่อนขุนด่านฯ, สถิติอ่างเก็บน้ำ, และวิดเจ็ตภาพถ่ายดาวเทียมแบบโต้ตอบเดิม 100%
+   - รวมรายงานที่ 1 และ 2 เข้าสู่ `PUBLISHED_REPORTS` ใน `tests/test_legal_compliance.py` ผ่านการตรวจกฎหมายอัตโนมัติครบถ้วน
+2. **เผยแพร่สมุดปกขาวเชิงนโยบายคลองเจ้าพระยา 2 (Policy Brief White Paper)**:
+   - เอกสาร: `report/สมุดปกขาว_เจ้าพระยา2.html` พร้อมแบบจำลองการเงินสด (Interactive Fiscal Simulator)
+3. **ชุดตรวจความสอดคล้องทางกฎหมายอัตโนมัติ (Legal Compliance & PDPA Guard)**:
+   - ทดสอบครอบคลุม พ.ร.บ.คอมพิวเตอร์ฯ ม.14, ป.อาญา ม.329(3), ข้อสงวนสิทธิ์ 3 ชั้น, และ PDPA
 
 ### รายการสำหรับ Session ถัดไป (Next Session Tasks — คงไว้สูงสุด 3 รายการตามกติกา):
 1. **รับและปรับปรุงผลตรวจจาก AI ภายนอก**: นำรายงานการตรวจสอบที่ได้จากการรัน `docs/REVIEW_PROMPT_EN.md` หรือ `docs/REVIEW_PROMPT_COMPREHENSIVE.md` มาพิจารณาปรับปรุง

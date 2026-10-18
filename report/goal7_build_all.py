@@ -31,3 +31,7 @@ from goal7_engine import PENDING  # noqa: E402
 for f in ("คลองเจ้าพระยา2_ประชาชน.html", "คลองเจ้าพระยา2_วิชาการ.html"):
     if PENDING in (ROOT / "report" / f).read_text(encoding="utf-8"):
         raise SystemExit(f"{f}: ยังมีโทเคนอ้างข้ามฉบับที่ไม่พบ key (พิมพ์ผิด?)")
+
+# สร้างสมุดปกขาวเชิงนโยบายควบคู่เสมอ
+subprocess.run([sys.executable, str(ROOT / "report/goal7_build_policy_brief.py")], check=True)
+print("สร้างรายงานเป้าหมาย 7 ครบทั้ง 3 ฉบับสำเร็จ")

@@ -39,9 +39,17 @@ def _contrast(a: str, b: str) -> float:
 def _pairs_from_builder(path: Path) -> list[tuple[str, str, str]]:
     """คู่สีในไบล์เดอร์รายงานรูปแบบ CSS variables: --c-<ชื่อ>: <พื้น>; --c-<ชื่อ>-fg: <ตัวอักษร>"""
     txt = path.read_text(encoding="utf-8")
-    return re.findall(
+    pairs = re.findall(
         r"--c-([a-z-]+):\s*(#[0-9a-fA-F]{6});\s*--c-\1-fg:\s*(#[0-9a-fA-F]{6})", txt
     )
+    if not pairs and "css_tokens" in txt:
+        import sys
+        sys.path.insert(0, str(path.parent))
+        from goal6_reportlib import css_tokens
+        pairs = re.findall(
+            r"--c-([a-z-]+):\s*(#[0-9a-fA-F]{6});\s*--c-\1-fg:\s*(#[0-9a-fA-F]{6})", css_tokens()
+        )
+    return pairs
 
 
 def _pairs_from_reportlib(path: Path) -> list[tuple[str, str, str]]:

@@ -132,6 +132,12 @@ PILLARS = {
                 "html": "report/คลองเจ้าพระยา2_วิชาการ.html",
                 "builder": "report/goal7_build_academic.py",
             },
+            {
+                "id": "pb",
+                "name": "สมุดปกขาวเชิงนโยบาย — บทเรียนจากบางบาล–บางไทร สู่ความเสี่ยงเมกะโปรเจกต์เจ้าพระยา 2",
+                "html": "report/สมุดปกขาว_เจ้าพระยา2.html",
+                "builder": "report/goal7_build_policy_brief.py",
+            },
         ],
         "canonical": "analysis/goal7/canonical.json",
         "canonical_builder": "analysis/goal7_analysis.py",
@@ -143,6 +149,7 @@ PILLARS = {
         ],
         "key_scripts": [
             "report/goal7_build_all.py",
+            "report/goal7_build_policy_brief.py",
             "analysis/goal7_analysis.py",
             "analysis/goal7_eia_structs.py",
             "analysis/goal7_waterchart_overlay.py",
@@ -167,6 +174,7 @@ CORE_GOVERNANCE = [
     ("HANDOFF.md", "สถานะส่งมอบ: งานที่เสร็จ งานค้าง และกับดักที่เจอแล้ว — อ่านก่อนลงมือ"),
     ("THIRD_PARTY_NOTICES.md", "ประกาศข้อมูลบุคคลที่สามที่ใช้/อ้างอิงในโปรเจกต์"),
     ("docs/REPORT_CONVENTIONS.md", "ข้อตกลงการทำรายงาน: เอ็นจิน key+โทเคน, ธีม WCAG, สรีรศาสตร์สายตา, และป้ายหน้ารวม"),
+    ("docs/READER_CHANGELOG.md", "บันทึกการปรับปรุงเนื้อหารายงานสำหรับผู้อ่าน (ประวัติการอัปเดตและข้อค้นพบใหม่)"),
     ("docs/PROJECT_MAP.md", "แผนที่นำทางและแคตตาล็อกระบบฉบับเต็ม (Topic Discovery Matrix)"),
     ("docs/LEGAL_REVIEW.md", "แนวปฏิบัติทางกฎหมาย: การหมิ่นประมาท (เน้นระบบ ไม่เน้นตัวบุคคล) และ PDPA"),
     ("docs/DATA_SOURCES.md", "บัญชีแหล่งข้อมูล วิธีเชื่อมต่อ API Thaiwater, CDSE, Copernicus DEM"),

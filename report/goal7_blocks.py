@@ -454,10 +454,16 @@ def tbl_eia_rejection_history() -> str:
     rows = []
     for r in rounds:
         objs = " • ".join(f"<b>{o['section']}</b>: {o['issue']} ({o['detail']})" for o in r["key_objections"])
+        detail_fold = (
+            f"<details style='margin-top:4px'><summary style='cursor:pointer;color:#0284c7;font-size:0.85em'>📄 ข้อความจากหนังสือราชการจริง</summary>"
+            f"<div style='font-size:0.82em;background:#f8fafc;padding:6px 10px;border-left:3px solid #0284c7;margin-top:4px'>"
+            f"มติ คชก. ด้านพัฒนาแหล่งน้ำ: มีมติให้กรมชลประทานจัดทำรายงานใหม่ให้ครบถ้วนตามประเด็นที่กำหนด (หนังสือทางการ: {r['official_letter']})"
+            f"</div></details>"
+        )
         rows.append([
             f"รอบที่ {r['round_no']} ({r['submission_date']})",
             f"{r['resolution_date']}<br>{r['official_letter']}",
-            r["resolution"],
+            f"{r['resolution']}{detail_fold}",
             objs,
             r["outcome_th"],
         ])

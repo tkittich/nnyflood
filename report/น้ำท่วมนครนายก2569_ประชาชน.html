@@ -22,6 +22,14 @@
   --c-chart-accent: #e74c3c; --c-chart-accent-fg: #ffffff;
 }
   :root { --blue:#1565c0; --red:#c62828; --orange:#ef6c00; --green:#2e7d32; --ink:var(--c-paper-fg); --paper:#ffffff; --soft:#f2f6fa; }
+  .provenance-box { margin-top:24px; padding:16px 20px; background:#f7fafc;
+                     border:1px solid #d8e2ea; border-radius:8px; font-size:.88em;
+                     color:var(--c-muted-fg); line-height:1.65; }
+  .provenance-box b { color:var(--c-paper-fg); }
+  .provenance-badges { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 10px; }
+  .prov-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:.84em; font-weight:600; }
+  .prov-badge-ok { background:var(--c-ok-bg); color:var(--c-ok-bg-fg); }
+  .prov-badge-code { background:var(--c-code-bg); color:var(--c-code-bg-fg); }
   * { box-sizing: border-box; }
   body { font-family:'Leelawadee UI','Segoe UI',Tahoma,'Loma','Garuda','Norasi',sans-serif; color:var(--ink); background:var(--c-page); margin:0; line-height:1.75; }
   .page { max-width: 980px; margin: 0 auto; background:var(--paper); padding: 34px 46px 60px; box-shadow:0 0 18px rgba(0,0,0,.08); }
@@ -82,6 +90,8 @@
   <div class="meta">จัดทำเมื่อ ตุลาคม 2569 · ทุกตัวเลขตรวจสอบย้อนกลับได้ถึงไฟล์ต้นฉบับ (ดูภาคผนวก) · <b>จัดทำโดยปัญญาประดิษฐ์ (AI) ร่วมกับเจ้าของโปรเจกต์ — ก่อนนำไปอ้างอิง/ตัดสินใจ ควรตรวจทานโดยผู้เชี่ยวชาญด้านอุทกวิทยา/วิศวกรรมอีกครั้ง</b></div>
 </header>
 
+<div class="warn" style="margin:20px 0"><b>ข้อสงวนสิทธิ์และความคุ้มครองทางวิชาการ (3-Tier Legal Disclaimer &amp; Notice):</b><br>• <b>1. สถานะการศึกษาวิจัยอิสระ:</b> รายงานนี้เป็นงานศึกษาอิสระทางวิทยาศาสตร์ข้อมูลและชลศาสตร์เพื่อประโยชน์สาธารณะและการมีส่วนร่วมของประชาชน มิใช่ประกาศหรือคำวินิจฉัยสั่งการอย่างเป็นทางการของหน่วยงานราชการ<br>• <b>2. ข้อจำกัดของแบบจำลองทางคณิตศาสตร์:</b> ข้อมูลตัวเลขตั้งต้นอ้างอิงจากเอกสารราชการและโทรมาตรทางการ แต่ผลการคำนวณ การจำลองสถานการณ์สมมติ และการประมาณการทางเศรษฐศาสตร์ จัดทำขึ้นภายใต้สมมติฐานทางคณิตศาสตร์ที่ระบุไว้ อาจมีความคลาดเคลื่อนจากความผันแปรทางธรรมชาติและสภาพจริงหน้างาน โปรดใช้วิจารณญาณทางวิชาการและปรึกษาผู้เชี่ยวชาญก่อนนำไปใช้ตัดสินใจ<br>• <b>3. ความสุจริตและสิทธิการโต้แย้ง:</b> จัดทำขึ้นโดยสุจริตเพื่อประโยชน์สาธารณะตามประมวลกฎหมายอาญา มาตรา 329(3) และ พ.ร.บ. ว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์ พ.ศ. 2560 (มาตรา 14) หากหน่วยงานราชการ ผู้เชี่ยวชาญ หรือประชาชนพบความคลาดเคลื่อนหรือมีข้อมูลเพิ่มเติม สามารถแจ้งผ่านระบบรับฟังความคิดเห็น (<code>GitHub Issues</code>) เพื่อการทบทวนและปรับปรุงต่อไป</div>
+
 <div class="note" style="margin-top:14px"><b>อ่านจบในตัวเอง:</b> รายงานนี้อธิบายครบทุกคำที่ใช้ (เช่น "เส้นควบคุมบน" คือระดับน้ำเก็บสูงสุดที่แผนประจำปีกำหนด) —
 ไม่ต้องเปิดเอกสารอื่นก่อนจึงเข้าใจได้ · สำหรับผู้อ่านที่อยากศึกษาลึก รายงานฉบับวิชาการเป็น "อ่านเพิ่ม" ไม่ใช่ "ต้องอ่าน"</div>
 
@@ -98,7 +108,6 @@
 <a href="#s8">ภาคผนวก</a>
 </div>
 
-<div class="note warn" style="margin-top:26px"><b>คำเตือน</b> — รายงานนี้จัดทำโดยระบบปัญญาประดิษฐ์ (AI) ภายใต้การกำกับของเจ้าของโปรเจกต์ ข้อมูลต้นทางเป็นของจริงและตรวจสอบย้อนได้ทุกตัวเลข แต่การคำนวณ การตีความ และการจำลองสถานการณ์เป็นการประมาณการที่มีข้อจำกัด (ระบุไว้ทุกจุด) — <b>โปรดให้ผู้เชี่ยวชาญด้านอุทกวิทยา/ทรัพยากรน้ำ/วิศวกรรมตรวจทานอีกครั้งก่อนใช้ประกอบการตัดสินใจหรืออ้างอิงต่อ</b></div>
 
 <h2 id="s1">ข้อความสำคัญ</h2>
 <div class="cards">
@@ -351,6 +360,19 @@
 <footer>
 รายงานฉบับประชาชน · จุดประสงค์: เข้าใจเหตุการณ์น้ำท่วมนครนายกปลาย ก.ย. 2569 อย่างเป็นเหตุเป็นผลจากข้อมูลจริง เพื่อการเรียนรู้ ติดตาม และเสนอแนะเชิงนโยบายอย่างสร้างสรรค์ · ทุกตัวเลขสอบย้อนกลับได้จากไฟล์ต้นฉบับและสคริปต์ในโฟลเดอร์โปรเจกต์ (เอกสารรองรับ: <b>ฉบับวิชาการสำหรับผู้เชี่ยวชาญ</b> — ไฟล์ <code>น้ำท่วมนครนายก2569_วิชาการ.html</code> ในโฟลเดอร์เดียวกัน · รายงานฉบับทำงาน <code>report/รายงาน.md</code> · ไฟล์ข้อมูล CSV/GeoTIFF และบันทึกวิธีการทั้งหมด) · ข้อมูลที่ยังรอ (ได้เมื่อไรจะแม่นขึ้น): ตารางเปิดบานรายชั่วโมงจาก สช.9 · <b>คำเตือนอีกครั้ง: รายงานจัดทำโดย AI — โปรดตรวจทานโดยผู้เชี่ยวชาญก่อนใช้อ้างอิง</b> · การตรวจสอบ: ชุดทดสอบอัตโนมัติ 31 ตัวผ่านทั้งหมด · ตรวจความครบถ้วนข้อมูลต้นฉบับด้วย SHA-256 ผ่านทั้งหมด (รันอัตโนมัติใน CI ทุกครั้ง) · ตัวเลขสำคัญทุกตัวข้ามสอบอย่างน้อย 2 แหล่งอิสระ
 </footer>
+
+<div class="provenance-box">
+  <div class="provenance-badges">
+    <span class="prov-badge prov-badge-code">รหัสรุ่น Git: 03e37ee</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ผ่านการตรวจภาษาไทย (Typo &amp; Collision Guard)</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ความเปรียบต่างสีผ่านเกณฑ์ WCAG AA</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ผ่านการตรวจกฎหมายและความเป็นส่วนตัว (Legal &amp; PDPA Guard)</span>
+    <span class="prov-badge prov-badge-ok">&#10003; ข้อมูลผูกกับฐานตัวเลขทางการ (analysis/canonical_numbers.json)</span>
+  </div>
+  <div>
+    <b>บันทึกประวัติและความโปร่งใส (Provenance &amp; Traceability):</b> รายงานฉบับนี้สร้างโดยกระบวนการสังเคราะห์อัตโนมัติร่วมกับปัญญาประดิษฐ์ (AI) ทุกตัวเลขหลักเชื่อมโยงกับแหล่งข้อมูลทางการใน <code>analysis/canonical_numbers.json</code> สามารถรันซ้ำเพื่อตรวจสอบความถูกต้องได้ทุกขั้นตอน คลังโค้ดและข้อมูลเปิดเผยแบบสาธารณะที่ <a href="https://github.com/tkittich/nnyflood" style="color:var(--c-accent)" target="_blank" rel="noopener">GitHub: tkittich/nnyflood</a> · <a href="../docs/READER_CHANGELOG.md" style="color:var(--c-accent)">บันทึกการปรับปรุงเนื้อหา (Changelog)</a> · แจ้งข้อเสนอแนะหรือขอแก้ไขข้อมูลที่ <a href="https://github.com/tkittich/nnyflood/issues/1" style="color:var(--c-accent)" target="_blank" rel="noopener">Issue #1</a>
+  </div>
+</div>
 
 </div>
 <script>

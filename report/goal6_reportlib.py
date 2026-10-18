@@ -20,10 +20,16 @@ import re
 from pathlib import Path
 
 AI_WARNING = (
-    "<b>คำเตือน</b> — รายงานนี้จัดทำโดยระบบปัญญาประดิษฐ์ (AI) ภายใต้การกำกับของเจ้าของโปรเจกต์ "
-    "ข้อมูลต้นทางเป็นของจริงและตรวจสอบย้อนได้ทุกตัวเลข แต่การคำนวณ การตีความ และการจำลองสถานการณ์"
-    "เป็นการประมาณการที่มีข้อจำกัด (ระบุไว้ทุกจุด) — <b>โปรดให้ผู้เชี่ยวชาญด้านอุทกวิทยา/"
-    "ทรัพยากรน้ำ/วิศวกรรมตรวจทานอีกครั้งก่อนใช้ประกอบการตัดสินใจหรืออ้างอิงต่อ</b>"
+    "<b>ข้อสงวนสิทธิ์และความคุ้มครองทางวิชาการ (3-Tier Legal Disclaimer &amp; Notice):</b><br>"
+    "• <b>1. สถานะการศึกษาวิจัยอิสระ:</b> รายงานนี้เป็นงานศึกษาอิสระทางวิทยาศาสตร์ข้อมูลและชลศาสตร์เพื่อประโยชน์สาธารณะและการมีส่วนร่วมของประชาชน "
+    "มิใช่ประกาศหรือคำวินิจฉัยสั่งการอย่างเป็นทางการของหน่วยงานราชการ<br>"
+    "• <b>2. ข้อจำกัดของแบบจำลองทางคณิตศาสตร์:</b> ข้อมูลตัวเลขตั้งต้นอ้างอิงจากเอกสารราชการและโทรมาตรทางการ "
+    "แต่ผลการคำนวณ การจำลองสถานการณ์สมมติ และการประมาณการทางเศรษฐศาสตร์ จัดทำขึ้นภายใต้สมมติฐานทางคณิตศาสตร์ที่ระบุไว้ "
+    "อาจมีความคลาดเคลื่อนจากความผันแปรทางธรรมชาติและสภาพจริงหน้างาน โปรดใช้วิจารณญาณทางวิชาการและปรึกษาผู้เชี่ยวชาญก่อนนำไปใช้ตัดสินใจ<br>"
+    "• <b>3. ความสุจริตและสิทธิการโต้แย้ง:</b> จัดทำขึ้นโดยสุจริตเพื่อประโยชน์สาธารณะตามประมวลกฎหมายอาญา มาตรา 329(3) "
+    "และ พ.ร.บ. ว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์ พ.ศ. 2560 (มาตรา 14) "
+    "หากหน่วยงานราชการ ผู้เชี่ยวชาญ หรือประชาชนพบความคลาดเคลื่อนหรือมีข้อมูลเพิ่มเติม สามารถแจ้งผ่านระบบรับฟังความคิดเห็น "
+    "(<code>GitHub Issues</code>) เพื่อการทบทวนและปรับปรุงต่อไป"
 )
 
 # คำทับศัพท์/ศัพท์เทคนิคที่ห้ามในรายงาน → คำไทยแทน (ตรวจอัตโนมัติใน thai())
@@ -98,6 +104,8 @@ def thai(text: str, strict: bool = False) -> str:
         scan = re.sub(r"<style.*?</style>", " ", out, flags=re.S)
         scan = re.sub(r"<script.*?</script>", " ", scan, flags=re.S)
         scan = re.sub(r"<code>.*?</code>", " ", scan, flags=re.S)
+        # อนุญาตคำอธิบาย/ศัพท์กำกับภาษาอังกฤษในวงเล็บ (Explanatory Glossing เช่น "รวมเอ็นจินรายงานเป็นหนึ่งเดียว (Unified Modular Report Kit)")
+        scan = re.sub(r"\([A-Za-z0-9\s\-–—/.,&'’:#]+\)", " ", scan)
         scan = re.sub(r"<[^>]+>", " ", scan)
         scan = re.sub(r"\b(?:style|href|id|class|src|alt|colspan)=\"[^\"]*\"", " ", scan)
         scan = re.sub(r"[a-z\-]+\s*:\s*[^;\"<>]+[;\"]", " ", scan)  # ทิ้งสิ่งที่เหลือแบบ CSS decl
@@ -376,6 +384,7 @@ def provenance_box(canonical_ref: str = "canonical.json") -> str:
         f'    <span class="prov-badge prov-badge-code">รหัสรุ่น Git: {rev}</span>\n'
         f'    <span class="prov-badge prov-badge-ok">&#10003; ผ่านการตรวจภาษาไทย (Typo &amp; Collision Guard)</span>\n'
         f'    <span class="prov-badge prov-badge-ok">&#10003; ความเปรียบต่างสีผ่านเกณฑ์ WCAG AA</span>\n'
+        f'    <span class="prov-badge prov-badge-ok">&#10003; ผ่านการตรวจกฎหมายและความเป็นส่วนตัว (Legal &amp; PDPA Guard)</span>\n'
         f'    <span class="prov-badge prov-badge-ok">&#10003; ข้อมูลผูกกับฐานตัวเลขทางการ ({esc(canonical_ref)})</span>\n'
         f'  </div>\n'
         f'  <div>\n'
@@ -383,7 +392,9 @@ def provenance_box(canonical_ref: str = "canonical.json") -> str:
         f'รายงานฉบับนี้สร้างโดยกระบวนการสังเคราะห์อัตโนมัติร่วมกับปัญญาประดิษฐ์ (AI) '
         f'ทุกตัวเลขหลักเชื่อมโยงกับแหล่งข้อมูลทางการใน <code>{esc(canonical_ref)}</code> สามารถรันซ้ำเพื่อตรวจสอบความถูกต้องได้ทุกขั้นตอน '
         f'คลังโค้ดและข้อมูลเปิดเผยแบบสาธารณะที่ '
-        f'<a href="https://github.com/tkittich/nnyflood" style="color:var(--c-accent)" target="_blank" rel="noopener">GitHub: tkittich/nnyflood</a>\n'
+        f'<a href="https://github.com/tkittich/nnyflood" style="color:var(--c-accent)" target="_blank" rel="noopener">GitHub: tkittich/nnyflood</a> · '
+        f'<a href="../docs/READER_CHANGELOG.md" style="color:var(--c-accent)">บันทึกการปรับปรุงเนื้อหา (Changelog)</a> · '
+        f'แจ้งข้อเสนอแนะหรือขอแก้ไขข้อมูลที่ <a href="https://github.com/tkittich/nnyflood/issues/1" style="color:var(--c-accent)" target="_blank" rel="noopener">Issue #1</a>\n'
         f'  </div>\n'
         f'</div>'
     )

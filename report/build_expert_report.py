@@ -5,7 +5,14 @@ import json
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from goal6_reportlib import optimize_image, soften_terms, find_banned_reader_terms  # noqa: E402
+from goal6_reportlib import (  # noqa: E402
+    optimize_image,
+    soften_terms,
+    find_banned_reader_terms,
+    css_tokens,
+    AI_WARNING,
+    provenance_box,
+)
 
 # ROOT อิงตำแหน่งไฟล์สคริปต์ ไม่ใช่ cwd — รันจากโฟลเดอร์ไหนก็หา asset เจอ
 ROOT = Path(__file__).resolve().parent.parent
@@ -42,23 +49,16 @@ html = r"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>น้ำท่วมนครนายก 2569 — รายงานฉบับวิชาการ (ตรวจสอบได้)</title>
 <style>
-:root {
-  --c-paper: #ffffff; --c-paper-fg: #1c2b33;
-  --c-page: #eef2f5; --c-page-fg: #1c2b33;
-  --c-header: #14212e; --c-header-fg: #ffffff;
-  --c-accent: #1e6fb8; --c-accent-fg: #ffffff;
-  --c-note-bg: #fff8e1; --c-note-bg-fg: #4a3b00;
-  --c-warn-bg: #fdecea; --c-warn-bg-fg: #8a2b2b;
-  --c-ok-bg: #e8f5e9; --c-ok-bg-fg: #1b5e20;
-  --c-code-bg: #eef2f6; --c-code-bg-fg: #153a5e;
-  --c-header-code: #2a4d73; --c-header-code-fg: #ffffff;
-  --c-muted: #ffffff; --c-muted-fg: #5a6b7b;
-  --c-table-head: #28425c; --c-table-head-fg: #ffffff;
-  --c-sea-flood: #1a63a8; --c-sea-flood-fg: #f5edda;
-  --c-chart-bar: #4d94c9; --c-chart-bar-fg: #ffffff;
-  --c-chart-accent: #e74c3c; --c-chart-accent-fg: #ffffff;
-}
+/* __CSS_TOKENS__ */
   :root { --blue:#0d47a1; --red:#b71c1c; --ink:#1a2530; --soft:#f4f7fa; --line:#cfd9e2; }
+  .provenance-box { margin-top:24px; padding:16px 20px; background:#f7fafc;
+                     border:1px solid #d8e2ea; border-radius:8px; font-size:.88em;
+                     color:var(--c-muted-fg); line-height:1.65; }
+  .provenance-box b { color:var(--c-paper-fg); }
+  .provenance-badges { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 10px; }
+  .prov-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:.84em; font-weight:600; }
+  .prov-badge-ok { background:var(--c-ok-bg); color:var(--c-ok-bg-fg); }
+  .prov-badge-code { background:var(--c-code-bg); color:var(--c-code-bg-fg); }
   * { box-sizing:border-box; }
   body { font-family:'Leelawadee UI','Segoe UI',Tahoma,'Loma','Garuda','Norasi',sans-serif; color:var(--ink); background:var(--c-page); margin:0; line-height:1.7; font-size:15px; }
   .page { max-width:1020px; margin:0 auto; background:#fff; padding:34px 48px 60px; box-shadow:0 0 16px rgba(0,0,0,.08); }
@@ -100,6 +100,8 @@ html = r"""<!DOCTYPE html>
   <div class="meta">จัดทำเมื่อ ตุลาคม 2569 · ประกอบรายงานฉบับประชาชน (<code>น้ำท่วมนครนายก2569_ประชาชน.html</code> ในโฟลเดอร์เดียวกัน — อ่านคู่กัน) · <b>จัดทำโดย AI ร่วมกับเจ้าของโปรเจกต์ — ออกแบบมาเพื่อให้ผู้เชี่ยวชาญตรวจทาน ทุกตัวเลขระบุแหล่ง-สมการ-สคริปต์ที่ทำซ้ำได้</b></div>
 </header>
 
+<div class="warn" style="margin:20px 0">__AI_WARNING__</div>
+
 <div class="note" style="margin-top:14px"><b>สรุปสั้น (TLDR · อ่าน 3 นาที):</b>
 ฝน 18 วัน 1,058–1,416 มม. = ตัวจุดชนวน (น้ำล้นตลิ่งคืน 26 ก.ย. แม้เขื่อนปล่อยน้อย) ·
 การปล่อยหนัก 27 ก.ย. (366 ลบ.ม./วิ) ยืดเวลาท่วมขัง 1 → 3 วัน · น้ำเขื่อน = 60% ของน้ำผ่านเมืองช่วงน้ำขัง ·
@@ -107,7 +109,7 @@ html = r"""<!DOCTYPE html>
 <div class="note"><b>อ่านจบในตัวเอง:</b> ศัพท์วิชาการทุกคำมีนิยามเมื่อใช้ครั้งแรก (ดู §3 การสอบเทียบพื้นฐาน)
 · รายงานฉบับประชาชนเป็น "อ่านเพิ่ม" ไม่ใช่ "ต้องอ่าน"</div>
 
-<div class="note warn"><b>คำเตือน</b> — รายงานจัดทำโดยระบบปัญญาประดิษฐ์ ข้อมูลต้นทางเป็นข้อมูลจริงของหน่วยงาน/ดาวเทียมที่เก็บสำเนา+SHA-256 ไว้ครบ แต่การแปลง การคำนวณ และการตีความ อาจมีข้อผิดพลาด — ผู้อ่านควรตรวจสอบตามคู่มือในหัวข้อ 8 ก่อนอ้างอิง และหัวข้อ 7 รวบรวมข้อขัดแย้งที่เราเองยังไม่กระจ่าง</div>
+
 
 <div class="toc"><b>สารบัญ</b> —
 <a href="#e1">ข้อค้นพบหลัก</a> ·
@@ -516,9 +518,15 @@ sha256sum data/13_sentinel1_copernicus/*.zip   # เทียบ data/13_.../man
 <footer>
 รายงานฉบับวิชาการ · จัดทำเมื่อ ตุลาคม 2569 · จัดทำโดย AI ร่วมกับเจ้าของโปรเจกต์ — <b>ออกแบบเพื่อการตรวจทาน: ทุกตัวเลขชี้ได้ถึงไฟล์/สคริปต์/คำสั่งทำซ้ำ</b> · ข้อมูล: คลังข้อมูลน้ำแห่งชาติ · โทรมาตร สช.9 · GISTDA · Contains modified Copernicus Sentinel data (2026)/ESA · Copernicus GLO-30 · OSM (ODbL) · สทนช. · ประกาศ TMD/ศตน. · โปรดตรวจทานโดยผู้เชี่ยวชาญก่อนอ้างอิง
 </footer>
+
+<!-- __PROVENANCE__ -->
 </div>
 </body>
 </html>"""
+
+html = html.replace("/* __CSS_TOKENS__ */", css_tokens())
+html = html.replace("__AI_WARNING__", AI_WARNING)
+html = html.replace("<!-- __PROVENANCE__ -->", provenance_box("analysis/canonical_numbers.json"))
 
 for k, v in imgs.items():
     html = html.replace(f"__{k}__", v)

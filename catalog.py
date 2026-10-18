@@ -622,11 +622,22 @@ DOC_SURFACES = ("*.md", "docs/*.md")
 
 # ผลงานรีวิวอิสระจาก session ภายนอก — HANDOFF §งานถัดไปสั่งให้บันทึกไว้ที่ root
 # เป็นรูปแบบชั่วคราว ไม่ต้องลงทะเบียนในสารบัญ (ดู unregistered_docs())
-_REVIEW_ARTIFACTS = frozenset(
-    p.name for p in ROOT.glob("REVIEW.*.md")
-) | frozenset(
-    p.name for p in ROOT.glob("TRIAGE.*.md")
-)
+#
+# ระวัง: repo นี้ใช้ชื่อจริงสองแบนเท่ากัน — `REVIEW.<model>.md` (จุด) แต่
+# `TRIAGE_ROUND5_2026-10-18.md` (ขีดล่าง) · รอบแก้แรกใช้ glob `TRIAGE.*.md` ซึ่งไม่จับไฟล์จริง
+# ทำให้ส่วนนี้เป็นโค้ดตาย — ตัวตรวจจะล้มซ้ำทุกรอบที่เขียนไฟล์คัดกรองใหม่ไว้ที่ root
+# จึงต้องยกเว้นทั้งจุดและขีดล่าง (เจอจริง 18 ต.ค. 69)
+#
+# คำนวณเป็นฟังก์ชันที่เรียกทุกครั้ง ไม่เก็บเป็นค่าคงที่ระดับโมดูล เพราะค่าคงที่ที่
+# อ่านดิสก์ตอน import จะไม่เห็นไฟล์ที่ถูกสร้างหรือลบหลังจากนั้น (เจอจริงระหว่างเทสต์)
+_REVIEW_ARTIFACT_RX = re.compile(r"(?:REVIEW|TRIAGE)[._].+\.md$")
+
+
+def review_artifacts() -> frozenset[str]:
+    """ชื่อไฟล์ที่ตกร่างรีวิวอิสระ/ไฟล์คัดกรอง ซึ่งไม่ต้องลงทะเบียนในสารบัญ"""
+    return frozenset(
+        p.name for p in ROOT.glob("*.md") if _REVIEW_ARTIFACT_RX.match(p.name)
+    )
 
 
 def unregistered_docs() -> list[str]:
@@ -642,7 +653,7 @@ def unregistered_docs() -> list[str]:
     for pat in DOC_SURFACES:
         for p in ROOT.glob(pat):
             found.add(p.relative_to(ROOT).as_posix())
-    return sorted(found - reg - _REVIEW_ARTIFACTS)
+    return sorted(found - reg - review_artifacts())
 
 
 def cmd_audit() -> int:

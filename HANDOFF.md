@@ -1,26 +1,27 @@
 # HANDOFF — สถานะส่งมอบ (อัปเดต 18 ต.ค. 2569)
 
-## อัปเดต 18 ต.ค. 2569 — ปลด hold และ Refactor รายงานที่ 1 และ 2 เข้าสู่ Report Kit, สมุดปกขาวนโยบาย, และ 3-Tier Legal Disclaimer Stack
+## อัปเดต 18 ต.ค. 2569 (เช้า) — จัดเก็บรีวิวรอบ 4 สู่ Archive, ยกระดับ REVIEW_PROMPT_EN.md เป็นชุดคำสั่งหลัก, และเตรียมความพร้อม Session ใหม่
 
-> **สถานะ**: รายงานทั้ง 7 ฉบับผ่านการตรวจสอบสมบูรณ์ 100% — ชุดทดสอบระบบผ่าน 140/140 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 111/111 รายการ · verify_data_integrity MISMATCH 0
+> **สถานะ**: รายงานทั้ง 7 ฉบับ + สมุดปกขาวผ่านการตรวจสอบสมบูรณ์ 100% — ชุดทดสอบระบบผ่าน 140/140 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 105/105 รายการ (เอกสารในสารบัญผ่าน audit 33/33 ไฟล์) · verify_data_integrity MISMATCH 0 · git working tree clean
 
 ### งานที่ส่งมอบในรอบนี้:
-1. **ปลด hold และ Refactor รายงานที่ 1 และ 2 เข้าสู่ Unified Modular Report Kit**:
-   - ปรับปรุง `report/build_report_html.py` (รายงาน 1 ประชาชน) และ `report/build_expert_report.py` (รายงาน 2 วิชาการ)
-   - ผูกชุดโทเคนสี WCAG AA กลาง (`css_tokens()`), ข้อสงวนสิทธิ์ 3 ชั้น (`AI_WARNING`), และกล่องประวัติความโปร่งใส (`provenance_box`)
-   - นำผลแบบจำลองชลศาสตร์ 1 มิติ (Bankfull Ny.1B 666.3 cms, Ny.7 617.4 cms, คลื่นน้ำหลากเดินทาง 3.25 ชม.) เรนเดอร์ลงในเนื้อหารายงานที่ 2 บทที่ 6.6.4 โดยสมบูรณ์
-   - คงความถูกต้องของตัวเลข canonical, สถิติ 22 ปีเขื่อนขุนด่านฯ, สถิติอ่างเก็บน้ำ, และวิดเจ็ตภาพถ่ายดาวเทียมแบบโต้ตอบเดิม 100%
-   - รวมรายงานที่ 1 และ 2 เข้าสู่ `PUBLISHED_REPORTS` ใน `tests/test_legal_compliance.py` ผ่านการตรวจกฎหมายอัตโนมัติครบถ้วน
-2. **เผยแพร่สมุดปกขาวเชิงนโยบายคลองเจ้าพระยา 2 (Policy Brief White Paper)**:
-   - เอกสาร: `report/สมุดปกขาว_เจ้าพระยา2.html` พร้อมแบบจำลองการเงินสด (Interactive Fiscal Simulator)
-   - เชื่อมโยงปุ่มลิงก์สมุดปกขาวลงในป๊อปอัปแผนที่โต้ตอบ Leaflet (`report/assets/portal_map.js`) ทั้งบนเส้นแนวคลองและหมุดอาคารบังคับน้ำ
-3. **ชุดตรวจความสอดคล้องทางกฎหมายอัตโนมัติ (Legal Compliance & PDPA Guard)**:
-   - ทดสอบครอบคลุม พ.ร.บ.คอมพิวเตอร์ฯ ม.14, ป.อาญา ม.329(3), ข้อสงวนสิทธิ์ 3 ชั้น, และ PDPA
+1. **จัดเก็บเอกสารรีวิวและ Triage รอบ 4 สู่ Archive**:
+   - ย้ายไฟล์ `REVIEW.*.md` (5 ฉบับ) และ `TRIAGE.round4_2026-10-17.md` ไปไว้ที่ `archive/reviews/round4_2026-10-17/` ทำให้รูทของโปรเจกต์สะอาด หมดจด พร้อมรับผลรีวิวรอบใหม่โดยไม่เกิดชื่อซ้ำ
+2. **ยกระดับและจัดมาตรฐานชุดคำสั่งรีวิวระบบเป็นภาษาอังกฤษ (English Red-Team Review Prompt)**:
+   - ปรับปรุง `docs/REVIEW_PROMPT_EN.md` ให้เป็น prompt ตรวจสอบหลักฉบับภาษาอังกฤษ ครอบคลุม 3 เสาหลัก 7 เป้าหมาย และ 7 มิติเทคนิค (1D Routing, Harmonics $M_2, S_2, K_1, O_1$, 2D Compound Risk Matrix, 2D Hypsometric Ongkharak, Active Storage Reality, 39y Economics, ONEP 16 Categories)
+   - ปรับ `docs/REVIEW_PROMPT_COMPREHENSIVE.md` เป็นประกาศแจ้งเปลี่ยนผ่านชี้ไปที่ `docs/REVIEW_PROMPT_EN.md`
+3. **ตรวจสอบความสมบูรณ์และทดสอบระบบครบวงจร**:
+   - `python tools/verify_all.py` ผ่าน 100% ครบทั้ง 4 ขั้นตอน (catalog check, SHA-256 data integrity, pytest lint, pytest 140/140)
+   - ซิงก์และ push ขึ้น GitHub (`origin/main`) เรียบร้อยสมบูรณ์
 
 ### รายการสำหรับ Session ถัดไป (Next Session Tasks — คงไว้สูงสุด 3 รายการตามกติกา):
-1. **รับและปรับปรุงผลตรวจจาก AI ภายนอก**: นำรายงานการตรวจสอบที่ได้จากการรัน `docs/REVIEW_PROMPT_EN.md` มาพิจารณาปรับปรุง
-2. **ติดตามผลการรัน CI บน GitHub Actions**: ยืนยันว่า workflow บน Cloud ทำงานผ่าน 100% หลังผู้ใช้ทำ `git push`
+1. **รันการตรวจสอบระบบรอบใหม่ด้วย `docs/REVIEW_PROMPT_EN.md`**: ส่ง prompt ให้โมเดล AI ภายนอก (เช่น Claude 3.5 Sonnet, GPT-4o / o1) แล้วบันทึกผลลง root เป็น `REVIEW.<model_name>.md`
+2. **คัดกรองและดำเนินการตามข้อเสนอแนะรอบใหม่ (Triage Round 5)**: สรุปประเด็นข้อค้นพบและวางแผนปรับปรุง
 3. **การขอข้อมูลข่าวสารราชการ (FOI) คลองเจ้าพระยา 2**: ยื่นขอแบบแปลนและระดับท้องคลองรายจุดตาม `docs/GOAL7_FOI_REQUESTS.md`
+
+---
+
+## อัปเดต 18 ต.ค. 2569 (เช้ามืด) — ปลด hold และ Refactor รายงานที่ 1 และ 2 เข้าสู่ Report Kit, สมุดปกขาวนโยบาย, และ 3-Tier Legal Disclaimer Stack
 
 ---
 

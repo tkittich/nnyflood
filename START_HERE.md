@@ -29,12 +29,12 @@ cd <โฟลเดอร์ repo>
 PY=python
 
 "$PY" -m pip install -r requirements.txt
-"$PY" tools/verify_all.py                        # ตรวจสอบระบบครบวงจร (catalog + SHA-256 + pytest 132 passed)
+"$PY" tools/verify_all.py                        # ตรวจสอบระบบครบวงจร (catalog + SHA-256 + pytest 140 passed)
 # หรือแยกรันรายคำสั่ง:
-"$PY" catalog.py check                           # ตรวจสารบัญไฟล์ (101/101 รายการ)
-"$PY" catalog.py audit                           # ตรวจย้อนกลับ: เอกสารที่ root/docs ลงทะเบียนครบไหม
+"$PY" catalog.py check                           # ตรวจสารบัญไฟล์ (105/105 รายการ)
+"$PY" catalog.py audit                           # ตรวจย้อนกลับ: เอกสารที่ root/docs ลงทะเบียนครบไหม (33/33 ไฟล์)
 "$PY" analysis/verify_data_integrity.py --quick  # ตรวจ SHA-256 (MISMATCH 0)
-"$PY" -m pytest tests/ -q                        # ตรวจเทสต์ทั้งหมด (132 passed)
+"$PY" -m pytest tests/ -q                        # ตรวจเทสต์ทั้งหมด (140 passed)
 ```
 
 - สคริปต์ทั้งหมด derive path จาก `Path(__file__)` แล้ว → **รันจากโฟลเดอร์ไหนก็ได้**
@@ -48,11 +48,12 @@ PY=python
 เลือกเส้นทางการอ่านที่ตรงกับเป้าหมายของท่าน:
 
 ### 👤 ลู่ที่ 1: ผู้อ่านทั่วไป / สื่อมวลชน (Reader & Media Track)
-- เริ่มต้นที่ **[index.html](index.html)** (หน้ารวมรายงานทั้ง 6 ฉบับ พร้อมป้ายบอกระดับความยากและพื้นที่)
+- เริ่มต้นที่ **[index.html](index.html)** (หน้ารวมรายงานทั้ง 7 ฉบับ + สมุดปกขาว พร้อมป้ายบอกระดับความยากและพื้นที่)
 - **ฉบับประชาชน (อ่านง่าย สรุป 2 นาที จบในเล่ม)**:
   - นครนายก: `report/น้ำท่วมนครนายก2569_ประชาชน.html` (สไลเดอร์ดาวเทียม + ถาม–ตอบ 15 ข้อ)
   - ทั่วประเทศ: `report/ระลอกปลายกย2569.html` (สถิติ 6 ลุ่มน้ำ + น้ำท่วมใหญ่)
   - คลองเจ้าพระยา 2: `report/คลองเจ้าพระยา2_ประชาชน.html` (ทำไมคันสูง + ถาม–ตอบ 23 ข้อ + สัดส่วนเทียบคนและบ้าน 2 ชั้น)
+  - เชิงนโยบาย: `report/สมุดปกขาว_เจ้าพระยา2.html` (ถอดบทเรียนความเสี่ยง + แบบจำลองการเงินสดแบบโต้ตอบ)
 
 ### 🔬 ลู่ที่ 2: นักวิจัย / วิศวกร / นโยบาย (Researcher & Engineer Track)
 - เริ่มต้นที่ **[docs/PROJECT_MAP.md](docs/PROJECT_MAP.md)** (ตาราง Matrix เชื่อมโยงประเด็น $\leftrightarrow$ ตัวเลข $\leftrightarrow$ สเปก)

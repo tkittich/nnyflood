@@ -4,7 +4,7 @@
 การทำงาน:
     ติดตั้งสคริปต์ .git/hooks/pre-commit เพื่อตรวจความถูกต้องอัตโนมัติก่อน commit:
     1. <PY> catalog.py check (ตรวจสอบว่าไม่มีพาธหรือไฟล์ในสารบัญที่ขาดหาย)
-    2. <PY> -m pytest tests/test_thai_language_lint.py tests/test_standards_integrity.py -q
+    2. <PY> -m pytest tests/test_thai_language_lint.py tests/test_standards_integrity.py tests/test_data_consistency.py -q
 
     <PY> ถูกเลือกจาก interpreter ที่ `import pytest` ได้จริง (python3.14 → python3 → python)
     เพราะบนเครื่องที่มี managed runtime หลายตัว `python` เปล่า ๆ อาจชี้ไปตัวที่ไม่มี pytest
@@ -44,10 +44,10 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "🔍 [Pre-commit] 2/2 ตรวจสอบภาษาไทยและมาตรฐานเอกสาร (pytest)..."
-"$PY" -m pytest tests/test_thai_language_lint.py tests/test_standards_integrity.py -q
+echo "🔍 [Pre-commit] 2/2 ตรวจสอบภาษาไทย มาตรฐานเอกสาร และความสอดคล้องข้อมูล (pytest)..."
+"$PY" -m pytest tests/test_thai_language_lint.py tests/test_standards_integrity.py tests/test_data_consistency.py -q
 if [ $? -ne 0 ]; then
-    echo "❌ [Pre-commit] ตรวจพบคำผิด คำชน หรือมาตรฐานเอกสารไม่ผ่าน กรุณาแก้ไขก่อน commit"
+    echo "❌ [Pre-commit] ตรวจพบคำผิด คำชน มาตรฐานเอกสารไม่ผ่าน หรือมีตัวเลขขัดแย้ง/ปลดประจำการ กรุณาแก้ไขก่อน commit"
     exit 1
 fi
 

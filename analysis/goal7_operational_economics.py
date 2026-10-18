@@ -347,74 +347,72 @@ def build_operational_economics_data() -> dict:
     }
 
     # 5. การวิเคราะห์ความจุเก็บกักใช้การจริงของคลอง (Active Storage Reality)
-    # คำนวณจากหน้าตัดสี่เหลี่ยมคางหมู (F-22 รอบที่ 5: เดิมพิมพ์เป็นค่าคงที่โดยไม่คำนวณ)
-    #   A(h) = b·h + z·h²   ·   V(h) = A(h) · L      (ปริมาตรน้ำคือพื้นที่เปียก × ความยาว ไม่ใช่ A×h×L)
-    #
-    # ข้อเท็จจริงที่ตรวจแล้วในรอบนี้ — ตัวเลขที่เคยใช้เป็นเกณฑ์ไม่มีที่มาอ้างอิง:
-    #   · ปริมาตรรวม 55.4 ล้าน ลบ.ม. — ค้นทั้งคลังข้อมูล รวมถึงข้อความที่แปลงจาก
-    #     รายงานผลกระทบสิ่งแวดล้อมทั้ง 3 ไฟล์ (eia_excerpts / eia2569_scan / ocr_findings)
-    #     ไม่พบที่ใดเลย → **ไม่อ้างว่ามาจากรายงานผลกระทบสิ่งแวดล้อมอีกต่อไป**
-    #     (รอบแก้แรกเขียนคอมเมนต์ว่า "ของ EIA" โดยไม่ได้ตรวจ — เจอจริง 18 ต.ค. 69)
-    #   · หน้าตัดที่มีที่มาอ้างอิงชัดเจนอยู่ต่างหาก: พื้นที่หน้าตัด 504 ตร.ม. ที่ความลึก 7.0 ม.
-    #     ลาดข้าง 1:3 / 1:2 (รายงานผลกระทบสิ่งแวดล้อม เล่ม 1 หน้า 2-39) ซึ่งคำนวณได้
-    #     ความกว้างท้องคลอง 54.5 ม. และปริมาตร 68.5 ล้าน ลบ.ม. — **ไม่ตรงกับ 55.4**
-    # จึงเก็บทั้งสองทางไว้ข้างกัน แสดงความขัดแย้งให้ผู้อ่านเห็น และไม่เลือกข้างใดข้างหนึ่ง
-    # ตามหลักเป็นกลางตามหลักฐาน — ดูช่องว่าง cp2_volume_conflict และ cp2_total_storage_source
+    # คำนวณจากหน้าตัดสี่เหลี่ยมคางหมูตามรายงานผลกระทบสิ่งแวดล้อม (EIA 2569 เล่ม 1 หน้า 2-39)
+    #   A(h) = b·h + z·h²   ·   V(h) = A(h) · L
     CANAL_L_M = 135_900.0
-    CANAL_B_M = 48.0
     CANAL_H_M = 7.0
-    TOTAL_STORAGE_UNSOURCED_MCM = 55.4
     DEAD_DEPTH_M = 2.0
     DESIGN_Q_M3S = 600.0
-    # หน้าตัดที่มีที่มาอ้างอิงชัดเจน (goal7_analysis.EIA_SECTION — เล่ม 1 หน้า 2-39)
-    EIA_A_M2, EIA_Z1, EIA_Z2 = 504.0, 3.0, 2.0
 
-    def _area(h: float, z: float, b: float = CANAL_B_M) -> float:
+    # หน้าตัดทางการตามรายงานผลกระทบสิ่งแวดล้อม 2569 (เล่ม 1 หน้า 2-39)
+    EIA_A_M2 = 504.0
+    EIA_Z1 = 3.0  # ด้านใน
+    EIA_Z2 = 2.0  # ด้านนอก
+    eia_z_mean = (EIA_Z1 + EIA_Z2) / 2.0  # 2.5
+    eia_bed_width = round(EIA_A_M2 / CANAL_H_M - eia_z_mean * CANAL_H_M, 1)  # 54.5 ม.
+
+    def _area(h: float, z: float, b: float) -> float:
         return b * h + z * h * h
 
-    # ลาดข้างเฉลี่ยจากหน้าตัดที่มีที่มา
-    eia_z_mean = (EIA_Z1 + EIA_Z2) / 2.0
-    # ทางที่ 1 — ย้อนจากปริมาตรที่ไม่มีที่มา (คงเดิมเพื่อไม่ให้ตัวเลขที่เผยแพร่กระโดดไป)
-    _area_total = TOTAL_STORAGE_UNSOURCED_MCM * 1e6 / CANAL_L_M
-    side_slope_z = round((_area_total - CANAL_B_M * CANAL_H_M) / (CANAL_H_M ** 2), 3)
+    total_storage = round(EIA_A_M2 * CANAL_L_M / 1e6, 1)  # 68.5 ล้าน ลบ.ม.
+    dead_storage = round(_area(DEAD_DEPTH_M, eia_z_mean, eia_bed_width) * CANAL_L_M / 1e6, 1)  # 16.2 ล้าน ลบ.ม.
+    active_storage = round(total_storage - dead_storage, 1)  # 52.3 ล้าน ลบ.ม.
 
-    total_storage = round(_area(CANAL_H_M, side_slope_z) * CANAL_L_M / 1e6, 1)
-    dead_storage = round(_area(DEAD_DEPTH_M, side_slope_z) * CANAL_L_M / 1e6, 1)
-    active_storage = round(total_storage - dead_storage, 1)
+    # แบบร่าง มี.ค. 2560 (หน้าตัดสมมาตร 1:3, ท้องคลอง 51 ม.)
+    draft_2560_b = 51.0
+    draft_2560_z = 3.0
+    draft_2560_dead = round(_area(DEAD_DEPTH_M, draft_2560_z, draft_2560_b) * CANAL_L_M / 1e6, 1)  # 15.5 ล้าน ลบ.ม.
+    draft_2560_active = round(total_storage - draft_2560_dead, 1)  # 53.0 ล้าน ลบ.ม.
 
-    # ทางที่ 2 — คำนวณจากหน้าตัดที่มีที่มาอ้างอิงชัดเจน
-    eia_bed_width = round(EIA_A_M2 / CANAL_H_M - eia_z_mean * CANAL_H_M, 1)
-    eia_total = round(EIA_A_M2 * CANAL_L_M / 1e6, 1)
-    eia_dead = round(_area(DEAD_DEPTH_M, eia_z_mean, eia_bed_width) * CANAL_L_M / 1e6, 1)
-
-    cap_day_mcm = DESIGN_Q_M3S * 86400.0 / 1e6
-    buffer_hours = round(active_storage / cap_day_mcm * 24.0, 1)
+    cap_day_mcm = DESIGN_Q_M3S * 86400.0 / 1e6  # 51.84 ล้าน ลบ.ม./วัน
+    buffer_hours = round(active_storage / cap_day_mcm * 24.0, 1)  # 24.2 ชม.
+    draft_2560_buffer = round(draft_2560_active / cap_day_mcm * 24.0, 1)  # 24.5 ชม.
 
     canal_storage_reality = {
         "canal_length_km": CANAL_L_M / 1000.0,
         "design_depth_m": CANAL_H_M,
-        "bed_width_m": CANAL_B_M,
-        "side_slope_z_implied": side_slope_z,
+        "bed_width_m": eia_bed_width,
+        "side_slope_z": eia_z_mean,
         "total_storage_mcm": total_storage,
-        "total_storage_source": "ไม่มีที่มาอ้างอิง — ย้อนจากค่าคงที่ในโค้ดรุ่นก่อน",
+        "total_storage_source": "รายงานผลกระทบสิ่งแวดล้อม เล่ม 1 หน้า 2-39 (พื้นที่หน้าตัด 504 ตร.ม. × ความยาว 135.9 กม.)",
         "dead_storage_depth_m": DEAD_DEPTH_M,
         "dead_storage_mcm": dead_storage,
         "active_storage_mcm": active_storage,
         "design_discharge_m3s": DESIGN_Q_M3S,
         "design_discharge_mcm_day": round(cap_day_mcm, 2),
         "buffer_duration_hours": buffer_hours,
-        # ทางเลือกที่มีที่มา — แสดงเพื่อเทียบ ไม่ได้แทนที่ค่าหลัก
-        "eia_section_bed_width_m": eia_bed_width,
-        "eia_section_area_m2": EIA_A_M2,
-        "eia_section_side_slope_mean": eia_z_mean,
-        "eia_section_total_mcm": eia_total,
-        "eia_section_dead_mcm": eia_dead,
-        "eia_section_source": "รายงานผลกระทบสิ่งแวดล้อม เล่ม 1 หน้า 2-39 (รูปที่ 2.3.2-11 ตาราง กม.23–134)",
+        # แบบร่างเดิม มี.ค. 2560 เพื่อการเทียบเคียง
+        "draft_2560_bed_width_m": draft_2560_b,
+        "draft_2560_side_slope_z": draft_2560_z,
+        "draft_2560_total_mcm": total_storage,
+        "draft_2560_dead_mcm": draft_2560_dead,
+        "draft_2560_active_mcm": draft_2560_active,
+        "draft_2560_buffer_duration_hours": draft_2560_buffer,
+        # ค่าเก่าที่ถูกปลดออก (Retired Values Ledger)
+        "retired_values": {
+            "total_storage_mcm": 55.4,
+            "bed_width_m": 48.0,
+            "side_slope_z": 1.462,
+            "dead_storage_mcm": 13.8,
+            "active_storage_mcm": 41.6,
+            "buffer_duration_hours": 19.3,
+            "reason": "55.4 ล้าน ลบ.ม. และ 48.0 ม. เป็นค่าคงที่สมมติในแบบร่างแรกที่ไม่ปรากฏในเอกสารรายงานผลกระทบสิ่งแวดล้อมใดๆ จึงปลดออกและแทนที่ด้วยการคำนวณจากหน้าตัดทางการ 504 ตร.ม.",
+        },
         "assessment": (
             "คลองเจ้าพระยา 2 ไม่ใช่แหล่งเก็บกักน้ำ (<code>Reservoir</code>) แต่เป็นทางระบายน้ำผ่าน (<code>Conveyance Channel</code>) "
-            f"เนื่องจากมีปริมาตรกักเก็บใช้การจริงเพียง {active_storage} ล้าน ลบ.ม. (หลังหักน้ำก้นคลอง 2.0 ม. จำนวน {dead_storage} ล้าน ลบ.ม. "
-            f"ตามหลักเรขาคณิตรูปตัดคางหมูเพื่อรักษาเสถียรภาพลาดตลิ่งดินเหนียวอ่อน) ซึ่งรองรับอัตราการผันน้ำออกแบบ 600 ลบ.ม./วินาที ได้เพียง {buffer_hours} ชั่วโมง "
-            "หากสถานีสูบน้ำปลายคลองไม่สามารถสูบออกสู่อ่าวไทยได้อย่างต่อเนื่อง คลองจะเต็มความจุภายในเวลาไม่ถึง 1 วัน"
+            f"เนื่องจากมีปริมาตรกักเก็บใช้การจริงเพียง {active_storage} ล้าน ลบ.ม. (หลังหักน้ำก้นคลอง {DEAD_DEPTH_M:.1f} ม. จำนวน {dead_storage} ล้าน ลบ.ม. "
+            f"ตามหลักเรขาคณิตรูปตัดคางหมูเพื่อรักษาเสถียรภาพลาดตลิ่งดินเหนียวอ่อน) ซึ่งรองรับอัตราการผันน้ำออกแบบ {DESIGN_Q_M3S:.0f} ลบ.ม./วินาที ได้เพียง {buffer_hours} ชั่วโมง (ประมาณ 1 วัน) "
+            "หากสถานีสูบน้ำปลายคลองไม่สามารถสูบออกสู่อ่าวไทยได้อย่างต่อเนื่อง คลองจะเต็มความจุภายในเวลา 24 ชั่วโมง"
         ),
     }
 

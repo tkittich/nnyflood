@@ -178,6 +178,7 @@ CORE_GOVERNANCE = [
     ("docs/PROJECT_MAP.md", "แผนที่นำทางและแคตตาล็อกระบบฉบับเต็ม (Topic Discovery Matrix)"),
     ("docs/LEGAL_REVIEW.md", "แนวปฏิบัติทางกฎหมาย: การหมิ่นประมาท (เน้นระบบ ไม่เน้นตัวบุคคล) และ PDPA"),
     ("docs/DATA_SOURCES.md", "บัญชีแหล่งข้อมูล วิธีเชื่อมต่อ API Thaiwater, CDSE, Copernicus DEM"),
+    ("docs/DATA_CONSISTENCY_WORKFLOW.md", "ข้อกำหนดการจัดการความสอดคล้องของข้อมูลและการระงับข้อขัดแย้งหลายแหล่ง (Truth Discovery, Inward Contracts, Retired Ledger)"),
     ("docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md", "แผนงานและผลลัพธ์แบบจำลองขั้นสูง (1D Routing, CP2 Bypass, Coastal ML)"),
     ("docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md", "แผนงานบูรณาการรายงาน 1-2 แผนที่โต้ตอบ เมทริกซ์ความเสี่ยง และ CI"),
     ("docs/REVIEW_PROMPT_EN.md", "กรอบการตรวจสอบและชุดคำสั่งหลักสำหรับ AI ผู้ตรวจสอบอิสระ (Comprehensive English Red-Team Audit Prompt ครบ 3 เสาหลัก 8 รายงาน)"),

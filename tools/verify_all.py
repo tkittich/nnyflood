@@ -5,7 +5,7 @@
     รันชุดการตรวจสอบความถูกต้อง 4 ขั้นตอน:
     1. สารบัญระบบ (catalog.py check) — ตรวจไฟล์/โฟลเดอร์ในสเปก
     2. ความสมบูรณ์ของข้อมูล (verify_data_integrity.py --quick) — ตรวจ SHA-256 ของไฟล์ข้อมูล
-    3. ภาษาไทยและมาตรฐานเอกสาร (pytest test_standards_integrity + test_thai_language_lint)
+    3. ภาษาไทย มาตรฐานเอกสาร และความสอดคล้องของข้อมูล (pytest test_standards_integrity + test_thai_language_lint + test_data_consistency)
     4. ชุดทดสอบระบบทั้งหมด (pytest tests/ -q)
 
 การใช้งาน:
@@ -23,24 +23,50 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 
+# คำเตือนของขั้นตอนที่ "ผ่านแบบมีเงื่อนไข" (รหัสออกที่อนุญาตแต่ไม่ใช่ 0) — รวบไว้สรุปท้ายการตรวจ
+WARNINGS: list[str] = []
+
+
+def step_verdict(returncode: int, allow_exit_codes: tuple[int, ...] = (0,)) -> tuple[bool, str | None]:
+    """ตัดสินผลของขั้นตอน: คืน (ผ่านหรือไม่, ข้อความเตือนเมื่อผ่านแบบมีเงื่อนไข).
+
+    - รหัส 0 = ผ่านสมบูรณ์
+    - รหัสที่อนุญาตแต่ไม่ใช่ 0 = ผ่านแบบมีเงื่อนไข — ต้องมีคำเตือนเสมอ
+      (เช่นรหัส 2 ของการตรวจ SHA-256 = ไฟล์ข้อมูลขนาดใหญ่บางส่วนหาย/ไม่พร้อมในเครื่อง)
+    - รหัสนอกเหนือรายการที่อนุญาต = ไม่ผ่าน
+    """
+    if returncode not in allow_exit_codes:
+        return False, None
+    if returncode != 0:
+        return True, f"ผ่านแบบมีเงื่อนไข (รหัสออก {returncode}) — มีบางส่วนไม่ครบถ้วน โปรดตรวจรายละเอียดของขั้นตอนนี้"
+    return True, None
+
+
 def run_step(step_num: int, total_steps: int, title: str, cmd: list[str], allow_exit_codes: tuple[int, ...] = (0,)) -> bool:
     print(f"[{step_num}/{total_steps}] 🔍 {title}...")
     start = time.perf_counter()
     res = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8", errors="replace")
     elapsed = time.perf_counter() - start
 
-    if res.returncode in allow_exit_codes:
+    ok, warning = step_verdict(res.returncode, allow_exit_codes)
+    if ok and warning is None:
         print(f"    ✅ ผ่าน ({elapsed:.2f} วินาที)")
         return True
-    else:
-        print(f"    ❌ ไม่ผ่าน (Exit Code: {res.returncode}, {elapsed:.2f} วินาที)")
-        if res.stdout:
-            print("--- STDOUT ---")
-            print(res.stdout.strip())
-        if res.stderr:
-            print("--- STDERR ---")
-            print(res.stderr.strip())
-        return False
+    if ok and warning is not None:
+        WARNINGS.append(f"{title} — {warning}")
+        print(f"    ⚠️  {warning} ({elapsed:.2f} วินาที)")
+        tail = [ln for ln in res.stdout.strip().splitlines() if ln.strip()][-8:] if res.stdout else []
+        for ln in tail:
+            print(f"        {ln}")
+        return True
+    print(f"    ❌ ไม่ผ่าน (Exit Code: {res.returncode}, {elapsed:.2f} วินาที)")
+    if res.stdout:
+        print("--- STDOUT ---")
+        print(res.stdout.strip())
+    if res.stderr:
+        print("--- STDERR ---")
+        print(res.stderr.strip())
+    return False
 
 
 def main():
@@ -64,7 +90,7 @@ def main():
     if not step1:
         success = False
 
-    # ขั้นตอนที่ 2: ตรวจ integrity ของไฟล์ข้อมูลดิบ (allow code 0 and 2; code 2 = missing optional/large files, but 0 mismatch)
+    # ขั้นตอนที่ 2: ตรวจ integrity ของไฟล์ข้อมูลดิบ (รหัส 0 = ครบสมบูรณ์ · รหัส 2 = ไฟล์ขนาดใหญ่บางส่วนหาย — ผ่านแบบมีเงื่อนไขพร้อมคำเตือน)
     step2 = run_step(
         2, total_steps,
         "ตรวจสอบ SHA-256 ข้อมูลดิบ (verify_data_integrity.py --quick)",
@@ -74,11 +100,11 @@ def main():
     if not step2:
         success = False
 
-    # ขั้นตอนที่ 3: ตรวจสอบมาตรฐานเอกสารและภาษาไทย
+    # ขั้นตอนที่ 3: ตรวจสอบมาตรฐานเอกสาร ภาษาไทย และความสอดคล้องของข้อมูล
     step3 = run_step(
         3, total_steps,
-        "ตรวจสอบมาตรฐานเอกสารและภาษาไทย (pytest lint)",
-        [sys.executable, "-m", "pytest", "tests/test_standards_integrity.py", "tests/test_thai_language_lint.py", "-q"]
+        "ตรวจสอบมาตรฐานเอกสาร ภาษาไทย และสัญญาความสอดคล้องของข้อมูล (pytest lint & consistency)",
+        [sys.executable, "-m", "pytest", "tests/test_standards_integrity.py", "tests/test_thai_language_lint.py", "tests/test_data_consistency.py", "-q"]
     )
     if not step3:
         success = False
@@ -96,6 +122,8 @@ def main():
     print("=" * 72)
     if success:
         print("🎉 ระบบผ่านการตรวจสอบความสมบูรณ์ 100% พร้อมสำหรับการเผยแพร่และจัดเก็บ")
+        if WARNINGS:
+            print(f"⚠️  หมายเหตุ: มี {len(WARNINGS)} ขั้นตอนที่ผ่านแบบมีเงื่อนไข (มีบางส่วนไม่ครบ) — ดูคำเตือนด้านบน")
         print("=" * 72)
         sys.exit(0)
     else:

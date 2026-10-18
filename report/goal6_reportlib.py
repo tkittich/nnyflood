@@ -341,7 +341,27 @@ def table(headers: list[str], rows: list[list], caption: str | None = None) -> s
     return "".join(out)
 
 
-def figure(png_path: str | Path, caption: str) -> str:
+def figure(png_path: str | Path, caption: str, layers: list[str] | None = None) -> str:
+    # สัญญาความสอดคล้องภาพและคำบรรยาย (Asset-Caption Integrity Contract — DATA_CONSISTENCY_WORKFLOW.md ชั้นที่ 5)
+    # คำบรรยายห้ามสัญญาองค์ประกอบข้อมูลที่ไม่มีในภาพ (เช่น อ้างสถานีโทรมาตรบนแผนที่แนวคลองที่ไม่ได้พล็อตสถานี)
+    unrendered_terms = {
+        "สถานีโทรมาตร": "telemetry",
+    }
+    declared_layers = set(layers or [])
+    try:
+        companion_meta = Path(png_path).with_suffix(".meta.json")
+        if companion_meta.exists():
+            declared_layers.update(json.loads(companion_meta.read_text(encoding="utf-8")).get("layers", []))
+    except Exception:
+        pass
+
+    for thai_term, layer_key in unrendered_terms.items():
+        if thai_term in caption and layer_key not in declared_layers:
+            raise ValueError(
+                f"ผิดสัญญาภาพและคำบรรยาย (Asset-Caption Breach): คำบรรยายระบุ '{thai_term}' "
+                f"แต่ภาพ {Path(png_path).name} ไม่ได้ประกาศชั้นข้อมูล '{layer_key}' (layers={sorted(declared_layers)})"
+            )
+
     p = Path(png_path)
     raw = p.read_bytes()
     if len(raw) > 200_000:

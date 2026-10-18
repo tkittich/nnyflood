@@ -25,6 +25,42 @@ D = ROOT / "data/22_goal6_network"
 OUT = A / "goal6/canonical.json"
 
 
+def assert_inward_data_contracts(out: dict) -> None:
+    """สัญญาข้อมูลขาเข้า (Inward Data Contracts — DATA_CONSISTENCY_WORKFLOW.md ชั้นที่ 1)
+    ตรวจสอบความสมเหตุสมผลทางกายภาพและขอบเขตตัวเลขก่อนบันทึกลง canonical.json
+    """
+    # 1. สัญญาฝน (Rain Contracts)
+    rn = out["rain_national"]
+    assert rn["top3_stations_7d"] <= rn["n_stations"], "จำนวนสถานีฝนติด top 3 ต้องไม่เกินจำนวนสถานีทั้งหมด"
+    assert rn["top3_cells_7d"] <= rn["n_cells"], "จำนวนช่องกริดฝนติด top 3 ต้องไม่เกินจำนวนช่องกริดทั้งหมด"
+
+    # 2. สัญญาพื้นที่น้ำท่วม (Flood Extent Bounds)
+    fl = out["flood_peak_km2"]
+    for basin, area in fl.items():
+        assert area >= 0, f"พื้นที่น้ำท่วมลุ่มน้ำ {basin} ต้องไม่ติดลบ: {area}"
+    if "bkk_lower_after_sea" in fl and "bkk_lower" in fl:
+        assert fl["bkk_lower_after_sea"] <= fl["bkk_lower"], "พื้นที่น้ำท่วมหลังหักทะเลหนุนต้องไม่เกินพื้นที่น้ำท่วมก่อนหัก"
+
+    # 3. สัญญาเขื่อนและการหน่วงน้ำ (Dam Baseline & Surcharge Contracts)
+    if "pasak_24y_baseline" in out:
+        ps = out["pasak_24y_baseline"]
+        assert ps["over_normal_years"] <= ps["years_analyzed"], "ปีที่เกินระดับปกติป่าสักต้องไม่เกินจำนวนปีที่วิเคราะห์"
+        assert ps["over_1000mcm_years"] <= ps["over_normal_years"], "ปีที่แตะ 1,000 ล้าน ลบ.ม. ต้องเป็นสับเซตของปีที่เกินระดับปกติ (960 ล้าน ลบ.ม.)"
+        assert ps["record_peak_mcm"] >= ps["y2569_peak_mcm"], "สถิติน้ำสูงสุดตลอดกาลต้องไม่ต่ำกว่าน้ำสูงสุดปี 2569"
+
+    # 4. สัญญาโทรมาตรปากแม่น้ำ (Estuary & Coastal Drainage Contracts)
+    if "estuary_tide" in out:
+        et = out["estuary_tide"]
+        assert et["c12_peak_m"] > et["c12_trough_min_m"], "ระดับน้ำทะเลหนุนสูงสุดต้องสูงกว่าระดับน้ำลงต่ำสุด"
+        assert et["astronomical_spring_range_m"][0] < et["astronomical_spring_range_m"][1], "ช่วงน้ำเกิดดาราศาสตร์ต้องมี min < max"
+
+    # 5. สัญญาคุณภาพน้ำ (Salinity Standards)
+    if "estuary_salinity" in out:
+        es = out["estuary_salinity"]
+        assert es["samlae_salinity_min_gl"] <= es["samlae_salinity_max_gl"], "ความเค็มต่ำสุดต้องไม่เกินความเค็มสูงสุด"
+        assert es["samlae_salinity_max_gl"] <= es["samlae_warning_threshold_gl"], "ความเค็มสำแลจริงต้องไม่เกินเกณฑ์เตือนภัย (0.25 ก./ล.) ในช่วงเหตุการณ์"
+
+
 def main() -> None:
     out: dict = {}
 
@@ -520,6 +556,7 @@ def main() -> None:
         },
     }
 
+    assert_inward_data_contracts(out)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"canonical.json: rain {out['rain_national']['top3_stations_7d']}/{n_pts} "
           f"({out['rain_national']['top3_cells_7d']}/{len(cells)} ช่อง) · "

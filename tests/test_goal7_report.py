@@ -144,9 +144,17 @@ def test_options_screening_present_and_labeled():
     assert "ข้อเสนอของผู้จัดทำ" in b2
 
 
-# ---- ค่าที่ถูกแทนแล้ว (retired) — ห้ามค้างในรายงาน/builder (เพิ่ม 15 ต.ค. 69 หลังรีวิวอิสระ 3 ฉบับ) ----
-RETIRED = ["2.5–4.8", "เฉพาะแม่น้ำใน 28.05", "น้ำสูงเพิ่ม ~19–39", "ผิวน้ำสูงขึ้นส่วนล้นไซฟอน",
-           "ที่ยังไม่ปรากฏในเอกสารที่พบ:</b> ความสูงสันคัน", "ไม่มีขนาดอาคาร ความสูงคัน หรือระดับน้ำออกแบบ</b> ·"]
+# ---- ค่าที่ถูกแทนแล้ว (retired) — ห้ามค้างในรายงาน/builder (เพิ่ม 15 และ 18 ต.ค. 69) ----
+RETIRED = [
+    "2.5–4.8", "เฉพาะแม่น้ำใน 28.05", "น้ำสูงเพิ่ม ~19–39", "ผิวน้ำสูงขึ้นส่วนล้นไซฟอน",
+    "ที่ยังไม่ปรากฏในเอกสารที่พบ:</b> ความสูงสันคัน", "ไม่มีขนาดอาคาร ความสูงคัน หรือระดับน้ำออกแบบ</b> ·",
+    "ความกว้างท้องคลองนี้ยังไม่มีที่มาอ้างอิง",
+    "ปริมาตรรวม 55.4 ล้าน ลบ.ม. ที่ใช้ข้างต้น ไม่มีที่มาอ้างอิง",
+    "ความจุเก็บกัก 55.4",
+    "แผนที่ตำแหน่งอาคารบังคับน้ำ สถานีโทรมาตร และจุดตัดทางน้ำสำคัญตามแนวคลอง",
+    "ท้องคลองกว้าง 48.0",
+    "48.0 ม. (ลาดข้าง",
+]
 ALL_REPORTS = [PUBLIC, ACADEMIC]
 BUILDERS = [ROOT / f"report/goal7_build_{n}.py" for n in ("public", "academic")]
 
@@ -166,6 +174,20 @@ def test_no_retired_values(p):
     t = p.read_text(encoding="utf-8")
     hits = [r for r in RETIRED if r in t]
     assert not hits, f"{p.name} มีค่าที่ถูกแทนแล้ว: {hits}"
+
+
+def test_reconciled_parameters_in_canonical():
+    """ตารางระงับข้อขัดแย้งตัวเลขสำคัญ (Reconciliation Schema) ต้องมีใน canonical.json"""
+    c = json.loads(CAN.read_text(encoding="utf-8"))
+    assert "reconciled_parameters" in c, "canonical.json ต้องมีคีย์ reconciled_parameters"
+    rp = c["reconciled_parameters"]
+    for key in ("canal_bed_width", "canal_storage", "land_acquisition", "project_budget"):
+        assert key in rp, f"ขาดตัวแปรระงับข้อขัดแย้ง: {key}"
+        assert "resolution" in rp[key] and "variants" in rp[key]
+    assert rp["canal_bed_width"]["canonical_value_m"] == 54.5
+    assert rp["canal_storage"]["canonical_total_mcm"] == 68.5
+    assert rp["land_acquisition"]["canonical_new_reach_rai"] == 16288
+    assert rp["project_budget"]["canonical_cabinet_ceiling_mb"] == 165000
 
 
 def test_nn_reach_stats_cover_full_reach():

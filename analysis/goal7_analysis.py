@@ -234,6 +234,55 @@ FACTS = {
     "corridor_rainfall_telemetry_stations": {"v": 4593, "tier": "A", "src": "คลังข้อมูลน้ำแห่งชาติ: สถานีโทรมาตรวัดน้ำฝนอัตโนมัติ 4,593 สถานี ครอบคลุม 77 จังหวัดและ 5 หน่วยงานหลัก"},
 }
 
+# บัญชีระงับข้อขัดแย้งตัวเลขสำคัญ (Reconciled Parameters Schema)
+# ใช้ระงับข้อขัดแย้งระหว่างแหล่งข้อมูลต่างกาลเวลา (Vintage) ขอบเขต (Scope) และชั้นความน่าเชื่อถือ (Tier)
+RECONCILED_PARAMETERS = {
+    "canal_bed_width": {
+        "canonical_value_m": 54.5,
+        "unit": "ม.",
+        "resolution": "คำนวณจากพื้นที่หน้าตัดรูปคางหมูทางการตามรายงานผลกระทบสิ่งแวดล้อม 2569 เล่ม 1 หน้า 2-39 (A=504 ตร.ม., D=7.0 ม., ลาดข้าง z1=3.0 ด้านใน, z2=2.0 ด้านนอก เฉลี่ย z=2.5 ได้ b = 504/7 - 2.5*7 = 54.5 ม.)",
+        "variants": {
+            "eia_2569_official": {"value": 54.5, "vintage": 2569, "tier": "A", "source": "EIA เล่ม 1 หน้า 2-39"},
+            "draft_2560_symmetric": {"value": 51.0, "vintage": 2560, "tier": "B", "source": "สรุปชี้แจง มี.ค. 2560 (สมมติลาดข้างสมมาตร 1:3)"},
+            "retired_legacy": {"value": 48.0, "status": "retired", "reason": "ค่าคงที่สมมติเดิมที่ย้อนจาก 55.4 ล้าน ลบ.ม. — ปลดประจำการ"}
+        }
+    },
+    "canal_storage": {
+        "canonical_total_mcm": 68.5,
+        "canonical_active_mcm": 52.3,
+        "canonical_dead_mcm": 16.2,
+        "unit": "ล้าน ลบ.ม.",
+        "resolution": "คำนวณจากพื้นที่หน้าตัดออกแบบ 504 ตร.ม. × ความยาว 135.9 กม. ได้ปริมาตรรวม 68.5 ล้าน ลบ.ม. หักน้ำก้นคลอง 2.0 ม. (16.2 ล้าน ลบ.ม. เพื่อเสถียรภาพลาดตลิ่งดินเหนียวอ่อน) เหลือความจุใช้การ 52.3 ล้าน ลบ.ม. (รองรับน้ำหลากได้ 24.2 ชั่วโมงที่ 600 ลบ.ม./วินาที)",
+        "variants": {
+            "eia_2569_geometric_derived": {"total": 68.5, "active": 52.3, "dead": 16.2, "tier": "A", "source": "EIA เล่ม 1 หน้า 2-39 (A=504 m² × L=135.9 km)"},
+            "provincial_summary_slide": {"total_sec2": 57.4, "total_sec1": 98.37, "total_combined": 155.77, "tier": "A", "source": "สรุปการประชุมจังหวัดนครนายก 9 ก.ย. 2569"},
+            "retired_legacy": {"total": 55.4, "status": "retired", "reason": "ค่าคงที่สมมติเดิมที่ไม่ปรากฏในเอกสาร EIA ใดๆ — ปลดประจำการ"}
+        }
+    },
+    "land_acquisition": {
+        "canonical_new_reach_rai": 16288,
+        "unit": "ไร่",
+        "resolution": "ใช้ตัวเลข 16,288 ไร่ ตามรายงานผลกระทบสิ่งแวดล้อม เล่ม 1 ตาราง 3.4.2-1 (หน้า 3-384) ซึ่งแจกแจงแปลงที่ดิน 3,957 แปลง (คลอง 15,999 ไร่ + เขื่อนทดน้ำป่าสัก 289 ไร่) ใน 4 จังหวัด เป็นค่าหลักสำหรับช่วงป่าสัก–อ่าวไทย",
+        "variants": {
+            "eia_2569_pasak_gulf": {"rai": 16288, "plots": 3957, "owners": 2600, "tier": "A", "source": "EIA เล่ม 1 ตาราง 3.4.2-1"},
+            "rid_2565_study": {"rai": 16305, "tier": "A", "source": "เอกสารกรมชลประทาน มี.ค. 2565 (เขื่อน 343 + คลอง 15,962 ไร่)"},
+            "news_thansettakij": {"rai": 17703, "tier": "B", "source": "ฐานเศรษฐกิจ 2 ต.ค. 2569 (รวมช่วงเดิม 781 = 18,484 ไร่)"},
+            "civic_petition": {"rai": 16305, "tier": "C", "source": "สมาคมพลเมืองนครนายก (อ้างอิงเอกสารปี 2565)"}
+        }
+    },
+    "project_budget": {
+        "canonical_eia_capex_mb": 160046,
+        "canonical_cabinet_ceiling_mb": 165000,
+        "unit": "ล้านบาท",
+        "resolution": "แยกบริบทชัดเจน: 160,046 ล้านบาท คือประมาณการงบลงทุนก่อสร้างตามรายงานผลกระทบสิ่งแวดล้อมฉบับชี้แจงครั้งที่ 2 (EIA 2569) ส่วน 165,000 ล้านบาท คือกรอบเพดานวงเงินรวมที่ กนช. และ ครม. เห็นชอบ (รวมสำรองฉุกเฉินและค่าบริหารโครงการ)",
+        "variants": {
+            "eia_2569_approved": {"budget_mb": 160046, "tier": "A", "source": "EIA 2569 เล่ม 2 และรายงานชี้แจงครั้งที่ 2"},
+            "cabinet_ceiling": {"budget_mb": 165000, "tier": "A", "source": "สรุปการประชุมจังหวัด 9 ก.ย. 2569 ตามมติ กนช. 3 ธ.ค. 2568"},
+            "draft_2560": {"budget_mb": 98000, "vintage": 2560, "tier": "B", "source": "เอกสารชี้แจงโครงการ มี.ค. 2560 (ราคาคงที่ปี 2560)"}
+        }
+    }
+}
+
 # ตัวแปรการออกแบบรายช่วง ช่วงป่าสัก–อ่าวไทย (ชั้น B: ฐานเศรษฐกิจ 2 ต.ค. 2569 อ้างกรมชลประทาน)
 DESIGN_SEGMENTS = [
     {"name": "ช่วงที่ 1 คลองดิน", "length_km": 0.57, "corridor_m": 220, "bottom_m": 105, "depth_m": 8, "shape": "คางหมู", "lined": False},
@@ -1430,7 +1479,7 @@ def main():
     L = max(f["properties"]["km"] for f in mk)
     c = {
         "meta": {"built_by": "analysis/goal7_analysis.py", "alignment_source": "Google My Maps (ผู้ใช้สร้าง — ไม่เป็นทางการ)"},
-        "facts": FACTS, "design_segments": design_check(), "design_2566": DESIGN_2566, "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "eia_profile": eia_profile(), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY, "eia_versions": EIA_VERSIONS, "eia_structs": eia_structs_summary(),
+        "facts": FACTS, "reconciled_parameters": RECONCILED_PARAMETERS, "design_segments": design_check(), "design_2566": DESIGN_2566, "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "eia_profile": eia_profile(), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY, "eia_versions": EIA_VERSIONS, "eia_structs": eia_structs_summary(),
         "alignment_qa": json.loads((D7 / "alignment_qa.json").read_text(encoding="utf-8")),
         "provinces_km": {"สระบุรี": [0, KM_NN0], "นครนายก": [KM_NN0, KM_NN1], "ฉะเชิงเทรา": [KM_NN1, KM_SP0], "สมุทรปราการ": [KM_SP0, 135.7]},
         "structures": structures(), "dem": dem_profile(), "manning": manning(), "c2": c2_peaks(),

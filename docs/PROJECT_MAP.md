@@ -24,7 +24,7 @@ graph TD
 | **เสาที่ 1: นครนายก (เป้าหมาย 1–5)** | การวิเคราะห์บทบาทฝนตกหนักเป็นแถบเทียบกับการระบายน้ำเขื่อนขุนด่านฯ, ไฮโดรกราฟ, ภาพถ่ายดาวเทียม Sentinel-1, แบบจำลองทำนายระดับน้ำ (Model v1) | `report/น้ำท่วมนครนายก2569_ประชาชน.html`<br>`report/น้ำท่วมนครนายก2569_วิชาการ.html` | `report/build_report_html.py`<br>`report/build_expert_report.py` | `analysis/canonical_numbers.json` | `docs/METHODS.md`<br>`docs/DATA_DICTIONARY.md`<br>`docs/ANALYSIS_PLAN.md`<br>`analysis/goal5_policy_proposals.md` |
 | **เสาที่ 2: 6 ลุ่มน้ำ & เทียบปี 54 (เป้าหมาย 6)** | ขยายวิธีสืบสวนสู่ 6 ลุ่มน้ำ (เจ้าพระยา, ท่าจีน, ป่าสัก, บางปะกง–นครนายก, แม่กลอง, เพชรบุรี), พฤติกรรม 24 เขื่อนใหญ่, สถิติฝนรอบ 46 ปี, ชุดเทียบมาตรฐานปี 2554 vs 2569 | `report/ระลอกปลายกย2569.html`<br>`report/ชุดเทียบมาตรฐาน2554.html` | `report/goal6_build_report3_draft.py`<br>`report/goal6_build_report4_draft.py`<br>`python analysis/goal6_build_all.py` | `analysis/goal6/canonical.json` | `docs/GOAL6_PLAN.md`<br>`docs/GOAL6_HYDRO2D_PLAN.md`<br>`docs/GOAL6_PUBLIC_RELEASE_REVIEW.md` |
 | **เสาที่ 3: คลองเจ้าพระยา 2 (เป้าหมาย 7)** | คลองระบายน้ำหลากชัยนาท–ป่าสัก–อ่าวไทย (111 กม.), คันคลองสูง 3.2–4.8 ม., ท่อลอด/ไซฟอนตัดคลองเดิม 34 จุด, อาคารบังคับน้ำ 99 แห่ง, ผลกระทบต่อ อ.องครักษ์, ธรรมาภิบาลสัญญา No Land No Contract | `report/คลองเจ้าพระยา2_ประชาชน.html`<br>`report/คลองเจ้าพระยา2_วิชาการ.html`<br>`report/สมุดปกขาว_เจ้าพระยา2.html` | `report/goal7_build_public.py`<br>`report/goal7_build_academic.py`<br>`report/goal7_build_policy_brief.py`<br>`python report/goal7_build_all.py` | `analysis/goal7/canonical.json`<br>`analysis/goal7/gaps.json` | `docs/GOAL7_PLAN.md`<br>`docs/GOAL7_FOI_REQUESTS.md`<br>`docs/BANGBAN_BANGSAI_COMPARISON.md`<br>`docs/GOAL7_POLICY_BRIEF.md` |
-| **ส่วนกลาง: กติกา & เอ็นจิน** | กติกาบังคับ AI, กฎหมายหมิ่นประมาทและ PDPA, ข้อตกลงรูปแบบรายงาน, สรีรศาสตร์สายตา, ระบบทดสอบภาษาไทย | `index.html` (หน้ารวมพอร์ทัล) | `report/goal7_engine.py`<br>`report/goal6_reportlib.py`<br>`report/goal7_blocks.py` | - | `AGENTS.md`<br>`docs/REPORT_CONVENTIONS.md`<br>`docs/LEGAL_REVIEW.md`<br>`docs/DATA_SOURCES.md`<br>`docs/ENVIRONMENT.md` |
+| **ส่วนกลาง: กติกา & เอ็นจิน** | กติกาบังคับ AI, กฎหมายหมิ่นประมาทและ PDPA, ข้อตกลงรูปแบบรายงาน, สรีรศาสตร์สายตา, ระบบทดสอบภาษาไทย, การจัดการความสอดคล้องข้อมูล | `index.html` (หน้ารวมพอร์ทัล) | `report/goal7_engine.py`<br>`report/goal6_reportlib.py`<br>`report/goal7_blocks.py` | - | `AGENTS.md`<br>`docs/REPORT_CONVENTIONS.md`<br>`docs/DATA_CONSISTENCY_WORKFLOW.md`<br>`docs/LEGAL_REVIEW.md`<br>`docs/DATA_SOURCES.md`<br>`docs/ENVIRONMENT.md` |
 
 ---
 
@@ -66,6 +66,7 @@ graph TD
 | **สรีรศาสตร์สายตา, กราฟภาษาไทย, มาตรฐาน WCAG** | ทุกรายงาน | `report/goal7_common.py`<br>`report/goal6_reportlib.py` | - | `docs/REPORT_CONVENTIONS.md`<br>`AGENTS.md` |
 | **ตัวตรวจภาษาไทยอัตโนมัติ (Typo, คำชน, คำทับศัพท์)** | ทุกเอกสาร | `tests/test_thai_language_lint.py` | - | `tests/test_thai_language_lint.py`<br>`docs/REPORT_CONVENTIONS.md §11` |
 | **เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร** | ระบบกลาง | `tools/verify_all.py` | - | `tools/verify_all.py` (catalog + SHA-256 + pytest) |
+| **การจัดการความสอดคล้องข้อมูลและระงับข้อขัดแย้งหลายแหล่ง** | ทุกรายงาน | `tests/test_data_consistency.py` | - | `docs/DATA_CONSISTENCY_WORKFLOW.md`<br>`tests/test_data_consistency.py` |
 
 ---
 

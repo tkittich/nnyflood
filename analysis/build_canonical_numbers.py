@@ -268,6 +268,38 @@ render = {
     "r1d_travel_h": f"{r1d['routing_performance']['travel_time_hours_sim']:.2f}",
 }
 
+def assert_pillar1_inward_contracts(values: dict) -> None:
+    """สัญญาข้อมูลขาเข้าสำหรับเสาที่ 1 (Inward Data Contracts — DATA_CONSISTENCY_WORKFLOW.md ชั้นที่ 1)
+    ตรวจสอบความสมเหตุสมผลทางกายภาพ ชลศาสตร์ และสมดุลมวลก่อนบันทึกลง canonical_numbers.json
+    """
+    v = values
+    # 1. สัญญาสัดส่วนสาเหตุและสมดุลมวลน้ำ (Attribution Mass Balance)
+    ds = v["dam_share"]
+    assert 0 <= ds["p1_pct"] <= 100, f"สัดส่วนเขื่อน P1 ต้องอยู่ในช่วง 0-100%: {ds['p1_pct']}"
+    assert 0 <= ds["p2_pct"] <= 100, f"สัดส่วนเขื่อน P2 ต้องอยู่ในช่วง 0-100%: {ds['p2_pct']}"
+    assert round(ds["p1_pct"]) == 12, f"สัดส่วนเขื่อน P1 ต้องปัดเศษได้ 12%: {ds['p1_pct']}"
+    assert round(100.0 - ds["p1_pct"]) == 88, "สัดส่วนฝนตกหนัก P1 ต้องปัดเศษได้ 88% (รวมเขื่อน+ฝน = 100%)"
+    assert round(ds["p2_pct"]) == 60, f"สัดส่วนเขื่อน P2 ต้องปัดเศษได้ 60%: {ds['p2_pct']}"
+    assert round(100.0 - ds["p2_pct"]) == 40, "สัดส่วนฝน P2 ต้องปัดเศษได้ 40% (รวมเขื่อน+ฝน = 100%)"
+    assert ds["p1_total_mcm"] > 0 and ds["p2_total_mcm"] >= ds["p2_dam_mcm"], "ปริมาตรน้ำรวมต้องมากกว่าหรือเท่ากับน้ำปล่อยจากเขื่อน"
+
+    # 2. สัญญาพื้นที่น้ำท่วมดาวเทียม (Sentinel-1 Flood Bounds)
+    s1 = v["s1"]
+    assert s1["peak_km2"] >= s1["oct2_ours_km2"], "พื้นที่น้ำท่วมพีค 27 ก.ย. ต้องมากกว่าหรือเท่ากับช่วงลดระดับ 2 ต.ค."
+    assert s1["peak_km2"] >= s1["sep27_am_ours_km2"], "พื้นที่น้ำท่วมพีค 27 ก.ย. เย็น ต้องมากกว่าหรือเท่ากับช่วงเช้า"
+
+    # 3. สัญญาระดับน้ำและค่าอ้างอิงความสูง (Water Level & Datum Consistency)
+    lv = v["levels"]
+    assert lv["peak_gauge_m"] > lv["bankfull_gauge_m"], "ระดับน้ำสูงสุดต้องสูงกว่าระดับเริ่มล้นตลิ่ง"
+    assert lv["floodplain_onset_msl_m"] < lv["bankfull_msl_m"], "ระดับเริ่มท่วมที่ราบลุ่มต้องต่ำกว่าสันตลิ่งจริง"
+
+    # 4. สัญญาชลศาสตร์หน้าตัดลำน้ำ Ny.1B (1D Hydraulics & Cross-Section Consistency)
+    xs = v["ny1b_cross_section"]
+    assert xs["bed_elevation_msl"] < xs["bank_elevation_msl"] < xs["peak_stage_msl"], "ลำดับความสูงท้องน้ำ < สันตลิ่ง < น้ำสูงสุด ต้องถูกต้อง"
+    assert xs["bankfull_q_low_m3s"] < xs["bankfull_q_m3s"] < xs["bankfull_q_high_m3s"], "ช่วงความไม่แน่นอนของอัตราไหลต้องเรียงจากต่ำไปสูง"
+    assert round(xs["peak_q_m3s"] - xs["bankfull_q_m3s"], 1) == xs["overflow_q_m3s"], "อัตราไหลล้นตลิ่งต้องเท่ากับพีคหักความจุลำน้ำ"
+
+
 out = {
     "forbidden": FORBIDDEN,
     "forbidden_exceptions": FORBIDDEN_EXCEPTIONS,
@@ -301,6 +333,8 @@ out = {
     },
     "checks": checks,
 }
+
+assert_pillar1_inward_contracts(out["values"])
 
 dest = ANA / "canonical_numbers.json"
 dest.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")

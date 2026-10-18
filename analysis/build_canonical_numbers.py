@@ -151,7 +151,8 @@ checks = {
     "expert": ["452.1", "363.6", "306.9", "51.5", "12%", "60%", "65 ชม.",
                "9.23", "8.45", "7.64", "6.86", "8.21", "11.89", "117.6",
                "1,058–1,416", "242(h−4.55)", "4.55", "26.96", "666.3", "675.3", "488.9", "893.0",
-               "10.60", "0.40", "9.0", "7,811", "38.0", "4 พฤศจิกายน", "27 กันยายน"],
+               "10.60", "0.40", "9.0", "7,811", "38.0", "4 พฤศจิกายน", "27 กันยายน",
+               "617.4", "3.25"],
 }
 
 # ค่า/คำที่เลิกใช้ — ห้ามปรากฏใน HTML ที่ build (builders/tests ตรวจ absence — GL-10)
@@ -260,6 +261,8 @@ render = {
     "gistda_oct2": f"{gistda['oct2_km2']:.1f}",
     "cf_ov_mcm": f"{khundan_overflow_counterfactual['actual']['overflow_mcm']:.2f}",
     "cf_ov_h": f"{khundan_overflow_counterfactual['actual']['hours_above_bankfull']}",
+    "r1d_ny7_q": f"{r1d['ny7_hydraulics']['bankfull_capacity_q_cms']:.1f}",
+    "r1d_travel_h": f"{r1d['routing_performance']['travel_time_hours_sim']:.2f}",
 }
 
 out = {

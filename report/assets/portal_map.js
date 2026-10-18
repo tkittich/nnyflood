@@ -318,6 +318,15 @@
       opacity: 0.85,
       dashArray: '8, 6'
     });
+    canalPolyline.bindPopup(
+      '<div style="font-family:sans-serif;font-size:0.85rem;min-width:220px">' +
+      '<strong style="color:#e11d48;font-size:0.95rem">🌊 แนวคลองระบายน้ำหลากเจ้าพระยา 2 (111 กม.)</strong><hr style="margin:4px 0;border:0;border-top:1px solid #ddd">' +
+      '<p style="margin:4px 0;font-size:0.8rem;color:#444">ผันน้ำหลาก 600 ลบ.ม./วิ จากเหนือเขื่อนเจ้าพระยาสู่อ่าวไทย วงเงินลงทุน 1.6 แสนล้านบาท</p>' +
+      '<div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">' +
+      '<a href="report/คลองเจ้าพระยา2_ประชาชน.html" style="color:#e11d48;font-weight:bold;text-decoration:none">รายงาน 7 (ประชาชน) &rarr;</a> ' +
+      '<a href="report/สมุดปกขาว_เจ้าพระยา2.html" style="color:#0d9488;font-weight:bold;text-decoration:none">📄 สมุดปกขาวนโยบาย &rarr;</a>' +
+      '</div></div>'
+    );
     layerPillar3.addLayer(canalPolyline);
 
     DATA.canal_cp2.structures.forEach(function (st) {
@@ -330,11 +339,13 @@
         fillOpacity: 0.9
       });
 
-      var popupHtml = '<div style="font-family:sans-serif;font-size:0.85rem;min-width:200px">' +
+      var popupHtml = '<div style="font-family:sans-serif;font-size:0.85rem;min-width:210px">' +
         '<strong style="color:#be123c;font-size:0.95rem">⚙️ ' + st.name + '</strong><hr style="margin:4px 0;border:0;border-top:1px solid #ddd">' +
         '<p style="margin:4px 0;font-size:0.8rem;color:#444">' + st.desc + '</p>' +
+        '<div style="display:flex;gap:10px;margin-top:4px">' +
         '<a href="' + st.link + '" style="color:#be123c;font-weight:bold;text-decoration:none">อ่านรายงาน &rarr;</a>' +
-        '</div>';
+        '<a href="report/สมุดปกขาว_เจ้าพระยา2.html" style="color:#0d9488;font-weight:bold;text-decoration:none">📄 สมุดปกขาว &rarr;</a>' +
+        '</div></div>';
 
       marker.bindPopup(popupHtml);
       layerPillar3.addLayer(marker);

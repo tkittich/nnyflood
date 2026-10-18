@@ -112,7 +112,9 @@
   "ny7_peak_msl": "7.64",
   "gistda_oct2": "306.9",
   "cf_ov_mcm": "11.89",
-  "cf_ov_h": "65"
+  "cf_ov_h": "65",
+  "r1d_ny7_q": "617.4",
+  "r1d_travel_h": "3.25"
  },
  "meta": {
   "generated_by": "analysis/build_canonical_numbers.py",
@@ -1076,7 +1078,9 @@
    "7,811",
    "38.0",
    "4 พฤศจิกายน",
-   "27 กันยายน"
+   "27 กันยายน",
+   "617.4",
+   "3.25"
   ]
  }
 }

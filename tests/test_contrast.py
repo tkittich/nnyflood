@@ -107,11 +107,15 @@ def test_goal7_mark_colours_meet_wcag_data_floor():
     # · #f0f9ff / #bae6fd — พื้นหลังและเส้นขอบของกรอบข้อมูล (info-box) ไม่ใช่องค์แสดงข้อมูล
     #   (ข้อความในกรอบใช้สีตัวอักษรธีมซึ่งตรวจคอนทราสต์แยกแล้ว)
     # · #cbd5e1 — เส้นขอบการ์ด/ตัวจำลอง interactive (ขอบตกแต่งของส่วนประกอบ ไม่ใช่ข้อมูล)
+    # · #fffbeb / #fcd34d — พื้นหลังและเส้นขอบของกรอบเตือนเรื่องข้อขัดแย้งของตัวเลข
+    #   ไม่ใช่องค์แสดงข้อมูล ข้อความในกรอบสืบทอดสีตัวอักษรธีม (เข้ม) บนพื้นอ่อน
+    #   จึงอ่านได้ — ยกเว้นคู่เดียวกับกรอบข้อมูลสีฟ้า #f0f9ff/#bae6fd ข้างบน
     NON_DATA = {
         "#ffffff", "#000000", "#f8fafc", "#f6f9fb", "#eef2f5", "#eef2f6", "#e2e8f0",
         "#888888", "#dddddd", "#cccccc", "#0f2233", "#153a5e", "#28425c", "#2a4d73",
         "#c9d3dc", "#efe7d8", "#dbe9f6", "#f0f9ff", "#bae6fd", "#cbd5e1",
         "#e6f0e0", "#d6e8c8", "#e9efc6", "#f3ecb8", "#ecdba0",
+        "#fffbeb", "#fcd34d",
     }
     checked = 0
     for f in files:
@@ -123,6 +127,37 @@ def test_goal7_mark_colours_meet_wcag_data_floor():
         )
         checked += len(cols - NON_DATA)
     assert checked >= 20, f"จำนวนสีที่ตรวจรวมน้อยผิดปกติ ({checked}) — นิยามสีอาจถูกย้ายไปไฟล์อื่น"
+
+
+def test_dark_panel_text_meets_wcag_on_its_real_background():
+    """ข้อความบนแผงพื้นเข้มของรายงาน 1–2 ต้องผ่านเกณฑ์ตัวอักษรบนพื้นที่ใช้จริง
+
+    ตัวตรวจเดิมของเป้าหมาย 7 ตรวจสีทุกตัวบนพื้นขาว ซึ่งให้ผลผิดกับข้อความบนแผงเข้ม
+    (`.anim-wrap` ใช้พื้น #0f2233) — #9fb8cc บนพื้นขาวได้ 2.06:1 แต่บนพื้นจริงได้ 7.87:1
+    จึงต้องตรวจคู่สีกับพื้นที่ใช้จริง ไม่ใช่เดาเป็นพื้นขาว (เจอจริง 18 ต.ค. 69)
+    """
+    PANEL_BG = {
+        # ตัวเลขกำกับของตัวควบคุมเวลาในภาพจำลองสถานการณ์
+        "report/build_report_html.py": [
+            (".anim-dates", "#9fb8cc", "#0f2233", 4.5),
+            (".anim-bar", "#cfe2f3", "#0f2233", 4.5),
+            (".anim-label", "#ffffff", "#0f2233", 4.5),
+        ],
+    }
+    checked = 0
+    for rel, pairs in PANEL_BG.items():
+        txt = (ROOT / rel).read_text(encoding="utf-8")
+        for selector, fg, bg, need in pairs:
+            assert selector in txt, f"{rel}: ไม่พบตัวเลือก {selector} — สีอาจถูกย้าย"
+            # ยืนยันว่าพื้นเข้มที่ใช้เป็นพื้นหลังจริงยังอยู่ในไฟล์
+            assert bg in txt, f"{rel}: ไม่พบพื้นหลังแผง {bg} อีกแล้ว"
+            assert fg in txt, f"{rel}: ไม่พบสีตัวอักษร {fg} ของ {selector} อีกแล้ว"
+            ratio = _contrast(fg, bg)
+            assert ratio >= need - 1e-9, (
+                f"{rel} {selector}: {fg} บน {bg} = {ratio:.2f}:1 ต่ำกว่า {need}:1"
+            )
+            checked += 1
+    assert checked >= 3, f"จำนวนคู่สีบนแผงเข้มที่ตรวจน้อยผิดปกติ ({checked})"
 
 
 def test_compound_palette_is_wcag_data_safe():

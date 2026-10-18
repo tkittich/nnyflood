@@ -38,6 +38,7 @@ DOC_FILES = [
     #  เพราะเดิมสแกนแค่ docs/*.md) · ไฟล์ REVIEW.*.md เป็นผลงานของแบบจำลองภายนอก
     # เป็นลายลักษณ์อักษรตามต้นฉบับ จึงไม่รวมในการตรวจ
     *sorted((ROOT / "docs/reviews").glob("TRIAGE_*.md")),
+    *sorted((ROOT / "docs/reviews").glob("DISPOSITION_*.md")),
 ]
 
 BUILDER_SCRIPTS = sorted((ROOT / "report").glob("*.py"))

@@ -262,6 +262,50 @@ def test_gap_ids_are_open_in_ledger():
     assert not dead, f"ช่องว่างที่ยังเปิดแต่ไม่มีที่ใช้ในรายงาน (ลบหรือปิดแล้ว?): {dead}"
 
 
+def test_closed_gaps_record_how_they_closed():
+    """ช่องว่างที่ปิดแล้วต้องมีหลักฐานว่าปิดด้วยอะไร — ไม่ใช่แค่เปลี่ยนสถานะเป็น closed
+
+    ช่องว่างที่ปิดโดยไม่บันทึกที่มาเท่ากับไม่มีหลักฐานว่าปิดถูกต้อง และไม่มีทางตรวจย้อนได้
+    (เจอจริง 18 ต.ค. 69 — ตรวจเจอ 3 ช่องว่างที่คอลัมน์ evidence ว่างเปล่า แต่ยังมี closed_by
+    ที่ระบุหน้าเอกสารและวันที่ จึงรับได้ และเพิ่มกฎนี้กันไม่ให้เกิดกรณีไม่มีหลักฐานเลย)
+    """
+    gaps = json.loads(GAPS.read_text(encoding="utf-8"))["gaps"]
+    no_evidence = [
+        g["id"] for g in gaps
+        if g["status"] == "closed"
+        and not str(g.get("evidence", "")).strip()
+        and not str(g.get("closed_by", "")).strip()
+    ]
+    assert not no_evidence, (
+        "ช่องว่างที่ปิดแล้วแต่ไม่บันทึกว่าปิดด้วยอะไร (evidence หรือ closed_by ว่างทั้งคู่): "
+        f"{no_evidence}")
+
+
+def test_gap_tags_are_audit_only_not_published():
+    """ป้าย `# gap: <id>` เป็นเครื่องหมายเชิงโครงสร้างสำหรับผู้ตรวจ ไม่ใช่ข้อความสำหรับผู้อ่าน
+
+    ต้องมีทั้งสองด้านพร้อมกัน:
+      · ยังอยู่ในซอร์สไบล์เดอร์ เพื่อให้ตัวตรวจข้างบนตามรอบได้
+      · ไม่ปรากฏใน HTML ที่เผยแพร่ เพราะรหัสเป็น ASCII snake_case
+        (เช่น route305_crown_elevation) ซึ่งผู้อ่านทั่วไปอ่านไม่รู้เรื่อง
+        และขัดกับข้อกำหนดว่าเนื้อหาที่เผยแพร่ต้องเป็นภาษาไทย (เจอจริง 18 ต.ค. 69)
+    """
+    src_tags = sum(
+        1 for b in GAP_SCAN_FILES for ln in b.read_text(encoding="utf-8").splitlines()
+        if re.search(r"# gap: [a-z0-9_/]+", ln)
+    )
+    assert src_tags > 0, "ไม่พบป้ายช่องว่างในซอร์สเลย — ตัวตรวจข้างบนจะตรวจอะไรไม่ได้"
+
+    leaks = []
+    for b in BUILDERS:
+        out = ROOT / "report" / f"คลองเจ้าพระยา2_{'ประชาชน' if 'public' in b.name else 'วิชาการ'}.html"
+        if not out.exists():
+            continue
+        if "# gap:" in out.read_text(encoding="utf-8"):
+            leaks.append(out.name)
+    assert not leaks, f"ป้ายช่องว่างหลุดไปในรายงานที่เผยแพร่: {leaks}"
+
+
 def test_no_unreviewed_sources():
     """แหล่งข้อมูลใหม่ในทะเบียนแฮช = ต้องทบทวนช่องว่างที่ยังเปิดก่อน (python analysis/goal7_gaps_check.py)"""
     import importlib.util

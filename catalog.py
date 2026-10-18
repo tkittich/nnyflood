@@ -630,14 +630,23 @@ DOC_SURFACES = ("*.md", "docs/*.md")
 #
 # คำนวณเป็นฟังก์ชันที่เรียกทุกครั้ง ไม่เก็บเป็นค่าคงที่ระดับโมดูล เพราะค่าคงที่ที่
 # อ่านดิสก์ตอน import จะไม่เห็นไฟล์ที่ถูกสร้างหรือลบหลังจากนั้น (เจอจริงระหว่างเทสต์)
-_REVIEW_ARTIFACT_RX = re.compile(r"(?:REVIEW|TRIAGE)[._].+\.md$")
+_REVIEW_ARTIFACT_RX = re.compile(r"(?:REVIEW|TRIAGE|DISPOSITION)[._].+\.md$")
 
 
 def review_artifacts() -> frozenset[str]:
-    """ชื่อไฟล์ที่ตกร่างรีวิวอิสระ/ไฟล์คัดกรอง ซึ่งไม่ต้องลงทะเบียนในสารบัญ"""
-    return frozenset(
+    """พาธที่สัมพัทธ์ของไฟล์ที่ตกร่างรีวิวอิสระ/ไฟล์คัดกรอง ซึ่งไม่ต้องลงทะเบียนในสารบัญ
+
+    ครอบคลุมทั้งที่ root ตามที่ HANDOFF สั่ง และใน docs/reviews/ ซึ่งเป็นที่เก็บจริงของฉบับเก่า
+    """
+    names = frozenset(
         p.name for p in ROOT.glob("*.md") if _REVIEW_ARTIFACT_RX.match(p.name)
     )
+    rel = frozenset(
+        f"docs/reviews/{p.name}"
+        for p in (ROOT / "docs" / "reviews").glob("*.md")
+        if _REVIEW_ARTIFACT_RX.match(p.name)
+    )
+    return names | rel
 
 
 def unregistered_docs() -> list[str]:

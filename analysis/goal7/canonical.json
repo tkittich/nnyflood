@@ -7652,12 +7652,19 @@
    "bed_width_m": 48.0,
    "side_slope_z_implied": 1.462,
    "total_storage_mcm": 55.4,
+   "total_storage_source": "ไม่มีที่มาอ้างอิง — ย้อนจากค่าคงที่ในโค้ดรุ่นก่อน",
    "dead_storage_depth_m": 2.0,
    "dead_storage_mcm": 13.8,
    "active_storage_mcm": 41.6,
    "design_discharge_m3s": 600.0,
    "design_discharge_mcm_day": 51.84,
    "buffer_duration_hours": 19.3,
+   "eia_section_bed_width_m": 54.5,
+   "eia_section_area_m2": 504.0,
+   "eia_section_side_slope_mean": 2.5,
+   "eia_section_total_mcm": 68.5,
+   "eia_section_dead_mcm": 16.2,
+   "eia_section_source": "รายงานผลกระทบสิ่งแวดล้อม เล่ม 1 หน้า 2-39 (รูปที่ 2.3.2-11 ตาราง กม.23–134)",
    "assessment": "คลองเจ้าพระยา 2 ไม่ใช่แหล่งเก็บกักน้ำ (<code>Reservoir</code>) แต่เป็นทางระบายน้ำผ่าน (<code>Conveyance Channel</code>) เนื่องจากมีปริมาตรกักเก็บใช้การจริงเพียง 41.6 ล้าน ลบ.ม. (หลังหักน้ำก้นคลอง 2.0 ม. จำนวน 13.8 ล้าน ลบ.ม. ตามหลักเรขาคณิตรูปตัดคางหมูเพื่อรักษาเสถียรภาพลาดตลิ่งดินเหนียวอ่อน) ซึ่งรองรับอัตราการผันน้ำออกแบบ 600 ลบ.ม./วินาที ได้เพียง 19.3 ชั่วโมง หากสถานีสูบน้ำปลายคลองไม่สามารถสูบออกสู่อ่าวไทยได้อย่างต่อเนื่อง คลองจะเต็มความจุภายในเวลาไม่ถึง 1 วัน"
   }
  }

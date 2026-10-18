@@ -88,15 +88,20 @@ def test_review_artifact_allowlist_matches_both_separators(tmp_path, monkeypatch
     monkeypatch.setattr(catalog, "DOC_SURFACES", ("*.md",))
     monkeypatch.setattr(catalog, "registered_paths", lambda: set())
 
-    exempt = ["REVIEW.some-model.md", "TRIAGE_ROUND6_2026-11-01.md", "TRIAGE.round6.md"]
+    exempt = ["REVIEW.some-model.md", "TRIAGE_ROUND6_2026-11-01.md", "TRIAGE.round6.md",
+              "DISPOSITION_ROUND5_OTHERS.md"]
     caught = ["บันทึกชั่วคราว.md", "REVIEWLY.md"]
     for name in exempt + caught:
         (tmp_path / name).write_text("ทดสอบ\n", encoding="utf-8")
+    (tmp_path / "docs" / "reviews").mkdir(parents=True)
+    (tmp_path / "docs" / "reviews" / "REVIEW.old-model.md").write_text("ทดสอบ\n", encoding="utf-8")
 
     un = set(catalog.unregistered_docs())
     assert not {n for n in exempt if n in un}, (
         "ไฟล์ผลงานรีวิวที่ควรได้ยกเว้นแต่ถูกจับว่าไม่ลงทะเบียน: "
         f"{sorted(n for n in exempt if n in un)}")
+    assert "docs/reviews/REVIEW.old-model.md" not in un, (
+        "ไฟล์รีวิวใน docs/reviews/ ต้องได้ยกเว้นเช่นกัน")
     assert {n for n in caught if n in un} == set(caught), (
         "ไฟล์ที่ไม่ใช่ผลงานรีวิวต้องถูกจับ ไม่ใช่ปล่อยผ่านเงียบ ๆ")
 

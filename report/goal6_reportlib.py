@@ -95,6 +95,12 @@ def thai(text: str, strict: bool = False) -> str:
         _masks.append(m.group(0))
         return f"\x00IMG{len(_masks) - 1}E\x00"
     text = re.sub(r"data:[a-zA-Z]+/[a-zA-Z0-9.+-]+;base64,[A-Za-z0-9+/=]+", _mask, text)
+    # ตัดป้ายช่องว่าง `# gap: <id>` ออกจากผลลัพธ์ก่อนแทนคำ/ตรวจ เพราะเป็นเครื่องหมาย
+    # เชิงโครงสร้างสำหรับตัวตรวจอ่านจากซอร์ส ไม่ใช่ข้อความสำหรับผู้อ่าน
+    # รหัสเป็น ASCII snake_case เช่น route305_crown_elevation ซึ่งผู้อ่านทั่วไปอ่านไม่รู้เรื่อง
+    # และขัดกับข้อกำหนดว่าเนื้อหาที่เผยแพร่ต้องเป็นภาษาไทย (เจอจริง 18 ต.ค. 69)
+    # ทำก่อนแทนคำที่ต้องห้าม เพื่อไม่ให้รหัสที่มีคำอย่าง crown/route ถูกแก้เป็นคำไทยมั่ว
+    text = re.sub(r"[ \t]*#[ \t]*gap:[ \t]*[a-z0-9_/]+", "", text)
     out = text
     for bad, good in BANNED_TERMS.items():
         out = re.sub(re.escape(bad), good, out, flags=re.IGNORECASE)
@@ -111,10 +117,8 @@ def thai(text: str, strict: bool = False) -> str:
         scan = re.sub(r"[a-z\-]+\s*:\s*[^;\"<>]+[;\"]", " ", scan)  # ทิ้งสิ่งที่เหลือแบบ CSS decl
     else:
         scan = out
-    # ป้ายช่องว่าง `# gap: <id>` เป็นเครื่องหมายเชิงโครงสร้างที่ต้องเป็น ASCII snake_case
-    # ตามข้อกำหนดของ tests/test_goal7_report.py — ไม่ใช่ศัพท์เทคนิคที่หลุดเข้ามาในข้อความ
-    # จึงตัดออกจากการตรวจ (แต่ยังแสดงผลใน HTML ตามเดิม) ไม่เช่นนั้นรหัสช่องว่างที่มีคำ
-    # อย่าง crown/elevation/route จะทำให้สร้างรายงานไม่ได้ (เจอจริง 18 ต.ค. 69)
+    # ป้ายช่องว่างถูกตัดออกจากผลลัพธ์แล้วข้างบน จึงตัดซ้ำในสำเนาที่ใช้สแกน
+    # เผื่อมีป้ายที่หลุดเข้ามาทางทางอื่นที่ไม่ได้ผ่าน thai()
     scan = re.sub(r"#\s*gap:\s*[a-z0-9_/]+", " ", scan)
     allowed = re.compile(
         r"^(?:[A-Z][a-zA-Z]*\.[0-9A-Za-z]*|Sentinel-[12]$|Sentinel-$|Landsat$|GRD$|COG$|SCL$|MNDWI$|URC$|"

@@ -349,3 +349,28 @@ def test_acid_soil_regression():
     assert a["lime_mt"]["deep"]["0.5"] > 3 * a["lime_mt"]["design"]["0.5"]
     led = {g["id"]: g for g in json.loads((ROOT / "analysis/goal7/gaps.json").read_text(encoding="utf-8"))["gaps"]}
     assert led["acid_sulfur_content"]["status"] == "closed" and led["acid_measures"]["status"] == "closed"
+
+
+def test_goal7_builders_have_no_stale_literals():
+    """กติกา builder ห้ามพิมพ์ตัวเลขหลักที่เคยมีปัญหา — สแกนหา literal เก่าใน builder ทั้งหมดของเป้าหมาย 7"""
+    stale_literals = [
+        "81.3 ตร.กม.",  # พื้นที่น้ำท่วมเก่าที่ยังไม่ได้คำนวณจริง
+        "18 ก.พ. 2562", # วันที่หนังสือราชการที่คลาดเคลื่อน (ของจริงคือ 14 ก.พ. 2562)
+        "21.0 ลลบ.ม.",  # ความจุเก็บกักน้ำตายที่คำนวณผิดหลักเรขาคณิต (ของจริงคือ 13.9–14.4 ลลบ.ม.)
+        "3,695",        # ปริมาตรผันน้ำเก่าในรูปกราฟ
+        "756 ล้าน",     # ปริมาตรผันน้ำเก่าในรูปกราฟ
+    ]
+    goal7_builders = [
+        ROOT / "report/goal7_build_public.py",
+        ROOT / "report/goal7_build_academic.py",
+        ROOT / "report/goal7_build_policy_brief.py",
+        ROOT / "report/goal7_blocks.py",
+    ]
+    for b in goal7_builders:
+        code = "\n".join(
+            ln for ln in b.read_text(encoding="utf-8").splitlines()
+            if not ln.strip().startswith("#")
+        )
+        for lit in stale_literals:
+            assert lit not in code, f"{b.name}: พบตัวเลข/ข้อความเก่าที่เลิกใช้ {lit!r} — ต้องอ้างอิงจาก canonical.json"
+

@@ -23,17 +23,17 @@ The project investigates catastrophic flooding in Thailand through empirical dat
    - Multi-reservoir comparative operation across 24 major dams (EGAT hydroelectric vs. RID irrigation), including the Pa Sak (RID) vs. Mae Klong (EGAT) 22-year governance benchmark (Pasak exceeded upper rule curve in 17 of 22 years, median 107%, vs EGAT dams maintaining dedicated flood headroom).
    - National stress index covering 461 medium reservoirs across Thailand (mean 87.2% capacity, 94 reservoirs overflowing with 516.2 MCM surcharge).
    - 46-year ERA5 rainfall rarity and recurrence interval modeling.
-   - L3 Coastal-Coupled Model (`analysis/goal6_l3_coastal_model.py`): Coupling Chao Phraya River stage at C.12 Samsen with Bangkok Bridge tidal telemetry (CPY015). Reported +6h linear RMSE falls from 73.6 cm to 35.9 cm (51.2%); usable test coverage is 57.1% of the declared window.
+   - L3 Coastal-Coupled Model (`analysis/goal6_l3_coastal_model.py`): Coupling Chao Phraya River stage at C.12 Samsen with Bangkok Bridge tidal telemetry (CPY015). Reported +6h linear RMSE falls from 79.6 cm down to 37.4 cm (53.0%); usable test coverage is 47.1% (226 usable hours) of the declared window.
    - Astronomical Tidal Harmonics decomposition (`analysis/goal6_canonical.py` $\rightarrow$ `l3_coastal_harmonics`): Classical harmonic constituents ($M_2, S_2, K_1, O_1$) decomposed across 4 key estuarine stations (C.29, BKK001, GLF002, GLF003) evaluating 1–3 day tidal forecast skill.
    - Compound Flood Risk Matrix (`analysis/compound_flood_risk.py`): Non-linear backwater interaction between upstream river discharge and storm surge, benchmarked against 5 historical flood events (2011, 2021, 2022, 2024, 2026).
 3. **Pillar 3 (Goal 7): Chao Phraya 2 Bypass Floodway Project**  
    - 135.9-km Pasak–Gulf of Thailand new diversion canal (total Chainat–Pasak–Gulf floodway network, design discharge $600\ m^3/s$).
    - Embankment profile analysis: elevated dike (+3.8 to +6.4 m MSL, 2.5–4.8 m above ground across Nakhon Nayok plain).
-   - 2D Hypsometric Stage-Area-Volume Analysis of Ongkharak Depression (`analysis/goal7_ongkharak_2d_depression.py`): Topographical basin modeling ($513.1\text{ km}^2$, median $+3.19\text{ m MSL}$) derived from 1m LiDAR/FABDEM; critical tipping point at **$+3.20\text{ m MSL}$** ($126.22\text{ MCM}$, $257.2\text{ km}^2$, 50.1% of district) where floodwater overtops Route 305 (Rangsit–Nakhon Nayok road), spilling directly into the Rangsit canal network.
-   - Canal Active Storage Reality (`analysis/goal7_operational_economics.py`): Static volume $55.4\text{ MCM}$, mandatory 2.0 m dead storage ($21.0\text{ MCM}$) to prevent bank slope failure in soft Bangkok clay, leaving only **$34.4\text{ MCM}$** active storage buffer ($\approx 15.9\text{ hours}$ buffer at $600\text{ m}^3/s$).
+   - 2D Hypsometric Stage-Area-Volume Analysis of Ongkharak Depression (`analysis/goal7_ongkharak_2d_depression.py`): Topographical basin modeling ($512.4\text{ km}^2$, median $+3.20\text{ m MSL}$) derived from Copernicus 30m DSM (with negative radar artifacts filtered); median-elevation hypothesis at **$+3.20\text{ m MSL}$** ($119.91\text{ MCM}$, $256.3\text{ km}^2$, 50.0% of district) representing potential overland spill towards Route 305 (Rangsit–Nakhon Nayok road).
+   - Canal Active Storage Reality (`analysis/goal7_operational_economics.py`): Total static volume $55.4–62.3\text{ MCM}$, with 2.0 m dead storage pool ($13.9–14.4\text{ MCM}$ derived from trapezoidal channel geometry), leaving **$41.0–41.5\text{ MCM}$** active storage buffer ($\approx 19.0–19.2\text{ hours}$ buffer at $600\text{ m}^3/s$).
    - S.26 39-Year Operational Profile: Transferred flood volume averages $1,970\text{ MCM/yr}$; canal operates at full capacity equivalent to only $38.3\text{ days/year}$ (10.5% annual utilization, idle $>10\text{ months/year}$).
    - Life-Cycle Economics & Bang Ban Comparison: Annualized capital + OPEX at 7% discount rate is $13,416\text{ MB/year}$; levelized unit cost of diverted floodwater is $6.81\text{ THB/m}^3$ ($8.17$ at 9%, $10.35$ at 12%), compared to $0.50–2.50\text{ THB/m}^3$ for retention basins and existing canal upgrades. Risk of delay and cost escalation benchmarked against Bang Ban–Bang Sai (8y $\rightarrow$ 11.5–15y, 1.93–2.14 hundred billion THB).
-   - ONEP EIA Rejection Order (Letter ทส 1010.6/2233, 18 Feb 2562): 16 critical objection categories from the Expert Committee (คชก.) including Ongkharak fault status, Thiessen rainfall averaging, 7-year return period misinterpretation, 3-year construction impossibility / inflated EIRR, fish biomass anomaly, and missing cross-drainage management plans.
+   - ONEP EIA Rejection Order (Letter ทส 1010.6/2233, 14 Feb 2562): 16 critical objection categories from the Expert Committee (คชก.) including Ongkharak fault status, Thiessen rainfall averaging, 7-year return period misinterpretation, 3-year construction impossibility / inflated EIRR, fish biomass anomaly, and missing cross-drainage management plans.
    - 87 cross-drainage structures cataloged (34 inverted siphons) with severe dry-season siltation risk.
    - ONWR Water Chart GIS layer overlay (`analysis/goal7_waterchart_overlay.py`): 16.8 km (47%) spatial intersection with designated floodway zones.
    - Counterfactual Hydraulic Simulation (`analysis/goal7_counterfactual_simulation.py`): Evaluating peak shaving during 2011 (4,394.5 MCM diverted, 38.8% of excess volume absorbed, 0.53 m stage reduction) and 2026 conditions.
@@ -82,8 +82,8 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
 ### Dimension 2: Estuarine Machine Learning & Astronomical Tidal Harmonics
 * **Target Files**: `analysis/goal6_l3_coastal_model.py` $\rightarrow$ `analysis/goal6/l3_coastal_summary.json`, `analysis/goal6_canonical.py`
 * **Audit Checklist**:
-   1. The model couples Bangkok Bridge sea tides (CPY015) only — SWAN wave heights are excluded as a single post-event snapshot. Coupling cuts +6h RMSE by 51.2% (from 73.6 cm down to 35.9 cm for Linear Regression, and 23.4% for GBDT), while at +24h it does not improve the linear model (−1.9%). Is there any **temporal data leakage** (look-ahead bias) between the causal trailing 24h rainfall feature and target lead time?
-   2. Is the chronological train/test split strictly maintained (Train: 2026 wet season up to Sep 19; Test: declared Sep 20 – Oct 9, 2026, usable coverage ends Oct 2 13:00, 57.1% coverage)? Are training samples whose target falls inside the test window purged?
+   1. The model couples Bangkok Bridge sea tides (CPY015) only — SWAN wave heights are excluded as a single post-event snapshot. Coupling cuts +6h RMSE by 53.0% (from 79.6 cm down to 37.4 cm for Linear Regression, and 23.4% vs tide-aware persistence), while at +24h linear improvement vs tide-aware persistence is negative (−41.3%). Is there any **temporal data leakage** (look-ahead bias) between the causal trailing 24h rainfall feature and target lead time?
+   2. Is the chronological train/test split strictly maintained (Train: 2026 wet season up to Sep 19; Test: declared Sep 20 – Oct 9, 2026, usable coverage ends Oct 2 13:00, 47.1% coverage)? Are training samples whose target falls inside the test window purged?
    3. Examine the astronomical tidal harmonics ($M_2, S_2, K_1, O_1$) decomposition across C.29, BKK001, GLF002, GLF003: are harmonic amplitudes and phase angles physically consistent with Gulf of Thailand amphidromic dynamics?
 
 ### Dimension 3: Compound Flood Risk Matrix (River Discharge vs. Storm Surge)
@@ -99,15 +99,15 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
 ### Dimension 4: 2D Hypsometric Basin Curve & Route 305 Overtopping Tipping Point
 * **Target Files**: `analysis/goal7_ongkharak_2d_depression.py` $\rightarrow$ `analysis/goal7/ongkharak_2d_depression_summary.json`, `report/goal7_blocks.py`
 * **Audit Checklist**:
-   1. Inspect the 2D hypsometric stage-area-volume curve for Ongkharak depression ($513.1\text{ km}^2$, median elevation $+3.19\text{ m MSL}$): is the numerical integration over 1m LiDAR/FABDEM mathematically robust?
-   2. Audit the critical tipping point at $+3.20\text{ m MSL}$ ($126.22\text{ MCM}$, $257.2\text{ km}^2$): does physical survey data confirm that Route 305 road crown elevation is indeed $+3.20\text{ m MSL}$?
+   1. Inspect the 2D hypsometric stage-area-volume curve for Ongkharak depression ($512.4\text{ km}^2$, median elevation $+3.20\text{ m MSL}$): is the numerical integration over Copernicus 30m DSM mathematically robust?
+   2. Audit the median-elevation hypothesis at $+3.20\text{ m MSL}$ ($119.91\text{ MCM}$, $256.3\text{ km}^2$): does physical survey data confirm that Route 305 road crown elevation is indeed $+3.20\text{ m MSL}$?
    3. Assess the hydraulic consequence of road overtopping: does the model account for the shift from closed-basin detention to open discharge into the Rangsit canal network?
 
 ### Dimension 5: Chao Phraya 2 Active Storage Reality & Counterfactual Simulation
 * **Target Files**: `analysis/goal7_operational_economics.py`, `analysis/goal7_counterfactual_simulation.py`
 * **Audit Checklist**:
-   1. The active storage calculation deducts a 2.0 m dead storage ($21.0\text{ MCM}$) from the $55.4\text{ MCM}$ total canal volume, leaving $34.4\text{ MCM}$ usable buffer. Is maintaining a 2.0 m minimum water level geotechnically necessary for slope stability in soft Bangkok clay?
-   2. With $34.4\text{ MCM}$ active storage, the canal provides only $15.9\text{ hours}$ of buffer at $600\text{ m}^3/s$. Does this expose the project to rapid overflow if Gulf pumping is restricted during high sea tides?
+   1. The active storage calculation deducts a 2.0 m dead storage ($13.9–14.4\text{ MCM}$) from total canal volume, leaving $41.0–41.5\text{ MCM}$ usable buffer. Is maintaining a 2.0 m minimum water level geotechnically necessary for slope stability in soft Bangkok clay?
+   2. With $41.0–41.5\text{ MCM}$ active storage, the canal provides only $\approx 19.0–19.2\text{ hours}$ of buffer at $600\text{ m}^3/s$. Does this expose the project to rapid overflow if Gulf pumping is restricted during high sea tides?
    3. In the 2011 counterfactual simulation, what hydraulic bottlenecks arise if tidal lockouts or coastal backwater restrict outlet discharge?
 
 ### Dimension 6: Operational Economics, Life-Cycle Cost & Dam Governance

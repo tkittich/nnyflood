@@ -147,3 +147,17 @@ def test_routing_summary_naming_and_scope_notes():
     assert "ny1b_flat_slope" in j["rating_sensitivity"]
     perf = j["routing_performance"]
     assert "stage_bias_cm" in perf and "stage_residual_cm" in perf
+
+
+def test_canonical_mirrors_artifacts():
+    """N-01: canonical_numbers.json values ต้องตรงกับ summary artifacts ที่เป็นต้นทางเสมอ"""
+    c = _load("analysis/canonical_numbers.json")["values"]
+    r1d = _load("analysis/hydraulic_1d_routing_summary.json")
+    for k in ("travel_time_hours_sim", "rmse_discharge_cms", "rmse_stage_cm", "q_peak_sim_cms"):
+        assert c["routing_1d"]["routing_performance"][k] == r1d["routing_performance"][k], (
+            f"canonical routing_1d.{k} drifted: {c['routing_1d']['routing_performance'][k]} vs {r1d['routing_performance'][k]}"
+        )
+    assert c["ny1b_cross_section"]["bankfull_q_m3s"] == r1d["ny1b_hydraulics"]["bankfull_capacity_q_cms"]
+    assert c["medium_dams"]["event_26_29_sep"] == _load("analysis/goal2_nny_medium_dams_summary.json")["event_26_29_sep"]
+    assert c["khundan_22y"]["headline_metrics"] == _load("analysis/goal2_khundan_22y_summary.json")["headline_metrics"]
+

@@ -150,6 +150,16 @@ RETIRED = ["2.5–4.8", "เฉพาะแม่น้ำใน 28.05", "น้
 ALL_REPORTS = [PUBLIC, ACADEMIC]
 BUILDERS = [ROOT / f"report/goal7_build_{n}.py" for n in ("public", "academic")]
 
+# โมดูลกลางที่ประกอบข้อความเข้าไปในรายงานจริง — ต้องอยู่ในขอบเขตการสแกนด้วย
+# (เดิมสแกนเฉพาะไฟล์ไบล์เดอร์ ทำให้ข้อความที่สร้างในโมดูลกลาง เช่น ป้าย # gap: ในตาราง
+#  ความจุแอ่งองครักษ์ ไม่ถูกตรวจทั้งค่าที่ถูกใช้และค่าที่หายไป — เจอจริงรอบที่ 5)
+SHARED_TEXT_MODULES = [
+    ROOT / "report/goal7_blocks.py",
+    ROOT / "report/goal7_common.py",
+    ROOT / "report/goal7_engine.py",
+]
+GAP_SCAN_FILES = BUILDERS + SHARED_TEXT_MODULES
+
 
 @pytest.mark.parametrize("p", ALL_REPORTS + BUILDERS, ids=lambda p: p.name)
 def test_no_retired_values(p):
@@ -189,8 +199,31 @@ GAPS = ROOT / "analysis/goal7/gaps.json"
 _MISSING_RX = re.compile(r"ไม่พบ|ยังไม่พบ|ยังไม่ปรากฏ|ไม่ปรากฏ|ยังไม่มี|ยังไม่ได้อ่าน|ยังไม่ได้ตรวจ|ยังไม่ทราบ|ยังไม่ชัด|ไม่ระบุ|ยังไม่ได้รับ|ยังตอบ|ยังไม่รู้|ยังไม่แน่")
 
 
+def _code_only(ln: str) -> str:
+    """ตัดส่วนที่เป็นคอมเมนต์ท้ายบรรทัดออก (ไม่นับข้อความหลัง # นอกวงเล็บคำพูด)
+
+    บรรทัดที่เป็นโค้ดล้วน เช่น `if other:  # ผังอีกฉบับยังไม่มี` ไม่ใช่ข้อความที่ผู้อ่านเห็น
+    จึงไม่ต้องผูกรหัสช่องว่าง — ตรวจเฉพาะส่วนที่เป็นข้อความจริง
+    """
+    out, quote = [], None
+    for i, ch in enumerate(ln):
+        if quote:
+            out.append(ch)
+            if ch == quote:
+                quote = None
+            continue
+        if ch in "\"'":
+            quote = ch
+            out.append(ch)
+            continue
+        if ch == "#":
+            break
+        out.append(ch)
+    return "".join(out)
+
+
 def _gap_lines():
-    for b in BUILDERS:
+    for b in GAP_SCAN_FILES:
         for i, ln in enumerate(b.read_text(encoding="utf-8").splitlines(), 1):
             if ln.strip().startswith("#"):
                 continue
@@ -199,7 +232,13 @@ def _gap_lines():
 
 def test_missing_knowledge_sentences_are_tagged():
     """ประโยค "ไม่พบ/ยังไม่รู้…" ต้องผูกรหัสช่องว่าง (# gap: id) หรือ n/a ถ้าไม่ใช่การอ้างความรู้ที่ขาด"""
-    bad = [f"{b.name}:{i}" for b, i, ln in _gap_lines() if _MISSING_RX.search(ln) and "# gap:" not in ln]
+    bad = []
+    for b, i, ln in _gap_lines():
+        prose = _code_only(ln)
+        if "raise " in prose:          # ข้อความแจ้งข้อผิดพลาดตอนสร้างรายงาน ไม่ใช่ข้อความผู้อ่าน
+            continue
+        if _MISSING_RX.search(prose) and "# gap:" not in ln:
+            bad.append(f"{b.name}:{i}")
     assert not bad, f"ประโยคบอกว่าขาดข้อมูลแต่ไม่มีรหัสช่องว่าง: {bad[:10]}"
 
 

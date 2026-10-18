@@ -532,19 +532,16 @@ The project is genuinely strong on **evidence provenance and self-correction dis
 
 - **Empirical evidence:**
   - Arithmetic is internally consistent: 55.4 − 21.0 = 34.4; 34.4e6 / 600 / 3600 = 15.93 h ✓.
-  - `total_storage_mcm = 55.4` **is** geometrically coherent with the stated section: 55.4e6 / 135,900 m = 407.7 m³/m, implying 48·7 + 49z = 407.7 → z ≈ 1.46 (1 V : 1.46 H). Plausible, though the side slope is stated nowhere.
-  - **`dead_storage_mcm = 21.0` is geometrically impossible against that same section.** Implied mean widths, from the code's own L = 135.9 km and D = 7.0 m:
-
-    | Layer | MCM | A = V/L | Implied mean width |
-    |---|---:|---:|---:|
-    | Full depth, 7.0 m | 55.4 | 407.65 m² | **58.2 m** |
-    | Dead slice, 2.0 m | 21.0 | 154.53 m² | **77.3 m** |
+  - `total_storage_mcm = 55.4` **is** geometrically coherent with the stated section: 55.4e6 / 135,900 m = 407.7 m², implying 48·7 + 49z = 407.7 → z ≈ 1.46 (1 V : 1.46 H). Plausible, though the side slope is stated nowhere.
+  - **`dead_storage_mcm = 21.0` is inconsistent with that same section.** For a prismatic canal the water volume between bed and stage h is **A(h) × L** (the wetted area already contains the depth). Taking A(7.0) from the 55.4 MCM figure gives 407.5 m², so the trapezoid has mean width A/h = 48 + 1.46h, i.e. **50.9 m at h = 2.0 m**. The stated 21.0 MCM instead requires A(2.0) = 154.5 m², a mean width of **77.3 m** — larger than the 58.2 m implied at full depth. Since A(h)/h = b + zh *increases* with h for any trapezoid, a 2 m section wider than the full-depth section is impossible. The correct value is **A(2.0) × L = 101.84 × 135,900 = 13.84 MCM**, so 21.0 was **+52 % too high**.
     | Active slice, 5.0 m | 34.4 | 253.13 m² | 50.6 m |
 
     **The 2.0 m dead-storage slice requires a *wider* section (77.3 m) than the entire 7.0 m canal (58.2 m).** For any trapezoid the sub-depth area must be a strict subset of the full section. So 21.0 MCM cannot be a constant-area × depth deduction from the same geometry as 55.4 MCM. The two figures come from different, unreconciled sources.
   - Worse, `bed_width_m = 48.0` (line 347) is uncited and **contradicts the only sourced cross-section in the repo**. `analysis/goal7_analysis.py:307` records `EIA_SECTION = {"D_m": 7.0, "A_m2": 504.0, "z1": 3.0, "z2": 2.0, …}` sourced to *"รายงานผลกระทบสิ่งแวดล้อม เล่ม 1 หน้า 2-39 (รูปที่ 2.3.2-11 ตาราง กม.23-134)"*. That implies a **bed width of 54.5 m**, and 504 m² × 135.9 km = **68.5 MCM — not 55.4 MCM**. `goal7_analysis.py:510` records `"bed_m": None`, i.e. the main EIA module does not have a bed width at all.
   - None of the five values is computed from the section three lines above; all are bare literals. No source is cited for the 2.0 m.
   - **And the published text claims a computation that does not exist.** `report/goal7_blocks.py:540` reads *"**จากการคำนวณ**มิติคลองรูปตัดสี่เหลี่ยมคางหมูตลอดความยาว 135.9 กม. ความลึกน้ำออกแบบ 7.0 ม. ท้องคลองกว้าง 48.0 ม."* ("**computed from** the trapezoidal cross-section…"). No such computation exists in any code path — the builder only formats values read from JSON.
+
+- **Resolution (added 18 ต.ค. 69, after the round-5 remediation):** triage item 4 replaced `21.0 / 34.4 / 15.9` with `dead_storage = 13.9`, `active_storage = 41.5`, `buffer_hours = 19.2`. **I verified this correction is numerically right** — A(2.0) × L = 101.84 × 135,900 = 13.84 MCM — and my original "implied mean width" arithmetic above was the sloppier statement of the same error. What survives from this finding is: the values are still literals rather than computed (derivation lives only in a comment), and `bed_width_m = 48.0` is still uncited and still contradicts the only sourced section (see F-33).
 
 - **Critique:** The `assessment` string asserts the 2.0 m exists "เพื่อรักษาเสถียรภาพลาดตลิ่งดินเหนียวอ่อน" (to maintain slope stability in soft clay) as an established fact, and `report/goal7_blocks.py:543` publishes it as *"จำเป็นต้องคงไว้เพื่อสร้างแรงดันต้านทานการพังทลายของลาดตลิ่งดินเหนียวอ่อนกรุงเทพฯ และหลีกเลี่ยงการทรุดตัว"*. **I could not locate any slope-stability calculation, factor of safety, shear-strength parameter, borehole log, or page reference for this anywhere in the repository**, and it is not registered in `analysis/goal7/gaps.json`. **UNVERIFIED — I am not asserting it is wrong, only that the repo does not evidence it** — yet it drives the entire "34.4 MCM / 15.9 hours" headline, which is the policy brief's central "reality check" argument.
 

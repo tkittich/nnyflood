@@ -455,8 +455,8 @@ def tbl_eia_rejection_history() -> str:
     for r in rounds:
         objs = " • ".join(f"<b>{o['section']}</b>: {o['issue']} ({o['detail']})" for o in r["key_objections"])
         detail_fold = (
-            f"<details style='margin-top:4px'><summary style='cursor:pointer;color:#0284c7;font-size:0.85em'>📄 สรุปสาระสำคัญตามหนังสือราชการ</summary>"
-            f"<div style='font-size:0.82em;background:#f8fafc;padding:6px 10px;border-left:3px solid #0284c7;margin-top:4px'>"
+            f"<details style='margin-top:4px'><summary style='cursor:pointer;color:#0271ab;font-size:0.85em'>📄 สรุปสาระสำคัญตามหนังสือราชการ</summary>"
+            f"<div style='font-size:0.82em;background:#f8fafc;padding:6px 10px;border-left:3px solid #0271ab;margin-top:4px'>"
             f"มติ คณะกรรมการผู้ชำนาญการฯ (คชก.): มีมติให้กรมชลประทานจัดทำรายงานใหม่ให้ครบถ้วนตามประเด็นที่กำหนด (หนังสือทางการ: {r['official_letter']})"
             f"</div></details>"
         )
@@ -511,7 +511,8 @@ def tbl_ongkharak_2d_hypsometric() -> str:
             elif stg == 3.2:
                 desc = (
                     f"<b>ระดับมัธยฐานภูมิประเทศ (+3.20 ม.รทก.)</b>: ปริมาตรน้ำสะสม ~{pt['storage_volume_mcm']:.1f} ล้าน ลบ.ม. "
-                    "เป็นระดับสมมติฐานการบ่าข้ามคันทางหลวง 305 สู่โครงข่ายคลองรังสิต (รอผลสำรวจระดับสันทางจริงจากกรมทางหลวง)"
+                    "เป็นระดับสมมติฐานสำหรับการบ่าข้ามคันทางหลวง 305 สู่โครงข่ายคลองรังสิต "
+                    "(ยังไม่ยืนยันด้วยระดับผิวถนนที่วัดได้) # gap: route305_crown_elevation"
                 )
             elif stg >= 4.0:
                 desc = "สภาวะน้ำท่วมเต็มพื้นที่ราบทั้งอำเภอองครักษ์"
@@ -526,8 +527,9 @@ def tbl_ongkharak_2d_hypsometric() -> str:
     cap = (
         f"เส้นความสัมพันธ์ระดับ–พื้นที่–ปริมาตร 2 มิติ (<code>2D Hypsometric</code>) ของแอ่งก้นกระทะ อ.องครักษ์ "
         f"(พื้นที่รวม {dep.get('total_area_km2', 512.4):.1f} ตร.กม. มัธยฐานความสูง {dep.get('elevation_stats_m', {}).get('median', 3.20):.2f} ม.รทก.) "
-        f"วิเคราะห์จากแบบจำลองระดับความสูงภูมิประเทศ 30 ม. (<code>Copernicus DEM 30m</code> ความคลาดเคลื่อนทางดิ่ง ±2–4 ม. · ยังไม่มีข้อมูลสำรวจความละเอียดสูง 1 ม.) — "
-        f"ระดับ +3.20 ม.รทก. คือระดับมัธยฐานพื้นที่ตามแบบจำลองสมมติฐาน"
+        f"วิเคราะห์จากแบบจำลองระดับความสูงภูมิประเทศ 30 ม. (<code>Copernicus DEM 30m</code> ความคลาดเคลื่อนทางดิ่ง ±2–4 ม.) — "
+        f"ระดับ +3.20 ม.รทก. คือระดับมัธยฐานพื้นที่ตามแบบจำลองสมมติฐาน ไม่ใช่ระดับที่วัดได้ "
+        f"(ยังไม่พบระดับผิวถนนทางหลวง 305 ที่ต้องใช้ยืนยันจุดบ่าล้น — มีเพียงจุดอ้างอิงภาพถ่ายระดับน้ำบนผิวถนน) # gap: route305_crown_elevation"
     )
     return table(["ระดับผิวน้ำ", "พื้นที่น้ำท่วม (ตร.กม.)", "สัดส่วนพื้นที่อำเภอ (%)", "ปริมาตรน้ำสะสม (ล้าน ลบ.ม.)", "ความลึกเฉลี่ย (ม.)", "นัยสำคัญทางชลศาสตร์และการบ่าข้าม"], rows, cap)
 
@@ -538,13 +540,15 @@ def box_canal_active_storage_reality() -> str:
     if not csr:
         return ""
     return (
-        f"<div class='info-box' style='background:#f0f9ff;border:1px solid #bae6fd;border-left:5px solid #0284c7;padding:16px 20px;border-radius:6px;margin:16px 0'>"
+        f"<div class='info-box' style='background:#f0f9ff;border:1px solid #bae6fd;border-left:5px solid #0271ab;padding:16px 20px;border-radius:6px;margin:16px 0'>"
         f"<h4 style='margin:0 0 8px 0;color:#0369a1'>📊 การวิเคราะห์ความจุเก็บกักใช้การจริงของคลอง (<code>Active Storage</code>)</h4>"
         f"<p style='margin:0 0 10px 0;line-height:1.6'>"
-        f"จากการคำนวณมิติคลองรูปตัดสี่เหลี่ยมคางหมูตลอดความยาว {csr['canal_length_km']} กม. ความลึกน้ำออกแบบ {csr['design_depth_m']:.1f} ม. ท้องคลองกว้าง {csr['bed_width_m']:.1f} ม.:<br>"
+        f"จากการคำนวณมิติคลองรูปตัดสี่เหลี่ยมคางหมูตลอดความยาว {csr['canal_length_km']} กม. ความลึกน้ำออกแบบ {csr['design_depth_m']:.1f} ม. "
+        f"ท้องคลองกว้าง {csr['bed_width_m']:.1f} ม. (ลาดข้างที่ได้ z ≈ {csr.get('side_slope_z_implied', 0):.2f} โดยย้อนจากปริมาตรรวมตามรายงานผลกระทบสิ่งแวดล้อม) "
+        f"— ความกว้างท้องคลองยังไม่มีที่มาอ้างอิงโดยตรง # gap: cp2_bed_width:<br>"
         f"• <b>ความจุกักเก็บรวมทั้งลำคลอง (<code>Total Storage</code>)</b>: <b>{csr['total_storage_mcm']:.1f} ล้าน ลบ.ม.</b><br>"
         f"• <b>น้ำกักเก็บก้นคลองที่สูบออกไม่ได้ (น้ำก้นคลอง/<code>Dead Storage</code>) ที่ระดับ 2.0 ม.</b>: <b>{csr['dead_storage_mcm']:.1f} ล้าน ลบ.ม.</b> "
-        f"(จำเป็นต้องคงไว้เพื่อสร้างแรงดันต้านทานการพังทลายของลาดตลิ่งดินเหนียวอ่อนกรุงเทพฯ และหลีกเลี่ยงการทรุดตัว)<br>"
+        f"(จำเป็นต้องคงไว้เพื่อสร้างแรงดันต้านทานการพังทลายของลาดตลิ่งดินเหนียวอ่อนกรุงเทพฯ และหลีกเลี่ยงการทรุดตัว — ระดับ 2.0 ม. นี้ยังไม่มีรายงานเสถียรภาพลาดสนับรองในคลังข้อมูล) # gap: cp2_dead_storage_depth<br>"
         f"• <b>ความจุกักเก็บใช้การจริง (<code>Active Storage</code>)</b>: เหลือเพียง <b>{csr['active_storage_mcm']:.1f} ล้าน ลบ.ม.</b> เท่านั้น<br>"
         f"• <b>ระยะเวลารองรับน้ำหลาก (<code>Buffer Duration</code>)</b>: ที่อัตราการผันน้ำออกแบบ {csr['design_discharge_m3s']:.0f} ลบ.ม./วินาที ({csr['design_discharge_mcm_day']:.2f} ล้าน ลบ.ม./วัน) "
         f"ความจุใช้การ {csr['active_storage_mcm']:.1f} ล้าน ลบ.ม. สามารถรองรับน้ำหลากได้เพียง <b>{csr['buffer_duration_hours']:.1f} ชั่วโมง (ไม่ถึง 1 วัน)</b>"

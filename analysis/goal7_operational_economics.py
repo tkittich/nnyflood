@@ -347,24 +347,42 @@ def build_operational_economics_data() -> dict:
     }
 
     # 5. การวิเคราะห์ความจุเก็บกักใช้การจริงของคลอง (Active Storage Reality)
-    # รูปตัดสี่เหลี่ยมคางหมู: ท้องคลอง b = 48.0 ม., ลึก H = 7.0 ม., ยาว L = 135.9 กม.
-    # ความจุรวม EIA 55.4 ล้าน ลบ.ม. (พื้นที่หน้าตัดเฉลี่ย ~407.7 ตร.ม. เทียบเท่าลาดข้าง z ≈ 1.46)
-    # ที่ระดับน้ำก้นคลอง 2.0 ม.: พื้นที่หน้าตัด ~101.9 ตร.ม. ปริมาตรน้ำก้นคลอง (Dead Storage) = 13.9 ล้าน ลบ.ม.
-    total_storage = 55.4
-    dead_storage = 13.9
-    active_storage = round(total_storage - dead_storage, 1)  # 41.5 ล้าน ลบ.ม.
-    buffer_hours = round(active_storage / 51.84 * 24.0, 1)  # 19.2 ชั่วโมง
+    # คำนวณจากหน้าตัดสี่เหลี่ยมคางหมูจริง (F-22 รอบที่ 5: เดิมพิมพ์เป็นค่าคงที่โดยไม่คำนวณ)
+    #   A(h) = b·h + z·h²   ·   V(h) = A(h) · L      (ปริมาตรน้ำคือพื้นที่เปียก × ความยาว ไม่ใช่ A×h×L)
+    # ความจุรวม 55.4 ล้าน ลบ.ม. ของ EIA ถูกใช้เป็นเกณฑ์ แล้ว back-solve ค่าลาดข้าง z
+    # ที่ทำให้ได้ปริมาตรตรงกัน — ไม่ต้องตั้ง z เอง (ค่า z ที่ได้ต่างจาก z1/z2 ในรายงาน EIA = 3.0/2.0
+    # ดังนั้นความกว้างท้องคลองยังต้องยืนยันกับหน้าตัดที่มีที่มาอ้างอิง — ดูช่องว่าง cp2_bed_width)
+    CANAL_L_M = 135_900.0
+    CANAL_B_M = 48.0
+    CANAL_H_M = 7.0
+    EIA_TOTAL_MCM = 55.4
+    DEAD_DEPTH_M = 2.0
+    DESIGN_Q_M3S = 600.0
+
+    def _area(h: float, z: float) -> float:
+        return CANAL_B_M * h + z * h * h
+
+    # back-solve z จากปริมาตรรวมของ EIA:  z = (A - b·H) / H²
+    _area_total = EIA_TOTAL_MCM * 1e6 / CANAL_L_M
+    side_slope_z = round((_area_total - CANAL_B_M * CANAL_H_M) / (CANAL_H_M ** 2), 3)
+
+    total_storage = round(_area(CANAL_H_M, side_slope_z) * CANAL_L_M / 1e6, 1)
+    dead_storage = round(_area(DEAD_DEPTH_M, side_slope_z) * CANAL_L_M / 1e6, 1)
+    active_storage = round(total_storage - dead_storage, 1)
+    cap_day_mcm = DESIGN_Q_M3S * 86400.0 / 1e6
+    buffer_hours = round(active_storage / cap_day_mcm * 24.0, 1)
 
     canal_storage_reality = {
-        "canal_length_km": 135.9,
-        "design_depth_m": 7.0,
-        "bed_width_m": 48.0,
+        "canal_length_km": CANAL_L_M / 1000.0,
+        "design_depth_m": CANAL_H_M,
+        "bed_width_m": CANAL_B_M,
+        "side_slope_z_implied": side_slope_z,
         "total_storage_mcm": total_storage,
-        "dead_storage_depth_m": 2.0,
+        "dead_storage_depth_m": DEAD_DEPTH_M,
         "dead_storage_mcm": dead_storage,
         "active_storage_mcm": active_storage,
-        "design_discharge_m3s": 600.0,
-        "design_discharge_mcm_day": 51.84,
+        "design_discharge_m3s": DESIGN_Q_M3S,
+        "design_discharge_mcm_day": round(cap_day_mcm, 2),
         "buffer_duration_hours": buffer_hours,
         "assessment": (
             "คลองเจ้าพระยา 2 ไม่ใช่แหล่งเก็บกักน้ำ (<code>Reservoir</code>) แต่เป็นทางระบายน้ำผ่าน (<code>Conveyance Channel</code>) "

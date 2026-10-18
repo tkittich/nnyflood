@@ -111,6 +111,11 @@ def thai(text: str, strict: bool = False) -> str:
         scan = re.sub(r"[a-z\-]+\s*:\s*[^;\"<>]+[;\"]", " ", scan)  # ทิ้งสิ่งที่เหลือแบบ CSS decl
     else:
         scan = out
+    # ป้ายช่องว่าง `# gap: <id>` เป็นเครื่องหมายเชิงโครงสร้างที่ต้องเป็น ASCII snake_case
+    # ตามข้อกำหนดของ tests/test_goal7_report.py — ไม่ใช่ศัพท์เทคนิคที่หลุดเข้ามาในข้อความ
+    # จึงตัดออกจากการตรวจ (แต่ยังแสดงผลใน HTML ตามเดิม) ไม่เช่นนั้นรหัสช่องว่างที่มีคำ
+    # อย่าง crown/elevation/route จะทำให้สร้างรายงานไม่ได้ (เจอจริง 18 ต.ค. 69)
+    scan = re.sub(r"#\s*gap:\s*[a-z0-9_/]+", " ", scan)
     allowed = re.compile(
         r"^(?:[A-Z][a-zA-Z]*\.[0-9A-Za-z]*|Sentinel-[12]$|Sentinel-$|Landsat$|GRD$|COG$|SCL$|MNDWI$|URC$|"
         r"LRC$|NASA$|POWER$|ERA5$|GISTDA$|CDSE$|API$|DEM$|S1$|S2$|GBDT$|HH$|MM$|"

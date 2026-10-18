@@ -51,7 +51,7 @@ _DER13 = ROOT / "data/13_sentinel1_copernicus/derived"
 _DEM_TILES = ROOT / "data/08_dem_topography/raw"
 # ที่ราบภาคกลางสูงต่างกันไม่กี่เมตร จึงแบ่งระดับถี่ช่วงต่ำ (ต่างจากรายงาน 1 ที่แบ่งตั้งแต่ 30 ม.)
 _ELEV_BINS = [-99, 1, 2, 3, 5, 10, 20, 50, 100, 99999]
-_ELEV_COLORS = ["#e6f0e0", "#d6e8c8", "#e9efc6", "#f3ecb8", "#ecdba0", "#d9bf86", "#c2a06a", "#a07f50", "#7a5e3a"]
+_ELEV_COLORS = ["#e6f0e0", "#d6e8c8", "#e9efc6", "#f3ecb8", "#ecdba0", "#aa8636", "#ac8446", "#a07f50", "#7a5e3a"]
 _ELEV_LABELS = ["ต่ำกว่า 1 ม.", "1–2 ม.", "2–3 ม.", "3–5 ม.", "5–10 ม.", "10–20 ม.", "20–50 ม.", "50–100 ม.", "สูงกว่า 100 ม."]
 
 
@@ -94,7 +94,7 @@ def draw_basemap(ax, x0, x1, y0, y1, step=0.0006, roads=True, water=True, legend
                 c = np.array(wb["coords"])
                 if c[:, 0].max() < x0 or c[:, 0].min() > x1 or c[:, 1].max() < y0 or c[:, 1].min() > y1:
                     continue
-                ax.fill(c[:, 0], c[:, 1], color="#9ccfe0", lw=0, zorder=0.5)
+                ax.fill(c[:, 0], c[:, 1], color="#3895b4", lw=0, zorder=0.5)
             for cn in W.get("canals", []):
                 c = np.array(cn["coords"]); ax.plot(c[:, 0], c[:, 1], color="#3f9bb0", lw=0.55, zorder=0.6, alpha=0.9)
             for rv in W.get("rivers", []):
@@ -104,9 +104,9 @@ def draw_basemap(ax, x0, x1, y0, y1, step=0.0006, roads=True, water=True, legend
     if roads:
         try:
             R = json.loads((_DER13 / "roads_major.json").read_text(encoding="utf-8"))
-            st = {"motorway": ("#8a5000", 1.5), "trunk": ("#8a5000", 1.3), "primary": ("#6f6256", 1.0), "secondary": ("#8a7f75", 0.7), "tertiary": ("#a89e94", 0.5)}
+            st = {"motorway": ("#8a5000", 1.5), "trunk": ("#8a5000", 1.3), "primary": ("#6f6256", 1.0), "secondary": ("#8a7f75", 0.7), "tertiary": ("#95897d", 0.5)}
             for rd in R:
-                col, lw = st.get(rd["cls"], ("#a89e94", 0.5))
+                col, lw = st.get(rd["cls"], ("#95897d", 0.5))
                 c = np.array(rd["coords"]); ax.plot(c[:, 0], c[:, 1], color=col, lw=lw, zorder=0.8, solid_capstyle="round")
         except Exception:
             pass

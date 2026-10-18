@@ -82,6 +82,49 @@ def test_report_themes_meet_wcag():
     assert total >= 40, f"จำนวนคู่สีที่ตรวจรวมน้อยผิดปกติ ({total})"
 
 
+def test_goal7_mark_colours_meet_wcag_data_floor():
+    """สีเส้น/พื้นที่ในภาพเป้าหมาย 7 (แผนที่และภาพจำลอง) ต้องผ่านเกณฑ์ข้อมูล 3:1 บนพื้นขาว
+
+    เดิมไม่มีตัวตรวจครอบคลุมไฟล์เหล่านี้เลย — `test_report_themes_meet_wcag` อ่านเฉพาะ
+    คู่สีแบบมีป้ายกำกับ (--c-<ชื่อ>) จาก 3 ไฟล์ จึงไม่จับสีที่เขียนตรง ๆ ในโค้ดวาดภาพ
+    (แก้จากข้อค้นพบรอบที่ 5: #a89e94 2.63:1, #9ccfe0 1.69:1, #d9bf86 1.79:1, …)
+    """
+    files = [
+        ROOT / "report/goal7_common.py",
+        ROOT / "report/report_assets.py",
+        ROOT / "report/goal7_blocks.py",
+        ROOT / "report/goal7_build_policy_brief.py",
+    ]
+    # สีที่ไม่ใช่องค์แสดงข้อมูล — พื้นหลัง/เส้นขอบ/ข้อความกำกับ พร้อมเหตุผลที่ยกเว้น:
+    # · พื้นผืนผ้าและเส้นหนา/ข้อความกำกับของธีม ไม่ใช่ข้อมูลที่ต้องอ่านค่า
+    # · #c9d3c0 / #efe7d8 — เติมสีหน้าตัดคัน/ท้องคลอง มีเส้นขอบ ec=INK ล้อมรอบ
+    #   รูปร่างจึงถูกนำโดยเส้น ไม่ใช่สีเติม (รอบที่ 5: พบแต่ไม่แก้ เพราะเป็นสีโครงสร้างที่ออกแบบไว้)
+    # · #dbe9f6 — axvspan กำกับช่วงกม. ที่มีชื่อในคำบรรยายภาพ อยู่ชั้นใต้ข้อมูลทั้งหมด
+    # · _ELEV_COLORS — พื้นหลังแถบระดับความสูงลำดับชั้น (zorder=0) แต่ละชั้นมี **ป้ายข้อความกำกับ
+    #   ในคำอธิบาย (_ELEV_LABELS) และมีเส้น/สถานีทับอยู่ข้างบน ความหมายจึงมาจากป้าย ไม่ใช่สีเติม
+    #   **เป็นข้อยกเว้นที่ตัดสินใจเชิงออกแบบ — ถ้าจะยกเลิกต้องปรับชุดสีทั้ง 9 ชั้นพร้อมกัน
+    #   ไม่ใช่ทำทีละสี เพราะการเข้มทีละชั้นทำให้ชั้นที่ติดกันแยกกันไม่ออก (เหลือ 1.00:1)**
+    # · #f0f9ff / #bae6fd — พื้นหลังและเส้นขอบของกรอบข้อมูล (info-box) ไม่ใช่องค์แสดงข้อมูล
+    #   (ข้อความในกรอบใช้สีตัวอักษรธีมซึ่งตรวจคอนทราสต์แยกแล้ว)
+    # · #cbd5e1 — เส้นขอบการ์ด/ตัวจำลอง interactive (ขอบตกแต่งของส่วนประกอบ ไม่ใช่ข้อมูล)
+    NON_DATA = {
+        "#ffffff", "#000000", "#f8fafc", "#f6f9fb", "#eef2f5", "#eef2f6", "#e2e8f0",
+        "#888888", "#dddddd", "#cccccc", "#0f2233", "#153a5e", "#28425c", "#2a4d73",
+        "#c9d3dc", "#efe7d8", "#dbe9f6", "#f0f9ff", "#bae6fd", "#cbd5e1",
+        "#e6f0e0", "#d6e8c8", "#e9efc6", "#f3ecb8", "#ecdba0",
+    }
+    checked = 0
+    for f in files:
+        txt = f.read_text(encoding="utf-8")
+        cols = {c.lower() for c in re.findall(r"#[0-9a-fA-F]{6}", txt)}
+        offenders = sorted(c for c in cols if c not in NON_DATA and _contrast("#ffffff", c) < DATA_MIN - 1e-9)
+        assert not offenders, (
+            f"{f.name}: สีที่คอนทราสต์บนพื้นขาวต่ำกว่า {DATA_MIN}:1 — {offenders}"
+        )
+        checked += len(cols - NON_DATA)
+    assert checked >= 20, f"จำนวนสีที่ตรวจรวมน้อยผิดปกติ ({checked}) — นิยามสีอาจถูกย้ายไปไฟล์อื่น"
+
+
 def test_compound_palette_is_wcag_data_safe():
     txt = (ROOT / "analysis/compound_flood_risk.py").read_text(encoding="utf-8")
     m = re.search(r"colors = \[([^\]]+)\]", txt)

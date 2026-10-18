@@ -620,15 +620,29 @@ def registered_paths() -> set[str]:
 # (เจอจริง: รีวิว/รายงานตรวจสอบถูกวางที่ root แล้วไม่มีใครลงทะเบียน 2 รอบติด)
 DOC_SURFACES = ("*.md", "docs/*.md")
 
+# ผลงานรีวิวอิสระจาก session ภายนอก — HANDOFF §งานถัดไปสั่งให้บันทึกไว้ที่ root
+# เป็นรูปแบบชั่วคราว ไม่ต้องลงทะเบียนในสารบัญ (ดู unregistered_docs())
+_REVIEW_ARTIFACTS = frozenset(
+    p.name for p in ROOT.glob("REVIEW.*.md")
+) | frozenset(
+    p.name for p in ROOT.glob("TRIAGE.*.md")
+)
+
 
 def unregistered_docs() -> list[str]:
-    """ไฟล์เอกสารบนดิสก์ที่ยังไม่ลงทะเบียนในสารบัญ (เรียงตามพาธ)"""
+    """ไฟล์เอกสารบนดิสก์ที่ยังไม่ลงทะเบียนในสารบัญ (เรียงตามพาธ)
+
+    ยกเว้นไฟล์ผลการรีวิวอิสระที่วางไว้ที่ root ตามคำสั่งใน HANDOFF §งานถัดไป
+    (`REVIEW.<model>.md` / `TRIAGE.*.md`) — เป็นผลงานของ session ภายนอก ไม่ใช่เอกสาร
+    ที่ต้องบำรุงรักษาในระบบ การบังคับให้ลงทะเบียนรายไฟล์ทำให้คำสั่งที่ถูกต้อง
+    (เขียนรีวิวลง root) ทำให้ `catalog audit` ล้มทุกรอบ — ดู REVIEW.space-bunny-free.md F-36
+    """
     reg = registered_paths()
     found: set[str] = set()
     for pat in DOC_SURFACES:
         for p in ROOT.glob(pat):
             found.add(p.relative_to(ROOT).as_posix())
-    return sorted(found - reg)
+    return sorted(found - reg - _REVIEW_ARTIFACTS)
 
 
 def cmd_audit() -> int:

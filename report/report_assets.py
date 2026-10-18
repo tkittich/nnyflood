@@ -224,7 +224,7 @@ def draw_terrain(ax):
 
 ROADS = json.load(open(DER / "roads_major.json"))
 ROAD_STYLE = {"motorway": ("#b26a00", 1.5), "trunk": ("#b26a00", 1.3), "primary": ("#9b8b7a", 1.0),
-              "secondary": ("#c1b6ac", 0.7), "tertiary": ("#d8d0c8", 0.5)}
+              "secondary": ("#9a8878", 0.7), "tertiary": ("#9c8773", 0.5)}
 ROAD_LABEL_REFS = {"33", "304", "305", "331", "358"}
 
 WATER = json.load(open(DER / "waterways.json"))
@@ -247,10 +247,10 @@ def draw_water(ax, labels=False):
     from matplotlib.patches import Polygon as MplPoly
     for wb in WATER["waters"] + WATER.get("reservoir", []):
         c = np.array(wb["coords"])
-        ax.add_patch(MplPoly(c, closed=True, facecolor="#b2dfdb", edgecolor="none", alpha=0.85, zorder=1.5))
+        ax.add_patch(MplPoly(c, closed=True, facecolor="#35817a", edgecolor="none", alpha=0.85, zorder=1.5))
     for cn in WATER["canals"]:
         for seg in _segments(cn["coords"]):
-            ax.plot(seg[:, 0], seg[:, 1], color="#5fb3aa", lw=0.55, zorder=2.6, alpha=0.9)
+            ax.plot(seg[:, 0], seg[:, 1], color="#489890", lw=0.55, zorder=2.6, alpha=0.9)
     for rv in WATER["rivers"]:
         for seg in _segments(rv["coords"]):
             ax.plot(seg[:, 0], seg[:, 1], color="#1e8f82", lw=1.15, zorder=2.7)
@@ -272,7 +272,7 @@ def draw_water(ax, labels=False):
 def draw_roads(ax, label=False):
     import numpy as np
     for rd in ROADS:
-        col, lw = ROAD_STYLE.get(rd["cls"], ("#d8d0c8", 0.5))
+        col, lw = ROAD_STYLE.get(rd["cls"], ("#9c8773", 0.5))
         c = np.array(rd["coords"])
         ax.plot(c[:, 0], c[:, 1], color=col, lw=lw, zorder=2, solid_capstyle="round")
     if label:
@@ -383,7 +383,7 @@ ax.legend(handles=[
     Patch(fc=(0.20, 0.60, 0.25, 0.75), label="รอด — แห้งโดย 2 ต.ค. (~209 ตร.กม.)"),
     Patch(fc=(0.85, 0.20, 0.13, 0.75), label="ยังมีน้ำ ระบายใน ~1–2 วัน (~242 ตร.กม. · แถบริมน้ำ/คลอง)"),
     Line2D([0], [0], color="#17457e", lw=1.6, label="แม่น้ำ (OSM)"),
-    Line2D([0], [0], color="#a8cbe8", lw=1.2, label="คลองสายใหญ่ (OSM)"),
+    Line2D([0], [0], color="#4690ce", lw=1.2, label="คลองสายใหญ่ (OSM)"),
     Line2D([0], [0], color="#b26a00", lw=1.5, label="ถนนสายหลัก (OSM)"),
     Line2D([0], [0], color="0.25", lw=1.2, label="เขตจังหวัด (OSM)"),
     Patch(fc=(0.85, 0.75, 0.55), label="ภูมิประเทศ: น้ำตาลเข้ม = สูง (DEM 30 ม.)")],

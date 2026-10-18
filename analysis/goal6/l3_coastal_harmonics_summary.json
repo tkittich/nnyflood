@@ -4,6 +4,7 @@
   "downstream_boundary": "CPY015 (สะพานกรุงเทพ)",
   "upstream_boundary": "BKK001 (ปทุมธานี)",
   "test_window": "2026-09-20 00:00 เป็นต้นไป",
+  "purge_note": "ตัดแถวฝึกที่เป้าหมายทับช่วงทดสอบ (purge รายระยะ) ก่อนฟิตโมเดลทุกระยะ แบบเดียวกับแบบจำลองปากอ่าว — กันข้อมูลอนาคตรั่วเข้าชุดฝึก (รีวิวรอบ 5: Claude F-11 · DeepSeek F6(b) · Gemini F-12)",
   "astronomical_harmonics_calibrated": {
     "S0": 0.2015,
     "constituents": {
@@ -44,51 +45,55 @@
   "lead_skill_evaluations": {
     "lead_6h": {
       "lead_hours": 6,
-      "n_train": 1150,
+      "n_train": 1145,
+      "n_purged": 5,
       "n_test": 262,
-      "rmse_model_m": 0.6,
-      "mae_model_m": 0.522,
-      "r2_model": -0.293,
+      "rmse_model_m": 0.611,
+      "mae_model_m": 0.532,
+      "r2_model": -0.341,
       "rmse_persistence_m": 0.618,
       "rmse_astro_baseline_m": 0.563,
-      "skill_gain_vs_persistence_pct": 2.9,
-      "skill_gain_vs_astro_baseline_pct": -6.6
+      "skill_gain_vs_persistence_pct": 1.1,
+      "skill_gain_vs_astro_baseline_pct": -8.6
     },
     "lead_12h": {
       "lead_hours": 12,
-      "n_train": 1078,
+      "n_train": 1067,
+      "n_purged": 11,
       "n_test": 261,
-      "rmse_model_m": 0.595,
-      "mae_model_m": 0.532,
-      "r2_model": -0.285,
+      "rmse_model_m": 0.616,
+      "mae_model_m": 0.551,
+      "r2_model": -0.381,
       "rmse_persistence_m": 0.577,
       "rmse_astro_baseline_m": 0.536,
-      "skill_gain_vs_persistence_pct": -3.0,
-      "skill_gain_vs_astro_baseline_pct": -10.9
+      "skill_gain_vs_persistence_pct": -6.8,
+      "skill_gain_vs_astro_baseline_pct": -15.0
     },
     "lead_24h": {
       "lead_hours": 24,
-      "n_train": 1499,
+      "n_train": 1481,
+      "n_purged": 18,
       "n_test": 274,
-      "rmse_model_m": 0.218,
-      "mae_model_m": 0.164,
-      "r2_model": 0.826,
+      "rmse_model_m": 0.224,
+      "mae_model_m": 0.171,
+      "r2_model": 0.817,
       "rmse_persistence_m": 0.212,
       "rmse_astro_baseline_m": 0.205,
-      "skill_gain_vs_persistence_pct": -2.7,
-      "skill_gain_vs_astro_baseline_pct": -6.3
+      "skill_gain_vs_persistence_pct": -5.3,
+      "skill_gain_vs_astro_baseline_pct": -9.0
     },
     "lead_48h": {
       "lead_hours": 48,
-      "n_train": 1493,
+      "n_train": 1452,
+      "n_purged": 41,
       "n_test": 274,
-      "rmse_model_m": 0.392,
-      "mae_model_m": 0.312,
-      "r2_model": 0.375,
+      "rmse_model_m": 0.414,
+      "mae_model_m": 0.34,
+      "r2_model": 0.304,
       "rmse_persistence_m": 0.376,
       "rmse_astro_baseline_m": 0.361,
-      "skill_gain_vs_persistence_pct": -4.2,
-      "skill_gain_vs_astro_baseline_pct": -8.6
+      "skill_gain_vs_persistence_pct": -10.0,
+      "skill_gain_vs_astro_baseline_pct": -14.6
     }
   }
 }

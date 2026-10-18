@@ -6,6 +6,7 @@
 2. สร้างตัวทำนายระดับน้ำทะเลล่วงหน้าดาราศาสตร์ (Astronomical Tide Predictor) ที่ไม่ต้องพึ่งพาข้อมูลตรวจวัดจริงในอนาคต
 3. ประเมินทักษะการพยากรณ์ระดับน้ำสถานี C.12 กรมชลประทานสามเสน ที่ระยะ +6 ชม., +12 ชม., +24 ชม., และ +48 ชม.
 4. เปรียบเทียบความแม่นยำ (RMSE, MAE, R²) กับเกณฑ์อ้างอิงเดิม (Persistence Baseline)
+5. ตัดแถวฝึกที่เป้าหมายทับช่วงทดสอบ (purge รายระยะ) กันการรั่วไหลของข้อมูลอนาคต แบบเดียวกับ goal6_l3_coastal_model.py (รีวิวรอบ 5: Claude F-11 · DeepSeek F6(b) · Gemini F-12)
 
 รัน: python analysis/goal6_l3_coastal_harmonics.py
 """
@@ -36,6 +37,7 @@ HARMONIC_CONSTITUENTS = {
 
 LEADS = [6, 12, 24, 48]
 TEST_START = "2026-09-20 00:00"
+TEST_START_DT = dt.datetime.strptime(TEST_START, "%Y-%m-%d %H:00")
 
 
 def load_hourly(path: Path) -> dict[str, float]:
@@ -134,8 +136,8 @@ def run_coastal_harmonics_analysis():
     all_dts = sorted(set(c12_data.keys()) & set(cpy015_data.keys()) & set(bkk001_data.keys()))
     dt_objs = [dt.datetime.strptime(s, "%Y-%m-%d %H:00") for s in all_dts]
 
-    # แบ่งชุดฝีกสอน (ก่อน 20 ก.ย.) และชุดทดสอบ (20 ก.ย. เป็นต้นไป)
-    train_mask = [d < dt.datetime.strptime(TEST_START, "%Y-%m-%d %H:00") for d in dt_objs]
+    # แบ่งชุดฝึกสอน (ก่อน 20 ก.ย.) และชุดทดสอบ (20 ก.ย. เป็นต้นไป)
+    train_mask = [d < TEST_START_DT for d in dt_objs]
     test_mask = [not m for m in train_mask]
 
     train_dts = [d for d, m in zip(dt_objs, train_mask) if m]
@@ -161,6 +163,7 @@ def run_coastal_harmonics_analysis():
         y_test_astro_baseline = []
 
         lead_delta = dt.timedelta(hours=lead)
+        n_purged = 0
 
         for d in dt_objs:
             target_dt = d + lead_delta
@@ -180,7 +183,11 @@ def run_coastal_harmonics_analysis():
 
             features = [c12_curr, bkk_curr, astro_target, astro_curr]
 
-            if d < dt.datetime.strptime(TEST_START, "%Y-%m-%d %H:00"):
+            if d < TEST_START_DT:
+                if target_dt >= TEST_START_DT:
+                    # purge: เป้าหมายทับช่วงทดสอบ — ห้ามใช้ฝึก (แบบเดียวกับ goal6_l3_coastal_model.py)
+                    n_purged += 1
+                    continue
                 X_train.append(features)
                 y_train.append(c12_target)
             else:
@@ -215,6 +222,7 @@ def run_coastal_harmonics_analysis():
             lead_evaluations[f"lead_{lead}h"] = {
                 "lead_hours": lead,
                 "n_train": len(X_train),
+                "n_purged": n_purged,
                 "n_test": len(X_test),
                 "rmse_model_m": round(rmse_model, 3),
                 "mae_model_m": round(mae_model, 3),
@@ -231,6 +239,7 @@ def run_coastal_harmonics_analysis():
         "downstream_boundary": "CPY015 (สะพานกรุงเทพ)",
         "upstream_boundary": "BKK001 (ปทุมธานี)",
         "test_window": f"{TEST_START} เป็นต้นไป",
+        "purge_note": "ตัดแถวฝึกที่เป้าหมายทับช่วงทดสอบ (purge รายระยะ) ก่อนฟิตโมเดลทุกระยะ แบบเดียวกับแบบจำลองปากอ่าว — กันข้อมูลอนาคตรั่วเข้าชุดฝึก (รีวิวรอบ 5: Claude F-11 · DeepSeek F6(b) · Gemini F-12)",
         "astronomical_harmonics_calibrated": harmonics_meta,
         "lead_skill_evaluations": lead_evaluations,
     }
@@ -257,21 +266,26 @@ def run_coastal_harmonics_analysis():
         "",
         "## 2. ทักษะการพยากรณ์ล่วงหน้ารายระยะ (Lead-time Skill Comparison)",
         "",
-        "| ระยะพยากรณ์ | จำนวนตัวอย่างทดสอบ | RMSE โมเดล (ม.) | MAE (ม.) | R² | RMSE ค่าเดิมคงที่ (ม.) | ทักษะดีขึ้นเทียบค่าเดิม (%) |",
-        "|---|---:|---:|---:|---:|---:|---:|",
+        "| ระยะพยากรณ์ | จำนวนตัวอย่างทดสอบ | ตัดออก (purge) | RMSE โมเดล (ม.) | MAE (ม.) | R² | RMSE ค่าเดิมคงที่ (ม.) | ทักษะดีขึ้นเทียบค่าเดิม (%) |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|",
     ])
 
     for k, le in lead_evaluations.items():
         md_lines.append(
-            f"| **+{le['lead_hours']} ชั่วโมง** | {le['n_test']} | {le['rmse_model_m']:.3f} | {le['mae_model_m']:.3f} | {le['r2_model']:.3f} | {le['rmse_persistence_m']:.3f} | **{le['skill_gain_vs_persistence_pct']:+.1f}%** |"
+            f"| **+{le['lead_hours']} ชั่วโมง** | {le['n_test']} | {le['n_purged']} | {le['rmse_model_m']:.3f} | {le['mae_model_m']:.3f} | {le['r2_model']:.3f} | {le['rmse_persistence_m']:.3f} | **{le['skill_gain_vs_persistence_pct']:+.1f}%** |"
         )
+
+    _gains_sorted = sorted((v["lead_hours"], v["skill_gain_vs_persistence_pct"]) for v in lead_evaluations.values())
+    _gain_txt = " · ".join(f"+{h:g} ชม. {g:+.1f}%" for h, g in _gains_sorted)
+    _neg_txt = ", ".join(f"+{h:g} ชม." for h, g in _gains_sorted if g < 0) or "ไม่มี"
 
     md_lines.extend([
         "",
         "## 3. สรุปผลและข้อจำกัดของแบบจำลองฮาร์มอนิก",
         "1. **ไม่ต้องพึ่งพาข้อมูลน้ำทะเลหนุนในอนาคต**: การใช้ฮาร์มอนิกดาราศาสตร์ (Astronomical Harmonics) ทำให้โมเดลสามารถพยากรณ์ไปข้างหน้าได้โดยอาศัยเฉพาะข้อมูลดาราศาสตร์",
-        "2. **ประสิทธิภาพเทียบกับฐานเทียบเดิม (Persistence Baseline)**: ที่ระยะ +6 ชม. โมเดลให้ทักษะดีขึ้นเล็กน้อย (+2.9%) แต่ที่ระยะ +12 ชม., +24 ชม., และ +48 ชม. โมเดลยังมีค่าความคลาดเคลื่อนสูงกว่าหรือใกล้เคียงกับฐานเทียบเดิมเล็กน้อย (-2.7% ถึง -4.2%) เนื่องจากยังขาดการรวมพจน์อิทธิพลลมมรสุม/ความกดอากาศ (Surge) และความไม่แน่นอนของอัตราการปล่อยน้ำหลากต้นน้ำ",
+        f"2. **ประสิทธิภาพเทียบกับฐานเทียบเดิม (Persistence Baseline)**: ทักษะเทียบฐานเทียบเดิมรายระยะ — {_gain_txt} — ระยะที่ค่าติดลบ ({_neg_txt}) เกิดจากยังขาดการรวมพจน์อิทธิพลลมมรสุม/ความกดอากาศ (Surge) และความไม่แน่นอนของอัตราการปล่อยน้ำหลากต้นน้ำ",
         "3. **ทิศทางการพัฒนา**: ในระยะยาวจำเป็นต้องใช้อนุกรมเวลาระดับน้ำทะเลต่อเนื่องหลายปีเพื่อสกัดองค์ประกอบฮาร์มอนิกที่ครบถ้วน (ตามรายการ ACAD-07) และผสานแบบจำลอง Meteorological Surge เพื่อยกระดับความแม่นยำช่วงน้ำหลากวิกฤต",
+        "4. **การป้องกันการรั่วไหลของข้อมูล (Purge)**: ตัดแถวฝึกที่เป้าหมายทับช่วงทดสอบทุกระยะก่อนฟิตโมเดล (แบบเดียวกับแบบจำลองปากอ่าว) — จำนวนแถวที่ตัดรายระยะดูได้จากคอลัมน์ 'ตัดออก (purge)' ข้างบนและช่อง `n_purged` ในไฟล์สรุปผล",
     ])
 
     OUT_MD.write_text("\n".join(md_lines), encoding="utf-8")

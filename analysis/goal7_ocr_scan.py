@@ -43,12 +43,16 @@ def norm(s: str) -> str:
 
 def corpora():
     """(label, page, text) ของ OCR ทุกชุด + ชั้นข้อความของ 4 เล่ม EIA 2569"""
-    for jl in sorted((D32 / "ocr").glob("*/pages.jsonl")):
+    # ผล OCR: Typhoon เท่านั้น (RapidOCR เลิกใช้ 19 ต.ค. 69) — ข้ามหน้า echo/ถอดไม่ได้
+    for jl in sorted(D32.glob("typhoon_ocr/*/pages*.jsonl")):
         label = jl.parent.name
         for ln in jl.read_text(encoding="utf-8").splitlines():
             if ln.strip():
                 r = json.loads(ln)
-                yield "ocr:" + label, r["page"], " ".join(x.strip() for x in r["text"].split("\n") if x.strip())
+                txt = (r.get("text") or "").strip()
+                if not txt or r.get("error") or (r.get("meta") or {}).get("echo_final") or "RAW_TEXT_START" in txt:
+                    continue
+                yield "ocr:" + label, r["page"], " ".join(x.strip() for x in txt.split("\n") if x.strip())
     zp = D32 / "official_eia/256909-65.zip"
     with tempfile.TemporaryDirectory() as td, zipfile.ZipFile(zp) as z:
         for n in z.namelist():

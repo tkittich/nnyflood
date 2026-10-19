@@ -2,7 +2,7 @@
 
 จัดชนิดหน้าด้วย goal7_typhoon_ocr.classify_page: scan (หน้าสแกน) · figure (ข้อความ + ภาพ/รูป/ตารางที่เป็นภาพขนาดใหญ่) · text (ข้อความล้วน — ไม่ต้อง OCR)
 สถานะ Typhoon รายหน้า (label eia2569_<main1|main2|app1|app2>): ok (ข้อความใช้ได้) · needs_visual (ถอดไม่ได้/เป็นรูป ต้องอ่านภาพหรือตัดตาราง) · echo (ผลเก่าสะท้อนแม่แบบ) · none
-RapidOCR ถือเป็นผลรอง (อ่านไทยได้ไม่ดี — ตัดสินใจ 19 ต.ค. 69 ให้ทำใหม่ด้วย Typhoon ทั้งหมด) จึงไม่นับเป็นครอบคลุม
+OCR อื่นเลิกใช้แล้ว (RapidOCR อ่านไทยไม่ดี — ผู้ใช้ตัดสิน 19 ต.ค. 69 ให้ใช้ Typhoon ทั้งหมด) จึงไม่นับผลเดิมเป็นครอบคลุม
 
 รัน: python analysis/goal7_ocr_coverage.py
 ผลลัพธ์: analysis/goal7/ocr_coverage.json (รวมรายการหน้าที่ต้องทำ todo_scan / todo_figure ต่อเล่ม)
@@ -64,18 +64,6 @@ def typhoon_status(label: str) -> dict[int, str]:
     return st
 
 
-def rapid_pages(label: str) -> set[int]:
-    s = set()
-    for jl in (D32 / "ocr" / label).glob("pages*.jsonl"):
-        for ln in jl.read_text(encoding="utf-8").splitlines():
-            if ln.strip():
-                try:
-                    s.add(json.loads(ln)["page"])
-                except Exception:
-                    pass
-    return s
-
-
 def main() -> None:
     pdfs = extracted_pdfs()
     res = {}
@@ -83,7 +71,6 @@ def main() -> None:
         doc = fitz.open(pdf)
         classes = {i: classify_page(doc[i - 1]) for i in range(1, len(doc) + 1)}
         ty = typhoon_status(f"eia2569_{vol}")
-        rp = rapid_pages(f"eia2569_{'main1' if vol == 'main1' else vol}_imgpages")
         by = {"scan": [], "figure": [], "text": []}
         for p, c in classes.items():
             by[c].append(p)
@@ -92,7 +79,6 @@ def main() -> None:
             "pages": len(doc), "pdf": str(pdf.relative_to(ROOT)),
             "classes": {c: len(v) for c, v in by.items()},
             "typhoon": {s: sum(1 for p, x in ty.items() if x == s) for s in ("ok", "needs_visual", "echo", "error")},
-            "rapidocr_pages": len(rp),
             "need_ocr_pages": len(by["scan"]) + len(by["figure"]),
             "todo_scan": todo["scan"], "todo_figure": todo["figure"],
         }

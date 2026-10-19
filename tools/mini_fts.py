@@ -97,7 +97,7 @@ def index_all(verbose: bool = True) -> int:
         except Exception:
             pass
 
-    # 4. OCR รายหน้า: Typhoon-OCR เป็นหลัก (ตัดสินใจ 19 ต.ค. 69) — หน้า echo/ถอดไม่ได้ไม่ถูกทำดัชนี · RapidOCR อ่านไทยไม่ดี จึงแยกหมวด ocr_rapid
+    # 4. OCR รายหน้า: Typhoon-OCR เท่านั้น (ตัดสินใจ 19 ต.ค. 69) — หน้า echo/ถอดไม่ได้ไม่ถูกทำดัชนี
     import json
 
     D32 = ROOT / "data/32_goal7_chaophraya2"
@@ -118,15 +118,7 @@ def index_all(verbose: bool = True) -> int:
                 (f"{jl.parent.relative_to(ROOT).as_posix()}#p{r['page']}", "ocr_typhoon", f"Typhoon OCR {label} หน้า {r['page']}", txt + " " + TONE.sub("", txt)),
             )
             indexed_count += 1
-    for p in D32.glob("ocr/**/text.txt"):
-        try:
-            conn.execute(
-                "INSERT INTO docs_fts(path, category, title, body) VALUES (?, ?, ?, ?)",
-                (p.relative_to(ROOT).as_posix(), "ocr_rapid", f"RapidOCR (คุณภาพต่ำ): {p.parent.name}", p.read_text(encoding="utf-8", errors="ignore")),
-            )
-            indexed_count += 1
-        except Exception:
-            pass
+    # RapidOCR เลิกใช้ (ผู้ใช้ 19 ต.ค. 69) — ไม่ทำดัชนีผลเดิมใน data/32_goal7_chaophraya2/ocr/
 
     # 5. ชั้นข้อความของเล่ม EIA 2569 รายหน้า (ค้นหาค่าที่รายงานระบุตรงได้ทันที — เช่น "ก้นคลองกว้าง 51 เมตร")
     try:

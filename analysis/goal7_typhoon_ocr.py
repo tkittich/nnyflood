@@ -298,6 +298,98 @@ def run_job(pdf_path: str | Path, label: str, pages: list[int] | None = None, dp
     print(f"[{label}] รวมเป็น {target_dir / 'document.md'} เรียบร้อย (รวมเวลา {(time.time() - t_start)/60:.1f} นาที)", flush=True)
 
 
+def pending_pages(label: str, page_list: list[int]) -> list[int]:
+    """หน้าที่ยังไม่ถือว่าทำแล้ว (ดู record_done) ของป้ายเอกสารนั้น — อ่านทั้ง pages.jsonl และไฟล์ part ที่ยังไม่รวม"""
+    target_dir = OUT_DIR / label
+    done: set[int] = set()
+    for jl in [target_dir / "pages.jsonl", *target_dir.glob("pages_part_*.jsonl")]:
+        if jl.exists():
+            for line in jl.read_text(encoding="utf-8").splitlines():
+                if line.strip():
+                    try:
+                        r = json.loads(line)
+                        if record_done(r):
+                            done.add(r["page"])
+                    except Exception:
+                        pass
+    return [p for p in page_list if p not in done]
+
+
+def finalize_label(label: str) -> None:
+    """รวมไฟล์ part ของป้ายเอกสารเข้า pages.jsonl และสร้าง document.md (ใช้ซ้ำได้ ไม่เสียหายถ้าเรียกหลายรอบ)"""
+    target_dir = OUT_DIR / label
+    jl_path = target_dir / "pages.jsonl"
+    recs: dict[int, dict] = {}
+    for src in [jl_path, *sorted(target_dir.glob("pages_part_*.jsonl"))]:
+        if src.exists():
+            for line in src.read_text(encoding="utf-8").splitlines():
+                if line.strip():
+                    r = json.loads(line)
+                    recs[r["page"]] = r
+    if not recs:
+        return
+    for pf in list(target_dir.glob("pages_part_*.jsonl")):
+        try:
+            pf.unlink()
+        except Exception:
+            pass
+    ordered = sorted(recs.values(), key=lambda x: x["page"])
+    with jl_path.open("w", encoding="utf-8") as f:
+        for r in ordered:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    md_full = [f"# {label} — เอกสารถอดความด้วย Typhoon-OCR บน RTX 4090\n"]
+    for r in ordered:
+        md_full.append(f"\n<!-- Page {r['page']} -->\n## หน้าที่ {r['page']}\n\n{r.get('text', '')}\n\n---")
+    (target_dir / "document.md").write_text("\n".join(md_full), encoding="utf-8")
+
+
+def global_worker(worker_id: int, task_queue, dpi: int = 150) -> None:
+    """worker ถาวรหนึ่งตัว: โหลดโมเดลครั้งเดียว แล้วดึงงาน (pdf, label, page, kind) จากคิวรวมทุกเอกสาร จนคิวว่าง
+    ไม่มีจุดรอให้อีก worker หรืองานอื่นเสร็จก่อน (ผู้ใช้ 19 ต.ค. 69: 2 งานอิสระต้องไม่รอกัน)"""
+    import pymupdf
+
+    processor, model = init_engine()
+    docs: dict[str, object] = {}
+    while True:
+        try:
+            task = task_queue.get_nowait()
+        except Exception:
+            break
+        pdf, label, page, kind = task["pdf"], task["label"], task["page"], task["kind"]
+        t0 = time.time()
+        try:
+            doc = docs.get(pdf) or docs.setdefault(pdf, pymupdf.open(pdf))
+            text, meta = ocr_page_robust(doc, page, processor, model, dpi=dpi, kind=kind)
+            rec = {"page": page, "text": text, "meta": meta, "sec": round(time.time() - t0, 2), "worker": worker_id, "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
+        except Exception as e:  # noqa: BLE001
+            rec = {"page": page, "error": str(e)[:300], "sec": round(time.time() - t0, 2), "worker": worker_id, "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
+        d = OUT_DIR / label
+        d.mkdir(parents=True, exist_ok=True)
+        with (d / f"pages_part_{worker_id}.jsonl").open("a", encoding="utf-8") as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+            f.flush()
+        print(f"  [W{worker_id} | {label}] หน้า {page} ({kind}) เสร็จใน {rec['sec']} วินาที", flush=True)
+
+
+def run_global_queue(tasks: list[dict], workers: int = 2, dpi: int = 150) -> None:
+    """คิวรวม: tasks เรียงตามความสำคัญ · worker ดึงจากหัวคิวอิสระต่อกัน · รวมผลทุกป้ายเอกสารตอนจบ"""
+    import multiprocessing
+
+    q = multiprocessing.Queue()
+    for tk in tasks:
+        q.put(tk)
+    labels = sorted({tk["label"] for tk in tasks})
+    print(f"คิวรวม {len(tasks)} หน้า ใน {len(labels)} เอกสาร · {workers} worker", flush=True)
+    procs = [multiprocessing.Process(target=global_worker, args=(w + 1, q, dpi)) for w in range(workers)]
+    for pr in procs:
+        pr.start()
+    for pr in procs:
+        pr.join()
+    for lb in labels:
+        finalize_label(lb)
+    print("รวมผลเสร็จทุกเอกสาร", flush=True)
+
+
 def main():
     import multiprocessing
     multiprocessing.freeze_support()

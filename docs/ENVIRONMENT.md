@@ -61,7 +61,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 
 ## OCR ภาษาไทย (เป้าหมาย 7 — ติดตั้งแยก ไม่อยู่ใน requirements.txt)
 
-> **อัปเดต 19 ต.ค. 69:** มี OCR ตัวใหม่ที่แม่นกว่า — **Typhoon-OCR 1.5 2B บน GPU** ใน `E:/theera/typhoon_env` (สภาพแวดล้อม `typhoon_env` ในทะเบียนด้านล่าง) ใช้เมื่อต้องยืนยันตัวเลขในตาราง/รูป EIA · RapidOCR ข้างล่างยังใช้คัดกรองหน้าได้เร็วกว่า แต่ถือเป็นตัวรอง (`superseded`) · เวอร์ชันและสถานะล่าสุดอ่านจากตารางที่สร้างอัตโนมัติ ไม่ต้องเชื่อข้อความมือในส่วนนี้
+> **อัปเดต 19 ต.ค. 69:** มี OCR ตัวใหม่ที่แม่นกว่า — **Typhoon-OCR 1.5 2B บน GPU** ใน `E:/theera/typhoon_env` (สภาพแวดล้อม `typhoon_env` ในทะเบียนด้านล่าง) ใช้เมื่อต้องยืนยันตัวเลขในตาราง/รูป EIA · **RapidOCR และ OCR อื่นทั้งหมดเลิกใช้แล้ว (ผู้ใช้ตัดสิน 19 ต.ค. 69 — อ่านไทยไม่ดี) ใช้ Typhoon เท่านั้น** ข้อความ RapidOCR ข้างล่างเก็บเป็นประวัติ (`deprecated`) · เวอร์ชันและสถานะล่าสุดอ่านจากตารางที่สร้างอัตโนมัติ ไม่ต้องเชื่อข้อความมือในส่วนนี้
 
 - เครื่องมือ: **RapidOCR** (รุ่นภาษาไทย PP-OCRv5 `th_PP-OCRv5_rec_mobile` + onnxruntime CPU) ใน venv **นอก repo** `E:/theera/ocr_env`
   (`python -m venv E:/theera/ocr_env` แล้ว `pip install rapidocr onnxruntime pymupdf pillow numpy`) · โมเดลดาวน์โหลดครั้งแรกจาก modelscope (~8 MB)
@@ -82,7 +82,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ชื่อ | สถานะ | ตัวแปลภาษา | ใช้ทำอะไร | เวอร์ชันที่ตรวจล่าสุด |
 |---|---|---|---|---|---|
 | `main` | Python หลักของโครงการ | active | `$MAIN` (python ที่รัน doctor) | รันสคริปต์วิเคราะห์ รายงาน และชุดทดสอบทั้งหมด (ปักเวอร์ชันตาม requirements.txt) | Python 3.14.5 · PyMuPDF 1.28.0, matplotlib 3.11.2, numpy 2.5.1, pytest 9.1.1, scikit-learn 1.9.1, scipy 1.18.1 |
-| `ocr_env` | RapidOCR (ภาษาไทย · CPU) | superseded → typhoon_env | `E:/theera/ocr_env/Scripts/python.exe` | OCR ไทยเร็ว ๆ บน CPU (PP-OCRv5 th rec mobile) — ใช้คัดกรองหน้า/ค้นข้อความ ไม่เหมาะกับตารางและวรรณยุกต์ที่ต้องแม่นตัวเลข · ยังใช้ได้และเร็วกว่าบนหน้าเดี่ยว แต่ค่าตัวเลขสำคัญต้องยืนยันด้วย typhoon_env หรือเปิดภาพตรวจ | Python 3.14.5 · PyMuPDF 1.28.2, numpy 2.5.4, onnxruntime 1.31.0, pillow 12.3.0, rapidocr 3.10.0 |
+| `ocr_env` | RapidOCR (ภาษาไทย · CPU) | deprecated | `E:/theera/ocr_env/Scripts/python.exe` | RapidOCR ไทย (CPU) — เลิกใช้แล้ว · เลิกใช้ (ผู้ใช้ 19 ต.ค. 69): อ่านไทยไม่ดี — OCR ทั้งหมดใช้ Typhoon (typhoon_env) · เก็บไว้เป็นประวัติ ไม่ใช้กับงานใหม่ | Python 3.14.5 · PyMuPDF 1.28.2, numpy 2.5.4, onnxruntime 1.31.0, pillow 12.3.0, rapidocr 3.10.0 |
 | `typhoon_env` | Typhoon-OCR 1.5 2B (แบบจำลองภาพ–ภาษา · GPU) | active | `E:/theera/typhoon_env/Scripts/python.exe` | OCR ไทยที่คงรูปตารางเป็น Markdown และอ่านวรรณยุกต์/สระได้ดีกว่า — ใช้อ่านรูปและตารางใน EIA เมื่อต้องยืนยันตัวเลข | Python 3.12.9 · torch 2.6.0+cu124, transformers 5.20.1 |
 
 ### เครื่องมือ/สคริปต์ที่ทบทวนแล้ว
@@ -95,9 +95,9 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `mini_fts` | `tools/mini_fts.py` | `main` | active | ดัชนีค้นข้อความเต็ม (SQLite FTS) ของเอกสารและผล OCR | `python tools/mini_fts.py` | `data/search_index.db` |
 | `install_hooks` | `tools/install_hooks.py` | `main` | active | ติดตั้ง Git pre-commit hook (สารบัญ + ภาษา + ความสอดคล้องข้อมูล) | `python tools/install_hooks.py` | `.git/hooks/pre-commit` |
 | `round5_disposition` | `tools/round5_disposition.py` | `main` | deprecated | สร้างทะเบียนการตัดสินรายข้อของรีวิวรอบ 5 (ใช้ครั้งเดียว) | `python tools/round5_disposition.py` | — |
-| `goal7_ocr` | `analysis/goal7_ocr.py` | `ocr_env` | superseded → goal7_typhoon_ocr | RapidOCR ไทยกับ PDF/ภาพสแกน → ผลต่อหน้า (pages.jsonl) | `E:/theera/ocr_env/Scripts/python.exe analysis/goal7_ocr.py spec.json` | `data/32_goal7_chaophraya2/ocr/<label>/pages.jsonl` |
-| `goal7_ocr_scan` | `analysis/goal7_ocr_scan.py` | `main` | active | ค้นตัวเลข/ข้อความ (ตัดวรรณยุกต์) ในผล OCR | `python analysis/goal7_ocr_scan.py <คำค้น>` | — |
-| `goal7_batch_ocr_queue` | `analysis/goal7_batch_ocr_queue.py` | `typhoon_env` | active | ตัวขับคิว OCR เอกสารสแกน EIA ด้วย Typhoon หลายงานพร้อมกัน | `E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_batch_ocr_queue.py --workers 2` | `data/32_goal7_chaophraya2/typhoon_ocr/` |
+| `goal7_ocr` | `analysis/goal7_ocr.py` | `ocr_env` | deprecated | RapidOCR ไทยกับ PDF/ภาพสแกน — เลิกใช้ (ใช้ goal7_typhoon_ocr / goal7_typhoon_queue_eia) | `E:/theera/ocr_env/Scripts/python.exe analysis/goal7_ocr.py spec.json` | `data/32_goal7_chaophraya2/ocr/<label>/pages.jsonl` |
+| `goal7_ocr_scan` | `analysis/goal7_ocr_scan.py` | `main` | active | ค้นตัวเลข/ข้อความ (ตัดวรรณยุกต์) ในผล Typhoon-OCR รายหน้าและชั้นข้อความของ EIA | `python analysis/goal7_ocr_scan.py <คำค้น>` | — |
+| `goal7_batch_ocr_queue` | `analysis/goal7_batch_ocr_queue.py` | `typhoon_env` | active | รายการงานเอกสารค้าง (BACKLOG_JOBS) สำหรับคิว Typhoon — รันผ่าน goal7_typhoon_queue_eia (คิวรวม worker อิสระ) | `E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_batch_ocr_queue.py --workers 2` | `data/32_goal7_chaophraya2/typhoon_ocr/` |
 | `goal7_typhoon_ocr` | `analysis/goal7_typhoon_ocr.py` | `typhoon_env` | active | Typhoon-OCR บนหน้า/ช่วงหน้าที่ระบุ → Markdown คงตาราง | `E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_typhoon_ocr.py [args]` | `data/32_goal7_chaophraya2/typhoon_ocr/` |
 | `build_canonical_numbers` | `analysis/build_canonical_numbers.py` | `main` | active | รวมตัวเลขรายงาน 1–2 เป็น canonical_numbers.json (โทเคน @@R:…@@) | `python analysis/build_canonical_numbers.py` | `analysis/canonical_numbers.json` |
 | `hydraulic_1d_routing` | `analysis/hydraulic_1d_routing.py` | `main` | active | Manning บนหน้าตัดสำรวจ + การเดินน้ำ Muskingum–Cunge (X=0) Ny.1B→Ny.7 | `python analysis/hydraulic_1d_routing.py` | `analysis/hydraulic_1d_routing_summary.json`<br>`report/assets/hydraulic_1d_nakhonnayok_profiles.png` |

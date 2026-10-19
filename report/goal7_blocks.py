@@ -498,26 +498,31 @@ def tbl_ongkharak_2d_hypsometric() -> str:
     if not dep:
         return ""
     curve = dep.get("hypsometric_curve", [])
-    target_stages = {1.0, 1.5, 2.0, 2.4, 2.5, 3.0, 3.2, 3.5, 4.0, 4.5}
+    target_stages = {1.0, 1.5, 2.0, 2.5, 3.0, 3.2, 3.5, 4.0, 4.5}
+    obs = dep.get("critical_thresholds", {}).get("observed_oct2026", {})
+    obs_row = {"stage_msl_m": obs.get("stage_msl_m"), "inundated_area_km2": obs.get("area_km2"), "inundated_share_pct": obs.get("share_pct"), "storage_volume_mcm": obs.get("volume_mcm"), "mean_depth_m": obs.get("mean_depth_m")}
+    if obs.get("stage_msl_m") is not None:
+        curve = sorted(list(curve) + [obs_row], key=lambda r: r["stage_msl_m"])
     rows = []
     for pt in curve:
-        stg = round(pt["stage_msl_m"], 1)
-        if stg in target_stages:
+        is_obs = pt is obs_row
+        stg = round(pt["stage_msl_m"], 2) if is_obs else round(pt["stage_msl_m"], 1)
+        if is_obs or stg in target_stages:
             desc = "ระดับน้ำในแอ่งลุ่มต่ำ"
-            if stg == 2.4:
-                desc = "<b>ระดับน้ำจริงในคลอง (ต.ค. 2569)</b>: ขังค้างในพื้นที่ลุ่มต่ำทุ่งองครักษ์"
+            if is_obs:
+                desc = "<b>ระดับน้ำจริงในคลอง TNy10 (17 ต.ค. 2569)</b>: ค่าแบบจำลองถังเติมน้ำที่ระดับนี้ — ดาวเทียมเห็นน้ำท่วมใน อ.องครักษ์ มากกว่านี้หลายเท่า จึงอย่าอ่านเป็นพื้นที่ท่วมจริง"
             elif stg == 2.5:
                 desc = "<b>เกณฑ์น้ำล้นตลิ่งลำคลองธรรมชาติ</b>: น้ำเริ่มแผ่กว้างเข้าสู่พื้นที่เกษตรกรรม"
             elif stg == 3.2:
                 desc = (
                     f"<b>ระดับมัธยฐานภูมิประเทศ (+3.20 ม.รทก.)</b>: ปริมาตรน้ำสะสม ~{pt['storage_volume_mcm']:.1f} ล้าน ลบ.ม. "
-                    "เป็นระดับสมมติฐานสำหรับการบ่าข้ามคันทางหลวง 305 สู่โครงข่ายคลองรังสิต "
+                    "ไม่ใช่ระดับสันทางหลวง 305 ที่วัดได้ — ยังไม่ทราบว่าน้ำจะบ่าข้ามถนนสู่โครงข่ายคลองรังสิตที่ระดับใด "  # gap: route305_crown_elevation
                     "(ยังไม่ยืนยันด้วยระดับผิวถนนที่วัดได้) # gap: route305_crown_elevation"
                 )
             elif stg >= 4.0:
-                desc = "สภาวะน้ำท่วมเต็มพื้นที่ราบทั้งอำเภอองครักษ์"
+                desc = "ระดับสมมติสูง: ถังเติมน้ำท่วมพื้นที่ราบส่วนใหญ่ของอำเภอองครักษ์"
             rows.append([
-                f"{stg:.1f} ม.รทก.",
+                f"{stg:.2f} ม.รทก." if is_obs else f"{stg:.1f} ม.รทก.",
                 f"{pt['inundated_area_km2']:.1f}",
                 f"{pt['inundated_share_pct']:.1f}%",
                 f"{pt['storage_volume_mcm']:.2f}",
@@ -532,6 +537,39 @@ def tbl_ongkharak_2d_hypsometric() -> str:
         f"(ยังไม่พบระดับผิวถนนทางหลวง 305 ที่ต้องใช้ยืนยันจุดบ่าล้น — มีเพียงจุดอ้างอิงภาพถ่ายระดับน้ำบนผิวถนน) # gap: route305_crown_elevation"
     )
     return table(["ระดับผิวน้ำ", "พื้นที่น้ำท่วม (ตร.กม.)", "สัดส่วนพื้นที่อำเภอ (%)", "ปริมาตรน้ำสะสม (ล้าน ลบ.ม.)", "ความลึกเฉลี่ย (ม.)", "นัยสำคัญทางชลศาสตร์และการบ่าข้าม"], rows, cap)
+
+
+def box_same_number_different_source() -> str:
+    """กล่องกระทบยอด 'ตัวเลขเดียวกัน คนละที่มา' — สร้างจาก reconciled_parameters และ design_segments (A5 รอบ 6)"""
+    rp = C.get("reconciled_parameters", {})
+    rows = []
+    cl = rp.get("canal_length", {}).get("variants", {})
+    if cl:
+        rows.append(["ความยาวช่วงใหม่ (กม.)",
+                     " · ".join(f"{v['value']:g} ({v['source']})" for v in cl.values()),
+                     rp["canal_length"]["resolution"]])
+    bw = rp.get("canal_bed_width", {}).get("variants", {})
+    if bw:
+        rows.append(["ความกว้างท้องคลอง (ม.)",
+                     " · ".join(f"{v['value']:g} ({v.get('kind', v['source'])})" for v in bw.values() if "reason" not in v),
+                     rp["canal_bed_width"]["resolution"]])
+    pb = rp.get("project_budget", {})
+    if pb:
+        rows.append(["งบประมาณ (ล้านบาท)",
+                     f"{pb['canonical_eia_capex_mb']:,} (งบลงทุนตาม รายงานผลกระทบสิ่งแวดล้อม) · {pb['canonical_cabinet_ceiling_mb']:,} (กรอบเพดานที่ กนช./ครม. เห็นชอบ)",
+                     pb["resolution"]])
+    segs = C.get("design_segments", {}).get("segments", [])
+    cs = rp.get("canal_storage", {})
+    if segs and cs:
+        seg_mcm = sum(s["area_m2"] * s["length_km"] * 1000.0 for s in segs) / 1e6
+        rows.append(["ปริมาตรคลองรวม (ล้าน ลบ.ม.)",
+                     f"{cs['canonical_total_mcm']:.1f} (พื้นที่หน้าตัด รายงานผลกระทบสิ่งแวดล้อม × ความยาวตามแบบ มี.ค. 2565) · {seg_mcm:.1f} (ผลรวมหน้าตัดตามช่วงที่ผู้จัดทำสมมติ ไม่ใช่แบบออกแบบ)",
+                     "ใช้ค่าแรกในรายงานนี้ เพราะอิงพื้นที่หน้าตัดที่ รายงานผลกระทบสิ่งแวดล้อม ระบุ ค่าหลังเป็นข้อสมมติของผู้จัดทำใช้ตรวจความสอดคล้องเท่านั้น"])
+    if not rows:
+        return ""
+    cap = "ตัวเลขที่ดูเหมือนขัดกันแต่เป็นคนละที่มาหรือคนละบริบท — แต่ละค่าใช้กับการคำนวณใดระบุไว้ในช่องสุดท้าย"
+    rows = [[c.replace("EIA", "รายงานผลกระทบสิ่งแวดล้อม") for c in r] for r in rows]
+    return table(["ปริมาณ", "ค่าที่พบและที่มา", "ใช้ค่าไหน เพราะอะไร"], rows, cap)
 
 
 def box_canal_active_storage_reality() -> str:
@@ -551,14 +589,11 @@ def box_canal_active_storage_reality() -> str:
         f"(คำนวณจากพื้นที่หน้าตัดออกแบบ 504 ตร.ม. × ความยาว 135.9 กม.)<br>"
         f"• <b>น้ำกักเก็บก้นคลองที่สูบออกไม่ได้ (น้ำก้นคลอง/<code>Dead Storage</code>) ที่ระดับ {csr['dead_storage_depth_m']:.1f} ม.</b>: "
         f"<b>{csr['dead_storage_mcm']:.1f} ล้าน ลบ.ม.</b> "
-        f"(จำเป็นต้องคงไว้เพื่อสร้างแรงดันต้านทานการพังทลายของลาดตลิ่งดินเหนียวอ่อนกรุงเทพฯ และหลีกเลี่ยงการทรุดตัว — ระดับ 2.0 ม. นี้ยังไม่มีรายงานเสถียรภาพลาดตลิ่งรองรับในคลังข้อมูล) # gap: cp2_dead_storage_depth<br>"
+        f"(ระดับ 2.0 ม. เป็นข้อสมมติของผู้จัดทำ ไม่ได้มาจากรายงานผลกระทบสิ่งแวดล้อม และยังไม่มีรายงานเสถียรภาพลาดตลิ่งรองรับในคลังข้อมูล) # gap: cp2_dead_storage_depth<br>"
         f"• <b>ความจุกักเก็บใช้การจริง (<code>Active Storage</code>)</b>: เหลือเพียง <b>{csr['active_storage_mcm']:.1f} ล้าน ลบ.ม.</b> เท่านั้น "
         f"(หากคิดตามหน้าตัดแบบร่างปี 2560 จะได้ {csr.get('draft_2560_active_mcm', 53.0):.1f} ล้าน ลบ.ม.)<br>"
-        f"• <b>ระยะเวลารองรับน้ำหลาก (<code>Buffer Duration</code>)</b>: ที่อัตราการผันน้ำออกแบบ {csr['design_discharge_m3s']:.0f} ลบ.ม./วินาที ({csr['design_discharge_mcm_day']:.2f} ล้าน ลบ.ม./วัน) "
-        f"ความจุใช้การ {csr['active_storage_mcm']:.1f} ล้าน ลบ.ม. สามารถรองรับน้ำหลากได้เพียง <b>{csr['buffer_duration_hours']:.1f} ชั่วโมง (ประมาณ 1 วัน)</b>"
-        f"</p>"
-        f"<p style='margin:0 0 10px 0;padding:8px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;font-size:0.88em;color:#64748b;line-height:1.5'>"
-        f"<b>บันทึกการจัดระเบียบตัวเลข:</b> ตัวเลข {csr.get('retired_values', {}).get('total_storage_mcm', 55.4):.1f} ล้าน ลบ.ม. และท้องคลอง {csr.get('retired_values', {}).get('bed_width_m', 48.0):.1f} ม. ที่เคยปรากฏในแบบร่างระยะแรก เป็นค่าคงที่สมมติที่ไม่มีเอกสารอ้างอิงในรายงานผลกระทบสิ่งแวดล้อม จึงถูกปลดลงบัญชีตัวเลขเก่า (Retired Ledger) และใช้การคำนวณจากหน้าตัดทางการ 504 ตร.ม. ฉบับอนุมัติ 2569 แทน"
+        f"• <b>เวลาเติมคลองที่ว่าง (ความจุใช้การ ÷ อัตราผัน)</b>: ที่อัตราการผันน้ำออกแบบ {csr['design_discharge_m3s']:.0f} ลบ.ม./วินาที ({csr['design_discharge_mcm_day']:.2f} ล้าน ลบ.ม./วัน) "
+        f"ความจุใช้การ {csr['active_storage_mcm']:.1f} ล้าน ลบ.ม. ใช้เวลาเติมคลองที่ว่างเพียง <b>{csr['buffer_duration_hours']:.1f} ชั่วโมง (ประมาณ 1 วัน)</b> · กรณีคลองเดินที่ระดับออกแบบอยู่แล้วแล้วปลายทางระบายไม่ได้ เวลาที่เหลือขึ้นกับส่วนเผื่อระดับเหนือระดับออกแบบ (ส่วนเผื่อระดับ 1 เมตร ≈ {(csr['bed_width_m'] + 2 * csr.get('side_slope_z', 2.5) * csr['design_depth_m']) * csr['canal_length_km'] / 1000.0:.1f} ล้าน ลบ.ม. หรือราว {(csr['bed_width_m'] + 2 * csr.get('side_slope_z', 2.5) * csr['design_depth_m']) * csr['canal_length_km'] / 1000.0 / csr['design_discharge_mcm_day'] * 24.0:.1f} ชั่วโมงที่อัตราผันออกแบบ ยังไม่มีค่าส่วนเผื่อระดับจริงจากรายงานผลกระทบสิ่งแวดล้อม) # gap: cp2_freeboard"
         f"</p>"
         f"<p style='margin:0;font-size:0.92em;color:#475569;line-height:1.5'>"
         f"<b>ข้อสรุปเชิงนโยบายและวิศวกรรม</b>: {csr['assessment']}"

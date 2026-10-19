@@ -108,7 +108,7 @@ graph TD
 
 ### กลุ่ม ง: ชลศาสตร์และแบบจำลองคณิตศาสตร์ (Hydraulics & Modeling)
 - `rid_cross_section_stage_rating.py`: ถอดความสัมพันธ์ระดับน้ำ–อัตราไหล (Stage-discharge rating curve) แม่น้ำนครนายก
-- `hydraulic_1d_routing.py`: แบบจำลองชลศาสตร์ 1 มิติ (Saint-Venant kinematic/diffusive wave routing) แม่น้ำนครนายก (Ny.1B ถึง Ny.7)
+- `hydraulic_1d_routing.py`: แบบจำลองชลศาสตร์ 1 มิติ (Muskingum-Cunge routing ที่ X=0 เทียบเท่าถังเก็บน้ำเชิงเส้น — ไม่ใช่ Saint-Venant เต็มรูป) แม่น้ำนครนายก (Ny.1B ถึง Ny.7)
 - `goal4_model_v1.py`: แบบจำลองทำนายระดับน้ำล่วงหน้า 11 ตัวแปร (นครนายก)
 - `goal4_counterfactual_model.py`: จำลองฉากทัศน์เปรียบเทียบกรณีปรับเกณฑ์บริหารน้ำ
 - `goal6_l3_model.py`: โมเดลระดับชาติ 6 ลุ่มน้ำ

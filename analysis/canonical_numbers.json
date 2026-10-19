@@ -133,7 +133,7 @@
    "medium_dams": "analysis/goal2_nny_medium_dams_summary.json (SWOC RID 6 อ่างขนาดกลางนครนายก)",
    "khundan_22y": "analysis/goal2_khundan_22y_summary.json (SWOC RID สถิติ 22 ปี 2548–2569)",
    "ny1b_cross_section": "data/23_rid_swoc/raw/rid_telemetry_cross_sections.json (สำรวจจริง 61 จุด) + analysis/hydraulic_1d_routing_summary.json (ค่าหลัก 666.3 · ช่วง 488.9–893.0 · พีคโทรมาตร 11.00/675.3)",
-   "hydraulic_1d_routing": "analysis/hydraulic_1d_routing_summary.json (Saint-Venant kinematic/diffusive wave Ny.1B -> Ny.7)"
+   "hydraulic_1d_routing": "analysis/hydraulic_1d_routing_summary.json (Muskingum-Cunge, X=0 เทียบเท่าถังเก็บน้ำเชิงเส้น Ny.1B -> Ny.7)"
   }
  },
  "values": {

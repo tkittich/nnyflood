@@ -4,7 +4,7 @@
 คำถามวิจัย:
 1. ลักษณะภูมิประเทศ 2 มิติของ อ.องครักษ์ มีเส้นชั้นความจุแอ่ง (Stage-Area-Volume Hypsometric Curve) อย่างไร?
 2. ที่ระดับน้ำสังเกตการณ์จริง (+2.35 ม.รทก. ณ สถานี TNy10) พื้นที่น้ำท่วมขังและปริมาตรกักเก็บสอดคล้องกับภาพดาวเทียม Sentinel-1 เพียงใด?
-3. ระดับน้ำวิกฤตที่น้ำจะเริ่มบ่าล้นคันทางหลวง 305 (รังสิต–นครนายก) และคันคลองระบายน้ำปลายทางมีค่าเท่าใด?
+3. พื้นที่และปริมาตรที่ระดับมัธยฐานของภูมิประเทศ (+3.20 ม.รทก.) ซึ่งใช้เป็นระดับอ้างอิงสมมติของทล.305 (ระดับสันถนนจริงยังไม่มีข้อมูล)
 
 แหล่งข้อมูล:
 - data/13_sentinel1_copernicus/derived/dem_30m.npy (Copernicus DEM 30m)
@@ -21,6 +21,7 @@ DEM_PATH = ROOT / "data/13_sentinel1_copernicus/derived/dem_30m.npy"
 MASK_ONG_PATH = ROOT / "data/13_sentinel1_copernicus/derived/mask_district_อำเภอองครักษ์.npy"
 OUT_JSON = ROOT / "analysis/goal7/ongkharak_2d_depression_summary.json"
 CANONICAL_PATH = ROOT / "analysis/goal7/canonical.json"
+OBSERVED_STAGE_MSL_M = 2.35  # TNy10 17 ต.ค. 2569 — ค่าเดียวที่ทุกรายงานต้องอ้าง
 
 
 def analyze_depression():
@@ -34,12 +35,7 @@ def analyze_depression():
     ong_valid = ong_dem[~np.isnan(ong_dem) & (ong_dem >= 0.0)]
     total_area_km2 = float(len(ong_valid) * (30.0 * 30.0) / 1e6)
 
-    # กวาดหาระดับน้ำตั้งแต่ +1.0 ถึง +4.5 ม.รทก. ขั้นละ 0.1 ม.
-    stages = np.arange(1.0, 4.6, 0.1)
-    curve = []
-
-    for h in stages:
-        h_val = float(round(h, 2))
+    def row_at(h_val: float) -> dict:
         sub = ong_valid[ong_valid <= h_val]
         inun_pixels = len(sub)
         inun_km2 = float(inun_pixels * (30.0 * 30.0) / 1e6)
@@ -54,18 +50,22 @@ def analyze_depression():
             max_depth_m = 0.0
             vol_mcm = 0.0
 
-        curve.append({
+        return {
             "stage_msl_m": h_val,
             "inundated_area_km2": round(inun_km2, 2),
             "inundated_share_pct": round(inun_pct, 1),
             "mean_depth_m": round(mean_depth_m, 2),
             "max_depth_m": round(max_depth_m, 2),
             "storage_volume_mcm": round(vol_mcm, 2),
-        })
+        }
+
+    # กวาดหาระดับน้ำตั้งแต่ +1.0 ถึง +4.5 ม.รทก. ขั้นละ 0.1 ม.
+    curve = [row_at(float(round(h, 2))) for h in np.arange(1.0, 4.6, 0.1)]
 
     # สกัดจุดสำคัญทางชลศาสตร์
     # 1. ระดับน้ำสังเกตการณ์จริง ณ 17 ต.ค. 2569 (TNy10 = +2.35 ม.รทก.)
-    stage_obs = next(c for c in curve if abs(c["stage_msl_m"] - 2.35) < 0.06)
+    # ประเมินที่ระดับสังเกตจริงพอดี (ไม่ปัดไปขั้น 0.1 ม. — รีวิวรอบ 6 A9)
+    stage_obs = row_at(OBSERVED_STAGE_MSL_M)
     # 2. จุดเริ่มล้นตลิ่งชุมชนริมคลอง (+2.50 ม.รทก.)
     stage_bankfull = next(c for c in curve if abs(c["stage_msl_m"] - 2.50) < 0.05)
     # 3. จุดเริ่มบ่าล้นคันทางหลวง 305 (+3.20 ม.รทก.)
@@ -74,6 +74,7 @@ def analyze_depression():
     summary = {
         "title": "การจำลองความจุแอ่งก้นกระทะ 2 มิติและเส้นชั้นความลึกน้ำท่วมองครักษ์บน DEM 30m",
         "district": "อำเภอองครักษ์ จังหวัดนครนายก",
+        "observed_stage_msl_m": OBSERVED_STAGE_MSL_M,
         "total_area_km2": round(total_area_km2, 2),
         "elevation_stats_m": {
             "min": round(float(np.min(ong_valid)), 2),
@@ -85,9 +86,10 @@ def analyze_depression():
             "observed_oct2026": {
                 "stage_msl_m": stage_obs["stage_msl_m"],
                 "area_km2": stage_obs["inundated_area_km2"],
+                "share_pct": stage_obs["inundated_share_pct"],
                 "volume_mcm": stage_obs["storage_volume_mcm"],
                 "mean_depth_m": stage_obs["mean_depth_m"],
-                "description": f"ระดับน้ำจริงในคลองแม่น้ำใน (TNy10): น้ำท่วมขังในแอ่งลุ่มต่ำราว {stage_obs['inundated_area_km2']:.1f} ตร.กม. ปริมาตรน้ำค้างทุ่ง ~{stage_obs['storage_volume_mcm']:.1f} ล้าน ลบ.ม.",
+                "description": f"ระดับน้ำจริงในคลองแม่น้ำใน (TNy10): แบบจำลองถังเติมน้ำที่ระดับนี้ได้พื้นที่ลุ่มต่ำราว {stage_obs['inundated_area_km2']:.1f} ตร.กม. ปริมาตร ~{stage_obs['storage_volume_mcm']:.1f} ล้าน ลบ.ม. (ต่ำกว่าพื้นที่น้ำท่วมที่ดาวเทียมเห็นมาก เพราะผิวน้ำไม่ราบระดับเดียวกับเกจ)",
             },
             "bankfull_threshold": {
                 "stage_msl_m": stage_bankfull["stage_msl_m"],
@@ -101,7 +103,7 @@ def analyze_depression():
                 "area_km2": stage_spill_route305["inundated_area_km2"],
                 "volume_mcm": stage_spill_route305["storage_volume_mcm"],
                 "mean_depth_m": stage_spill_route305["mean_depth_m"],
-                "description": f"ระดับสมมติฐานล้นข้ามคันถนนรังสิต–นครนายก (ทล.305): น้ำท่วมครอบคลุมราว {stage_spill_route305['inundated_area_km2']:.1f} ตร.กม. ({stage_spill_route305['inundated_share_pct']:.1f}% ของอำเภอ) ปริมาตรน้ำสะสม ~{stage_spill_route305['storage_volume_mcm']:.1f} ล้าน ลบ.ม. ตามแบบจำลองสมมติฐาน",
+                "description": f"ระดับมัธยฐานของภูมิประเทศ ไม่ใช่ระดับสันถนนรังสิต–นครนายก (ทล.305) ที่วัดได้: น้ำท่วมครอบคลุมราว {stage_spill_route305['inundated_area_km2']:.1f} ตร.กม. ({stage_spill_route305['inundated_share_pct']:.1f}% ของอำเภอ) ปริมาตรน้ำสะสม ~{stage_spill_route305['storage_volume_mcm']:.1f} ล้าน ลบ.ม. ตามแบบจำลองถังเติมน้ำ",
             },
         },
         "hypsometric_curve": curve,

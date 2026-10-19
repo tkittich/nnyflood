@@ -479,3 +479,11 @@ def test_goal7_builders_have_no_stale_literals():
         for lit in stale_literals:
             assert lit not in code, f"{b.name}: พบตัวเลข/ข้อความเก่าที่เลิกใช้ {lit!r} — ต้องอ้างอิงจาก canonical.json"
 
+
+
+def test_illustrative_outputs_not_used_by_builders():
+    """รีวิวรอบ 6 (A4): ผลจำลองสังเคราะห์ใต้ illustrative_only ห้ามถูกอ่านโดย builder ของรายงานใด"""
+    for b in (ROOT / "report").glob("*.py"):
+        code = b.read_text(encoding="utf-8")
+        assert "illustrative_only" not in code, f"{b.name}: อ้างผลเชิงอธิบาย (illustrative_only) ในรายงาน"
+        assert "cp2_bypass_counterfactual" not in code, f"{b.name}: อ้างผลจำลองสังเคราะห์"

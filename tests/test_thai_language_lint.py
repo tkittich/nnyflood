@@ -176,3 +176,15 @@ def test_all_reports_no_banned_jargon(report_path):
             found[term] = count
 
     assert not found, f"{report_path.name}: พบคำต้องห้ามตกค้างในเนื้อความ: {found}"
+
+
+_CJK_RE = re.compile(r"[぀-ヿ㐀-鿿가-힯]")
+
+
+@pytest.mark.parametrize("path", [*ALL_REPORTS, *BUILDER_SCRIPTS], ids=lambda p: p.stem)
+def test_no_cjk_script_leakage(path):
+    """รีวิวรอบ 6 (A7): ห้ามอักษรจีน/ญี่ปุ่น/เกาหลีหลุดในรายงานหรือตัวสร้างรายงาน (เคยหลุด '外推' ในรายงาน 2)"""
+    if not path.exists():
+        pytest.skip("ไม่พบไฟล์")
+    m = _CJK_RE.search(path.read_text(encoding="utf-8"))
+    assert not m, f"{path.name}: พบอักษร CJK {m.group()!r} ที่ตำแหน่ง {m.start()}"

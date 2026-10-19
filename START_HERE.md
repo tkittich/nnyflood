@@ -31,7 +31,7 @@ PY=python
 "$PY" -m pip install -r requirements.txt
 "$PY" tools/verify_all.py                        # ตรวจสอบระบบครบวงจร (catalog + SHA-256 + pytest 162 passed)
 # หรือแยกรันรายคำสั่ง:
-"$PY" catalog.py check                           # ตรวจสารบัญไฟล์ (112 รายการ)
+"$PY" catalog.py check                           # ตรวจสารบัญไฟล์ (106 รายการ)
 "$PY" catalog.py audit                           # ตรวจย้อนกลับ: เอกสารที่ root/docs ลงทะเบียนครบไหม (33/33 ไฟล์)
 "$PY" analysis/verify_data_integrity.py --quick  # ตรวจ SHA-256 (MISMATCH 0)
 "$PY" -m pytest tests/ -q                        # ตรวจเทสต์ทั้งหมด (162 passed)
@@ -164,7 +164,7 @@ bash data/31_external_landcover/fetch.sh          # ครั้งแรกเ�
 | น้ำสูงสุดระดับน้ำ Ny.7 | **9.23 ม. เกจ = 7.64 ม.รทก. ±0.05** | thaiwater (9.23) · khundan-tele (7.68 รทก.) — ต่างกัน ≤5 ซม. |
 | ระยะเวลาเหนือตลิ่ง | **65 ชม.** | thaiwater ขาด 3 แถวเที่ยงคืน · khundan ยืนยัน |
 | พื้นที่น้ำท่วมสูงสุด 27 ก.ย. 18:28 | **452 ตร.กม.** | ประมวลผล S1 เอง (GISTDA ไม่ได้ทำ pass นี้) |
-| BANKFULL | **6.86 ม.รทก. = เกจ 8.45 ≈ Q 420–425** | ตรวจไขว้กับหน้าตัดจริงแล้ว |
+| BANKFULL | **6.86 ม.รทก. = เกจ 8.45 ≈ Q 487 (Manning หน้าตัดประกอบ จาก `analysis/hydraulic_1d_routing_summary.json`)** | ตรวจไขว้กับหน้าตัดจริงแล้ว |
 | สัดส่วนเขื่อน : ฝน (ช่วงเริ่มท่วม) | **12 % : 88 %** | `khundan_tele_findings.md` |
 | โมเดล Ny.7 RMSE เหตุการณ์ (+6/+24/+48 ชม.) | **สูตร 30.0/117.6/163.7 · persistence 30.6/101.8/170.4 · GBDT 127.7/159.8/140.6 ซม.** | `goal4_model_v1_results.json` (สร้างใหม่ด้วยสคริปต์ — มีเทสตรงค่าใน tests/) |
 | M4 ระบายล่วงหน้า 5.2 ลลบ.ม. | **ระดับสูงสุดลด ~1 ซม.** (บนที่ราบ 452 ตร.กม.) | `goal4_counterfactual_model.py` |

@@ -8,6 +8,8 @@
   4. ความครอบคลุม: สคริปต์ใน analysis/ tools/ report/ ที่ยังไม่ลงทะเบียน (นับ · --list-unregistered แสดงรายชื่อ)
   5. โฟลเดอร์ data/NN_* ที่ไม่มี manifest.md
   6. ส่วนที่สร้างอัตโนมัติใน docs/ENVIRONMENT.md ตรงกับทะเบียนหรือไม่ (--write-docs เพื่อสร้างใหม่)
+  7. สัญญาหัวไฟล์: สคริปต์ที่ลงทะเบียนต้องมี docstring บรรทัดแรกเป็นคำอธิบายสั้น ๆ (Purpose) และควรมีบรรทัด `รัน:` — ดู AGENTS.md
+     สถานะ `unreviewed` = ลงทะเบียนอัตโนมัติจาก docstring แต่คนยังไม่ทบทวน (นับเป็นคำเตือน)
 คำเตือนทั้งหมด = รหัสออก 2 (verify_all ถือเป็น "ผ่านแบบมีเงื่อนไข") · ไม่แก้ไฟล์ใดนอกจาก --write-docs / --write-probe
 
 ใช้: python tools/doctor.py [--deep] [--list-unregistered] [--write-docs] [--write-probe]
@@ -27,7 +29,7 @@ PROBE = ROOT / "tools/registry_probe.json"
 ENV_DOC = ROOT / "docs/ENVIRONMENT.md"
 BEGIN = "<!-- BEGIN GENERATED: tool-registry (python tools/doctor.py --write-docs) -->"
 END = "<!-- END GENERATED: tool-registry -->"
-STATUS_OK = {"active", "superseded", "deprecated", "experimental"}
+STATUS_OK = {"active", "superseded", "deprecated", "experimental", "unreviewed"}
 ENV_REQUIRED = {"id", "label", "interpreter", "kind", "status", "purpose"}
 TOOL_REQUIRED = {"id", "path", "env", "status", "purpose", "run"}
 DOC_SURFACES = ["docs/PROJECT_MAP.md", "catalog.py", "docs/ENVIRONMENT.md", "README.md", "START_HERE.md"]
@@ -137,6 +139,34 @@ def check_tools(reg: dict):
     return warns, errs
 
 
+def check_headers(reg: dict) -> list[str]:
+    """สัญญาหัวไฟล์: docstring บรรทัดแรก = คำอธิบาย · สคริปต์ (มี __main__) ควรมีบรรทัด 'รัน:'/'ใช้:'"""
+    import ast
+    no_doc, no_run = [], []
+    for t in reg["tools"]:
+        p = ROOT / t["path"]
+        if p.suffix != ".py" or not p.exists():
+            continue
+        src = p.read_text(encoding="utf-8", errors="ignore")
+        try:
+            doc = ast.get_docstring(ast.parse(src)) or ""
+        except SyntaxError:
+            doc = ""
+        if not doc.strip():
+            no_doc.append(t["path"])
+        elif "__main__" in src and not re.search(r"^\s*(รัน|ใช้|Run|Usage)\s*[:：]", doc, re.M):
+            no_run.append(t["path"])
+    w = []
+    if no_doc:
+        w.append(f"สัญญาหัวไฟล์: {len(no_doc)} ไฟล์ไม่มี docstring คำอธิบาย (เช่น {', '.join(no_doc[:3])})")
+    if no_run:
+        w.append(f"สัญญาหัวไฟล์: {len(no_run)} สคริปต์ไม่มีบรรทัด `รัน:` ใน docstring")
+    unrev = [t["id"] for t in reg["tools"] if t["status"] == "unreviewed"]
+    if unrev:
+        w.append(f"ทะเบียน: {len(unrev)} รายการสถานะ unreviewed (ลงทะเบียนอัตโนมัติ รอคนทบทวน)")
+    return w
+
+
 def unregistered(reg: dict) -> list[str]:
     known = {t["path"] for t in reg["tools"]}
     out = []
@@ -171,11 +201,18 @@ def render_section(reg: dict, probes: dict | None) -> str:
         status = e["status"] + (f" → {e['superseded_by']}" if e.get("superseded_by") else "")
         interp = "`$MAIN` (python ที่รัน doctor)" if e["interpreter"] == "$MAIN" else f"`{e['interpreter']}`"
         L.append(f"| `{e['id']}` | {e['label']} | {status} | {interp} | {e['purpose']}{(' · ' + e['note']) if e.get('note') else ''} | {ver} |")
-    L += ["", "### เครื่องมือ/สคริปต์ที่ลงทะเบียน", "", "| id | ไฟล์ | สภาพแวดล้อม | สถานะ | ทำอะไร | รันอย่างไร | ผลิต |", "|---|---|---|---|---|---|---|"]
-    for t in reg["tools"]:
-        status = t["status"] + (f" → {t['superseded_by']}" if t.get("superseded_by") else "")
-        outs = "<br>".join(f"`{o}`" for o in t.get("outputs", [])) or "—"
-        L.append(f"| `{t['id']}` | `{t['path']}` | `{t['env']}` | {status} | {t['purpose']} | `{t['run']}` | {outs} |")
+    reviewed = [x for x in reg["tools"] if x["status"] != "unreviewed"]
+    unrev = [x for x in reg["tools"] if x["status"] == "unreviewed"]
+    L += ["", "### เครื่องมือ/สคริปต์ที่ทบทวนแล้ว", "", "| id | ไฟล์ | สภาพแวดล้อม | สถานะ | ทำอะไร | รันอย่างไร | ผลิต |", "|---|---|---|---|---|---|---|"]
+    for t_ in reviewed:
+        status = t_["status"] + (f" → {t_['superseded_by']}" if t_.get("superseded_by") else "")
+        outs = "<br>".join(f"`{o}`" for o in t_.get("outputs", [])) or "—"
+        L.append(f"| `{t_['id']}` | `{t_['path']}` | `{t_['env']}` | {status} | {t_['purpose']} | `{t_['run']}` | {outs} |")
+    L += ["", f"### ลงทะเบียนอัตโนมัติ รอทบทวน ({len(unrev)} รายการ · สถานะ `unreviewed`)", "",
+          "> คำอธิบายมาจาก docstring บรรทัดแรกโดยอัตโนมัติ ยังไม่มีคนยืนยันสถานะ/ผลลัพธ์ — เปลี่ยนสถานะเป็น `active`/`deprecated` เมื่อทบทวนแล้ว", "",
+          "| id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |", "|---|---|---|---|---|"]
+    for t_ in unrev:
+        L.append(f"| `{t_['id']}` | `{t_['path']}` | `{t_['env']}` | {t_.get('kind', '')} | {t_['purpose'].replace('|', '/')} |")
     L += ["", f"รวม {len(reg['environments'])} สภาพแวดล้อม · {len(reg['tools'])} เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)", "", END]
     return "\n".join(L)
 
@@ -238,6 +275,7 @@ def main() -> int:
         if cur != section:
             warns.append("docs/ENVIRONMENT.md ส่วนเครื่องมือไม่ตรงกับทะเบียน — รัน `python tools/doctor.py --write-docs`")
 
+    warns += check_headers(reg)
     un = unregistered(reg)
     if un:
         total = len(list(ROOT.glob("analysis/*.py"))) + len(list(ROOT.glob("tools/*.py"))) + len(list(ROOT.glob("report/*.py")))

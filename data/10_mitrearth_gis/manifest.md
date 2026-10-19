@@ -54,3 +54,53 @@
   7. ภาพถ่ายทางอากาศ/แผนที่เก่า `MR_M8_2523` (285 MB) · `SAGRIC_003_2533` (643 MB) · `5019601301756.tif` (160 MB) · `Topo 1:50,000` (kmz 67 MB) — ฐานเทียบการใช้ที่ดินปี 2523/2533
   8. DEM 30 ม. (`18 DEM30m - mitrearth.tif`) — ต้นทางไม่ระบุ (นัย SRTM/ASTER) ไม่ควรแทน Copernicus/FABDEM
 - **ยังไม่ได้ประมวลผลชั้นใดเพิ่ม** (งานค้าง R7-13 — ดู docs/OFFLINE_DATA_BACKLOG.md §7) · ชุดข้อมูลจังหวัดข้างเคียงที่คลองผ่าน (สระบุรี · ฉะเชิงเทรา · สมุทรปราการ ฯลฯ) ดาวน์โหลดได้จากหมวดเดียวกันถ้าต้องการ — เป็นการดาวน์โหลดไฟล์ใหม่ ต้องให้ผู้ใช้อนุญาตและระบุชื่อ/ขนาดก่อน
+
+## ดาวน์โหลดเพิ่มรายจังหวัด (19 ต.ค. 2569 — ยังไม่สำเร็จ ต้องโหลดเอง · backlog R7-15)
+
+ลุ่มน้ำเจ้าพระยาตอนล่างถึงอ่าวไทย: 10 จังหวัดจากหน้าจังหวัดบน mitrearth.org (ชุดเดียวกับนครนายก · สิทธิ์ใช้งานเหมือนกัน — เพื่อประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์)
+Google Drive จำกัดการดาวน์โหลดของ gdown: ฉะเชิงเทรา ได้เฉพาะโฟลเดอร์ 1 (DEM) · 2 (ขอบเขต/จุด) · 3 (ถนน) · ส่วนที่เหลือล้มเหลว (ข้อความ "Cannot retrieve the public link") · จังหวัดอื่นยังไม่ได้ไฟล์
+**ชั้นที่ต้องการ** (รวม ~45 MB ต่อจังหวัดจากขนาดของนครนายก): `2 Boundary and Point` · `5 Surface and Ground Water` · `6 Valley Ridge and Basin` · `7 Geological Hazard` (มี `Flood GISTDA 0519` น้ำท่วม 2548–2554) — ข้ามโฟลเดอร์ Contour Line (หนัก ~115 MB และติดข้อจำกัดบ่อย)
+วางไฟล์ที่ `data/10_mitrearth_gis/provinces/<จังหวัด>/<ชื่อโฟลเดอร์ย่อย>/` (ไฟล์ใหญ่ไม่เข้า git) แล้วแจ้งเพื่อรันวิเคราะห์ GISTDA/ลุ่มน้ำรายจังหวัดและบันทึก SHA-256
+
+| จังหวัด | โฟลเดอร์ย่อย | ลิงก์ Google Drive |
+|---|---|---|
+| ฉะเชิงเทรา | 2 Boundary and Point | https://drive.google.com/drive/folders/1oI22A62ZBNXMcWTJ4EgKIFBckmqxL8d7 |
+| ฉะเชิงเทรา | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1Cr8ZIapPUVCCRztcOH5SjFr-1yeQrn21 |
+| ฉะเชิงเทรา | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1wUaQnxaBjLk1ba-oUInS3gbOZEoY1hGz |
+| ฉะเชิงเทรา | 7 Geological Hazard | https://drive.google.com/drive/folders/1tsnUhYat4S_Uawyhw2fs6yuyOEFS9waI |
+| กรุงเทพมหานคร | 2 Boundary and Point | https://drive.google.com/drive/folders/10AyJvObEJxVOEnv-xUjFzHQp_m58vcCB |
+| กรุงเทพมหานคร | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1kCz4XyfMewRZseYiljZ647byqGY2zWa8 |
+| กรุงเทพมหานคร | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1BhohCp27m81LFSAPhdVxNMM8KcXRlIUZ |
+| กรุงเทพมหานคร | 7 Geological Hazard | https://drive.google.com/drive/folders/13CVcIpRTQPqlJvF_XZpSqEwE3QkxJ2RU |
+| ปทุมธานี | 2 Boundary and Point | https://drive.google.com/drive/folders/1glWStMeEYq4d6RtI3zAKxYaITvakZvAT |
+| ปทุมธานี | 5 Surface and Ground Water | https://drive.google.com/drive/folders/11S9j4SMO0Cn1LbL65AD9rb25VKMH3vIo |
+| ปทุมธานี | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1jtZ16URBCE07OymEk5cnOqwOeNozYAxX |
+| ปทุมธานี | 7 Geological Hazard | https://drive.google.com/drive/folders/1UL6q2tgNBIlJakg5whNiHHIlMJi3sDLZ |
+| ปราจีนบุรี | 2 Boundary and Point | https://drive.google.com/drive/folders/1nw02Of5FJKluJ0DmzJC6NJQOY_BI9EZz |
+| ปราจีนบุรี | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1OcT3WO2a3dxrv6CV5viodhY0t5W6d_qX |
+| ปราจีนบุรี | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1404pX9tbL-rbM4xqu8LhslSA2SpeZWZY |
+| ปราจีนบุรี | 7 Geological Hazard | https://drive.google.com/drive/folders/1z-NrdBpebljIIOxJzQf6fk7SHO8QsOF1 |
+| สมุทรปราการ | 2 Boundary and Point | https://drive.google.com/drive/folders/1-Olf7Lnx_-1kJFqWcIRmoOjjT402hYTC |
+| สมุทรปราการ | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1r_nM5F9CWDJNOSHJRt6Lm7LjiGQmfLlr |
+| สมุทรปราการ | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1-1QSTnlsTdBg90nQyDKZR18uwlYpbzK6 |
+| สมุทรปราการ | 7 Geological Hazard | https://drive.google.com/drive/folders/1aXRL3SU1g9VupB6WQe7tu7B6eumdJz07 |
+| พระนครศรีอยุธยา | 2 Boundary and Point | https://drive.google.com/drive/folders/1O0H_yQgLaUgcyZyFAPmJ118amBwz9BpV |
+| พระนครศรีอยุธยา | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1ovTUgB-kjYFGCXylG-tuUxO2vtD_rzvY |
+| พระนครศรีอยุธยา | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1ZlO6OOKWhCsAaLyBpshpeucG1P8dRnP_ |
+| พระนครศรีอยุธยา | 7 Geological Hazard | https://drive.google.com/drive/folders/1_njaTJCJo-_r7eQ1UVjUXLiBQrzJJTGF |
+| อ่างทอง | 2 Boundary and Point | https://drive.google.com/drive/folders/1T56uRYEliHiOvfla1u_KZfL1HnruNrb5 |
+| อ่างทอง | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1jKCVaob4VT5yDVwNqOiD74PnA40Hdz1N |
+| อ่างทอง | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1r03Ot3iglVx_aTuaw27_vz6d-IwBc_ca |
+| อ่างทอง | 7 Geological Hazard | https://drive.google.com/drive/folders/1l3u5RzVqM4x2NfTYx2byDhcfkbJn20-q |
+| สิงห์บุรี | 2 Boundary and Point | https://drive.google.com/drive/folders/1Wsl25GxzD4WJTYTJGb5Ckj_I7VuidjsO |
+| สิงห์บุรี | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1LSCS8mbIGwkfBDxeP34NqDQjmFWURKwB |
+| สิงห์บุรี | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1fH0WvbaRIqpG5HwOQe63Qb8pmouLi-Zs |
+| สิงห์บุรี | 7 Geological Hazard | https://drive.google.com/drive/folders/1CHxqdOdERqWqa2Iz5GLDAEzl3yUXXU3j |
+| นนทบุรี | 2 Boundary and Point | https://drive.google.com/drive/folders/18RfYG33PsOQBHK1HkGsGvBD9wsLwH0cH |
+| นนทบุรี | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1jZPslmToV7HxT1sesKebGR_os7CToIpA |
+| นนทบุรี | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/11jwIDrbwJU0QLoj0A1Z_McxDKjiVzLnL |
+| นนทบุรี | 7 Geological Hazard | https://drive.google.com/drive/folders/1A5RHvXhxST7K8K8HuhxO3_lqVMyps7Eb |
+| สมุทรสาคร | 2 Boundary and Point | https://drive.google.com/drive/folders/1V9UAECvON8T37gDjYlY8ec79H5v_iJ28 |
+| สมุทรสาคร | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1z807gKdHbMmYbzWTapW2vc9am6n69FfG |
+| สมุทรสาคร | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1caYCfcwhZ1xi6G7jSX_Ex2hZwrtxUM-_ |
+| สมุทรสาคร | 7 Geological Hazard | https://drive.google.com/drive/folders/1mR3Uwqa7QvBfLCEGUS42fgboYQSBZbql |

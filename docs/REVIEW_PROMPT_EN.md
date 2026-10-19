@@ -40,7 +40,9 @@ The project investigates catastrophic flooding in Thailand through empirical dat
    - Counterfactual Hydraulic Simulation (`analysis/goal7_counterfactual_simulation.py`): Evaluating peak shaving during 2011 (4,394.5 MCM diverted, 38.8% of excess volume absorbed, 0.53 m stage reduction) and 2026 conditions.
 
 ### Your Target:
-**Identify errors, physical inconsistencies, mathematical flaws, data leakage, unwarranted assumptions, discrepancies with canonical datasets, and legal/defamation risks across all code, data pipelines, and generated reports.**  
+1. **Rigorous Defect Identification**: Identify errors, physical inconsistencies, mathematical flaws, data leakage, unwarranted assumptions, discrepancies with canonical datasets, and legal/defamation risks across all code, data pipelines, and generated reports.
+2. **Intra-Report & Cross-Report Consistency Audit**: Systematically scan for conflicting numbers, contradictory statements, or metric drift *within each individual report* and *across corresponding reports* (Public vs. Academic vs. Policy Brief).
+3. **Strategic & Consistency Recommendations**: Provide actionable high-level suggestions on overall project methodology, hydraulic realism, and institutional mechanisms to permanently enforce cross-report data consistency.  
 Do not offer generic compliments or superficial stylistic edits. Report concrete technical findings backed by exact `file:line` references, raw data citations, or reproducible terminal executions.
 
 ---
@@ -127,6 +129,18 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
    3. Run `pytest tests/test_legal_compliance.py` and `tests/test_privacy.py` — verify strict compliance with defamation laws (system-level critique, no personal culpability) and PDPA (no personally identifiable citizen information).
    4. Verify that visual charts and maps comply with WCAG AA contrast standards (minimum contrast 4.5:1 for body text, 3.0:1 for graphical data marks).
 
+### Dimension 8: Intra-Report & Cross-Report Data Consistency
+* **Target Files**: All generated reports (`report/*.html`), report builders (`report/*.py`), and policy brief (`report/สมุดปกขาว_เจ้าพระยา2.html`)
+* **Audit Checklist**:
+   1. **Intra-Report Consistency (ภายในฉบับเดียวกัน)**: Scan each report from beginning to end. Are there conflicting numbers or contradictory claims within the same document? (e.g., body prose vs. summary boxes, tables, chart captions, or footnotes; or claims that information is "unknown" while concrete coordinates/pins are provided elsewhere in the same report).
+   2. **Cross-Report Consistency (ข้ามฉบับข้ามระดับ)**: Compare corresponding metrics across different reports:
+      - Public Report 1 vs Academic Report 2 (Nakhon Nayok).
+      - Regional Report 3 vs National Benchmark Report 4 (Goal 6).
+      - Public Report 7 vs Academic Report 8 vs Policy Brief (Goal 7).
+      Do metrics drift between versions (e.g., canal reach lengths, bed widths, storage volumes, expropriation acreages, cost estimates, or discount rate assumptions)?
+   3. **Source Reconciliation Framing**: Where multiple historical or differing agency numbers exist (e.g., 51.0 m vs 54.5 m bed width; 160,046 MB vs 165,000 MB budget; 55.4 MCM vs 68.5 MCM storage), are they explicitly framed as reconciled variants with source attribution, rather than presented as conflicting facts?
+   4. **Retired Ledger Verification**: Confirm that no retired/deprecated numbers or defensive gap excuses linger in any generated report.
+
 ---
 
 ## 4. Standardized Audit Output Template
@@ -154,9 +168,18 @@ Structure your audit findings using this standardized report schema:
 - **Hydraulic & Data Science Critique**: Why the current formulation or claim is physically implausible, statistically biased, or unverified.
 - **Proposed Solution**: Exact code modification, physical boundary correction, or documentation adjustment.
 
-## 4. Verified Invariants (Passed Spot-Checks)
+## 4. Intra-Report & Cross-Report Consistency Audit
+- **Intra-Report Conflicts**: Discrepancies found within the same report (e.g., text vs table, caption vs body).
+- **Cross-Report Conflicts**: Metric drift between Public, Academic, Regional, and Policy Brief versions.
+- **Reconciliation & Gap Assessment**: Are conflicting sources properly attributed and tracked in `gaps.json`?
+
+## 5. Verified Invariants (Passed Spot-Checks)
 List metrics, equations, and data pipelines that were checked against primary sources and confirmed 100% accurate, including verification method used.
 
-## 5. Information Gaps & Required Field Data
+## 6. Information Gaps & Required Field Data
 List any parameters that cannot currently be audited due to unreleased agency data (e.g., gate discharge logs, high-resolution bathymetry).
+
+## 7. Overall System Suggestions & Consistency Recommendations
+- **Hydraulic & Methodological Recommendations**: High-level advice to improve physical realism, modeling accuracy, and policy impact.
+- **Data Consistency & Governance Recommendations**: Strategic suggestions on how the project can permanently prevent multi-source contradictions, automate truth reconciliation, and streamline cross-report updates.
 ```

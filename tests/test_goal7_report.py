@@ -184,7 +184,7 @@ def test_reconciled_parameters_in_canonical():
     for key in ("canal_bed_width", "canal_storage", "land_acquisition", "project_budget"):
         assert key in rp, f"ขาดตัวแปรระงับข้อขัดแย้ง: {key}"
         assert "resolution" in rp[key] and "variants" in rp[key]
-    assert rp["canal_bed_width"]["canonical_value_m"] == 54.5
+    assert rp["canal_bed_width"]["canonical_value_m"] == 51.0  # ยืนยันด้วยรูป 2.3.2-11 และ P = 95.27 (รอบ 6)
     assert rp["canal_storage"]["canonical_total_mcm"] == 68.5
     assert rp["land_acquisition"]["canonical_new_reach_rai"] == 16288
     assert rp["project_budget"]["canonical_cabinet_ceiling_mb"] == 165000

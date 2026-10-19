@@ -201,7 +201,7 @@ def test_pillar3_canonical_inward_contracts():
 
     rp = data["reconciled_parameters"]
     # 1. สัญญาความกว้างท้องคลอง (Geometric Trapezoidal Derivation)
-    assert rp["canal_bed_width"]["canonical_value_m"] == 54.5, "ท้องคลองต้องเป็น 54.5 ม. ตามหน้าตัด EIA"
+    assert rp["canal_bed_width"]["canonical_value_m"] == 51.0, "ท้องคลองต้องเป็น 51.0 ม. (Fig 2.3.2-11 และ P = 95.27 ม.)"
 
     # 2. สัญญาความจุเก็บกัก (Total = Active + Dead)
     cs = rp["canal_storage"]

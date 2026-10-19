@@ -114,6 +114,7 @@ graph TD
 - `goal6_l3_model.py`: โมเดลระดับชาติ 6 ลุ่มน้ำ
 - `goal6_l3_coastal_model.py`: โมเดลพยากรณ์ระดับน้ำเจ้าพระยาตอนล่างผสานขอบเขตทะเลหนุนปากแม่น้ำ (CPY015) และคลื่นลมทะเลอ่าวไทย
 - `compound_flood_risk.py`: เมทริกซ์ประเมินความเสี่ยงน้ำเหนือหลากปะทะน้ำทะเลหนุน (C.12 สามเสน กทม.)
+- `tools/number_inventory.py`: บัญชีตัวเลขทั้งคลัง (ค่าขัดกัน · ตัวเลขกำพร้า · คีย์ JSON ขัด · literal ใน builder · เอกสารล้าสมัย) → `docs/reviews/INVENTORY_*.md` (รอบ 6 R7-07)
 - `goal6_tide_gain_regression.py`: ถดถอยอัตราส่งผ่านน้ำหนุนสู่ระดับน้ำ C.12 (Newey–West, ฤดู 2569) → `analysis/goal6/tide_gain_regression.json` ใช้เป็นความไวของเมทริกซ์ข้างบน (รอบ 6 C1)
 - `hecras_lite_channel.py`: การคำนวณทางชลศาสตร์เบื้องต้นของคลอง
 

@@ -357,8 +357,12 @@ def build_operational_economics_data() -> dict:
     EIA_A_M2 = 504.0
     EIA_Z1 = 3.0  # ด้านใน
     EIA_Z2 = 2.0  # ด้านนอก
-    eia_z_mean = (EIA_Z1 + EIA_Z2) / 2.0  # 2.5
-    eia_bed_width = round(EIA_A_M2 / CANAL_H_M - eia_z_mean * CANAL_H_M, 1)  # 54.5 ม.
+    # พื้นที่น้ำถูกล้อมด้วยลาด 'ด้านใน' ทั้งสองฝั่ง (Z1 = 3.0) — ลาดด้านนอก (Z2 = 2.0) อยู่ฝั่งดินคัน ไม่เกี่ยวกับพื้นที่น้ำ
+    # (รอบ 6: ค่า 54.5 ม. เดิมได้จากเฉลี่ย Z1 กับ Z2 ซึ่งเป็นการอ่านรูปตัดผิด · ตารางรายงานหน้า 2-39 ยืนยันที่ P = 95.27 ม.)
+    eia_z_mean = EIA_Z1
+    eia_bed_width = round(EIA_A_M2 / CANAL_H_M - EIA_Z1 * CANAL_H_M, 1)  # 51.0 ม.
+    EIA_P_M = 95.27  # เส้นรอบรูปเปียกที่รายงานพิมพ์ไว้
+    assert abs(eia_bed_width + 2 * CANAL_H_M * (1 + EIA_Z1 ** 2) ** 0.5 - EIA_P_M) < 0.05, "ความกว้างท้องคลองไม่สอดคล้องเส้นรอบรูปเปียกของรายงาน"
 
     def _area(h: float, z: float, b: float) -> float:
         return b * h + z * h * h
@@ -367,15 +371,8 @@ def build_operational_economics_data() -> dict:
     dead_storage = round(_area(DEAD_DEPTH_M, eia_z_mean, eia_bed_width) * CANAL_L_M / 1e6, 1)  # 16.2 ล้าน ลบ.ม.
     active_storage = round(total_storage - dead_storage, 1)  # 52.3 ล้าน ลบ.ม.
 
-    # แบบร่าง มี.ค. 2560 (หน้าตัดสมมาตร 1:3, ท้องคลอง 51 ม.)
-    draft_2560_b = 51.0
-    draft_2560_z = 3.0
-    draft_2560_dead = round(_area(DEAD_DEPTH_M, draft_2560_z, draft_2560_b) * CANAL_L_M / 1e6, 1)  # 15.5 ล้าน ลบ.ม.
-    draft_2560_active = round(total_storage - draft_2560_dead, 1)  # 53.0 ล้าน ลบ.ม.
-
     cap_day_mcm = DESIGN_Q_M3S * 86400.0 / 1e6  # 51.84 ล้าน ลบ.ม./วัน
     buffer_hours = round(active_storage / cap_day_mcm * 24.0, 1)  # 24.2 ชม.
-    draft_2560_buffer = round(draft_2560_active / cap_day_mcm * 24.0, 1)  # 24.5 ชม.
 
     canal_storage_reality = {
         "canal_length_km": CANAL_L_M / 1000.0,
@@ -390,13 +387,6 @@ def build_operational_economics_data() -> dict:
         "design_discharge_m3s": DESIGN_Q_M3S,
         "design_discharge_mcm_day": round(cap_day_mcm, 2),
         "buffer_duration_hours": buffer_hours,
-        # แบบร่างเดิม มี.ค. 2560 เพื่อการเทียบเคียง
-        "draft_2560_bed_width_m": draft_2560_b,
-        "draft_2560_side_slope_z": draft_2560_z,
-        "draft_2560_total_mcm": total_storage,
-        "draft_2560_dead_mcm": draft_2560_dead,
-        "draft_2560_active_mcm": draft_2560_active,
-        "draft_2560_buffer_duration_hours": draft_2560_buffer,
         # ค่าเก่าที่ถูกปลดออก (Retired Values Ledger)
         "retired_values": {
             "total_storage_mcm": 55.4,
@@ -405,6 +395,10 @@ def build_operational_economics_data() -> dict:
             "dead_storage_mcm": 13.8,
             "active_storage_mcm": 41.6,
             "buffer_duration_hours": 19.3,
+            "bed_width_m_mean_slope_misreading": 54.5,
+            "dead_storage_mcm_mean_slope_misreading": 16.2,
+            "active_storage_mcm_mean_slope_misreading": 52.3,
+            "buffer_hours_mean_slope_misreading": 24.2,
             "reason": "55.4 ล้าน ลบ.ม. และ 48.0 ม. เป็นค่าคงที่สมมติในแบบร่างแรกที่ไม่ปรากฏในเอกสารรายงานผลกระทบสิ่งแวดล้อมใดๆ จึงปลดออกและแทนที่ด้วยการคำนวณจากหน้าตัดทางการ 504 ตร.ม.",
         },
         "assessment": (

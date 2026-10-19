@@ -1,0 +1,429 @@
+{
+ "verified_on": "2026-10-19",
+ "constants_sha256": "94d14bf68f31d6a44a7fad5c2e84bf04352ea5b0f67533eb3121779cffee7827",
+ "summary": {
+  "verified_text": 14,
+  "verified_image": 10,
+  "failed": 1,
+  "conflict": 1,
+  "assumption": 3
+ },
+ "results": {
+  "eia_bed_width_m": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "แถว 23+000–134+000: B = 51.00",
+     "sha256_ok": true,
+     "ok": true
+    },
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 146,
+     "printed_page": "2-41",
+     "page_text_chars": 1711,
+     "needles": {
+      "51 เมตร": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_area_m2": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "A = 504.00",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_wetted_perimeter_m": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "P = 95.27",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_depth_m": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "D = 7.00",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_velocity_ms": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "V = 1.200",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_manning_n": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "n = 0.016",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_slope_1_n": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "Slope 1: 25,000",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_z_inner": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "Z1 = 3.0",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_z_outer": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "Z2 = 2.0",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_road_each_side_m": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "TL = TR = 10.00",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_table_q_m3s": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "Q = 604.85",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "design_discharge_cms": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 146,
+     "printed_page": "2-41",
+     "page_text_chars": 1711,
+     "needles": {
+      "600 ลูกบาศก์เมตร/วินาที": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "canal_length_km": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 87,
+     "printed_page": null,
+     "page_text_chars": 2602,
+     "needles": {
+      "135.9 กม.": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "s26_record_years": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 196,
+     "printed_page": "2-91",
+     "page_text_chars": 2492,
+     "needles": {
+      "2528-2566": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "s26_annual_mean_mcm": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 197,
+     "printed_page": "2-92",
+     "page_text_chars": 2238,
+     "needles": {
+      "2,720": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "s26_annual_min_mcm": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 197,
+     "printed_page": "2-92",
+     "page_text_chars": 2238,
+     "needles": {
+      "453": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "s26_annual_max_mcm": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 197,
+     "printed_page": "2-92",
+     "page_text_chars": 2238,
+     "needles": {
+      "6,741": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "s26_flood_season_mean_mcm": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 197,
+     "printed_page": "2-92",
+     "page_text_chars": 2238,
+     "needles": {
+      "1,988": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "s26_flood_season_min_mcm": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 197,
+     "printed_page": "2-92",
+     "page_text_chars": 2238,
+     "needles": {
+      "134 ล้าน": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "s26_flood_season_max_mcm": {
+   "status": "failed",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 197,
+     "printed_page": "2-92",
+     "page_text_chars": 2238,
+     "needles": {
+      "5,830": false
+     },
+     "ok": false
+    }
+   ],
+   "conflicts_with": []
+  },
+  "capex_mb": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 175,
+     "printed_page": "2-70",
+     "page_text_chars": 7107,
+     "needles": {
+      "160,046,879,000": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "opex_annual_mb": {
+   "status": "conflict",
+   "checks": [],
+   "conflicts_with": [
+    "eia_opex_annual_mb_main2"
+   ]
+  },
+  "eia_opex_annual_mb_main2": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main2",
+     "pdf_page": 159,
+     "printed_page": null,
+     "page_text_chars": 3141,
+     "needles": {
+      "264.80": true,
+      "230.37": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "discount_rate_low_pct": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main2",
+     "pdf_page": 155,
+     "printed_page": null,
+     "page_text_chars": 2191,
+     "needles": {
+      "7.00": true,
+      "คิดลด": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "discount_rate_mid_pct": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main2",
+     "pdf_page": 155,
+     "printed_page": null,
+     "page_text_chars": 2191,
+     "needles": {
+      "9.00": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "discount_rate_high_pct": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main2",
+     "pdf_page": 155,
+     "printed_page": null,
+     "page_text_chars": 2191,
+     "needles": {
+      "12.00": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "project_lifespan_years": {
+   "status": "assumption",
+   "checks": [],
+   "conflicts_with": []
+  },
+  "annual_diverted_mcm": {
+   "status": "assumption",
+   "checks": [],
+   "conflicts_with": []
+  },
+  "dead_storage_depth_m": {
+   "status": "assumption",
+   "checks": [],
+   "conflicts_with": []
+  }
+ }
+}

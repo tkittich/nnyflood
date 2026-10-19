@@ -230,6 +230,8 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_engine` | `report/goal7_engine.py` | `main` | active | เอ็นจินรายงานเป้าหมาย 7 — ทะเบียนหัวข้อ/คำถามด้วยรหัสคงที่ (key) · เลขอัตโนมัติ · อ้างอิงข้ามฉบับ | `(โมดูล — import ไม่รันตรง)` | — |
 | `make_x_charts_thai` | `report/make_x_charts_thai.py` | `main` | active | (ไม่มีคำอธิบายในหัวไฟล์ — ต้องเติม) | `(โมดูล — import ไม่รันตรง)` | — |
 | `report_assets` | `report/report_assets.py` | `main` | active | Generate all chart/frame PNGs for the public HTML report. | `(โมดูล — import ไม่รันตรง)` | — |
+| `goal7_source_constants` | `analysis/goal7_source_constants.py` | `main` | active | ตัวโหลดค่าคงที่นำเข้าที่มีแหล่งอ้างอิง (source_constants.json) — สคริปต์เรียก value('<id>') แทนพิมพ์ตัวเลข | `(โมดูล — import)` | — |
+| `goal7_verify_constants` | `analysis/goal7_verify_constants.py` | `main` | active | ตรวจค่าคงที่กับชั้นข้อความ PDF EIA และภาพหลักฐาน (แฮช) → verified/failed/assumption/conflict | `python analysis/goal7_verify_constants.py` | `analysis/goal7/source_constants_verification.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (5 รายการ · สถานะ `unreviewed`)
 
@@ -243,7 +245,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal6_flood_maps` | `analysis/goal6_flood_maps.py` | `main` | script | แผนที่น้ำท่วมจากดาวเทียม 6 ลุ่ม — จากมาสก์น้ำ S1 ที่ประมวลผลแล้ว (stage-2 พีค) |
 | `goal6_s2_validate` | `analysis/goal6_s2_validate.py` | `main` | script | เป้าหมาย 6 — L2 ตรวจยืนยันอิสระ: S2 MNDWI เทียบมาสก์น้ำ S1 บนกริดเดียวกัน |
 
-รวม 3 สภาพแวดล้อม · 147 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 149 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

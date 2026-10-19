@@ -12,7 +12,11 @@ from __future__ import annotations
 
 import json
 import math
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from goal7_source_constants import value as K  # noqa: E402  ค่านำเข้าทั้งหมดมาจาก source_constants.json (มีแหล่ง/หน้า/วิธีตรวจ)
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_JSON = ROOT / "analysis/goal7/operational_economics_summary.json"
@@ -25,15 +29,15 @@ def build_operational_economics_data() -> dict:
         "station_code": "S.26",
         "station_name": "ท้ายเขื่อนพระรามหก อำเภอท่าเรือ จังหวัดพระนครศรีอยุธยา",
         "river": "แม่น้ำป่าสัก",
-        "record_years": "2528–2566 (39 ปี)",
-        "annual_min_mcm": 453.0,
-        "annual_mean_mcm": 2720.0,
-        "annual_max_mcm": 6741.0,
-        "flood_season_mean_mcm": 1988.0,  # ช่วง ส.ค.–พ.ย.
-        "flood_season_min_mcm": 134.0,
-        "flood_season_max_mcm": 5830.0,
-        "canal_capacity_cms": 600.0,
-        "canal_capacity_mcm_per_day": round(600.0 * 86400 / 1e6, 2),  # 51.84 ล้าน ลบ.ม./วัน
+        "record_years": K("s26_record_years"),
+        "annual_min_mcm": K("s26_annual_min_mcm"),
+        "annual_mean_mcm": K("s26_annual_mean_mcm"),
+        "annual_max_mcm": K("s26_annual_max_mcm"),
+        "flood_season_mean_mcm": K("s26_flood_season_mean_mcm"),  # ช่วง ส.ค.–พ.ย.
+        "flood_season_min_mcm": K("s26_flood_season_min_mcm"),
+        "flood_season_max_mcm": K("s26_flood_season_max_mcm"),  # ยังไม่ยืนยัน (ดู source_constants_verification.json)
+        "canal_capacity_cms": K("design_discharge_cms"),
+        "canal_capacity_mcm_per_day": round(K("design_discharge_cms") * 86400 / 1e6, 2),  # 51.84 ล้าน ลบ.ม./วัน
     }
 
     cap_day = s26_stats["canal_capacity_mcm_per_day"]
@@ -53,34 +57,34 @@ def build_operational_economics_data() -> dict:
         "days_extreme_flood_year": days_flood,
         "annual_utilization_avg_pct": utilization_avg_pct,
         "summary_th": (
-            f"ในรอบ 39 ปี น้ำท่าช่วงฤดูน้ำหลาก (ส.ค.–พ.ย. เฉลี่ย 1,988 ล้าน ลบ.ม.) คิดเป็นปริมาตรเทียบเท่าการเดินคลองเต็มกำลังเฉลี่ย {days_avg} วันต่อปี (ร้อยละ {utilization_avg_pct} ของปี) "
-            f"(หรือหากเทียบจากน้ำท่ารวมทั้งปี 2,720 ล้าน ลบ.ม. จะเทียบเท่า {days_annual_avg} วันต่อปี หรือร้อยละ {round(days_annual_avg / 365.0 * 100, 2)} ของปี) "
+            f"ในรอบ 39 ปี น้ำท่าช่วงฤดูน้ำหลาก (ส.ค.–พ.ย. เฉลี่ย {s26_stats["flood_season_mean_mcm"]:,.0f} ล้าน ลบ.ม.) คิดเป็นปริมาตรเทียบเท่าการเดินคลองเต็มกำลังเฉลี่ย {days_avg} วันต่อปี (ร้อยละ {utilization_avg_pct} ของปี) "
+            f"(หรือหากเทียบจากน้ำท่ารวมทั้งปี {s26_stats["annual_mean_mcm"]:,.0f} ล้าน ลบ.ม. จะเทียบเท่า {days_annual_avg} วันต่อปี หรือร้อยละ {round(days_annual_avg / 365.0 * 100, 2)} ของปี) "
             "ตัวเลขนี้แปลงปริมาตรเป็นจำนวนวันเต็มกำลังเพื่อเปรียบเทียบเท่านั้น ไม่ใช่จำนวนวันที่คลองว่างหรือเปิดใช้จริง — คลองเดินน้ำบางส่วนต่อเนื่องหลายเดือนก็ให้ปริมาตรเทียบเท่าเดียวกัน"
         ),
     }
 
     # 2. เศรษฐศาสตร์วงจรชีวิตและต้นทุนต่อหน่วยน้ำผัน
-    capex_mb = 160046.0  # กรอบวงเงิน EIA 2569 (รายงานชี้แจงครั้งที่ 2)
-    opex_annual_mb = 519.0  # ค่าบำรุงรักษาและดำเนินงานรายปี
-    lifespan_years = 30
-    diverted_volume_mcm = 1970.0  # ปริมาณน้ำผันเฉลี่ยต่อปี (ล้าน ลบ.ม.)
+    capex_mb = K("capex_mb")  # งบลงทุนตาม EIA 2569 (ค่าในแหล่ง 160,046.879 — ตัดเป็น 160,046 ตลอดชุด)
+    opex_annual_mb = K("opex_annual_mb")  # 519 (ฉบับชี้แจง 2 — ตรวจไม่ได้ · ขัดกับ 264.80 ในเล่ม 2 หน้า 159: ดู source_constants.json)
+    lifespan_years = K("project_lifespan_years")
+    diverted_volume_mcm = K("annual_diverted_mcm")  # สมมติ — ไม่มีที่มา (R6-01/R7-02)
 
     # อัตราคิดลด 7% (เกณฑ์มาตรฐาน สศช.)
-    r7 = 0.07
+    r7 = K("discount_rate_low_pct") / 100.0
     crf7 = r7 * (1 + r7) ** lifespan_years / ((1 + r7) ** lifespan_years - 1)
     annualized_capital_7 = round(capex_mb * crf7, 1)
     total_annual_cost_7 = round(annualized_capital_7 + opex_annual_mb, 1)
     cost_per_m3_7 = round(total_annual_cost_7 * 1e6 / (diverted_volume_mcm * 1e6), 2)
 
     # อัตราคิดลด 9%
-    r9 = 0.09
+    r9 = K("discount_rate_mid_pct") / 100.0
     crf9 = r9 * (1 + r9) ** lifespan_years / ((1 + r9) ** lifespan_years - 1)
     annualized_capital_9 = round(capex_mb * crf9, 1)
     total_annual_cost_9 = round(annualized_capital_9 + opex_annual_mb, 1)
     cost_per_m3_9 = round(total_annual_cost_9 * 1e6 / (diverted_volume_mcm * 1e6), 2)
 
     # อัตราคิดลด 12%
-    r12 = 0.12
+    r12 = K("discount_rate_high_pct") / 100.0
     crf12 = r12 * (1 + r12) ** lifespan_years / ((1 + r12) ** lifespan_years - 1)
     annualized_capital_12 = round(capex_mb * crf12, 1)
     total_annual_cost_12 = round(annualized_capital_12 + opex_annual_mb, 1)
@@ -348,20 +352,21 @@ def build_operational_economics_data() -> dict:
     # 5. การวิเคราะห์ความจุเก็บกักใช้การจริงของคลอง (Active Storage Reality)
     # คำนวณจากหน้าตัดสี่เหลี่ยมคางหมูตามรายงานผลกระทบสิ่งแวดล้อม (EIA 2569 เล่ม 1 หน้า 2-39)
     #   A(h) = b·h + z·h²   ·   V(h) = A(h) · L
-    CANAL_L_M = 135_900.0
-    CANAL_H_M = 7.0
-    DEAD_DEPTH_M = 2.0
-    DESIGN_Q_M3S = 600.0
+    CANAL_L_M = K("canal_length_km") * 1000.0
+    CANAL_H_M = K("eia_depth_m")
+    DEAD_DEPTH_M = K("dead_storage_depth_m")
+    DESIGN_Q_M3S = K("design_discharge_cms")
 
     # หน้าตัดทางการตามรายงานผลกระทบสิ่งแวดล้อม 2569 (เล่ม 1 หน้า 2-39)
-    EIA_A_M2 = 504.0
-    EIA_Z1 = 3.0  # ด้านใน
-    EIA_Z2 = 2.0  # ด้านนอก
+    EIA_A_M2 = K("eia_area_m2")
+    EIA_Z1 = K("eia_z_inner")  # ด้านใน
+    EIA_Z2 = K("eia_z_outer")  # ด้านนอก (ไม่เกี่ยวกับพื้นที่น้ำ)
     # พื้นที่น้ำถูกล้อมด้วยลาด 'ด้านใน' ทั้งสองฝั่ง (Z1 = 3.0) — ลาดด้านนอก (Z2 = 2.0) อยู่ฝั่งดินคัน ไม่เกี่ยวกับพื้นที่น้ำ
     # (รอบ 6: ค่า 54.5 ม. เดิมได้จากเฉลี่ย Z1 กับ Z2 ซึ่งเป็นการอ่านรูปตัดผิด · ตารางรายงานหน้า 2-39 ยืนยันที่ P = 95.27 ม.)
     eia_z_mean = EIA_Z1
     eia_bed_width = round(EIA_A_M2 / CANAL_H_M - EIA_Z1 * CANAL_H_M, 1)  # 51.0 ม.
-    EIA_P_M = 95.27  # เส้นรอบรูปเปียกที่รายงานพิมพ์ไว้
+    assert abs(eia_bed_width - K("eia_bed_width_m")) < 0.05, "ความกว้างท้องคลองที่คำนวณจาก A,D,Z1 ไม่ตรงค่าที่รายงานพิมพ์ (51.00)"
+    EIA_P_M = K("eia_wetted_perimeter_m")  # เส้นรอบรูปเปียกที่รายงานพิมพ์ไว้
     assert abs(eia_bed_width + 2 * CANAL_H_M * (1 + EIA_Z1 ** 2) ** 0.5 - EIA_P_M) < 0.05, "ความกว้างท้องคลองไม่สอดคล้องเส้นรอบรูปเปียกของรายงาน"
 
     def _area(h: float, z: float, b: float) -> float:

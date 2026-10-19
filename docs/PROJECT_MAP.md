@@ -115,6 +115,7 @@ graph TD
 - `goal6_l3_coastal_model.py`: โมเดลพยากรณ์ระดับน้ำเจ้าพระยาตอนล่างผสานขอบเขตทะเลหนุนปากแม่น้ำ (CPY015) และคลื่นลมทะเลอ่าวไทย
 - `compound_flood_risk.py`: เมทริกซ์ประเมินความเสี่ยงน้ำเหนือหลากปะทะน้ำทะเลหนุน (C.12 สามเสน กทม.)
 - `tools/doctor.py` + `tools/registry.json`: ทะเบียนเครื่องมือ/สภาพแวดล้อม (แหล่งความจริงเดียว) · doctor ตรวจและสร้างส่วนเครื่องมือของ `docs/ENVIRONMENT.md` · อยู่ใน `verify_all` เป็นขั้นเตือน (รอบ 6)
+- `goal7_source_constants.py` + `goal7_verify_constants.py` + `analysis/goal7/source_constants.json`: ค่าคงที่นำเข้าเป้าหมาย 7 พร้อมหน้า/ตาราง/รูปอ้างอิงและผลตรวจกับ PDF EIA (รอบ 6) — สคริปต์เรียก `value('<id>')` ไม่พิมพ์ตัวเลขตรง
 - `tools/number_inventory.py`: บัญชีตัวเลขทั้งคลัง (ค่าขัดกัน · ตัวเลขกำพร้า · คีย์ JSON ขัด · literal ใน builder · เอกสารล้าสมัย) → `docs/reviews/INVENTORY_*.md` (รอบ 6 R7-07)
 - `goal6_tide_gain_regression.py`: ถดถอยอัตราส่งผ่านน้ำหนุนสู่ระดับน้ำ C.12 (Newey–West, ฤดู 2569) → `analysis/goal6/tide_gain_regression.json` ใช้เป็นความไวของเมทริกซ์ข้างบน (รอบ 6 C1)
 - `hecras_lite_channel.py`: การคำนวณทางชลศาสตร์เบื้องต้นของคลอง

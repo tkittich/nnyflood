@@ -443,7 +443,19 @@ def tbl_lifecycle_economics() -> str:
             a["risk_profile"],
         ])
     t2 = table(["มาตรการบริหารจัดการน้ำหลาก", "ต้นทุนต่อ ลบ.ม. น้ำ", "รูปแบบวิศวกรรม", "ลักษณะความเสี่ยงและการบริหาร"], rows_alt, "การเปรียบเทียบต้นทุนต่อหน่วยน้ำผัน/หน่วงหลาก ระหว่างคลองเจ้าพระยา 2 กับมาตรการทางเลือก")
-    return t1 + "\n\n" + t2
+    rp = C.get("reconciled_parameters", {}).get("opex_annual", {})
+    note_html = ""
+    if rp:
+        v = rp["variants"]
+        a1 = le["discount_scenarios"][0]["annualized_capital_mb"]
+        alt = v["eia2569_vol2_p159"]["value"]
+        alt_cost = (a1 + alt) / le["annual_diverted_mcm"]
+        note_html = (
+            f"<p class='cap'>⚠️ ค่าบำรุงรักษารายปีมี 2 แหล่งที่ขัดกัน: {v['clarification2_dec2566_p121']['value']:,.0f} ล้านบาท (ฉบับชี้แจงครั้งที่ 2 หน้า 121 — ตรวจไม่ได้) "
+            f"กับ {alt:,.2f} ล้านบาท (รายงานฉบับสมบูรณ์ 2569 เล่ม 2 หน้า 159 — ตรวจกับต้นฉบับแล้ว) · ตารางใช้ค่าแรกชั่วคราว ถ้าใช้ค่าหลัง ต้นทุนที่คิดลดร้อยละ 7 จะเป็น {alt_cost:.2f} บาท/ลบ.ม. "
+            f"แทน {le['discount_scenarios'][0]['cost_per_m3_diverted_baht']:.2f} (ตัวหารปริมาณน้ำผันเฉลี่ยก็ยังเป็นข้อสมมติ)</p>"
+        )
+    return t1 + note_html + "\n\n" + t2
 
 
 def tbl_eia_rejection_history() -> str:

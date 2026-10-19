@@ -13,6 +13,9 @@
 import csv, glob, json, math, os, warnings
 from collections import Counter
 from pathlib import Path
+import sys as _sys
+_sys.path.insert(0, str(Path(__file__).resolve().parent))
+from goal7_source_constants import value as _K  # noqa: E402  ค่านำเข้าที่มีแหล่งอ้างอิง
 
 import numpy as np
 import rasterio
@@ -255,7 +258,17 @@ RECONCILED_PARAMETERS = {
         "variants": {
             "provincial_summary_and_km_pins": {"value": 135.655, "vintage": 2569, "tier": "A", "source": "สรุปการประชุมจังหวัดนครนายก 9 ก.ย. 2569 · หมุด กม. ปลายแผนที่"},
             "rounded_135_7": {"value": 135.7, "vintage": 2569, "tier": "A", "source": "ค่าปัดของ 135.655 ในตารางเทียบและตารางอาคารตัดขวาง"},
-            "rid_march_2565_design": {"value": 135.9, "vintage": 2565, "tier": "B", "source": "เอกสารกรมชลประทาน มี.ค. 2565 (ปลายคลองปรับในแบบหลัง)"}
+            "rid_march_2565_design": {"value": 135.9, "vintage": 2565, "tier": "B", "source": "เอกสารกรมชลประทาน มี.ค. 2565 (ปลายคลองปรับในแบบหลัง) · ตรงกับข้อความเล่ม 1 หน้า 87"},
+            "eia2569_vol1_p119_ring_road_alignment": {"value": 135.963, "vintage": 2569, "tier": "A", "source": "รายงานผลกระทบสิ่งแวดล้อม เล่ม 1 หน้า 119 (แนวร่วมถนนวงแหวนรอบ 3 ความยาวรวม 135.963 กม.)"}
+        }
+    },
+    "opex_annual": {
+        "canonical_value_mb": _K("opex_annual_mb"),
+        "unit": "ล้านบาท/ปี",
+        "resolution": "ยังใช้ 519 ในการคำนวณต้นทุนต่อลบ.ม. เป็นการชั่วคราว แต่ตรวจที่มาไม่ได้ (ฉบับชี้แจงครั้งที่ 2 หน้า 121 ไม่อยู่ใน repo) และเล่มสมบูรณ์ 2569 เล่ม 2 หน้า 159 ระบุ O&M เฉลี่ยปีละ 264.80 ล้านบาท (ร้อยละ 0.25 ของงานโยธา) — ขัดกัน ต้องคนตัดสิน · ความต่างต่อผล: ต้นทุนต่อลบ.ม. ที่คิดลดร้อยละ 7 เปลี่ยนจาก 6.81 เป็น 6.68 บาท",
+        "variants": {
+            "clarification2_dec2566_p121": {"value": _K("opex_annual_mb"), "vintage": 2566, "tier": "B", "source": "ฉบับชี้แจงครั้งที่ 2 (ธ.ค. 2566) หน้า 121 — ตรวจไม่ได้ (เอกสารไม่อยู่ใน repo)"},
+            "eia2569_vol2_p159": {"value": _K("eia_opex_annual_mb_main2"), "vintage": 2569, "tier": "A", "source": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 2 หน้า 159 (ตรวจกับชั้นข้อความ PDF แล้ว)"}
         }
     },
     "canal_storage": {
@@ -364,7 +377,7 @@ DESIGN_HISTORY = [
 ]
 
 
-EIA_SECTION = {"D_m": 7.0, "A_m2": 504.0, "P_m": 95.27, "V_ms": 1.20, "n": 0.016, "slope_1_n": 25000, "z1": 3.0, "z2": 2.0, "road_m": 10.0,
+EIA_SECTION = {"D_m": _K("eia_depth_m"), "A_m2": _K("eia_area_m2"), "P_m": _K("eia_wetted_perimeter_m"), "B_m": _K("eia_bed_width_m"), "V_ms": _K("eia_velocity_ms"), "n": _K("eia_manning_n"), "slope_1_n": _K("eia_slope_1_n"), "z1": _K("eia_z_inner"), "z2": _K("eia_z_outer"), "road_m": _K("eia_road_each_side_m"),
                "src": "รายงานผลกระทบสิ่งแวดล้อม เล่ม 1 หน้า 2-39 (รูปที่ 2.3.2-11 ตาราง กม.23–134)"}
 
 

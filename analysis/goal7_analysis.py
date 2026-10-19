@@ -237,6 +237,21 @@ FACTS = {
     "corridor_rainfall_telemetry_stations": {"v": 4593, "tier": "A", "src": "คลังข้อมูลน้ำแห่งชาติ: สถานีโทรมาตรวัดน้ำฝนอัตโนมัติ 4,593 สถานี ครอบคลุม 77 จังหวัดและ 5 หน่วยงานหลัก"},
 }
 
+def canal_volume_by_official_reaches() -> dict:
+    """ปริมาตรคลองจากตารางรูปตัดทางการ 3 ช่วง (รูปที่ 2.3.2-11): กม.0–23 · 23–134 · 134–135.9 (ปลายคลองขยายปากแตร A 504→1187 ตร.ม.)
+    ช่วงปลายไม่มีค่าตามแนวยาว จึงรายงานกรอบล่าง/บน (A คงที่ 504 หรือ 1187) และค่ากลาง (เชิงเส้น) — ใช้ตรวจ 504 × 135.9"""
+    a1, a2, a3 = _K("eia_area_reach1_m2"), _K("eia_area_m2"), _K("eia_area_end_m2")
+    k1, k2, kend = _K("eia_reach_break_1_km"), _K("eia_reach_break_2_km"), _K("canal_length_km")
+    v1, v2 = a1 * k1 * 1000.0, a2 * (k2 - k1) * 1000.0
+    tail = kend - k2
+    lo, mid, hi = a2 * tail * 1000.0, (a2 + a3) / 2.0 * tail * 1000.0, a3 * tail * 1000.0
+    flat = a2 * kend * 1000.0
+    f = lambda x: round(x / 1e6, 2)  # noqa: E731
+    return {"reach1_mcm": f(v1), "reach2_mcm": f(v2), "tail_km": round(tail, 3), "tail_low_mcm": f(lo), "tail_mid_mcm": f(mid), "tail_high_mcm": f(hi),
+            "total_low_mcm": f(v1 + v2 + lo), "total_mid_mcm": f(v1 + v2 + mid), "total_high_mcm": f(v1 + v2 + hi), "flat_504_mcm": f(flat),
+            "flat_vs_mid_pct": round(100.0 * (flat - (v1 + v2 + mid)) / (v1 + v2 + mid), 2)}
+
+
 # บัญชีระงับข้อขัดแย้งตัวเลขสำคัญ (Reconciled Parameters Schema)
 # ใช้ระงับข้อขัดแย้งระหว่างแหล่งข้อมูลต่างกาลเวลา (Vintage) ขอบเขต (Scope) และชั้นความน่าเชื่อถือ (Tier)
 RECONCILED_PARAMETERS = {
@@ -279,6 +294,8 @@ RECONCILED_PARAMETERS = {
         "resolution": "คำนวณจากพื้นที่หน้าตัดออกแบบ 504 ตร.ม. × ความยาว 135.9 กม. ได้ปริมาตรรวม 68.5 ล้าน ลบ.ม. หักน้ำก้นคลอง 2.0 ม. (15.5 ล้าน ลบ.ม. — ระดับ 2.0 ม. เป็นข้อสมมติของผู้จัดทำ ไม่ใช่ค่าจาก EIA) เหลือความจุใช้การ 53.0 ล้าน ลบ.ม. (เวลาเติมคลองที่ว่าง 24.5 ชั่วโมงที่ 600 ลบ.ม./วินาที)",
         "variants": {
             "eia_2569_geometric_derived": {"total": 68.5, "active": 53.0, "dead": 15.5, "tier": "A", "source": "EIA เล่ม 1 หน้า 2-39 (A=504 m² × L=135.9 km)"},
+            "eia_2569_reach_table": {"total": canal_volume_by_official_reaches()["total_mid_mcm"], "range": [canal_volume_by_official_reaches()["total_low_mcm"], canal_volume_by_official_reaches()["total_high_mcm"]], "tier": "A", "source": "EIA เล่ม 1 หน้า 2-39 ตารางรูปตัด 3 ช่วง (A = 480 · 504 · 504→1187 ตร.ม.) — ตรวจ 504 × 135.9 ว่าไม่เพี้ยนจากแบบทางการ"},
+            "author_assumed_segments": {"total": 74.0, "tier": "C", "source": "ผลรวมหน้าตัดตามช่วงที่ผู้จัดทำสมมติเอง (968 · 714 · 510 ตร.ม.) — ไม่ใช่แบบทางการ ใช้ตรวจความสอดคล้องเท่านั้น"},
             "provincial_summary_slide": {"total_sec2": 57.4, "total_sec1": 98.37, "total_combined": 155.77, "tier": "A", "source": "สรุปการประชุมจังหวัดนครนายก 9 ก.ย. 2569"},
             "retired_legacy": {"total": 55.4, "status": "retired", "reason": "ค่าคงที่สมมติเดิมที่ไม่ปรากฏในเอกสาร EIA ใดๆ — ปลดประจำการ"}
         }
@@ -1503,7 +1520,7 @@ def main():
     L = max(f["properties"]["km"] for f in mk)
     c = {
         "meta": {"built_by": "analysis/goal7_analysis.py", "alignment_source": "Google My Maps (ผู้ใช้สร้าง — ไม่เป็นทางการ)"},
-        "facts": FACTS, "reconciled_parameters": RECONCILED_PARAMETERS, "design_segments": design_check(), "design_2566": DESIGN_2566, "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "eia_profile": eia_profile(), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY, "eia_versions": EIA_VERSIONS, "eia_structs": eia_structs_summary(),
+        "facts": FACTS, "reconciled_parameters": RECONCILED_PARAMETERS, "canal_volume_check": canal_volume_by_official_reaches(), "design_segments": design_check(), "design_2566": DESIGN_2566, "dwr_plan": DWR_PLAN, "eia_land": EIA_LAND, "eia_econ": EIA_ECON, "eia_social": EIA_SOCIAL, "concern_checks": CONCERN_CHECKS, "eia_section": EIA_SECTION, "eia_levels": eia_levels(dem_profile()["profile_every_10km"]), "eia_profile": eia_profile(), "design_2565": DESIGN_2565, "design_2565_structs": DESIGN_2565_STRUCTS, "meeting_20260909": MEETING_20260909, "struct_compare": struct_compare(), "design_2560": DESIGN_2560, "participation": PARTICIPATION, "concerns": CONCERNS, "civic_funding": CIVIC_FUNDING, "design_history": DESIGN_HISTORY, "eia_versions": EIA_VERSIONS, "eia_structs": eia_structs_summary(),
         "alignment_qa": json.loads((D7 / "alignment_qa.json").read_text(encoding="utf-8")),
         "provinces_km": {"สระบุรี": [0, KM_NN0], "นครนายก": [KM_NN0, KM_NN1], "ฉะเชิงเทรา": [KM_NN1, KM_SP0], "สมุทรปราการ": [KM_SP0, 135.7]},
         "structures": structures(), "dem": dem_profile(), "manning": manning(), "c2": c2_peaks(),

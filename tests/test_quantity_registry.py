@@ -19,7 +19,12 @@ def test_registry_passes_all_checks():
 
 
 def test_disputed_propagates_to_dependents():
-    _, eff = qr.check()
+    reg = copy.deepcopy(_reg())
+    for q in reg:
+        if q["id"] == "canal_storage_total":
+            q["status"], q["disputed_by"] = "disputed", ["ตัวอย่างข้อโต้แย้งจำลอง"]
+    errs, eff = qr.check(reg)
+    assert not errs
     assert eff["canal_storage_total"] == ["canal_storage_total"]
     assert "canal_storage_total" in eff["canal_storage_active"]
     assert eff["canal_bed_width"] == []

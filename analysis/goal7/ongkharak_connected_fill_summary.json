@@ -1,0 +1,192 @@
+{
+ "method_note": "เกณฑ์กำหนดก่อนดูผล (pre-registration): ผิวน้ำที่จุด x = H − s·d(x) เมื่อ d = ระยะจากลำน้ำสายหลัก (กม.) · เซลล์ท่วมต่อเมื่อ ระดับพื้น ≤ ผิวน้ำ และอยู่ในกลุ่มเซลล์ที่ต่อเนื่อง (8 ทิศ) กับลำน้ำ · ค่า s ที่ลอง 0 (ไม่ลาด) 0.1 0.2 0.4 ม./กม. · ระดับ H ของแต่ละ s ปรับให้ได้พื้นที่เท่าที่ดาวเทียมเห็น (วิธีเดียวกับถังเติมน้ำเดิม) แล้ววัดดัชนีทับซ้อน (IoU) ความแม่น (precision) และความครบ (recall) · เทียบฐาน = ถังเติมน้ำเดิม (ongkharak_2d_depression_summary.json → sar_calibration) เกณฑ์ \"ดีขึ้นจริง\": IoU เพิ่ม ≥ 0.10 ในทั้ง 2 วัน · ผลออกทางไหนก็รายงานตามนั้น · รันกับ DEM 2 ชุด (Copernicus GLO-30 ผิวสูงสุด · FABDEM ดินเปล่า) ข้อจำกัด: ลำน้ำสายหลักจากชุดมิตรเอิร์ธ (ที่มา DEM ไม่ระบุ) · ไม่มีคันกั้น/ประตูน้ำ/ปั๊ม · ไม่ใช่แบบจำลองชลศาสตร์ — ดูรูปแบบเชิงพื้นที่เท่านั้น",
+ "river_cells_in_window": 8527,
+ "district_km2": 513.1,
+ "baseline_bucket_fill": {
+  "peak_27sep": {
+   "iou": 0.36,
+   "precision": 0.53,
+   "recall": 0.53,
+   "effective_level_msl_m": 3.01
+  },
+  "oct2_validated": {
+   "iou": 0.3,
+   "precision": 0.47,
+   "recall": 0.46,
+   "effective_level_msl_m": 2.94
+  }
+ },
+ "dem": {
+  "copernicus_glo30": {
+   "peak_27sep": {
+    "sar_area_km2": 197.0,
+    "by_slope_m_per_km": {
+     "s=0": {
+      "effective_level_msl_m": 3.2,
+      "area_km2": 197.2,
+      "iou": 0.367,
+      "precision": 0.536,
+      "recall": 0.537
+     },
+     "s=0.1": {
+      "effective_level_msl_m": 3.45,
+      "area_km2": 196.8,
+      "iou": 0.356,
+      "precision": 0.525,
+      "recall": 0.525
+     },
+     "s=0.2": {
+      "effective_level_msl_m": 3.7,
+      "area_km2": 202.7,
+      "iou": 0.34,
+      "precision": 0.5,
+      "recall": 0.514
+     },
+     "s=0.4": {
+      "effective_level_msl_m": 4.05,
+      "area_km2": 203.5,
+      "iou": 0.32,
+      "precision": 0.477,
+      "recall": 0.493
+     }
+    }
+   },
+   "oct2_validated": {
+    "sar_area_km2": 170.1,
+    "by_slope_m_per_km": {
+     "s=0": {
+      "effective_level_msl_m": 3.1,
+      "area_km2": 170.2,
+      "iou": 0.321,
+      "precision": 0.485,
+      "recall": 0.486
+     },
+     "s=0.1": {
+      "effective_level_msl_m": 3.4,
+      "area_km2": 170.1,
+      "iou": 0.287,
+      "precision": 0.446,
+      "recall": 0.447
+     },
+     "s=0.2": {
+      "effective_level_msl_m": 3.65,
+      "area_km2": 178.7,
+      "iou": 0.269,
+      "precision": 0.414,
+      "recall": 0.435
+     },
+     "s=0.4": {
+      "effective_level_msl_m": 3.95,
+      "area_km2": 174.9,
+      "iou": 0.257,
+      "precision": 0.404,
+      "recall": 0.415
+     }
+    }
+   }
+  },
+  "fabdem": {
+   "peak_27sep": {
+    "sar_area_km2": 197.1,
+    "by_slope_m_per_km": {
+     "s=0": {
+      "effective_level_msl_m": 3.0,
+      "area_km2": 193.9,
+      "iou": 0.32,
+      "precision": 0.489,
+      "recall": 0.481
+     },
+     "s=0.1": {
+      "effective_level_msl_m": 3.3,
+      "area_km2": 200.1,
+      "iou": 0.302,
+      "precision": 0.46,
+      "recall": 0.467
+     },
+     "s=0.2": {
+      "effective_level_msl_m": 3.5,
+      "area_km2": 197.7,
+      "iou": 0.279,
+      "precision": 0.436,
+      "recall": 0.437
+     },
+     "s=0.4": {
+      "effective_level_msl_m": 3.8,
+      "area_km2": 199.7,
+      "iou": 0.275,
+      "precision": 0.428,
+      "recall": 0.434
+     }
+    }
+   },
+   "oct2_validated": {
+    "sar_area_km2": 170.1,
+    "by_slope_m_per_km": {
+     "s=0": {
+      "effective_level_msl_m": 2.95,
+      "area_km2": 165.1,
+      "iou": 0.275,
+      "precision": 0.438,
+      "recall": 0.425
+     },
+     "s=0.1": {
+      "effective_level_msl_m": 3.25,
+      "area_km2": 177.8,
+      "iou": 0.247,
+      "precision": 0.388,
+      "recall": 0.406
+     },
+     "s=0.2": {
+      "effective_level_msl_m": 3.4,
+      "area_km2": 167.4,
+      "iou": 0.224,
+      "precision": 0.369,
+      "recall": 0.363
+     },
+     "s=0.4": {
+      "effective_level_msl_m": 3.7,
+      "area_km2": 175.8,
+      "iou": 0.222,
+      "precision": 0.357,
+      "recall": 0.369
+     }
+    }
+   }
+  }
+ },
+ "verdict": {
+  "criterion": "IoU เพิ่ม ≥ 0.1 จากถังเติมน้ำในทั้ง 2 วัน",
+  "by_dem": {
+   "copernicus_glo30": {
+    "per_date": {
+     "peak_27sep": {
+      "best_slope": "s=0",
+      "iou": 0.367,
+      "gain_vs_bucket": 0.007
+     },
+     "oct2_validated": {
+      "best_slope": "s=0",
+      "iou": 0.321,
+      "gain_vs_bucket": 0.021
+     }
+    },
+    "meets_criterion": false
+   },
+   "fabdem": {
+    "per_date": {
+     "peak_27sep": {
+      "best_slope": "s=0",
+      "iou": 0.32,
+      "gain_vs_bucket": -0.04
+     },
+     "oct2_validated": {
+      "best_slope": "s=0",
+      "iou": 0.275,
+      "gain_vs_bucket": -0.025
+     }
+    },
+    "meets_criterion": false
+   }
+  }
+ }
+}

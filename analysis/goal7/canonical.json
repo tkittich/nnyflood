@@ -296,6 +296,20 @@
      "tier": "A",
      "source": "EIA เล่ม 1 หน้า 2-39 (A=504 m² × L=135.9 km)"
     },
+    "eia_2569_reach_table": {
+     "total": 68.59,
+     "range": [
+      67.94,
+      69.24
+     ],
+     "tier": "A",
+     "source": "EIA เล่ม 1 หน้า 2-39 ตารางรูปตัด 3 ช่วง (A = 480 · 504 · 504→1187 ตร.ม.) — ตรวจ 504 × 135.9 ว่าไม่เพี้ยนจากแบบทางการ"
+    },
+    "author_assumed_segments": {
+     "total": 74.0,
+     "tier": "C",
+     "source": "ผลรวมหน้าตัดตามช่วงที่ผู้จัดทำสมมติเอง (968 · 714 · 510 ตร.ม.) — ไม่ใช่แบบทางการ ใช้ตรวจความสอดคล้องเท่านั้น"
+    },
     "provincial_summary_slide": {
      "total_sec2": 57.4,
      "total_sec1": 98.37,
@@ -363,6 +377,19 @@
     }
    }
   }
+ },
+ "canal_volume_check": {
+  "reach1_mcm": 11.04,
+  "reach2_mcm": 55.94,
+  "tail_km": 1.9,
+  "tail_low_mcm": 0.96,
+  "tail_mid_mcm": 1.61,
+  "tail_high_mcm": 2.26,
+  "total_low_mcm": 67.94,
+  "total_mid_mcm": 68.59,
+  "total_high_mcm": 69.24,
+  "flat_504_mcm": 68.49,
+  "flat_vs_mid_pct": -0.14
  },
  "design_segments": {
   "segments": [

@@ -242,6 +242,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_ocr_coverage` | `analysis/goal7_ocr_coverage.py` | `main` | active | วัดความครอบคลุม OCR ของเล่ม EIA 2569 (หน้าสแกน/หน้ารูปเทียบผล Typhoon ที่ใช้ได้) และสร้างรายการหน้าค้าง | `python analysis/goal7_ocr_coverage.py` | `analysis/goal7/ocr_coverage.json` |
 | `goal7_typhoon_queue_eia` | `analysis/goal7_typhoon_queue_eia.py` | `typhoon_env` | active | คิว Typhoon-OCR ของเล่ม EIA 2569 ตามรายการหน้าค้าง (หน้าสแกนก่อน แล้วหน้ารูป) 2 worker บน GPU | `E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_typhoon_queue_eia.py --workers 2` | `data/32_goal7_chaophraya2/typhoon_ocr/eia2569_<เล่ม>/pages.jsonl` |
 | `quantity_registry` | `tools/quantity_registry.py` | `main` | active | ตรวจทะเบียนตัวตนของปริมาณ (ชื่อ·ขอบเขต·นิยาม·หน่วย·ชนิดที่มา) กับ canonical และค่าคงที่ต้นทาง · ส่งต่อสถานะถูกโต้แย้ง | `python tools/quantity_registry.py` | — |
+| `goal7_ongkharak_connected_fill` | `analysis/goal7_ongkharak_connected_fill.py` | `main` | active | เป้าหมาย 7 (R7-04) — น้ำท่วมแอ่งองครักษ์แบบเชื่อมต่อลำน้ำ + ผิวน้ำลาดตามระยะ เทียบถังเติมน้ำเดิมกับมาสก์ดาวเทียม (Copernicus/FABDEM) | `python analysis/goal7_ongkharak_connected_fill.py` | `analysis/goal7/ongkharak_connected_fill_summary.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -250,7 +251,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 3 สภาพแวดล้อม · 153 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 154 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

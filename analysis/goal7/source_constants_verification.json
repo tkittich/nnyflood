@@ -1,9 +1,9 @@
 {
  "verified_on": "2026-10-19",
- "constants_sha256": "38a68af8f052eee425b4e5638e05cf1c2a537a6c34690c20a1b7c9ed3de67951",
+ "constants_sha256": "869b095a4eb5ebd0280970688e2771ab0716e42193249aaf610f449b1edde0df",
  "summary": {
   "verified_text": 14,
-  "verified_image": 10,
+  "verified_image": 14,
   "failed": 1,
   "assumption": 3,
   "unverified": 1
@@ -421,6 +421,58 @@
   "clarify2_opex_annual_mb": {
    "status": "unverified",
    "checks": [],
+   "conflicts_with": []
+  },
+  "eia_area_reach1_m2": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "A = 480.00",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_area_end_m2": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "A = 1187.00",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_reach_break_1_km": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "0+000–23+000 / 23+000–134+000",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_reach_break_2_km": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "23+000–134+000 / 134+000–135+900",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
    "conflicts_with": []
   }
  }

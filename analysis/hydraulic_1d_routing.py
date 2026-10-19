@@ -306,6 +306,9 @@ def main() -> None:
     # และเหลื่อมคนละทิศ — วัดส่วนเหลื่อมไว้เป็นหลักฐานแทนการรายงาน "เวลาเดินทาง" ที่ผิดความหมาย
     idx_pk_q_ny1b = int(np.argmax(q_obs_ny1b))
     idx_pk_q_ny7 = int(np.argmax(q_obs_ny7))
+    # ความเหลื่อมของอัตราไหลสองสถานีด้วยสหสัมพันธ์ข้ามเวลา (ทนต่อยอดคู่ได้ดีกว่าการเลือกยอดเดียว)
+    _n = len(q_obs_ny1b)
+    q_lag_xcorr = max(range(0, 81), key=lambda L: float(np.corrcoef(q_obs_ny1b[:_n - L], q_obs_ny7[L:])[0, 1]))
     q_h_offset_ny1b_h = (idx_pk_h_ny1b - idx_pk_q_ny1b) * 0.25   # + = ยอด Q มาก่อนยอด H
     q_h_offset_ny7_h = (idx_pk_h_ny7 - idx_pk_q_ny7) * 0.25
 
@@ -352,7 +355,9 @@ def main() -> None:
         "routing_performance": {
             "travel_time_hours_sim": round(travel_time_hours_sim, 2),
             "travel_time_stage_obs": round(travel_time_stage_obs, 2),
-            "travel_time_q_obs": round((idx_pk_q_ny7 - idx_pk_q_ny1b) * 0.25, 2),
+            "travel_time_q_xcorr": round(q_lag_xcorr * 0.25, 2),
+            "q_peak_pick_lag_h_not_used": round((idx_pk_q_ny7 - idx_pk_q_ny1b) * 0.25, 2),
+            "q_peak_pick_note": "ไม่ใช้เป็นเวลาเดินทาง: อัตราไหลที่ Ny.7 มียอดคู่ห่างกันราว 11 ชม. การเลือกยอดเดียวจึงไม่เสถียร",
             "q_h_peak_offset_ny1b_h": round(q_h_offset_ny1b_h, 2),
             "q_h_peak_offset_ny7_h": round(q_h_offset_ny7_h, 2),
             "travel_time_caveat": (

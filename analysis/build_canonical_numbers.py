@@ -267,7 +267,7 @@ render = {
     "r1d_ny7_q": f"{r1d['ny7_hydraulics']['bankfull_capacity_q_cms']:.1f}",
     "r1d_travel_h": f"{r1d['routing_performance']['travel_time_hours_sim']:.2f}",
     "r1d_travel_stage_h": f"{r1d['routing_performance']['travel_time_stage_obs']:.1f}",
-    "r1d_travel_q_obs_h": f"{r1d['routing_performance']['travel_time_q_obs']:.2f}",
+    "r1d_travel_q_obs_h": f"{r1d['routing_performance']['travel_time_q_xcorr']:.2f}",
     "r1d_ny7_bank_msl": f"{r1d['ny7_hydraulics']['bankfull_crest_msl_m']:.2f}",
     "r1d_ny7_terrace_msl": f"{r1d['ny7_hydraulics']['terrace_onset_msl_m']:.2f}",
     "r1d_ny7_terrace_q": f"{r1d['ny7_hydraulics']['terrace_onset_q_cms']:.1f}",

@@ -48,7 +48,9 @@
   "routing_performance": {
     "travel_time_hours_sim": 3.25,
     "travel_time_stage_obs": 9.0,
-    "travel_time_q_obs": 24.25,
+    "travel_time_q_xcorr": 10.75,
+    "q_peak_pick_lag_h_not_used": 24.25,
+    "q_peak_pick_note": "ไม่ใช้เป็นเวลาเดินทาง: อัตราไหลที่ Ny.7 มียอดคู่ห่างกันราว 11 ชม. การเลือกยอดเดียวจึงไม่เสถียร",
     "q_h_peak_offset_ny1b_h": 6.5,
     "q_h_peak_offset_ny7_h": -8.75,
     "travel_time_caveat": "ใช้ยอด *ระดับน้ำ* เป็นหลักเท่านั้น · q_cms เป็นค่าที่สถานีรายงานเอง ไม่ได้คำนวณจาก level_msl_m ด้วยเส้นความสัมพันธ์เส้นเดียว — ยอด Q เหลื่อมจากยอด H ที่ Ny.1B +6.50 ชม. และที่ Ny.7 -8.75 ชม. จึงไม่มี 'เวลาเดินทางที่นับจากยอด Q' รายงานในไฟล์นี้ (ค่าที่เคยรายงานถูกถอนออกแล้ว) · travel_time_hours_sim เป็น Q→Q ของแบบจำลอง ส่วน travel_time_stage_obs เป็น H→H ของข้อมูลจริง สองค่านี้จึงเทียบกันตรง ๆ ไม่ได้",

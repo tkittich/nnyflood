@@ -1,25 +1,28 @@
-# HANDOFF — สถานะส่งมอบ (อัปเดต 18 ต.ค. 2569)
+# HANDOFF — สถานะส่งมอบ (อัปเดต 19 ต.ค. 2569)
 
-## อัปเดต 18 ต.ค. 2569 (เช้า) — จัดเก็บรีวิวรอบ 4 สู่ Archive, ยกระดับ REVIEW_PROMPT_EN.md เป็นชุดคำสั่งหลัก, และเตรียมความพร้อม Session ใหม่
+## อัปเดต 19 ต.ค. 2569 (เช้า) — ระบบจัดระเบียบตัวเลขขัดแย้งหลายแหล่ง (Data Consistency Engine), ปลดล็อกพิกัดนิวเคลียร์ (TINT), และกำจัด Hardcoded Literals สมบูรณ์ 100%
 
-> **สถานะ**: รายงานทั้ง 7 ฉบับ + สมุดปกขาวผ่านการตรวจสอบสมบูรณ์ 100% — ชุดทดสอบระบบผ่าน 140/140 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 105/105 รายการ (เอกสารในสารบัญผ่าน audit 33/33 ไฟล์) · verify_data_integrity MISMATCH 0 · git working tree clean
+> **สถานะ**: รายงานทั้ง 7 ฉบับ + สมุดปกขาวผ่านการตรวจสอบสมบูรณ์ 100% — ชุดทดสอบระบบผ่าน 162/162 รายการ (pytest 100%) · สารบัญระบบ catalog.py ผ่าน 112/112 รายการ (เอกสารในสารบัญผ่าน audit 33/33 ไฟล์) · verify_data_integrity MISMATCH 0 · git working tree clean
 
 ### งานที่ส่งมอบในรอบนี้:
-1. **จัดเก็บเอกสารรีวิวและ Triage รอบ 4 สู่ Archive**:
-   - ย้ายไฟล์ `REVIEW.*.md` (5 ฉบับ) และ `TRIAGE.round4_2026-10-17.md` ไปไว้ที่ `archive/reviews/round4_2026-10-17/` ทำให้รูทของโปรเจกต์สะอาด หมดจด พร้อมรับผลรีวิวรอบใหม่โดยไม่เกิดชื่อซ้ำ
-2. **ยกระดับและจัดมาตรฐานชุดคำสั่งรีวิวระบบเป็นภาษาอังกฤษ (English Red-Team Review Prompt)**:
-   - ปรับปรุง `docs/REVIEW_PROMPT_EN.md` ให้เป็น prompt ตรวจสอบหลักฉบับภาษาอังกฤษ ครอบคลุม 3 เสาหลัก 7 เป้าหมาย และ 7 มิติเทคนิค (1D Routing, Harmonics $M_2, S_2, K_1, O_1$, 2D Compound Risk Matrix, 2D Hypsometric Ongkharak, Active Storage Reality, 39y Economics, ONEP 16 Categories)
-   - ปรับ `docs/REVIEW_PROMPT_COMPREHENSIVE.md` เป็นประกาศแจ้งเปลี่ยนผ่านชี้ไปที่ `docs/REVIEW_PROMPT_EN.md`
-3. **ตรวจสอบความสมบูรณ์และทดสอบระบบครบวงจร**:
-   - `python tools/verify_all.py` ผ่าน 100% ครบทั้ง 4 ขั้นตอน (catalog check, SHA-256 data integrity, pytest lint, pytest 140/140)
-   - ซิงก์และ push ขึ้น GitHub (`origin/main`) เรียบร้อยสมบูรณ์
+1. **ระบบจัดระเบียบตัวเลขและระงับข้อขัดแย้งข้ามแหล่งข้อมูล (Truth Discovery & Reconciliation Schema)**:
+   - สร้างโครงสร้าง `reconciled_parameters` ใน `analysis/goal7/canonical.json` ครอบคลุม 4 มิติหลัก (งบประมาณก่อสร้าง, พื้นที่เวนคืน, ความกว้างท้องคลอง, ความจุคลองรวม/ใช้การ/น้ำก้นคลอง) พร้อมบันทึกที่มา (`variants`) และเหตุผลเชิงเทคนิค (`resolution`)
+   - นำตัวเลขเก่า/ตัวเลขสมมติในอดีต เข้าสู่บัญชีตัวเลขปลดประจำการ (`retired_values` ใน Retired Ledger) อย่างเป็นระบบ พร้อมสร้างเอกสารคู่มือระเบียบวิธี `docs/DATA_CONSISTENCY_WORKFLOW.md`
+2. **ปลดล็อกและยุติข้อขัดแย้งพิกัดศูนย์วิจัยนิวเคลียร์องครักษ์ (TINT Reconciliation)**:
+   - ประสานพิกัดหมุดยืนยันของผู้ใช้ (`14.1221 N, 101.0275 E`, กม.57 ห่างคลอง 5.78 กม. ไปทางทิศตะวันออก) เข้าสู่ทุกชุดข้อมูล (`nuclear_site`, `legal_and_nuclear_assessment`)
+   - ยุติข้อความขัดแย้งเดิมเรื่องการขาดพิกัดที่แน่ชัดของศูนย์วิจัยนิวเคลียร์ในรายงานฉบับประชาชนและวิชาการ และตัดระยะห่างสมมติเดิมออกทั้งหมด
+3. **กำจัด Hardcoded Literals ในตัวสร้างรายงาน และเพิ่มระบบตรวจสอบอัตโนมัติ (Automated Builder Lint Gate)**:
+   - แทนที่ตัวเลขข้อความคงที่ (`160,046`, `16,288`, `51.0`, `13,416`, `6.81`, `519`, `1970`) ในตัวสร้างรายงานเป้าหมายที่ 7 และโปรแกรมจำลองนโยบาย (Policy Simulator) ด้วยตัวแปรจาก canonical
+   - เพิ่มฟังก์ชันทดสอบ `test_no_hardcoded_metric_literals_in_builders()` ใน `tests/test_data_consistency.py` ป้องกันการเผลอเขียน literal ซ้ำอีกในอนาคต ทำให้จำนวนเทสต์ผ่านรวมเป็น **162/162 ข้อ**
 
 ### รายการสำหรับ Session ถัดไป (Next Session Tasks — คงไว้สูงสุด 3 รายการตามกติกา):
-1. **รันการตรวจสอบระบบรอบใหม่ด้วย `docs/REVIEW_PROMPT_EN.md`**: ส่ง prompt ให้โมเดล AI ภายนอก (เช่น Claude 3.5 Sonnet, GPT-4o / o1) แล้วบันทึกผลลง root เป็น `REVIEW.<model_name>.md`
+1. **รันการตรวจสอบระบบรอบ 5 ด้วย `docs/REVIEW_PROMPT_EN.md`**: ส่ง prompt ให้โมเดล AI ภายนอก (เช่น Claude 3.5 Sonnet, GPT-4o / o1) แล้วบันทึกผลลง root เป็น `REVIEW.<model_name>.md`
 2. **คัดกรองและดำเนินการตามข้อเสนอแนะรอบใหม่ (Triage Round 5)**: สรุปประเด็นข้อค้นพบและวางแผนปรับปรุง
 3. **การขอข้อมูลข่าวสารราชการ (FOI) คลองเจ้าพระยา 2**: ยื่นขอแบบแปลนและระดับท้องคลองรายจุดตาม `docs/GOAL7_FOI_REQUESTS.md`
 
 ---
+
+## อัปเดต 18 ต.ค. 2569 (เช้า) — จัดเก็บรีวิวรอบ 4 สู่ Archive, ยกระดับ REVIEW_PROMPT_EN.md เป็นชุดคำสั่งหลัก, และเตรียมความพร้อม Session ใหม่
 
 ## อัปเดต 18 ต.ค. 2569 (เช้ามืด) — ปลด hold และ Refactor รายงานที่ 1 และ 2 เข้าสู่ Report Kit, สมุดปกขาวนโยบาย, และ 3-Tier Legal Disclaimer Stack
 

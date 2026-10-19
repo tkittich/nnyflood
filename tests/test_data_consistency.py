@@ -248,3 +248,30 @@ def test_nuclear_facility_coordinates_consistency():
         assert nfa["spatial_relationship_to_cp2"]["distance_to_canal_km"] == 5.78, "ระยะห่างแนวคลองต้องตรงกัน (5.78 กม.)"
 
 
+def test_no_hardcoded_metric_literals_in_builders():
+    """ผู้สร้างรายงาน (Builders) ต้องไม่ใส่ตัวเลขเมตริกเป็น string literal แต่ต้องดึงจาก canonical
+    สอดคล้องตามกติกา AGENTS.md: 'builder ห้ามพิมพ์ตัวเลข metric เป็น literal'
+    """
+    banned_builder_literals = [
+        ("160,046", "งบประมาณ EIA 160,046 ล้านบาท ต้องดึงจาก C['reconciled_parameters']['project_budget']"),
+        ("16,288", "พื้นที่เวนคืน 16,288 ไร่ ต้องดึงจาก C['reconciled_parameters']['land_acquisition']"),
+        ("14.128", "พิกัด สทน. เก่าที่คลาดเคลื่อน"),
+        ("100.957", "พิกัด สทน. เก่าที่คลาดเคลื่อน"),
+        ("7.2 กม", "ระยะห่าง สทน. เดิมที่คลาดเคลื่อน"),
+        ("ไม่มีพิกัดแน่ชัด", "ข้อความขัดแย้งเกี่ยวกับพิกัด สทน."),
+        ("55.4 ล้าน ลบ.ม.", "ความจุคลองเก่าที่ปลดประจำการแล้ว"),
+    ]
+    failures = []
+    for b_path in BUILDER_FILES:
+        lines = b_path.read_text(encoding="utf-8").splitlines()
+        for idx, line in enumerate(lines, 1):
+            stripped = line.strip()
+            if stripped.startswith("#"):
+                continue  # ข้ามบรรทัดคอมเมนต์
+            for lit, reason in banned_builder_literals:
+                if lit in line:
+                    failures.append(f"{b_path.name}:{idx}: พบตัวเลข literal '{lit}' ({reason})")
+
+    assert not failures, f"พบการฝังตัวเลข metric แบบ hardcoded ในตัวสร้างรายงาน:\n" + "\n".join(failures)
+
+

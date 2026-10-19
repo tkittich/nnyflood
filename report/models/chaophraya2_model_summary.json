@@ -1,33 +1,33 @@
 {
- "vertices": 8206,
- "faces": 6866,
+ "vertices": 8032,
+ "faces": 7012,
  "tiles": 14,
  "materials": {
-  "earth_lining": 414,
-  "water": 271,
-  "road": 542,
-  "embankment": 542,
-  "ground": 542,
-  "row_line": 542,
+  "earth_lining": 423,
+  "water": 272,
+  "road": 544,
+  "embankment": 544,
+  "ground": 544,
   "concrete_lining": 1583,
   "road_bridge": 282,
   "pier": 738,
   "aqueduct": 42,
   "gate": 120,
-  "culvert": 774,
+  "culvert": 600,
+  "siphon": 846,
   "existing_canal": 456,
   "rail_bridge": 12,
   "sea": 6
  },
  "bbox_m": [
   [
-   -110.4,
+   -97.1,
    -119843.3,
    -10.5
   ],
   [
    26293.6,
-   74.2,
+   65.3,
    14.3
   ]
  ],

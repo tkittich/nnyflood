@@ -29,7 +29,7 @@ MATERIALS = {   # ชื่อ: (R,G,B,alpha)
     "water": (0.20, 0.45, 0.80, 0.55), "earth_lining": (0.55, 0.42, 0.28, 1), "concrete_lining": (0.70, 0.70, 0.72, 1),
     "road": (0.22, 0.22, 0.24, 1), "embankment": (0.45, 0.52, 0.30, 1), "ground": (0.62, 0.70, 0.45, 1),
     "gate": (0.85, 0.35, 0.10, 1), "pier": (0.60, 0.60, 0.60, 1), "road_bridge": (0.80, 0.80, 0.82, 1), "rail_bridge": (0.35, 0.30, 0.30, 1),
-    "aqueduct": (0.45, 0.65, 0.78, 1), "culvert": (0.10, 0.55, 0.55, 1), "existing_canal": (0.30, 0.55, 0.85, 0.8), "row_line": (0.95, 0.80, 0.10, 1),
+    "aqueduct": (0.45, 0.65, 0.78, 1), "culvert": (0.10, 0.55, 0.55, 1), "existing_canal": (0.30, 0.55, 0.85, 0.8), "siphon": (0.05, 0.40, 0.45, 1),
     "sea": (0.15, 0.35, 0.65, 0.4),
 }
 
@@ -137,8 +137,6 @@ def build(vexag: float):
             "slope_r": [fr.at(s["km"], u_c + road, crest, vexag), fr.at(s["km"], toe, ground, vexag)],
             "ground_l": [fr.at(s["km"], -toe, ground, vexag), fr.at(s["km"], -(toe + ROW_MARGIN_M), ground, vexag)],
             "ground_r": [fr.at(s["km"], toe, ground, vexag), fr.at(s["km"], toe + ROW_MARGIN_M, ground, vexag)],
-            "row_l": [fr.at(s["km"], -(u_c + sp["row"]), ground + 0.2, vexag), fr.at(s["km"], -(u_c + sp["row"] + 1.5), ground + 0.2, vexag)],
-            "row_r": [fr.at(s["km"], u_c + sp["row"], ground + 0.2, vexag), fr.at(s["km"], u_c + sp["row"] + 1.5, ground + 0.2, vexag)],
             "reach": sp["reach"], "u_c": u_c, "toe": toe, "z_bed": bed, "z_crest": crest, "z_ground": ground, "z_water": water,
         }
         rings.append(ring)
@@ -146,7 +144,7 @@ def build(vexag: float):
         lin_mat = "earth_lining" if a["reach"] == 1 else "concrete_lining"
         strip(mesh, lin_mat, a["lining"], b["lining"])
         strip(mesh, "water", a["water"], b["water"])
-        for k, m in (("road_l", "road"), ("road_r", "road"), ("slope_l", "embankment"), ("slope_r", "embankment"), ("ground_l", "ground"), ("ground_r", "ground"), ("row_l", "row_line"), ("row_r", "row_line")):
+        for k, m in (("road_l", "road"), ("road_r", "road"), ("slope_l", "embankment"), ("slope_r", "embankment"), ("ground_l", "ground"), ("ground_r", "ground")):
             strip(mesh, m, a[k], b[k])
     # ---- อาคารตามแนวคลอง ----
     by_km = {round(s["km"], 3): s for s in st}
@@ -190,21 +188,32 @@ def build(vexag: float):
             z0 = crest - 2.0
             mesh.box("culvert", fr, km, u_c, u_c + ln, z0, z0 + h, w, vexag)    # ท่อรับน้ำฝั่งซ้าย ลอดคันออกไปด้านนอก
         elif kind == "crossing":
+            # ห่วงอาคารเชื่อมต่อเนื่อง: ท่อระบายน้ำ (ระดับดิน) 15 ม. → บ่อดิ่ง → ท่อไซฟอนลอดใต้ท้องคลอง (ยาวตามตาราง) → บ่อดิ่ง → ท่อระบายน้ำ 15 ม. (ตาราง: ท่อ 15 ม. ทั้งสองฝั่ง + ไซฟอน)
             sw, sh, sl = o.get("sip_w"), o.get("sip_h"), o.get("sip_len")
+            cw_, ch_, cl_ = o.get("cul_w"), o.get("cul_h"), o.get("cul_len", 15.0)
+            half = (sl or 0.0) / 2.0
+            reach_out = half + (cl_ if cw_ else 0.0)
             if sw:
-                z1 = bed - 1.0                                                  # ข้อสมมติ: ท้องไซฟอน — บนสุดอยู่ใต้ท้องคลอง 1 ม.
+                z_top = bed - 1.0                                               # ข้อสมมติ: ระดับท้องไซฟอน — บนสุดอยู่ใต้ท้องคลอง 1 ม. (ตารางไม่ระบุ)
+                z_bot = z_top - sh
                 for q in range(int(o.get("sip_n", 1))):
                     off = (q - (o.get("sip_n", 1) - 1) / 2) * (sw + 1.0)
-                    mesh.box("culvert", fr, km + off / 1000.0, -sl / 2, sl / 2, z1 - sh, z1, sw, vexag)
-            if o.get("cul_w"):
-                ln = o.get("cul_len", 15.0)
-                zc = ground
-                for side in (-1, 1):
-                    mesh.box("culvert", fr, km, side * (r["toe"] - ln), side * r["toe"], zc, zc + o["cul_h"], o["cul_w"], vexag)
+                    kq = km + off / 1000.0
+                    mesh.box("siphon", fr, kq, -half, half, z_bot, z_top, sw, vexag)
+                    top_cul = ground + (ch_ or sh)
+                    for side in (-1, 1):
+                        mesh.box("siphon", fr, kq, side * half - sw / 2, side * half + sw / 2, z_bot, max(top_cul, z_top), sw, vexag)   # บ่อดิ่ง
+                        if cw_:
+                            u0, u1 = side * half, side * (half + cl_)
+                            ncul = int(o.get("cul_n", 1))
+                            for j in range(ncul):                                   # ท่อระบายน้ำหลายช่องเรียงตามแนวคลอง (ตาราง: cul_n)
+                                dj = (j - (ncul - 1) / 2) * (cw_ + 0.5) / 1000.0
+                                mesh.box("culvert", fr, kq + dj, min(u0, u1), max(u0, u1), ground, ground + ch_, cw_, vexag)
             if o.get("canal_w"):
                 cw = o["canal_w"]
+                start = max(reach_out, r["toe"])
                 for side in (-1, 1):
-                    a0, a1 = side * r["toe"], side * (r["toe"] + ROW_MARGIN_M * 2)
+                    a0, a1 = side * start, side * (start + ROW_MARGIN_M * 2)
                     mesh.box("existing_canal", fr, km, min(a0, a1), max(a0, a1), ground - 0.05, ground + 0.02, cw, vexag)
     # ทะเล (น้ำหนุนสูง +2.0) ปลายคลอง
     last = st[-1]
@@ -228,7 +237,7 @@ def make_labels(g: dict, fr: Frame) -> list[dict]:
         out.append({"km": round(km, 3), "x": round(x, 1), "y": round(y, 1), "z": round(s["crest"] + dz, 2), "text": text, "kind": kind})
     add(0.0, "กม.0 ต้นคลอง (ฝั่งป่าสัก)", "end")
     add(135.9, "กม.135.9 ปลายคลอง → อ่าวไทย (น้ำหนุนสูง +2.0 ม.รทก.)", "end")
-    add(23.0, "กม.23 เปลี่ยนรูปตัด: คลองดิน(จม) → คลองลอยดาดคอนกรีต", "reach", dz=2.0)
+    add(23.0, "กม.23 เปลี่ยนรูปตัด: คลองดิน(จม) → คลองลอยดาดคอนกรีต · ท้องคลองลดฉับพลัน −0.55 → −1.05 ม.รทก. · เขตทางข้างละ 85 → 60 ม.", "reach", dz=2.0)
     add(134.0, "กม.134 เริ่มปากแตร (ท้องคลอง 51→380 ม.)", "reach", dz=2.0)
     for s in g["structures"]:
         k, n = s["kind"], s["name"]

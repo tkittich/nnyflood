@@ -71,7 +71,8 @@ def clean_alignment() -> tuple[np.ndarray, dict]:
     u0 = d0 / np.hypot(*d0)
     back = np.array([(k, *(sm[0, 1:] - u0 * (sm[0, 0] - k) * 1000)) for k in np.arange(0.0, sm[0, 0], 0.5)])
     full = np.vstack([back, sm])
-    grid = np.arange(0.0, L_END + 1e-9, STEP_KM)
+    # สถานีเพิ่ม กม.22.999 เพื่อให้เห็นขั้นท้องคลองหน้าประตู กม.23 เป็นขั้นชัน (ค่ากำกับรูป 2.3.2-9: ผิวน้ำ 6.45 → 5.95 ม.รทก.)
+    grid = np.array(sorted(set(np.round(np.arange(0.0, L_END + 1e-9, STEP_KM), 3).tolist()) | {22.999}))
     gx = np.interp(grid, full[:, 0], full[:, 1])
     gy = np.interp(grid, full[:, 0], full[:, 2])
     info = {"pins": len(kms), "removed_outlier_km": removed, "extrapolated_km": [0.0, float(sm[0, 0])], "extrapolation_note": "หมุด กม.0–3.5 อยู่คนละสายกับ กม.4 ขึ้นไป (ห่าง ~4 กม.) จึงต่อเส้นตรง"}
@@ -81,8 +82,9 @@ def clean_alignment() -> tuple[np.ndarray, dict]:
 def longitudinal_profile(km: float, ground_pts: list[tuple[float, float]]) -> dict:
     """ระดับ ม.รทก. ที่ กม. นั้น: ท้องคลอง/ผิวน้ำ/สันคัน (ทางการ-อนุมานจากค่ากำกับรูป) + พื้นดินเดิม (อ่านจากรูป)"""
     ground = float(np.interp(km, [p[0] for p in ground_pts], [p[1] for p in ground_pts]))
-    if km <= 23.0:
-        bed = 1.75 + (-1.05 - 1.75) * (km - 0.15) / (23.0 - 0.15)   # ค่ากำกับ กม.0.15 และ กม.23 บนรูป
+    if km < 23.0:
+        # ช่วง 1: ท้องคลองยึดค่ากำกับ กม.0.15 (+1.75) และ กม.22.9 (ผิวน้ำ 6.45 − ลึก 7 = −0.55) → ลาด ~1:9,900 ตรงกับตาราง 1:10,000
+        bed = 1.75 + (-0.55 - 1.75) * (km - 0.15) / (22.9 - 0.15)
         water = bed + 7.0
     elif km <= 134.0:
         bed = -1.05 - (km - 23.0) / 25.0                          # ลาดท้อง 1:25,000 ตามตารางรูปตัด
@@ -154,7 +156,7 @@ def main() -> None:
     out = {
         "_doc": __doc__.split("\n\n")[0] + " · " + __doc__.split("\n\n")[1].replace("\n", " "),
         "section_table": table,
-        "profile_rules": {"reach1_bed": "เส้นตรงระหว่างค่ากำกับบนรูป กม.0.15 (+1.75) และ กม.23 (−1.05)", "reach2_bed": "−1.05 − (กม.−23)/25 ม. (ลาด 1:25,000)", "water": "ท้อง + 7.0 ม. (กม.0–134)", "crest": "ผิวน้ำ + 1.5 ม. (กม.0–134)",
+        "profile_rules": {"reach1_bed": "เส้นตรงระหว่างค่ากำกับบนรูป กม.0.15 (+1.75) และ กม.22.9 (ผิวน้ำ 6.45 − 7 = −0.55) · ที่ กม.23 ท้องคลองลดฉับพลันเป็น −1.05 (ขั้นหน้าประตู 0.5 ม.)", "reach2_bed": "−1.05 − (กม.−23)/25 ม. (ลาด 1:25,000)", "water": "ท้อง + 7.0 ม. (กม.0–134)", "crest": "ผิวน้ำ + 1.5 ม. (กม.0–134)",
                           "reach3": "ท้องยกจาก −5.504 ไปปลายคลอง · ผิวน้ำ 1.498→2.5 (น้ำหนุน) · สันคัน 3.0 (ค่ากำกับบนรูป กม.134)", "ground": "ค่าอ่านจากเส้นระดับดินธรรมชาติในรูป 2.3.2-9 (±0.2 ม.)", "source": canon["eia_profile"]["src"]},
         "alignment": {"crs": "EPSG:32647 (UTM 47N) เมตร", "step_km": STEP_KM, **info},
         "stations": stations,

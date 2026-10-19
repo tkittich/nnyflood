@@ -188,6 +188,7 @@ CORE_GOVERNANCE = [
     ("docs/REVIEW_PROMPT_EN.md", "กรอบการตรวจสอบและชุดคำสั่งหลักสำหรับ AI ผู้ตรวจสอบอิสระ (Comprehensive English Red-Team Audit Prompt ครบ 3 เสาหลัก 8 รายงาน)"),
     ("docs/REVIEW_PROMPT_COMPREHENSIVE.md", "ชุดคำสั่งรีวิวฉบับเดิม — ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md"),
     ("docs/REVIEW_PROMPT.md", "ชุดคำสั่งรีวิวฉบับเก่า (เป้าหมาย 7) — ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md"),
+    ("docs/DOCS_INDEX.md", "ดัชนีเอกสารทั้งหมดพร้อมสถานะ (current/plan/log/superseded/needs-review) — สร้างอัตโนมัติจาก tools/registry.json"),
     ("docs/ENVIRONMENT.md", "บันทึกสภาพแวดล้อมที่ใช้รันจริง (เวอร์ชัน Python/แพ็กเกจ) สำหรับทำซ้ำตัวเลข"),
     ("docs/MAJOR_UPDATES_REPORT1_4_PLAN.md", "แผนยกระดับรายงาน 1–4 ให้ผูกกับฐานข้อมูลชุดใหม่"),
     ("docs/OFFLINE_DATA_BACKLOG.md", "รายการข้อมูลที่ยังไม่มีออนไลน์และต้องรอดำเนินการ"),

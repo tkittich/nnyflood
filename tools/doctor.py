@@ -8,7 +8,9 @@
   4. ความครอบคลุม: สคริปต์ใน analysis/ tools/ report/ ที่ยังไม่ลงทะเบียน (นับ · --list-unregistered แสดงรายชื่อ)
   5. โฟลเดอร์ data/NN_* ที่ไม่มี manifest.md
   6. ส่วนที่สร้างอัตโนมัติใน docs/ENVIRONMENT.md ตรงกับทะเบียนหรือไม่ (--write-docs เพื่อสร้างใหม่)
-  7. สัญญาหัวไฟล์: สคริปต์ที่ลงทะเบียนต้องมี docstring บรรทัดแรกเป็นคำอธิบายสั้น ๆ (Purpose) และควรมีบรรทัด `รัน:` — ดู AGENTS.md
+  7. เอกสาร (ส่วน docs ของทะเบียน): ทุก *.md ที่ root และ docs/ ลงทะเบียน · สถานะอยู่ในรายการ · superseded ชี้เอกสารที่มี ·
+     เอกสารสถานะ current ที่อ้างไฟล์ที่ไม่มีแล้ว · เอกสาร current ที่ยังลิงก์ไปเอกสาร superseded · ดัชนีเอกสาร docs/DOCS_INDEX.md สร้างอัตโนมัติ
+  8. สัญญาหัวไฟล์: สคริปต์ที่ลงทะเบียนต้องมี docstring บรรทัดแรกเป็นคำอธิบายสั้น ๆ (Purpose) และควรมีบรรทัด `รัน:` — ดู AGENTS.md
      สถานะ `unreviewed` = ลงทะเบียนอัตโนมัติจาก docstring แต่คนยังไม่ทบทวน (นับเป็นคำเตือน)
 คำเตือนทั้งหมด = รหัสออก 2 (verify_all ถือเป็น "ผ่านแบบมีเงื่อนไข") · ไม่แก้ไฟล์ใดนอกจาก --write-docs / --write-probe
 
@@ -27,6 +29,8 @@ ROOT = Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "tools/registry.json"
 PROBE = ROOT / "tools/registry_probe.json"
 ENV_DOC = ROOT / "docs/ENVIRONMENT.md"
+DOCS_INDEX = ROOT / "docs/DOCS_INDEX.md"
+DOC_STATUS_OK = {"current", "generated", "log", "plan", "historical", "superseded", "needs-review"}
 BEGIN = "<!-- BEGIN GENERATED: tool-registry (python tools/doctor.py --write-docs) -->"
 END = "<!-- END GENERATED: tool-registry -->"
 STATUS_OK = {"active", "superseded", "deprecated", "experimental", "unreviewed"}
@@ -167,6 +171,82 @@ def check_headers(reg: dict) -> list[str]:
     return w
 
 
+def doc_files() -> list[str]:
+    return sorted(f.relative_to(ROOT).as_posix() for f in [*ROOT.glob("*.md"), *(ROOT / "docs").glob("*.md")])
+
+
+def broken_refs(rel: str) -> list[str]:
+    """พาธ/ชื่อสคริปต์ในเครื่องหมาย ` ` ที่ไม่มีอยู่จริง (ข้ามพาธใต้ data/ ที่โฟลเดอร์ระดับบนมีอยู่ — ไฟล์ใหญ่อาจอยู่นอก git)"""
+    t = (ROOT / rel).read_text(encoding="utf-8", errors="ignore")
+    out = []
+    for r in sorted(set(re.findall(r"`((?:analysis|report|tools|tests|docs|data)/[\w./\-ก-๙]+|[\w\-]+\.py)`", t))):
+        if any(c in r for c in "*<>…") or "..." in r or r.endswith("/") and (ROOT / r).exists():
+            continue
+        if (ROOT / r).exists():
+            continue
+        if "/" not in r and any((ROOT / d / r).exists() for d in ("analysis", "report", "tools", "tests")):
+            continue
+        if r.startswith("data/"):
+            parts = r.split("/")
+            if len(parts) > 1 and (ROOT / "data" / parts[1]).exists():
+                continue
+            if len(parts) > 1 and re.fullmatch(r"\d\d_?", parts[1]):
+                continue   # ตัวแทนพาธย่อ เช่น data/13_
+        if r.endswith("/") or re.search(r"\.\w{2,5}$", r):
+            out.append(r)
+    return out
+
+
+def check_docs(reg: dict) -> tuple[list[str], list[str]]:
+    warns, errs = [], []
+    docs = reg.get("docs", [])
+    paths = {d["path"] for d in docs}
+    for d in docs:
+        if d.get("status") not in DOC_STATUS_OK:
+            errs.append(f"doc {d['path']}: status '{d.get('status')}' ไม่อยู่ในรายการ")
+        if not (ROOT / d["path"]).exists():
+            errs.append(f"doc {d['path']}: ไม่พบไฟล์")
+        if d.get("status") == "superseded" and d.get("superseded_by") not in paths:
+            errs.append(f"doc {d['path']}: superseded ต้องมี superseded_by ที่ลงทะเบียน")
+    miss = [p for p in doc_files() if p not in paths and p != "docs/DOCS_INDEX.md"]
+    if miss:
+        warns.append(f"เอกสารที่ยังไม่ลงทะเบียนใน registry.json: {miss}")
+    sup = {d["path"] for d in docs if d.get("status") == "superseded"}
+    for d in docs:
+        if not (ROOT / d["path"]).exists() or d.get("status") in ("superseded", "historical", "log", "plan"):
+            continue
+        txt = (ROOT / d["path"]).read_text(encoding="utf-8", errors="ignore")
+        for s in sup:
+            name = Path(s).name
+            occ = [m.start() for m in re.finditer(re.escape(name), txt)]
+            if d["path"] != "docs/DOCS_INDEX.md" and any("ถูกแทนที่" not in txt[max(0, i - 160): i + 200] for i in occ):
+                warns.append(f"doc {d['path']} (current) ยังอ้าง {Path(s).name} ซึ่งถูกแทนที่แล้ว โดยไม่บอกว่าถูกแทนที่")
+        if d["status"] in ("current", "generated"):
+            br = broken_refs(d["path"])
+            if br:
+                warns.append(f"doc {d['path']} อ้างไฟล์ที่ไม่มีแล้ว {len(br)} รายการ (เช่น {', '.join(br[:3])})")
+    nr = [d["path"] for d in docs if d["status"] == "needs-review"]
+    if nr:
+        warns.append(f"เอกสารสถานะ needs-review {len(nr)} ฉบับ: {', '.join(Path(p).name for p in nr)}")
+    cat = (ROOT / "catalog.py").read_text(encoding="utf-8")
+    nocat = [d["path"] for d in docs if d["path"] not in cat and Path(d["path"]).name not in cat]
+    if nocat:
+        warns.append(f"เอกสารที่ไม่อยู่ใน catalog.py: {nocat}")
+    return warns, errs
+
+
+def render_docs_index(reg: dict) -> str:
+    L = ["# ดัชนีเอกสาร (สร้างอัตโนมัติจาก `tools/registry.json`)", "",
+         "> อย่าแก้ด้วยมือ — แก้ส่วน `docs` ใน `tools/registry.json` แล้วรัน `python tools/doctor.py --write-docs` · สถานะ: `current` ใช้อ้างได้ · `generated` สร้างจากเครื่องมือ · `log` สมุดบันทึกตามเวลา (ไม่ใช่สถานะปัจจุบัน) · `plan` ความตั้งใจเดิม ไม่ตามแก้ · `historical` บันทึกเก่าเก็บเป็นประวัติ · `superseded` มีฉบับใหม่แทน · `needs-review` สงสัยว่าล้าสมัย รอคนตัดสิน", "",
+         "| เอกสาร | สถานะ | ชนิด | หัวเรื่อง | หมายเหตุ |", "|---|---|---|---|---|"]
+    order = {"needs-review": 0, "current": 1, "generated": 2, "log": 3, "plan": 4, "historical": 5, "superseded": 6}
+    for d in sorted(reg.get("docs", []), key=lambda x: (order.get(x["status"], 9), x["path"])):
+        st = d["status"] + (f" → `{d['superseded_by']}`" if d.get("superseded_by") else "")
+        L.append(f"| `{d['path']}` | {st} | {d['kind']} | {d['title'].replace('|', '/')} | {d.get('note', '').replace('|', '/')} |")
+    L += ["", f"รวม {len(reg.get('docs', []))} เอกสาร", ""]
+    return "\n".join(L)
+
+
 def unregistered(reg: dict) -> list[str]:
     known = {t["path"] for t in reg["tools"]}
     out = []
@@ -275,6 +355,14 @@ def main() -> int:
         if cur != section:
             warns.append("docs/ENVIRONMENT.md ส่วนเครื่องมือไม่ตรงกับทะเบียน — รัน `python tools/doctor.py --write-docs`")
 
+    if a.write_docs:
+        DOCS_INDEX.write_text(render_docs_index(reg), encoding="utf-8", newline="")
+    wd, ed = check_docs(reg)
+    warns += wd
+    errs += ed
+    idx = render_docs_index(reg)
+    if not a.write_docs and (not DOCS_INDEX.exists() or DOCS_INDEX.read_text(encoding="utf-8") != idx):
+        warns.append("docs/DOCS_INDEX.md ไม่ตรงกับทะเบียน — รัน `python tools/doctor.py --write-docs`")
     warns += check_headers(reg)
     un = unregistered(reg)
     if un:

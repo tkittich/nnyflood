@@ -33,3 +33,17 @@ def test_superseded_env_is_not_used_by_active_tool_without_warning():
 
 def test_verify_all_runs_doctor_step():
     assert "tools/doctor.py" in (ROOT / "tools/verify_all.py").read_text(encoding="utf-8")
+
+
+def test_docs_registry_valid_and_index_in_sync():
+    reg = doctor.load_registry()
+    _, errs = doctor.check_docs(reg)
+    assert errs == [], errs
+    assert doctor.DOCS_INDEX.read_text(encoding="utf-8") == doctor.render_docs_index(reg), "รัน python tools/doctor.py --write-docs"
+
+
+def test_every_markdown_doc_is_registered():
+    reg = doctor.load_registry()
+    paths = {d["path"] for d in reg["docs"]}
+    missing = [p for p in doctor.doc_files() if p not in paths]
+    assert missing == [], f"เอกสารยังไม่ลงทะเบียนใน tools/registry.json: {missing}"

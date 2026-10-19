@@ -2,6 +2,7 @@
  "main": {
   "available": true,
   "packages": {
+   "PyMuPDF": "1.28.0",
    "matplotlib": "3.11.2",
    "numpy": "2.5.1",
    "pytest": "9.1.1",

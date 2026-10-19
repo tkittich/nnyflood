@@ -111,6 +111,8 @@ PILLARS = {
             "analysis/compound_flood_risk.py",
             "analysis/goal6_tide_gain_regression.py",
             "tools/number_inventory.py",
+            "tools/doctor.py",
+            "tools/registry.json",
         ],
         "data_dirs": [
             "data/12_gistda_flood",

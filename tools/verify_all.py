@@ -78,7 +78,7 @@ def main():
     print("  nnyflood — เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร")
     print("=" * 72)
 
-    total_steps = 3 if args.quick else 4
+    total_steps = 4 if args.quick else 5
     success = True
 
     # ขั้นตอนที่ 1: ตรวจสารบัญ catalog.py
@@ -100,9 +100,19 @@ def main():
     if not step2:
         success = False
 
-    # ขั้นตอนที่ 3: ตรวจสอบมาตรฐานเอกสาร ภาษาไทย และความสอดคล้องของข้อมูล
-    step3 = run_step(
+    # ขั้นตอนที่ 3: ทะเบียนเครื่องมือ/สภาพแวดล้อม (รหัส 2 = คำเตือน เช่น สคริปต์ยังไม่ลงทะเบียน — ไม่ทำให้ล้ม)
+    step_doc = run_step(
         3, total_steps,
+        "ตรวจทะเบียนเครื่องมือและสภาพแวดล้อม (tools/doctor.py)",
+        [sys.executable, "tools/doctor.py"],
+        allow_exit_codes=(0, 2)
+    )
+    if not step_doc:
+        success = False
+
+    # ขั้นตอนที่ 4: ตรวจสอบมาตรฐานเอกสาร ภาษาไทย และความสอดคล้องของข้อมูล
+    step3 = run_step(
+        4, total_steps,
         "ตรวจสอบมาตรฐานเอกสาร ภาษาไทย และสัญญาความสอดคล้องของข้อมูล (pytest lint & consistency)",
         [sys.executable, "-m", "pytest", "tests/test_standards_integrity.py", "tests/test_thai_language_lint.py", "tests/test_data_consistency.py", "-q"]
     )
@@ -112,7 +122,7 @@ def main():
     # ขั้นตอนที่ 4: ตรวจสอบชุดทดสอบทั้งหมด
     if not args.quick:
         step4 = run_step(
-            4, total_steps,
+            5, total_steps,
             "รันชุดทดสอบระบบทั้งหมด (pytest tests/)",
             [sys.executable, "-m", "pytest", "tests/", "-q"]
         )

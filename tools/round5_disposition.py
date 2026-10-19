@@ -34,6 +34,7 @@ ROOT = Path(__file__).resolve().parent.parent
 # ถ้าวางใน analysis/ จะขัดกับกติกาตั้งชื่อไฟล์ที่บังคับใช้กับสคริปต์วิเคราะห์
 OUT = ROOT / "docs" / "reviews" / "DISPOSITION_ROUND5_OTHERS.md"
 VERIFIED = ROOT / "analysis" / "goal7" / "round5_verified.json"
+ARCHIVE_R5 = ROOT / "archive" / "reviews" / "round5_2026-10-18"
 
 SOURCES = {
     "claude": {"file": "REVIEW.Claude-Sonnet-5.5.md", "label": "Claude Sonnet 5.5", "expect": 20},
@@ -104,7 +105,10 @@ def main() -> None:
     all_findings: dict[str, dict[str, str]] = {}
     expected_total = 0
     for src, meta in SOURCES.items():
-        text = (ROOT / meta["file"]).read_text(encoding="utf-8")
+        src_path = ROOT / meta["file"]
+        if not src_path.exists():
+            src_path = ARCHIVE_R5 / meta["file"]
+        text = src_path.read_text(encoding="utf-8")
         found = extract_findings(src, text)
         if len(found) != meta["expect"]:
             raise SystemExit(

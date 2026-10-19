@@ -309,6 +309,8 @@ RUBY_HEAD = '''# encoding: utf-8
 # วิธีใช้: SketchUp > Window > Ruby Console แล้วพิมพ์  load "<พาธไฟล์นี้>"  (หรือ Extensions > Developer > Ruby Console)
 # หน่วยในไฟล์เป็นเมตร (ใช้ .m แปลงเป็นหน่วยภายในของ SketchUp) · แบ่งเป็นกลุ่มละ ~10 กม. ตามกม. · ยังไม่ได้ทดสอบกับ SketchUp รุ่นจริง
 # VERT_EXAG = ตัวคูณความสูง (1 = มาตราส่วนจริง · ลองใช้ 10–30 เพื่อดูภาพรวมทั้งเส้น) — ใช้กับ z ทุกจุด
+# โหลดซ้ำในเซสชันเดิมได้โดยไม่มีคำเตือน (ลบค่าคงที่เก่าก่อน) และจะลบกลุ่มโมเดลเดิมแล้วสร้างใหม่ ไม่ซ้อนทับ
+[:VERT_EXAG, :MATERIALS, :TILES, :LABELS].each { |c| Object.send(:remove_const, c) if Object.const_defined?(c) }
 VERT_EXAG = 1.0
 MATERIALS = %s
 TILES = %s
@@ -324,6 +326,7 @@ end
 
 model = Sketchup.active_model
 model.start_operation("คลองเจ้าพระยา 2", true)
+model.entities.grep(Sketchup::Group).select { |g| g.name == "คลองเจ้าพระยา2 กม.0-135.9" }.each(&:erase!)
 root = model.entities.add_group
 root.name = "คลองเจ้าพระยา2 กม.0-135.9"
 TILES.sort_by { |k, _| k.to_i }.each do |tile, data|

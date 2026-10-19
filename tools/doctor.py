@@ -228,10 +228,12 @@ def check_docs(reg: dict) -> tuple[list[str], list[str]]:
     nr = [d["path"] for d in docs if d["status"] == "needs-review"]
     if nr:
         warns.append(f"เอกสารสถานะ needs-review {len(nr)} ฉบับ: {', '.join(Path(p).name for p in nr)}")
-    cat = (ROOT / "catalog.py").read_text(encoding="utf-8")
-    nocat = [d["path"] for d in docs if d["path"] not in cat and Path(d["path"]).name not in cat]
+    sys.path.insert(0, str(ROOT))
+    import catalog  # noqa: PLC0415  (สารบัญอ่านเอกสารแกนจากทะเบียนนี้ — ตรวจว่าเอกสารที่ลงทะเบียนอยู่ในสารบัญจริง)
+    reg_paths = catalog.registered_paths()
+    nocat = [d["path"] for d in docs if d["path"] not in reg_paths]
     if nocat:
-        warns.append(f"เอกสารที่ไม่อยู่ใน catalog.py: {nocat}")
+        warns.append(f"เอกสารในทะเบียนที่ไม่อยู่ในสารบัญ (ตั้ง core=true + desc ใน registry.json หรือใส่ในแผนผังเสา): {nocat}")
     return warns, errs
 
 

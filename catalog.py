@@ -171,33 +171,25 @@ PILLARS = {
     },
 }
 
-CORE_GOVERNANCE = [
-    ("AGENTS.md", "กติกาบังคับสำหรับ AI session (หลักฐาน, กฎหมาย, ตัวเลข, ภาษา, และ git)"),
-    ("START_HERE.md", "จุดเริ่มอ่าน: โปรเจกต์คืออะไร วิธีรันตัวเลข และคำสั่งตรวจสุขภาพระบบ"),
-    ("README.md", "ภาพรวมโปรเจกต์สำหรับผู้เปิด repo ครั้งแรก"),
-    ("HANDOFF.md", "สถานะส่งมอบ: งานที่เสร็จ งานค้าง และกับดักที่เจอแล้ว — อ่านก่อนลงมือ"),
-    ("THIRD_PARTY_NOTICES.md", "ประกาศข้อมูลบุคคลที่สามที่ใช้/อ้างอิงในโปรเจกต์"),
-    ("docs/REPORT_CONVENTIONS.md", "ข้อตกลงการทำรายงาน: เอ็นจิน key+โทเคน, ธีม WCAG, สรีรศาสตร์สายตา, และป้ายหน้ารวม"),
-    ("docs/READER_CHANGELOG.md", "บันทึกการปรับปรุงเนื้อหารายงานสำหรับผู้อ่าน (ประวัติการอัปเดตและข้อค้นพบใหม่)"),
-    ("docs/PROJECT_MAP.md", "แผนที่นำทางและแคตตาล็อกระบบฉบับเต็ม (Topic Discovery Matrix)"),
-    ("docs/LEGAL_REVIEW.md", "แนวปฏิบัติทางกฎหมาย: การหมิ่นประมาท (เน้นระบบ ไม่เน้นตัวบุคคล) และ PDPA"),
-    ("docs/DATA_SOURCES.md", "บัญชีแหล่งข้อมูล วิธีเชื่อมต่อ API Thaiwater, CDSE, Copernicus DEM"),
-    ("docs/DATA_CONSISTENCY_WORKFLOW.md", "ข้อกำหนดการจัดการความสอดคล้องของข้อมูลและการระงับข้อขัดแย้งหลายแหล่ง (Truth Discovery, Inward Contracts, Retired Ledger)"),
-    ("docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md", "แผนงานและผลลัพธ์แบบจำลองขั้นสูง (1D Routing, CP2 Bypass, Coastal ML)"),
-    ("docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md", "แผนงานบูรณาการรายงาน 1-2 แผนที่โต้ตอบ เมทริกซ์ความเสี่ยง และ CI"),
-    ("docs/REVIEW_PROMPT_EN.md", "กรอบการตรวจสอบและชุดคำสั่งหลักสำหรับ AI ผู้ตรวจสอบอิสระ (Comprehensive English Red-Team Audit Prompt ครบ 3 เสาหลัก 8 รายงาน)"),
-    ("docs/REVIEW_PROMPT_COMPREHENSIVE.md", "ชุดคำสั่งรีวิวฉบับเดิม — ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md"),
-    ("docs/REVIEW_PROMPT.md", "ชุดคำสั่งรีวิวฉบับเก่า (เป้าหมาย 7) — ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md"),
-    ("docs/DOCS_INDEX.md", "ดัชนีเอกสารทั้งหมดพร้อมสถานะ (current/plan/log/superseded/needs-review) — สร้างอัตโนมัติจาก tools/registry.json"),
-    ("docs/ENVIRONMENT.md", "บันทึกสภาพแวดล้อมที่ใช้รันจริง (เวอร์ชัน Python/แพ็กเกจ) สำหรับทำซ้ำตัวเลข"),
-    ("docs/MAJOR_UPDATES_REPORT1_4_PLAN.md", "แผนยกระดับรายงาน 1–4 ให้ผูกกับฐานข้อมูลชุดใหม่"),
-    ("docs/OFFLINE_DATA_BACKLOG.md", "รายการข้อมูลที่ยังไม่มีออนไลน์และต้องรอดำเนินการ"),
+def _registry_core_docs() -> list[tuple[str, str]]:
+    """เอกสารแกนจากทะเบียน tools/registry.json (แหล่งความจริงเดียว — รอบ 6) · ฟิลด์ core=true + desc"""
+    try:
+        reg = json.loads((ROOT / "tools" / "registry.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    return [(d["path"], d.get("desc") or d.get("title", "")) for d in reg.get("docs", []) if d.get("core")]
+
+
+# รายการที่ไม่ใช่เอกสารในทะเบียน (เครื่องมือ/เทสต์/บันทึกรีวิวใน docs/reviews/) — เอกสารแกนอื่นมาจาก registry.json
+CORE_EXTRA = [
     ("tools/verify_all.py", "เครื่องมือตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร (catalog, SHA-256, pytest)"),
     ("tests/test_thai_language_lint.py", "ระบบทดสอบและตรวจจับภาษาไทยอัตโนมัติ (Typo Registry, คำชน, คำทับศัพท์)"),
     ("docs/reviews/AUDIT_REDTEAM_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 1 (Peer Review ฉบับเต็ม 3 เสาหลัก)"),
     ("docs/reviews/AUDIT_ROUND2_2026-10-17.md", "รายงานผลการตรวจสอบอิสระโดย Red-Team รอบที่ 2 (Delta Review & New Findings)"),
     ("docs/reviews/TRIAGE_ROUND5_2026-10-18.md", "การกลั่นกรองผลรีวิวอิสระรอบที่ 5 และแผนปฏิบัติการปรับปรุงระบบ"),
 ]
+
+CORE_GOVERNANCE = _registry_core_docs() + CORE_EXTRA
 
 
 def print_banner():

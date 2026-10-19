@@ -45,6 +45,8 @@ BANNED_DEFAMATION_TERMS = [
 THAI_CITIZEN_ID = re.compile(r"(?<![\d])\b[1-8]\d{12}\b(?![\d])")
 THAI_CITIZEN_ID_HYPHEN = re.compile(r"\b[1-8]-\d{4}-\d{5}-\d{2}-\d\b")
 LAND_TITLE_DEED = re.compile(r"โฉนดที่ดินเลขที่\s*\d+")
+# รอบ 6 (D2): โทรศัพท์บ้าน/สำนักงาน (02–07) และรูปแบบ +66 — ตรวจแล้วไม่พบในไฟล์ที่ติดตามทั้งหมด จึงบังคับต่อไป
+LANDLINE_OR_INTL_PHONE = re.compile(r"(?<![\d.\-a-fA-F:/])(?:0[2-7]\d?[- ]\d{3}[- ]\d{4}|\+66[- ]?\d{1,2}[- ]?\d{3}[- ]?\d{4})(?![\d.])")
 PHONE_NUMBER = re.compile(r"(?<![\d.\-a-fA-F])0[689]\d[- ]?\d{3}[- ]?\d{4}(?![\d.])")
 
 ALLOW_LEGAL_DOCS = {
@@ -143,6 +145,11 @@ def test_enhanced_pdpa_no_citizen_identities():
         if PHONE_NUMBER.search(text):
             violations.append(f"{rel_path}: พบเบอร์โทรศัพท์ส่วนบุคคล")
 
+        if LANDLINE_OR_INTL_PHONE.search(text):
+            violations.append(f"{rel_path}: พบเบอร์โทรศัพท์บ้าน/ต่างประเทศ")
+        # เลขบัตรแบบมีขีดตรวจทุกไฟล์ข้อความรวม data/ (json/csv) — ไม่ต้องคำนวณเลขตรวจเพราะรูปแบบเฉพาะมาก
+        if fpath.suffix.lower() in {".json", ".csv"} and THAI_CITIZEN_ID_HYPHEN.search(text):
+            violations.append(f"{rel_path}: พบเลขบัตรประชาชน 13 หลัก (รูปแบบมีขีด) ในไฟล์ข้อมูล")
         # ตรวจสอบเลขบัตรประชาชน 13 หลัก (ทั้งแบบมีขีดและไม่มีขีด)
         if not rel_path.startswith("data/") and fpath.suffix.lower() in {".md", ".html", ".py", ".txt"}:
             if THAI_CITIZEN_ID_HYPHEN.search(text):

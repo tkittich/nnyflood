@@ -1,12 +1,12 @@
 {
  "verified_on": "2026-10-19",
- "constants_sha256": "94d14bf68f31d6a44a7fad5c2e84bf04352ea5b0f67533eb3121779cffee7827",
+ "constants_sha256": "38a68af8f052eee425b4e5638e05cf1c2a537a6c34690c20a1b7c9ed3de67951",
  "summary": {
   "verified_text": 14,
   "verified_image": 10,
   "failed": 1,
-  "conflict": 1,
-  "assumption": 3
+  "assumption": 3,
+  "unverified": 1
  },
  "results": {
   "eia_bed_width_m": {
@@ -334,13 +334,6 @@
    "conflicts_with": []
   },
   "opex_annual_mb": {
-   "status": "conflict",
-   "checks": [],
-   "conflicts_with": [
-    "eia_opex_annual_mb_main2"
-   ]
-  },
-  "eia_opex_annual_mb_main2": {
    "status": "verified_text",
    "checks": [
     {
@@ -422,6 +415,11 @@
   },
   "dead_storage_depth_m": {
    "status": "assumption",
+   "checks": [],
+   "conflicts_with": []
+  },
+  "clarify2_opex_annual_mb": {
+   "status": "unverified",
    "checks": [],
    "conflicts_with": []
   }

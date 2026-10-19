@@ -11,7 +11,7 @@ import goal7_source_constants as sc  # noqa: E402
 
 VER = ROOT / "analysis/goal7/source_constants_verification.json"
 ALLOWED_FAILED = {"s26_flood_season_max_mcm"}   # ไม่พบ 5,830 ในหน้าที่ระบุ — บันทึกเป็นยังไม่ยืนยัน ไม่ถูกใช้ในรายงาน
-ALLOWED_CONFLICT = {"opex_annual_mb"}           # 519 (ฉบับชี้แจง 2) ขัดกับ 264.80 (เล่ม 2 หน้า 159) — รอคนตัดสิน
+ALLOWED_CONFLICT: set[str] = set()              # ตัดสินแล้ว 19 ต.ค. 69: opex = 264.80 (ตรวจแล้ว); 519 ตรวจไม่ได้ เก็บเป็น clarify2_opex_annual_mb
 
 
 def test_every_constant_has_source_method_and_verification_plan():
@@ -33,6 +33,7 @@ def test_verification_file_is_current_and_clean():
     assert failed <= ALLOWED_FAILED, f"ตรวจไม่ผ่าน: {sorted(failed - ALLOWED_FAILED)}"
     conflict = {k for k, v in res.items() if v["status"] == "conflict"}
     assert conflict == ALLOWED_CONFLICT, conflict
+    assert res["clarify2_opex_annual_mb"]["status"] == "unverified"
 
 
 def test_cross_section_identities_hold():
@@ -44,7 +45,7 @@ def test_cross_section_identities_hold():
 
 def test_scripts_do_not_reintroduce_literals_for_registered_constants():
     ops = (ROOT / "analysis/goal7_operational_economics.py").read_text(encoding="utf-8")
-    for lit in ("519.0", "160046.0", "1970.0", "= 0.07", "135_900.0"):
+    for lit in ("519.0", "264.8", "160046.0", "1970.0", "= 0.07", "135_900.0"):
         assert lit not in ops, f"goal7_operational_economics.py: พิมพ์ {lit} ตรง — ใช้ K('<id>')"
     ga = (ROOT / "analysis/goal7_analysis.py").read_text(encoding="utf-8")
     assert "EIA_SECTION = {" in ga and '_K("eia_area_m2")' in ga

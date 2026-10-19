@@ -21,7 +21,7 @@
   },
   "lifecycle_economics": {
     "capex_mb": 160046.0,
-    "opex_annual_mb": 519.0,
+    "opex_annual_mb": 264.8,
     "lifespan_years": 30,
     "annual_diverted_mcm": 1970.0,
     "discount_scenarios": [
@@ -29,28 +29,28 @@
         "discount_rate_pct": 7.0,
         "crf": 0.080586,
         "annualized_capital_mb": 12897.5,
-        "total_annual_cost_mb": 13416.5,
-        "cost_per_m3_diverted_baht": 6.81
+        "total_annual_cost_mb": 13162.3,
+        "cost_per_m3_diverted_baht": 6.68
       },
       {
         "discount_rate_pct": 9.0,
         "crf": 0.097336,
         "annualized_capital_mb": 15578.3,
-        "total_annual_cost_mb": 16097.3,
-        "cost_per_m3_diverted_baht": 8.17
+        "total_annual_cost_mb": 15843.1,
+        "cost_per_m3_diverted_baht": 8.04
       },
       {
         "discount_rate_pct": 12.0,
         "crf": 0.124144,
         "annualized_capital_mb": 19868.7,
-        "total_annual_cost_mb": 20387.7,
-        "cost_per_m3_diverted_baht": 10.35
+        "total_annual_cost_mb": 20133.5,
+        "cost_per_m3_diverted_baht": 10.22
       }
     ],
     "alternatives_benchmark": [
       {
         "measure": "คลองระบายน้ำหลากเจ้าพระยา 2",
-        "cost_per_m3_baht": "6.81 บาท/ลบ.ม.",
+        "cost_per_m3_baht": "6.68 บาท/ลบ.ม.",
         "type": "คลองขุดใหม่ผันน้ำออกทะเล (135.7 กม.)",
         "risk_profile": "เวนคืนสูงมาก ข้าม 4 จังหวัด ติดรอยเลื่อนและดินเปรี้ยว"
       },

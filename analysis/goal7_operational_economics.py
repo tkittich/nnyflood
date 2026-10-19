@@ -65,7 +65,7 @@ def build_operational_economics_data() -> dict:
 
     # 2. เศรษฐศาสตร์วงจรชีวิตและต้นทุนต่อหน่วยน้ำผัน
     capex_mb = K("capex_mb")  # งบลงทุนตาม EIA 2569 (ค่าในแหล่ง 160,046.879 — ตัดเป็น 160,046 ตลอดชุด)
-    opex_annual_mb = K("opex_annual_mb")  # 519 (ฉบับชี้แจง 2 — ตรวจไม่ได้ · ขัดกับ 264.80 ในเล่ม 2 หน้า 159: ดู source_constants.json)
+    opex_annual_mb = K("opex_annual_mb")  # EIA เล่ม 2 หน้า 159 (ตรวจแล้ว) · ค่าเดิมจากฉบับชี้แจง 2 ตรวจไม่ได้ ไม่ใช้
     lifespan_years = K("project_lifespan_years")
     diverted_volume_mcm = K("annual_diverted_mcm")  # สมมติ — ไม่มีที่มา (R6-01/R7-02)
 

@@ -80,17 +80,30 @@ def rmse_cm(y: np.ndarray, p: np.ndarray) -> float:
 
 
 def bootstrap_ci_pct(y: np.ndarray, p_base: np.ndarray, p_new: np.ndarray,
-                     n_boot: int = 2000, seed: int = 7) -> list[float]:
-    """ช่วงความเชื่อมั่น 95% (percentile bootstrap) ของส่วนต่าง RMSE เป็น % ของฐานเทียบ"""
+                     n_boot: int = 2000, seed: int = 7, block: int = 24) -> list[float]:
+    """ช่วงความเชื่อมั่น 95% (percentile, moving-block bootstrap บล็อก 24 ชม.) ของส่วนต่าง RMSE เป็น % ของฐานเทียบ
+
+    รีวิวรอบ 6 (B7): ข้อมูลรายชั่วโมงสัมพันธ์กันสูง (ค่าสัมพันธ์ข้ามเวลาอันดับ 1 ของส่วนตกค้าง 0.55–0.94)
+    การสุ่มทีละแถวทำให้ช่วงแคบเกินจริง — สุ่มเป็นบล็อกต่อเนื่องแทน
+    """
     rng = np.random.default_rng(seed)
     n = len(y)
+    block = max(1, min(block, n))
+    n_blocks = int(math.ceil(n / block))
     d = np.empty(n_boot)
     for b in range(n_boot):
-        idx = rng.integers(0, n, n)
+        starts = rng.integers(0, n - block + 1, n_blocks)
+        idx = np.concatenate([np.arange(s, s + block) for s in starts])[:n]
         rb = math.sqrt(np.mean((y[idx] - p_base[idx]) ** 2))
         rn = math.sqrt(np.mean((y[idx] - p_new[idx]) ** 2))
         d[b] = (rb - rn) / rb * 100.0
     return [round(float(np.percentile(d, 2.5)), 1), round(float(np.percentile(d, 97.5)), 1)]
+
+
+def effective_n(resid: np.ndarray) -> float:
+    """จำนวนตัวอย่างประสิทธิผลจากสหสัมพันธ์อันดับ 1: n(1−ρ)/(1+ρ)"""
+    rho = float(np.corrcoef(resid[:-1], resid[1:])[0, 1])
+    return len(resid) * (1.0 - rho) / (1.0 + rho)
 
 
 def main() -> None:
@@ -295,6 +308,8 @@ def main() -> None:
             "gbdt_base_rmse_cm": round(rmse_gb_base, 1),
             "gbdt_coastal_rmse_cm": round(rmse_gb_coastal, 1),
             "gbdt_improvement_pct": imp_gb_pct,
+            "residual_lag1_autocorr": round(float(np.corrcoef((y_test - pred_lr_coastal)[:-1], (y_test - pred_lr_coastal)[1:])[0, 1]), 2),
+            "n_effective": round(effective_n(y_test - pred_lr_coastal), 1),
             "n_train": int(np.sum(train_mask)),
             "n_test": int(np.sum(test_mask)),
         }
@@ -342,6 +357,7 @@ def main() -> None:
             "feature_rank_check": {"n_features": int(Xc.shape[1]), "rank": rank_full, "note": rank_note},
             "imputation_counters": {
                 **imp,
+                "share_pct": {k: round(100.0 * v / max(len(rows), 1), 1) for k, v in imp.items()},
                 "n_samples_all": len(rows),
                 "note": (
                     "จำนวนตัวอย่างที่ต้องเติมค่าแทนจุดข้อมูลขาด: lag ระดับน้ำ (แทนด้วย h0), lag ต้นน้ำ (แทน u0), "
@@ -358,7 +374,7 @@ def main() -> None:
                 "h0 + (tide(t+lead) − tide(t)) — ตัวหลังเป็นฐานที่เป็นธรรมกับโมเดลผสานทะเล (BP F-04 · GLM F-08)"
             ),
             "statistical_power_note": (
-                "ช่วงความเชื่อมั่น 95% จาก bootstrap บนชุดทดสอบเดียว (2,000 ครั้ง, seed คงที่) — "
+                "ช่วงความเชื่อมั่น 95% จาก moving-block bootstrap บล็อก 24 ชม. บนชุดทดสอบเดียว (2,000 ครั้ง, seed คงที่) เพราะข้อมูลรายชั่วโมงสัมพันธ์กัน — "
                 "ส่วนต่างที่ช่วงคร่อมศูนย์ = 'ยังสรุปทิศทางไม่ได้' ห้ามนำไปเทียบเชิงกำลังกับส่วนต่างช่วงแคบ "
                 "โดยเฉพาะ +24/+48 ชม. (GLM F-08)"
             ),

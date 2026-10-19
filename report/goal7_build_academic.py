@@ -42,10 +42,10 @@ _ivs = _fw["nn"]["km_intervals"]
 SIP_IN_FW = [s for s in C["structures"]["nakhonnayok"]["siphons"] if any(a <= s["km"] <= b for a, b in _ivs)]
 PART = C["participation"]
 _RP = C.get("reconciled_parameters", {})
-_CAPEX_MB = _RP.get("project_budget", {}).get("canonical_eia_capex_mb", 160046)
-_LAND_RAI = _RP.get("land_acquisition", {}).get("canonical_new_reach_rai", 16288)
+_CAPEX_MB = _RP.get("project_budget", {})["canonical_eia_capex_mb"]
+_LAND_RAI = _RP.get("land_acquisition", {})["canonical_new_reach_rai"]
 _BED_W = _RP.get("canal_bed_width", {}).get("canonical_value_m", 54.5)
-_OPEX_MB = int(C.get("operational_economics", {}).get("lifecycle_economics", {}).get("opex_annual_mb", 519))
+_OPEX_MB = int(C.get("operational_economics", {}).get("lifecycle_economics", {})["opex_annual_mb"])
 _S26 = C.get("operational_economics", {}).get("s26_operational_profile", {})
 _LC = C.get("operational_economics", {}).get("lifecycle_economics", {})
 import json as _json
@@ -283,19 +283,19 @@ S.append(OL.h3("operational_economics", "การวิเคราะห์ห
 S.append(prose(
     "<b>สถิติน้ำท่าท้ายเขื่อนพระรามหก และหน้าต่างการใช้งานจริงของคลอง:</b><br>"
     "จากการวิเคราะห์ข้อมูลน้ำท่ารายเดือนและรายปีของสถานี S.26 ท้ายเขื่อนพระรามหก (แม่น้ำป่าสัก) ตลอด 39 ปี (พ.ศ. 2528–2566) "
-    "พบว่าปริมาณน้ำท่ารายปีมีค่าเฉลี่ย 2,720 ล้าน ลบ.ม. (สิงหาคม–พฤศจิกายน เฉลี่ย 1,988 ล้าน ลบ.ม.) "
-    "เมื่อเทียบกับอัตราการระบายสูงสุดของคลองเจ้าพระยา 2 (600 ลบ.ม./วินาที หรือ 51.84 ล้าน ลบ.ม./วัน) "
-    "จะพบว่าในปีน้ำแล้ง (453 ล้าน ลบ.ม.) คลองเปิดผันน้ำเต็มกำลังได้เทียบเท่าเพียง 8.7 วัน ในปีน้ำเฉลี่ยผันได้เทียบเท่า 38.3 วัน "
-    "และในปีมหาอุทกภัย 2554 (6,741 ล้าน ลบ.ม.) ผันได้ประมาณ 60–80 วัน "
-    "สรุปได้ว่าปริมาตรน้ำที่คลองจะรับเฉลี่ย เทียบเท่าการเดินเต็มกำลังเพียงประมาณร้อยละ 10.5 ของทั้งปี (เป็นการแปลงปริมาตรเป็นวันเต็มกำลังเพื่อเปรียบเทียบ ไม่ใช่จำนวนวันที่คลองว่าง)"
+    f"พบว่าปริมาณน้ำท่ารายปีมีค่าเฉลี่ย {_S26['annual_mean_mcm']:,.0f} ล้าน ลบ.ม. (สิงหาคม–พฤศจิกายน เฉลี่ย {_S26['flood_season_mean_mcm']:,.0f} ล้าน ลบ.ม.) "
+    f"เมื่อเทียบกับอัตราการระบายสูงสุดของคลองเจ้าพระยา 2 ({_S26['canal_capacity_cms']:.0f} ลบ.ม./วินาที หรือ {_S26['canal_capacity_mcm_per_day']} ล้าน ลบ.ม./วัน) "
+    f"จะพบว่าในปีน้ำแล้ง ({_S26['annual_min_mcm']:,.0f} ล้าน ลบ.ม.) คลองเปิดผันน้ำเต็มกำลังได้เทียบเท่าเพียง {_S26['days_dry_year']} วัน ในปีน้ำเฉลี่ยผันได้เทียบเท่า {_S26['days_average_year']} วัน "
+    f"และในปีมหาอุทกภัย 2554 ({_S26['annual_max_mcm']:,.0f} ล้าน ลบ.ม.) เทียบเท่าได้สูงสุดราว {_S26['days_extreme_flood_year']:.0f} วัน (ขอบบน: สมมติว่ารับน้ำท่าทั้งปีได้ทั้งหมด) "
+    f"สรุปได้ว่าปริมาตรน้ำที่คลองจะรับเฉลี่ย เทียบเท่าการเดินเต็มกำลังเพียงประมาณร้อยละ {_S26['annual_utilization_avg_pct']:.1f} ของทั้งปี (เป็นการแปลงปริมาตรเป็นวันเต็มกำลังเพื่อเปรียบเทียบ ไม่ใช่จำนวนวันที่คลองว่าง)"
 ))
 S.append(blk.tbl_s26_operational_economics())
 S.append(prose(
     "<b>เศรษฐศาสตร์วงจรชีวิตและต้นทุนต่อน้ำผันจริง:</b><br>"
     f"เมื่อนำวงเงินลงทุน {_CAPEX_MB:,} ล้านบาท และค่าบำรุงรักษา {_OPEX_MB:,} ล้านบาทต่อปี มาคำนวณภาระคืนทุนรายปีตลอดอายุโครงการ 30 ปี ที่อัตราคิดลดร้อยละ 7 "
-    f"พบว่ามีภาระเงินลงทุนรายปี {_LC.get('discount_scenarios', [{}])[0].get('annualized_capital_mb', 12897.5):,.0f} ล้านบาท/ปี รวมกับค่าบำรุงรักษาเป็น {_LC.get('discount_scenarios', [{}])[0].get('total_annual_cost_mb', 13416.5):,.0f} ล้านบาท/ปี "
-    f"เมื่อหารด้วยปริมาณน้ำผันเฉลี่ย {_LC.get('annual_diverted_mcm', 1970):,.0f} ล้าน ลบ.ม./ปี ต้นทุนต่อน้ำผันจริงจะอยู่ที่ <b>{_LC.get('discount_scenarios', [{}])[0].get('cost_per_m3_diverted_baht', 6.81):.2f} บาทต่อลูกบาศก์เมตร</b> "
-    f"(และสูงถึง {_LC.get('discount_scenarios', [{}, {}])[1].get('cost_per_m3_diverted_baht', 8.17):.2f} และ {_LC.get('discount_scenarios', [{}, {}, {}])[2].get('cost_per_m3_diverted_baht', 10.35):.2f} บาทต่อลูกบาศก์เมตร ที่อัตราคิดลดร้อยละ 9 และ 12 ตามลำดับ) "
+    f"พบว่ามีภาระเงินลงทุนรายปี {_LC.get('discount_scenarios', [{}])[0]['annualized_capital_mb']:,.0f} ล้านบาท/ปี รวมกับค่าบำรุงรักษาเป็น {_LC.get('discount_scenarios', [{}])[0]['total_annual_cost_mb']:,.0f} ล้านบาท/ปี "
+    f"เมื่อหารด้วยปริมาณน้ำผันเฉลี่ย {_LC['annual_diverted_mcm']:,.0f} ล้าน ลบ.ม./ปี ต้นทุนต่อน้ำผันจริงจะอยู่ที่ <b>{_LC.get('discount_scenarios', [{}])[0]['cost_per_m3_diverted_baht']:.2f} บาทต่อลูกบาศก์เมตร</b> "
+    f"(และสูงถึง {_LC.get('discount_scenarios', [{}, {}])[1]['cost_per_m3_diverted_baht']:.2f} และ {_LC.get('discount_scenarios', [{}, {}, {}])[2]['cost_per_m3_diverted_baht']:.2f} บาทต่อลูกบาศก์เมตร ที่อัตราคิดลดร้อยละ 9 และ 12 ตามลำดับ) "
     "ซึ่งสูงกว่ามาตรการทางเลือกอื่นอย่างมีนัยสำคัญ ได้แก่ การพัฒนาพื้นที่หน่วงน้ำและแก้มลิงชุมชน (0.50–1.20 บาท/ลบ.ม.) "
     "การปรับปรุงระบบระบายน้ำเดิมฝั่งตะวันออก 14 แผนงานย่อย (1.10–1.80 บาท/ลบ.ม.) และคันกั้นน้ำล้อมรอบพื้นที่เศรษฐกิจ (1.50–2.50 บาท/ลบ.ม.)"
 ))

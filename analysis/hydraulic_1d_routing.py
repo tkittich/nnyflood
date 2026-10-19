@@ -352,6 +352,7 @@ def main() -> None:
         "routing_performance": {
             "travel_time_hours_sim": round(travel_time_hours_sim, 2),
             "travel_time_stage_obs": round(travel_time_stage_obs, 2),
+            "travel_time_q_obs": round((idx_pk_q_ny7 - idx_pk_q_ny1b) * 0.25, 2),
             "q_h_peak_offset_ny1b_h": round(q_h_offset_ny1b_h, 2),
             "q_h_peak_offset_ny7_h": round(q_h_offset_ny7_h, 2),
             "travel_time_caveat": (

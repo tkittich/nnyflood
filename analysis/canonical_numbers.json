@@ -117,7 +117,18 @@
   "cf_ov_mcm": "11.89",
   "cf_ov_h": "65",
   "r1d_ny7_q": "617.4",
-  "r1d_travel_h": "3.25"
+  "r1d_travel_h": "3.25",
+  "r1d_travel_stage_h": "9.0",
+  "r1d_travel_q_obs_h": "24.25",
+  "r1d_ny7_bank_msl": "8.21",
+  "r1d_ny7_terrace_msl": "6.86",
+  "r1d_ny7_terrace_q": "486.9",
+  "r1d_ny7_q_high": "842.8",
+  "r1d_ny7_pk_q": "648.3",
+  "r1d_ny7_pk_msl": "7.68",
+  "r1d_rmse_h_cm": "106.0",
+  "r1d_bias_cm": "-80.1",
+  "r1d_resid_cm": "69.4"
  },
  "meta": {
   "generated_by": "analysis/build_canonical_numbers.py",
@@ -939,6 +950,7 @@
    "routing_performance": {
     "travel_time_hours_sim": 3.25,
     "travel_time_stage_obs": 9.0,
+    "travel_time_q_obs": 24.25,
     "q_h_peak_offset_ny1b_h": 6.5,
     "q_h_peak_offset_ny7_h": -8.75,
     "travel_time_caveat": "ใช้ยอด *ระดับน้ำ* เป็นหลักเท่านั้น · q_cms เป็นค่าที่สถานีรายงานเอง ไม่ได้คำนวณจาก level_msl_m ด้วยเส้นความสัมพันธ์เส้นเดียว — ยอด Q เหลื่อมจากยอด H ที่ Ny.1B +6.50 ชม. และที่ Ny.7 -8.75 ชม. จึงไม่มี 'เวลาเดินทางที่นับจากยอด Q' รายงานในไฟล์นี้ (ค่าที่เคยรายงานถูกถอนออกแล้ว) · travel_time_hours_sim เป็น Q→Q ของแบบจำลอง ส่วน travel_time_stage_obs เป็น H→H ของข้อมูลจริง สองค่านี้จึงเทียบกันตรง ๆ ไม่ได้",

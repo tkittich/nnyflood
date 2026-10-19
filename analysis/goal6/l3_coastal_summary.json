@@ -39,12 +39,21 @@
       "u12": 2,
       "tide1": 10,
       "rain_zero": 0,
+      "share_pct": {
+        "h1": 6.5,
+        "h3": 14.8,
+        "h6": 27.2,
+        "u6": 0.1,
+        "u12": 0.2,
+        "tide1": 0.8,
+        "rain_zero": 0.0
+      },
       "n_samples_all": 1317,
       "note": "จำนวนตัวอย่างที่ต้องเติมค่าแทนจุดข้อมูลขาด: lag ระดับน้ำ (แทนด้วย h0), lag ต้นน้ำ (แทน u0), น้ำขึ้น–น้ำลง lag 1 ชม. (แทน tide0), ฝนวันก่อนหน้า (แทน 0) — เปิดเผยก่อนตีความ (GLM F-07 · SB F-17)"
     },
     "rain_note": "R24 = ผลรวมฝนรายวัน NASA POWER จุดกรุงเทพกลาง ของ 'วันก่อนหน้า' (ไม่ใช่ 24 ชม.ย้อนหลัง) · ข้อมูลฝนต้นทางเป็นรายวัน จึงสร้างหน้าต่าง 24 ชม. ย้อนหลังจริงไม่ได้ — ระบุเป็นข้อจำกัด (SB F-17) · จุดเดียว ไม่ใช่ฝนเฉลี่ยพื้นที่ · วันที่ฝนขาดนับเป็น 0 ตามจำนวนใน imputation_counters",
     "persistence_note": "ฐานเทียบสองแบบ: ค่าเดิมคงที่ (ระดับน้ำไม่เปลี่ยน) และค่าเดิมคงที่แบบรู้ทะเล h0 + (tide(t+lead) − tide(t)) — ตัวหลังเป็นฐานที่เป็นธรรมกับโมเดลผสานทะเล (BP F-04 · GLM F-08)",
-    "statistical_power_note": "ช่วงความเชื่อมั่น 95% จาก bootstrap บนชุดทดสอบเดียว (2,000 ครั้ง, seed คงที่) — ส่วนต่างที่ช่วงคร่อมศูนย์ = 'ยังสรุปทิศทางไม่ได้' ห้ามนำไปเทียบเชิงกำลังกับส่วนต่างช่วงแคบ โดยเฉพาะ +24/+48 ชม. (GLM F-08)"
+    "statistical_power_note": "ช่วงความเชื่อมั่น 95% จาก moving-block bootstrap บล็อก 24 ชม. บนชุดทดสอบเดียว (2,000 ครั้ง, seed คงที่) เพราะข้อมูลรายชั่วโมงสัมพันธ์กัน — ส่วนต่างที่ช่วงคร่อมศูนย์ = 'ยังสรุปทิศทางไม่ได้' ห้ามนำไปเทียบเชิงกำลังกับส่วนต่างช่วงแคบ โดยเฉพาะ +24/+48 ชม. (GLM F-08)"
   },
   "horizons": {
     "6": {
@@ -56,17 +65,19 @@
       "linear_improvement_pct": 53.0,
       "linear_improvement_vs_persistence_pct": 41.2,
       "linear_improvement_vs_persistence_ci95_pct": [
-        34.2,
-        47.8
+        37.1,
+        49.0
       ],
       "linear_improvement_vs_tide_persistence_pct": 23.4,
       "linear_improvement_vs_tide_persistence_ci95_pct": [
-        13.3,
-        32.8
+        9.6,
+        38.2
       ],
       "gbdt_base_rmse_cm": 88.8,
       "gbdt_coastal_rmse_cm": 76.7,
       "gbdt_improvement_pct": 13.5,
+      "residual_lag1_autocorr": 0.55,
+      "n_effective": 65.0,
       "n_train": 1087,
       "n_test": 226
     },
@@ -79,17 +90,19 @@
       "linear_improvement_pct": 4.0,
       "linear_improvement_vs_persistence_pct": 7.4,
       "linear_improvement_vs_persistence_ci95_pct": [
-        1.5,
-        13.6
+        -1.8,
+        33.0
       ],
       "linear_improvement_vs_tide_persistence_pct": -41.3,
       "linear_improvement_vs_tide_persistence_ci95_pct": [
-        -66.5,
-        -19.5
+        -101.3,
+        31.6
       ],
       "gbdt_base_rmse_cm": 38.3,
       "gbdt_coastal_rmse_cm": 38.5,
       "gbdt_improvement_pct": -0.5,
+      "residual_lag1_autocorr": 0.93,
+      "n_effective": 7.8,
       "n_train": 1078,
       "n_test": 226
     },
@@ -102,17 +115,19 @@
       "linear_improvement_pct": 8.6,
       "linear_improvement_vs_persistence_pct": 13.0,
       "linear_improvement_vs_persistence_ci95_pct": [
-        7.0,
-        19.4
+        5.9,
+        30.9
       ],
       "linear_improvement_vs_tide_persistence_pct": -45.1,
       "linear_improvement_vs_tide_persistence_ci95_pct": [
-        -69.7,
-        -23.3
+        -118.9,
+        21.7
       ],
       "gbdt_base_rmse_cm": 48.2,
       "gbdt_coastal_rmse_cm": 52.4,
       "gbdt_improvement_pct": -8.7,
+      "residual_lag1_autocorr": 0.94,
+      "n_effective": 6.5,
       "n_train": 1066,
       "n_test": 226
     }

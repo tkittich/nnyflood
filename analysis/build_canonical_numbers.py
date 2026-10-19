@@ -266,6 +266,17 @@ render = {
     "cf_ov_h": f"{khundan_overflow_counterfactual['actual']['hours_above_bankfull']}",
     "r1d_ny7_q": f"{r1d['ny7_hydraulics']['bankfull_capacity_q_cms']:.1f}",
     "r1d_travel_h": f"{r1d['routing_performance']['travel_time_hours_sim']:.2f}",
+    "r1d_travel_stage_h": f"{r1d['routing_performance']['travel_time_stage_obs']:.1f}",
+    "r1d_travel_q_obs_h": f"{r1d['routing_performance']['travel_time_q_obs']:.2f}",
+    "r1d_ny7_bank_msl": f"{r1d['ny7_hydraulics']['bankfull_crest_msl_m']:.2f}",
+    "r1d_ny7_terrace_msl": f"{r1d['ny7_hydraulics']['terrace_onset_msl_m']:.2f}",
+    "r1d_ny7_terrace_q": f"{r1d['ny7_hydraulics']['terrace_onset_q_cms']:.1f}",
+    "r1d_ny7_q_high": f"{r1d['rating_sensitivity']['ny7']['bankfull_crest_8.213']['q_divided_cms']:.1f}",
+    "r1d_ny7_pk_q": f"{r1d['ny7_hydraulics']['peak_q_cms']:.1f}",
+    "r1d_ny7_pk_msl": f"{r1d['ny7_hydraulics']['peak_stage_msl_m']:.2f}",
+    "r1d_rmse_h_cm": f"{r1d['routing_performance']['rmse_stage_cm']:.1f}",
+    "r1d_bias_cm": f"{r1d['routing_performance']['stage_bias_cm']:.1f}",
+    "r1d_resid_cm": f"{r1d['routing_performance']['stage_residual_cm']:.1f}",
 }
 
 def assert_pillar1_inward_contracts(values: dict) -> None:

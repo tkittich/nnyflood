@@ -407,7 +407,7 @@ def tbl_s26_operational_economics() -> str:
     rows = [
         ["ปริมาณน้ำท่ารายปีต่ำสุด (ปีน้ำแล้ง)", f"{prof['annual_min_mcm']:,.0f} ล้าน ลบ.ม.", f"{prof['days_dry_year']} วัน", "เปิดผันน้ำได้น้อยมาก"],
         ["ปริมาณน้ำท่าเฉลี่ยช่วงน้ำหลาก (ส.ค.–พ.ย.)", f"{prof['flood_season_mean_mcm']:,.0f} ล้าน ลบ.ม.", f"{prof['days_average_year']} วัน", f"เฉลี่ยคิดเป็นร้อยละ {prof['annual_utilization_avg_pct']}% ของทั้งปี"],
-        ["ปริมาณน้ำท่ารายปีสูงสุด (มหาอุทกภัย 2554)", f"{prof['annual_max_mcm']:,.0f} ล้าน ลบ.ม.", f"{prof['days_extreme_flood_year']} วัน", "ผันน้ำต่อเนื่องเต็มอัตราออกแบบ"],
+        ["ปริมาณน้ำท่ารายปีสูงสุด (มหาอุทกภัย 2554)", f"{prof['annual_max_mcm']:,.0f} ล้าน ลบ.ม.", f"{prof['days_extreme_flood_year']} วัน", "ขอบบน: สมมติว่ารับน้ำท่าทั้งปีที่ S.26 ได้ทั้งหมด (ปริมาตรทั้งปีหารความจุต่อวัน ไม่ใช่จำนวนวันที่เดินจริง)"],
     ]
     cap = (
         f"สถิติน้ำท่าสถานี {prof['station_code']} ({prof['station_name']}) รอบ 39 ปี (พ.ศ. {prof['record_years']}) "

@@ -42,7 +42,7 @@ def build_operational_economics_data() -> dict:
     days_dry = round(s26_stats["annual_min_mcm"] / cap_day, 1)  # 8.7 วัน
     days_avg = round(s26_stats["flood_season_mean_mcm"] / cap_day, 1)  # 38.3 วัน (ฤดูน้ำหลาก ส.ค.–พ.ย.)
     days_annual_avg = round(s26_stats["annual_mean_mcm"] / cap_day, 1)  # 52.5 วัน (ทั้งปี)
-    days_flood = round(min(s26_stats["annual_max_mcm"] / cap_day, 80.0), 1)  # สูงสุด ~60–80 วัน
+    days_flood = round(s26_stats["annual_max_mcm"] / cap_day, 1)  # 130.0 วัน — ขอบบน (รอบ 6 B3: ถอดเพดาน 80 วันที่ไม่มีที่มา)
     utilization_avg_pct = round(days_avg / 365.0 * 100, 2)  # 10.49%
 
     s26_operational_profile = {

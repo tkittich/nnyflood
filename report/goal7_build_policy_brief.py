@@ -17,15 +17,15 @@ from goal7_common import C, fig_capacity, fig_map, fig_options, fig_overview  # 
 import goal7_blocks as blk  # noqa: E402
 
 _RP = C.get("reconciled_parameters", {})
-_CAPEX_MB = _RP.get("project_budget", {}).get("canonical_eia_capex_mb", 160046)
-_LAND_RAI = _RP.get("land_acquisition", {}).get("canonical_new_reach_rai", 16288)
-_OPEX_MB = int(C.get("operational_economics", {}).get("lifecycle_economics", {}).get("opex_annual_mb", 519))
-_ANNUAL_MCM = int(C.get("operational_economics", {}).get("lifecycle_economics", {}).get("annual_diverted_mcm", 1970))
+_CAPEX_MB = _RP.get("project_budget", {})["canonical_eia_capex_mb"]
+_LAND_RAI = _RP.get("land_acquisition", {})["canonical_new_reach_rai"]
+_OPEX_MB = int(C.get("operational_economics", {}).get("lifecycle_economics", {})["opex_annual_mb"])
+_ANNUAL_MCM = int(C.get("operational_economics", {}).get("lifecycle_economics", {})["annual_diverted_mcm"])
 _S26 = C.get("operational_economics", {}).get("s26_operational_profile", {})
 _LC = C.get("operational_economics", {}).get("lifecycle_economics", {})
 _SCEN0 = _LC.get("discount_scenarios", [{}])[0]
-_ANN_COST_MB = _SCEN0.get("total_annual_cost_mb", 13416.5)
-_COST_M3 = _SCEN0.get("cost_per_m3_diverted_baht", 6.81)
+_ANN_COST_MB = _SCEN0["total_annual_cost_mb"]
+_COST_M3 = _SCEN0["cost_per_m3_diverted_baht"]
 
 def widget_policy_simulator() -> str:
     html = (
@@ -210,7 +210,7 @@ def build_report() -> str:
     sections.append(blk.tbl_s26_operational_economics())
     sections.append(prose(
         f"เมื่อนำวงเงินลงทุน {_CAPEX_MB:,} ล้านบาท และค่าบำรุงรักษา {_OPEX_MB:,} ล้านบาทต่อปี มาคำนวณภาระคืนทุนรายปีตลอดอายุโครงการ 30 ปี ที่อัตราคิดลดร้อยละ 7 "
-        f"พบว่ามีภาระเงินลงทุนรายปี {_LC.get('discount_scenarios', [{}])[0].get('annualized_capital_mb', 12897.5):,.0f} ล้านบาท/ปี รวมกับค่าบำรุงรักษาเป็น <b>{_ANN_COST_MB:,.0f} ล้านบาท/ปี</b> "
+        f"พบว่ามีภาระเงินลงทุนรายปี {_LC.get('discount_scenarios', [{}])[0]['annualized_capital_mb']:,.0f} ล้านบาท/ปี รวมกับค่าบำรุงรักษาเป็น <b>{_ANN_COST_MB:,.0f} ล้านบาท/ปี</b> "
         f"เมื่อหารด้วยปริมาณน้ำผันเฉลี่ย {_ANNUAL_MCM:,} ล้าน ลบ.ม./ปี ต้นทุนต่อน้ำผันจริงจะอยู่ที่ <b>{_COST_M3:.2f} บาทต่อลูกบาศก์เมตร</b> "
         "ซึ่งสูงกว่าทางเลือกเชิงวิศวกรรมอื่นๆ อย่างมีนัยสำคัญ:"
     ))

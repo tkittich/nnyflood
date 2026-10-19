@@ -197,6 +197,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_dam_to_gulf_hydraulics` | `analysis/goal7_dam_to_gulf_hydraulics.py` | `main` | active | เป้าหมาย 7 — การวิเคราะห์เส้นทางชลศาสตร์ เวกเตอร์การไหล และเวลาเดินทางจากเขื่อนสู่ปากอ่าวไทย (Dam-to-Gulf Hydraulic Corridors) | `python analysis/goal7_dam_to_gulf_hydraulics.py` | `analysis/goal7/dam_to_gulf_summary.json` |
 | `goal7_eia_structs` | `analysis/goal7_eia_structs.py` | `main` | active | เป้าหมาย 7 — ดึงตาราง "บัญชีอาคารประกอบของคลองระบายน้ำหลาก" (ตาราง 2.3.2-3) จากรายงานผลกระทบสิ่งแวดล้อม 3 ฉบับ | `python analysis/goal7_eia_structs.py` | `analysis/goal7/eia_structs.json`<br>`analysis/goal7/structures_all.csv` |
 | `goal7_fabdem_compare` | `analysis/goal7_fabdem_compare.py` | `main` | active | เป้าหมาย 7 — เทียบความสูงพื้นดินตามแนวคลอง: FABDEM (ดินเปล่า) vs Copernicus GLO-30 (ผิวสูงสุด) vs ค่าอ่านจากรูปตัดตามยาว | `python analysis/goal7_fabdem_compare.py` | `analysis/goal7/fabdem_compare.json` |
+| `goal7_mitrearth_layers` | `analysis/goal7_mitrearth_layers.py` | `main` | active | เป้าหมาย 7 — ชั้นข้อมูลมิตรเอิร์ธ: ขอบเขตน้ำท่วม GISTDA 2548–2554 เทียบ 2569 · ลุ่มน้ำย่อยเทียบ PK-AT-4 · เส้นชั้น 1 ม. เทียบ FABDEM/Copernicus | `python analysis/goal7_mitrearth_layers.py` | `analysis/goal7/mitrearth_layers_summary.json` |
 | `goal7_interbasin_transfer_vectors` | `analysis/goal7_interbasin_transfer_vectors.py` | `main` | active | การวิเคราะห์เวกเตอร์การผันน้ำข้ามลุ่มรายคลองเชื่อมโยง (Inter-basin Transfer Vectors) | `python analysis/goal7_interbasin_transfer_vectors.py` | `analysis/goal7/interbasin_transfer_findings.md`<br>`analysis/goal7/interbasin_transfer_summary.json`<br>`data/02_thaiwater/raw/2026-10-09_canal_waterlevel.json`<br>`data/02_thaiwater/raw/2026-10-09_watergate_load.json` |
 | `goal7_legal_and_nuclear_assessment` | `analysis/goal7_legal_and_nuclear_assessment.py` | `main` | active | การวิเคราะห์ข้อกฎหมายเวนคืนที่ดินเพื่อพาณิชย์ และการประเมินความปลอดภัยศูนย์วิจัยนิวเคลียร์องครักษ์ | `python analysis/goal7_legal_and_nuclear_assessment.py` | `analysis/goal7/legal_and_nuclear_summary.json` |
 | `goal7_ongkharak_hydraulics` | `analysis/goal7_ongkharak_hydraulics.py` | `main` | active | เป้าหมาย 7 — การวิเคราะห์ชลศาสตร์ สมดุลมวลน้ำ และเวกเตอร์การไหลสุทธิทุ่งองครักษ์ (ตุลาคม 2569) | `python analysis/goal7_ongkharak_hydraulics.py` | `data/02_thaiwater/raw/2026-10-09_watergate_load.json` |
@@ -248,7 +249,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal6_flood_maps` | `analysis/goal6_flood_maps.py` | `main` | script | แผนที่น้ำท่วมจากดาวเทียม 6 ลุ่ม — จากมาสก์น้ำ S1 ที่ประมวลผลแล้ว (stage-2 พีค) |
 | `goal6_s2_validate` | `analysis/goal6_s2_validate.py` | `main` | script | เป้าหมาย 6 — L2 ตรวจยืนยันอิสระ: S2 MNDWI เทียบมาสก์น้ำ S1 บนกริดเดียวกัน |
 
-รวม 3 สภาพแวดล้อม · 151 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 152 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

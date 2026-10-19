@@ -127,3 +127,6 @@ data/32_goal7_chaophraya2/typhoon_ocr/
 data/search_index.db*
 
 
+
+# ชุดมิตรเอิร์ธเต็มจังหวัดที่แตกไฟล์ (disk-only)
+data/10_mitrearth_gis/extracted_full/

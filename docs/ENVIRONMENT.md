@@ -124,6 +124,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `attribution_share` | `analysis/attribution_share.py` | `main` | active | (ไม่มีคำอธิบายในหัวไฟล์ — ต้องเติม) | `python analysis/attribution_share.py` | — |
 | `calibrate_s1_thresholds` | `analysis/calibrate_s1_thresholds.py` | `main` | active | ค้น threshold ของกฎ 3 เงื่อนไข โดย maximize F1 เทียบ GISTDA บนฉาก 2 ต.ค. (producer ของ METHODS §6) | ``python analysis/calibrate_s1_thresholds.py`   # ~1 นาที (504 คู่ threshold × 5.1 ล้าน px)` | — |
 | `common` | `analysis/common.py` | `main` | active | ค่าคงที่กายภาพ + สูตรกลางของโปรเจกต์ — แหล่งเดียว ห้ามพิมพ์ literal ซ้ำในสคริปต์อื่น | `(โมดูล — import ไม่รันตรง)` | — |
+| `common_datum_shift_correction` | `analysis/common_datum_shift_correction.py` | `main` | active | การปรับแก้ค่าระดับอ้างอิงและจุดกระโดดของสถานีโทรมาตร 9 แห่ง (September Datum Shifts) | `python analysis/common_datum_shift_correction.py` | `analysis/common_datum_shift_findings.md`<br>`analysis/common_datum_shift_summary.json` |
 | `common_fetch_gulf_marine` | `analysis/common_fetch_gulf_marine.py` | `main` | active | ดึงข้อมูลคลื่น ความลึก และพยากรณ์น้ำทะเลอ่าวไทย (Gulf Marine & Wave Forecast) | `python analysis/common_fetch_gulf_marine.py` | — |
 | `common_fetch_rain_stations` | `analysis/common_fetch_rain_stations.py` | `main` | active | ดึงข้อมูลฝนสถานีโทรมาตรอัตโนมัติทั่วประเทศ 4,593 จุด (National Rainfall Telemetry) | `python analysis/common_fetch_rain_stations.py` | — |
 | `common_fetch_rid_swoc` | `analysis/common_fetch_rid_swoc.py` | `main` | active | เครื่องมือดึงข้อมูลอ่างเก็บน้ำและโทรมาตรจากระบบ SWOC / RID | `python analysis/common_fetch_rid_swoc.py` | — |
@@ -141,6 +142,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `gistda_georef_compare` | `analysis/gistda_georef_compare.py` | `main` | active | (ไม่มีคำอธิบายในหัวไฟล์ — ต้องเติม) | `python analysis/gistda_georef_compare.py` | — |
 | `gistda_pass_areas` | `analysis/gistda_pass_areas.py` | `main` | active | สรุปพื้นที่น้ำท่วมจาก attribute ของ shapefile GISTDA ราย pass → analysis/gistda_pass_areas_nn.json | `python analysis/gistda_pass_areas.py` | — |
 | `goal2_khundan_22y_baseline` | `analysis/goal2_khundan_22y_baseline.py` | `main` | active | การวิเคราะห์พฤติกรรมการกักเก็บน้ำของเขื่อนขุนด่านปราการชล 22 ปี (2548–2569) | `python analysis/goal2_khundan_22y_baseline.py` | — |
+| `goal2_khundan_22y_mass_balance` | `analysis/goal2_khundan_22y_mass_balance.py` | `main` | active | การปิดสมดุลมวลน้ำรายวัน 22 ปี เขื่อนขุนด่านปราการชล (2548–2569) | `python analysis/goal2_khundan_22y_mass_balance.py` | — |
 | `goal2_nny_medium_dams` | `analysis/goal2_nny_medium_dams.py` | `main` | active | วิเคราะห์บทบาทอ่างเก็บน้ำขนาดกลาง 6 แห่งใน จ.นครนายก ช่วงน้ำท่วม 2569 | `python analysis/goal2_nny_medium_dams.py` | — |
 | `goal4_counterfactual_model` | `analysis/goal4_counterfactual_model.py` | `main` | active | (ไม่มีคำอธิบายในหัวไฟล์ — ต้องเติม) | `(โมดูล — import ไม่รันตรง)` | — |
 | `goal4_feature_diagnostics` | `analysis/goal4_feature_diagnostics.py` | `main` | active | วินิจฉัยฟีเจอร์ของโมเดลทำนายระดับน้ำ Ny.7 — ตอบคำถามว่า "ablation วัดสัญญาณจริงหรือวัดความไม่เสถียร" | `(โมดูล — import ไม่รันตรง)` | — |
@@ -158,8 +160,10 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal6_dam_history_all` | `analysis/goal6_dam_history_all.py` | `main` | active | เป้าหมาย 6 — H1: ประวัติเขื่อนผู้สมัครที่ยังไม่ได้ดึง (เติมให้ครบ 24 แห่ง) → benchmark 2554 | `python analysis/goal6_dam_history_all.py` | `analysis/goal6/dam_history_all.json`<br>`analysis/goal6/dam_history_all.md`<br>`analysis/goal6_dam_candidates.json` |
 | `goal6_dam_inflow` | `analysis/goal6_dam_inflow.py` | `main` | active | น้ำเข้า–ปล่อย–เก็บ รายเขื่อน 2554 vs 2569 เทียบประวัติ 22 ปี — แยก "ฝน/น้ำเข้า" ออกจาก "สถานะ/การเดินเขื่อน" | `python analysis/goal6_dam_inflow.py [--refresh] [--workers N]` | `analysis/goal6/dam_inflow.json`<br>`analysis/goal6/dam_inflow.md` |
 | `goal6_downstream_tide` | `analysis/goal6_downstream_tide.py` | `main` | active | วิเคราะห์ระดับน้ำทะเลและน้ำหนุนปากแม่น้ำสายหลัก (Downstream Sea Levels & Tidal Dynamics) | `python analysis/goal6_downstream_tide.py` | `analysis/goal6/downstream_tide_findings.md`<br>`analysis/goal6/downstream_tide_summary.json` |
+| `goal6_duration_maps` | `analysis/goal6_duration_maps.py` | `main` | active | แผนที่ระยะเวลาน้ำค้าง (หยาบ) — นับสัดส่วนฉากที่พิกัดมีน้ำ (น้ำรวม VH≤−20 ในที่ราบ) | `python analysis/goal6_duration_maps.py` | — |
 | `goal6_exposure` | `analysis/goal6_exposure.py` | `main` | active | ชั้นผลกระทบ: ประชากรและถนน/ทางรถไฟในพื้นที่ที่ตรวจพบ (รวม = ขอบบน · เข้มงวด = ขอบล่างของ "น้ำใหม่ในฉาก") | `python analysis/goal6_exposure.py` | `analysis/goal6/exposure.json`<br>`analysis/goal6/exposure.md` |
 | `goal6_fetch_gistda_flood` | `analysis/goal6_fetch_gistda_flood.py` | `main` | active | สคริปต์ดึงชั้นข้อมูลน้ำท่วมจาก GISTDA Disaster Platform API (2026) | `python analysis/goal6_fetch_gistda_flood.py` | `data/12_gistda_flood/.gistda_api.json` |
+| `goal6_flood_maps` | `analysis/goal6_flood_maps.py` | `main` | active | แผนที่น้ำท่วมจากดาวเทียม 6 ลุ่ม — จากมาสก์น้ำ S1 ที่ประมวลผลแล้ว (stage-2 พีค) | `python analysis/goal6_flood_maps.py` | — |
 | `goal6_l1_expand` | `analysis/goal6_l1_expand.py` | `main` | active | เป้าหมาย 6 — runner ขยาย L1 ทุกลุ่มตาม analysis/goal6/config.json (template จาก spike ป่าสัก/แม่กลอง) | `python analysis/goal6_l1_expand.py [--basin id,...]` | `analysis/goal6/config.json`<br>`data/02_thaiwater/raw/2026-10-09_canal_waterlevel.json`<br>`data/02_thaiwater/raw/2026-10-09_watergate_load.json` |
 | `goal6_l1_followups` | `analysis/goal6_l1_followups.py` | `main` | active | เป้าหมาย 6 — ตามข้อเสนอที่ผู้ใช้เห็นด้วย (10 ต.ค. 69): (ก) ไขความหมาย URC เทมเพลตใน API | `python analysis/goal6_l1_followups.py` | `analysis/dam_khun_dan_daily_2013_2026.csv`<br>`analysis/goal6_l1_followups.json`<br>`analysis/goal6_l1_followups.md`<br>`data/22_goal6_network/raw/urc_template_check_2026.json` |
 | `goal6_l3_coastal_harmonics` | `analysis/goal6_l3_coastal_harmonics.py` | `main` | active | แบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่างผสานฮาร์มอนิกน้ำขึ้น-น้ำลงดาราศาสตร์ (Astronomical Tidal Harmonics Model) | `python analysis/goal6_l3_coastal_harmonics.py` | `analysis/goal6/l3_coastal_harmonics_findings.md`<br>`analysis/goal6/l3_coastal_harmonics_summary.json` |
@@ -184,6 +188,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal6_s1_stage1` | `analysis/goal6_s1_stage1.py` | `main` | active | เป้าหมาย 6 — L2 ขั้นที่ 1: geocode + calibrate ฉาก S1 ทุกฉากบนกริด 30 ม.ต่อลุ่ม (ขนาน) | `python analysis/goal6_s1_stage1.py [--basin id] [--limit N] [--workers 8] [--job basin:scene]` | `data/22_goal6_network/derived/s1_stage1/grid_<basin>.json` |
 | `goal6_s1_stage2_water` | `analysis/goal6_s1_stage2_water.py` | `main` | active | เป้าหมาย 6 — L2 ขั้นที่ 2: ตัดน้ำด้วยกฎ canonical (เทียบฉากก่อนเหตุการณ์ วงโคจรเดียวกัน) | `python analysis/goal6_s1_stage2_water.py [--basin id]` | `analysis/goal6/config.json` |
 | `goal6_s2_queue` | `analysis/goal6_s2_queue.py` | `main` | active | เป้าหมาย 6 — คิว Sentinel-2 L2A (ตรวจยืนยนอิสระ + ภาพสีจริง) ต่อลุ่ม — ค้นจาก CDSE OData | `python analysis/goal6_s2_queue.py` | `analysis/goal6_s2_queue.md`<br>`data/22_goal6_network/raw/s2_queue/s2_queue.json` |
+| `goal6_s2_validate` | `analysis/goal6_s2_validate.py` | `main` | active | เป้าหมาย 6 — L2 ตรวจยืนยันอิสระ: S2 MNDWI เทียบมาสก์น้ำ S1 บนกริดเดียวกัน | `python analysis/goal6_s2_validate.py` | `analysis/goal6/s2_validation.json`<br>`analysis/goal6/s2_validation.md` |
 | `goal6_scan_banned_terms` | `analysis/goal6_scan_banned_terms.py` | `main` | active | สแกนรายงานที่ 3 — หาคำทับศัพท์/ศัพท์เทคนิคที่ยังไม่อนุมัติคำไทยแทน | `python analysis/goal6_scan_banned_terms.py` | `report/goal6_banned_terms_candidates.json`<br>`report/ระลอกปลายกย2569.html` |
 | `goal6_screen_basins` | `analysis/goal6_screen_basins.py` | `main` | active | เป้าหมาย 6 — screen เหตุการณ์ท่วมจริงหน้าฝน 2569 ต่อลุ่ม (เกณฑ์ pre-register) | `python analysis/goal6_screen_basins.py` | `analysis/goal6_dam_candidates.json`<br>`analysis/goal6_screen_2026_findings.md`<br>`analysis/goal6_screen_2026_summary.json`<br>`data/02_thaiwater/raw/2026-10-10_waterlevel_load.json` |
 | `goal6_screen_findings` | `analysis/goal6_screen_findings.py` | `main` | active | เป้าหมาย 6 — สรุปผล screen หน้าฝน 2569 ต่อลุ่ม -> analysis/goal6_screen_2026_findings.md | `python analysis/goal6_screen_findings.py` | `analysis/goal6_screen_2026_findings.md`<br>`analysis/goal6_screen_2026_summary.json` |
@@ -236,20 +241,16 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_verify_constants` | `analysis/goal7_verify_constants.py` | `main` | active | ตรวจค่าคงที่กับชั้นข้อความ PDF EIA และภาพหลักฐาน (แฮช) → verified/failed/assumption/conflict | `python analysis/goal7_verify_constants.py` | `analysis/goal7/source_constants_verification.json` |
 | `goal7_ocr_coverage` | `analysis/goal7_ocr_coverage.py` | `main` | active | วัดความครอบคลุม OCR ของเล่ม EIA 2569 (หน้าสแกน/หน้ารูปเทียบผล Typhoon ที่ใช้ได้) และสร้างรายการหน้าค้าง | `python analysis/goal7_ocr_coverage.py` | `analysis/goal7/ocr_coverage.json` |
 | `goal7_typhoon_queue_eia` | `analysis/goal7_typhoon_queue_eia.py` | `typhoon_env` | active | คิว Typhoon-OCR ของเล่ม EIA 2569 ตามรายการหน้าค้าง (หน้าสแกนก่อน แล้วหน้ารูป) 2 worker บน GPU | `E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_typhoon_queue_eia.py --workers 2` | `data/32_goal7_chaophraya2/typhoon_ocr/eia2569_<เล่ม>/pages.jsonl` |
+| `quantity_registry` | `tools/quantity_registry.py` | `main` | active | ตรวจทะเบียนตัวตนของปริมาณ (ชื่อ·ขอบเขต·นิยาม·หน่วย·ชนิดที่มา) กับ canonical และค่าคงที่ต้นทาง · ส่งต่อสถานะถูกโต้แย้ง | `python tools/quantity_registry.py` | — |
 
-### ลงทะเบียนอัตโนมัติ รอทบทวน (5 รายการ · สถานะ `unreviewed`)
+### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
 > คำอธิบายมาจาก docstring บรรทัดแรกโดยอัตโนมัติ ยังไม่มีคนยืนยันสถานะ/ผลลัพธ์ — เปลี่ยนสถานะเป็น `active`/`deprecated` เมื่อทบทวนแล้ว
 
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
-| `common_datum_shift_correction` | `analysis/common_datum_shift_correction.py` | `main` | script | การปรับแก้ค่าระดับอ้างอิงและจุดกระโดดของสถานีโทรมาตร 9 แห่ง (September Datum Shifts) |
-| `goal2_khundan_22y_mass_balance` | `analysis/goal2_khundan_22y_mass_balance.py` | `main` | script | การปิดสมดุลมวลน้ำรายวัน 22 ปี เขื่อนขุนด่านปราการชล (2548–2569) |
-| `goal6_duration_maps` | `analysis/goal6_duration_maps.py` | `main` | module | แผนที่ระยะเวลาน้ำค้าง (หยาบ) — นับสัดส่วนฉากที่พิกัดมีน้ำ (น้ำรวม VH≤−20 ในที่ราบ) |
-| `goal6_flood_maps` | `analysis/goal6_flood_maps.py` | `main` | script | แผนที่น้ำท่วมจากดาวเทียม 6 ลุ่ม — จากมาสก์น้ำ S1 ที่ประมวลผลแล้ว (stage-2 พีค) |
-| `goal6_s2_validate` | `analysis/goal6_s2_validate.py` | `main` | script | เป้าหมาย 6 — L2 ตรวจยืนยันอิสระ: S2 MNDWI เทียบมาสก์น้ำ S1 บนกริดเดียวกัน |
 
-รวม 3 สภาพแวดล้อม · 152 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 153 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

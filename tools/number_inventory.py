@@ -239,6 +239,45 @@ def builder_literals(builders):
     return rows
 
 
+# ---------- ประตูตัวเลขฝังใน builder แบบรายการที่อนุญาต (R7-07) ----------
+ALLOWLIST = ROOT / "analysis/goal7/literal_allowlist.json"
+
+
+def untraced_literals(builders, ks):
+    """ตัวเลข (≥ 3 หลัก มีหน่วย) ที่ฝังในสตริงคงที่ของ builder และไม่ตรงค่าใดใน JSON ของ analysis/ → นับต่อ (ไฟล์, ข้อความ)"""
+    cnt: dict[tuple[str, str], int] = defaultdict(int)
+    for x in builder_literals(builders):
+        _, val, dec, _unit, _raw = next(iter(extract(x["text"])))
+        if round(val, dec) in ks[min(dec, 4)] and not (dec == 0 and val < 1000):
+            continue
+        cnt[(x["file"], x["text"])] += 1
+    return dict(cnt)
+
+
+def load_allowlist() -> dict[tuple[str, str], int]:
+    d = json.loads(ALLOWLIST.read_text(encoding="utf-8"))
+    return {(e["file"], e["text"]): e["count"] for e in d["entries"]}
+
+
+def gate_violations(builders, ks, allow=None):
+    """คืน (ใหม่/เพิ่มจำนวน, ค้างในรายการแต่ไม่มีแล้ว) — รายการใหม่ต้องเป็น 0 (เพิ่มตัวเลขฝังใหม่ = เทสต์ตก) และรายการค้างต้องถอดออก (ratchet ลงอย่างเดียว)"""
+    allow = load_allowlist() if allow is None else allow
+    cur = untraced_literals(builders, ks)
+    new = {k: v for k, v in cur.items() if v > allow.get(k, 0)}
+    stale = {k: v for k, v in allow.items() if cur.get(k, 0) < v}
+    return new, stale
+
+
+def write_allowlist() -> int:
+    _, _, builders = sources()
+    _, values = json_leaves()
+    cur = untraced_literals(builders, known_set(values))
+    entries = [{"file": f, "text": s, "count": n, "status": "legacy_unreviewed"} for (f, s), n in sorted(cur.items())]
+    ALLOWLIST.write_text(json.dumps({"note": "ตัวเลขฝังใน builder ที่ยังไม่มีที่มาใน JSON — baseline ของประตู ratchet: เพิ่มใหม่ไม่ได้ มีแต่ลดลง · เมื่อย้ายไปอ่านจาก JSON/โทเคนแล้วให้รัน tools/number_inventory.py --write-allowlist (ตรวจ git diff ทุกครั้ง — ต้องมีแต่การลบ)",
+                                    "entries": entries}, ensure_ascii=False, indent=1), encoding="utf-8")
+    return len(entries)
+
+
 # ---------- E: เอกสารสถานะที่ล้าสมัย ----------
 def stale_status_counts():
     issues = []
@@ -293,7 +332,11 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out")
     ap.add_argument("--json")
+    ap.add_argument("--write-allowlist", action="store_true", help="เขียน baseline ประตูตัวเลขฝัง (ตรวจ git diff — ต้องมีแต่การลบ)")
     a = ap.parse_args()
+    if a.write_allowlist:
+        print("เขียนรายการอนุญาต", write_allowlist(), "รายการ")
+        return
     reports, docs, builders = sources()
     leaves, values = json_leaves()
     ks = known_set(values)

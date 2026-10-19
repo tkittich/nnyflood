@@ -156,10 +156,14 @@ def check_headers(reg: dict) -> list[str]:
             doc = ast.get_docstring(ast.parse(src)) or ""
         except SyntaxError:
             doc = ""
+        # สคริปต์เก่าที่ห้ามแก้ไฟล์ (เช่น goal4_model_v1.py) ใช้ทะเบียนเป็นหัวไฟล์แทน: purpose + run ที่คนทบทวนแล้ว (ไม่ใช่ unreviewed)
+        in_registry = bool(t.get("purpose")) and bool(t.get("run")) and t.get("status") != "unreviewed"
         if not doc.strip():
-            no_doc.append(t["path"])
+            if not in_registry:
+                no_doc.append(t["path"])
         elif "__main__" in src and not re.search(r"^\s*(รัน|ใช้|Run|Usage)\s*[:：]", doc, re.M):
-            no_run.append(t["path"])
+            if not in_registry:
+                no_run.append(t["path"])
     w = []
     if no_doc:
         w.append(f"สัญญาหัวไฟล์: {len(no_doc)} ไฟล์ไม่มี docstring คำอธิบาย (เช่น {', '.join(no_doc[:3])})")

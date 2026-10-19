@@ -1,0 +1,31 @@
+{
+ "_doc": "ทะเบียนตัวตนของปริมาณ (R7-08): ชื่อ·ขอบเขต·นิยาม·หน่วย·ชนิดที่มา·ตัวชี้ไปค่ามาตรฐาน·ค่าคงที่ต้นทาง·การพึ่งพา · ตรวจโดย tools/quantity_registry.py และ tests/test_quantity_registry.py · kind: stated=ระบุตรงในเอกสาร · computed=คำนวณจากปริมาณอื่น · assumed=สมมติ · measured=วัด · simulated=จำลอง · status: settled | disputed (ถูกโต้แย้ง — ผู้พึ่งพาสืบทอดสถานะนี้)",
+ "quantities": [
+  {"id": "canal_bed_width", "name_th": "ความกว้างท้องคลอง", "scope": "คลองช่วงใหม่ กม.23–134 (รูปตัดมาตรฐาน)", "definition": "ความกว้างพื้นท้องคลองระหว่างตีนลาดด้านในสองฝั่ง (B ในตารางรูปตัด)", "unit": "ม.", "kind": "stated",
+   "canonical_ref": "reconciled_parameters.canal_bed_width.canonical_value_m", "source_constant": "eia_bed_width_m", "depends_on": [], "status": "settled"},
+  {"id": "canal_length", "name_th": "ความยาวคลองช่วงใหม่", "scope": "คลองเจ้าพระยา 2 ส่วนที่ขุดใหม่ ตามหมุดกิโลเมตร", "definition": "ความยาวตามหมุด กม. ปลายแผนที่ (135.655) — ไม่ใช่ความยาวแนวร่วมถนนวงแหวน", "unit": "กม.", "kind": "stated",
+   "canonical_ref": "reconciled_parameters.canal_length.canonical_value_km", "source_constant": "canal_length_km", "depends_on": [], "status": "settled"},
+  {"id": "opex_annual", "name_th": "ค่าดำเนินการและบำรุงรักษารายปี", "scope": "โครงการคลองเจ้าพระยา 2 ทั้งโครงการ", "definition": "ค่าใช้จ่ายรายปีหลังก่อสร้างตามรายงานผลกระทบสิ่งแวดล้อมฉบับสมบูรณ์", "unit": "ล้านบาท/ปี", "kind": "stated",
+   "canonical_ref": "reconciled_parameters.opex_annual.canonical_value_mb", "source_constant": "opex_annual_mb", "depends_on": [], "status": "settled",
+   "open_variants": ["clarification2_dec2566_p121"], "note": "519 ยังตรวจที่มาไม่ได้ — ไม่ใช้จนกว่าจะยืนยัน (R7-12)"},
+  {"id": "capex_eia", "name_th": "งบลงทุนตามรายงานผลกระทบสิ่งแวดล้อม", "scope": "โครงการคลองเจ้าพระยา 2", "definition": "วงเงินลงทุนที่รายงานผลกระทบสิ่งแวดล้อมระบุ", "unit": "ล้านบาท", "kind": "stated",
+   "canonical_ref": "reconciled_parameters.project_budget.canonical_eia_capex_mb", "source_constant": "capex_mb", "depends_on": [], "status": "settled"},
+  {"id": "cabinet_ceiling", "name_th": "กรอบวงเงินที่คณะรัฐมนตรีอนุมัติ", "scope": "โครงการคลองเจ้าพระยา 2", "definition": "เพดานวงเงินตามมติ (ไม่ใช่งบลงทุนที่รายงานระบุ)", "unit": "ล้านบาท", "kind": "stated",
+   "canonical_ref": "reconciled_parameters.project_budget.canonical_cabinet_ceiling_mb", "depends_on": [], "status": "settled"},
+  {"id": "canal_storage_total", "name_th": "ปริมาตรกักเก็บทั้งหมดของคลอง", "scope": "คลองช่วงใหม่ ระดับน้ำออกแบบ", "definition": "พื้นที่หน้าตัดน้ำ × ความยาว (คำนวณเชิงเรขาคณิต)", "unit": "ล้าน ลบ.ม.", "kind": "computed",
+   "canonical_ref": "reconciled_parameters.canal_storage.canonical_total_mcm", "depends_on": ["canal_bed_width", "canal_length"], "status": "disputed",
+   "disputed_by": ["provincial_summary_slide"], "note": "ตัวเลข 74.0 จากสไลด์สรุปจังหวัดต่างจาก 68.5 ที่คำนวณ — รอกระทบยอดรายงานฉบับที่ 8 (R7-06)"},
+  {"id": "canal_storage_dead", "name_th": "ปริมาตรน้ำตายของคลอง", "scope": "คลองช่วงใหม่ ต่ำกว่าระดับท้องทางระบายออก", "definition": "ปริมาตรใต้ระดับที่ระบายออกไม่ได้ (สมมติลึก 2.0 ม.)", "unit": "ล้าน ลบ.ม.", "kind": "assumed",
+   "canonical_ref": "reconciled_parameters.canal_storage.canonical_dead_mcm", "depends_on": ["canal_storage_total"], "status": "settled"},
+  {"id": "canal_storage_active", "name_th": "ปริมาตรกักเก็บใช้งานของคลอง", "scope": "คลองช่วงใหม่", "definition": "ปริมาตรทั้งหมดหักน้ำตาย", "unit": "ล้าน ลบ.ม.", "kind": "computed",
+   "canonical_ref": "reconciled_parameters.canal_storage.canonical_active_mcm", "depends_on": ["canal_storage_total", "canal_storage_dead"], "status": "settled"},
+  {"id": "land_acquisition_new_reach", "name_th": "ที่ดินเวนคืนช่วงคลองใหม่", "scope": "เฉพาะช่วงปากทางผ่านพื้นที่ใหม่ (ไม่รวมช่วงใช้คลองเดิม)", "definition": "พื้นที่เวนคืนตามรายงานผลกระทบสิ่งแวดล้อม", "unit": "ไร่", "kind": "stated",
+   "canonical_ref": "reconciled_parameters.land_acquisition.canonical_new_reach_rai", "depends_on": [], "status": "settled"},
+  {"id": "design_discharge", "name_th": "อัตราไหลออกแบบ", "scope": "คลองเจ้าพระยา 2 ช่วงรับน้ำจากแม่น้ำ", "definition": "ปริมาณน้ำสูงสุดที่ออกแบบให้ผ่านคลอง", "unit": "ลบ.ม./วินาที", "kind": "stated",
+   "canonical_ref": null, "source_constant": "design_discharge_cms", "depends_on": [], "status": "settled"},
+  {"id": "annual_diverted", "name_th": "ปริมาณน้ำผันต่อปี (สมมติ)", "scope": "ใช้ในการประมาณต้นทุนต่อหน่วยน้ำ", "definition": "ปริมาณน้ำผันรายปีที่สมมติ เมื่อไม่มีอนุกรมรายวัน", "unit": "ล้าน ลบ.ม.", "kind": "assumed",
+   "canonical_ref": null, "source_constant": "annual_diverted_mcm", "depends_on": [], "status": "settled", "note": "ต้องมีข้อมูลรายวัน S.26 เพื่อแทน (R7-02)"},
+  {"id": "cost_per_m3", "name_th": "ต้นทุนต่อน้ำผัน", "scope": "ต้นทุนปรับเป็นรายปีต่อปริมาณน้ำผัน", "definition": "(ค่าตัดจำหน่ายงบลงทุน + ค่าบำรุงรักษา) ÷ ปริมาณน้ำผันต่อปี", "unit": "บาท/ลบ.ม.", "kind": "computed",
+   "canonical_ref": null, "depends_on": ["capex_eia", "opex_annual", "annual_diverted"], "status": "settled"}
+ ]
+}

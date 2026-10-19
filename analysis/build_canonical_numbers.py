@@ -240,6 +240,7 @@ render = {
     "med_inflow": f"{med_dams['event_26_29_sep']['total_inflow_mcm']:.2f}",
     "med_outflow": f"{med_dams['event_26_29_sep']['total_outflow_mcm']:.2f}",
     "med_retain": f"{med_dams['event_26_29_sep']['net_retention_mcm']:.2f}",
+    "med_eff": f"{med_dams['event_26_29_sep']['retention_efficiency_pct']}",
     "kd22_full_yr": f"{kd22['headline_metrics']['full_capacity_years']} จาก {kd22['metadata']['period_years']} ปี",
     "kd22_full_pct": f"{kd22['headline_metrics']['full_capacity_pct']:.1f}%",
     "kd22_days_early": f"{kd22['headline_metrics']['year_2026_anomaly']['days_earlier_than_median']}",

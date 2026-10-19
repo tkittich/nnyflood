@@ -4,8 +4,6 @@
 
 | เอกสาร | สถานะ | ชนิด | หัวเรื่อง | หมายเหตุ |
 |---|---|---|---|---|
-| `docs/GOAL7_PLAN.md` | needs-review | plan | GOAL7_PLAN — เป้าหมาย 7: คลองเจ้าพระยา2 (คลองระบายน้ำหลากชัยนาท–ป่าสัก–อ่าวไทย) | แผนเป้าหมาย 7 ที่ยังเพิ่มบันทึกอยู่ — มีอ้างไฟล์ที่ไม่มีแล้ว (goal7_build_qa.py, structures_km0_81.csv, หน้า ถามตอบสั้น) · แก้ข้อสรุปลาดข้าง/85 ม. แล้ว 19 ต.ค. |
-| `docs/GOAL7_POLICY_BRIEF.md` | needs-review | analysis | รายงานสรุปเชิงนโยบาย: โครงการคลองระบายน้ำหลากเจ้าพระยา 2 (ป่าสัก–อ่าวไทย) | สำเนา Markdown ของสมุดปกขาวที่เขียนมือ — ค่า 60–80 วัน/10.4% ล้าสมัยจนแก้ 19 ต.ค. · ควรสร้างจาก builder หรือเลิกถือเป็นแหล่งความจริง |
 | `AGENTS.md` | current | rules | AGENTS.md — กติกาสำหรับ AI session ที่ทำงานใน repo นี้ | กติกาบังคับของโครงการ — เปลี่ยนต้องตั้งใจ |
 | `README.md` | current | guide | การสอบสวนเชิงหลักฐานด้านอุทกวิทยาและการบริหารจัดการน้ำ |  |
 | `START_HERE.md` | current | guide | START HERE — โครงการน้ำท่วมนครนายก 2569 และการขยายผลระดับชาติ | จุดเริ่มต้นสำหรับ session ใหม่ · ตัวเลขนับ (สารบัญ/เทสต์) ต้องตรงของจริง — number_inventory ตรวจข้อ E |
@@ -32,10 +30,12 @@
 | `docs/ANALYSIS_PLAN.md` | plan | plan | แผนการวิเคราะห์ (ANALYSIS_PLAN) — ครอบคลุมเป้าหมาย 1–5 |  |
 | `docs/GOAL6_HYDRO2D_PLAN.md` | plan | plan | แผนการทำแบบจำลอง 2 มิติ (HEC-RAS 2D) — นครนายก + ข้อมูลที่ยังขาดพร้อมความสำคัญ |  |
 | `docs/GOAL6_PLAN.md` | plan | plan | แผนเป้าหมาย 6 — ขยายวิธีการนครนายกสู่พื้นที่อื่นทั่วประเทศ (รายงานที่ 3) | แผนเป้าหมาย 6 (12 ต.ค.) — ความตั้งใจเดิม ไม่ได้ตามแก้ให้ตรงสถานะ; มีอ้างไฟล์ร่างที่ไม่มีแล้ว |
+| `docs/GOAL7_PLAN.md` | plan | plan | GOAL7_PLAN — เป้าหมาย 7: คลองเจ้าพระยา2 (คลองระบายน้ำหลากชัยนาท–ป่าสัก–อ่าวไทย) | แผนเป้าหมาย 7 ที่ยังเพิ่มบันทึกอยู่ — ทบทวนแล้ว 19 ต.ค.: ไฟล์ที่ถูกลบ/เปลี่ยนชื่อ (goal7_build_qa.py, structures_km0_81.csv→structures_all.csv, หน้าถามตอบสั้น) ทำเครื่องหมายในเนื้อหาแล้ว |
 | `docs/IMPLEMENTATION_PLAN_ADVANCED_MODELING.md` | plan | plan | แผนการดำเนินงาน: แบบจำลองชลศาสตร์ 1 มิติ, การจำลองคลองเจ้าพระยา 2, โมเดลพยากรณ์ผสานทะเลหนุน และการบำรุงรักษาระ | แผน 17 ต.ค. — อ้างโฟลเดอร์ data/24_estuary_telemetry และ data/30_swan_wave_model ที่ไม่มี (ชื่อจริง 24_estuary_waterquality, 30_national_warehouse) |
 | `docs/IMPLEMENTATION_PLAN_PORTAL_AND_ADVANCED_ANALYSIS.md` | plan | plan | แผนงานการพัฒนาและยกระดับระบบฉบับสมบูรณ์ (Implementation Plan) |  |
 | `docs/MAJOR_UPDATES_REPORT1_4_PLAN.md` | plan | plan | แผนการปรับปรุงใหญ่ รายงานฉบับที่ 1–4 (Major Updates Plan for Reports 1–4) | แผน 17 ต.ค. — อ้าง goal1_blocks.py ที่ไม่มี |
 | `docs/GOAL6_PUBLIC_RELEASE_REVIEW.md` | historical | review-record | รีวิวพร้อมเผยแพร่: รายงานที่ 3 + ที่ 4 (ระลอกปลาย ก.ย.–ต.ค. 2569 · 6 ลุ่ม) | บันทึกรีวิวก่อนเผยแพร่เป้าหมาย 6 (10 ต.ค.) — เก็บเป็นประวัติ |
+| `docs/GOAL7_POLICY_BRIEF.md` | historical | analysis | รายงานสรุปเชิงนโยบาย: โครงการคลองระบายน้ำหลากเจ้าพระยา 2 (ป่าสัก–อ่าวไทย) | สำเนา Markdown ของสมุดปกขาวที่เขียนมือ — ไม่ใช่แหล่งความจริง (ค่า 60–80 วัน/10.4% ล้าสมัย) · ฉบับปัจจุบันสร้างจาก report/goal7_build_policy_brief.py |
 | `docs/REVIEW_PROMPT.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Prompt สำหรับให้ AI ตัวอื่นรีวิว/ตรวจสอบโปรเจกต์ (เน้นเป้าหมาย 7 — คลองเจ้าพระยา2) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 | `docs/REVIEW_PROMPT_COMPREHENSIVE.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Comprehensive System Audit Prompt (Superseded) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 

@@ -109,6 +109,7 @@ PILLARS = {
             "analysis/goal6_fetch_gistda_flood.py",
             "analysis/goal6_l3_coastal_model.py",
             "analysis/compound_flood_risk.py",
+            "analysis/goal6_tide_gain_regression.py",
         ],
         "data_dirs": [
             "data/12_gistda_flood",

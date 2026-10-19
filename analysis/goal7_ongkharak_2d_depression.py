@@ -21,6 +21,10 @@ DEM_PATH = ROOT / "data/13_sentinel1_copernicus/derived/dem_30m.npy"
 MASK_ONG_PATH = ROOT / "data/13_sentinel1_copernicus/derived/mask_district_อำเภอองครักษ์.npy"
 OUT_JSON = ROOT / "analysis/goal7/ongkharak_2d_depression_summary.json"
 CANONICAL_PATH = ROOT / "analysis/goal7/canonical.json"
+SAR_MASKS = {
+    "peak_27sep": ROOT / "data/13_sentinel1_copernicus/derived/flood_peak_27sep1828.npy",
+    "oct2_validated": ROOT / "data/13_sentinel1_copernicus/derived/flood_2oct_validated.npy",
+}
 OBSERVED_STAGE_MSL_M = 2.35  # TNy10 17 ต.ค. 2569 — ค่าเดียวที่ทุกรายงานต้องอ้าง
 
 
@@ -71,7 +75,40 @@ def analyze_depression():
     # 3. จุดเริ่มบ่าล้นคันทางหลวง 305 (+3.20 ม.รทก.)
     stage_spill_route305 = next(c for c in curve if abs(c["stage_msl_m"] - 3.20) < 0.05)
 
+    # C3 (รีวิวรอบ 6): ปรับเทียบระดับน้ำที่มีผลของแบบจำลองถังเติมน้ำกับพื้นที่น้ำท่วมจากดาวเทียมเรดาร์ Sentinel-1
+    # — หาระดับที่ให้พื้นที่เท่าที่ดาวเทียมเห็น แล้ววัดว่ารูปแบบเชิงพื้นที่ตรงกันเพียงใด (ไม่ใช้ผลนี้ทำนายการล้นถนน)
+    sar_calibration = {}
+    for key, path in SAR_MASKS.items():
+        if not path.exists():
+            continue
+        sar = np.load(path).astype(bool)
+        if sar.shape != mask_ong.shape:
+            continue
+        in_d = mask_ong & ~np.isnan(dem) & (dem >= 0.0)
+        sar_d = sar & in_d
+        sar_km2 = float(sar_d.sum() * 900.0 / 1e6)
+        best = None
+        for h in np.arange(1.0, 5.0001, 0.01):
+            bt = in_d & (dem <= h)
+            km2 = float(bt.sum() * 900.0 / 1e6)
+            if best is None or abs(km2 - sar_km2) < abs(best[1] - sar_km2):
+                best = (float(round(h, 2)), km2, bt)
+        h_eff, km2_eff, bt = best
+        inter = float((bt & sar_d).sum())
+        union = float((bt | sar_d).sum())
+        sar_calibration[key] = {
+            "sar_area_km2": round(sar_km2, 1),
+            "sar_share_pct": round(100.0 * sar_km2 / total_area_km2, 1),
+            "effective_stage_msl_m": h_eff,
+            "offset_vs_gauge_m": round(h_eff - OBSERVED_STAGE_MSL_M, 2),
+            "iou": round(inter / union, 2) if union else None,
+            "precision": round(inter / float(bt.sum()), 2) if bt.sum() else None,
+            "recall": round(inter / float(sar_d.sum()), 2) if sar_d.sum() else None,
+            "gauge_stage_area_km2": round(float(row_at(OBSERVED_STAGE_MSL_M)["inundated_area_km2"]), 1),
+        }
+
     summary = {
+        "sar_calibration": sar_calibration,
         "title": "การจำลองความจุแอ่งก้นกระทะ 2 มิติและเส้นชั้นความลึกน้ำท่วมองครักษ์บน DEM 30m",
         "district": "อำเภอองครักษ์ จังหวัดนครนายก",
         "observed_stage_msl_m": OBSERVED_STAGE_MSL_M,

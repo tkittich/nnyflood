@@ -6310,6 +6310,28 @@
   }
  },
  "ongkharak_2d_depression": {
+  "sar_calibration": {
+   "peak_27sep": {
+    "sar_area_km2": 197.0,
+    "sar_share_pct": 38.5,
+    "effective_stage_msl_m": 3.01,
+    "offset_vs_gauge_m": 0.66,
+    "iou": 0.36,
+    "precision": 0.53,
+    "recall": 0.53,
+    "gauge_stage_area_km2": 31.6
+   },
+   "oct2_validated": {
+    "sar_area_km2": 170.1,
+    "sar_share_pct": 33.2,
+    "effective_stage_msl_m": 2.94,
+    "offset_vs_gauge_m": 0.59,
+    "iou": 0.3,
+    "precision": 0.47,
+    "recall": 0.46,
+    "gauge_stage_area_km2": 31.6
+   }
+  },
   "title": "การจำลองความจุแอ่งก้นกระทะ 2 มิติและเส้นชั้นความลึกน้ำท่วมองครักษ์บน DEM 30m",
   "district": "อำเภอองครักษ์ จังหวัดนครนายก",
   "observed_stage_msl_m": 2.35,

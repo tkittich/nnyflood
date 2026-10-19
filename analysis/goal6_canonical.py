@@ -466,6 +466,7 @@ def main() -> None:
             "risk_levels_definition": cpr["risk_levels_definition"],
             "matrix_grid": cpr["matrix_grid"],
             "historical_benchmarks": cpr["historical_benchmarks"],
+            "tide_gain_evidence": cpr.get("tide_gain_evidence"),
             "publication_status": "ยังไม่เรนเดอร์ในรายงาน 3 (เรนเดอร์ในรายงาน 4) — โมดูลสำรวจสาธิต ยังไม่สอบเทียบกับเหตุการณ์จริง",
         }
 

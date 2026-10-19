@@ -120,6 +120,32 @@ def main():
         },
     ]
 
+    # รีวิวรอบ 6 (C1): ความไวต่ออัตราส่งผ่านน้ำหนุนที่วัดได้ (analysis/goal6_tide_gain_regression.py)
+    # ยึดกับระดับ C.12 ที่วัดจริง (ไม่ใช้สมการ) แล้วบวกส่วนต่างน้ำหนุน × อัตราส่งผ่าน
+    tide_gain_evidence = None
+    _tg = ROOT / "analysis/goal6/tide_gain_regression.json"
+    if _tg.exists():
+        _g = json.loads(_tg.read_text(encoding="utf-8"))
+        _gs = [_g["headline"]["gain"], _g["tidal_band_pre_event"]["gain"], _g["tidal_band_event"]["gain"]]
+        _obs_stage = 2.24   # ค่าโทรมาตรจริงสูงสุด C.12 (ต.ค. 2569) ในช่วงข้อมูลชุดเดียวกัน
+        _obs_tide = historical_benchmarks[1]["tide_msl_m"]
+        _t_hyp = historical_benchmarks[2]["tide_msl_m"]
+        tide_gain_evidence = {
+            "source": "analysis/goal6/tide_gain_regression.json",
+            "gain_headline": _g["headline"]["gain"],
+            "gain_ci95": _g["headline"]["gain_ci95"],
+            "gain_range_across_periods": [round(min(_gs), 3), round(max(_gs), 3)],
+            "formula_gain": 1.0,
+            "anchor_observed_stage_m": _obs_stage,
+            "scenario_tide_msl_m": _t_hyp,
+            "stage_if_measured_gain_m": {
+                "low": round(_obs_stage + min(_gs) * (_t_hyp - _obs_tide), 2),
+                "high": round(_obs_stage + max(_gs) * (_t_hyp - _obs_tide), 2),
+            },
+            "stage_formula_gain_m": historical_benchmarks[2]["c12_stage_msl_m"],
+            "note": "ยึดระดับที่วัดจริง 2.24 ม. แล้วเพิ่มตามส่วนต่างน้ำหนุน × อัตราส่งผ่านที่วัดได้ — เป็นความไว ไม่ใช่การพยากรณ์ · ฤดูเดียว",
+        }
+
     summary_data = {
         "metadata": {
             "title": "เมทริกซ์ประเมินความเสี่ยงน้ำเหนือหลากปะทะน้ำทะเลหนุน (Compound Flood Risk Matrix)",
@@ -130,7 +156,7 @@ def main():
             "critical_threshold_msl_m": 2.70,
             "calibration_status": "ยังไม่สอบเทียบหลายปี — ค่าสัมประสิทธิ์เป็นการตรวจความเป็นไปได้จาก 2 จุด (ดู docstring)",
             "limitations": [
-                "สมการบวกกันตรง ๆ: ∂H_C12/∂H_tide = 1.0 ทุกสภาวะ และไม่มีพจน์ปฏิสัมพันธ์ Q×tide "
+                "สมการบวกกันตรง ๆ: ∂H_C12/∂H_tide = 1.0 ทุกสภาวะ (ข้อมูลฤดู 2569 ถดถอยได้ต่ำกว่า 1 ดู tide_gain_evidence) และไม่มีพจน์ปฏิสัมพันธ์ Q×tide "
                 "→ ยังไม่จำลองการหนุนกลับแบบไม่เชิงเส้นจริง (ผลของน้ำหลากกับน้ำทะเลแยกกันบวก ไม่ใช่ทบกัน)",
                 "ไม่มีคลื่นลมจริง: wave_setup คงที่ 0.08 ม. ทุกช่วงเวลา (ไม่ผสานคลื่น SWAN เป็นตัวแปร)",
                 "อินพุตปี 2554 (Q=3,750 ม³/วิ · Tide=+2.35 ม.) เป็นค่าประมาณ ไม่มีแหล่งอ้างอิงใน repo",
@@ -138,6 +164,7 @@ def main():
             ],
         },
         "historical_benchmarks": historical_benchmarks,
+        "tide_gain_evidence": tide_gain_evidence,
         "risk_levels_definition": {
             "normal": "ระดับน้ำปลอดภัย (< 2.00 ม.รทก.) การระบายน้ำในท่อเป็นปกติ",
             "watch": "ระดับเฝ้าระวัง (2.00–2.40 ม.รทก.) น้ำเริ่มดันปากท่อระบายน้ำ กทม. ต้องเดินเครื่องสูบ",

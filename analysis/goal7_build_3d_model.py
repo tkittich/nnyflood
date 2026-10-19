@@ -137,8 +137,8 @@ def build(vexag: float):
             "slope_r": [fr.at(s["km"], u_c + road, crest, vexag), fr.at(s["km"], toe, ground, vexag)],
             "ground_l": [fr.at(s["km"], -toe, ground, vexag), fr.at(s["km"], -(toe + ROW_MARGIN_M), ground, vexag)],
             "ground_r": [fr.at(s["km"], toe, ground, vexag), fr.at(s["km"], toe + ROW_MARGIN_M, ground, vexag)],
-            "row_l": [fr.at(s["km"], -(u_c + sp["row"]), ground, vexag), fr.at(s["km"], -(u_c + sp["row"] + 1.5), ground, vexag)],
-            "row_r": [fr.at(s["km"], u_c + sp["row"], ground, vexag), fr.at(s["km"], u_c + sp["row"] + 1.5, ground, vexag)],
+            "row_l": [fr.at(s["km"], -(u_c + sp["row"]), ground + 0.2, vexag), fr.at(s["km"], -(u_c + sp["row"] + 1.5), ground + 0.2, vexag)],
+            "row_r": [fr.at(s["km"], u_c + sp["row"], ground + 0.2, vexag), fr.at(s["km"], u_c + sp["row"] + 1.5, ground + 0.2, vexag)],
             "reach": sp["reach"], "u_c": u_c, "toe": toe, "z_bed": bed, "z_crest": crest, "z_ground": ground, "z_water": water,
         }
         rings.append(ring)
@@ -212,6 +212,44 @@ def build(vexag: float):
     return mesh, fr, g
 
 
+def make_labels(g: dict, fr: Frame) -> list[dict]:
+    """ป้ายกำกับตำแหน่งสำคัญ: ต้น/ปลายคลอง · ประตูระบายน้ำ · สะพานรถไฟ · ทางหลวง/ทางพิเศษ · ลำน้ำใหญ่ · สะพานน้ำ · จุดเปลี่ยนรูปตัด · ระดับน้ำ/ท้อง/สันคัน · กม.ทุก 10"""
+    st = g["stations"]
+    kmv = np.array([s["km"] for s in st])
+
+    def lv(km):
+        i = int(np.argmin(np.abs(kmv - km)))
+        return st[i]
+    out = []
+
+    def add(km, text, kind, dz=0.0, u=0.0):
+        s = lv(km)
+        x, y, z = fr.at(km, u, 0.0)
+        out.append({"km": round(km, 3), "x": round(x, 1), "y": round(y, 1), "z": round(s["crest"] + dz, 2), "text": text, "kind": kind})
+    add(0.0, "กม.0 ต้นคลอง (ฝั่งป่าสัก)", "end")
+    add(135.9, "กม.135.9 ปลายคลอง → อ่าวไทย (น้ำหนุนสูง +2.0 ม.รทก.)", "end")
+    add(23.0, "กม.23 เปลี่ยนรูปตัด: คลองดิน(จม) → คลองลอยดาดคอนกรีต", "reach", dz=2.0)
+    add(134.0, "กม.134 เริ่มปากแตร (ท้องคลอง 51→380 ม.)", "reach", dz=2.0)
+    for s in g["structures"]:
+        k, n = s["kind"], s["name"]
+        km = s["km"]
+        if k == "gate":
+            q = lv(km)
+            add(km, f"ปตร. กม.{km:g} · 4 บาน {s.get('bay_width_m', 12.5):g}×{s.get('bay_height_m', 6.0):g} ม. · ท้อง {q['bed']:+.2f} น้ำ {q['water']:+.2f} สันคัน {q['crest']:+.2f} ม.รทก.", "gate", dz=6.0)
+        elif k == "rail_bridge":
+            add(km, f"สะพานรถไฟ กม.{km:g} (ยาว {max(s.get('spans_m') or [0]):g} ม.)", "rail", dz=5.0)
+        elif k == "road_bridge" and any(w in n for w in ("ทางหลวง", "ทางพิเศษ", "มอเตอร์เวย์")):
+            add(km, f"{n[:34]} กม.{km:g}", "highway", dz=4.0)
+        elif k == "crossing" and ((s.get("canal_w") or 0) >= 30 or "แม่น้ำ" in n):
+            add(km, f"{n[:28]} กม.{km:g} (กว้าง ~{s.get('canal_w', 0):g} ม.)", "river", dz=3.0)
+        elif k == "aqueduct":
+            add(km, f"สะพานน้ำ {n[:26]} กม.{km:g}", "aqueduct", dz=7.0)
+    for km in range(10, 136, 10):
+        q = lv(float(km))
+        add(float(km), f"กม.{km} · ดินเดิม {q['ground']:+.1f} · น้ำ {q['water']:+.1f} · สันคัน {q['crest']:+.1f} ม.รทก.", "km", dz=1.0)
+    return out
+
+
 def section_area_check(g: dict) -> dict:
     """พื้นที่หน้าตัดน้ำที่แบบจำลองสร้าง (จากพารามิเตอร์ตาราง) เทียบค่า A ที่ตารางทางการพิมพ์"""
     out = {}
@@ -274,6 +312,7 @@ RUBY_HEAD = '''# encoding: utf-8
 VERT_EXAG = 1.0
 MATERIALS = %s
 TILES = %s
+LABELS = __LABELS__
 
 def cpy2_material(model, name)
   m = model.materials[name] || model.materials.add(name)
@@ -304,21 +343,41 @@ TILES.sort_by { |k, _| k.to_i }.each do |tile, data|
         next
       end
     end
-    mg.entities.add_faces_from_mesh(pm, 12, cpy2_material(model, mat))
+    mat_obj = cpy2_material(model, mat)
+    # ระบายสีทั้งด้านหน้าและด้านหลัง (กันหน้าที่หันกลับกลายเป็นสีเริ่มต้น/ฟ้า ดูเหมือนหายไป)
+    mg.entities.add_faces_from_mesh(pm, 12, mat_obj, mat_obj)
   end
+end
+# ป้ายกำกับตำแหน่งสำคัญ (ข้อความพร้อมเส้นนำ อ่านได้จากทุกมุม) · เปิด/ปิดได้ที่แท็ก "ป้ายกำกับ"
+lbl_layer = model.layers["ป้ายกำกับ"] || model.layers.add("ป้ายกำกับ")
+lg = root.entities.add_group
+lg.name = "ป้ายกำกับ"
+lg.layer = lbl_layer
+LABELS.each do |x, y, z, text|
+  lift = 60 + 6 * VERT_EXAG
+  lg.entities.add_text(text, Geom::Point3d.new(x.m, y.m, (z * VERT_EXAG).m), Geom::Vector3d.new(0, 0, lift.m))
 end
 model.commit_operation
 Sketchup.status_text = "สร้างคลองเจ้าพระยา 2 เสร็จ"
 '''
 
 
-def write_ruby(mesh, fr, path: Path, vexag: float):
+def write_ruby(mesh, fr, path: Path, vexag: float, labels=None):
     t = tiles(mesh, fr)
-    comp = {str(k): {"origin": v["origin"], "mats": {m: [[[round(c, 2) for c in pt] for pt in p] for p in ps] for m, ps in v["mats"].items()}} for k, v in sorted(t.items())}
+    def tris(ps):   # สี่เหลี่ยมที่ไม่อยู่ระนาบเดียว (บิดตามโค้งของแนวคลอง) SketchUp สร้างหน้าไม่ได้ — แตกเป็นสามเหลี่ยมทั้งหมด
+        for q in ps:
+            if len(q) == 4:
+                yield [q[0], q[1], q[2]]
+                yield [q[0], q[2], q[3]]
+            else:
+                yield q
+    comp = {str(k): {"origin": v["origin"], "mats": {m: [[[round(c, 2) for c in pt] for pt in q] for q in tris(ps)] for m, ps in v["mats"].items()}} for k, v in sorted(t.items())}
     # z ในไฟล์ .rb เป็นค่าจริง (vexag=1) แล้วคูณด้วย VERT_EXAG ตอนรัน
     mat = {k: list(v) for k, v in MATERIALS.items()}
     ruby_hash = lambda o: json.dumps(o, ensure_ascii=False).replace('":', '" =>').replace("[", "[").replace("true", "true")  # noqa: E731
     src = RUBY_HEAD % (ruby_hash(mat), ruby_hash(comp), int(TILE_KM), int(TILE_KM), int(TILE_KM))
+    lab = [[l["x"], l["y"], l["z"], l["text"]] for l in (labels or [])]
+    src = src.replace("__LABELS__", ruby_hash(lab))
     path.write_text(src, encoding="utf-8")
     return len(comp)
 
@@ -342,7 +401,7 @@ small{color:#94a3b8}button,select,input[type=range]{width:100%%;margin:3px 0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
-const DATA=%s, MATS=%s, KMS=%s, NOTE=%s;
+const DATA=%s, MATS=%s, KMS=%s, NOTE=%s, LABELS=%s;
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x0f172a);
 const cam=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,1,2e6);
 const rend=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});rend.setSize(innerWidth,innerHeight);
@@ -361,7 +420,15 @@ const leg=document.getElementById('legend');
 for(const name of Object.keys(DATA)){const c=MATS[name];const l=document.createElement('label');
   l.innerHTML='<input type="checkbox" checked> <span class="sw" style="background:rgb('+[0,1,2].map(i=>Math.round(c[i]*255))+')"></span>'+name;
   l.firstChild.onchange=e=>{meshes[name].visible=e.target.checked};leg.appendChild(l);}
-const vex=document.getElementById('vex');function setV(){grp.scale.z=+vex.value;document.getElementById('vv').textContent=vex.value}
+const vex=document.getElementById('vex');
+const lblGrp=new THREE.Group();scene.add(lblGrp);const lblSprites=[];
+const KC={end:'#fde047',reach:'#f472b6',gate:'#fb923c',rail:'#cbd5e1',highway:'#f87171',river:'#60a5fa',aqueduct:'#67e8f9',km:'#e2e8f0'};
+LABELS.forEach(l=>{const cv=document.createElement('canvas'),cx=cv.getContext('2d');const fs=34;cx.font=fs+'px Leelawadee UI, Tahoma, sans-serif';const w=Math.ceil(cx.measureText(l.text).width)+24;cv.width=w;cv.height=fs+18;
+  cx.font=fs+'px Leelawadee UI, Tahoma, sans-serif';cx.fillStyle='rgba(11,18,32,0.82)';cx.fillRect(0,0,w,cv.height);cx.strokeStyle=KC[l.kind]||'#fff';cx.lineWidth=3;cx.strokeRect(1,1,w-2,cv.height-2);cx.fillStyle=KC[l.kind]||'#fff';cx.textBaseline='middle';cx.fillText(l.text,12,cv.height/2+2);
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),depthTest:false,transparent:true}));sp.userData={l,ratio:w/cv.height};lblGrp.add(sp);lblSprites.push(sp);});
+function placeLabels(){const v=+vex.value;lblSprites.forEach(sp=>{const l=sp.userData.l;sp.position.set(l.x,l.y,l.z*v+40+4*v);const d=cam.position.distanceTo(sp.position);const h=Math.max(d*0.03,10);sp.scale.set(h*sp.userData.ratio,h,1)})}
+const lcb=document.createElement('label');lcb.innerHTML='<input type="checkbox" checked> ป้ายกำกับ';lcb.firstChild.onchange=e=>{lblGrp.visible=e.target.checked};document.getElementById('legend').before(lcb);
+function setV(){grp.scale.z=+vex.value;document.getElementById('vv').textContent=vex.value;placeLabels()}
 vex.oninput=setV;setV();
 const sel=document.getElementById('kmsel');
 KMS.forEach(k=>{const o=document.createElement('option');o.value=k.km;o.textContent='กม. '+k.km.toFixed(1)+(k.label?' · '+k.label:'');sel.appendChild(o)});
@@ -373,11 +440,11 @@ const bb=new THREE.Box3().setFromObject(grp);const ctr=bb.getCenter(new THREE.Ve
 ctl.target.copy(ctr);cam.position.set(ctr.x+sz.x*0.2,ctr.y-sz.y*0.9,sz.y*0.7);ctl.update();
 document.getElementById('note').innerHTML=NOTE;
 addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();rend.setSize(innerWidth,innerHeight)});
-(function loop(){requestAnimationFrame(loop);ctl.update();rend.render(scene,cam)})();
+(function loop(){requestAnimationFrame(loop);ctl.update();placeLabels();rend.render(scene,cam)})();
 </script></body></html>"""
 
 
-def write_viewer(mesh: Mesh, fr: Frame, g: dict, path: Path):
+def write_viewer(mesh: Mesh, fr: Frame, g: dict, path: Path, labels=None):
     import base64
     data = {}
     for mat, polys in mesh.polys.items():
@@ -396,7 +463,7 @@ def write_viewer(mesh: Mesh, fr: Frame, g: dict, path: Path):
         kms.append({"km": q["km"], "x": x, "y": y, "z": q["crest"], "label": ""})
     kms.sort(key=lambda k: k["km"])
     note = ("<b>ข้อสมมติที่ไม่ใช่ตัวเลขทางการ:</b> " + " · ".join(g["assumptions_for_model"]) + "<br><b>ความสูงเกินจริง:</b> ดึงแถบ ×1 = มาตราส่วนจริง (คลองสูง 7 ม. ยาว 135.9 กม. จึงแบนมาก)")
-    path.write_text(VIEWER % (json.dumps(data), json.dumps({k: list(v) for k, v in MATERIALS.items()}), json.dumps(kms, ensure_ascii=False), json.dumps(note, ensure_ascii=False)), encoding="utf-8")
+    path.write_text(VIEWER % (json.dumps(data), json.dumps({k: list(v) for k, v in MATERIALS.items()}), json.dumps(kms, ensure_ascii=False), json.dumps(note, ensure_ascii=False), json.dumps(labels or [], ensure_ascii=False)), encoding="utf-8")
 
 
 def main():
@@ -406,11 +473,12 @@ def main():
     OUTD.mkdir(parents=True, exist_ok=True)
     mesh, fr, g = build(1.0)    # ไฟล์ .obj/.rb เขียนที่มาตราส่วนจริงเสมอ — ความสูงเกินจริงเป็นตัวเลือกตอนดู
     nv, nf = write_obj(mesh, OUTD / "chaophraya2.obj")
-    nt = write_ruby(mesh, fr, OUTD / "chaophraya2_sketchup.rb", a.vexag)
-    write_viewer(mesh, fr, g, OUTD / "chaophraya2_viewer.html")
+    labels = make_labels(g, fr)
+    nt = write_ruby(mesh, fr, OUTD / "chaophraya2_sketchup.rb", a.vexag, labels)
+    write_viewer(mesh, fr, g, OUTD / "chaophraya2_viewer.html", labels)
     allv = np.array([v for ps in mesh.polys.values() for p in ps for v in p])
     summary = {"vertices": nv, "faces": nf, "tiles": nt, "materials": {m: len(p) for m, p in mesh.polys.items()}, "bbox_m": [allv.min(axis=0).round(1).tolist(), allv.max(axis=0).round(1).tolist()],
-               "section_area_check": section_area_check(g), "structures_modelled": {k: sum(1 for s in g["structures"] if s["kind"] == k) for k in sorted({s["kind"] for s in g["structures"]})}, "assumptions": g["assumptions_for_model"]}
+               "section_area_check": section_area_check(g), "labels": len(labels), "structures_modelled": {k: sum(1 for s in g["structures"] if s["kind"] == k) for k in sorted({s["kind"] for s in g["structures"]})}, "assumptions": g["assumptions_for_model"]}
     (OUTD / "chaophraya2_model_summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False)[:900])
 

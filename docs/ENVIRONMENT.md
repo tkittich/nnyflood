@@ -243,6 +243,8 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_typhoon_queue_eia` | `analysis/goal7_typhoon_queue_eia.py` | `typhoon_env` | active | คิว Typhoon-OCR ของเล่ม EIA 2569 ตามรายการหน้าค้าง (หน้าสแกนก่อน แล้วหน้ารูป) 2 worker บน GPU | `E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_typhoon_queue_eia.py --workers 2` | `data/32_goal7_chaophraya2/typhoon_ocr/eia2569_<เล่ม>/pages.jsonl` |
 | `quantity_registry` | `tools/quantity_registry.py` | `main` | active | ตรวจทะเบียนตัวตนของปริมาณ (ชื่อ·ขอบเขต·นิยาม·หน่วย·ชนิดที่มา) กับ canonical และค่าคงที่ต้นทาง · ส่งต่อสถานะถูกโต้แย้ง | `python tools/quantity_registry.py` | — |
 | `goal7_ongkharak_connected_fill` | `analysis/goal7_ongkharak_connected_fill.py` | `main` | active | เป้าหมาย 7 (R7-04) — น้ำท่วมแอ่งองครักษ์แบบเชื่อมต่อลำน้ำ + ผิวน้ำลาดตามระยะ เทียบถังเติมน้ำเดิมกับมาสก์ดาวเทียม (Copernicus/FABDEM) | `python analysis/goal7_ongkharak_connected_fill.py` | `analysis/goal7/ongkharak_connected_fill_summary.json` |
+| `goal7_official_geometry` | `analysis/goal7_official_geometry.py` | `main` | active | รวมมิติทางการของคลองเจ้าพระยา 2 (รูปตัด 3 ช่วง · ระดับตามยาว · อาคาร 99 แถว · แนวจากหมุด กม.) เป็นไฟล์เดียวสำหรับแบบจำลอง 3 มิติ | `python analysis/goal7_official_geometry.py` | `analysis/goal7/official_geometry.json` |
+| `goal7_build_3d_model` | `analysis/goal7_build_3d_model.py` | `main` | active | สร้างแบบจำลอง 3 มิติคลองเจ้าพระยา 2 (สคริปต์ SketchUp .rb + OBJ + ตัวดูเบราว์เซอร์) จากมิติทางการ | `python analysis/goal7_build_3d_model.py` | `report/models/chaophraya2_sketchup.rb`<br>`report/models/chaophraya2.obj`<br>`report/models/chaophraya2_viewer.html` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -251,7 +253,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 3 สภาพแวดล้อม · 154 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 156 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

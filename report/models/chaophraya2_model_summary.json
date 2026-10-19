@@ -1,0 +1,60 @@
+{
+ "vertices": 8206,
+ "faces": 6866,
+ "tiles": 14,
+ "materials": {
+  "earth_lining": 414,
+  "water": 271,
+  "road": 542,
+  "embankment": 542,
+  "ground": 542,
+  "row_line": 542,
+  "concrete_lining": 1583,
+  "road_bridge": 282,
+  "pier": 738,
+  "aqueduct": 42,
+  "gate": 120,
+  "culvert": 774,
+  "existing_canal": 456,
+  "rail_bridge": 12,
+  "sea": 6
+ },
+ "bbox_m": [
+  [
+   -110.4,
+   -119843.3,
+   -10.5
+  ],
+  [
+   26293.6,
+   74.2,
+   14.3
+  ]
+ ],
+ "section_area_check": {
+  "reach1": {
+   "model_area_m2": 490.0,
+   "official_area_m2": 480.0,
+   "diff_pct": 2.08
+  },
+  "reach2": {
+   "model_area_m2": 504.0,
+   "official_area_m2": 504.0,
+   "diff_pct": -0.0
+  }
+ },
+ "structures_modelled": {
+  "aqueduct": 7,
+  "crossing": 39,
+  "gate": 5,
+  "inlet": 4,
+  "rail_bridge": 2,
+  "road_bridge": 42
+ },
+ "assumptions": [
+  "ระดับท้องไซฟอน (ไม่มีในตาราง 2.3.2-3)",
+  "ความสูงใต้ท้องสะพาน/ตอม่อ (ไม่มีในตาราง)",
+  "แนวคลองจากหมุด กม. ไม่ใช่แนวกึ่งกลางตามแบบ",
+  "ความกว้างเขตทาง (RL/RR) ใช้ตามตารางรูปตัด"
+ ]
+}

@@ -1,0 +1,59 @@
+newmtl water
+Kd 0.2 0.45 0.8
+d 0.55
+
+newmtl earth_lining
+Kd 0.55 0.42 0.28
+d 1
+
+newmtl concrete_lining
+Kd 0.7 0.7 0.72
+d 1
+
+newmtl road
+Kd 0.22 0.22 0.24
+d 1
+
+newmtl embankment
+Kd 0.45 0.52 0.3
+d 1
+
+newmtl ground
+Kd 0.62 0.7 0.45
+d 1
+
+newmtl gate
+Kd 0.85 0.35 0.1
+d 1
+
+newmtl pier
+Kd 0.6 0.6 0.6
+d 1
+
+newmtl road_bridge
+Kd 0.8 0.8 0.82
+d 1
+
+newmtl rail_bridge
+Kd 0.35 0.3 0.3
+d 1
+
+newmtl aqueduct
+Kd 0.45 0.65 0.78
+d 1
+
+newmtl culvert
+Kd 0.1 0.55 0.55
+d 1
+
+newmtl existing_canal
+Kd 0.3 0.55 0.85
+d 0.8
+
+newmtl row_line
+Kd 0.95 0.8 0.1
+d 1
+
+newmtl sea
+Kd 0.15 0.35 0.65
+d 0.4

@@ -1,9 +1,9 @@
 {
  "verified_on": "2026-10-19",
- "constants_sha256": "869b095a4eb5ebd0280970688e2771ab0716e42193249aaf610f449b1edde0df",
+ "constants_sha256": "4b40214bd2fc15d51c6bb574be23b7c1a689e0de3c3238805d7ad4872c2b883d",
  "summary": {
   "verified_text": 14,
-  "verified_image": 14,
+  "verified_image": 15,
   "failed": 1,
   "assumption": 3,
   "unverified": 1
@@ -469,6 +469,19 @@
      "type": "image_evidence",
      "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
      "reading": "23+000–134+000 / 134+000–135+900",
+     "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "eia_section_table": {
+   "status": "verified_image",
+   "checks": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "reading": "อ่านทุกคอลัมน์จากภาพ 3 แถว (ผู้ใช้ยืนยัน B=51 ที่ กม.23–134)",
      "sha256_ok": true,
      "ok": true
     }

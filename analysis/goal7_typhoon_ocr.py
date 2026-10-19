@@ -33,44 +33,127 @@ def init_engine(model_id: str = "scb10x/typhoon-ocr1.5-2b", device: str = "cuda:
     return processor, model
 
 
-def ocr_page(doc, page_num: int, processor, model, device: str = "cuda:0", dpi: int = 150) -> str:
-    from PIL import Image
+SHORT_PROMPT = "Extract text in markdown format."
+_GEN_STATE: dict = {"truncated": False}   # ตัวแปรต่อกระบวนการ: รอบล่าสุดถูกตัดด้วยเวลา/ความยาวหรือไม่ (ใช้บันทึกใน meta)
+MAX_TIME_S = {"scan": 70.0, "figure": 45.0, "text": 70.0}   # เพดานเวลาต่อหน้า (วินาที) — หน้าตารางหนาแน่นเคยวนซ้ำจน 184 วินาที/หน้า
+ECHO_MARKERS = ("RAW_TEXT_START", "Below is an image of a document page", "Your task is to return the markdown representation")
+THAI_RX = __import__("re").compile(r"[฀-๿]")
+
+
+def is_echo(text: str) -> bool:
+    """โมเดลบางหน้าสะท้อนแม่แบบคำสั่งกลับแทนการถอดความ (เจอ 23% ของ eia_clarify2_att1) — ถือว่าล้มเหลว"""
+    return any(m in (text or "") for m in ECHO_MARKERS)
+
+
+def _official_prompt(page, w: float, h: float) -> str:
+    raw = (page.get_text() or "").strip()[:3000]
+    parts = [
+        "Below is an image of a document page, along with its dimensions and possibly some raw textual content previously extracted from it. "
+        "Note that the text extraction may be incomplete or partially missing. Carefully consider both the layout and any available text to reconstruct the document accurately.",
+        "Your task is to return the markdown representation of this document, presenting tables in HTML format as they naturally appear.",
+        "If the document contains images or figures, analyze them and include the tag <figure>IMAGE_ANALYSIS</figure> in the appropriate location.",
+        "Your final output must be in JSON format with a single key `natural_text` containing the response.",
+        "RAW_TEXT_START",
+        f"Page dimensions: {w:.1f}x{h:.1f}",
+        raw,
+        "RAW_TEXT_END",
+    ]
+    return "\n".join(parts)
+
+
+def _generate(img, prompt: str, processor, model, device: str, max_new_tokens: int = 4096, max_time: float | None = None) -> str:
     import torch
+
+    messages = [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": prompt}]}]
+    inputs = processor.apply_chat_template(
+        messages, tokenize=True, add_generation_prompt=True, return_dict=True, return_tensors="pt"
+    ).to(device)
+    _t0 = __import__("time").time()
+    with torch.no_grad():
+        generated_ids = model.generate(**inputs, max_new_tokens=max_new_tokens, max_time=max_time, repetition_penalty=1.1, do_sample=False)
+    _GEN_STATE["truncated"] = bool(max_time and (__import__("time").time() - _t0) >= 0.97 * max_time) or (generated_ids.shape[1] - inputs.input_ids.shape[1]) >= max_new_tokens
+    out = processor.batch_decode([o[len(i):] for i, o in zip(inputs.input_ids, generated_ids)], skip_special_tokens=True)[0].strip()
+    if out.startswith("{") and "natural_text" in out[:40]:
+        try:
+            out = json.loads(out)["natural_text"]
+        except Exception:
+            pass
+    return out
+
+
+def _render(doc, page_num: int, dpi: int, rotate: int = 0):
+    from PIL import Image
 
     page = doc[page_num - 1]
     pix = page.get_pixmap(dpi=dpi)
     img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-
-    messages = [
-        {
-            "role": "user",
-            "content": [
-                {"type": "image", "image": img},
-                {"type": "text", "text": "Extract text in markdown format."},
-            ],
-        }
-    ]
-
-    inputs = processor.apply_chat_template(
-        messages, tokenize=True, add_generation_prompt=True, return_dict=True, return_tensors="pt"
-    ).to(device)
-
-    with torch.no_grad():
-        generated_ids = model.generate(
-            **inputs,
-            max_new_tokens=4096,
-            repetition_penalty=1.1,
-            do_sample=False
-        )
-
-    output_text = processor.batch_decode(
-        [out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)],
-        skip_special_tokens=True,
-    )
-    return output_text[0].strip()
+    if rotate:
+        img = img.rotate(-rotate, expand=True)   # rotate=90 = หมุนตามเข็มนาฬิกา 90°
+    return page, img
 
 
-def worker_task(pdf_path_str: str, label: str, worker_id: int, task_queue, dpi: int, target_dir_str: str):
+def ocr_page(doc, page_num: int, processor, model, device: str = "cuda:0", dpi: int = 150) -> str:
+    """ถอดความหน้าเดียวแบบเดิม (คำสั่งสั้น มุมเดิม) — คงไว้เพื่อความเข้ากันได้"""
+    _, img = _render(doc, page_num, dpi)
+    return _generate(img, SHORT_PROMPT, processor, model, device)
+
+
+def classify_page(page) -> str:
+    """จัดชนิดหน้า: 'scan' = หน้าสแกน/ภาพล้วน (แทบไม่มีข้อความในไฟล์ + ภาพใหญ่) · 'figure' = หน้ามีข้อความแต่มีภาพ/รูป/ตารางที่เป็นภาพขนาดใหญ่ · 'text' = ข้อความล้วน"""
+    area = page.rect.width * page.rect.height
+    frac = 0.0
+    for im in page.get_images(full=True):
+        for r in page.get_image_rects(im[0]):
+            frac += (r.width * r.height) / area
+    frac = min(frac, 1.0)
+    n_text = len((page.get_text() or "").strip())
+    if n_text < 80 and frac > 0.3:
+        return "scan"
+    if n_text >= 80 and frac > 0.25:
+        return "figure"
+    return "text"
+
+
+def ocr_page_robust(doc, page_num: int, processor, model, device: str = "cuda:0", dpi: int = 150, kind: str = "auto") -> tuple[str, dict]:
+    """ถอดความแบบทนความล้มเหลว (รอบ 6) — ทดสอบ 19 ต.ค. 69 กับรูปที่ 2.3.2-11 หน้า 144:
+    · คำสั่งสั้นให้ผลดีกับหน้าสแกนที่เป็นข้อความ แต่หน้ารูป/แบบวิศวกรรมมักสะท้อนแม่แบบคำสั่งกลับ (echo)
+    · แม่แบบคำสั่งทางการแก้ echo ได้ แต่ **แต่งข้อมูลขึ้นเอง** บนแบบวิศวกรรม (เช่น 'ถนน123-456') และช้า ~160 วินาที/หน้า → ไม่ใช้เป็นค่าตั้งต้น
+    ดังนั้น: scan = ลองมุม 0→90→270 ด้วยคำสั่งสั้น · figure = ลองครั้งเดียว จำกัดความยาว ถ้า echo ให้ทำเครื่องหมายว่า 'ต้องอ่านภาพ/ตัดตาราง' (ไม่แต่งข้อความ)
+    · มีธง official=True ใน meta เมื่อใช้แม่แบบทางการ (ไม่ใช้ในคิวปกติ)"""
+    page = doc[page_num - 1]
+    if kind == "auto":
+        kind = classify_page(page)
+    plan = [(0, "short")] if kind in ("figure", "text") else [(0, "short"), (90, "short"), (270, "short")]
+    max_new = 1200 if kind == "figure" else 4096
+    attempts = []
+    best_text, best_score = "", -1
+    for rot, prompt_kind in plan:
+        _, img = _render(doc, page_num, dpi if rot == 0 else max(dpi, 170), rot)
+        txt = _generate(img, SHORT_PROMPT, processor, model, device, max_new_tokens=max_new, max_time=MAX_TIME_S.get(kind, 70.0))
+        truncated = _GEN_STATE["truncated"]
+        echo = is_echo(txt)
+        thai = len(THAI_RX.findall(txt))
+        attempts.append({"rotate": rot, "prompt": prompt_kind, "echo": echo, "thai_chars": thai, "chars": len(txt), "truncated": truncated})
+        score = -1 if echo else thai + len(txt) // 50
+        if score > best_score:
+            best_text, best_score = txt, score
+        if not echo and thai >= 30:
+            break
+    echo_final = best_score < 0
+    return ("" if echo_final else best_text), {"truncated": any(a_["truncated"] for a_ in attempts), "kind": kind, "attempts": attempts, "echo_final": echo_final, "needs_visual": echo_final or (kind == "figure"), "official": False}
+
+
+def record_done(r: dict) -> bool:
+    """หน้าที่ถือว่า 'ทำแล้ว': ไม่มี error และ (ผ่านตัวทนความล้มเหลวแล้ว หรือเป็นข้อความที่ไม่ใช่การสะท้อนแม่แบบ) — ผลเก่าที่ echo จะถูกทำใหม่"""
+    if r.get("error"):
+        return False
+    if (r.get("meta") or {}).get("needs_visual") is not None:
+        return True
+    txt = r.get("text") or ""
+    return bool(txt) and not is_echo(txt)
+
+
+def worker_task(pdf_path_str: str, label: str, worker_id: int, task_queue, dpi: int, target_dir_str: str, kind: str = "auto"):
     import pymupdf
     import time
     import json
@@ -90,10 +173,11 @@ def worker_task(pdf_path_str: str, label: str, worker_id: int, task_queue, dpi: 
 
         t0 = time.time()
         try:
-            md_text = ocr_page(doc, p, processor, model, dpi=dpi)
+            md_text, meta = ocr_page_robust(doc, p, processor, model, dpi=dpi, kind=kind)
             rec = {
                 "page": p,
                 "text": md_text,
+                "meta": meta,
                 "sec": round(time.time() - t0, 2),
                 "worker": worker_id,
                 "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
@@ -112,7 +196,7 @@ def worker_task(pdf_path_str: str, label: str, worker_id: int, task_queue, dpi: 
         print(f"  [Worker {worker_id} | {label}] หน้า {p}/{total_pages} เสร็จใน {rec['sec']} วินาที", flush=True)
 
 
-def run_job(pdf_path: str | Path, label: str, pages: list[int] | None = None, dpi: int = 150, workers: int = 1):
+def run_job(pdf_path: str | Path, label: str, pages: list[int] | None = None, dpi: int = 150, workers: int = 1, kind: str = "auto"):
     import multiprocessing
     import pymupdf
 
@@ -129,7 +213,9 @@ def run_job(pdf_path: str | Path, label: str, pages: list[int] | None = None, dp
         for line in jl_path.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 try:
-                    done_pages.add(json.loads(line)["page"])
+                    _r = json.loads(line)
+                    if record_done(_r):
+                        done_pages.add(_r["page"])
                 except Exception:
                     pass
 
@@ -138,7 +224,9 @@ def run_job(pdf_path: str | Path, label: str, pages: list[int] | None = None, dp
         for line in pf.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 try:
-                    done_pages.add(json.loads(line)["page"])
+                    _r = json.loads(line)
+                    if record_done(_r):
+                        done_pages.add(_r["page"])
                 except Exception:
                     pass
 
@@ -161,14 +249,14 @@ def run_job(pdf_path: str | Path, label: str, pages: list[int] | None = None, dp
 
     if workers <= 1 or len(todo) == 1:
         # รันกระบวนการเดี่ยว
-        worker_task(str(pdf_path), label, 0, q, dpi, str(target_dir))
+        worker_task(str(pdf_path), label, 0, q, dpi, str(target_dir), kind)
     else:
         # รันกระบวนการคู่ขนานแบบคิวงานอิสระ
         processes = []
         for wid in range(workers):
             p = multiprocessing.Process(
                 target=worker_task,
-                args=(str(pdf_path), label, wid + 1, q, dpi, str(target_dir))
+                args=(str(pdf_path), label, wid + 1, q, dpi, str(target_dir), kind)
             )
             p.start()
             processes.append(p)
@@ -219,6 +307,7 @@ def main():
     parser.add_argument("--label", required=True, help="ชื่อกลุ่มเอกสาร (เช่น letter54_measures)")
     parser.add_argument("--pages", help="หน้าที่ต้องการแปลง (เช่น 1,2,3 หรือ 1-10)")
     parser.add_argument("--dpi", type=int, default=150, help="DPI สำหรับแปลงหน้าภาพ (ค่าเริ่มต้น 150)")
+    parser.add_argument("--kind", default="auto", choices=["auto", "scan", "figure", "text"], help="ชนิดหน้า (auto = จัดอัตโนมัติรายหน้า)")
     parser.add_argument("--workers", type=int, default=1, help="จำนวน worker ทำงานขนานบน GPU (เช่น 2)")
 
     args = parser.parse_args()
@@ -233,7 +322,7 @@ def main():
             else:
                 pages.append(int(part))
 
-    run_job(args.pdf, args.label, pages=pages, dpi=args.dpi, workers=args.workers)
+    run_job(args.pdf, args.label, pages=pages, dpi=args.dpi, workers=args.workers, kind=args.kind)
 
 
 if __name__ == "__main__":

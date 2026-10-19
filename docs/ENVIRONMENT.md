@@ -67,6 +67,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
   (`python -m venv E:/theera/ocr_env` แล้ว `pip install rapidocr onnxruntime pymupdf pillow numpy`) · โมเดลดาวน์โหลดครั้งแรกจาก modelscope (~8 MB)
 - ใช้กับ `analysis/goal7_ocr.py` (รันด้วย python ของ venv นั้น) · ความเร็วราว 1.4–1.7 วินาที/หน้า (200 dpi) · อ่านไทยพิมพ์ได้ดี
   (ผิดเล็กน้อย: วรรณยุกต์/สระบางตัว หัวคอลัมน์บางช่อง) → ค้นด้วยข้อความตัดวรรณยุกต์ (`analysis/goal7_ocr_scan.py`) แล้ว**ตรวจภาพหน้าก่อนอ้าง**
+- **พฤติกรรมของ Typhoon-OCR ที่วัดได้ (19 ต.ค. 69)**: (1) หน้าสแกนข้อความไทยให้ผลดีและเร็ว (~6–30 วินาที/หน้า) (2) หน้าแบบวิศวกรรม/รูปมักสะท้อนแม่แบบคำสั่งกลับ (echo: 23% ใน `eia_clarify2_att1`) — แม่แบบคำสั่งทางการแก้ echo ได้แต่ **แต่งข้อความขึ้นเองและช้ามาก (~160 วินาที/หน้า)** จึงไม่ใช้เป็นค่าตั้งต้น (3) หน้าตารางหนาแน่นอาจวนซ้ำจนถึงเพดานโทเคน (184 วินาที/หน้า) — ตัวถอดความจึงมีเพดานเวลา 70/45 วินาที และทำเครื่องหมาย `truncated` · หน้าที่ถอดไม่ได้ทำเครื่องหมาย `needs_visual` ให้คนเปิดภาพ/ตัดตารางอ่าน · GPU รองรับ 2 งานอิสระพร้อมกัน (`--workers 2`)
 - ทางเลือกที่ตรวจแล้ว: Windows OCR ในเครื่องไม่มีภาษาไทย (ต้องสิทธิ์ผู้ดูแลเพิ่มแพ็ก) · ไม่มี tesseract/torch ในเครื่อง · python 3.14 ไม่มี wheel ของ torch ในเวลาที่ทดสอบ
 - ผลลัพธ์ OCR เก็บบนดิสก์ `data/32_goal7_chaophraya2/ocr/` (ไม่เข้า git) — ในไฟล์เก็บเฉพาะข้อเท็จจริงที่ตรวจภาพแล้ว (`analysis/goal7/ocr_findings.json` + `OCR_FACTS`)
 
@@ -232,6 +233,8 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `report_assets` | `report/report_assets.py` | `main` | active | Generate all chart/frame PNGs for the public HTML report. | `(โมดูล — import ไม่รันตรง)` | — |
 | `goal7_source_constants` | `analysis/goal7_source_constants.py` | `main` | active | ตัวโหลดค่าคงที่นำเข้าที่มีแหล่งอ้างอิง (source_constants.json) — สคริปต์เรียก value('<id>') แทนพิมพ์ตัวเลข | `(โมดูล — import)` | — |
 | `goal7_verify_constants` | `analysis/goal7_verify_constants.py` | `main` | active | ตรวจค่าคงที่กับชั้นข้อความ PDF EIA และภาพหลักฐาน (แฮช) → verified/failed/assumption/conflict | `python analysis/goal7_verify_constants.py` | `analysis/goal7/source_constants_verification.json` |
+| `goal7_ocr_coverage` | `analysis/goal7_ocr_coverage.py` | `main` | active | วัดความครอบคลุม OCR ของเล่ม EIA 2569 (หน้าสแกน/หน้ารูปเทียบผล Typhoon ที่ใช้ได้) และสร้างรายการหน้าค้าง | `python analysis/goal7_ocr_coverage.py` | `analysis/goal7/ocr_coverage.json` |
+| `goal7_typhoon_queue_eia` | `analysis/goal7_typhoon_queue_eia.py` | `typhoon_env` | active | คิว Typhoon-OCR ของเล่ม EIA 2569 ตามรายการหน้าค้าง (หน้าสแกนก่อน แล้วหน้ารูป) 2 worker บน GPU | `E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_typhoon_queue_eia.py --workers 2` | `data/32_goal7_chaophraya2/typhoon_ocr/eia2569_<เล่ม>/pages.jsonl` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (5 รายการ · สถานะ `unreviewed`)
 
@@ -245,7 +248,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal6_flood_maps` | `analysis/goal6_flood_maps.py` | `main` | script | แผนที่น้ำท่วมจากดาวเทียม 6 ลุ่ม — จากมาสก์น้ำ S1 ที่ประมวลผลแล้ว (stage-2 พีค) |
 | `goal6_s2_validate` | `analysis/goal6_s2_validate.py` | `main` | script | เป้าหมาย 6 — L2 ตรวจยืนยันอิสระ: S2 MNDWI เทียบมาสก์น้ำ S1 บนกริดเดียวกัน |
 
-รวม 3 สภาพแวดล้อม · 149 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 151 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

@@ -13,6 +13,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+TONE = re.compile(r"[่-์]")   # วรรณยุกต์/ไม้ทัณฑฆาต — OCR และชั้นข้อความ PDF มักลำดับอักขระต่างกัน จึงทำดัชนีเสริมแบบตัดทิ้ง
 DB_PATH = ROOT / "data/search_index.db"
 
 
@@ -96,20 +97,55 @@ def index_all(verbose: bool = True) -> int:
         except Exception:
             pass
 
-    # 4. เอกสาร OCR (RapidOCR + Typhoon OCR)
-    for p in list(ROOT.glob("data/32_goal7_chaophraya2/ocr/**/text.txt")) + list(
-        ROOT.glob("data/32_goal7_chaophraya2/typhoon_ocr/**/document.md")
-    ):
-        rel = p.relative_to(ROOT).as_posix()
-        try:
-            txt = p.read_text(encoding="utf-8", errors="ignore")
+    # 4. OCR รายหน้า: Typhoon-OCR เป็นหลัก (ตัดสินใจ 19 ต.ค. 69) — หน้า echo/ถอดไม่ได้ไม่ถูกทำดัชนี · RapidOCR อ่านไทยไม่ดี จึงแยกหมวด ocr_rapid
+    import json
+
+    D32 = ROOT / "data/32_goal7_chaophraya2"
+    for jl in sorted(D32.glob("typhoon_ocr/*/pages*.jsonl")):
+        label = jl.parent.name
+        for ln in jl.read_text(encoding="utf-8", errors="ignore").splitlines():
+            if not ln.strip():
+                continue
+            try:
+                r = json.loads(ln)
+            except Exception:
+                continue
+            txt = (r.get("text") or "").strip()
+            if not txt or r.get("error") or (r.get("meta") or {}).get("echo_final") or "RAW_TEXT_START" in txt:
+                continue
             conn.execute(
                 "INSERT INTO docs_fts(path, category, title, body) VALUES (?, ?, ?, ?)",
-                (rel, "ocr", f"OCR: {p.parent.name}", txt)
+                (f"{jl.parent.relative_to(ROOT).as_posix()}#p{r['page']}", "ocr_typhoon", f"Typhoon OCR {label} หน้า {r['page']}", txt + " " + TONE.sub("", txt)),
+            )
+            indexed_count += 1
+    for p in D32.glob("ocr/**/text.txt"):
+        try:
+            conn.execute(
+                "INSERT INTO docs_fts(path, category, title, body) VALUES (?, ?, ?, ?)",
+                (p.relative_to(ROOT).as_posix(), "ocr_rapid", f"RapidOCR (คุณภาพต่ำ): {p.parent.name}", p.read_text(encoding="utf-8", errors="ignore")),
             )
             indexed_count += 1
         except Exception:
             pass
+
+    # 5. ชั้นข้อความของเล่ม EIA 2569 รายหน้า (ค้นหาค่าที่รายงานระบุตรงได้ทันที — เช่น "ก้นคลองกว้าง 51 เมตร")
+    try:
+        import fitz
+
+        for pdf in sorted((D32 / "official_eia/extracted").glob("*.pdf")):
+            doc = fitz.open(pdf)
+            for i, pg in enumerate(doc, 1):
+                txt = (pg.get_text() or "").strip()
+                if len(txt) < 40:
+                    continue
+                conn.execute(
+                    "INSERT INTO docs_fts(path, category, title, body) VALUES (?, ?, ?, ?)",
+                    (f"{pdf.relative_to(ROOT).as_posix()}#p{i}", "eia_text", f"EIA 2569 {pdf.stem} หน้าไฟล์ {i}", " ".join(txt.split()) + " " + TONE.sub("", " ".join(txt.split()))),
+                )
+                indexed_count += 1
+            doc.close()
+    except ImportError:
+        pass
 
     conn.commit()
     conn.close()
@@ -145,6 +181,13 @@ def is_stale(db_path: Path = DB_PATH) -> bool:
     ]:
         if p.exists() and p.stat().st_mtime > db_mtime:
             return True
+    D32 = ROOT / "data/32_goal7_chaophraya2"
+    for p in list(D32.glob("typhoon_ocr/*/pages*.jsonl")) + list((D32 / "official_eia/extracted").glob("*.pdf")):
+        try:
+            if p.stat().st_mtime > db_mtime:
+                return True
+        except Exception:
+            pass
     return False
 
 
@@ -157,36 +200,30 @@ def search(query: str, limit: int = 10) -> list[dict]:
     if not terms:
         return []
 
-    # สำหรับ trigram ให้ match ทั้งใน title และ body
-    clauses = []
-    for t in terms:
-        clauses.append(f'title:"{t}" OR body:"{t}"')
-    fts_query = " AND ".join(f"({c})" for c in clauses)
-
-    sql = """
-        SELECT path, category, title, snippet(docs_fts, 3, '[', ']', '...', 20), rank
-        FROM docs_fts
-        WHERE docs_fts MATCH ?
-        ORDER BY rank
-        LIMIT ?
-    """
-    try:
-        cur = conn.execute(sql, (fts_query, limit))
-        rows = cur.fetchall()
-        results = []
-        for path, cat, title, snippet_text, rank in rows:
-            results.append({
-                "path": path,
-                "category": cat,
-                "title": title,
-                "snippet": snippet_text.replace("\n", " ").strip(),
-                "rank": round(float(rank), 3)
-            })
-        return results
-    except Exception as e:
-        return []
-    finally:
-        conn.close()
+    # รอบ 6: ตัวค้นของ FTS5 แบบ trigram พลาดคำไทยจำนวนมากที่ LIKE หาเจอ (เช่น "คลองระบาย" FTS 10 หน้า vs จริง 587 หน้า; SQLite 3.50.4)
+    # คลังมีไม่ถึง 3,000 แถว — ใช้สแกนด้วย LIKE (ทุกคำต้องอยู่ ตัดวรรณยุกต์ด้วย) แล้วจัดอันดับตามจำนวนครั้งที่พบ แม่นกว่าและเร็วพอ (มิลลิวินาที)
+    conn_rows = conn.execute("SELECT path, category, title, body FROM docs_fts WHERE " + " AND ".join(
+        "(body LIKE ? OR title LIKE ?" + (" OR body LIKE ?" if TONE.sub("", t) != t else "") + ")" for t in terms),
+        [x for t in terms for x in ((f"%{t}%", f"%{t}%") + ((f"%{TONE.sub('', t)}%",) if TONE.sub("", t) != t else ()))]).fetchall()
+    scored = []
+    for path, cat, title, body in conn_rows:
+        low = body
+        n = 0
+        first = -1
+        for t in terms:
+            for cand in {t, TONE.sub("", t)}:
+                c_ = low.count(cand)
+                n += c_
+                if c_ and (first < 0 or low.find(cand) < first):
+                    first = low.find(cand)
+        scored.append((n + (5 if any(t in title for t in terms) else 0), path, cat, title, body, first))
+    scored.sort(key=lambda r: -r[0])
+    results = []
+    for n, path, cat, title, body, first in scored[:limit]:
+        s = max(0, first - 60) if first >= 0 else 0
+        results.append({"path": path, "category": cat, "title": title, "snippet": body[s:s + 200].replace(chr(10), " ").strip(), "rank": -float(n)})
+    conn.close()
+    return results
 
 
 if __name__ == "__main__":

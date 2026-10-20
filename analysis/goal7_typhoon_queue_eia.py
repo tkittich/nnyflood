@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 from analysis.goal7_typhoon_ocr import pending_pages, run_global_queue  # noqa: E402
 
 COVERAGE = ROOT / "analysis/goal7/ocr_coverage.json"
+LOW_PRIORITY = {"eia_clarify2_att1", "eia_clarify2_att2"}
 
 
 def build_tasks(only: str | None) -> list[dict]:
@@ -37,7 +38,7 @@ def build_tasks(only: str | None) -> list[dict]:
 
         from analysis.goal7_batch_ocr_queue import BACKLOG_JOBS
 
-        for job in BACKLOG_JOBS:
+        for job in sorted(BACKLOG_JOBS, key=lambda j: j["label"] in LOW_PRIORITY):   # เอกสารแนบฉบับชี้แจง (หน้าภาพจำนวนมาก คุณค่าต่อรายงานต่ำ) ทำท้ายสุด
             pdf = Path(job["pdf"])
             if not pdf.exists():
                 continue

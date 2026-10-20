@@ -363,15 +363,25 @@ S.append(blk.tbl_reach_hydraulic_vectors())
 S.append(blk.tbl_ongkharak_water_balance())
 S.append(blk.tbl_dam_to_gulf_corridors())
 S.append(blk.tbl_ongkharak_2d_hypsometric())
+S.append(blk.tbl_ongkharak_dem_sensitivity())
+_ff = C["mitrearth_national"]["gistda_corridor_2005_2019"]
+_r23p = _ff["by_reach"]["กม.23–134"]
+S.append(prose(
+    "<b>พื้นที่สองข้างแนวคลองเคยท่วมบ่อยแค่ไหน:</b> จากแผนที่น้ำท่วม 15 ปี (2548–2562) ของ GISTDA ช่วงคลองกลางทุ่ง (กม.23–134) "
+    f"มีพื้นที่สองข้างแนวคลองร้อยละ <b>{_r23p['ever_flooded_pct']:.0f}</b> ที่เคยท่วมอย่างน้อย 1 ปี และร้อยละ {_r23p['flooded_3plus_years_pct']:.0f} เคยท่วมตั้งแต่ 3 ปีขึ้นไป "
+    f"(ปี 2554 ท่วมร้อยละ {_r23p['by_year_pct']['2011']:.0f} ของช่วงนี้) — เป็นภาพบริบทของพื้นที่ ไม่ใช่การบอกว่าคลองจะทำให้ท่วมมากหรือน้อยลง · นับเป็นจำนวนปีที่แผนที่แสดงน้ำท่วม (แผนที่แต่ละปีมาจากภาพต่างวันต่างเกณฑ์) และแนวคลองคลาดได้ราว 0.5 กม."
+))
+S.append(figure(fig_flood_frequency(), "ร้อยละของแถบสองข้างแนวคลองที่เคยท่วม และจำนวนปีท่วมเฉลี่ย รายช่วง 10 กม. (GISTDA 2548–2562)"))
 _dep = C.get("ongkharak_2d_depression", {})
 _crit = _dep.get("critical_thresholds", {})
 _obs = _crit.get("observed_oct2026", {})
 _r305 = _crit.get("route305_overtopping", {})
 S.append(prose(
-    "<b>ความจุเก็บกักของแอ่งองครักษ์และระดับน้ำสมมติฐาน:</b> จากการวิเคราะห์เส้นความสัมพันธ์ระดับ–พื้นที่–ปริมาตร 2 มิติ (<code>2D Hypsometric</code>) จากแบบจำลองความสูงภูมิประเทศ 30 ม. (Copernicus DEM) "
-    f"พบว่าที่ระดับน้ำ +{_obs['stage_msl_m']:.2f} ม.รทก. (ระดับน้ำจริงในลำคลอง) แบบจำลองถังเติมน้ำให้พื้นที่ลุ่มต่ำ {_obs['area_km2']:.1f} ตร.กม. (ปริมาตร {_obs['volume_mcm']:.1f} ล้าน ลบ.ม.) ซึ่งน้อยกว่าพื้นที่น้ำท่วมที่ดาวเทียมเรดาร์เห็นใน อ.องครักษ์ มากหลายเท่า เพราะแบบจำลองสมมติว่าผิวน้ำราบเสมอกันทั้งอำเภอ "
+    "<b>ความจุเก็บกักของแอ่งองครักษ์และระดับน้ำสมมติฐาน:</b> จากการวิเคราะห์เส้นความสัมพันธ์ระดับ–พื้นที่–ปริมาตร 2 มิติ (<code>2D Hypsometric</code>) จากแบบจำลองความสูงภูมิประเทศ 30 ม. ที่ปรับด้วยแบบจำลอง 5 ม. (ชุดหลัก) "
+    f"พบว่าที่ระดับน้ำ +{_obs['stage_msl_m']:.2f} ม.รทก. (ระดับน้ำจริงในลำคลอง) แบบจำลองถังเติมน้ำให้พื้นที่ลุ่มต่ำ {_obs['area_km2']:.1f} ตร.กม. (ปริมาตร {_obs['volume_mcm']:.1f} ล้าน ลบ.ม.) ซึ่ง{_obs['relation_to_sar']}พื้นที่น้ำท่วมที่ดาวเทียมเรดาร์เห็นใน อ.องครักษ์ ({_obs['sar_area_km2']:.0f} ตร.กม.) ราว {_obs['ratio_to_sar']:.1f} เท่า เพราะแบบจำลองสมมติว่าผิวน้ำราบเสมอกันทั้งอำเภอและไม่รู้เรื่องคันกั้นกับประตูระบาย "
+    f"(ถ้าใช้ชุดดิบที่สูงกว่าพื้นจริงจะได้พื้นที่เพียง {min(_dep['dem_sensitivity']['fabdem_raw']['area_at_gauge_km2'], _dep['dem_sensitivity']['copernicus_raw']['area_at_gauge_km2']):.0f}–{max(_dep['dem_sensitivity']['fabdem_raw']['area_at_gauge_km2'], _dep['dem_sensitivity']['copernicus_raw']['area_at_gauge_km2']):.0f} ตร.กม. จึง<b>ผลขึ้นกับชุดแบบจำลองความสูงมาก</b> ดูตารางความไวต่อชุด DEM) "
     f"(ปรับระดับให้ได้พื้นที่เท่าที่ดาวเทียมเห็นเมื่อ 2 ต.ค. {_dep['sar_calibration']['oct2_validated']['sar_area_km2']:.0f} ตร.กม. ต้องใช้ระดับราว {_dep['sar_calibration']['oct2_validated']['effective_stage_msl_m']:.2f} ม.รทก. "
-    f"สูงกว่าเกจ {_dep['sar_calibration']['oct2_validated']['offset_vs_gauge_m']:.2f} ม. และรูปแบบพื้นที่ตรงกับดาวเทียมเพียงบางส่วน: ดัชนีทับซ้อน {_dep['sar_calibration']['oct2_validated']['iou']:.2f}) "
+    f"{'สูงกว่า' if _dep['sar_calibration']['oct2_validated']['offset_vs_gauge_m'] >= 0 else 'ต่ำกว่า'}เกจ {abs(_dep['sar_calibration']['oct2_validated']['offset_vs_gauge_m']):.2f} ม. และรูปแบบพื้นที่ตรงกับดาวเทียมเพียงบางส่วน: ดัชนีทับซ้อน {_dep['sar_calibration']['oct2_validated']['iou']:.2f}) "
     f"และหากระดับน้ำสูงถึงระดับมัธยฐานความสูงพื้นที่ที่ <b>+{_r305['stage_msl_m']:.2f} ม.รทก.</b> (ระดับมัธยฐานของภูมิประเทศ ไม่ใช่ระดับสันทางหลวง 305 ที่วัดได้) "
     f"ด้วยปริมาตรสะสมสูงถึง <b>{_r305['volume_mcm']:.1f} ล้าน ลบ.ม.</b> ครอบคลุมพื้นที่ {_r305['area_km2']:.1f} ตร.กม. "
     f"(ร้อยละ {_r305['area_km2'] / _dep['total_area_km2'] * 100:.1f} ของอำเภอ) "

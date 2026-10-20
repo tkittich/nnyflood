@@ -510,7 +510,8 @@ def tbl_ongkharak_2d_hypsometric() -> str:
     if not dep:
         return ""
     curve = dep.get("hypsometric_curve", [])
-    target_stages = {1.0, 1.5, 2.0, 2.5, 3.0, 3.2, 3.5, 4.0, 4.5}
+    med = round(dep.get("elevation_stats_m", {}).get("median", 0.0), 1)          # ระดับมัธยฐานของภูมิประเทศตามชุด DEM หลัก
+    target_stages = {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, med}
     obs = dep.get("critical_thresholds", {}).get("observed_oct2026", {})
     obs_row = {"stage_msl_m": obs.get("stage_msl_m"), "inundated_area_km2": obs.get("area_km2"), "inundated_share_pct": obs.get("share_pct"), "storage_volume_mcm": obs.get("volume_mcm"), "mean_depth_m": obs.get("mean_depth_m")}
     if obs.get("stage_msl_m") is not None:
@@ -522,12 +523,13 @@ def tbl_ongkharak_2d_hypsometric() -> str:
         if is_obs or stg in target_stages:
             desc = "ระดับน้ำในแอ่งลุ่มต่ำ"
             if is_obs:
-                desc = "<b>ระดับน้ำจริงในคลอง TNy10 (17 ต.ค. 2569)</b>: ค่าแบบจำลองถังเติมน้ำที่ระดับนี้ — ดาวเทียมเห็นน้ำท่วมใน อ.องครักษ์ มากกว่านี้หลายเท่า จึงอย่าอ่านเป็นพื้นที่ท่วมจริง"
+                desc = (f"<b>ระดับน้ำจริงในคลอง TNy10 (17 ต.ค. 2569)</b>: ค่าแบบจำลองถังเติมน้ำที่ระดับนี้ {obs.get('relation_to_sar', '')}พื้นที่ที่ดาวเทียมเห็นราว {obs.get('ratio_to_sar', 0):.1f} เท่า "
+                        "— จึงอย่าอ่านเป็นพื้นที่ท่วมจริง (น้ำในคลองสูงเหนือพื้นทุ่งได้โดยไม่ท่วมทุ่งทั้งหมด)")
             elif stg == 2.5:
                 desc = "<b>เกณฑ์น้ำล้นตลิ่งลำคลองธรรมชาติ</b>: น้ำเริ่มแผ่กว้างเข้าสู่พื้นที่เกษตรกรรม"
-            elif stg == 3.2:
+            elif stg == med:
                 desc = (
-                    f"<b>ระดับมัธยฐานภูมิประเทศ (+3.20 ม.รทก.)</b>: ปริมาตรน้ำสะสม ~{pt['storage_volume_mcm']:.1f} ล้าน ลบ.ม. "
+                    f"<b>ระดับมัธยฐานภูมิประเทศ ({med:+.2f} ม.รทก.)</b>: ปริมาตรน้ำสะสม ~{pt['storage_volume_mcm']:.1f} ล้าน ลบ.ม. "
                     "ไม่ใช่ระดับสันทางหลวง 305 ที่วัดได้ — ยังไม่ทราบว่าน้ำจะบ่าข้ามถนนสู่โครงข่ายคลองรังสิตที่ระดับใด "  # gap: route305_crown_elevation
                     "(ยังไม่ยืนยันด้วยระดับผิวถนนที่วัดได้) # gap: route305_crown_elevation"
                 )
@@ -543,12 +545,42 @@ def tbl_ongkharak_2d_hypsometric() -> str:
             ])
     cap = (
         f"เส้นความสัมพันธ์ระดับ–พื้นที่–ปริมาตร 2 มิติ (<code>2D Hypsometric</code>) ของแอ่งก้นกระทะ อ.องครักษ์ "
-        f"(พื้นที่รวม {dep.get('total_area_km2', 512.4):.1f} ตร.กม. มัธยฐานความสูง {dep.get('elevation_stats_m', {}).get('median', 3.20):.2f} ม.รทก.) "
-        f"วิเคราะห์จากแบบจำลองระดับความสูงภูมิประเทศ 30 ม. (<code>Copernicus DEM 30m</code> ความคลาดเคลื่อนทางดิ่ง ±2–4 ม.) — "
-        f"ระดับ +3.20 ม.รทก. คือระดับมัธยฐานพื้นที่ตามแบบจำลองสมมติฐาน ไม่ใช่ระดับที่วัดได้ "
+        f"(พื้นที่รวม {dep.get('total_area_km2', 0):.1f} ตร.กม. มัธยฐานความสูง {dep.get('elevation_stats_m', {}).get('median', 0):.2f} ม.รทก.) "
+        f"วิเคราะห์จากแบบจำลองความสูงชุดหลัก: {dep.get('dem_source', {}).get('label', '')} (องครักษ์อยู่นอกหน้าต่างของ DEM 5 ม. จึงใช้ตารางปรับที่เรียนจากหน้าต่างอื่น ความไม่แน่นอนราว ±0.7–1.0 ม. · เทียบชุดดิบในตารางความไวต่อชุด DEM) — "
+        f"ระดับ {med:+.2f} ม.รทก. คือระดับมัธยฐานพื้นที่ตามแบบจำลองสมมติฐาน ไม่ใช่ระดับที่วัดได้ "
         f"(ยังไม่พบระดับผิวถนนทางหลวง 305 ที่ต้องใช้ยืนยันจุดบ่าล้น — มีเพียงจุดอ้างอิงภาพถ่ายระดับน้ำบนผิวถนน) # gap: route305_crown_elevation"
     )
     return table(["ระดับผิวน้ำ", "พื้นที่น้ำท่วม (ตร.กม.)", "สัดส่วนพื้นที่อำเภอ (%)", "ปริมาตรน้ำสะสม (ล้าน ลบ.ม.)", "ความลึกเฉลี่ย (ม.)", "นัยสำคัญทางชลศาสตร์และการบ่าข้าม"], rows, cap)
+
+
+def tbl_ongkharak_dem_sensitivity() -> str:
+    """ผลถังเติมน้ำองครักษ์ภายใต้ DEM 3 ชุด — เครื่องหมายส่วนต่างระหว่างระดับที่มีผลกับเกจขึ้นกับชุด DEM"""
+    dep = C.get("ongkharak_2d_depression", {})
+    sens = dep.get("dem_sensitivity", {})
+    if not sens:
+        return ""
+    rows = []
+    for k, s in sens.items():
+        f27, f2 = s["sar_fit"]["peak_27sep"], s["sar_fit"]["oct2_validated"]
+        rows.append([s["label"], f"{s['median_m']:+.2f}", f"{s['area_at_gauge_km2']:.0f} ({s['area_at_gauge_share_pct']:.0f}%)",
+                     f"{f27['effective_stage_msl_m']:+.2f} / {f2['effective_stage_msl_m']:+.2f}", f"{f27['offset_vs_gauge_m']:+.2f} / {f2['offset_vs_gauge_m']:+.2f}", f"{f27['iou']:.2f} / {f2['iou']:.2f}"])
+    cap = ("ความไวของแบบจำลองถังเติมน้ำ อ.องครักษ์ ต่อชุดแบบจำลองความสูง — พื้นที่ที่เรดาร์เห็น "
+           f"{sens['fabdem_corrected']['sar_fit']['peak_27sep']['sar_area_km2']:.0f} / {sens['fabdem_corrected']['sar_fit']['oct2_validated']['sar_area_km2']:.0f} ตร.กม. (27 ก.ย. / 2 ต.ค.) · ระดับเกจ TNy10 +{dep.get('observed_stage_msl_m', 2.35):.2f} ม.รทก. · "
+           f"เครื่องหมายของส่วนต่างพลิกตามชุด DEM (ชุดดิบสูงกว่าเส้นดินของรายงานผลกระทบสิ่งแวดล้อมเฉลี่ย {C['dem_bias_correction']['eia_ground_check']['fabdem_raw']['bias_m']:.1f}–{C['dem_bias_correction']['eia_ground_check']['copernicus_raw']['bias_m']:.1f} ม. ใน {C['dem_bias_correction']['eia_ground_check']['n_lowland_fabdem_lt_15m']} จุดตลอดแนวคลอง) — "
+           f"จึงไม่ควรตีความส่วนต่างระดับ {sens['copernicus_raw']['sar_fit']['oct2_validated']['offset_vs_gauge_m']:+.1f} ม. ของชุดดิบเป็นผลของแบบจำลอง")
+    return table(["ชุดแบบจำลองความสูง", "มัธยฐานความสูงอำเภอ (ม.รทก.)", "พื้นที่ที่ระดับเกจ (ตร.กม.)", "ระดับที่มีผล 27 ก.ย. / 2 ต.ค. (ม.รทก.)", "ต่างจากเกจ (ม.)", "ดัชนีทับซ้อนกับเรดาร์"], rows, cap)
+
+
+def tbl_flood_frequency_corridor() -> str:
+    """ความถี่น้ำท่วม GISTDA 15 ปี (2548–2562) ในแถบ 3 กม. สองข้างแนวคลอง รายช่วง 10 กม."""
+    nat = C.get("mitrearth_national", {})
+    fr = nat.get("gistda_corridor_2005_2019", {})
+    if not fr:
+        return ""
+    rows = [[k.replace("-", "–"), f"{v['ever_pct']:.1f}", f"{v['mean_years']:.1f}"] for k, v in fr["by_10km"].items()]
+    cap = ("ร้อยละของแถบกว้าง 3 กม. สองข้างแนวคลอง (รวม " + f"{fr['corridor_km2']:.0f} ตร.กม.) ที่เคยท่วมอย่างน้อย 1 ปี และจำนวนปีท่วมเฉลี่ยจาก 15 ปี (2548–2562) ตามขอบเขตน้ำท่วมของ GISTDA · "
+           "แนวคลองประมาณจากหมุด กม. (คลาดได้ ~0.5 กม.) · GISTDA แต่ละปีมาจากภาพต่างวันต่างเกณฑ์ ปีที่ไม่มีข้อมูลในพื้นที่ไม่ได้แปลว่าไม่ท่วม จึงนับเป็น \"จำนวนปีที่แสดงน้ำท่วม\" ไม่ใช่ความถี่ทางสถิติ")
+    return table(["ช่วงแนวคลอง (กม.)", "เคยท่วมอย่างน้อย 1 ปี (%)", "จำนวนปีท่วมเฉลี่ย (จาก 15 ปี)"], rows, cap)
 
 
 def box_same_number_different_source() -> str:

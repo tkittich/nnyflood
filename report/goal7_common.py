@@ -171,6 +171,30 @@ def fig_ground():
     return path
 
 
+def fig_flood_frequency():
+    """ร้อยละของแถบ 3 กม. สองข้างแนวคลองที่เคยท่วมอย่างน้อย 1 ปี (GISTDA 2548–2562) รายช่วง 10 กม. + จำนวนปีท่วมเฉลี่ย"""
+    fr = C["mitrearth_national"]["gistda_corridor_2005_2019"]["by_10km"]
+    labels = [k.replace("-", "–") for k in fr]
+    ever = [v["ever_pct"] for v in fr.values()]
+    yrs = [v["mean_years"] for v in fr.values()]
+    fig, ax = plt.subplots(figsize=(7.4, 3.6))
+    ax.bar(range(len(ever)), ever, color=BLUE, alpha=.85, label="เคยท่วมอย่างน้อย 1 ปี (%)")
+    ax.set_ylim(0, 105)
+    ax.set_xticks(range(len(ever)))
+    ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=8)
+    ax.set_xlabel("ช่วงตามแนวคลอง (กม.)"); ax.set_ylabel("ร้อยละของแถบที่เคยท่วม")
+    ax2 = ax.twinx()
+    ax2.plot(range(len(yrs)), yrs, "-o", color="#b45309", lw=2, label="จำนวนปีท่วมเฉลี่ย (จาก 15 ปี)")
+    ax2.set_ylim(0, max(yrs) * 1.25); ax2.set_ylabel("ปีท่วมเฉลี่ย")
+    h1, l1 = ax.get_legend_handles_labels(); h2, l2 = ax2.get_legend_handles_labels()
+    ax.legend(h1 + h2, l1 + l2, loc="lower center", fontsize=8, ncol=2)
+    ax.set_title("แถบสองข้างแนวคลองท่วมบ่อยที่สุดช่วงกลางทุ่ง (GISTDA 2548–2562)", fontsize=10, color=INK)
+    ax.grid(alpha=.3, axis="y"); fig.tight_layout()
+    path = ASSETS / "goal7_flood_frequency.png"
+    fig.savefig(path, dpi=130); plt.close(fig)
+    return path
+
+
 def fig_capacity():
     ys = sorted(int(y) for y, v in C2["years"].items() if v["n_days"] >= 200)
     v = [C2["years"][str(y)]["peak_daily_m3s"] for y in ys]

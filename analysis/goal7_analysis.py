@@ -1568,6 +1568,12 @@ def main():
         fpath = OUT / fname
         if fpath.exists():
             c[k] = json.loads(fpath.read_text(encoding="utf-8"))
+    # ผลจากชุดมิตรเอิร์ธ/การปรับ DEM (20 ต.ค. 69): เก็บเฉพาะส่วนที่รายงานใช้ (ไม่เก็บบัญชี 77 จังหวัดรายละเอียด)
+    if (OUT / "dem_bias_correction.json").exists():
+        c["dem_bias_correction"] = json.loads((OUT / "dem_bias_correction.json").read_text(encoding="utf-8"))
+    if (OUT / "mitrearth_national_summary.json").exists():
+        nat = json.loads((OUT / "mitrearth_national_summary.json").read_text(encoding="utf-8"))
+        c["mitrearth_national"] = {k: nat[k] for k in ("gistda_corridor_2005_2019", "gistda_vs_2026_nakhon_nayok", "sea_level_rise_vs_canal", "dempro_vs_eia_ground")}
     (OUT / "canonical.json").write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: c[k] for k in ("structures", "c2", "pasak_dam", "corridor_area", "flood_band")}, ensure_ascii=False, indent=1)[:5000])
 

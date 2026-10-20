@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from goal7_common import *  # noqa: F401,F403
 from goal7_common import plain
 from goal7_common import C, CA, C2, DEM, F, FB, MN, NN, PD, ROOT, SCENE, ST, fmt, tier  # noqa: F401
-from goal7_common import fig_capacity, fig_area, fig_ground, fig_map, fig_overview, fig_structs  # noqa: F401
+from goal7_common import fig_capacity, fig_area, fig_flood_frequency, fig_ground, fig_map, fig_overview, fig_structs  # noqa: F401
 from goal6_reportlib import figure, h2, h3, note, page, prose, table, toc  # noqa: E402
 import goal7_blocks as blk  # noqa: E402
 from goal7_engine import Outline  # noqa: E402
@@ -480,14 +480,41 @@ S.append(prose(
 
 S.append(OL.h3("embankment_est", "ประมาณผลของความสูงคัน (" + CREST_RNG + " ม. ตามรูปตัดตามยาว) ต่อน้ำท่วม น้ำหลาก และหน้าฝน — การประมาณขอบบน ไม่ใช่แบบจำลอง"))
 _fc = json.loads((ROOT / "analysis/goal7/fabdem_compare.json").read_text(encoding="utf-8"))["summary_nn_reach"]
+_dpe = [v["dem_minus_eia_ground"] for v in C["mitrearth_national"]["dempro_vs_eia_ground"].values()]
+_dp_a, _dp_b = _dpe[0]["dempro"], _dpe[1]["dempro"]
+_fb_a, _fb_b = _dpe[0]["fabdem"], _dpe[1]["fabdem"]
+_gl_a, _gl_b = _dpe[0]["glo30"], _dpe[1]["glo30"]
 S.append(prose(
     "<b>ตรวจไขว้ค่าพื้นดินกับแบบจำลองความสูงผิวดินเปล่าอีกชุด (<code>FABDEM</code> ความละเอียดราว 30 ม. ไม่ใช่ข้อมูลสำรวจ):</b> "
     f"<b>ข้อเท็จจริง:</b> ที่หมุด กม.38–74 ({_fc['fabdem_minus_hand_m']['n']} จุด ทุก 5 กม.) แบบจำลองดินเปล่าสูงกว่าค่าที่อ่านจากรูปตัดตามยาวมัธยฐาน {_fc['fabdem_minus_hand_m']['median']} ม. "
     f"(ช่วง {_fc['fabdem_minus_hand_m']['min']}–{_fc['fabdem_minus_hand_m']['max']} ม.) · ผิวสูงสุด Copernicus GLO-30 ต่างจากแบบจำลองดินเปล่ามัธยฐาน {_fc['glo30_minus_fabdem_m']['median']} ม. · "
     f"ถ้าใช้แบบจำลองดินเปล่าเป็นพื้นเดิม สันคันสูงเหนือพื้นที่ กม.40–70 ได้ {_fc['crest_above_fabdem_km40_70_m']['min']}–{_fc['crest_above_fabdem_km40_70_m']['max']} ม. (ค่าที่อ่านจากรูป {CREST_RNG} ม.) · "
-    "<b>การตีความ:</b> ทั้งสองชุดให้ความสูงสันคันต่ำกว่า 6 ม. ชัดเจน — การเปลี่ยนชุดพื้นดินทำให้สันคันเหนือพื้น<b>ต่ำลง</b> ไม่ใช่สูงขึ้น · ความต่างอย่างสม่ำเสมอราว 1 ม. อาจเป็นความต่างของฐานอ้างอิงความสูง (ระบบ รทก. ของรายงานกับแบบจำลองสากล) หรือความคลาดเคลื่อนของแบบจำลอง — ยังตรวจไม่ได้ · "
-    "<b>การประเมิน:</b> ค่าที่ใช้ในรายงานนี้ยังยึดรูปตัดตามยาวทางการ (ค่าเดียวกับระดับน้ำและสันคัน อยู่ฐานเดียวกัน) · แบบจำลองดินเปล่าใช้ตรวจความสมเหตุสมผลเท่านั้น"
+    "<b>การตีความ:</b> ทั้งสองชุดให้ความสูงสันคันต่ำกว่า 6 ม. ชัดเจน — การเปลี่ยนชุดพื้นดินทำให้สันคันเหนือพื้น<b>ต่ำลง</b> ไม่ใช่สูงขึ้น · ความต่างราว 1 ม. ไม่น่าเป็นความต่างของฐานอ้างอิงความสูง: แบบจำลอง 5 ม. (<code>DEMPro</code> ของมิตรเอิร์ธ ที่มาไม่ระบุ) ในสองช่วงที่ครอบแนวคลอง (กม.9–15.5 และ 97–101) ต่างจากเส้นดินของรายงานผลกระทบสิ่งแวดล้อมเพียง "  # gap: dempro_source
+    f"{_dp_a['mae_m']:.2f}–{_dp_b['mae_m']:.2f} ม. (ตัวอย่าง {_dp_a['n']}+{_dp_b['n']} จุด) ขณะที่ FABDEM ต่าง {_fb_a['mae_m']:.2f}–{_fb_b['mae_m']:.2f} ม. และ Copernicus {_gl_a['mae_m']:.2f}–{_gl_b['mae_m']:.2f} ม. · "
+    f"เมื่อปรับ FABDEM ด้วยส่วนต่างที่เรียนจากหน้าต่างของ <code>DEMPro</code> ในที่ราบเจ้าพระยา {C['dem_bias_correction']['windows_used']} แห่ง ความคลาดเฉลี่ยจากเส้นดินทั้ง {C['dem_bias_correction']['eia_ground_check']['n_lowland_fabdem_lt_15m']} จุดตลอดแนวคลองลดจาก "
+    f"{C['dem_bias_correction']['eia_ground_check']['fabdem_raw']['mae_m']:.2f} เหลือ {C['dem_bias_correction']['eia_ground_check']['fabdem_corrected']['mae_m']:.2f} ม. จึงเป็นความเอนเอียงสูงของแบบจำลองสากลในที่ราบต่ำ (ผิวไม้/นา/อาคาร) มากกว่าความต่างฐานอ้างอิง · "
+    "<b>การประเมิน:</b> ค่าที่ใช้ในรายงานนี้ยังยึดรูปตัดตามยาวทางการ (ค่าเดียวกับระดับน้ำและสันคัน อยู่ฐานเดียวกัน) · งานที่ต้องใช้ความสูงพื้นจากแบบจำลอง (เช่นถังเติมน้ำองครักษ์) ใช้ FABDEM ที่ปรับแล้วเป็นชุดหลักและรายงานชุดดิบเทียบเสมอ"
 ))
+_nat = C["mitrearth_national"]
+_ff = _nat["gistda_corridor_2005_2019"]
+_r23, _r0, _r3 = _ff["by_reach"]["กม.23–134"], _ff["by_reach"]["กม.0–23"], _ff["by_reach"]["กม.134–135.9"]
+_v26 = _nat["gistda_vs_2026_nakhon_nayok"]
+_slr = _nat["sea_level_rise_vs_canal"]
+S.append(OL.h3("flood_freq_15y", "ประวัติน้ำท่วม 15 ปีตลอดแนวคลอง (ขอบเขตน้ำท่วมของ GISTDA 2548–2562)"))
+S.append(prose(
+    "<b>ข้อเท็จจริง:</b> ขอบเขตน้ำท่วมรายปีของสำนักงานพัฒนาเทคโนโลยีอวกาศและภูมิสารสนเทศ (GISTDA) 15 ปี (ชุดแผนที่ของมิตรเอิร์ธ) เมื่อวางทับแถบกว้าง "
+    f"{_ff['corridor_half_width_m'] / 1000:.0f} กม. สองข้างแนวคลอง (รวม {_ff['corridor_km2']:.0f} ตร.กม.) พบว่าช่วง กม.23–134 เคยท่วมอย่างน้อย 1 ปีร้อยละ <b>{_r23['ever_flooded_pct']:.1f}</b> "
+    f"(ท่วมตั้งแต่ 3 ปีขึ้นไปร้อยละ {_r23['flooded_3plus_years_pct']:.1f} · มากสุด {_r23['max_years']} ปี) โดยปี 2554 ท่วมร้อยละ {_r23['by_year_pct']['2011']:.1f} ของช่วงนี้ ปี 2549 ร้อยละ {_r23['by_year_pct']['2006']:.1f} ปี 2553 ร้อยละ {_r23['by_year_pct']['2010']:.1f} · "
+    f"ช่วง กม.0–23 เคยท่วมร้อยละ {_r0['ever_flooded_pct']:.1f} และช่วงปากคลอง กม.134–135.9 ร้อยละ {_r3['ever_flooded_pct']:.1f} · "
+    f"พื้นที่น้ำท่วมของจังหวัดนครนายกเมื่อ 2 ต.ค. 2569 อยู่ในที่ที่ GISTDA เคยแสดงน้ำท่วมอย่างน้อย 1 ปีใน 15 ปีร้อยละ {_v26['oct2_validated']['share_flooded_in_any_past_year_pct']:.1f} "
+    f"(อย่างน้อย 6 ปีร้อยละ {_v26['oct2_validated']['share_flooded_6plus_past_years_pct']:.1f}) · "
+    "<b>การตีความ:</b> แนวคลองลอยช่วงกลางผ่านที่ราบที่เป็นพื้นที่รับน้ำหลากเดิมเกือบตลอด — น้ำท่วมใหญ่ในอดีตเข้ามาในแถบนี้เกือบทุกครั้งที่ GISTDA ตรวจจับได้ ความถี่นี้นับเป็น \"จำนวนปีที่แสดงน้ำท่วม\" ไม่ใช่ความถี่ทางสถิติ "
+    "(GISTDA แต่ละปีมาจากภาพต่างวันต่างเกณฑ์ ปีที่ไม่มีข้อมูลในพื้นที่ไม่ได้แปลว่าไม่ท่วม) และแนวคลองจากหมุด กม. คลาดได้ราว 0.5 กม. · "
+    "<b>การประเมิน:</b> ใช้เป็นภาพประกอบบริบทว่าพื้นที่ข้างแนวคลองเป็นที่ลุ่มท่วมบ่อย ไม่ใช่การพยากรณ์น้ำท่วมของคลอง — ตัวเลขการท่วมจากการมีคลอง/คันคลองต้องมาจากแบบจำลองชลศาสตร์"
+))
+S.append(figure(fig_flood_frequency(), "ร้อยละของแถบสองข้างแนวคลองที่เคยท่วมและจำนวนปีท่วมเฉลี่ย รายช่วง 10 กม. (GISTDA 2548–2562)"))
+S.append(blk.tbl_flood_frequency_corridor())
+
 EB = C["embankment"]
 EBC = {x["id"]: x for x in EB["cases"]}
 S.append(figure(fig_xsection(), "หน้าตัดคลองช่วง กม.23 เป็นต้นไป วาดตามตัวเลขรายงาน (ท้อง ลึก ลาดข้าง หลังคัน) — สันคันเหนือพื้นเดิมใช้ค่าสูงสุดตามรูปตัดตามยาวในช่วงนครนายก"))
@@ -827,6 +854,7 @@ S.append(blk.tbl_reach_hydraulic_vectors())
 S.append(blk.tbl_ongkharak_water_balance())
 S.append(blk.tbl_dam_to_gulf_corridors())
 S.append(blk.tbl_ongkharak_2d_hypsometric())
+S.append(blk.tbl_ongkharak_dem_sensitivity())
 S.append(OL.h3("hydraulics_accuracy_and_boundaries", "การประเมินความแม่นยำและการรวมแหล่งน้ำ (ปริมาณน้ำฝนและแบบจำลองความสูงภูมิประเทศ) ในการวิเคราะห์ชลศาสตร์"))
 S.append(prose(
     "<b>หลักเกณฑ์และความโปร่งใสของการวิเคราะห์ชลศาสตร์และเวกเตอร์การไหล:</b><br>"

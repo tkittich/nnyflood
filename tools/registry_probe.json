@@ -29,5 +29,15 @@
    "transformers": "5.20.1"
   },
   "python": "3.12.9"
+ },
+ "unlimited_ocr_env": {
+  "available": true,
+  "packages": {
+   "pymupdf==1.27.2.2": null,
+   "torch==2.10.0": null,
+   "torchvision==0.25.0": null,
+   "transformers==4.57.1": null
+  },
+  "python": "3.12.9"
  }
 }

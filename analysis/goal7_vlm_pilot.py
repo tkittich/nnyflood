@@ -2,10 +2,12 @@
 ตั้งไว้ก่อนดูผล: ชุดตัวอย่างมี 3 หน้า "เฉลยที่ตรวจแล้ว" (ตารางรูปตัด · รูปตัดตามยาว · หน้าผสมข้อความกับภาพ) + หน้าควบคุมข้อความล้วน + หน้า needs_visual ไม่มีเฉลย
 คะแนน = สัดส่วนของค่าเฉลยที่ปรากฏในผลถอด (ปรับเลขไทยเป็นเลขอารบิก) · ผลถอดทั้งหมดเป็น "ร่าง" ห้ามนำตัวเลขไปใช้ในรายงานก่อนเทียบภาพหน้าจริง
 ภาพ 3 แบบต่อหน้า: dpi150 (ฐาน) · dpi250 (วาดซ้ำจาก PDF ละเอียดขึ้น) · enh (dpi150 ขยาย 2 เท่าและเพิ่มความคมชัด — ทดสอบว่าช่วยหรือเพิ่มข้อผิดพลาด)
-รัน: python analysis/goal7_vlm_pilot.py render | run <รหัสโมเดล> | score   (ใช้ E:/theera/typhoon_env/Scripts/python.exe สำหรับ run)
+ขั้นแยกส่วน (layout): Unlimited-OCR (สภาพแวดล้อมแยก E:/theera/unlimited_ocr_env) อ่านหน้าแล้วให้กรอบบล็อกพร้อมประเภท (<|det|>ประเภท [กรอบ]<|/det|>) → ตัดบล็อกรูป/แผนภูมิ/ตาราง/แบบแปลนออกเป็นภาพย่อย → โมเดลที่เก่งภาพกว่าอ่านเฉพาะภาพย่อย (`run <รหัส> crops`)
+รัน: python analysis/goal7_vlm_pilot.py render | layout | run <รหัสโมเดล> [crops] | score   (render/score ใช้ typhoon_env · layout ใช้ unlimited_ocr_env · run ใช้ typhoon_env ยกเว้นโมเดลที่ต้องการเวอร์ชันเฉพาะ)
 ผลลัพธ์: data/32_goal7_chaophraya2/vlm_pilot/ (ภาพ · ผลถอด) และ analysis/goal7/vlm_pilot_scores.json
 """
 import json
+import os
 import re
 import sys
 import time
@@ -20,6 +22,10 @@ TH = str.maketrans("๐๑๒๓๔๕๖๗๘๙", "0123456789")
 VARIANTS = ("dpi150", "dpi250", "enh", "rot250")   # rot250 = dpi250 หมุนตามเข็ม 90° เฉพาะหน้าภาพวาดแนวนอนที่ตัวอักษรอ่านจากล่างขึ้นบน
 PROMPT = "อ่านหน้านี้ทั้งหมดอย่างละเอียด ถอดข้อความและตัวเลขทุกตัวตามที่เห็นให้ตรงตัวอักษร ตารางให้เขียนเป็นตาราง Markdown ถ้าเป็นรูปให้ระบุตัวเลขและป้ายกำกับทุกอันที่อ่านได้ ห้ามเดาค่าที่มองไม่เห็น"
 # รหัสโมเดล → (repo, วิธีโหลด) — น้ำหนักต้องดาวน์โหลดก่อน (ขออนุมัติผู้ใช้เป็นรายโมเดล)
+UOCR_ENV = "E:/theera/unlimited_ocr_env/Scripts/python.exe"
+LAYOUT_PROMPT = "<image>document parsing."
+VISUAL_TYPES = ("image", "figure", "chart", "picture", "diagram", "table", "plan", "drawing")   # ประเภทบล็อกที่ส่งต่อให้โมเดลภาพ (ยืนยันชื่อประเภทจริงหลังรันครั้งแรก)
+DET_RE = re.compile(r"<\|det\|>\s*([^<\[\s]+)\s*(\[+[^<]*?\]+)?\s*<\|/det\|>", re.DOTALL)
 MODELS = {
     "qwen25vl7b": "Qwen/Qwen2.5-VL-7B-Instruct",          # 16.6 GB — ตัวฐานที่ผู้ใช้เลือก
     "qwen3vl8b": "Qwen/Qwen3-VL-8B-Instruct",              # 17.5 GB
@@ -27,6 +33,7 @@ MODELS = {
     "internvl35_8b": "OpenGVLab/InternVL3_5-8B-HF",        # 17.1 GB
     "pathumma": "nectec/Pathumma-llm-vision-3.0.0-re",     # 4.9 GB — ปรับสำหรับ OCR ไทย (ฐาน Qwen3-VL-2B)
     "minicpmv47_1b": "openbmb/MiniCPM-V-4.7-1B",           # 3.1 GB
+    "unlimited_ocr": "baidu/Unlimited-OCR",                # 6.7 GB — ใช้เป็นตัวแยกส่วนหน้า (layout) และเทียบอ่านหน้าตาราง/ข้อความ · ภาษาไทยยังไม่ทราบ
 }
 # ไม่ใช้เพราะโมเดล+ข้อมูลไม่พอใน VRAM 24 GB: Qwen2.5-VL-32B-AWQ (20.7) · InternVL3-14B (30.2) · Qwen3.5-27B/35B-A3B · MiniCPM-V-4.7-35B-A3B int4 (22.6)
 HF_HOME = "E:/theera/hf_cache"      # น้ำหนักโมเดลเก็บนอก git และนอกไดรฟ์ C
@@ -87,7 +94,7 @@ def render() -> None:
     print(len(manifest), "หน้า ×", len(VARIANTS), "แบบ →", PILOT)
 
 
-def run(model_key: str) -> None:
+def run(model_key: str, target: str = "pages") -> None:
     import os
     os.environ.setdefault("HF_HOME", HF_HOME)
     import torch
@@ -98,8 +105,13 @@ def run(model_key: str) -> None:
     model = AutoModelForImageTextToText.from_pretrained(repo, dtype=torch.bfloat16, device_map="cuda:0")
     outdir = PILOT / "outputs" / model_key
     outdir.mkdir(parents=True, exist_ok=True)
-    for s in json.loads((PILOT / "samples.json").read_text(encoding="utf-8")):
-        for var in VARIANTS:
+    if target == "crops":
+        items = [(c["id"], ("crop",)) for c in json.loads((PILOT / "crops.json").read_text(encoding="utf-8"))]
+    else:
+        items = [(s["id"], VARIANTS) for s in json.loads((PILOT / "samples.json").read_text(encoding="utf-8"))]
+    for sid, variants in items:
+        s = {"id": sid}
+        for var in variants:
             if not (PILOT / f"{s['id']}__{var}.png").exists():
                 continue
             dst = outdir / f"{s['id']}__{var}.json"
@@ -114,6 +126,56 @@ def run(model_key: str) -> None:
             text = proc.batch_decode(ids[:, inp["input_ids"].shape[1]:], skip_special_tokens=True)[0]
             dst.write_text(json.dumps({"id": s["id"], "variant": var, "model": repo, "sec": round(time.time() - t0, 1), "text": text}, ensure_ascii=False), encoding="utf-8")
             print(model_key, s["id"], var, round(time.time() - t0, 1), "s", flush=True)
+
+
+def parse_blocks(raw: str):
+    """แยกบล็อกจากผลของ Unlimited-OCR: คืนรายการ {type, bbox(ตามที่โมเดลให้), text} · ข้อความของบล็อก = ตัวอักษรหลังเครื่องหมายจนถึงเครื่องหมายถัดไป"""
+    out = []
+    ms = list(DET_RE.finditer(raw))
+    for i, m in enumerate(ms):
+        end = ms[i + 1].start() if i + 1 < len(ms) else len(raw)
+        nums = [float(x) for x in re.findall(r"-?\d+(?:\.\d+)?", m.group(2) or "")]
+        out.append({"type": m.group(1).strip().lower(), "bbox": nums[:4] if len(nums) >= 4 else None, "text": raw[m.end():end].strip()})
+    return out
+
+
+def bbox_to_px(bbox, w, h, scale=1000.0):
+    """กรอบเป็นสัดส่วน 0–999 (สมมติตามรูปแบบ DeepSeek-OCR — ตรวจกับผลจริงก่อนใช้) → พิกเซล"""
+    x0, y0, x1, y1 = bbox
+    return int(x0 / scale * w), int(y0 / scale * h), int(x1 / scale * w), int(y1 / scale * h)
+
+
+def layout() -> None:
+    """รันด้วย unlimited_ocr_env: ถอดทุกหน้าตัวอย่าง (แบบ dpi250) เก็บผลดิบ + กรอบ + ภาพย่อยของบล็อกภาพ/ตาราง"""
+    import torch
+    from PIL import Image
+    from transformers import AutoModel, AutoTokenizer
+    os.environ.setdefault("HF_HOME", HF_HOME)
+    tok = AutoTokenizer.from_pretrained(MODELS["unlimited_ocr"], trust_remote_code=True)
+    model = AutoModel.from_pretrained(MODELS["unlimited_ocr"], trust_remote_code=True, use_safetensors=True, torch_dtype=torch.bfloat16).eval().cuda()
+    outdir = PILOT / "outputs" / "unlimited_ocr"
+    cropdir = PILOT / "crops"
+    outdir.mkdir(parents=True, exist_ok=True)
+    cropdir.mkdir(exist_ok=True)
+    crops = []
+    for s in json.loads((PILOT / "samples.json").read_text(encoding="utf-8")):
+        img_path = PILOT / f"{s['id']}__dpi250.png"
+        t0 = time.time()
+        res = model.infer(tok, prompt=LAYOUT_PROMPT, image_file=str(img_path), output_path=str(outdir / "_work"), base_size=1024, image_size=640, crop_mode=True,
+                          max_length=32768, no_repeat_ngram_size=35, ngram_window=128, save_results=False, eval_mode=True)
+        raw = res if isinstance(res, str) else str(res)
+        blocks = parse_blocks(raw)
+        (outdir / f"{s['id']}__layout.json").write_text(json.dumps({"id": s["id"], "variant": "dpi250", "model": "baidu/Unlimited-OCR", "sec": round(time.time() - t0, 1), "text": raw, "blocks": blocks}, ensure_ascii=False), encoding="utf-8")
+        im = Image.open(img_path)
+        for k, b in enumerate(blocks):
+            if b["bbox"] and any(v in b["type"] for v in VISUAL_TYPES):
+                x0, y0, x1, y1 = bbox_to_px(b["bbox"], *im.size)
+                m = 12
+                cid = f"{s['id']}_c{k}_{b['type']}"
+                im.crop((max(0, x0 - m), max(0, y0 - m), min(im.width, x1 + m), min(im.height, y1 + m))).save(cropdir / f"{cid}__crop.png")
+                crops.append({"id": cid, "page": s["id"], "type": b["type"], "bbox": b["bbox"]})
+        print("layout", s["id"], len(blocks), "บล็อก", round(time.time() - t0, 1), "s", flush=True)
+    (PILOT / "crops.json").write_text(json.dumps(crops, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 def norm(t: str) -> str:
@@ -137,4 +199,4 @@ def score() -> None:
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "render"
-    {"render": render, "score": score}.get(cmd, lambda: run(sys.argv[2]))()
+    {"render": render, "score": score, "layout": layout}.get(cmd, lambda: run(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "pages"))()

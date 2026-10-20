@@ -54,6 +54,19 @@
       "needs": "NVIDIA GPU (ทดสอบบน RTX 4090) · CUDA",
       "install": "ดู analysis/goal7_typhoon_ocr.py (venv นอก repo ไม่ปักใน requirements.txt)",
       "doc": "docs/ENVIRONMENT.md"
+    },
+    {
+      "id": "unlimited_ocr_env",
+      "label": "Unlimited-OCR (Baidu) แยกส่วนหน้า + ถอดตาราง (GPU · นำร่อง)",
+      "interpreter": "E:/theera/unlimited_ocr_env/Scripts/python.exe",
+      "kind": "gpu",
+      "status": "experimental",
+      "purpose": "นำร่องใช้ Unlimited-OCR แยกบล็อกข้อความ/รูป/ตาราง/แบบแปลนจากหน้าเอกสาร (ให้กรอบ) เพื่อส่งเฉพาะภาพให้โมเดลภาพที่เก่งกว่า — ผู้ใช้อนุมัติ 20 ต.ค. 69 (ข้อยกเว้นของกฎใช้ Typhoon อย่างเดียว) · ภาษาไทยยังไม่ทราบ ต้องวัดในนำร่อง",
+      "model": "baidu/Unlimited-OCR",
+      "packages": ["torch", "torchvision", "transformers", "pymupdf"],
+      "needs": "NVIDIA GPU (RTX 4090) · CUDA · ใช้ remote code จากหน้าโมเดล",
+      "install": "uv venv --python 3.12 E:/theera/unlimited_ocr_env แล้วติดตั้ง torch 2.10.0 + torchvision 0.25.0 (cu128) + transformers 4.57.1 + pymupdf 1.27.2.2 + einops addict easydict (ตามหน้าโมเดลบน Hugging Face) · น้ำหนักที่ E:/theera/hf_cache",
+      "doc": "docs/ENVIRONMENT.md"
     }
   ],
   "tools": [
@@ -221,7 +234,7 @@
     {"id": "goal7_dem_bias_correction", "path": "analysis/goal7_dem_bias_correction.py", "env": "main", "status": "active", "kind": "script", "run": "python analysis/goal7_dem_bias_correction.py", "purpose": "ปรับ FABDEM ให้ใกล้ DEM 5 ม. (DEMPro) ในที่ราบต่ำ ตรวจนอกตัวอย่างและกับเส้นดิน EIA ตลอดแนวคลอง · ทดสอบถังเติมน้ำองครักษ์", "inputs": ["data/10_mitrearth_gis/thailand_provinces_full/", "analysis/goal7/official_geometry.json"], "outputs": ["analysis/goal7/dem_bias_correction.json"]},
     {"id": "goal7_dem_waterline_test", "path": "analysis/goal7_dem_waterline_test.py", "env": "main", "status": "active", "kind": "script", "run": "python analysis/goal7_dem_waterline_test.py", "purpose": "ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมเรดาร์ (ความสูงตามขอบควรรวมกลุ่มแคบ) · หลักฐานอิสระเสริมเส้นดิน EIA", "inputs": ["data/13_sentinel1_copernicus/derived/"], "outputs": ["analysis/goal7/dem_waterline_test.json"]},
     {"id": "goal7_dem_gistda_waterline_test", "path": "analysis/goal7_dem_gistda_waterline_test.py", "env": "main", "status": "active", "kind": "script", "run": "python analysis/goal7_dem_gistda_waterline_test.py", "purpose": "ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมรายปีของ GISTDA (2548–2562) ใน อ.องครักษ์ · หลักฐานเสริม", "inputs": ["data/10_mitrearth_gis/thailand_national_full/"], "outputs": ["analysis/goal7/dem_gistda_waterline_test.json"]},
-    {"id": "goal7_vlm_pilot", "path": "analysis/goal7_vlm_pilot.py", "env": "typhoon_env", "status": "active", "kind": "script", "run": "python analysis/goal7_vlm_pilot.py render | run <รหัสโมเดล> | score", "purpose": "นำร่องเทียบแบบจำลองภาพ-ภาษาอ่านตาราง/ภาพวาด/หน้าผสม พร้อมเฉลยที่ตรวจแล้วและภาพขยายคมชัด (ผลเป็นร่าง)", "inputs": ["data/32_goal7_chaophraya2/official_eia/extracted/"], "outputs": ["data/32_goal7_chaophraya2/vlm_pilot/", "analysis/goal7/vlm_pilot_scores.json"]},
+    {"id": "goal7_vlm_pilot", "path": "analysis/goal7_vlm_pilot.py", "env": "typhoon_env", "status": "active", "kind": "script", "run": "python analysis/goal7_vlm_pilot.py render | run <รหัสโมเดล> | score", "purpose": "นำร่องเทียบแบบจำลองภาพ-ภาษาอ่านตาราง/ภาพวาด/หน้าผสม พร้อมเฉลยที่ตรวจแล้ว ภาพขยายคมชัด และขั้นแยกส่วนด้วย Unlimited-OCR (ผลเป็นร่าง · ขั้น layout ใช้ unlimited_ocr_env)", "inputs": ["data/32_goal7_chaophraya2/official_eia/extracted/"], "outputs": ["data/32_goal7_chaophraya2/vlm_pilot/", "analysis/goal7/vlm_pilot_scores.json"]},
     {"id": "goal7_bangpakong_fetch", "path": "analysis/goal7_bangpakong_fetch.py", "env": "main", "status": "active", "kind": "script", "run": "python analysis/goal7_bangpakong_fetch.py [--days 30]", "purpose": "ดึงระดับน้ำสถานีโทรมาตรลุ่มบางปะกง (ล่าสุด + 30 วัน) เทียบตลิ่ง", "inputs": [], "outputs": ["data/34_goal7_bangpakong/raw/"]},
     {"id": "goal7_bangpakong_chachoengsao", "path": "analysis/goal7_bangpakong_chachoengsao.py", "env": "main", "status": "active", "kind": "script", "run": "python analysis/goal7_bangpakong_chachoengsao.py", "purpose": "วิเคราะห์ทั้งลุ่มบางปะกง (ความสูง ลุ่มรับน้ำ ระดับน้ำสถานี น้ำท่วม 30 วัน ความถี่ 14 ปี) และเหตุที่ฉะเชิงเทรา ท่วมหนักและนาน", "inputs": ["data/12_gistda_flood/raw/provinces/", "data/34_goal7_bangpakong/raw/", "data/08_dem_topography/fabdem/", "data/22_goal6_network/raw/hydrobasins/"], "outputs": ["analysis/goal7/bangpakong_chachoengsao.json"]}
   ],

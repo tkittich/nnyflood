@@ -22,28 +22,36 @@ GISTDA ให้บริการข้อมูลขอบเขตพื้�
 
 * **พอร์ทัลหลัก**: `https://disaster.gistda.or.th/`
 * **Base URL สำหรับ API Gateway**: `https://api-gateway.gistda.or.th/api/2.0/resources/features/flood`
-* **การพิสูจน์ตัวตน (Authentication)**: ต้องส่ง Header `Authorization: Bearer <API_KEY>`
+* **การพิสูจน์ตัวตน (Authentication)**: ส่งคีย์เป็นพารามิเตอร์ `api_key=` ในสายคำขอ (ไม่ใช่ Header) — คีย์อยู่ในไฟล์ gitignored `data/12_gistda_flood/.gistda_api.json` (ห้ามพิมพ์/คัดลอกค่าคีย์) · แก้เมื่อ 20 ต.ค. 69: ฉบับก่อนหน้าเขียนว่าใช้ `Authorization: Bearer` และพารามิเตอร์ `province=` ซึ่งไม่ตรงกับสคริปต์ที่ใช้ได้จริง
 * **ที่เก็บข้อมูลในโปรเจกต์**: [`data/12_gistda_flood/`](file:///e:/theera/code/flood/data/12_gistda_flood/)
-* **สคริปต์หลักที่เรียกใช้**: [`analysis/goal6_fetch_gistda_flood.py`](file:///e:/theera/code/flood/analysis/goal6_fetch_gistda_flood.py)
-* **ชุดข้อมูลที่รองรับ**:
-  1. **ขอบเขตน้ำท่วมสะสม 30 วัน (30-day Cumulative Flood)**: รูปแบบ GeoJSON แสดงพื้นที่น้ำท่วมสะสมตามรายจังหวัดและรายลุ่มน้ำ
-  2. **สถิติความถี่น้ำท่วมซ้ำซาก 14 ปี (14-Year Flood Frequency)**: แสดงความถี่การเกิดน้ำท่วมย้อนหลังตั้งแต่ปี 2554 ถึงปัจจุบัน
+* **สคริปต์หลักที่เรียกใช้**: [`analysis/goal6_fetch_gistda_flood.py`](file:///e:/theera/code/flood/analysis/goal6_fetch_gistda_flood.py) (`fetch_province_flood(api_key, "จ.ฉะเชิงเทรา", endpoint)` แคชต่อจังหวัดที่ `data/12_gistda_flood/raw/provinces/<จังหวัด>_<endpoint>.json` · ถ้าต้องเก็บสแนปช็อตเก่า ให้เปลี่ยนชื่อไฟล์เป็นมีวันที่ก่อนดึงใหม่)
+* **จุดเรียก (endpoint)** — ฐาน `https://api-gateway.gistda.or.th/api/2.0/resources/features/`:
+
+| จุดเรียก | ได้อะไร | หมายเหตุ (ตรวจกับข้อมูลจริง 20 ต.ค. 69) |
+|---|---|---|
+| `flood/30days` | พื้นที่น้ำท่วมช่วง 30 วันล่าสุด | ชั้นผสมหลายฉาก — ทุกรูปทรงในผลคืนมีรายชื่อฉากชุดเดียวกัน แยกวันท่วมต่อแปลงไม่ได้ · หน้าต่างเลื่อนตามวันที่ดึง |
+| `flood/7days` | ช่วง 7 วันล่าสุด | คลุมหลายดาวเทียมถึงฉากของวันที่ดึง |
+| `flood/3days`, `flood/1day` | ช่วง 3 / 1 วันล่าสุด | คลุมเฉพาะแนวของฉากที่ผ่านล่าสุด จึงใช้เทียบทั้งจังหวัดไม่ได้ |
+| `flood-freq` | ความถี่น้ำท่วมซ้ำซาก 2554–2567 (ค่าธง `y_<ปี>` ต่อรูปทรง และ `freq`) | ไฟล์ใหญ่มาก (ปราจีนบุรีราว 540 MB) |
+| `flood/15days`, `flood/daily`, `flood/latest` | — | **ไม่มี** (404) |
+
+* **พารามิเตอร์**: `api_key` · `pv_tn` (ชื่อจังหวัดมีคำนำหน้า เช่น `จ.ฉะเชิงเทรา` หรือ `กรุงเทพมหานคร`) · `limit` (สูงสุด 1000) · `offset` · ผลคืนมี `numberMatched`/`numberReturned` และ `features` (GeoJSON)
+* **ฟิลด์สำคัญของรูปทรง**: `f_area` (พื้นที่น้ำท่วมจริง ตร.ม. — **ไม่รวมแหล่งน้ำถาวร**) · `h3_area`/`h3_address` (ตารางหกเหลี่ยม H3 ที่ครอบ) · `rice_area`, `cassava_area`, `maize_area`, `sugarcane_area` · `population`, `building`, `school`, `hospital`, `length_road` · `ap_tn` (อำเภอ) `tb_tn` (ตำบล) · `file_name` (รายชื่อฉากต้นทาง)
+* ⚠️ **พื้นที่รูปทรงใหญ่กว่า `f_area` ราว 2 เท่า** (ฉะเชิงเทรา 30 วัน: รูปทรงรวมประมาณ 884 ตร.กม. แต่ `f_area` รวมประมาณ 430 ตร.กม.) — ใช้ `f_area` เป็นพื้นที่น้ำท่วม ถ้าต้องลงตารางเซลล์ให้ถ่วงด้วย `f_area` ÷ พื้นที่รูปทรง (ดู `goal7_bangpakong_chachoengsao.py::flood_raster`)
+* **รหัสฉากใน `file_name`** (`<รหัส>_<วันที่>_<เวลาท้องถิ่น>`): `S1C`/`S1D` = Sentinel-1C/1D (เรดาร์) · `rd2` = RADARSAT-2 · `cm2`/`cm4` = COSMO-SkyMed · `TH2` = THEOS-2 · `S2B`/`S2C` = Sentinel-2 (ภาพแสง) · `cg2` = ไม่ทราบดาวเทียม (ยังไม่มีเอกสารยืนยัน)
 * **ตัวอย่างการเรียกคำขอ**:
   ```python
-  import urllib.request
-  import json
-
-  url = "https://api-gateway.gistda.or.th/api/2.0/resources/features/flood?province=จ.นครนายก"
-  req = urllib.request.Request(url, headers={
-      "Authorization": f"Bearer {api_key}",
-      "Accept": "application/json"
-  })
-  with urllib.request.urlopen(req, timeout=60) as resp:
+  import json, urllib.parse, urllib.request
+  q = urllib.parse.urlencode({"api_key": api_key, "pv_tn": "จ.ฉะเชิงเทรา", "limit": 1000, "offset": 0})
+  url = "https://api-gateway.gistda.or.th/api/2.0/resources/features/flood/7days?" + q
+  with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "nnyflood-research/1.0"}), timeout=60) as resp:
       geojson = json.loads(resp.read().decode("utf-8"))
   ```
 * ⚠️ **ข้อจำกัดและจุดที่ต้องระวัง (Gotchas)**:
-  1. การสะกดชื่อจังหวัดต้องมีคำนำหน้า เช่น `"จ.นครนายก"` หรือ `"กรุงเทพมหานคร"` (ดูตาราง `PROVINCES_MAP` ใน `goal6_fetch_gistda_flood.py`)
-  2. ไฟล์ GeoJSON ที่ส่งกลับมีขนาดหลายสิบล้านไบต์ จึงถูกกำหนดเป็น disk-only ไม่นำเข้า Git (บันทึกเฉพาะตัวเลขสถิติรวมและค่าแฮช SHA-256)
+  1. การสะกดชื่อจังหวัดต้องมีคำนำหน้า เช่น `"จ.นครนายก"` หรือ `"กรุงเทพมหานคร"` (ดูตาราง `PROVINCES_MAP` ในสคริปต์)
+  2. ไฟล์ GeoJSON มีขนาดหลายสิบถึงหลายร้อยล้านไบต์ จึงเป็น disk-only ไม่นำเข้า Git (บันทึกเป็นแฟ้มต่อจังหวัด)
+  3. ชั้นน้ำท่วมช่วง 7/30 วันไม่เป็นชุดย่อยซ้อนกันพอดีในระดับอำเภอ (บางอำเภอ 7 วันมากกว่า 30 วัน) — ใช้เป็นขนาดคร่าว ๆ ไม่ใช่เส้นเวลาน้ำลด · แผนที่รายฉากที่แยกวันได้ต้องโหลดผลิตภัณฑ์รายฉากจาก disaster.gistda.or.th (งานมนุษย์ R7-22)
+  4. ยังไม่พบเอกสารทางการของ API ชุดนี้ — ตารางด้านบนมาจากการทดลองเรียกจริง (ตรวจรหัสตอบกลับและฟิลด์) ไม่ใช่ข้อกำหนดของผู้ให้บริการ
 
 ---
 

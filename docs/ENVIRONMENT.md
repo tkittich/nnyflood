@@ -84,6 +84,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `main` | Python หลักของโครงการ | active | `$MAIN` (python ที่รัน doctor) | รันสคริปต์วิเคราะห์ รายงาน และชุดทดสอบทั้งหมด (ปักเวอร์ชันตาม requirements.txt) | Python 3.14.5 · PyMuPDF 1.28.0, matplotlib 3.11.2, numpy 2.5.1, pytest 9.1.1, scikit-learn 1.9.1, scipy 1.18.1 |
 | `ocr_env` | RapidOCR (ภาษาไทย · CPU) | deprecated | `E:/theera/ocr_env/Scripts/python.exe` | RapidOCR ไทย (CPU) — เลิกใช้แล้ว · เลิกใช้ (ผู้ใช้ 19 ต.ค. 69): อ่านไทยไม่ดี — OCR ทั้งหมดใช้ Typhoon (typhoon_env) · เก็บไว้เป็นประวัติ ไม่ใช้กับงานใหม่ | Python 3.14.5 · PyMuPDF 1.28.2, numpy 2.5.4, onnxruntime 1.31.0, pillow 12.3.0, rapidocr 3.10.0 |
 | `typhoon_env` | Typhoon-OCR 1.5 2B (แบบจำลองภาพ–ภาษา · GPU) | active | `E:/theera/typhoon_env/Scripts/python.exe` | OCR ไทยที่คงรูปตารางเป็น Markdown และอ่านวรรณยุกต์/สระได้ดีกว่า — ใช้อ่านรูปและตารางใน EIA เมื่อต้องยืนยันตัวเลข | Python 3.12.9 · torch 2.6.0+cu124, transformers 5.20.1 |
+| `unlimited_ocr_env` | Unlimited-OCR (Baidu) แยกส่วนหน้า + ถอดตาราง (GPU · นำร่อง) | experimental | `E:/theera/unlimited_ocr_env/Scripts/python.exe` | นำร่องใช้ Unlimited-OCR แยกบล็อกข้อความ/รูป/ตาราง/แบบแปลนจากหน้าเอกสาร (ให้กรอบ) เพื่อส่งเฉพาะภาพให้โมเดลภาพที่เก่งกว่า — ผู้ใช้อนุมัติ 20 ต.ค. 69 (ข้อยกเว้นของกฎใช้ Typhoon อย่างเดียว) · ภาษาไทยยังไม่ทราบ ต้องวัดในนำร่อง | Python 3.12.9 ·  |
 
 ### เครื่องมือ/สคริปต์ที่ทบทวนแล้ว
 
@@ -253,7 +254,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_dem_bias_correction` | `analysis/goal7_dem_bias_correction.py` | `main` | active | ปรับ FABDEM ให้ใกล้ DEM 5 ม. (DEMPro) ในที่ราบต่ำ ตรวจนอกตัวอย่างและกับเส้นดิน EIA ตลอดแนวคลอง · ทดสอบถังเติมน้ำองครักษ์ | `python analysis/goal7_dem_bias_correction.py` | `analysis/goal7/dem_bias_correction.json` |
 | `goal7_dem_waterline_test` | `analysis/goal7_dem_waterline_test.py` | `main` | active | ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมเรดาร์ (ความสูงตามขอบควรรวมกลุ่มแคบ) · หลักฐานอิสระเสริมเส้นดิน EIA | `python analysis/goal7_dem_waterline_test.py` | `analysis/goal7/dem_waterline_test.json` |
 | `goal7_dem_gistda_waterline_test` | `analysis/goal7_dem_gistda_waterline_test.py` | `main` | active | ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมรายปีของ GISTDA (2548–2562) ใน อ.องครักษ์ · หลักฐานเสริม | `python analysis/goal7_dem_gistda_waterline_test.py` | `analysis/goal7/dem_gistda_waterline_test.json` |
-| `goal7_vlm_pilot` | `analysis/goal7_vlm_pilot.py` | `typhoon_env` | active | นำร่องเทียบแบบจำลองภาพ-ภาษาอ่านตาราง/ภาพวาด/หน้าผสม พร้อมเฉลยที่ตรวจแล้วและภาพขยายคมชัด (ผลเป็นร่าง) | `python analysis/goal7_vlm_pilot.py render | run <รหัสโมเดล> | score` | `data/32_goal7_chaophraya2/vlm_pilot/`<br>`analysis/goal7/vlm_pilot_scores.json` |
+| `goal7_vlm_pilot` | `analysis/goal7_vlm_pilot.py` | `typhoon_env` | active | นำร่องเทียบแบบจำลองภาพ-ภาษาอ่านตาราง/ภาพวาด/หน้าผสม พร้อมเฉลยที่ตรวจแล้ว ภาพขยายคมชัด และขั้นแยกส่วนด้วย Unlimited-OCR (ผลเป็นร่าง · ขั้น layout ใช้ unlimited_ocr_env) | `python analysis/goal7_vlm_pilot.py render | run <รหัสโมเดล> | score` | `data/32_goal7_chaophraya2/vlm_pilot/`<br>`analysis/goal7/vlm_pilot_scores.json` |
 | `goal7_bangpakong_fetch` | `analysis/goal7_bangpakong_fetch.py` | `main` | active | ดึงระดับน้ำสถานีโทรมาตรลุ่มบางปะกง (ล่าสุด + 30 วัน) เทียบตลิ่ง | `python analysis/goal7_bangpakong_fetch.py [--days 30]` | `data/34_goal7_bangpakong/raw/` |
 | `goal7_bangpakong_chachoengsao` | `analysis/goal7_bangpakong_chachoengsao.py` | `main` | active | วิเคราะห์ทั้งลุ่มบางปะกง (ความสูง ลุ่มรับน้ำ ระดับน้ำสถานี น้ำท่วม 30 วัน ความถี่ 14 ปี) และเหตุที่ฉะเชิงเทรา ท่วมหนักและนาน | `python analysis/goal7_bangpakong_chachoengsao.py` | `analysis/goal7/bangpakong_chachoengsao.json` |
 
@@ -264,7 +265,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 3 สภาพแวดล้อม · 167 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 4 สภาพแวดล้อม · 167 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

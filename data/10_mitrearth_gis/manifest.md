@@ -109,3 +109,44 @@
 | `provinces_zips/อ่างทอง/5 Surface and Ground Water-20261020T034736Z-1-001.zip` | 889267 | `2a0d2e6ac8f77f84cca2345a1cb2373fbca747039e64f45008f9f5c41f819a11` |
 | `provinces_zips/อ่างทอง/6 Valley Ridge and Basin-20261020T034740Z-1-001.zip` | 663130 | `c2bb0fa37e19bd2f785564d3eaa4fed9af7c955d9352e01b1bb2a438b047ae24` |
 | `provinces_zips/อ่างทอง/7 Geological Hazard-20261020T034745Z-1-001.zip` | 113851 | `9d75464e12329b6dd77893d1092e102adfd21f7c498e602d284076ca90fdb340` |
+
+## ชุดระดับประเทศ "3 Thailand" (ผู้ใช้โหลดเอง 20 ต.ค. 2569 — backlog R7-19)
+
+ชุดข้อมูลชุดเดียวกับชุดนครนายก แต่ระดับประเทศ · 1,147 ไฟล์ 2.1 GB · ย้ายมาเก็บที่ `data/10_mitrearth_gis/thailand_pack/` (ไม่เข้า git) · แฮช SHA-256 ครบทุกไฟล์ใน `thailand_pack_hashes.txt` (ตรวจด้วย verify_data_integrity ได้) · สิทธิ์ใช้งานเหมือนเดิม (ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์)
+**ผลตรวจ: ชั้น shapefile ไม่ครบทุกชุด (0 ชุดสมบูรณ์ จาก 71 ชุด)** — ไฟล์ขนาดใหญ่ส่วนใหญ่ไม่ได้ถูกโหลดมา (น่าจะ Drive ตัดตอนโหลดโฟลเดอร์ใหญ่):
+- **น้ำท่วม GISTDA 2005–2019 ทั้งประเทศ** (`5 PDF Flood GISDA 2005-2019/GIS Flood GISTDA Thailand 2005-2019/1 GISTDA Flood Polygon 2005-2019/flood_20XX`) มีแต่ชิ้นส่วนเล็ก (`.prj`/`.xml`/`.sbx`) ไม่มี `.shp/.dbf/.shx` ของปีใดเลย — ต้องโหลดใหม่ทีละไฟล์ (มี 4 ภาพแผนที่ปี 2006 · 2014 · 2018 · 2019 เป็นภาพอย่างเดียว)
+- **ความถี่น้ำท่วม 15 ปี** (`5 GE Flood Density 2005-2019`: Flood Bed 1–15 of 15 time) มี `.shp` บางชุดไม่มี `.dbf/.shx` · ชั้น `GIS File Density Point` มีเพียง 2 ไฟล์ข้อความ (9.txt, 13.txt)
+- **ระดับน้ำทะเลสูงขึ้น 4/6/8/10 ม.** — มี KMZ ชุด 8 ม. ครบ (49 MB) แต่ shapefile ขาด
+- **ลุ่มน้ำ/เส้นทางน้ำ (41)** · **น้ำท่วมแบนราบ DMR (4 Hazard)** ขาด `.dbf/.shx`
+ไฟล์ที่ขาดของชั้นสำคัญ (ต้องโหลดใหม่):
+
+| โฟลเดอร์ | ชั้น | ขาดไฟล์ |
+|---|---|---|
+| 32 If Sea Level Rise | 1 Sea Level Rise 10 m - mitrearth | .dbf .shp |
+| 32 If Sea Level Rise | 1 Sea Level Rise 4 m - mitrearth | .dbf .shx |
+| 32 If Sea Level Rise | 1 Sea Level Rise 6 m - mitrearth | .dbf .shx |
+| 4 PDF Hazard | 8-1-class_1_landslide_and_flatflood_dmr | .dbf .shx |
+| 4 PDF Hazard | 8-1-class_2_landslide_and_flatflood_dmr | .dbf .shx |
+| 4 PDF Hazard | 8-1-class_3_landslide_and_flatflood_dmr | .shx |
+| 41 Dam Basin and Stream Flow | 3 Basin - mitrearth | .dbf .shx |
+| 5 GE Flood Density 2005-2019 | 1 Flood Bed Thailand 1of15 time - mitrearth | .dbf .shx |
+| 5 GE Flood Density 2005-2019 | 12 Flood Bed Thailand 12of15 time - mitrearth | .dbf .shx |
+| 5 GE Flood Density 2005-2019 | 2 Flood Bed Thailand 2of15 time - mitrearth | .dbf .shx |
+| 5 GE Flood Density 2005-2019 | 4 Flood Bed Thailand 4of15 time - mitrearth | .shp .shx |
+| 5 GE Flood Density 2005-2019 | 5 Flood Bed Thailand 5of15 time - mitrearth | .shp .shx |
+| 5 GE Flood Density 2005-2019 | 6 Flood Bed Thailand 6of15 time - mitrearth | .shp .shx |
+| 5 GE Flood Density 2005-2019 | 7 Flood Bed Thailand 7of15 time - mitrearth | .shp .shx |
+| 5 GE Flood Density 2005-2019 | 9 Flood Bed Thailand 9of15 time - mitrearth | .dbf .shx |
+| 5 PDF Flood GISDA 2005-2019 | 2_flood_moderate_risk | .dbf .shp |
+| 5 PDF Flood GISDA 2005-2019 | flood2012 | .dbf .shp .shx |
+| 5 PDF Flood GISDA 2005-2019 | flood_2011_geo | .dbf .shp .shx |
+| 5 PDF Flood GISDA 2005-2019 | flood_2014 | .dbf .shp .shx |
+| 5 PDF Flood GISDA 2005-2019 | flood_2016 | .dbf .shp .shx |
+| 5 PDF Flood GISDA 2005-2019 | flood_2018 | .shp .shx |
+
+**ชั้นที่สมบูรณ์และใช้แล้ว** (`analysis/goal7_mitrearth_thailand.py` → `analysis/goal7/mitrearth_thailand_summary.json`):
+- `24 GE Hydrology/1 ประตูระบายน้ำ/3_Hydro_Station_RID` (KMZ 551 สถานีกรมชลประทาน มีพิกัดและรหัส — ในพื้นที่ศึกษา 96 แห่ง รวม **Ny.1B · Ny.3 · Ny.4 · Ny.6**; ไม่มี Ny.7) → `analysis/goal7/rid_hydro_stations_study_area.csv`
+- `38 City (Province - District) Topography/4-4 … จุดร่องน้ำตัดถนน` (KMZ 9,431 จุดทั่วประเทศ มีระดับ · ความลาด · พื้นที่รับน้ำ) → 28 จุดภายใน 3 กม. จากแนวคลอง → `analysis/goal7/stream_road_crossings_corridor.csv`
+- `33 GE Village Nature Slide Flow Flood/3 Village Regional Flood - mitrearth.txt` (85,197 หมู่บ้าน พิกัด · ระดับพื้น · ความลาด · ที่ตั้ง — ไฟล์ TIS-620/cp874) → นับหมู่บ้านใกล้แนวคลอง (ไม่ระบุชื่อ)
+**เก็บไว้แต่ยังไม่ประมวลผล:** 38 City (KMZ เส้นชั้น 5 ม. 559,712 เส้น 175 MB · แม่น้ำสายหลัก · ธารน้ำสายรอง 111,365 เส้น · โครงข่ายถนน) · 23 ถนนหลัก/จุดตัดถนน · 24 บ่อบาดาล กรมทรัพยากรธรณี · 32 ระดับน้ำทะเล 8 ม. (KMZ) · 4 Hazard/25 Geology/35 Sinkhole/39 Tsunami/30 Coffee (นอกขอบเขตโครงการ)
+**ไม่มีประโยชน์:** `36 SAGA Thailand` (1.6 GB: TIFF ระดับประเทศเป็นภาพ 8 บิต ไม่ใช่ค่าความสูง/ความลาด · กริดรายจังหวัดความละเอียด 0.01° ≈ 1.1 กม.) · `21 Topo Map 1-50000 Thailand` (ไฟล์ .ige ขนาด 0 ไบต์)

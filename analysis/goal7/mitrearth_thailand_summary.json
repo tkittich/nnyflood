@@ -1,0 +1,93 @@
+{
+ "source": {
+  "pack": "data/10_mitrearth_gis/thailand_pack/ (ย้ายจาก data/manual/3 Thailand 20 ต.ค. 69)",
+  "site": "https://www.mitrearth.org/category/map/",
+  "license_note": "ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์"
+ },
+ "completeness": {
+  "files": 1147,
+  "shapefile_sets_complete": 0,
+  "shapefile_sets_incomplete": 71
+ },
+ "rid_hydro_stations": {
+  "total_stations": 551,
+  "in_study_area": 96,
+  "csv": "analysis\\goal7\\rid_hydro_stations_study_area.csv",
+  "codes_in_study_area": [
+   "-",
+   "C",
+   "CT",
+   "Ct",
+   "Kgt",
+   "L",
+   "M",
+   "Ny",
+   "S",
+   "T"
+  ],
+  "ny_stations": [
+   "Ny.1B",
+   "Ny.3",
+   "Ny.4",
+   "Ny.6"
+  ],
+  "note": "สถานีอุทกวิทยากรมชลประทานพร้อมพิกัด — ใช้ระบุพิกัด Ny.1B / Ny.7 และสถานีอื่นที่เคยไม่มีพิกัดในคลัง"
+ },
+ "stream_road_crossings": {
+  "total_points_nationwide": 9431,
+  "within_3km_of_canal": 28,
+  "by_reach": {
+   "กม.0–23": 18,
+   "กม.23–134": 10
+  },
+  "largest_drain_areas_km2": [
+   123.8,
+   123.8,
+   42.685,
+   42.685,
+   28.661
+  ],
+  "csv": "analysis\\goal7\\stream_road_crossings_corridor.csv",
+  "note": "จุดที่ร่องน้ำตัดถนน (ชั้น 'จุดร่องน้ำตัดถนน' จังหวัด) ภายใน 3 กม. จากแนวคลองประมาณ — ใช้ตรวจเทียบอาคารตัดคลองใน EIA (99 แถว) ไม่ใช่รายการอาคารจริง"
+ },
+ "villages_regional_flood": {
+  "villages_nationwide": 85197,
+  "villages_by_study_province": {
+   "Lop Buri": 119,
+   "Bangkok": 443,
+   "Saraburi": 970,
+   "Chachoengsao": 1284,
+   "Samut Sakhon": 359,
+   "Pathum Thani": 482,
+   "Nakhon Nayok": 516,
+   "Ang Thong": 451,
+   "Phra Nakhon Si Ayutthaya": 208,
+   "Nonthaburi": 333,
+   "Chai Nat": 55,
+   "Prachin Buri": 69,
+   "Sing Buri": 44,
+   "Samut Prakan": 1
+  },
+  "near_canal": {
+   "กม.0–23": {
+    "within_1km": 35,
+    "within_2km": 74,
+    "within_5km": 179,
+    "elevation_m_median_within_2km": 11.0
+   },
+   "กม.23–134": {
+    "within_1km": 65,
+    "within_2km": 130,
+    "within_5km": 318,
+    "elevation_m_median_within_2km": 4.0
+   },
+   "กม.134–135.9": {
+    "within_1km": 0,
+    "within_2km": 2,
+    "within_5km": 4,
+    "elevation_m_median_within_2km": 1.5
+   }
+  },
+  "note": "ชั้น 'หมู่บ้านในพื้นที่น้ำท่วมระดับภูมิภาค' (มิตรเอิร์ธ): พิกัด · ระดับพื้น · ความลาด · ที่ตั้ง (นับเป็นจำนวนหมู่บ้าน ไม่ระบุชื่อ) — ไม่ใช่รายการผู้ได้รับผลกระทบ · ที่มาของระดับพื้นไม่ระบุ (นัย DEM 30 ม. ของมิตรเอิร์ธ)"
+ }
+}

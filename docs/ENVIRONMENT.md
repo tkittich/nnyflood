@@ -252,6 +252,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_mitrearth_national` | `analysis/goal7_mitrearth_national.py` | `main` | active | ชุดมิตรเอิร์ธฉบับสมบูรณ์: น้ำท่วม GISTDA 15 ปีตลอดแนวคลอง · เทียบ 2569 · ระดับน้ำทะเลสูงขึ้น · DEMPro 5 ม. เทียบเส้นดิน EIA · บัญชีชั้นข้อมูล 77 จังหวัด | `python analysis/goal7_mitrearth_national.py` | `analysis/goal7/mitrearth_national_summary.json` |
 | `goal7_dem_bias_correction` | `analysis/goal7_dem_bias_correction.py` | `main` | active | ปรับ FABDEM ให้ใกล้ DEM 5 ม. (DEMPro) ในที่ราบต่ำ ตรวจนอกตัวอย่างและกับเส้นดิน EIA ตลอดแนวคลอง · ทดสอบถังเติมน้ำองครักษ์ | `python analysis/goal7_dem_bias_correction.py` | `analysis/goal7/dem_bias_correction.json` |
 | `goal7_dem_waterline_test` | `analysis/goal7_dem_waterline_test.py` | `main` | active | ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมเรดาร์ (ความสูงตามขอบควรรวมกลุ่มแคบ) · หลักฐานอิสระเสริมเส้นดิน EIA | `python analysis/goal7_dem_waterline_test.py` | `analysis/goal7/dem_waterline_test.json` |
+| `goal7_dem_gistda_waterline_test` | `analysis/goal7_dem_gistda_waterline_test.py` | `main` | active | ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมรายปีของ GISTDA (2548–2562) ใน อ.องครักษ์ · หลักฐานเสริม | `python analysis/goal7_dem_gistda_waterline_test.py` | `analysis/goal7/dem_gistda_waterline_test.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -260,7 +261,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 3 สภาพแวดล้อม · 163 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 164 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

@@ -231,7 +231,7 @@ SYNONYMS: dict[str, list[str]] = {
     "ประตูระบายน้ำ": ["ปตร", "ประตูระบายน้ำ", "watergate", "sluice"],
     "สูบ": ["สูบ", "ปั๊ม", "pump", "สถานีสูบ", "เครื่องสูบ"],
     "ปั๊ม": ["สูบ", "ปั๊ม", "pump", "สถานีสูบ", "เครื่องสูบ"],
-    "dem": ["dem", "fabdem", "dempro", "waterline", "ขอบน้ำ", "แบบจำลองความสูง", "goal7_dem_waterline_test", "goal7_dem_bias_correction"],
+    "dem": ["dem", "fabdem", "dempro", "waterline", "ขอบน้ำ", "แบบจำลองความสูง", "goal7_dem_waterline_test", "goal7_dem_gistda_waterline_test", "gistda", "goal7_dem_bias_correction"],
     "องครักษ์": ["องครักษ์", "ongkharak", "tny10", "tny9", "ny.7", "nyk000"],
     "รังสิต": ["รังสิต", "rangsit", "atg101", "bkk014", "bkk015", "คลอง 13", "พระธรรมราชา", "หกวา"],
     "ขุนด่าน": ["ขุนด่าน", "khun dan", "ท่าด่าน"],

@@ -8705,6 +8705,241 @@
   },
   "gauge_tny10_msl_m": 2.35
  },
+ "dem_gistda_waterline_test": {
+  "min_flood_km2": 2.0,
+  "years": {
+   "2006": {
+    "flood_km2_in_district": 353.8,
+    "dems": {
+     "copernicus_raw": {
+      "edge_pixels": 39163,
+      "edge_median_m": 3.13,
+      "edge_iqr_m": 0.86,
+      "edge_iqr_over_district_iqr": 0.915
+     },
+     "fabdem_raw": {
+      "edge_pixels": 39123,
+      "edge_median_m": 3.04,
+      "edge_iqr_m": 0.57,
+      "edge_iqr_over_district_iqr": 0.847
+     },
+     "fabdem_corrected": {
+      "edge_pixels": 39123,
+      "edge_median_m": 1.2,
+      "edge_iqr_m": 0.33,
+      "edge_iqr_over_district_iqr": 0.769
+     }
+    }
+   },
+   "2008": {
+    "flood_km2_in_district": 3.9,
+    "dems": {
+     "copernicus_raw": {
+      "edge_pixels": 1258,
+      "edge_median_m": 3.25,
+      "edge_iqr_m": 0.64,
+      "edge_iqr_over_district_iqr": 0.682
+     },
+     "fabdem_raw": {
+      "edge_pixels": 1258,
+      "edge_median_m": 3.29,
+      "edge_iqr_m": 0.57,
+      "edge_iqr_over_district_iqr": 0.85
+     },
+     "fabdem_corrected": {
+      "edge_pixels": 1258,
+      "edge_median_m": 1.3,
+      "edge_iqr_m": 0.38,
+      "edge_iqr_over_district_iqr": 0.873
+     }
+    }
+   },
+   "2010": {
+    "flood_km2_in_district": 367.0,
+    "dems": {
+     "copernicus_raw": {
+      "edge_pixels": 47123,
+      "edge_median_m": 3.37,
+      "edge_iqr_m": 1.09,
+      "edge_iqr_over_district_iqr": 1.16
+     },
+     "fabdem_raw": {
+      "edge_pixels": 47099,
+      "edge_median_m": 3.14,
+      "edge_iqr_m": 0.69,
+      "edge_iqr_over_district_iqr": 1.022
+     },
+     "fabdem_corrected": {
+      "edge_pixels": 47099,
+      "edge_median_m": 1.23,
+      "edge_iqr_m": 0.46,
+      "edge_iqr_over_district_iqr": 1.058
+     }
+    }
+   },
+   "2011": {
+    "flood_km2_in_district": 493.3,
+    "dems": {
+     "copernicus_raw": {
+      "edge_pixels": 28247,
+      "edge_median_m": 3.63,
+      "edge_iqr_m": 1.54,
+      "edge_iqr_over_district_iqr": 1.632
+     },
+     "fabdem_raw": {
+      "edge_pixels": 28198,
+      "edge_median_m": 3.14,
+      "edge_iqr_m": 0.85,
+      "edge_iqr_over_district_iqr": 1.261
+     },
+     "fabdem_corrected": {
+      "edge_pixels": 28198,
+      "edge_median_m": 1.22,
+      "edge_iqr_m": 0.56,
+      "edge_iqr_over_district_iqr": 1.289
+     }
+    }
+   },
+   "2012": {
+    "flood_km2_in_district": 153.5,
+    "dems": {
+     "copernicus_raw": {
+      "edge_pixels": 37969,
+      "edge_median_m": 3.04,
+      "edge_iqr_m": 0.78,
+      "edge_iqr_over_district_iqr": 0.826
+     },
+     "fabdem_raw": {
+      "edge_pixels": 37962,
+      "edge_median_m": 2.98,
+      "edge_iqr_m": 0.56,
+      "edge_iqr_over_district_iqr": 0.84
+     },
+     "fabdem_corrected": {
+      "edge_pixels": 37963,
+      "edge_median_m": 1.17,
+      "edge_iqr_m": 0.29,
+      "edge_iqr_over_district_iqr": 0.665
+     }
+    }
+   },
+   "2013": {
+    "flood_km2_in_district": 292.1,
+    "dems": {
+     "copernicus_raw": {
+      "edge_pixels": 55428,
+      "edge_median_m": 3.24,
+      "edge_iqr_m": 0.92,
+      "edge_iqr_over_district_iqr": 0.978
+     },
+     "fabdem_raw": {
+      "edge_pixels": 55410,
+      "edge_median_m": 3.1,
+      "edge_iqr_m": 0.65,
+      "edge_iqr_over_district_iqr": 0.97
+     },
+     "fabdem_corrected": {
+      "edge_pixels": 55410,
+      "edge_median_m": 1.22,
+      "edge_iqr_m": 0.41,
+      "edge_iqr_over_district_iqr": 0.948
+     }
+    }
+   },
+   "2014": {
+    "flood_km2_in_district": 4.7,
+    "dems": {
+     "copernicus_raw": {
+      "edge_pixels": 2607,
+      "edge_median_m": 3.0,
+      "edge_iqr_m": 0.9,
+      "edge_iqr_over_district_iqr": 0.957
+     },
+     "fabdem_raw": {
+      "edge_pixels": 2607,
+      "edge_median_m": 3.0,
+      "edge_iqr_m": 0.72,
+      "edge_iqr_over_district_iqr": 1.078
+     },
+     "fabdem_corrected": {
+      "edge_pixels": 2607,
+      "edge_median_m": 1.05,
+      "edge_iqr_m": 0.44,
+      "edge_iqr_over_district_iqr": 1.026
+     }
+    }
+   },
+   "2016": {
+    "flood_km2_in_district": 20.2,
+    "dems": {
+     "copernicus_raw": {
+      "edge_pixels": 5779,
+      "edge_median_m": 2.98,
+      "edge_iqr_m": 0.82,
+      "edge_iqr_over_district_iqr": 0.874
+     },
+     "fabdem_raw": {
+      "edge_pixels": 5779,
+      "edge_median_m": 2.95,
+      "edge_iqr_m": 0.72,
+      "edge_iqr_over_district_iqr": 1.078
+     },
+     "fabdem_corrected": {
+      "edge_pixels": 5779,
+      "edge_median_m": 1.08,
+      "edge_iqr_m": 0.45,
+      "edge_iqr_over_district_iqr": 1.038
+     }
+    }
+   },
+   "2018": {
+    "flood_km2_in_district": 109.7,
+    "dems": {
+     "copernicus_raw": {
+      "edge_pixels": 43802,
+      "edge_median_m": 3.01,
+      "edge_iqr_m": 0.71,
+      "edge_iqr_over_district_iqr": 0.754
+     },
+     "fabdem_raw": {
+      "edge_pixels": 43800,
+      "edge_median_m": 3.0,
+      "edge_iqr_m": 0.59,
+      "edge_iqr_over_district_iqr": 0.873
+     },
+     "fabdem_corrected": {
+      "edge_pixels": 43803,
+      "edge_median_m": 1.17,
+      "edge_iqr_m": 0.31,
+      "edge_iqr_over_district_iqr": 0.723
+     }
+    }
+   }
+  },
+  "summary": {
+   "copernicus_raw": {
+    "label": "Copernicus GLO-30 ดิบ (ผิวสูงสุด)",
+    "years_tested": 9,
+    "median_ratio": 0.915,
+    "median_edge_level_m": 3.13,
+    "years_best": 3
+   },
+   "fabdem_raw": {
+    "label": "FABDEM ดิบ (ดินเปล่า)",
+    "years_tested": 9,
+    "median_ratio": 0.97,
+    "median_edge_level_m": 3.04,
+    "years_best": 2
+   },
+   "fabdem_corrected": {
+    "label": "FABDEM ปรับด้วย DEM 5 ม. (ชุดหลัก)",
+    "years_tested": 9,
+    "median_ratio": 0.948,
+    "median_edge_level_m": 1.2,
+    "years_best": 4
+   }
+  }
+ },
  "mitrearth_national": {
   "gistda_corridor_2005_2019": {
    "corridor_half_width_m": 3000.0,

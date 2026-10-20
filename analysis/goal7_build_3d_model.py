@@ -24,6 +24,9 @@ GEOM = ROOT / "analysis/goal7/official_geometry.json"
 OUTD = ROOT / "report/models"
 TILE_KM = 10.0
 ROW_MARGIN_M = 60.0       # พื้นดินรอบแนวที่วาดนอกตีนลาดนอก (ทัศนียภาพ)
+TERRAIN_OFFS_M = (0.0, 30.0, 60.0)     # ระยะนอกตีนลาดที่สุ่มความสูงข้าง (ความละเอียด DEM 30 ม.)
+RELIEF_CLIP_M = 3.0                    # จำกัดความต่างระดับด้านข้างเทียบแนวกลาง (กันสัญญาณรบกวน)
+BIAS_JSON = ROOT / "analysis/goal7/dem_bias_correction.json"
 
 MATERIALS = {   # ชื่อ: (R,G,B,alpha)
     "water": (0.20, 0.45, 0.80, 0.55), "earth_lining": (0.55, 0.42, 0.28, 1), "concrete_lining": (0.70, 0.70, 0.72, 1),
@@ -82,6 +85,48 @@ class Mesh:
         self.box(mat, fr, km, u0, u1, z0, z1, width_along_m, vexag)
 
 
+def terrain_sampler():
+    """ความสูงพื้นจาก FABDEM ที่ปรับด้วย DEM 5 ม. (ตาราง dem_bias_correction.json) — ใช้เฉพาะ "ความต่างระดับด้านข้าง" เทียบแนวกลาง ส่วนระดับตามแนวคลองยึดเส้นดินใน EIA
+    คืน None ถ้าไม่มีไฟล์ DEM บนเครื่อง (แบบจำลองจะใช้พื้นราบด้านข้างแทน)"""
+    try:
+        from pyproj import Transformer
+        import goal7_dem_bias_correction as bc
+        from goal7_fabdem_compare import FAB, sampler
+        tbl = json.loads(BIAS_JSON.read_text(encoding="utf-8"))["bias_table_by_fabdem_height"]
+        fab = sampler(FAB, "N{lat}E{lon}_FABDEM_V1-2.tif")
+        to_wgs = Transformer.from_crs(32647, 4326, always_xy=True).transform
+    except Exception:  # noqa: BLE001
+        return None
+
+    def at(x, y):
+        lo, la = to_wgs(x, y)
+        f = fab(lo, la)
+        if f is None:
+            return None
+        return float(bc.correct(np.array([f], dtype=float), tbl)[0])
+    return at
+
+
+def lateral_relief(terrain, s, h, toe):
+    """ความต่างระดับพื้นที่ระยะ toe+TERRAIN_OFFS_M ทั้งสองข้าง เทียบค่ากลางตามแนวขวาง (±200 ม.) — คืน (ซ้าย[], ขวา[])"""
+    if terrain is None:
+        return [0.0] * len(TERRAIN_OFFS_M), [0.0] * len(TERRAIN_OFFS_M)
+    nx, ny = -math.sin(h), math.cos(h)
+    base = [terrain(s["x"] + nx * u, s["y"] + ny * u) for u in (-200.0, -100.0, 0.0, 100.0, 200.0)]
+    base = [b for b in base if b is not None]
+    if not base:
+        return [0.0] * len(TERRAIN_OFFS_M), [0.0] * len(TERRAIN_OFFS_M)
+    ref = float(np.median(base))
+    out = []
+    for sgn in (1.0, -1.0):
+        row = []
+        for off in TERRAIN_OFFS_M:
+            z = terrain(s["x"] + nx * sgn * (toe + off), s["y"] + ny * sgn * (toe + off))
+            row.append(0.0 if (z is None or off == 0.0) else float(np.clip(z - ref, -RELIEF_CLIP_M, RELIEF_CLIP_M)))
+        out.append(row)
+    return out[0], out[1]
+
+
 def section_params(km, table):
     r = next((x for x in table["reaches"] if x["km"][0] <= km < x["km"][1]), table["reaches"][-1])
     if isinstance(r["B"], list):                       # ช่วงปลายคลอง: ท้องกว้างขึ้น 51 → 380
@@ -117,12 +162,14 @@ def build(vexag: float):
     fr = Frame(st)
     mesh = Mesh()
     rings = []
-    for s in st:
+    terrain = terrain_sampler()
+    for si, s in enumerate(st):
         sp = section_params(s["km"], table)
         bed, water, crest, ground = s["bed"], s["water"], s["crest"], s["ground"]
         ip = inner_profile(sp, bed, water, crest)                       # ฝั่งขวา (u>0)
         u_c, road = ip[-1][0], sp["road"]
         toe = u_c + road + sp["z_out"] * abs(crest - ground)
+        rel_l, rel_r = lateral_relief(terrain, s, float(fr.h[si]), toe)
         right_inner = ip
         left_inner = [(-u, z) for u, z in ip]
         lining = list(reversed(left_inner)) + right_inner                # ซ้ายสันคัน → ท้อง → ขวาสันคัน
@@ -135,8 +182,8 @@ def build(vexag: float):
             "road_r": [fr.at(s["km"], u_c, crest, vexag), fr.at(s["km"], u_c + road, crest, vexag)],
             "slope_l": [fr.at(s["km"], -(u_c + road), crest, vexag), fr.at(s["km"], -toe, ground, vexag)],
             "slope_r": [fr.at(s["km"], u_c + road, crest, vexag), fr.at(s["km"], toe, ground, vexag)],
-            "ground_l": [fr.at(s["km"], -toe, ground, vexag), fr.at(s["km"], -(toe + ROW_MARGIN_M), ground, vexag)],
-            "ground_r": [fr.at(s["km"], toe, ground, vexag), fr.at(s["km"], toe + ROW_MARGIN_M, ground, vexag)],
+            "ground_l": [fr.at(s["km"], -(toe + off), ground + rl, vexag) for off, rl in zip(TERRAIN_OFFS_M, rel_l)],
+            "ground_r": [fr.at(s["km"], toe + off, ground + rr, vexag) for off, rr in zip(TERRAIN_OFFS_M, rel_r)],
             "reach": sp["reach"], "u_c": u_c, "toe": toe, "z_bed": bed, "z_crest": crest, "z_ground": ground, "z_water": water,
         }
         rings.append(ring)

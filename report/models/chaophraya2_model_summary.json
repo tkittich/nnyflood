@@ -1,13 +1,13 @@
 {
- "vertices": 8032,
- "faces": 7012,
+ "vertices": 8578,
+ "faces": 7556,
  "tiles": 14,
  "materials": {
   "earth_lining": 423,
   "water": 272,
   "road": 544,
   "embankment": 544,
-  "ground": 544,
+  "ground": 1088,
   "concrete_lining": 1583,
   "road_bridge": 282,
   "pier": 738,

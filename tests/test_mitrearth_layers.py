@@ -38,4 +38,9 @@ def test_summary_sanity():
     for r in a["recurrence_of_2026_footprint_pct"].values():
         assert abs(sum(r["by_number_of_past_flood_years"].values()) - 100) < 0.5
     assert s["b_subbasin_vs_eia"]["eia_pk_at_4_km2"] == pytest.approx(330.0, abs=0.1)
-    assert s["c_contour_1m_vs_dem"]["n_points"] > 1000
+    c = s["c_contour_1m_vs_dem"]
+    assert c["window_set_gis_file"]["n_points_sampled_in_province"] > 1000 and c["province_set_4_contour_line"]["n_points_sampled_in_province"] > 1000
+    # เส้นชั้น 1 ม. สร้างจาก DEM ของมิตรเอิร์ธเอง: ชุดหน้าต่าง ← DEMPro 5 ม. · ชุดทั้งจังหวัด ← DEM 30 ม. (ส่วนต่างเฉลี่ย ~0)
+    assert c["conclusion"]["window_set_derived_from"] == "dempro_5m" and c["conclusion"]["province_set_derived_from"] == "mitrearth_dem30m"
+    assert abs(c["window_set_gis_file"]["dem_minus_contour"]["dempro_5m"]["bias_m"]) < 0.2 and c["window_set_gis_file"]["dem_minus_contour"]["dempro_5m"]["mae_m"] < 0.5
+    assert c["province_set_4_contour_line"]["dem_minus_contour"]["mitrearth_dem30m"]["mae_m"] < 1.0

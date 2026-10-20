@@ -4,7 +4,7 @@
 แหล่ง: data/manual/18 นครนายก (NAKHON NAYOK).zip (ชุดมิตรเอิร์ธเต็มจังหวัด · SHA-256 ใน data/10_mitrearth_gis/manifest.md) · แตกเฉพาะไฟล์ที่ใช้ไปไว้ที่
 data/10_mitrearth_gis/extracted_full/ (disk-only) · ตารางเวลา/ตาราง 2569: data/13_sentinel1_copernicus/derived (ตารางกริด 30 ม. + มาสก์เรดาร์)
 ข้อควรระวังที่บันทึกไว้ในผล: (1) ไฟล์ .prj ของชั้น GISTDA ว่างเปล่า — สมมติ WGS84 (พิกัดอยู่ในช่วง 100.9–101.3°E 13.96–14.36°N) (2) ปี 0 = รูปปิดไม่ระบุปี ไม่นับ
-(3) เส้นชั้น 1 ม. ของมิตรเอิร์ธไม่ระบุที่มา (นัยว่าสร้างจาก DEM 30 ม.) การเทียบกับ DEM จึงวัดความสอดคล้อง ไม่ใช่ความถูกต้องเทียบการสำรวจ
+(3) เส้นชั้น 1 ม. มี 2 ชุด: `GIS File/18 Contour 1 m…` (10,592 เส้น ครอบหน้าต่าง DEMPro 5 ม.) สร้างจาก DEMPro (ตรวจแล้ว: DEMPro−เส้นชั้น เฉลี่ย +0.03 ม. MAE 0.12 ม.) · `4 Contour Line/18 Contour1m.shp` (111,298 เส้น ทั้งจังหวัด) สร้างจาก DEM 30 ม. ของมิตรเอิร์ธ (MAE 0.42 ม.) การเทียบกับ DEM จึงวัดความสอดคล้อง ไม่ใช่ความถูกต้องเทียบการสำรวจ
 สิทธิ์ใช้งานของชั้นข้อมูล: เพื่อประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์ (ดู manifest)
 
 รัน: python analysis/goal7_mitrearth_layers.py
@@ -43,7 +43,9 @@ MEMBERS = {
     "gistda": "18 Flood GISTDA 0519 NAKHON NAYOK",
     "basin": "18 Drainage Basin",
     "contour1m": "18 Contour 1 m NAKHON NAYOK - mitrearth",
+    "contour1m_prov": "18 Contour1m",
 }
+GRIDS = {"dempro": "GIS File/18 DEMPro NAKHON NAYOK - mitrearth.grd", "dem30": "1 Digital Elevation Model (DEM)/18 DEM30m - mitrearth.grd"}
 
 
 def extract() -> dict[str, Path]:
@@ -145,12 +147,37 @@ def part_b_basin(shp: Path) -> dict:
     }
 
 
-def part_c_contour(shp: Path, province: np.ndarray, n_sample: int = 20000, seed: int = 7) -> dict:
+def extract_grids() -> dict[str, Path]:
+    EXT.mkdir(parents=True, exist_ok=True)
+    out = {}
+    with zipfile.ZipFile(ZIP) as z:
+        for k, tail in GRIDS.items():
+            n = next(i for i in z.namelist() if i.endswith(tail))
+            dst = EXT / f"mitrearth_{k}.grd"
+            if not dst.exists():
+                dst.write_bytes(z.read(n))
+            out[k] = dst
+    return out
+
+
+def grid_sampler(path: Path):
+    """ตัวสุ่มค่าความสูงจากกริด Surfer (.grd) — ค่า 1.7e38 = ช่องว่าง"""
+    ds = rasterio.open(path)
+    a = ds.read(1).astype("float32")
+    a[a > 1e10] = np.nan
+
+    def f(x, y):
+        r, c = ds.index(x, y)
+        return float(a[r, c]) if 0 <= r < ds.height and 0 <= c < ds.width and not np.isnan(a[r, c]) else None
+    return f
+
+
+def _contour_points(shp: Path, n_sample: int, seed: int):
     r = shapefile.Reader(str(shp))
     fields = [f[0] for f in r.fields[1:]]
     ie = next((i for i, f in enumerate(fields) if f.upper() in ("ELEVATION", "ELEV", "CONTOUR", "HEIGHT", "VALUE")), None)
     if ie is None:
-        return {"error": f"ไม่พบฟิลด์ความสูง ใน {fields}"}
+        return None, fields
     pts = []
     for sr in r.iterShapeRecords():
         z = float(str(sr.record[ie]).split()[0])
@@ -158,38 +185,57 @@ def part_c_contour(shp: Path, province: np.ndarray, n_sample: int = 20000, seed:
             continue
         sh = sr.shape
         step = max(1, len(sh.points) // 6)
-        for x, y in sh.points[::step]:
-            pts.append((x, y, z))
+        pts += [(x, y, z) for x, y in sh.points[::step]]
     rng = np.random.default_rng(seed)
     if len(pts) > n_sample:
         pts = [pts[i] for i in rng.choice(len(pts), n_sample, replace=False)]
-    fab = sampler(FAB, "N{lat}E{lon}_FABDEM_V1-2.tif")
-    glo = sampler(GLO, "Copernicus_DSM_COG_10_N{lat}_00_E{lon}_00_DEM.tif")
+    return pts, fields[ie]
+
+
+def part_c_contour(shp: Path, province: np.ndarray, samplers: dict, n_sample: int = 20000, seed: int = 7) -> dict:
+    """เส้นชั้น 1 ม. เทียบ DEM 4 ชุด (DEMPro 5 ม. · DEM 30 ม. มิตรเอิร์ธ · FABDEM · Copernicus) — ชุดที่ส่วนต่างเล็กสุด ≈ ต้นทางของเส้นชั้น"""
+    pts, field = _contour_points(shp, n_sample, seed)
+    if pts is None:
+        return {"error": f"ไม่พบฟิลด์ความสูง ใน {field}"}
     rows = []
     for x, y, z in pts:
         col = int((x - GRID["x0"]) / GRID["res"])
         row = int((GRID["y1"] - y) / GRID["res"])
         if not (0 <= row < SHAPE[0] and 0 <= col < SHAPE[1]) or not province[row, col]:
             continue
-        a, b = fab(x, y), glo(x, y)
-        if a is None or b is None:
-            continue
-        rows.append((z, a - z, b - z))
-    arr = np.array(rows)
-    bins = [(0, 2), (2, 4), (4, 8), (8, 12.01)]
-    out = {"n_points": int(len(arr)), "field_used": fields[ie], "classes": {}}
+        rows.append((z, *[(samplers[k](x, y) if samplers[k](x, y) is not None else np.nan) for k in samplers]))
+    arr = np.array(rows, dtype=float)
+    out = {"n_points_sampled_in_province": int(len(arr)), "field_used": field, "dem_minus_contour": {}}
 
     def stats(d):
+        d = d[~np.isnan(d)]
+        if len(d) < 20:
+            return {"n": int(len(d))}
         return {"n": int(len(d)), "bias_m": round(float(d.mean()), 2), "mae_m": round(float(np.abs(d).mean()), 2), "rmse_m": round(float(np.sqrt((d ** 2).mean())), 2),
                 "p05_m": round(float(np.percentile(d, 5)), 2), "p95_m": round(float(np.percentile(d, 95)), 2)}
+    for j, k in enumerate(samplers, 1):
+        out["dem_minus_contour"][k] = stats(arr[:, j] - arr[:, 0])
+    ok = {k: v for k, v in out["dem_minus_contour"].items() if v.get("n", 0) >= 200}
+    out["closest_dem"] = min(ok, key=lambda k: ok[k]["mae_m"]) if ok else None
+    out["by_class"] = {}
+    for lo, hi in [(0, 2), (2, 4), (4, 8), (8, 12.01)]:
+        m = (arr[:, 0] >= lo) & (arr[:, 0] < hi)
+        if m.sum() > 20 and out["closest_dem"]:
+            j = list(samplers).index(out["closest_dem"]) + 1
+            out["by_class"][f"{lo:g}-{min(hi, 12):g} m"] = stats(arr[m, j] - arr[m, 0])
+    return out
 
-    if len(arr):
-        out["all"] = {"fabdem_minus_contour": stats(arr[:, 1]), "copernicus_dsm_minus_contour": stats(arr[:, 2])}
-        for lo, hi in bins:
-            m = (arr[:, 0] >= lo) & (arr[:, 0] < hi)
-            if m.sum() > 20:
-                out["classes"][f"{lo:g}-{min(hi, 12):g} m"] = {"fabdem_minus_contour": stats(arr[m, 1]), "copernicus_dsm_minus_contour": stats(arr[m, 2])}
-    out["reading_note"] = "เส้นชั้นความสูงของมิตรเอิร์ธไม่ระบุที่มา (นัยว่าสร้างจาก DEM 30 ม.) — ความต่างจึงวัดความสอดคล้องกับ DEM อื่น ไม่ใช่ความถูกต้องเทียบการสำรวจภาคสนาม · พบส่วนต่างเป็นระบบ (DEM สูงกว่าเส้นชั้นทุกชั้นความสูง) ยังอธิบายที่มาไม่ได้ (ระดับอ้างอิงต่างกัน/สร้างจากต้นทางอื่น) จึงห้ามใช้เส้นชั้นนี้เป็นระดับสัมบูรณ์จนกว่าจะรู้ที่มา · ตัวอย่างสุ่มจากจุดบนเส้น ไม่ใช่ทั้งเส้น"
+
+def contour_sets(paths: dict, province: np.ndarray) -> dict:
+    g = extract_grids()
+    fab = sampler(FAB, "N{lat}E{lon}_FABDEM_V1-2.tif")
+    glo = sampler(GLO, "Copernicus_DSM_COG_10_N{lat}_00_E{lon}_00_DEM.tif")
+    samplers = {"dempro_5m": grid_sampler(g["dempro"]), "mitrearth_dem30m": grid_sampler(g["dem30"]), "fabdem": fab, "copernicus_glo30": glo}
+    out = {"window_set_gis_file": part_c_contour(paths["contour1m"], province, samplers), "province_set_4_contour_line": part_c_contour(paths["contour1m_prov"], province, samplers, seed=11)}
+    out["conclusion"] = {
+        "window_set_derived_from": out["window_set_gis_file"]["closest_dem"], "province_set_derived_from": out["province_set_4_contour_line"]["closest_dem"],
+        "reading_note": "เส้นชั้น 1 ม. ชุดหน้าต่าง (10,592 เส้น) ตรงกับ DEMPro 5 ม. (ส่วนต่างเฉลี่ย ~0.0 ม.) · ชุดทั้งจังหวัด (111,298 เส้น) ตรงกับ DEM 30 ม. ของมิตรเอิร์ธ — ทั้งสองจึงสร้างจาก DEM ของมิตรเอิร์ธเอง ไม่ใช่การสำรวจอิสระ · "
+                        "ส่วนต่างเทียบ FABDEM/Copernicus (~2 ม. และ ~3 ม. ในหน้าต่าง) คือความต่างเชิงดิ่งระหว่างชุด DEM เอง (DEMPro ต่ำกว่า DEM 30 ม. ของมิตรเอิร์ธ ~4 ม.) — ยังไม่ทราบว่าชุดใดใกล้พื้นจริงที่สุด (EIA 2.3.2-9 ต่ำกว่า FABDEM เฉลี่ย 1.3 ม.)"}
     return out
 
 
@@ -201,14 +247,15 @@ def main() -> None:
         "grid": {"res_deg": GRID["res"], "province_km2": round(float(province.sum()) * CELL_KM2, 1)},
         "a_gistda_flood_footprints": part_a_gistda(paths["gistda"], province),
         "b_subbasin_vs_eia": part_b_basin(paths["basin"]),
-        "c_contour_1m_vs_dem": part_c_contour(paths["contour1m"], province),
+        "c_contour_1m_vs_dem": contour_sets(paths, province),
     }
     OUT.write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
     a = summary["a_gistda_flood_footprints"]
     print("GISTDA ปี:", {y: v["area_km2_net_in_province"] for y, v in a["per_year"].items()})
     print("recurrence 2 ต.ค. 2569:", a["recurrence_of_2026_footprint_pct"]["oct2_validated"]["by_number_of_past_flood_years"])
     print("basin:", summary["b_subbasin_vs_eia"]["n_basins"], "ใกล้ PK-AT-4:", summary["b_subbasin_vs_eia"]["nearest_mitrearth_basin"]["area_km2"])
-    print("contour:", summary["c_contour_1m_vs_dem"].get("all"))
+    c = summary["c_contour_1m_vs_dem"]["conclusion"]
+    print("contour derived from:", c["window_set_derived_from"], "|", c["province_set_derived_from"])
 
 
 if __name__ == "__main__":

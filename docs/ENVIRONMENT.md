@@ -249,6 +249,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_mitrearth_provinces` | `analysis/goal7_mitrearth_provinces.py` | `main` | active | ชั้นมิตรเอิร์ธรายจังหวัดลุ่มเจ้าพระยาตอนล่าง 11 จังหวัด: น้ำท่วม GISTDA 2548–2554 รายปี · ลุ่มน้ำย่อย · เทียบน้ำท่วม 2569 | `python analysis/goal7_mitrearth_provinces.py` | `analysis/goal7/mitrearth_provinces_summary.json` |
 | `goal7_mitrearth_dempro` | `analysis/goal7_mitrearth_dempro.py` | `main` | active | DEM 5 ม. (DEMPro) ของมิตรเอิร์ธนครนายก: ขอบเขต · ส่วนต่างเทียบ FABDEM/Copernicus · ทดสอบถังเติมน้ำเทียบเรดาร์ 2569 | `python analysis/goal7_mitrearth_dempro.py` | `analysis/goal7/mitrearth_dempro_summary.json` |
 | `goal7_mitrearth_thailand` | `analysis/goal7_mitrearth_thailand.py` | `main` | active | ชุดมิตรเอิร์ธระดับประเทศ: ตรวจความครบ · สถานีอุทกวิทยา กช. · จุดร่องน้ำตัดถนน · หมู่บ้านพร้อมระดับพื้น ใกล้แนวคลอง | `python analysis/goal7_mitrearth_thailand.py` | `analysis/goal7/mitrearth_thailand_summary.json`<br>`analysis/goal7/rid_hydro_stations_study_area.csv`<br>`analysis/goal7/stream_road_crossings_corridor.csv` |
+| `goal7_mitrearth_national` | `analysis/goal7_mitrearth_national.py` | `main` | active | ชุดมิตรเอิร์ธฉบับสมบูรณ์: น้ำท่วม GISTDA 15 ปีตลอดแนวคลอง · เทียบ 2569 · ระดับน้ำทะเลสูงขึ้น · DEMPro 5 ม. เทียบเส้นดิน EIA · บัญชีชั้นข้อมูล 77 จังหวัด | `python analysis/goal7_mitrearth_national.py` | `analysis/goal7/mitrearth_national_summary.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -257,7 +258,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 3 สภาพแวดล้อม · 160 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 161 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

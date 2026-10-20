@@ -1,13 +1,13 @@
 {
  "source": {
-  "pack": "data/10_mitrearth_gis/thailand_pack/ (ย้ายจาก data/manual/3 Thailand 20 ต.ค. 69)",
+  "pack": "data/10_mitrearth_gis/thailand_national_full/ (ย้ายจาก data/manual/3 Thailand 20 ต.ค. 69 — ฉบับสมบูรณ์ 8,086 ไฟล์ 16 GB)",
   "site": "https://www.mitrearth.org/category/map/",
   "license_note": "ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์"
  },
  "completeness": {
-  "files": 1147,
-  "shapefile_sets_complete": 0,
-  "shapefile_sets_incomplete": 71
+  "files": 8086,
+  "shapefile_sets_complete": 179,
+  "shapefile_sets_incomplete": 12
  },
  "rid_hydro_stations": {
   "total_stations": 551,

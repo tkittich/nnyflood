@@ -1,10 +1,9 @@
 """เป้าหมาย 7 — ชุดมิตรเอิร์ธระดับประเทศ ("3 Thailand", โหลดเอง 20 ต.ค. 69): ตรวจรายการ · ดึงชั้นที่ใช้ได้จริง (สถานีอุทกวิทยา กรมชลประทาน · จุดร่องน้ำตัดถนน · หมู่บ้านพร้อมระดับพื้น) ใกล้แนวคลอง
 
-ผลตรวจ (ดู analysis/goal7/mitrearth_thailand_summary.json):
-· ไฟล์เวกเตอร์ชั้นหลัก (.shp/.dbf/.shx) **ไม่ครบทุกชุด** — ชุดนี้ไม่มีชั้น shapefile ที่สมบูรณ์เลย 71 ชุดขาดอย่างน้อยหนึ่งไฟล์ (รวมน้ำท่วม GISTDA 2005–2019 ทั้งประเทศ · ความถี่น้ำท่วม 15 ปี · ระดับน้ำทะเลสูงขึ้น · ลุ่มน้ำ) ·
-  ชั้นที่ใช้ได้จริงคือ KMZ (สมบูรณ์) และข้อความตาราง (.txt)
+ผลตรวจ (ดู analysis/goal7/mitrearth_thailand_summary.json): ชุดที่โหลดครั้งแรก (1,147 ไฟล์) ไม่ครบ — ชุดฉบับสมบูรณ์ (8,086 ไฟล์) มี shapefile สมบูรณ์ 179 ชุด ขาดเล็กน้อย 12 ชุด (ส่วนใหญ่ชั้นหลุมยุบ/แผ่นดินถล่ม/พื้นที่ภัยแล้ง ที่อยู่นอกขอบเขตโครงการ)
 · 36 SAGA: ภาพ TIFF ระดับประเทศเป็นภาพ 8 บิต (ไม่ใช่ค่าความสูง/ความลาด) ส่วนกริดรายจังหวัดความละเอียด 0.01° (~1.1 กม.) — หยาบเกินใช้ในโครงการ
 · 21 Topo Map: มีเพียงไฟล์ .ige ขนาด 0 ไบต์ (ไม่มีข้อมูล)
+ชั้นน้ำท่วม GISTDA/ระดับน้ำทะเลสูงขึ้น/DEMPro ประมวลผลใน analysis/goal7_mitrearth_national.py
 ข้อควรระวัง: ข้อความภาษาไทยในบางแอตทริบิวต์ของ KMZ เสียรูป (วรรณยุกต์กลายเป็น '?') · แนวคลองจากหมุด กม. (official_geometry) เป็นแนวประมาณ — ระยะถึงแนวคลองคลาดได้ ~0.5 กม.
 สิทธิ์ใช้งาน: ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์
 
@@ -26,7 +25,7 @@ from pyproj import Transformer
 from scipy.spatial import cKDTree
 
 ROOT = Path(__file__).resolve().parent.parent
-PACK = ROOT / "data/10_mitrearth_gis/thailand_pack"
+PACK = ROOT / "data/10_mitrearth_gis/thailand_national_full"
 GEOM = ROOT / "analysis/goal7/official_geometry.json"
 OUT = ROOT / "analysis/goal7/mitrearth_thailand_summary.json"
 TO_UTM = Transformer.from_crs(4326, 32647, always_xy=True).transform
@@ -78,7 +77,7 @@ def completeness() -> dict:
 
 
 def stations() -> dict:
-    f = next(PACK.glob("24 GE Hydrology/1*/*.kmz"))
+    f = next(PACK.glob("24 GE Hydrology/1*/3_Hydro_Station_RID*.kmz"))
     rows = [(n, x, y, a) for n, x, y, a in placemarks(f) if STUDY_BBOX[0] <= x <= STUDY_BBOX[2] and STUDY_BBOX[1] <= y <= STUDY_BBOX[3]]
     out = ROOT / "analysis/goal7/rid_hydro_stations_study_area.csv"
     with out.open("w", encoding="utf-8", newline="") as fh:
@@ -153,7 +152,7 @@ def villages(tree) -> dict:
 
 def main() -> None:
     tree = canal_tree()
-    summary = {"source": {"pack": "data/10_mitrearth_gis/thailand_pack/ (ย้ายจาก data/manual/3 Thailand 20 ต.ค. 69)", "site": "https://www.mitrearth.org/category/map/", "license_note": "ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์"},
+    summary = {"source": {"pack": "data/10_mitrearth_gis/thailand_national_full/ (ย้ายจาก data/manual/3 Thailand 20 ต.ค. 69 — ฉบับสมบูรณ์ 8,086 ไฟล์ 16 GB)", "site": "https://www.mitrearth.org/category/map/", "license_note": "ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์"},
                "completeness": completeness(), "rid_hydro_stations": stations(), "stream_road_crossings": crossings(tree), "villages_regional_flood": villages(tree)}
     OUT.write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: summary[k] for k in ("completeness",)}, ensure_ascii=False))

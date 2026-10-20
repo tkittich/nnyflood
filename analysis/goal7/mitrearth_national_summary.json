@@ -1,0 +1,954 @@
+{
+ "source": {
+  "national": "data/10_mitrearth_gis/thailand_national_full/",
+  "provinces": "data/10_mitrearth_gis/thailand_provinces_full/",
+  "license_note": "ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์"
+ },
+ "gistda_corridor_2005_2019": {
+  "corridor_half_width_m": 3000.0,
+  "cell_m": 100.0,
+  "corridor_km2": 819.0,
+  "by_year_km2": {
+   "2005": 0.0,
+   "2006": 456.4,
+   "2007": 1.5,
+   "2008": 2.5,
+   "2009": 0.0,
+   "2010": 459.9,
+   "2011": 562.8,
+   "2012": 140.7,
+   "2013": 309.0,
+   "2014": 0.0,
+   "2015": 0.0,
+   "2016": 0.0,
+   "2017": 0.0,
+   "2018": 43.9,
+   "2019": 0.0
+  },
+  "by_reach": {
+   "กม.0–23": {
+    "area_km2": 149.2,
+    "ever_flooded_pct": 52.8,
+    "flooded_3plus_years_pct": 8.9,
+    "flooded_6plus_years_pct": 0.0,
+    "max_years": 5,
+    "by_year_pct": {
+     "2005": 0.0,
+     "2006": 17.4,
+     "2007": 1.0,
+     "2008": 0.0,
+     "2009": 0.0,
+     "2010": 31.8,
+     "2011": 20.6,
+     "2012": 2.6,
+     "2013": 14.3,
+     "2014": 0.0,
+     "2015": 0.0,
+     "2016": 0.0,
+     "2017": 0.0,
+     "2018": 0.0,
+     "2019": 0.0
+    }
+   },
+   "กม.23–134": {
+    "area_km2": 646.6,
+    "ever_flooded_pct": 92.0,
+    "flooded_3plus_years_pct": 59.6,
+    "flooded_6plus_years_pct": 3.2,
+    "max_years": 7,
+    "by_year_pct": {
+     "2005": 0.0,
+     "2006": 66.6,
+     "2007": 0.0,
+     "2008": 0.4,
+     "2009": 0.0,
+     "2010": 63.8,
+     "2011": 82.3,
+     "2012": 21.2,
+     "2013": 44.4,
+     "2014": 0.0,
+     "2015": 0.0,
+     "2016": 0.0,
+     "2017": 0.0,
+     "2018": 6.8,
+     "2019": 0.0
+    }
+   },
+   "กม.134–135.9": {
+    "area_km2": 23.2,
+    "ever_flooded_pct": 1.7,
+    "flooded_3plus_years_pct": 0.0,
+    "flooded_6plus_years_pct": 0.0,
+    "max_years": 2,
+    "by_year_pct": {
+     "2005": 0.0,
+     "2006": 0.0,
+     "2007": 0.0,
+     "2008": 0.0,
+     "2009": 0.0,
+     "2010": 0.0,
+     "2011": 0.0,
+     "2012": 0.2,
+     "2013": 1.7,
+     "2014": 0.0,
+     "2015": 0.0,
+     "2016": 0.0,
+     "2017": 0.0,
+     "2018": 0.0,
+     "2019": 0.0
+    }
+   }
+  },
+  "by_10km": {
+   "0-10": {
+    "ever_pct": 48.5,
+    "mean_years": 0.84
+   },
+   "10-20": {
+    "ever_pct": 57.0,
+    "mean_years": 0.96
+   },
+   "20-30": {
+    "ever_pct": 72.2,
+    "mean_years": 1.2
+   },
+   "30-40": {
+    "ever_pct": 90.2,
+    "mean_years": 2.33
+   },
+   "40-50": {
+    "ever_pct": 99.5,
+    "mean_years": 3.81
+   },
+   "50-60": {
+    "ever_pct": 92.9,
+    "mean_years": 2.78
+   },
+   "60-70": {
+    "ever_pct": 99.0,
+    "mean_years": 3.56
+   },
+   "70-80": {
+    "ever_pct": 99.3,
+    "mean_years": 3.47
+   },
+   "80-90": {
+    "ever_pct": 99.6,
+    "mean_years": 3.44
+   },
+   "90-100": {
+    "ever_pct": 98.9,
+    "mean_years": 3.13
+   },
+   "100-110": {
+    "ever_pct": 99.6,
+    "mean_years": 3.52
+   },
+   "110-120": {
+    "ever_pct": 98.4,
+    "mean_years": 3.11
+   },
+   "120-130": {
+    "ever_pct": 77.3,
+    "mean_years": 1.34
+   },
+   "130-135.9": {
+    "ever_pct": 13.4,
+    "mean_years": 0.14
+   }
+  }
+ },
+ "gistda_vs_2026_nakhon_nayok": {
+  "years": "2005–2019",
+  "grid_km2": 4369.0,
+  "past_flood_ever_in_province_pct": 50.0,
+  "peak_27sep": {
+   "flooded_2026_km2_in_province": 438.9,
+   "share_flooded_in_any_past_year_pct": 93.8,
+   "by_number_of_past_years_pct": {
+    "0": 6.2,
+    "1": 7.2,
+    "2": 11.0,
+    "3": 20.4,
+    "4": 19.9,
+    "5": 17.3,
+    "6": 12.4,
+    "7": 4.1,
+    "8": 1.2,
+    "9": 0.3,
+    "10": 0.0,
+    "11": 0.0
+   },
+   "share_flooded_6plus_past_years_pct": 18.0
+  },
+  "oct2_validated": {
+   "flooded_2026_km2_in_province": 353.0,
+   "share_flooded_in_any_past_year_pct": 99.0,
+   "by_number_of_past_years_pct": {
+    "0": 1.0,
+    "1": 4.7,
+    "2": 11.3,
+    "3": 21.9,
+    "4": 23.6,
+    "5": 19.9,
+    "6": 13.2,
+    "7": 3.6,
+    "8": 0.6,
+    "9": 0.1,
+    "10": 0.0,
+    "11": 0.0
+   },
+   "share_flooded_6plus_past_years_pct": 17.6
+  }
+ },
+ "sea_level_rise_vs_canal": {
+  "2": {
+   "axis_km_inside": 13.5,
+   "axis_first_km_inside": 111.6,
+   "by_reach_km": {
+    "กม.23–134": 12.8,
+    "กม.134–135.9": 0.7
+   },
+   "corridor_pct": 9.6
+  },
+  "4": {
+   "axis_km_inside": 73.1,
+   "axis_first_km_inside": 30.1,
+   "by_reach_km": {
+    "กม.23–134": 71.8,
+    "กม.134–135.9": 1.3
+   },
+   "corridor_pct": 49.1
+  },
+  "6": {
+   "axis_km_inside": 105.6,
+   "axis_first_km_inside": 25.4,
+   "by_reach_km": {
+    "กม.23–134": 104.2,
+    "กม.134–135.9": 1.4
+   },
+   "corridor_pct": 73.5
+  },
+  "8": {
+   "axis_km_inside": 111.4,
+   "axis_first_km_inside": 22.4,
+   "by_reach_km": {
+    "กม.0–23": 0.5,
+    "กม.23–134": 109.5,
+    "กม.134–135.9": 1.4
+   },
+   "corridor_pct": 79.6
+  },
+  "10": {
+   "axis_km_inside": 118.8,
+   "axis_first_km_inside": 13.1,
+   "by_reach_km": {
+    "กม.0–23": 6.8,
+    "กม.23–134": 110.6,
+    "กม.134–135.9": 1.4
+   },
+   "corridor_pct": 84.2
+  },
+  "12": {
+   "axis_km_inside": 128.9,
+   "axis_first_km_inside": 0.4,
+   "by_reach_km": {
+    "กม.0–23": 16.5,
+    "กม.23–134": 111.0,
+    "กม.134–135.9": 1.4
+   },
+   "corridor_pct": 91.1
+  },
+  "14": {
+   "axis_km_inside": 134.4,
+   "axis_first_km_inside": 0.3,
+   "by_reach_km": {
+    "กม.0–23": 22.0,
+    "กม.23–134": 111.0,
+    "กม.134–135.9": 1.4
+   },
+   "corridor_pct": 96.1
+  },
+  "16": {
+   "axis_km_inside": 135.4,
+   "axis_first_km_inside": 0.0,
+   "by_reach_km": {
+    "กม.0–23": 23.0,
+    "กม.23–134": 111.0,
+    "กม.134–135.9": 1.4
+   },
+   "corridor_pct": 97.7
+  },
+  "18": {
+   "axis_km_inside": 135.4,
+   "axis_first_km_inside": 0.0,
+   "by_reach_km": {
+    "กม.0–23": 23.0,
+    "กม.23–134": 111.0,
+    "กม.134–135.9": 1.4
+   },
+   "corridor_pct": 98.0
+  },
+  "20": {
+   "axis_km_inside": 135.4,
+   "axis_first_km_inside": 0.0,
+   "by_reach_km": {
+    "กม.0–23": 23.0,
+    "กม.23–134": 111.0,
+    "กม.134–135.9": 1.4
+   },
+   "corridor_pct": 98.1
+  }
+ },
+ "dempro_vs_eia_ground": {
+  "10 ฉะเชิงเทรา (CHACHOENGSAO)": {
+   "canal_km_in_window": [
+    97.0,
+    101.0
+   ],
+   "n_points": 9,
+   "eia_ground_mean_m": 0.8,
+   "dem_minus_eia_ground": {
+    "dempro": {
+     "mean_m": -0.34,
+     "mae_m": 0.41,
+     "sd_m": 0.44,
+     "n": 9
+    },
+    "dem30": {
+     "mean_m": 2.34,
+     "mae_m": 2.34,
+     "sd_m": 0.6,
+     "n": 9
+    },
+    "fabdem": {
+     "mean_m": 1.16,
+     "mae_m": 1.16,
+     "sd_m": 0.12,
+     "n": 9
+    },
+    "glo30": {
+     "mean_m": 1.2,
+     "mae_m": 1.2,
+     "sd_m": 0.18,
+     "n": 9
+    }
+   }
+  },
+  "64 สระบุรี (SARABURI)": {
+   "canal_km_in_window": [
+    9.0,
+    15.5
+   ],
+   "n_points": 14,
+   "eia_ground_mean_m": 9.21,
+   "dem_minus_eia_ground": {
+    "dempro": {
+     "mean_m": 0.34,
+     "mae_m": 0.47,
+     "sd_m": 0.52,
+     "n": 14
+    },
+    "fabdem": {
+     "mean_m": 1.78,
+     "mae_m": 1.78,
+     "sd_m": 0.88,
+     "n": 14
+    },
+    "glo30": {
+     "mean_m": 1.83,
+     "mae_m": 1.83,
+     "sd_m": 0.95,
+     "n": 14
+    }
+   }
+  }
+ },
+ "inventory": {
+  "provinces": 77,
+  "with_gistda_flood": 40,
+  "with_dempro_5m": 74,
+  "with_basin": 44,
+  "with_contour_1m": 36,
+  "without_gistda": [
+   "20 นครพนม (NAKHON PHANOM)",
+   "38 พิษณุโลก (PHITSANULOK)",
+   "39 เพชรบุรี (PHETCHABURI)",
+   "40 เพชรบูรณ์ (PHETCHABUN)",
+   "41 แพร่ (PHRAE)",
+   "43 มหาสารคาม (MAHA SARAKHAM)",
+   "45 มุกดาหาร (MUKDAHAN)",
+   "46 ยโสธร (YASOTHON)",
+   "47 ยะลา (YALA)",
+   "48 ร้อยเอ็ด (ROI ET)",
+   "51 ราชบุรี (RATCHABURI)",
+   "52 ลพบุรี (LOP BURI)",
+   "53 ลำปาง (LAMPANG)",
+   "54 ลำพูน (LAMPHUN)",
+   "55 เลย (LOEI)",
+   "56 ศรีสะเกษ (SI SA KET)",
+   "57 สกลนคร (SAKON NAKHON)",
+   "58 สงขลา (SONGKHLA)",
+   "59 สตูล (SATUN)",
+   "60 สมุทรปราการ (SAMUT PRAKAN)",
+   "62 สมุทรสาคร (SAMUT SAKHON)",
+   "63 สระแก้ว (SA KAEO)",
+   "64 สระบุรี (SARABURI)",
+   "65 สิงห์บุรี (SING BURI)",
+   "66 สุโขทัย (SUKHOTHAI)",
+   "67 สุพรรณบุรี (SUPHAN BURI)",
+   "68 สุราษฎร์ธานี (SURAT THANI)",
+   "69 สุรินทร์ (SURIN)",
+   "70 หนองคาย (NONG KHAI)",
+   "71 หนองบัวลำภู (NONG BUA LAMPHU)",
+   "72 อ่างทอง (ANG THONG)",
+   "73 อำนาจเจริญ (AMNAT CHAROEN)",
+   "74 อุดรธานี (UDON THANI)",
+   "75 อุตรดิตถ์ (UTTARADIT)",
+   "76 อุทัยธานี (UTHAI THANI)",
+   "77 อุบลราชธานี (UBON RATCHATHANI)",
+   "8 เชียงราย (CHIANG RAI)"
+  ],
+  "detail": [
+   {
+    "province": "1 กระบี่ (KRABI)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "10 ฉะเชิงเทรา (CHACHOENGSAO)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "11 ชลบุรี (CHON BURI)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "12 ชัยนาท (CHAI NAT)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "13 ชัยภูมิ (CHAIYAPHUM)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "14 ชุมพร (CHUMPHON)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "15 ตรัง (TRANG)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "16 ตราด (TRAT)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "17 ตาก (TAK)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": false
+   },
+   {
+    "province": "18 นครนายก (NAKHON NAYOK)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "19 นครปฐม (NAKHON PATHOM)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "2 กรุงเทพมหานคร (BANGKOK)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "20 นครพนม (NAKHON PHANOM)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "21 นครราชสีมา (NAKHON RATCHASIMA)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "22 นครศรีธรรมราช (NAKHON SI THAMMARAT)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "23 นครสวรรค์ (NAKHON SAWAN)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "24 นนทบุรี (NONTHABURI)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "25 นราธิวาส (NARATHIWAT)",
+    "gistda": true,
+    "dempro_5m": false,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "26 น่าน (NAN)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "27 บึงกาฬ (BEUNG KAN)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "28 บุรีรัมย์ (BURI RAM)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "29 ปทุมธานี (PATHUM THANI)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "3 กาญจนบุรี (KANCHANABURI)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": false
+   },
+   {
+    "province": "30 ประจวบคีรีขันธ์ (PRACHUAP KHIRI KHAN)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "31 ปราจีนบุรี (PRACHIN BURI)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "32 ปัตตานี (PATTANI)",
+    "gistda": true,
+    "dempro_5m": false,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "33 พระนครศรีอยุธยา (PHRA NAKHON SI AYUTTHAYA)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "34 พะเยา (PHAYAO)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "35 พังงา (PHANGNGA)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "36 พัทลุง (PHATTHALUNG)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "37 พิจิตร (PHICHIT)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "38 พิษณุโลก (PHITSANULOK)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "39 เพชรบุรี (PHETCHABURI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "4 กาฬสินธุ์ (KALASIN)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "40 เพชรบูรณ์ (PHETCHABUN)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "41 แพร่ (PHRAE)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "42 ภูเก็ต (PHUKET)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": false
+   },
+   {
+    "province": "43 มหาสารคาม (MAHA SARAKHAM)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "44 แม่ฮ่องสอน (MAE HONG SON)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "45 มุกดาหาร (MUKDAHAN)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "46 ยโสธร (YASOTHON)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "47 ยะลา (YALA)",
+    "gistda": false,
+    "dempro_5m": false,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "48 ร้อยเอ็ด (ROI ET)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "49 ระนอง (RANONG)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "5 กำแพงเพชร (KAMPHAENG PHET)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "50 ระยอง (RAYONG)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "51 ราชบุรี (RATCHABURI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "52 ลพบุรี (LOP BURI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "53 ลำปาง (LAMPANG)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "54 ลำพูน (LAMPHUN)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "55 เลย (LOEI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "56 ศรีสะเกษ (SI SA KET)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "57 สกลนคร (SAKON NAKHON)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "58 สงขลา (SONGKHLA)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "59 สตูล (SATUN)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "6 ขอนแก่น (KHON KAEN)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "60 สมุทรปราการ (SAMUT PRAKAN)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": false
+   },
+   {
+    "province": "61 สมุทรสงคราม (SAMUT SONGKHRAM)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": false
+   },
+   {
+    "province": "62 สมุทรสาคร (SAMUT SAKHON)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": false
+   },
+   {
+    "province": "63 สระแก้ว (SA KAEO)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "64 สระบุรี (SARABURI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "65 สิงห์บุรี (SING BURI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": false
+   },
+   {
+    "province": "66 สุโขทัย (SUKHOTHAI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "67 สุพรรณบุรี (SUPHAN BURI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "68 สุราษฎร์ธานี (SURAT THANI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "69 สุรินทร์ (SURIN)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "7 เชียงใหม่ (CHIANG MAI)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": false
+   },
+   {
+    "province": "70 หนองคาย (NONG KHAI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "71 หนองบัวลำภู (NONG BUA LAMPHU)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "72 อ่างทอง (ANG THONG)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "73 อำนาจเจริญ (AMNAT CHAROEN)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "74 อุดรธานี (UDON THANI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "75 อุตรดิตถ์ (UTTARADIT)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "76 อุทัยธานี (UTHAI THANI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "77 อุบลราชธานี (UBON RATCHATHANI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": false,
+    "contour_1m": false
+   },
+   {
+    "province": "8 เชียงราย (CHIANG RAI)",
+    "gistda": false,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   },
+   {
+    "province": "9 จันทบุรี (CHANTHABURI)",
+    "gistda": true,
+    "dempro_5m": true,
+    "basin": true,
+    "contour_1m": true
+   }
+  ]
+ }
+}

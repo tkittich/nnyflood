@@ -15,8 +15,8 @@ def load():
 
 def test_pack_completeness_recorded():
     c = load()["completeness"]
-    assert c["files"] == 1147
-    assert c["shapefile_sets_complete"] == 0 and c["shapefile_sets_incomplete"] > 50   # ชุดเวกเตอร์ระดับประเทศขาดไฟล์ — ต้องโหลดใหม่ (R7-19)
+    assert c["files"] == 8086
+    assert c["shapefile_sets_complete"] >= 170 and c["shapefile_sets_incomplete"] <= 20   # ฉบับสมบูรณ์ (R7-19 ปิดแล้ว): ขาดเล็กน้อยเฉพาะชั้นนอกขอบเขตโครงการ
 
 
 def test_rid_stations_include_ny_with_coordinates():

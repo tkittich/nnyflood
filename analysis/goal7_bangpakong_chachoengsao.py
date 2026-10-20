@@ -177,6 +177,27 @@ def gistda_30d():
     return out
 
 
+def gistda_recent():
+    """ชั้นน้ำท่วม 1 / 3 / 7 วันล่าสุดของ GISTDA (ดึง 20 ต.ค.) — 7 วันคลุมฉากหลายดาวเทียมถึง 20 ต.ค. ; 1–3 วันคลุมแนวเดียวของฉากเดียวจึงใช้เทียบทั้งจังหวัดไม่ได้"""
+    out = {}
+    for pv in ("ฉะเชิงเทรา", "ปราจีนบุรี", "นครนายก"):
+        row = {}
+        for ep in ("1day", "3days", "7days"):
+            f = GIST / f"{pv}_{ep}.json"
+            if not f.exists():
+                continue
+            fs = json.loads(f.read_text(encoding="utf-8"))
+            sc = sorted(set(re.findall(r"([A-Za-z0-9]+_2026\d{4}_\d{4})", " ".join(x["properties"]["file_name"] for x in fs[:200]))))
+            am = {}
+            for ft in fs:
+                q = ft["properties"]
+                am[q["ap_tn"]] = am.get(q["ap_tn"], 0.0) + (q.get("f_area") or 0) / 1e6
+            row[ep] = {"area_km2": round(sum(am.values()), 1), "scenes": sc, "by_amphoe": {k: round(v, 1) for k, v in sorted(am.items(), key=lambda kv: -kv[1])}}
+        row["share_of_30d_still_in_7d_pct"] = None
+        out[pv] = row
+    return out
+
+
 def flood_freq():
     out = {}
     for pv in ("ฉะเชิงเทรา", "นครนายก", "ปราจีนบุรี"):
@@ -293,6 +314,7 @@ def main() -> None:
         masks[n] = m
         pid[m] = i
     flood = flood_raster([GIST / f"{n}_30days.json" for n in PROV], z.shape, tr, pid > 0)
+    flood7 = flood_raster([GIST / f"{n}_7days.json" for n in PROV], z.shape, tr, pid > 0)
     terr = {}
     for n, m in masks.items():
         zz = z[m]
@@ -301,7 +323,9 @@ def main() -> None:
         for i, (lo, hi, lab) in enumerate(ELEV_BINS):
             mz = m & (zone == i)
             a_all, a_fl = float(area[mz].sum()), float((area * flood)[mz].sum())
-            row["by_elevation"][lab] = {"land_pct": round(100 * a_all / float(area[m].sum()), 1), "land_km2": round(a_all, 0), "flooded_km2": round(a_fl, 0), "flooded_pct_of_zone": round(100 * a_fl / a_all, 1) if a_all else None}
+            a_7 = float((area * flood7)[mz].sum())
+            row["by_elevation"][lab] = {"land_pct": round(100 * a_all / float(area[m].sum()), 1), "land_km2": round(a_all, 0), "flooded_km2": round(a_fl, 0), "flooded_pct_of_zone": round(100 * a_fl / a_all, 1) if a_all else None,
+                                        "flooded_7d_km2": round(a_7, 0), "still_flooded_7d_share_of_30d_pct": round(100 * a_7 / a_fl, 0) if a_fl > 1 else None}
         terr[n] = row
     all_m = pid > 0
     zone_all = {}
@@ -318,8 +342,11 @@ def main() -> None:
     basin = basin_frame(outlines)
     res = {"generated": dt.date.today().isoformat(), "terrain": {"cell_m": 90, "dem": "FABDEM ปรับด้วยตารางส่วนต่าง DEM 5 ม.", "provinces": terr, "all_three_by_elevation": zone_all,
                                                               "variance_explained_flooded_cells": ve, "sampled_cells": int(sub.size)},
-           "basin": basin, "gistda_30d": gistda_30d(), "flood_freq": flood_freq(), "gauges": (gs := gauges())}
+           "basin": basin, "gistda_30d": gistda_30d(), "gistda_recent": (gr := gistda_recent()), "flood_freq": flood_freq(), "gauges": (gs := gauges())}
     res["story"] = bpk_story(gs)
+    for pv, v in gr.items():
+        if "7days" in v:
+            v["share_of_30d_still_in_7d_pct"] = round(100 * v["7days"]["area_km2"] / res["gistda_30d"][pv]["2026-10-20"]["total_km2"], 0)
     res["story"]["bpk003_upstream_area_km2"] = basin["upstream_of_gauges"]["BPK003 บางน้ำเปรี้ยว"]["area_union_km2"]
     OUT.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: res[k] for k in ("basin",)}, ensure_ascii=False, indent=1)[:1500])

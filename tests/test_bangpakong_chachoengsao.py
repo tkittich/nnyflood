@@ -37,3 +37,9 @@ def test_snapshots_archived_not_overwritten():
     root = Path(__file__).resolve().parent.parent / "data/12_gistda_flood/raw/provinces"
     if root.exists():   # ไฟล์ดิบอยู่นอก git — ตรวจเฉพาะเมื่อมีบนเครื่อง
         assert (root / "ฉะเชิงเทรา_30days_2026-10-16.json").exists()
+
+
+def test_gistda_recent_windows_present_and_7day_is_substantial():
+    rc = R["gistda_recent"]
+    assert rc["ฉะเชิงเทรา"]["7days"]["area_km2"] > 100
+    assert any("_202610" in x and int(x.split("_")[1]) >= 20261014 for x in rc["ฉะเชิงเทรา"]["7days"]["scenes"])

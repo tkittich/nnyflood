@@ -8956,31 +8956,41 @@
        "land_pct": 36.2,
        "land_km2": 1908.0,
        "flooded_km2": 389.0,
-       "flooded_pct_of_zone": 20.4
+       "flooded_pct_of_zone": 20.4,
+       "flooded_7d_km2": 351.0,
+       "still_flooded_7d_share_of_30d_pct": 90.0
       },
       "2–5 ม.": {
        "land_pct": 2.3,
        "land_km2": 121.0,
        "flooded_km2": 16.0,
-       "flooded_pct_of_zone": 13.3
+       "flooded_pct_of_zone": 13.3,
+       "flooded_7d_km2": 5.0,
+       "still_flooded_7d_share_of_30d_pct": 34.0
       },
       "5–10 ม.": {
        "land_pct": 1.8,
        "land_km2": 97.0,
        "flooded_km2": 7.0,
-       "flooded_pct_of_zone": 7.3
+       "flooded_pct_of_zone": 7.3,
+       "flooded_7d_km2": 0.0,
+       "still_flooded_7d_share_of_30d_pct": 1.0
       },
       "10–25 ม.": {
        "land_pct": 5.0,
        "land_km2": 262.0,
        "flooded_km2": 7.0,
-       "flooded_pct_of_zone": 2.5
+       "flooded_pct_of_zone": 2.5,
+       "flooded_7d_km2": 0.0,
+       "still_flooded_7d_share_of_30d_pct": 0.0
       },
       "สูงกว่า 25 ม.": {
        "land_pct": 54.6,
        "land_km2": 2876.0,
        "flooded_km2": 8.0,
-       "flooded_pct_of_zone": 0.3
+       "flooded_pct_of_zone": 0.3,
+       "flooded_7d_km2": 0.0,
+       "still_flooded_7d_share_of_30d_pct": 0.0
       }
      }
     },
@@ -8994,31 +9004,41 @@
        "land_pct": 40.0,
        "land_km2": 862.0,
        "flooded_km2": 224.0,
-       "flooded_pct_of_zone": 26.0
+       "flooded_pct_of_zone": 26.0,
+       "flooded_7d_km2": 145.0,
+       "still_flooded_7d_share_of_30d_pct": 64.0
       },
       "2–5 ม.": {
        "land_pct": 11.9,
        "land_km2": 256.0,
        "flooded_km2": 26.0,
-       "flooded_pct_of_zone": 10.1
+       "flooded_pct_of_zone": 10.1,
+       "flooded_7d_km2": 4.0,
+       "still_flooded_7d_share_of_30d_pct": 16.0
       },
       "5–10 ม.": {
        "land_pct": 7.6,
        "land_km2": 164.0,
        "flooded_km2": 8.0,
-       "flooded_pct_of_zone": 4.9
+       "flooded_pct_of_zone": 4.9,
+       "flooded_7d_km2": 0.0,
+       "still_flooded_7d_share_of_30d_pct": 1.0
       },
       "10–25 ม.": {
        "land_pct": 7.1,
        "land_km2": 152.0,
        "flooded_km2": 1.0,
-       "flooded_pct_of_zone": 0.8
+       "flooded_pct_of_zone": 0.8,
+       "flooded_7d_km2": 0.0,
+       "still_flooded_7d_share_of_30d_pct": 0.0
       },
       "สูงกว่า 25 ม.": {
        "land_pct": 32.0,
        "land_km2": 690.0,
        "flooded_km2": 0.0,
-       "flooded_pct_of_zone": 0.0
+       "flooded_pct_of_zone": 0.0,
+       "flooded_7d_km2": 0.0,
+       "still_flooded_7d_share_of_30d_pct": null
       }
      }
     },
@@ -9032,31 +9052,41 @@
        "land_pct": 12.3,
        "land_km2": 598.0,
        "flooded_km2": 255.0,
-       "flooded_pct_of_zone": 42.6
+       "flooded_pct_of_zone": 42.6,
+       "flooded_7d_km2": 249.0,
+       "still_flooded_7d_share_of_30d_pct": 98.0
       },
       "2–5 ม.": {
        "land_pct": 5.8,
        "land_km2": 283.0,
        "flooded_km2": 72.0,
-       "flooded_pct_of_zone": 25.6
+       "flooded_pct_of_zone": 25.6,
+       "flooded_7d_km2": 44.0,
+       "still_flooded_7d_share_of_30d_pct": 60.0
       },
       "5–10 ม.": {
        "land_pct": 6.3,
        "land_km2": 307.0,
        "flooded_km2": 31.0,
-       "flooded_pct_of_zone": 10.1
+       "flooded_pct_of_zone": 10.1,
+       "flooded_7d_km2": 8.0,
+       "still_flooded_7d_share_of_30d_pct": 24.0
       },
       "10–25 ม.": {
        "land_pct": 20.6,
        "land_km2": 1003.0,
        "flooded_km2": 41.0,
-       "flooded_pct_of_zone": 4.1
+       "flooded_pct_of_zone": 4.1,
+       "flooded_7d_km2": 1.0,
+       "still_flooded_7d_share_of_30d_pct": 4.0
       },
       "สูงกว่า 25 ม.": {
        "land_pct": 54.6,
        "land_km2": 2658.0,
        "flooded_km2": 0.0,
-       "flooded_pct_of_zone": 0.0
+       "flooded_pct_of_zone": 0.0,
+       "flooded_7d_km2": 0.0,
+       "still_flooded_7d_share_of_30d_pct": null
       }
      }
     }
@@ -9356,6 +9386,135 @@
       }
      }
     }
+   }
+  },
+  "gistda_recent": {
+   "ฉะเชิงเทรา": {
+    "1day": {
+     "area_km2": 9.6,
+     "scenes": [
+      "rd2_20261020_0613"
+     ],
+     "by_amphoe": {
+      "อ.บางน้ำเปรี้ยว": 8.6,
+      "อ.เมืองฉะเชิงเทรา": 1.0
+     }
+    },
+    "3days": {
+     "area_km2": 9.6,
+     "scenes": [
+      "cm2_20261018_0607",
+      "cm4_20261019_0627",
+      "rd2_20261020_0613"
+     ],
+     "by_amphoe": {
+      "อ.บางน้ำเปรี้ยว": 8.6,
+      "อ.เมืองฉะเชิงเทรา": 1.0
+     }
+    },
+    "7days": {
+     "area_km2": 357.1,
+     "scenes": [
+      "S1D_20261014_0607",
+      "S1D_20261016_0551",
+      "S1D_20261016_1819",
+      "cm2_20261017_1710",
+      "cm2_20261018_0607",
+      "cm4_20261016_1854",
+      "cm4_20261019_0627",
+      "rd2_20261020_0613"
+     ],
+     "by_amphoe": {
+      "อ.บางน้ำเปรี้ยว": 143.6,
+      "อ.เมืองฉะเชิงเทรา": 57.9,
+      "อ.ราชสาส์น": 49.0,
+      "อ.บางคล้า": 40.0,
+      "อ.พนมสารคาม": 37.1,
+      "อ.คลองเขื่อน": 12.9,
+      "อ.บ้านโพธิ์": 10.4,
+      "อ.แปลงยาว": 5.9,
+      "อ.บางปะกง": 0.3
+     }
+    },
+    "share_of_30d_still_in_7d_pct": 83.0
+   },
+   "ปราจีนบุรี": {
+    "1day": {
+     "area_km2": 0,
+     "scenes": [],
+     "by_amphoe": {}
+    },
+    "3days": {
+     "area_km2": 0,
+     "scenes": [],
+     "by_amphoe": {}
+    },
+    "7days": {
+     "area_km2": 302.6,
+     "scenes": [
+      "S1D_20261014_0607",
+      "S1D_20261016_0551",
+      "S1D_20261016_1819",
+      "cm2_20261017_1710",
+      "cm2_20261018_0607",
+      "cm4_20261016_1854",
+      "cm4_20261019_0627",
+      "rd2_20261020_0613"
+     ],
+     "by_amphoe": {
+      "อ.บ้านสร้าง": 154.9,
+      "อ.เมืองปราจีนบุรี": 55.3,
+      "อ.ศรีมโหสถ": 38.7,
+      "อ.ศรีมหาโพธิ": 29.3,
+      "อ.ประจันตคาม": 15.5,
+      "อ.กบินทร์บุรี": 8.9
+     }
+    },
+    "share_of_30d_still_in_7d_pct": 75.0
+   },
+   "นครนายก": {
+    "1day": {
+     "area_km2": 39.6,
+     "scenes": [
+      "rd2_20261020_0613"
+     ],
+     "by_amphoe": {
+      "อ.องครักษ์": 33.4,
+      "อ.บ้านนา": 6.2
+     }
+    },
+    "3days": {
+     "area_km2": 39.6,
+     "scenes": [
+      "cm2_20261018_0607",
+      "cm4_20261019_0627",
+      "rd2_20261020_0613"
+     ],
+     "by_amphoe": {
+      "อ.องครักษ์": 33.4,
+      "อ.บ้านนา": 6.2
+     }
+    },
+    "7days": {
+     "area_km2": 147.9,
+     "scenes": [
+      "S1D_20261014_0607",
+      "S1D_20261016_0551",
+      "S1D_20261016_1819",
+      "cm2_20261017_1710",
+      "cm2_20261018_0607",
+      "cm4_20261016_1854",
+      "cm4_20261019_0627",
+      "rd2_20261020_0613"
+     ],
+     "by_amphoe": {
+      "อ.องครักษ์": 98.8,
+      "อ.เมืองนครนายก": 19.6,
+      "อ.บ้านนา": 16.1,
+      "อ.ปากพลี": 13.4
+     }
+    },
+    "share_of_30d_still_in_7d_pct": 57.0
    }
   },
   "flood_freq": {

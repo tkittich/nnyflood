@@ -1,0 +1,121 @@
+{
+ "grids": {
+  "dempro_5m": {
+   "driver": "GS7BG",
+   "cell_deg": [
+    4.57e-05,
+    4.521e-05
+   ],
+   "cell_m": 5.1,
+   "shape": [
+    3999,
+    4054
+   ],
+   "bounds": [
+    101.1212,
+    14.1136,
+    101.3065,
+    14.2944
+   ],
+   "nodata_cells": 1,
+   "height_range_m": [
+    -2.71,
+    302.18
+   ]
+  },
+  "dem30m": {
+   "driver": "GS7BG",
+   "cell_deg": [
+    0.00027778,
+    0.00027778
+   ],
+   "cell_m": 30.9,
+   "shape": [
+    1984,
+    2130
+   ],
+   "bounds": [
+    100.9135,
+    13.9614,
+    101.5051,
+    14.5125
+   ],
+   "nodata_cells": 1921411,
+   "height_range_m": [
+    -13.54,
+    1349.76
+   ]
+  }
+ },
+ "window": {
+  "area_in_province_km2": 384.1,
+  "overlap_with_ongkharak_km2": 0.0
+ },
+ "difference_lowland_fabdem_lt_15m": {
+  "dempro_minus_fabdem": {
+   "n": 361511,
+   "mean_m": -2.16,
+   "sd_m": 0.75,
+   "p05_m": -3.47,
+   "p95_m": -1.21
+  },
+  "dempro_minus_copernicus": {
+   "n": 361511,
+   "mean_m": -2.81,
+   "sd_m": 1.72,
+   "p05_m": -6.08,
+   "p95_m": -1.24
+  }
+ },
+ "bucket_fit_vs_sar_2026": {
+  "dempro_5m_averaged_to_30m": {
+   "peak_27sep": {
+    "sar_km2": 83.7,
+    "effective_level_m": 1.95,
+    "iou": 0.301,
+    "precision": 0.46,
+    "recall": 0.46
+   },
+   "oct2_validated": {
+    "sar_km2": 54.0,
+    "effective_level_m": 1.55,
+    "iou": 0.299,
+    "precision": 0.46,
+    "recall": 0.46
+   }
+  },
+  "fabdem": {
+   "peak_27sep": {
+    "sar_km2": 83.7,
+    "effective_level_m": 4.0,
+    "iou": 0.348,
+    "precision": 0.52,
+    "recall": 0.51
+   },
+   "oct2_validated": {
+    "sar_km2": 54.0,
+    "effective_level_m": 3.7,
+    "iou": 0.317,
+    "precision": 0.49,
+    "recall": 0.48
+   }
+  },
+  "copernicus_glo30": {
+   "peak_27sep": {
+    "sar_km2": 83.7,
+    "effective_level_m": 4.0,
+    "iou": 0.347,
+    "precision": 0.52,
+    "recall": 0.51
+   },
+   "oct2_validated": {
+    "sar_km2": 54.0,
+    "effective_level_m": 3.7,
+    "iou": 0.329,
+    "precision": 0.49,
+    "recall": 0.5
+   }
+  }
+ },
+ "reading_note": "DEMPro ต่ำกว่า FABDEM เฉลี่ย ~2 ม. อย่างเป็นระบบ (SD ~0.75 ม.) — ระดับน้ำ 'ที่มีผล' ของถังเติมน้ำจึงเลื่อนตามชุด DEM ~2 ม. ซึ่งมากกว่าส่วนต่าง 0.6 ม. ที่เคยตีความว่าเป็นผลของแบบจำลอง (R7-04) · ความทับซ้อนกับเรดาร์ (IoU ~0.30) ไม่ดีขึ้นเมื่อใช้ DEM 5 ม."
+}

@@ -253,6 +253,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_dem_bias_correction` | `analysis/goal7_dem_bias_correction.py` | `main` | active | ปรับ FABDEM ให้ใกล้ DEM 5 ม. (DEMPro) ในที่ราบต่ำ ตรวจนอกตัวอย่างและกับเส้นดิน EIA ตลอดแนวคลอง · ทดสอบถังเติมน้ำองครักษ์ | `python analysis/goal7_dem_bias_correction.py` | `analysis/goal7/dem_bias_correction.json` |
 | `goal7_dem_waterline_test` | `analysis/goal7_dem_waterline_test.py` | `main` | active | ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมเรดาร์ (ความสูงตามขอบควรรวมกลุ่มแคบ) · หลักฐานอิสระเสริมเส้นดิน EIA | `python analysis/goal7_dem_waterline_test.py` | `analysis/goal7/dem_waterline_test.json` |
 | `goal7_dem_gistda_waterline_test` | `analysis/goal7_dem_gistda_waterline_test.py` | `main` | active | ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมรายปีของ GISTDA (2548–2562) ใน อ.องครักษ์ · หลักฐานเสริม | `python analysis/goal7_dem_gistda_waterline_test.py` | `analysis/goal7/dem_gistda_waterline_test.json` |
+| `goal7_vlm_pilot` | `analysis/goal7_vlm_pilot.py` | `typhoon_env` | active | นำร่องเทียบแบบจำลองภาพ-ภาษาอ่านตาราง/ภาพวาด/หน้าผสม พร้อมเฉลยที่ตรวจแล้วและภาพขยายคมชัด (ผลเป็นร่าง) | `python analysis/goal7_vlm_pilot.py render | run <รหัสโมเดล> | score` | `data/32_goal7_chaophraya2/vlm_pilot/`<br>`analysis/goal7/vlm_pilot_scores.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -261,7 +262,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 3 สภาพแวดล้อม · 164 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 165 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

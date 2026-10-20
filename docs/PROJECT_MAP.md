@@ -131,6 +131,7 @@ graph TD
 - `goal7_operational_economics.py`: วิเคราะห์หน้าต่างเดินน้ำจริงสถานี S.26 (39 ปี), เศรษฐศาสตร์วงจรชีวิต (LCC), และประวัติ EIA ตีกลับ 2 รอบ
 - `goal7_dem_waterline_test.py`: ทดสอบ DEM 3 ชุด (Copernicus ดิบ · FABDEM ดิบ · FABDEM ปรับ) ด้วยขอบน้ำท่วมเรดาร์ Sentinel-1 ใน อ.องครักษ์ — ผลใน `analysis/goal7/dem_waterline_test.json`
 - `goal7_dem_gistda_waterline_test.py`: ทดสอบ DEM 3 ชุดด้วยขอบเขตน้ำท่วมรายปีของ GISTDA (2548–2562) ใน อ.องครักษ์ — ผลใน `analysis/goal7/dem_gistda_waterline_test.json`
+- `goal7_vlm_pilot.py`: นำร่องเทียบแบบจำลองภาพ-ภาษาอ่านตาราง ภาพวาด และหน้าผสม พร้อมเฉลยที่ตรวจแล้ว (ผลเป็นร่าง ห้ามนำไปใช้ก่อนเทียบภาพหน้า)
 - `goal7_batch_ocr_queue.py`: ตัวขับเคลื่อนคิวถอดความเอกสารภาพสแกน EIA และเอกสารรับฟังความคิดเห็นอัตโนมัติบน GPU RTX 4090
 
 ### กลุ่ม ฉ: ผู้สร้างตัวเลขทางการและการตรวจสอบระบบ (Canonical Builders & QA)

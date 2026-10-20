@@ -35,8 +35,6 @@ def test_round1_rows_cite_existing_letter_items():
             for no in (a, b):
                 if not no:
                     continue
-                if (sec, no) == ("1", "10"):
-                    continue
                 have = {i["no"] for i in secs[sec]["items"]}
                 assert no in have or no.split(".")[0] in have, f"{r['section']}: ไม่พบข้อ {no} ในหัวข้อ {sec} ของต้นฉบับ"
 

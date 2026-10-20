@@ -33,10 +33,10 @@
  "unlimited_ocr_env": {
   "available": true,
   "packages": {
-   "pymupdf==1.27.2.2": null,
-   "torch==2.10.0": null,
-   "torchvision==0.25.0": null,
-   "transformers==4.57.1": null
+   "pymupdf": "1.27.2.2",
+   "torch": "2.10.0+cu128",
+   "torchvision": "0.25.0+cu128",
+   "transformers": "4.57.1"
   },
   "python": "3.12.9"
  }

@@ -1,5 +1,5 @@
 """นำร่องเทียบแบบจำลองภาพ-ภาษา (VLM) อ่านหน้าที่ไม่ใช่ข้อความล้วน (ตาราง · รูปตัด · ภาพผสมตัวอักษร) — Typhoon ยังเป็นตัวหลักของข้อความล้วน
-ตั้งไว้ก่อนดูผล: ชุดตัวอย่างมี 3 หน้า "เฉลยที่ตรวจแล้ว" (ตารางรูปตัด · รูปตัดตามยาว · หน้าผสมข้อความกับภาพ) + หน้าควบคุมข้อความล้วน + หน้า needs_visual ไม่มีเฉลย
+ตั้งไว้ก่อนดูผล: ชุดตัวอย่างมี 3 หน้า "เฉลยที่ตรวจแล้ว" (ตารางรูปตัด · รูปตัดตามยาว · หน้าผสมข้อความกับภาพ) + หน้าแบบแปลน (รหัส control_text) + หน้า needs_visual ไม่มีเฉลย
 คะแนน = สัดส่วนของค่าเฉลยที่ปรากฏในผลถอด (ปรับเลขไทยเป็นเลขอารบิก) · ผลถอดทั้งหมดเป็น "ร่าง" ห้ามนำตัวเลขไปใช้ในรายงานก่อนเทียบภาพหน้าจริง
 ภาพ 3 แบบต่อหน้า: dpi150 (ฐาน) · dpi250 (วาดซ้ำจาก PDF ละเอียดขึ้น) · enh (dpi150 ขยาย 2 เท่าและเพิ่มความคมชัด — ทดสอบว่าช่วยหรือเพิ่มข้อผิดพลาด)
 ขั้นแยกส่วน (layout): Unlimited-OCR (สภาพแวดล้อมแยก E:/theera/unlimited_ocr_env) อ่านหน้าแล้วให้กรอบบล็อกพร้อมประเภท (<|det|>ประเภท [กรอบ]<|/det|>) → ตัดบล็อกรูป/แผนภูมิ/ตาราง/แบบแปลนออกเป็นภาพย่อย → โมเดลที่เก่งภาพกว่าอ่านเฉพาะภาพย่อย (`run <รหัส> crops`)
@@ -19,6 +19,7 @@ EIA = ROOT / "data/32_goal7_chaophraya2/official_eia/extracted"
 OCR = ROOT / "data/32_goal7_chaophraya2/typhoon_ocr"
 SCORES = ROOT / "analysis/goal7/vlm_pilot_scores.json"
 TH = str.maketrans("๐๑๒๓๔๕๖๗๘๙", "0123456789")
+MAX_PIX = 2_200_000          # เพดานจำนวนพิกเซลต่อภาพที่ส่งเข้าโมเดล — ภาพใหญ่กว่านี้ทำให้หน่วยความจำ GPU 24 GB ล้น (ความสนใจเต็มภาพ) จึงย่อให้เท่ากันทุกโมเดล ภาพย่อย (crops) ที่เล็กกว่าจึงคงความละเอียดเต็ม
 VARIANTS = ("dpi150", "dpi250", "enh", "rot250")   # rot250 = dpi250 หมุนตามเข็ม 90° เฉพาะหน้าภาพวาดแนวนอนที่ตัวอักษรอ่านจากล่างขึ้นบน
 PROMPT = "อ่านหน้านี้ทั้งหมดอย่างละเอียด ถอดข้อความและตัวเลขทุกตัวตามที่เห็นให้ตรงตัวอักษร ตารางให้เขียนเป็นตาราง Markdown ถ้าเป็นรูปให้ระบุตัวเลขและป้ายกำกับทุกอันที่อ่านได้ ห้ามเดาค่าที่มองไม่เห็น"
 # รหัสโมเดล → (repo, วิธีโหลด) — น้ำหนักต้องดาวน์โหลดก่อน (ขออนุมัติผู้ใช้เป็นรายโมเดล)
@@ -38,11 +39,12 @@ MODELS = {
 # ไม่ใช้เพราะโมเดล+ข้อมูลไม่พอใน VRAM 24 GB: Qwen2.5-VL-32B-AWQ (20.7) · InternVL3-14B (30.2) · Qwen3.5-27B/35B-A3B · MiniCPM-V-4.7-35B-A3B int4 (22.6)
 HF_HOME = "E:/theera/hf_cache"      # น้ำหนักโมเดลเก็บนอก git และนอกไดรฟ์ C
 # เฉลยที่ตรวจแล้ว: ตัวเลขที่รายงานผลกระทบสิ่งแวดล้อมพิมพ์ไว้ (ดู analysis/goal7/official_geometry.json)
+ROT_IDS = ("sec_table", "long_profile")   # หน้าภาพวาดแนวนอน — ทดสอบแบบหมุนด้วย
 SAMPLES = [
     {"id": "sec_table", "pdf": "main1.pdf", "page": 144, "kind": "ตารางรูปตัด 3 ช่วง", "rotate": True, "truth": ["605.22", "53.0", "480", "90.3", "5.426", "1.235", "0.025", "604.85", "51.0", "504", "95.27", "5.29", "0.016", "1187", "398.97", "2.925", "0.517"]},
     {"id": "long_profile", "pdf": "main1.pdf", "page": 142, "kind": "รูปตัดตามยาว 2.3.2-9", "rotate": True, "truth": ["1.75", "6.45", "0.55"]},
     {"id": "siphon_text", "pdf": "main1.pdf", "page": 165, "kind": "ข้อความผสมภาพจำลอง (ท่อลอด 34 แห่ง)", "truth": ["34", "2.00", "4.00", "3.00", "15", "2.3.2-20"]},
-    {"id": "control_text", "pdf": "main1.pdf", "page": 162, "kind": "ควบคุม: หน้าข้อความ", "truth": []},
+    {"id": "control_text", "pdf": "main1.pdf", "page": 162, "kind": "แบบแปลน ปตร. 2.3.2-17 (ไม่มีเฉลย · ชื่อรหัส control_text เดิมคือหน้าควบคุมข้อความ แต่หน้า 162 เป็นแบบแปลน)", "truth": []},
 ]
 UNKEYED_DOCS = [("eia2569_main1", "main1.pdf", 3), ("eia_clarify2_att1", None, 3), ("eia2569_app1", "app1.pdf", 2), ("onwr_bangpakong_final", None, 2)]
 
@@ -108,7 +110,7 @@ def run(model_key: str, target: str = "pages") -> None:
     if target == "crops":
         items = [(c["id"], ("crop",)) for c in json.loads((PILOT / "crops.json").read_text(encoding="utf-8"))]
     else:
-        items = [(s["id"], ("dpi250",) if s["id"].startswith("nv_") else VARIANTS) for s in json.loads((PILOT / "samples.json").read_text(encoding="utf-8"))]   # หน้าไม่มีเฉลยรันแบบ dpi250 แบบเดียว (ประหยัดเวลา)
+        items = [(s["id"], ("dpi150",) if s["id"].startswith("nv_") else ("dpi150", "rot250") if s.get("id") in ROT_IDS else ("dpi150",)) for s in json.loads((PILOT / "samples.json").read_text(encoding="utf-8"))]   # หน้าไม่มีเฉลยรันแบบ dpi250 แบบเดียว (ประหยัดเวลา)
     for sid, variants in items:
         s = {"id": sid}
         for var in variants:
@@ -118,12 +120,20 @@ def run(model_key: str, target: str = "pages") -> None:
             if dst.exists():
                 continue
             img = Image.open(PILOT / f"{s['id']}__{var}.png")
+            if img.width * img.height > MAX_PIX:
+                k = (MAX_PIX / (img.width * img.height)) ** 0.5
+                img = img.resize((int(img.width * k), int(img.height * k)), Image.LANCZOS)
             msgs = [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": PROMPT}]}]
             inp = proc.apply_chat_template(msgs, add_generation_prompt=True, tokenize=True, return_dict=True, return_tensors="pt").to(model.device)
             t0 = time.time()
-            with torch.no_grad():
-                ids = model.generate(**inp, max_new_tokens=1800, do_sample=False)
-            text = proc.batch_decode(ids[:, inp["input_ids"].shape[1]:], skip_special_tokens=True)[0]
+            try:
+                with torch.no_grad():
+                    ids = model.generate(**inp, max_new_tokens=1800, do_sample=False)
+                text = proc.batch_decode(ids[:, inp["input_ids"].shape[1]:], skip_special_tokens=True)[0]
+            except torch.OutOfMemoryError:
+                torch.cuda.empty_cache()
+                text = "[OOM]"
+                print(model_key, s["id"], var, "OOM", flush=True)
             dst.write_text(json.dumps({"id": s["id"], "variant": var, "model": repo, "sec": round(time.time() - t0, 1), "text": text}, ensure_ascii=False), encoding="utf-8")
             print(model_key, s["id"], var, round(time.time() - t0, 1), "s", flush=True)
 

@@ -1,0 +1,78 @@
+{
+ "truth_pages": [
+  "sec_table",
+  "long_profile",
+  "control_text",
+  "siphon_text"
+ ],
+ "tools": {
+  "unlimited_ocr": {
+   "pages": {
+    "sec_table": {
+     "truth_boxes": 1,
+     "predicted_visual_raw": 10,
+     "predicted_after_merge": 1,
+     "coverage": 0.848,
+     "excess": 0.0
+    },
+    "long_profile": {
+     "truth_boxes": 1,
+     "predicted_visual_raw": 1,
+     "predicted_after_merge": 1,
+     "coverage": 0.988,
+     "excess": 0.004
+    },
+    "control_text": {
+     "truth_boxes": 1,
+     "predicted_visual_raw": 1,
+     "predicted_after_merge": 1,
+     "coverage": 1.0,
+     "excess": 0.008
+    },
+    "siphon_text": {
+     "truth_boxes": 4,
+     "predicted_visual_raw": 4,
+     "predicted_after_merge": 4,
+     "coverage": 1.0,
+     "excess": 0.0
+    }
+   },
+   "mean_coverage": 0.959,
+   "mean_excess": 0.003
+  },
+  "pp_doclayoutv3": {
+   "pages": {
+    "sec_table": {
+     "truth_boxes": 1,
+     "predicted_visual_raw": 6,
+     "predicted_after_merge": 6,
+     "coverage": 0.41,
+     "excess": 0.0
+    },
+    "long_profile": {
+     "truth_boxes": 1,
+     "predicted_visual_raw": 1,
+     "predicted_after_merge": 1,
+     "coverage": 0.958,
+     "excess": 0.001
+    },
+    "control_text": {
+     "truth_boxes": 1,
+     "predicted_visual_raw": 1,
+     "predicted_after_merge": 1,
+     "coverage": 0.98,
+     "excess": 0.003
+    },
+    "siphon_text": {
+     "truth_boxes": 4,
+     "predicted_visual_raw": 4,
+     "predicted_after_merge": 4,
+     "coverage": 0.962,
+     "excess": 0.005
+    }
+   },
+   "mean_coverage": 0.828,
+   "mean_excess": 0.002
+  }
+ }
+}

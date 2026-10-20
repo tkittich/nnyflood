@@ -108,18 +108,19 @@ def run(model_key: str, target: str = "pages") -> None:
     outdir = PILOT / "outputs" / model_key
     outdir.mkdir(parents=True, exist_ok=True)
     if target == "crops":
-        items = [(c["id"], ("crop",)) for c in json.loads((PILOT / "crops.json").read_text(encoding="utf-8"))]
+        items = [(c["id"], ("crop", "cropenh")) for c in json.loads((PILOT / "crops.json").read_text(encoding="utf-8"))]
     else:
         items = [(s["id"], ("dpi150",) if s["id"].startswith("nv_") else ("dpi150", "rot250") if s.get("id") in ROT_IDS else ("dpi150",)) for s in json.loads((PILOT / "samples.json").read_text(encoding="utf-8"))]   # หน้าไม่มีเฉลยรันแบบ dpi250 แบบเดียว (ประหยัดเวลา)
     for sid, variants in items:
         s = {"id": sid}
         for var in variants:
-            if not (PILOT / f"{s['id']}__{var}.png").exists():
+            src = (PILOT / "crops" / f"{s['id']}__{var}.png") if target == "crops" else (PILOT / f"{s['id']}__{var}.png")
+            if not src.exists():
                 continue
-            dst = outdir / f"{s['id']}__{var}.json"
+            dst = outdir / f"{s['id']}__{var}.json"        # ภาพย่อยใช้ชื่อ <หน้า>_c<n>_<ประเภท>__crop(.enh)
             if dst.exists():
                 continue
-            img = Image.open(PILOT / f"{s['id']}__{var}.png")
+            img = Image.open(src)
             if img.width * img.height > MAX_PIX:
                 k = (MAX_PIX / (img.width * img.height)) ** 0.5
                 img = img.resize((int(img.width * k), int(img.height * k)), Image.LANCZOS)
@@ -188,6 +189,45 @@ def layout() -> None:
     (PILOT / "crops.json").write_text(json.dumps(crops, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def crops_from_layout() -> None:
+    """ตัดภาพย่อยจากผล layout ที่มีอยู่ (ไม่ใช้ GPU): กรองกรอบเล็กกว่า 1.5% ของหน้า · ตัดกรอบที่อยู่ภายในกรอบใหญ่กว่า · หมุน -90° เฉพาะหน้าภาพวาดแนวนอน · ทำ 2 แบบ: crop (ตัดตรง ๆ) และ cropenh (ขยาย 2 เท่า + เพิ่มความคมชัด)"""
+    from PIL import Image
+    outdir = PILOT / "outputs" / "unlimited_ocr"
+    cropdir = PILOT / "crops"
+    cropdir.mkdir(exist_ok=True)
+    for f in cropdir.glob("*.png"):
+        f.unlink()
+    crops = []
+    for s in json.loads((PILOT / "samples.json").read_text(encoding="utf-8")):
+        lf = outdir / f"{s['id']}__layout.json"
+        if not lf.exists():
+            continue
+        im = Image.open(PILOT / f"{s['id']}__dpi250.png")
+        boxes = [(k, b) for k, b in enumerate(json.loads(lf.read_text(encoding="utf-8"))["blocks"])
+                 if b["bbox"] and any(v in b["type"] for v in VISUAL_TYPES) and "caption" not in b["type"]]
+        keep = []
+        for k, b in boxes:
+            x0, y0, x1, y1 = b["bbox"]
+            area = (x1 - x0) * (y1 - y0)
+            if area < 0.015 * 1000 * 1000:
+                continue
+            inside = any((o["bbox"][0] <= x0 + 2 and o["bbox"][1] <= y0 + 2 and o["bbox"][2] >= x1 - 2 and o["bbox"][3] >= y1 - 2) and (o is not b) and ((o["bbox"][2] - o["bbox"][0]) * (o["bbox"][3] - o["bbox"][1]) > area * 1.05) for _, o in boxes)
+            if not inside:
+                keep.append((k, b))
+        for k, b in keep:
+            x0, y0, x1, y1 = bbox_to_px(b["bbox"], *im.size)
+            m = 12
+            c = im.crop((max(0, x0 - m), max(0, y0 - m), min(im.width, x1 + m), min(im.height, y1 + m)))
+            if s["id"] in ROT_IDS:
+                c = c.rotate(-90, expand=True)
+            cid = f"{s['id']}_c{k}_{b['type']}"
+            c.save(cropdir / f"{cid}__crop.png")
+            enhance(c).save(cropdir / f"{cid}__cropenh.png")
+            crops.append({"id": cid, "page": s["id"], "type": b["type"], "bbox": b["bbox"], "px": list(c.size)})
+    (PILOT / "crops.json").write_text(json.dumps(crops, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(len(crops), "ภาพย่อย")
+
+
 def norm(t: str) -> str:
     return re.sub(r"(?<=\d),(?=\d{3}\b)", "", t.translate(TH))
 
@@ -195,18 +235,32 @@ def norm(t: str) -> str:
 def score() -> None:
     truth = {s["id"]: s["truth"] for s in SAMPLES if s["truth"]}
     res = {}
+    crop_nums = {}
     for mdir in sorted((PILOT / "outputs").glob("*")):
         for f in sorted(mdir.glob("*.json")):
             r = json.loads(f.read_text(encoding="utf-8"))
+            if "text" not in r:      # ไฟล์กรอบของตัวแยกส่วนไม่มีข้อความ
+                continue
+            if r["variant"] in ("crop", "cropenh"):
+                page = r["id"].split("_c")[0]
+                if page not in truth:
+                    continue
+                crop_nums.setdefault((mdir.name, page, r["variant"]), [set(), 0.0])
+                crop_nums[(mdir.name, page, r["variant"])][0] |= set(re.findall(r"\d+(?:\.\d+)*", norm(r["text"])))
+                crop_nums[(mdir.name, page, r["variant"])][1] += r["sec"]
+                continue
             if r["id"] not in truth:
                 continue
             nums = set(re.findall(r"\d+(?:\.\d+)*", norm(r["text"])))
             found = [x for x in truth[r["id"]] if x in nums or x.rstrip("0").rstrip(".") in nums]
             res.setdefault(mdir.name, {}).setdefault(r["id"], {})[r["variant"]] = {"found": len(found), "of": len(truth[r["id"]]), "share": round(len(found) / len(truth[r["id"]]), 2), "sec": r["sec"]}
+    for (m, page, var), (nums, sec) in crop_nums.items():     # ภาพย่อย: รวมตัวเลขที่พบจากทุกภาพย่อยของหน้า
+        found = [x for x in truth[page] if x in nums or x.rstrip("0").rstrip(".") in nums]
+        res.setdefault(m, {}).setdefault(page + " (ภาพย่อยรวม)", {})[var] = {"found": len(found), "of": len(truth[page]), "share": round(len(found) / len(truth[page]), 2), "sec": round(sec, 1)}
     SCORES.write_text(json.dumps({"note": "สัดส่วนค่าเฉลยที่ปรากฏในผลถอด · ร่าง ไม่ใช่ค่ายืนยัน", "scores": res}, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(res, ensure_ascii=False, indent=1))
 
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "render"
-    {"render": render, "score": score, "layout": layout}.get(cmd, lambda: run(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "pages"))()
+    {"render": render, "score": score, "layout": layout, "crops": crops_from_layout}.get(cmd, lambda: run(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "pages"))()

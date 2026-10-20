@@ -1,6 +1,234 @@
 {
  "note": "สัดส่วนค่าเฉลยที่ปรากฏในผลถอด · ร่าง ไม่ใช่ค่ายืนยัน",
  "scores": {
+  "internvl35_8b": {
+   "long_profile": {
+    "dpi150": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 12.5
+    },
+    "rot250": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 93.2
+    }
+   },
+   "sec_table": {
+    "dpi150": {
+     "found": 0,
+     "of": 17,
+     "share": 0.0,
+     "sec": 88.3
+    },
+    "rot250": {
+     "found": 1,
+     "of": 17,
+     "share": 0.06,
+     "sec": 91.8
+    }
+   },
+   "siphon_text": {
+    "dpi150": {
+     "found": 0,
+     "of": 6,
+     "share": 0.0,
+     "sec": 86.3
+    }
+   }
+  },
+  "minicpmv47_1b": {
+   "long_profile": {
+    "dpi150": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 6.2
+    },
+    "rot250": {
+     "found": 1,
+     "of": 3,
+     "share": 0.33,
+     "sec": 21.3
+    }
+   },
+   "sec_table": {
+    "dpi150": {
+     "found": 0,
+     "of": 17,
+     "share": 0.0,
+     "sec": 70.1
+    },
+    "rot250": {
+     "found": 3,
+     "of": 17,
+     "share": 0.18,
+     "sec": 69.4
+    }
+   },
+   "siphon_text": {
+    "dpi150": {
+     "found": 0,
+     "of": 6,
+     "share": 0.0,
+     "sec": 68.2
+    }
+   }
+  },
+  "pathumma": {
+   "long_profile": {
+    "dpi150": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 65.4
+    },
+    "rot250": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 67.8
+    }
+   },
+   "sec_table": {
+    "dpi150": {
+     "found": 0,
+     "of": 17,
+     "share": 0.0,
+     "sec": 4.7
+    },
+    "rot250": {
+     "found": 3,
+     "of": 17,
+     "share": 0.18,
+     "sec": 66.9
+    }
+   },
+   "siphon_text": {
+    "dpi150": {
+     "found": 5,
+     "of": 6,
+     "share": 0.83,
+     "sec": 25.2
+    }
+   }
+  },
+  "qwen25vl7b": {
+   "long_profile": {
+    "dpi150": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 5.9
+    },
+    "rot250": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 7.6
+    }
+   },
+   "sec_table": {
+    "dpi150": {
+     "found": 0,
+     "of": 17,
+     "share": 0.0,
+     "sec": 21.6
+    },
+    "rot250": {
+     "found": 0,
+     "of": 17,
+     "share": 0.0,
+     "sec": 3.6
+    }
+   },
+   "siphon_text": {
+    "dpi150": {
+     "found": 0,
+     "of": 6,
+     "share": 0.0,
+     "sec": 3.4
+    }
+   }
+  },
+  "qwen35_4b": {
+   "long_profile": {
+    "dpi150": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 94.1
+    },
+    "rot250": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 92.6
+    }
+   },
+   "sec_table": {
+    "dpi150": {
+     "found": 0,
+     "of": 17,
+     "share": 0.0,
+     "sec": 95.5
+    },
+    "rot250": {
+     "found": 0,
+     "of": 17,
+     "share": 0.0,
+     "sec": 93.4
+    }
+   },
+   "siphon_text": {
+    "dpi150": {
+     "found": 5,
+     "of": 6,
+     "share": 0.83,
+     "sec": 94.7
+    }
+   }
+  },
+  "qwen3vl8b": {
+   "long_profile": {
+    "dpi150": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 96.3
+    },
+    "rot250": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 86.6
+    }
+   },
+   "sec_table": {
+    "dpi150": {
+     "found": 3,
+     "of": 17,
+     "share": 0.18,
+     "sec": 95.4
+    },
+    "rot250": {
+     "found": 7,
+     "of": 17,
+     "share": 0.41,
+     "sec": 93.1
+    }
+   },
+   "siphon_text": {
+    "dpi150": {
+     "found": 5,
+     "of": 6,
+     "share": 0.83,
+     "sec": 31.4
+    }
+   }
+  },
   "unlimited_ocr": {
    "long_profile": {
     "dpi250": {

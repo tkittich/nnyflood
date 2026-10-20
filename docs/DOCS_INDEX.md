@@ -16,6 +16,7 @@
 | `docs/GOAL7_FOI_REQUESTS.md` | current | backlog | รายการขอข้อมูลจากหน่วยงาน — เป้าหมาย 7 (คลองเจ้าพระยา2) · ร่าง 16 ต.ค. 2569 |  |
 | `docs/LEGAL_REVIEW.md` | current | rules | การตรวจทานกฎหมายก่อนเผยแพร่: หมิ่นประมาท + PDPA | หลักหมิ่นประมาท + PDPA |
 | `docs/METHODS.md` | current | guide | วิธีการและมาตรฐานการทำงานของโครงการ (METHODS) |  |
+| `docs/OCR_WORKFLOW_V2.md` | current | plan | ขั้นตอน OCR รุ่นที่ 2 — แยกส่วนหน้าก่อน แล้วอ่านข้อความกับภาพแยกกัน (บันทึกการตัดสินใจ) | ตัดสินใจ 21 ต.ค. 69 · ยังไม่ใช้กับคิวที่ค้าง |
 | `docs/OFFLINE_DATA_BACKLOG.md` | current | backlog | คลังรายการข้อมูลที่ไม่มีออนไลน์และต้องรอดำเนินการ (OFFLINE_DATA_BACKLOG) | ทะเบียนงานคงค้าง/FOI (R6-xx, R7-xx) |
 | `docs/PROJECT_MAP.md` | current | guide | แผนที่นำทางและแคตตาล็อกระบบ (Project Map & Knowledge Atlas) | แผนผังระบบ/ตาราง Topic Discovery — ลงทะเบียนสคริปต์ใหม่ที่นี่ |
 | `docs/REMOTE_SENSING_APIS.md` | current | reference | คู่มือการเรียกใช้ API ดาวเทียมและข้อมูลกริดระดับชาติ (Remote Sensing & Grid APIs Guide) |  |
@@ -39,4 +40,4 @@
 | `docs/REVIEW_PROMPT.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Prompt สำหรับให้ AI ตัวอื่นรีวิว/ตรวจสอบโปรเจกต์ (เน้นเป้าหมาย 7 — คลองเจ้าพระยา2) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 | `docs/REVIEW_PROMPT_COMPREHENSIVE.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Comprehensive System Audit Prompt (Superseded) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 
-รวม 34 เอกสาร
+รวม 35 เอกสาร

@@ -35,7 +35,8 @@ def init_engine(model_id: str = "scb10x/typhoon-ocr1.5-2b", device: str = "cuda:
 
 SHORT_PROMPT = "Extract text in markdown format."
 _GEN_STATE: dict = {"truncated": False}   # ตัวแปรต่อกระบวนการ: รอบล่าสุดถูกตัดด้วยเวลา/ความยาวหรือไม่ (ใช้บันทึกใน meta)
-MAX_TIME_S = {"scan": 70.0, "figure": 45.0, "text": 70.0}   # เพดานเวลาต่อหน้า (วินาที) — หน้าตารางหนาแน่นเคยวนซ้ำจน 184 วินาที/หน้า
+MAX_TIME_S = {"scan": 170.0, "figure": 45.0, "text": 170.0}   # หน้าข้อความหนาแน่นต้องใช้ ~2,000–3,500 โทเคน (~25 โทเคน/วินาทีต่อ worker) — เพดาน 70 วินาทีเดิมตัดกลางหน้า (วัดได้ 20 ต.ค. 69: 77/131 หน้าของรายงาน ONWR ถูกตัด)
+ROTATE_RETRY_CAP_S = 40.0   # รอบหมุนหน้าหลัง echo ใช้เพดานสั้น — หน้ารูป/แผนที่วนเปล่าไม่ควรเสีย 3 เท่าเวลา   # เพดานเวลาต่อหน้า (วินาที) — หน้าตารางหนาแน่นเคยวนซ้ำจน 184 วินาที/หน้า
 ECHO_MARKERS = ("RAW_TEXT_START", "Below is an image of a document page", "Your task is to return the markdown representation")
 THAI_RX = __import__("re").compile(r"[฀-๿]")
 
@@ -129,11 +130,12 @@ def ocr_page_robust(doc, page_num: int, processor, model, device: str = "cuda:0"
     best_text, best_score = "", -1
     for rot, prompt_kind in plan:
         _, img = _render(doc, page_num, dpi if rot == 0 else max(dpi, 170), rot)
-        txt = _generate(img, SHORT_PROMPT, processor, model, device, max_new_tokens=max_new, max_time=MAX_TIME_S.get(kind, 70.0))
+        cap = MAX_TIME_S.get(kind, 70.0) if rot == 0 else min(ROTATE_RETRY_CAP_S, MAX_TIME_S.get(kind, 70.0))
+        txt = _generate(img, SHORT_PROMPT, processor, model, device, max_new_tokens=max_new, max_time=cap)
         truncated = _GEN_STATE["truncated"]
         echo = is_echo(txt)
         thai = len(THAI_RX.findall(txt))
-        attempts.append({"rotate": rot, "prompt": prompt_kind, "echo": echo, "thai_chars": thai, "chars": len(txt), "truncated": truncated})
+        attempts.append({"rotate": rot, "prompt": prompt_kind, "echo": echo, "thai_chars": thai, "chars": len(txt), "truncated": truncated, "cap_s": cap})
         score = -1 if echo else thai + len(txt) // 50
         if score > best_score:
             best_text, best_score = txt, score
@@ -147,7 +149,12 @@ def record_done(r: dict) -> bool:
     """หน้าที่ถือว่า 'ทำแล้ว': ไม่มี error และ (ผ่านตัวทนความล้มเหลวแล้ว หรือเป็นข้อความที่ไม่ใช่การสะท้อนแม่แบบ) — ผลเก่าที่ echo จะถูกทำใหม่"""
     if r.get("error"):
         return False
-    if (r.get("meta") or {}).get("needs_visual") is not None:
+    meta = r.get("meta") or {}
+    if meta.get("needs_visual") is not None:
+        # หน้าที่ถูกตัดด้วยเพดานเวลาที่สั้นกว่าเพดานปัจจุบัน (ไม่มี cap_s = เพดานเดิม 70 วินาที) ถือว่ายังไม่เสร็จ — ทำใหม่ด้วยเพดานใหม่
+        first = (meta.get("attempts") or [{}])[0]
+        if meta.get("truncated") and first.get("truncated") and not meta.get("echo_final") and first.get("cap_s", 70.0) < MAX_TIME_S.get(meta.get("kind", "scan"), 70.0):
+            return False
         return True
     txt = r.get("text") or ""
     return bool(txt) and not is_echo(txt)

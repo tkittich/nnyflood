@@ -129,6 +129,7 @@ graph TD
 - `goal7_dam_to_gulf_hydraulics.py`: วิเคราะห์ 3 ระเบียงชลศาสตร์ เวกเตอร์การไหล และเวลาเดินทางจากเขื่อนสู่ปากอ่าวไทย
 - `goal7_bangban_bangsai_comparison.py`: วิเคราะห์เปรียบเทียบเชิงวิศวกรรมและเศรษฐศาสตร์ คลองบางบาล–บางไทร สู่เจ้าพระยา 2
 - `goal7_operational_economics.py`: วิเคราะห์หน้าต่างเดินน้ำจริงสถานี S.26 (39 ปี), เศรษฐศาสตร์วงจรชีวิต (LCC), และประวัติ EIA ตีกลับ 2 รอบ
+- `goal7_dem_waterline_test.py`: ทดสอบ DEM 3 ชุด (Copernicus ดิบ · FABDEM ดิบ · FABDEM ปรับ) ด้วยขอบน้ำท่วมเรดาร์ Sentinel-1 ใน อ.องครักษ์ — ผลใน `analysis/goal7/dem_waterline_test.json`
 - `goal7_batch_ocr_queue.py`: ตัวขับเคลื่อนคิวถอดความเอกสารภาพสแกน EIA และเอกสารรับฟังความคิดเห็นอัตโนมัติบน GPU RTX 4090
 
 ### กลุ่ม ฉ: ผู้สร้างตัวเลขทางการและการตรวจสอบระบบ (Canonical Builders & QA)

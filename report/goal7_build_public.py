@@ -364,6 +364,7 @@ S.append(blk.tbl_ongkharak_water_balance())
 S.append(blk.tbl_dam_to_gulf_corridors())
 S.append(blk.tbl_ongkharak_2d_hypsometric())
 S.append(blk.tbl_ongkharak_dem_sensitivity())
+S.append(blk.tbl_dem_waterline())
 _ff = C["mitrearth_national"]["gistda_corridor_2005_2019"]
 _r23p = _ff["by_reach"]["กม.23–134"]
 S.append(prose(

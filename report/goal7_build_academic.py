@@ -855,6 +855,7 @@ S.append(blk.tbl_ongkharak_water_balance())
 S.append(blk.tbl_dam_to_gulf_corridors())
 S.append(blk.tbl_ongkharak_2d_hypsometric())
 S.append(blk.tbl_ongkharak_dem_sensitivity())
+S.append(blk.tbl_dem_waterline())
 S.append(OL.h3("hydraulics_accuracy_and_boundaries", "การประเมินความแม่นยำและการรวมแหล่งน้ำ (ปริมาณน้ำฝนและแบบจำลองความสูงภูมิประเทศ) ในการวิเคราะห์ชลศาสตร์"))
 S.append(prose(
     "<b>หลักเกณฑ์และความโปร่งใสของการวิเคราะห์ชลศาสตร์และเวกเตอร์การไหล:</b><br>"

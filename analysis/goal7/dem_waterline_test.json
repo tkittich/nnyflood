@@ -1,0 +1,83 @@
+{
+ "method": "ความสูง DEM ตามขอบน้ำท่วมเรดาร์ — ยิ่งแคบ (เทียบช่วงความสูงทั้งอำเภอ) ยิ่งสอดคล้องกับผิวน้ำระดับเดียว",
+ "cell_m": 30,
+ "results": {
+  "peak_27sep": {
+   "copernicus_raw": {
+    "label": "Copernicus GLO-30 ดิบ (ผิวสูงสุด)",
+    "edge_pixels": 46279,
+    "edge_median_m": 3.04,
+    "edge_iqr_m": 0.72,
+    "edge_p10_p90_m": [
+     2.45,
+     3.9
+    ],
+    "district_iqr_m": 0.94,
+    "edge_iqr_over_district_iqr": 0.767
+   },
+   "fabdem_raw": {
+    "label": "FABDEM ดิบ (ดินเปล่า)",
+    "edge_pixels": 46259,
+    "edge_median_m": 3.01,
+    "edge_iqr_m": 0.56,
+    "edge_p10_p90_m": [
+     2.53,
+     3.61
+    ],
+    "district_iqr_m": 0.67,
+    "edge_iqr_over_district_iqr": 0.832
+   },
+   "fabdem_corrected": {
+    "label": "FABDEM ปรับด้วย DEM 5 ม. (ชุดหลัก)",
+    "edge_pixels": 46259,
+    "edge_median_m": 1.18,
+    "edge_iqr_m": 0.31,
+    "edge_p10_p90_m": [
+     0.84,
+     1.61
+    ],
+    "district_iqr_m": 0.43,
+    "edge_iqr_over_district_iqr": 0.711
+   }
+  },
+  "oct2_validated": {
+   "copernicus_raw": {
+    "label": "Copernicus GLO-30 ดิบ (ผิวสูงสุด)",
+    "edge_pixels": 39882,
+    "edge_median_m": 3.04,
+    "edge_iqr_m": 0.72,
+    "edge_p10_p90_m": [
+     2.45,
+     3.94
+    ],
+    "district_iqr_m": 0.94,
+    "edge_iqr_over_district_iqr": 0.76
+   },
+   "fabdem_raw": {
+    "label": "FABDEM ดิบ (ดินเปล่า)",
+    "edge_pixels": 39864,
+    "edge_median_m": 3.02,
+    "edge_iqr_m": 0.54,
+    "edge_p10_p90_m": [
+     2.57,
+     3.62
+    ],
+    "district_iqr_m": 0.67,
+    "edge_iqr_over_district_iqr": 0.813
+   },
+   "fabdem_corrected": {
+    "label": "FABDEM ปรับด้วย DEM 5 ม. (ชุดหลัก)",
+    "edge_pixels": 39866,
+    "edge_median_m": 1.18,
+    "edge_iqr_m": 0.3,
+    "edge_p10_p90_m": [
+     0.88,
+     1.62
+    ],
+    "district_iqr_m": 0.43,
+    "edge_iqr_over_district_iqr": 0.694
+   }
+  }
+ },
+ "gauge_tny10_msl_m": 2.35
+}

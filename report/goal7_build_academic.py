@@ -514,6 +514,9 @@ S.append(prose(
 ))
 S.append(figure(fig_flood_frequency(), "ร้อยละของแถบสองข้างแนวคลองที่เคยท่วมและจำนวนปีท่วมเฉลี่ย รายช่วง 10 กม. (GISTDA 2548–2562)"))
 S.append(blk.tbl_flood_frequency_corridor())
+S.append(prose(blk.prose_bpk()))
+S.append(blk.tbl_bpk_gauges())
+S.append(blk.tbl_bpk_elevation())
 
 EB = C["embankment"]
 EBC = {x["id"]: x for x in EB["cases"]}

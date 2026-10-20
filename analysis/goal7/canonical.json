@@ -8940,6 +8940,1226 @@
    }
   }
  },
+ "bangpakong_chachoengsao": {
+  "generated": "2026-10-20",
+  "terrain": {
+   "cell_m": 90,
+   "dem": "FABDEM ปรับด้วยตารางส่วนต่าง DEM 5 ม.",
+   "provinces": {
+    "ฉะเชิงเทรา": {
+     "land_km2": 5265.0,
+     "median_elev_m": 34.9,
+     "flooded_km2_grid": 427.0,
+     "flooded_pct": 8.1,
+     "by_elevation": {
+      "ต่ำกว่า 2 ม.": {
+       "land_pct": 36.2,
+       "land_km2": 1908.0,
+       "flooded_km2": 389.0,
+       "flooded_pct_of_zone": 20.4
+      },
+      "2–5 ม.": {
+       "land_pct": 2.3,
+       "land_km2": 121.0,
+       "flooded_km2": 16.0,
+       "flooded_pct_of_zone": 13.3
+      },
+      "5–10 ม.": {
+       "land_pct": 1.8,
+       "land_km2": 97.0,
+       "flooded_km2": 7.0,
+       "flooded_pct_of_zone": 7.3
+      },
+      "10–25 ม.": {
+       "land_pct": 5.0,
+       "land_km2": 262.0,
+       "flooded_km2": 7.0,
+       "flooded_pct_of_zone": 2.5
+      },
+      "สูงกว่า 25 ม.": {
+       "land_pct": 54.6,
+       "land_km2": 2876.0,
+       "flooded_km2": 8.0,
+       "flooded_pct_of_zone": 0.3
+      }
+     }
+    },
+    "นครนายก": {
+     "land_km2": 2155.0,
+     "median_elev_m": 4.1,
+     "flooded_km2_grid": 260.0,
+     "flooded_pct": 12.1,
+     "by_elevation": {
+      "ต่ำกว่า 2 ม.": {
+       "land_pct": 40.0,
+       "land_km2": 862.0,
+       "flooded_km2": 224.0,
+       "flooded_pct_of_zone": 26.0
+      },
+      "2–5 ม.": {
+       "land_pct": 11.9,
+       "land_km2": 256.0,
+       "flooded_km2": 26.0,
+       "flooded_pct_of_zone": 10.1
+      },
+      "5–10 ม.": {
+       "land_pct": 7.6,
+       "land_km2": 164.0,
+       "flooded_km2": 8.0,
+       "flooded_pct_of_zone": 4.9
+      },
+      "10–25 ม.": {
+       "land_pct": 7.1,
+       "land_km2": 152.0,
+       "flooded_km2": 1.0,
+       "flooded_pct_of_zone": 0.8
+      },
+      "สูงกว่า 25 ม.": {
+       "land_pct": 32.0,
+       "land_km2": 690.0,
+       "flooded_km2": 0.0,
+       "flooded_pct_of_zone": 0.0
+      }
+     }
+    },
+    "ปราจีนบุรี": {
+     "land_km2": 4863.0,
+     "median_elev_m": 29.1,
+     "flooded_km2_grid": 400.0,
+     "flooded_pct": 8.2,
+     "by_elevation": {
+      "ต่ำกว่า 2 ม.": {
+       "land_pct": 12.3,
+       "land_km2": 598.0,
+       "flooded_km2": 255.0,
+       "flooded_pct_of_zone": 42.6
+      },
+      "2–5 ม.": {
+       "land_pct": 5.8,
+       "land_km2": 283.0,
+       "flooded_km2": 72.0,
+       "flooded_pct_of_zone": 25.6
+      },
+      "5–10 ม.": {
+       "land_pct": 6.3,
+       "land_km2": 307.0,
+       "flooded_km2": 31.0,
+       "flooded_pct_of_zone": 10.1
+      },
+      "10–25 ม.": {
+       "land_pct": 20.6,
+       "land_km2": 1003.0,
+       "flooded_km2": 41.0,
+       "flooded_pct_of_zone": 4.1
+      },
+      "สูงกว่า 25 ม.": {
+       "land_pct": 54.6,
+       "land_km2": 2658.0,
+       "flooded_km2": 0.0,
+       "flooded_pct_of_zone": 0.0
+      }
+     }
+    }
+   },
+   "all_three_by_elevation": {
+    "ต่ำกว่า 2 ม.": {
+     "land_km2": 3368.0,
+     "flooded_km2": 868.0,
+     "flooded_pct_of_zone": 25.8
+    },
+    "2–5 ม.": {
+     "land_km2": 661.0,
+     "flooded_km2": 114.0,
+     "flooded_pct_of_zone": 17.3
+    },
+    "5–10 ม.": {
+     "land_km2": 568.0,
+     "flooded_km2": 46.0,
+     "flooded_pct_of_zone": 8.1
+    },
+    "10–25 ม.": {
+     "land_km2": 1416.0,
+     "flooded_km2": 49.0,
+     "flooded_pct_of_zone": 3.5
+    },
+    "สูงกว่า 25 ม.": {
+     "land_km2": 6224.0,
+     "flooded_km2": 9.0,
+     "flooded_pct_of_zone": 0.1
+    }
+   },
+   "variance_explained_flooded_cells": {
+    "by_province": 0.005,
+    "by_elevation_zone": 0.23,
+    "by_both": 0.269
+   },
+   "sampled_cells": 400000
+  },
+  "basin": {
+   "hydrobasins_level": 8,
+   "n_subbasins": 39,
+   "basin_area_km2": 21946.0,
+   "mouth_up_area_km2_hydrosheds": 22004.0,
+   "overlap_with_provinces": {
+    "ฉะเชิงเทรา": {
+     "province_km2": 5238.0,
+     "in_basin_km2": 5109.0,
+     "share_of_province_in_basin_pct": 97.5,
+     "share_of_basin_pct": 23.3
+    },
+    "นครนายก": {
+     "province_km2": 2143.0,
+     "in_basin_km2": 2090.0,
+     "share_of_province_in_basin_pct": 97.5,
+     "share_of_basin_pct": 9.5
+    },
+    "ปราจีนบุรี": {
+     "province_km2": 4983.0,
+     "in_basin_km2": 4932.0,
+     "share_of_province_in_basin_pct": 99.0,
+     "share_of_basin_pct": 22.5
+    }
+   },
+   "upstream_of_gauges": {
+    "BPK003 บางน้ำเปรี้ยว": {
+     "upstream_area_km2": 13927.0,
+     "area_union_km2": 13894.0,
+     "snap_deg": 0.0
+    },
+    "Kgt.1 สะพานณรงค์ดำริ (กบินทร์บุรี)": {
+     "upstream_area_km2": 10091.0,
+     "area_union_km2": 10070.0,
+     "snap_deg": 0.0
+    },
+    "Kgt.3 สะพานต้นน้ำบางปะกง": {
+     "upstream_area_km2": 10091.0,
+     "area_union_km2": 10070.0,
+     "snap_deg": 0.0
+    }
+   }
+  },
+  "gistda_30d": {
+   "ฉะเชิงเทรา": {
+    "2026-10-16": {
+     "total_km2": 578.8,
+     "rice_km2": 243.7,
+     "by_amphoe": {
+      "อ.บางน้ำเปรี้ยว": {
+       "area_km2": 174.0,
+       "rice_km2": 104.2
+      },
+      "อ.บางคล้า": {
+       "area_km2": 97.0,
+       "rice_km2": 12.3
+      },
+      "อ.พนมสารคาม": {
+       "area_km2": 76.5,
+       "rice_km2": 43.1
+      },
+      "อ.เมืองฉะเชิงเทรา": {
+       "area_km2": 74.8,
+       "rice_km2": 33.9
+      },
+      "อ.ราชสาส์น": {
+       "area_km2": 67.9,
+       "rice_km2": 40.0
+      },
+      "อ.บ้านโพธิ์": {
+       "area_km2": 34.7,
+       "rice_km2": 2.1
+      },
+      "อ.คลองเขื่อน": {
+       "area_km2": 23.9,
+       "rice_km2": 6.3
+      },
+      "อ.แปลงยาว": {
+       "area_km2": 13.2,
+       "rice_km2": 0.9
+      },
+      "อ.ท่าตะเกียบ": {
+       "area_km2": 6.5,
+       "rice_km2": 0.0
+      },
+      "อ.สนามชัยเขต": {
+       "area_km2": 5.2,
+       "rice_km2": 0.6
+      },
+      "อ.บางปะกง": {
+       "area_km2": 4.9,
+       "rice_km2": 0.1
+      }
+     }
+    },
+    "2026-10-20": {
+     "total_km2": 429.6,
+     "rice_km2": 143.9,
+     "by_amphoe": {
+      "อ.บางน้ำเปรี้ยว": {
+       "area_km2": 126.8,
+       "rice_km2": 62.8
+      },
+      "อ.บางคล้า": {
+       "area_km2": 72.9,
+       "rice_km2": 8.4
+      },
+      "อ.เมืองฉะเชิงเทรา": {
+       "area_km2": 62.5,
+       "rice_km2": 26.1
+      },
+      "อ.พนมสารคาม": {
+       "area_km2": 50.1,
+       "rice_km2": 19.0
+      },
+      "อ.ราชสาส์น": {
+       "area_km2": 46.6,
+       "rice_km2": 21.2
+      },
+      "อ.บ้านโพธิ์": {
+       "area_km2": 26.0,
+       "rice_km2": 2.0
+      },
+      "อ.คลองเขื่อน": {
+       "area_km2": 18.5,
+       "rice_km2": 3.1
+      },
+      "อ.แปลงยาว": {
+       "area_km2": 9.4,
+       "rice_km2": 0.6
+      },
+      "อ.ท่าตะเกียบ": {
+       "area_km2": 6.5,
+       "rice_km2": 0.0
+      },
+      "อ.สนามชัยเขต": {
+       "area_km2": 5.2,
+       "rice_km2": 0.6
+      },
+      "อ.บางปะกง": {
+       "area_km2": 5.1,
+       "rice_km2": 0.1
+      }
+     }
+    }
+   },
+   "ปราจีนบุรี": {
+    "2026-10-16": {
+     "total_km2": 483.6,
+     "rice_km2": 168.8,
+     "by_amphoe": {
+      "อ.บ้านสร้าง": {
+       "area_km2": 177.2,
+       "rice_km2": 80.5
+      },
+      "อ.เมืองปราจีนบุรี": {
+       "area_km2": 94.3,
+       "rice_km2": 29.2
+      },
+      "อ.ศรีมหาโพธิ": {
+       "area_km2": 63.6,
+       "rice_km2": 32.7
+      },
+      "อ.กบินทร์บุรี": {
+       "area_km2": 59.7,
+       "rice_km2": 0.1
+      },
+      "อ.ประจันตคาม": {
+       "area_km2": 42.3,
+       "rice_km2": 1.8
+      },
+      "อ.ศรีมโหสถ": {
+       "area_km2": 35.7,
+       "rice_km2": 23.9
+      },
+      "อ.นาดี": {
+       "area_km2": 10.7,
+       "rice_km2": 0.6
+      }
+     }
+    },
+    "2026-10-20": {
+     "total_km2": 401.6,
+     "rice_km2": 129.1,
+     "by_amphoe": {
+      "อ.บ้านสร้าง": {
+       "area_km2": 158.0,
+       "rice_km2": 67.9
+      },
+      "อ.เมืองปราจีนบุรี": {
+       "area_km2": 70.3,
+       "rice_km2": 18.2
+      },
+      "อ.กบินทร์บุรี": {
+       "area_km2": 54.7,
+       "rice_km2": 0.1
+      },
+      "อ.ศรีมหาโพธิ": {
+       "area_km2": 45.8,
+       "rice_km2": 21.2
+      },
+      "อ.ศรีมโหสถ": {
+       "area_km2": 34.2,
+       "rice_km2": 20.2
+      },
+      "อ.ประจันตคาม": {
+       "area_km2": 27.9,
+       "rice_km2": 1.0
+      },
+      "อ.นาดี": {
+       "area_km2": 10.7,
+       "rice_km2": 0.6
+      }
+     }
+    }
+   },
+   "นครนายก": {
+    "2026-10-16": {
+     "total_km2": 349.6,
+     "rice_km2": 93.2,
+     "by_amphoe": {
+      "อ.องครักษ์": {
+       "area_km2": 172.4,
+       "rice_km2": 66.7
+      },
+      "อ.เมืองนครนายก": {
+       "area_km2": 70.0,
+       "rice_km2": 3.8
+      },
+      "อ.ปากพลี": {
+       "area_km2": 57.1,
+       "rice_km2": 9.8
+      },
+      "อ.บ้านนา": {
+       "area_km2": 50.2,
+       "rice_km2": 12.9
+      }
+     }
+    },
+    "2026-10-20": {
+     "total_km2": 258.5,
+     "rice_km2": 54.6,
+     "by_amphoe": {
+      "อ.องครักษ์": {
+       "area_km2": 120.1,
+       "rice_km2": 35.4
+      },
+      "อ.เมืองนครนายก": {
+       "area_km2": 51.7,
+       "rice_km2": 2.4
+      },
+      "อ.ปากพลี": {
+       "area_km2": 49.5,
+       "rice_km2": 9.3
+      },
+      "อ.บ้านนา": {
+       "area_km2": 37.2,
+       "rice_km2": 7.5
+      }
+     }
+    }
+   }
+  },
+  "flood_freq": {
+   "ฉะเชิงเทรา": {
+    "ever_flooded_km2": 1710.8,
+    "ge3_years_km2": 482.0,
+    "ge5_years_km2": 155.5,
+    "ge8_years_km2": 1.3,
+    "per_year_km2": {
+     "2011": 1682.3,
+     "2012": 499.5,
+     "2013": 793.6,
+     "2014": 0.0,
+     "2015": 0.0,
+     "2016": 0.0,
+     "2017": 60.1,
+     "2018": 201.7,
+     "2019": 0.0,
+     "2020": 14.5,
+     "2021": 158.8,
+     "2022": 182.4,
+     "2023": 24.5,
+     "2024": 0.0
+    },
+    "by_amphoe": {
+     "อ.บางน้ำเปรี้ยว": {
+      "ever": 470.2,
+      "ge3": 126.3,
+      "ge5": 13.1
+     },
+     "อ.เมืองฉะเชิงเทรา": {
+      "ever": 316.7,
+      "ge3": 28.5,
+      "ge5": 0.0
+     },
+     "อ.บางคล้า": {
+      "ever": 194.6,
+      "ge3": 68.9,
+      "ge5": 29.0
+     },
+     "อ.พนมสารคาม": {
+      "ever": 190.3,
+      "ge3": 93.2,
+      "ge5": 52.8
+     },
+     "อ.บ้านโพธิ์": {
+      "ever": 161.8,
+      "ge3": 24.1,
+      "ge5": 1.1
+     },
+     "อ.ราชสาส์น": {
+      "ever": 141.4,
+      "ge3": 99.8,
+      "ge5": 55.1
+     },
+     "อ.คลองเขื่อน": {
+      "ever": 98.2,
+      "ge3": 20.7,
+      "ge5": 1.2
+     },
+     "อ.บางปะกง": {
+      "ever": 72.0,
+      "ge3": 2.8,
+      "ge5": 0.0
+     },
+     "อ.แปลงยาว": {
+      "ever": 56.9,
+      "ge3": 17.7,
+      "ge5": 3.2
+     },
+     "อ.สนามชัยเขต": {
+      "ever": 8.0,
+      "ge3": 0.0,
+      "ge5": 0.0
+     },
+     "อ.ท่าตะเกียบ": {
+      "ever": 0.7,
+      "ge3": 0.0,
+      "ge5": 0.0
+     }
+    }
+   },
+   "นครนายก": {
+    "ever_flooded_km2": 1041.1,
+    "ge3_years_km2": 359.8,
+    "ge5_years_km2": 60.0,
+    "ge8_years_km2": 0.4,
+    "per_year_km2": {
+     "2011": 1019.6,
+     "2012": 240.2,
+     "2013": 431.9,
+     "2014": 0.0,
+     "2015": 0.0,
+     "2016": 0.0,
+     "2017": 42.8,
+     "2018": 287.7,
+     "2019": 0.0,
+     "2020": 0.0,
+     "2021": 26.1,
+     "2022": 178.0,
+     "2023": 0.3,
+     "2024": 26.8
+    },
+    "by_amphoe": {
+     "อ.องครักษ์": {
+      "ever": 503.0,
+      "ge3": 172.0,
+      "ge5": 16.8
+     },
+     "อ.เมืองนครนายก": {
+      "ever": 233.4,
+      "ge3": 77.2,
+      "ge5": 15.7
+     },
+     "อ.บ้านนา": {
+      "ever": 185.6,
+      "ge3": 59.1,
+      "ge5": 18.9
+     },
+     "อ.ปากพลี": {
+      "ever": 119.2,
+      "ge3": 51.5,
+      "ge5": 8.6
+     }
+    }
+   },
+   "ปราจีนบุรี": {
+    "ever_flooded_km2": 1214.5,
+    "ge3_years_km2": 652.1,
+    "ge5_years_km2": 397.0,
+    "ge8_years_km2": 78.7,
+    "per_year_km2": {
+     "2011": 963.6,
+     "2012": 590.9,
+     "2013": 785.4,
+     "2014": 0.0,
+     "2015": 0.0,
+     "2016": 0.0,
+     "2017": 209.4,
+     "2018": 390.4,
+     "2019": 73.0,
+     "2020": 161.1,
+     "2021": 399.7,
+     "2022": 363.7,
+     "2023": 153.7,
+     "2024": 152.4
+    },
+    "by_amphoe": {
+     "อ.บ้านสร้าง": {
+      "ever": 361.1,
+      "ge3": 242.2,
+      "ge5": 161.9
+     },
+     "อ.กบินทร์บุรี": {
+      "ever": 229.3,
+      "ge3": 78.4,
+      "ge5": 35.1
+     },
+     "อ.เมืองปราจีนบุรี": {
+      "ever": 191.8,
+      "ge3": 107.7,
+      "ge5": 54.6
+     },
+     "อ.ศรีมหาโพธิ": {
+      "ever": 148.7,
+      "ge3": 94.2,
+      "ge5": 59.3
+     },
+     "อ.ประจันตคาม": {
+      "ever": 118.3,
+      "ge3": 55.7,
+      "ge5": 33.6
+     },
+     "อ.ศรีมโหสถ": {
+      "ever": 91.9,
+      "ge3": 66.9,
+      "ge5": 49.5
+     },
+     "อ.นาดี": {
+      "ever": 73.4,
+      "ge3": 7.0,
+      "ge5": 3.0
+     }
+    }
+   }
+  },
+  "gauges": {
+   "snapshot": "2026-10-20_waterlevel_load.json",
+   "window_days": 30,
+   "stations": [
+    {
+     "code": "BKK016",
+     "name": "ปากคลองพระองค์เจ้าฯ (บางน้ำเปรี้ยว)",
+     "province": "ฉะเชิงเทรา",
+     "lat": 13.83819,
+     "lon": 100.9666,
+     "bank_m": 1.24,
+     "latest_m": 0.74,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -0.49,
+     "peak_m": 1.07,
+     "peak_time": "2026-10-08 14:20",
+     "hours_above_bank_30d": 0.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.04,
+     "situation_level": 4
+    },
+    {
+     "code": "BPK001",
+     "name": "บางปะกง",
+     "province": "ฉะเชิงเทรา",
+     "lat": 13.54901,
+     "lon": 101.00111,
+     "bank_m": 1.67,
+     "latest_m": 0.53,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -1.14,
+     "peak_m": 1.45,
+     "peak_time": "2026-09-26 18:20",
+     "hours_above_bank_30d": 0.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.09,
+     "situation_level": 4
+    },
+    {
+     "code": "BPK003",
+     "name": "บางน้ำเปรี้ยว",
+     "province": "ฉะเชิงเทรา",
+     "lat": 13.87032,
+     "lon": 101.14574,
+     "bank_m": 1.47,
+     "latest_m": 2.35,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": 0.88,
+     "peak_m": 3.08,
+     "peak_time": "2026-10-07 00:50",
+     "hours_above_bank_30d": 597.0,
+     "run_above_bank_days_to_latest": 25.1,
+     "change_last_7d_m": -0.44,
+     "situation_level": 5
+    },
+    {
+     "code": "BPK004",
+     "name": "พนมสารคาม",
+     "province": "ฉะเชิงเทรา",
+     "lat": 13.72662,
+     "lon": 101.35298,
+     "bank_m": 5.39,
+     "latest_m": 3.03,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -2.36,
+     "peak_m": 6.76,
+     "peak_time": "2026-09-27 11:00",
+     "hours_above_bank_30d": 404.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -2.18,
+     "situation_level": 3
+    },
+    {
+     "code": "MOU461",
+     "name": "สะพานคลองนางรอง",
+     "province": "นครนายก",
+     "lat": 14.315195,
+     "lon": 101.312836,
+     "bank_m": 26.49,
+     "latest_m": 23.5,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -2.99,
+     "peak_m": 26.17,
+     "peak_time": "2026-09-26 16:30",
+     "hours_above_bank_30d": 0.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.02,
+     "situation_level": 2
+    },
+    {
+     "code": "MOU462",
+     "name": "สะพานคลองวังตะไคร้",
+     "province": "นครนายก",
+     "lat": 14.321305,
+     "lon": 101.30604,
+     "bank_m": 29.49,
+     "latest_m": 27.2,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -2.29,
+     "peak_m": 29.69,
+     "peak_time": "2026-09-26 17:30",
+     "hours_above_bank_30d": 2.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": 0.05,
+     "situation_level": 3
+    },
+    {
+     "code": "NYK000",
+     "name": "องครักษ์",
+     "province": "นครนายก",
+     "lat": 14.113633,
+     "lon": 101.01952,
+     "bank_m": 2.58,
+     "latest_m": 3.06,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": 0.48,
+     "peak_m": 3.1,
+     "peak_time": "2026-09-26 16:20",
+     "hours_above_bank_30d": 104.0,
+     "run_above_bank_days_to_latest": 1.6,
+     "change_last_7d_m": NaN,
+     "situation_level": 5
+    },
+    {
+     "code": "NYK008",
+     "name": "สะพานเขานางบวช",
+     "province": "นครนายก",
+     "lat": 14.245718,
+     "lon": 101.27481,
+     "bank_m": 8.91,
+     "latest_m": 5.23,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -3.68,
+     "peak_m": 13.78,
+     "peak_time": "2026-09-27 00:50",
+     "hours_above_bank_30d": 92.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": 0.26,
+     "situation_level": 3
+    },
+    {
+     "code": "Ny.1B",
+     "name": "บ้านเขานางบวช",
+     "province": "นครนายก",
+     "lat": 14.24582,
+     "lon": 101.274246,
+     "bank_m": 8.81,
+     "latest_m": 4.85,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -3.96,
+     "peak_m": 11.07,
+     "peak_time": "2026-09-27 01:00",
+     "hours_above_bank_30d": 72.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": 0.2,
+     "situation_level": 3
+    },
+    {
+     "code": "Ny.3",
+     "name": "บ้านป่าขะ",
+     "province": "นครนายก",
+     "lat": 14.28644,
+     "lon": 101.070473,
+     "bank_m": 11.36,
+     "latest_m": 9.22,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -2.14,
+     "peak_m": 11.77,
+     "peak_time": "2026-09-26 21:00",
+     "hours_above_bank_30d": 37.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": 0.01,
+     "situation_level": null
+    },
+    {
+     "code": "Ny.7",
+     "name": "สะพานหน้าจวนผู้ว่าฯ",
+     "province": "นครนายก",
+     "lat": 14.20048,
+     "lon": 101.219307,
+     "bank_m": 8.2,
+     "latest_m": 6.07,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -2.13,
+     "peak_m": 9.23,
+     "peak_time": "2026-09-27 10:00",
+     "hours_above_bank_30d": 70.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.03,
+     "situation_level": 4
+    },
+    {
+     "code": "KIZ003",
+     "name": "คลองห้วยยาง",
+     "province": "ปราจีนบุรี",
+     "lat": 14.136408,
+     "lon": 101.857475,
+     "bank_m": 37.39,
+     "latest_m": 31.52,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -5.87,
+     "peak_m": 34.83,
+     "peak_time": "2026-09-26 21:40",
+     "hours_above_bank_30d": 0.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": 0.0,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.1",
+     "name": "สะพานณรงค์ดำริ",
+     "province": "ปราจีนบุรี",
+     "lat": 14.05144,
+     "lon": 101.367378,
+     "bank_m": 4.13,
+     "latest_m": 3.63,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -0.5,
+     "peak_m": 4.93,
+     "peak_time": "2026-09-30 17:00",
+     "hours_above_bank_30d": 445.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.71,
+     "situation_level": 4
+    },
+    {
+     "code": "Kgt.13A",
+     "name": "บ้านโนนสุขภูมิ",
+     "province": "ปราจีนบุรี",
+     "lat": 13.91009,
+     "lon": 101.838211,
+     "bank_m": 16.17,
+     "latest_m": 8.52,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -7.65,
+     "peak_m": 18.17,
+     "peak_time": "2026-09-27 22:00",
+     "hours_above_bank_30d": 224.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -1.62,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.14A",
+     "name": "บ้านทุ่งแฝก",
+     "province": "ปราจีนบุรี",
+     "lat": 14.16131,
+     "lon": 101.883057,
+     "bank_m": 39.41,
+     "latest_m": 36.2,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -3.21,
+     "peak_m": 41.53,
+     "peak_time": "2026-09-26 20:00",
+     "hours_above_bank_30d": 40.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.01,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.15B",
+     "name": "บ้านแก่งดินสอ",
+     "province": "ปราจีนบุรี",
+     "lat": 14.06587,
+     "lon": 101.922638,
+     "bank_m": 20.21,
+     "latest_m": 15.93,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -4.28,
+     "peak_m": 19.75,
+     "peak_time": "2026-09-26 06:00",
+     "hours_above_bank_30d": 0.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": 0.33,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.3",
+     "name": "สะพานต้นน้ำบางปะกง",
+     "province": "ปราจีนบุรี",
+     "lat": 13.98666,
+     "lon": 101.705406,
+     "bank_m": 8.79,
+     "latest_m": 4.98,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -3.81,
+     "peak_m": 12.16,
+     "peak_time": "2026-09-27 09:00",
+     "hours_above_bank_30d": 314.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -2.8,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.34",
+     "name": "บ้านชะอม",
+     "province": "ปราจีนบุรี",
+     "lat": 14.10461,
+     "lon": 101.744179,
+     "bank_m": 11.12,
+     "latest_m": 5.77,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -5.35,
+     "peak_m": 13.33,
+     "peak_time": "2026-09-26 21:00",
+     "hours_above_bank_30d": 91.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.24,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.43A",
+     "name": "บ้านนาแขม",
+     "province": "ปราจีนบุรี",
+     "lat": 14.02174,
+     "lon": 101.750664,
+     "bank_m": 12.22,
+     "latest_m": 6.3,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -5.92,
+     "peak_m": 14.07,
+     "peak_time": "2026-09-28 08:00",
+     "hours_above_bank_30d": 182.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -2.58,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.6",
+     "name": "บ้านทาม",
+     "province": "ปราจีนบุรี",
+     "lat": 13.97341,
+     "lon": 101.517448,
+     "bank_m": 6.61,
+     "latest_m": 4.64,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -1.97,
+     "peak_m": 8.22,
+     "peak_time": "2026-09-28 08:00",
+     "hours_above_bank_30d": 412.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -1.77,
+     "situation_level": 4
+    },
+    {
+     "code": "MOU460",
+     "name": "สะพานคลองลำพญาธาร",
+     "province": "ปราจีนบุรี",
+     "lat": 14.26568,
+     "lon": 101.89133,
+     "bank_m": 84.09,
+     "latest_m": 79.38,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -4.71,
+     "peak_m": 84.26,
+     "peak_time": "2026-09-26 13:00",
+     "hours_above_bank_30d": 3.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": 0.02,
+     "situation_level": 2
+    },
+    {
+     "code": "PRC003",
+     "name": "นาดี",
+     "province": "ปราจีนบุรี",
+     "lat": 14.133605,
+     "lon": 101.72767,
+     "bank_m": 16.78,
+     "latest_m": 9.83,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -6.95,
+     "peak_m": 19.37,
+     "peak_time": "2026-09-26 21:00",
+     "hours_above_bank_30d": 64.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.25,
+     "situation_level": 2
+    },
+    {
+     "code": "PRC004",
+     "name": "ประจันตคาม (KGT7A)",
+     "province": "ปราจีนบุรี",
+     "lat": 14.070941,
+     "lon": 101.51893,
+     "bank_m": 6.66,
+     "latest_m": 5.51,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -1.15,
+     "peak_m": 7.62,
+     "peak_time": "2026-09-30 03:00",
+     "hours_above_bank_30d": 331.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.91,
+     "situation_level": 4
+    },
+    {
+     "code": "PRC005",
+     "name": "ศรีมหาโพธิ (KGT6)",
+     "province": "ปราจีนบุรี",
+     "lat": 13.97348,
+     "lon": 101.51751,
+     "bank_m": 7.58,
+     "latest_m": 5.53,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -2.05,
+     "peak_m": 9.11,
+     "peak_time": "2026-09-28 05:50",
+     "hours_above_bank_30d": 383.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -1.73,
+     "situation_level": 4
+    },
+    {
+     "code": "SKE001",
+     "name": "คลองพระปรง",
+     "province": "ปราจีนบุรี",
+     "lat": 13.937376,
+     "lon": 101.922035,
+     "bank_m": 19.61,
+     "latest_m": 13.26,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -6.35,
+     "peak_m": 21.94,
+     "peak_time": "2026-09-27 15:20",
+     "hours_above_bank_30d": 252.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.19,
+     "situation_level": 3
+    },
+    {
+     "code": "BKK009",
+     "name": "คลองลำปลาทิว ลาดกระบัง",
+     "province": "อื่น ๆ",
+     "lat": 13.7407,
+     "lon": 100.79468,
+     "bank_m": 0.62,
+     "latest_m": 0.25,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -0.37,
+     "peak_m": 0.73,
+     "peak_time": "2026-09-30 10:40",
+     "hours_above_bank_30d": 207.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.12,
+     "situation_level": 4
+    },
+    {
+     "code": "BKK015",
+     "name": "คลองหกวา ลำลูกกา คลอง8",
+     "province": "อื่น ๆ",
+     "lat": 13.9416,
+     "lon": 100.77499,
+     "bank_m": 2.71,
+     "latest_m": 1.45,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -1.25,
+     "peak_m": 2.65,
+     "peak_time": "2026-09-25 14:50",
+     "hours_above_bank_30d": 0.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.21,
+     "situation_level": 4
+    },
+    {
+     "code": "BKK017",
+     "name": "คลองจระเข้ใหญ่ บางเสาธง (วัดศรีวารีน้อย)",
+     "province": "อื่น ๆ",
+     "lat": 13.66949,
+     "lon": 100.80058,
+     "bank_m": 0.43,
+     "latest_m": 0.09,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -0.34,
+     "peak_m": 1.05,
+     "peak_time": "2026-09-28 04:10",
+     "hours_above_bank_30d": 314.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.08,
+     "situation_level": 4
+    },
+    {
+     "code": "BKK020",
+     "name": "คลองลาดพร้าว ปากคลอง2สายใต้",
+     "province": "อื่น ๆ",
+     "lat": 13.93183,
+     "lon": 100.63952,
+     "bank_m": 1.97,
+     "latest_m": 1.27,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -0.7,
+     "peak_m": 2.19,
+     "peak_time": "2026-09-28 12:30",
+     "hours_above_bank_30d": 281.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.34,
+     "situation_level": 4
+    },
+    {
+     "code": "Kgt.10",
+     "name": "บ้านเนินผาสุก",
+     "province": "อื่น ๆ",
+     "lat": 13.8096,
+     "lon": 102.054382,
+     "bank_m": 35.0,
+     "latest_m": 29.84,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -5.16,
+     "peak_m": 36.82,
+     "peak_time": "2026-09-26 17:00",
+     "hours_above_bank_30d": 51.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.1,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.12A",
+     "name": "บ้านแก้ง",
+     "province": "อื่น ๆ",
+     "lat": 13.93635,
+     "lon": 101.972321,
+     "bank_m": 21.0,
+     "latest_m": 17.11,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -3.89,
+     "peak_m": 25.19,
+     "peak_time": "2026-09-27 10:00",
+     "hours_above_bank_30d": 380.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": 0.16,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.19A",
+     "name": "บ้านท่าบุญมี",
+     "province": "อื่น ๆ",
+     "lat": 13.40472,
+     "lon": 101.281776,
+     "bank_m": 18.37,
+     "latest_m": 16.16,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -2.21,
+     "peak_m": 17.03,
+     "peak_time": "2026-09-26 15:00",
+     "hours_above_bank_30d": 0.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": 0.49,
+     "situation_level": 3
+    },
+    {
+     "code": "Kgt.9",
+     "name": "บ้านเขาฉกรรจ์",
+     "province": "อื่น ๆ",
+     "lat": 13.66804,
+     "lon": 102.0756,
+     "bank_m": 49.57,
+     "latest_m": 43.31,
+     "latest_time": "2026-10-20 20:00",
+     "latest_minus_bank_m": -6.26,
+     "peak_m": 51.66,
+     "peak_time": "2026-09-26 02:00",
+     "hours_above_bank_30d": 132.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.12,
+     "situation_level": 3
+    },
+    {
+     "code": "SKE002",
+     "name": "เมืองสระแก้ว",
+     "province": "อื่น ๆ",
+     "lat": 13.809611,
+     "lon": 102.05431,
+     "bank_m": 34.76,
+     "latest_m": 30.19,
+     "latest_time": "2026-10-20 20:40",
+     "latest_minus_bank_m": -4.57,
+     "peak_m": 37.21,
+     "peak_time": "2026-09-27 07:00",
+     "hours_above_bank_30d": 117.0,
+     "run_above_bank_days_to_latest": 0.0,
+     "change_last_7d_m": -0.1,
+     "situation_level": 3
+    }
+   ],
+   "above_bank_now": [
+    "BPK003",
+    "NYK000"
+   ],
+   "note": "ตลิ่ง = min_bank ของระบบ thaiwater (ตลิ่งฝั่งต่ำ) · ระดับสูงกว่าตลิ่งหมายถึงน้ำล้นตลิ่งที่จุดนั้น ไม่ได้หมายความว่าท่วมทั้งตำบล"
+  },
+  "story": {
+   "upstream_peak_times": {
+    "Kgt.3": "2026-09-27 09:00",
+    "Kgt.6": "2026-09-28 08:00",
+    "PRC004": "2026-09-30 03:00",
+    "PRC005": "2026-09-28 05:50",
+    "Kgt.1": "2026-09-30 17:00"
+   },
+   "first_upstream_peak": "2026-09-27 09:00",
+   "bpk003_peak_time": "2026-10-07 00:50",
+   "lag_first_upstream_to_bpk003_days": 9.7,
+   "bpk003_recession_m_per_day_last7d": 0.063,
+   "bpk003_days_to_bank_if_same_rate": 14.0,
+   "note_extrapolation": "ประมาณจากอัตราลดระดับ 7 วันล่าสุดคงที่ — ไม่ได้พยากรณ์ (ฝนใหม่ น้ำทะเลหนุน และการระบายตามประตูทำให้เปลี่ยนได้)",
+   "surface_slopes": {
+    "Kgt.1→BPK003": {
+     "straight_km": 31.3,
+     "level_drop_m": 1.28,
+     "slope_m_per_km_upper_bound": 0.041
+    },
+    "BPK003→BPK001": {
+     "straight_km": 39.0,
+     "level_drop_m": 1.82,
+     "slope_m_per_km_upper_bound": 0.047
+    }
+   },
+   "bpk003_upstream_area_km2": 13894.0
+  }
+ },
  "mitrearth_national": {
   "gistda_corridor_2005_2019": {
    "corridor_half_width_m": 3000.0,

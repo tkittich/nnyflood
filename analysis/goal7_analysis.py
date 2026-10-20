@@ -1575,6 +1575,8 @@ def main():
         c["dem_waterline_test"] = json.loads((OUT / "dem_waterline_test.json").read_text(encoding="utf-8"))
     if (OUT / "dem_gistda_waterline_test.json").exists():
         c["dem_gistda_waterline_test"] = json.loads((OUT / "dem_gistda_waterline_test.json").read_text(encoding="utf-8"))
+    if (OUT / "bangpakong_chachoengsao.json").exists():
+        c["bangpakong_chachoengsao"] = json.loads((OUT / "bangpakong_chachoengsao.json").read_text(encoding="utf-8"))
     if (OUT / "mitrearth_national_summary.json").exists():
         nat = json.loads((OUT / "mitrearth_national_summary.json").read_text(encoding="utf-8"))
         c["mitrearth_national"] = {k: nat[k] for k in ("gistda_corridor_2005_2019", "gistda_vs_2026_nakhon_nayok", "sea_level_rise_vs_canal", "dempro_vs_eia_ground")}

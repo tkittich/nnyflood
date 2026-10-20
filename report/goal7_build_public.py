@@ -366,6 +366,8 @@ S.append(blk.tbl_ongkharak_2d_hypsometric())
 S.append(blk.tbl_ongkharak_dem_sensitivity())
 S.append(blk.tbl_dem_waterline())
 S.append(blk.tbl_dem_gistda_waterline())
+S.append(prose(blk.prose_bpk(public=True)))
+S.append(blk.tbl_bpk_gauges())
 _ff = C["mitrearth_national"]["gistda_corridor_2005_2019"]
 _r23p = _ff["by_reach"]["กม.23–134"]
 S.append(prose(

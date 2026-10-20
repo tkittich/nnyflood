@@ -125,6 +125,7 @@ data/32_goal7_chaophraya2/official_onwr_waterchart/*/*.json
 data/32_goal7_chaophraya2/ocr/
 data/32_goal7_chaophraya2/typhoon_ocr/
 data/32_goal7_chaophraya2/vlm_pilot/
+data/34_goal7_bangpakong/raw/
 data/search_index.db*
 
 

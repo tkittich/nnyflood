@@ -254,6 +254,8 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_dem_waterline_test` | `analysis/goal7_dem_waterline_test.py` | `main` | active | ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมเรดาร์ (ความสูงตามขอบควรรวมกลุ่มแคบ) · หลักฐานอิสระเสริมเส้นดิน EIA | `python analysis/goal7_dem_waterline_test.py` | `analysis/goal7/dem_waterline_test.json` |
 | `goal7_dem_gistda_waterline_test` | `analysis/goal7_dem_gistda_waterline_test.py` | `main` | active | ทดสอบ DEM 3 ชุดด้วยขอบน้ำท่วมรายปีของ GISTDA (2548–2562) ใน อ.องครักษ์ · หลักฐานเสริม | `python analysis/goal7_dem_gistda_waterline_test.py` | `analysis/goal7/dem_gistda_waterline_test.json` |
 | `goal7_vlm_pilot` | `analysis/goal7_vlm_pilot.py` | `typhoon_env` | active | นำร่องเทียบแบบจำลองภาพ-ภาษาอ่านตาราง/ภาพวาด/หน้าผสม พร้อมเฉลยที่ตรวจแล้วและภาพขยายคมชัด (ผลเป็นร่าง) | `python analysis/goal7_vlm_pilot.py render | run <รหัสโมเดล> | score` | `data/32_goal7_chaophraya2/vlm_pilot/`<br>`analysis/goal7/vlm_pilot_scores.json` |
+| `goal7_bangpakong_fetch` | `analysis/goal7_bangpakong_fetch.py` | `main` | active | ดึงระดับน้ำสถานีโทรมาตรลุ่มบางปะกง (ล่าสุด + 30 วัน) เทียบตลิ่ง | `python analysis/goal7_bangpakong_fetch.py [--days 30]` | `data/34_goal7_bangpakong/raw/` |
+| `goal7_bangpakong_chachoengsao` | `analysis/goal7_bangpakong_chachoengsao.py` | `main` | active | วิเคราะห์ทั้งลุ่มบางปะกง (ความสูง ลุ่มรับน้ำ ระดับน้ำสถานี น้ำท่วม 30 วัน ความถี่ 14 ปี) และเหตุที่ฉะเชิงเทรา ท่วมหนักและนาน | `python analysis/goal7_bangpakong_chachoengsao.py` | `analysis/goal7/bangpakong_chachoengsao.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -262,7 +264,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 3 สภาพแวดล้อม · 165 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 167 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

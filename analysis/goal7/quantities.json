@@ -7,7 +7,7 @@
    "canonical_ref": "reconciled_parameters.canal_length.canonical_value_km", "source_constant": "canal_length_km", "depends_on": [], "status": "settled"},
   {"id": "opex_annual", "name_th": "ค่าดำเนินการและบำรุงรักษารายปี", "scope": "โครงการคลองเจ้าพระยา 2 ทั้งโครงการ", "definition": "ค่าใช้จ่ายรายปีหลังก่อสร้างตามรายงานผลกระทบสิ่งแวดล้อมฉบับสมบูรณ์", "unit": "ล้านบาท/ปี", "kind": "stated",
    "canonical_ref": "reconciled_parameters.opex_annual.canonical_value_mb", "source_constant": "opex_annual_mb", "depends_on": [], "status": "settled",
-   "open_variants": ["clarification2_dec2566_p121"], "note": "519 ยังตรวจที่มาไม่ได้ — ไม่ใช้จนกว่าจะยืนยัน (R7-12)"},
+   "open_variants": ["clarification2_dec2566_p121"], "note": "519 ตรวจแล้ว (รายงานชี้แจงครั้งที่ 2 หน้า 121) เป็นคนละฉบับ/ขอบเขต (ฐานงานใหญ่กว่า ~2 เท่า) — ใช้ 264.80 กับขอบเขต EIA 2569 (R7-12 ปิด)"},
   {"id": "capex_eia", "name_th": "งบลงทุนตามรายงานผลกระทบสิ่งแวดล้อม", "scope": "โครงการคลองเจ้าพระยา 2", "definition": "วงเงินลงทุนที่รายงานผลกระทบสิ่งแวดล้อมระบุ", "unit": "ล้านบาท", "kind": "stated",
    "canonical_ref": "reconciled_parameters.project_budget.canonical_eia_capex_mb", "source_constant": "capex_mb", "depends_on": [], "status": "settled"},
   {"id": "cabinet_ceiling", "name_th": "กรอบวงเงินที่คณะรัฐมนตรีอนุมัติ", "scope": "โครงการคลองเจ้าพระยา 2", "definition": "เพดานวงเงินตามมติ (ไม่ใช่งบลงทุนที่รายงานระบุ)", "unit": "ล้านบาท", "kind": "stated",

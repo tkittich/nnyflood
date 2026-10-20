@@ -16,6 +16,7 @@ from pathlib import Path
 import fitz
 
 ROOT = Path(__file__).resolve().parent.parent
+ROOT_ = Path(__file__).resolve().parent.parent
 D32 = ROOT / "data/32_goal7_chaophraya2"
 OUT = ROOT / "analysis/goal7/ocr_findings.json"
 TONE = re.compile(r"[่-์]")
@@ -66,6 +67,15 @@ def corpora():
                 if t:
                     yield "text:" + lab, i, re.sub(r"\s+", " ", t)
             d.close()
+    # รายงานชี้แจงเพิ่มเติมครั้งที่ 2 (ธ.ค. 2566) เล่มหลัก — มีชั้นข้อความ (ใช้ยืนยันค่า O&M 519 หน้า 121)
+    c2 = list((ROOT_ / "data/manual").glob("*/EIA/*/รายงานชี้แจงเพิ่มเติมครั้งที่ 2/1. รายงานชี้แจงเพิ่มเติม.pdf"))
+    if c2:
+        d = fitz.open(c2[0])
+        for i, pg in enumerate(d, 1):
+            t = pg.get_text().strip()
+            if t:
+                yield "text:eia_clarify2_main", i, re.sub(r"\s+", " ", t)
+        d.close()
 
 
 def main() -> None:

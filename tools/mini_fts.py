@@ -13,6 +13,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+THDIG = str.maketrans("๐๑๒๓๔๕๖๗๘๙", "0123456789")   # OCR (Typhoon) ถอดเลขไทยตามต้นฉบับ — ทำดัชนีเสริมเป็นเลขอารบิกให้ค้น "2233" เจอ "๒๒๓๓"
 TONE = re.compile(r"[่-์]")   # วรรณยุกต์/ไม้ทัณฑฆาต — OCR และชั้นข้อความ PDF มักลำดับอักขระต่างกัน จึงทำดัชนีเสริมแบบตัดทิ้ง
 DB_PATH = ROOT / "data/search_index.db"
 
@@ -115,7 +116,7 @@ def index_all(verbose: bool = True) -> int:
                 continue
             conn.execute(
                 "INSERT INTO docs_fts(path, category, title, body) VALUES (?, ?, ?, ?)",
-                (f"{jl.parent.relative_to(ROOT).as_posix()}#p{r['page']}", "ocr_typhoon", f"Typhoon OCR {label} หน้า {r['page']}", txt + " " + TONE.sub("", txt)),
+                (f"{jl.parent.relative_to(ROOT).as_posix()}#p{r['page']}", "ocr_typhoon", f"Typhoon OCR {label} หน้า {r['page']}", txt + " " + TONE.sub("", txt) + (" " + txt.translate(THDIG) if txt.translate(THDIG) != txt else "")),
             )
             indexed_count += 1
     # RapidOCR เลิกใช้ (ผู้ใช้ 19 ต.ค. 69) — ไม่ทำดัชนีผลเดิมใน data/32_goal7_chaophraya2/ocr/
@@ -132,7 +133,7 @@ def index_all(verbose: bool = True) -> int:
                     continue
                 conn.execute(
                     "INSERT INTO docs_fts(path, category, title, body) VALUES (?, ?, ?, ?)",
-                    (f"{pdf.relative_to(ROOT).as_posix()}#p{i}", "eia_text", f"EIA 2569 {pdf.stem} หน้าไฟล์ {i}", " ".join(txt.split()) + " " + TONE.sub("", " ".join(txt.split()))),
+                    (f"{pdf.relative_to(ROOT).as_posix()}#p{i}", "eia_text", f"EIA 2569 {pdf.stem} หน้าไฟล์ {i}", " ".join(txt.split()) + " " + TONE.sub("", " ".join(txt.split())) + (" " + " ".join(txt.split()).translate(THDIG) if " ".join(txt.split()).translate(THDIG) != " ".join(txt.split()) else "")),
                 )
                 indexed_count += 1
             doc.close()

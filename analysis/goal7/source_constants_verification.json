@@ -1,12 +1,11 @@
 {
- "verified_on": "2026-10-19",
- "constants_sha256": "4b40214bd2fc15d51c6bb574be23b7c1a689e0de3c3238805d7ad4872c2b883d",
+ "verified_on": "2026-10-20",
+ "constants_sha256": "e889e6348b792e0c913438b980f2ac391d342d783b3f5fc91191cb1988ed99ea",
  "summary": {
-  "verified_text": 14,
+  "verified_text": 15,
   "verified_image": 15,
   "failed": 1,
-  "assumption": 3,
-  "unverified": 1
+  "assumption": 3
  },
  "results": {
   "eia_bed_width_m": {
@@ -419,8 +418,21 @@
    "conflicts_with": []
   },
   "clarify2_opex_annual_mb": {
-   "status": "unverified",
-   "checks": [],
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia_clarify2_main",
+     "pdf_page": 121,
+     "printed_page": null,
+     "page_text_chars": 2199,
+     "needles": {
+      "519 ล้านบาท": true,
+      "477 ล้านบาท": true
+     },
+     "ok": true
+    }
+   ],
    "conflicts_with": []
   },
   "eia_area_reach1_m2": {

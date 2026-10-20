@@ -1,0 +1,577 @@
+{
+ "method": "เหตุผล: DEMPro (5 ม.) ใกล้ดิน EIA ที่สุด (ต่าง ~0.4 ม.) แต่ครอบแนวคลองเพียง ~10 กม. จาก 135.9 กม. ส่วนที่เหลือต้องใช้ DEM 30 ม. ซึ่งสูงกว่าพื้นราว 1.2–1.8 ม. ในที่ราบต่ำ · วิธี: ในหน้าต่าง DEMPro ของจังหวัดที่อยู่ในไทล์ FABDEM/Copernicus ที่มี (ที่ราบเจ้าพระยาตอนล่าง) เทียบค่า FABDEM−DEMPro เป็นรายช่วงความสูง → แบบจำลองส่วนต่างเป็นฟังก์ชันของความสูง FABDEM เอง (ใช้ได้ที่ไม่มี DEMPro) → ตรวจนอกตัวอย่างด้วยการตัดทีละหน้าต่าง (leave-one-window-out) และกับเส้นดิน EIA 2.3.2-9 ทั้ง 24 จุดตลอดแนวคลอง ข้อจำกัด: DEMPro ไม่ใช่การสำรวจอิสระ (ที่มาไม่ระบุ) · ส่วนต่างขึ้นกับสิ่งปกคลุม (ป่า/อาคาร/นา) ซึ่งแบบจำลองนี้ไม่รู้ · แนวคลองจากหมุดคลาด ~0.5 กม. · ดิน EIA อ่านจากรูป ±0.2 ม. · ใช้ได้เฉพาะที่ราบต่ำ (FABDEM < 15 ม.)",
+ "windows_used": 19,
+ "pooled_points": 164256,
+ "bias_table_by_fabdem_height": {
+  "-5..1": {
+   "n": 5225,
+   "fabdem_minus_dempro_median_m": -0.09,
+   "sd_m": 0.9,
+   "glo30_minus_dempro_median_m": -0.09
+  },
+  "1..2": {
+   "n": 16983,
+   "fabdem_minus_dempro_median_m": 1.16,
+   "sd_m": 0.67,
+   "glo30_minus_dempro_median_m": 1.59
+  },
+  "2..3": {
+   "n": 33361,
+   "fabdem_minus_dempro_median_m": 1.69,
+   "sd_m": 0.72,
+   "glo30_minus_dempro_median_m": 2.66
+  },
+  "3..5": {
+   "n": 42319,
+   "fabdem_minus_dempro_median_m": 2.0,
+   "sd_m": 0.93,
+   "glo30_minus_dempro_median_m": 2.48
+  },
+  "5..8": {
+   "n": 24073,
+   "fabdem_minus_dempro_median_m": 1.88,
+   "sd_m": 1.23,
+   "glo30_minus_dempro_median_m": 2.43
+  },
+  "8..15": {
+   "n": 22701,
+   "fabdem_minus_dempro_median_m": 1.78,
+   "sd_m": 1.34,
+   "glo30_minus_dempro_median_m": 2.14
+  }
+ },
+ "per_window": {
+  "10 ฉะเชิงเทรา (CHACHOENGSAO)": {
+   "n_points": 10100,
+   "n_lowland": 10100,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.18,
+    "sd_m": 0.75
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 1.89
+   },
+   "dempro_median_m": 0.9
+  },
+  "11 ชลบุรี (CHON BURI)": {
+   "n_points": 7889,
+   "n_lowland": 3208,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.6,
+    "sd_m": 3.38
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.83
+   },
+   "dempro_median_m": 21.1
+  },
+  "18 นครนายก (NAKHON NAYOK)": {
+   "n_points": 10200,
+   "n_lowland": 8608,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 2.17,
+    "sd_m": 0.78
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.81
+   },
+   "dempro_median_m": 4.3
+  },
+  "19 นครปฐม (NAKHON PATHOM)": {
+   "n_points": 7700,
+   "n_lowland": 7699,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.61,
+    "sd_m": 0.92
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.58
+   },
+   "dempro_median_m": 2.2
+  },
+  "2 กรุงเทพมหานคร (BANGKOK)": {
+   "n_points": 10088,
+   "n_lowland": 10088,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 2.25,
+    "sd_m": 1.08
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 4.51
+   },
+   "dempro_median_m": 0.8
+  },
+  "24 นนทบุรี (NONTHABURI)": {
+   "n_points": 10094,
+   "n_lowland": 10089,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 2.21,
+    "sd_m": 0.9
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 4.11
+   },
+   "dempro_median_m": 0.7
+  },
+  "29 ปทุมธานี (PATHUM THANI)": {
+   "n_points": 10199,
+   "n_lowland": 10198,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.72,
+    "sd_m": 0.86
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.84
+   },
+   "dempro_median_m": 0.8
+  },
+  "31 ปราจีนบุรี (PRACHIN BURI)": {
+   "n_points": 10098,
+   "n_lowland": 8566,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 2.5,
+    "sd_m": 0.98
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 3.16
+   },
+   "dempro_median_m": 2.5
+  },
+  "33 พระนครศรีอยุธยา (PHRA NAKHON SI AYUTTHAYA)": {
+   "n_points": 10200,
+   "n_lowland": 10199,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.47,
+    "sd_m": 0.94
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.16
+   },
+   "dempro_median_m": 2.2
+  },
+  "39 เพชรบุรี (PHETCHABURI)": {
+   "n_points": 2087,
+   "n_lowland": 2087,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 0.67,
+    "sd_m": 0.76
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 0.94
+   },
+   "dempro_median_m": 1.8
+  },
+  "52 ลพบุรี (LOP BURI)": {
+   "n_points": 10100,
+   "n_lowland": 5989,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.19,
+    "sd_m": 0.81
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 1.6
+   },
+   "dempro_median_m": 9.6
+  },
+  "60 สมุทรปราการ (SAMUT PRAKAN)": {
+   "n_points": 9830,
+   "n_lowland": 9829,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.53,
+    "sd_m": 1.23
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 3.02
+   },
+   "dempro_median_m": 0.1
+  },
+  "61 สมุทรสงคราม (SAMUT SONGKHRAM)": {
+   "n_points": 3593,
+   "n_lowland": 3593,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 2.0,
+    "sd_m": 1.44
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.82
+   },
+   "dempro_median_m": 0.2
+  },
+  "62 สมุทรสาคร (SAMUT SAKHON)": {
+   "n_points": 9878,
+   "n_lowland": 9878,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.54,
+    "sd_m": 1.42
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.48
+   },
+   "dempro_median_m": 0.1
+  },
+  "63 สระแก้ว (SA KAEO)": {
+   "n_points": 1400,
+   "n_lowland": 0,
+   "fabdem_minus_dempro_lowland": null,
+   "glo30_minus_dempro_lowland": null,
+   "dempro_median_m": 40.6
+  },
+  "64 สระบุรี (SARABURI)": {
+   "n_points": 10200,
+   "n_lowland": 3999,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.65,
+    "sd_m": 0.82
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.17
+   },
+   "dempro_median_m": 14.2
+  },
+  "65 สิงห์บุรี (SING BURI)": {
+   "n_points": 10200,
+   "n_lowland": 10188,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.81,
+    "sd_m": 1.11
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.31
+   },
+   "dempro_median_m": 8.2
+  },
+  "67 สุพรรณบุรี (SUPHAN BURI)": {
+   "n_points": 10200,
+   "n_lowland": 10200,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.83,
+    "sd_m": 0.78
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.41
+   },
+   "dempro_median_m": 3.1
+  },
+  "72 อ่างทอง (ANG THONG)": {
+   "n_points": 10200,
+   "n_lowland": 10200,
+   "fabdem_minus_dempro_lowland": {
+    "mean_m": 1.54,
+    "sd_m": 1.27
+   },
+   "glo30_minus_dempro_lowland": {
+    "mean_m": 2.17
+   },
+   "dempro_median_m": 4.6
+  }
+ },
+ "leave_one_window_out": {
+  "per_window": {
+   "10 ฉะเชิงเทรา (CHACHOENGSAO)": {
+    "raw_mae_m": 1.2,
+    "corrected_mae_m": 0.56,
+    "raw_bias_m": 1.18,
+    "corrected_bias_m": -0.35
+   },
+   "11 ชลบุรี (CHON BURI)": {
+    "raw_mae_m": 2.17,
+    "corrected_mae_m": 0.93,
+    "raw_bias_m": 1.6,
+    "corrected_bias_m": 0.28
+   },
+   "18 นครนายก (NAKHON NAYOK)": {
+    "raw_mae_m": 2.17,
+    "corrected_mae_m": 0.57,
+    "raw_bias_m": 2.17,
+    "corrected_bias_m": 0.28
+   },
+   "19 นครปฐม (NAKHON PATHOM)": {
+    "raw_mae_m": 1.65,
+    "corrected_mae_m": 0.64,
+    "raw_bias_m": 1.61,
+    "corrected_bias_m": -0.31
+   },
+   "2 กรุงเทพมหานคร (BANGKOK)": {
+    "raw_mae_m": 2.25,
+    "corrected_mae_m": 0.8,
+    "raw_bias_m": 2.25,
+    "corrected_bias_m": 0.55
+   },
+   "24 นนทบุรี (NONTHABURI)": {
+    "raw_mae_m": 2.21,
+    "corrected_mae_m": 0.73,
+    "raw_bias_m": 2.21,
+    "corrected_bias_m": 0.5
+   },
+   "29 ปทุมธานี (PATHUM THANI)": {
+    "raw_mae_m": 1.73,
+    "corrected_mae_m": 0.62,
+    "raw_bias_m": 1.72,
+    "corrected_bias_m": 0.09
+   },
+   "31 ปราจีนบุรี (PRACHIN BURI)": {
+    "raw_mae_m": 2.51,
+    "corrected_mae_m": 0.81,
+    "raw_bias_m": 2.5,
+    "corrected_bias_m": 0.63
+   },
+   "33 พระนครศรีอยุธยา (PHRA NAKHON SI AYUTTHAYA)": {
+    "raw_mae_m": 1.51,
+    "corrected_mae_m": 0.82,
+    "raw_bias_m": 1.47,
+    "corrected_bias_m": -0.53
+   },
+   "39 เพชรบุรี (PHETCHABURI)": {
+    "raw_mae_m": 0.8,
+    "corrected_mae_m": 1.04,
+    "raw_bias_m": 0.67,
+    "corrected_bias_m": -0.97
+   },
+   "52 ลพบุรี (LOP BURI)": {
+    "raw_mae_m": 1.24,
+    "corrected_mae_m": 0.92,
+    "raw_bias_m": 1.19,
+    "corrected_bias_m": -0.75
+   },
+   "60 สมุทรปราการ (SAMUT PRAKAN)": {
+    "raw_mae_m": 1.59,
+    "corrected_mae_m": 0.57,
+    "raw_bias_m": 1.53,
+    "corrected_bias_m": 0.25
+   },
+   "61 สมุทรสงคราม (SAMUT SONGKHRAM)": {
+    "raw_mae_m": 2.02,
+    "corrected_mae_m": 0.82,
+    "raw_bias_m": 2.0,
+    "corrected_bias_m": 0.71
+   },
+   "62 สมุทรสาคร (SAMUT SAKHON)": {
+    "raw_mae_m": 1.66,
+    "corrected_mae_m": 0.65,
+    "raw_bias_m": 1.54,
+    "corrected_bias_m": 0.36
+   },
+   "64 สระบุรี (SARABURI)": {
+    "raw_mae_m": 1.66,
+    "corrected_mae_m": 0.63,
+    "raw_bias_m": 1.65,
+    "corrected_bias_m": -0.19
+   },
+   "65 สิงห์บุรี (SING BURI)": {
+    "raw_mae_m": 1.82,
+    "corrected_mae_m": 0.74,
+    "raw_bias_m": 1.81,
+    "corrected_bias_m": -0.13
+   },
+   "67 สุพรรณบุรี (SUPHAN BURI)": {
+    "raw_mae_m": 1.84,
+    "corrected_mae_m": 0.66,
+    "raw_bias_m": 1.83,
+    "corrected_bias_m": -0.1
+   },
+   "72 อ่างทอง (ANG THONG)": {
+    "raw_mae_m": 1.63,
+    "corrected_mae_m": 1.04,
+    "raw_bias_m": 1.54,
+    "corrected_bias_m": -0.46
+   }
+  },
+  "mean_mae_gain_m": 1.01,
+  "windows_improved": 17,
+  "windows_total": 18
+ },
+ "eia_ground_check": {
+  "n_points": 24,
+  "n_lowland_fabdem_lt_15m": 24,
+  "fabdem_raw": {
+   "bias_m": 1.18,
+   "mae_m": 1.22
+  },
+  "fabdem_corrected": {
+   "bias_m": -0.37,
+   "mae_m": 0.65
+  },
+  "copernicus_raw": {
+   "bias_m": 1.32,
+   "mae_m": 1.37
+  },
+  "rows_km_eia_fab_corrected": [
+   [
+    0.0,
+    10.0,
+    11.48,
+    9.7
+   ],
+   [
+    6.5,
+    10.0,
+    11.99,
+    10.21
+   ],
+   [
+    9.8,
+    11.4,
+    11.76,
+    9.98
+   ],
+   [
+    12.8,
+    8.0,
+    10.87,
+    9.09
+   ],
+   [
+    15.3,
+    8.0,
+    9.77,
+    7.99
+   ],
+   [
+    22.0,
+    8.0,
+    8.93,
+    7.15
+   ],
+   [
+    24.5,
+    4.0,
+    7.55,
+    5.67
+   ],
+   [
+    28.0,
+    4.0,
+    5.43,
+    3.55
+   ],
+   [
+    36.9,
+    2.0,
+    3.93,
+    1.93
+   ],
+   [
+    50.0,
+    1.95,
+    3.55,
+    1.55
+   ],
+   [
+    56.7,
+    2.9,
+    3.34,
+    1.34
+   ],
+   [
+    57.8,
+    2.5,
+    3.27,
+    1.27
+   ],
+   [
+    60.0,
+    1.93,
+    3.17,
+    1.17
+   ],
+   [
+    65.0,
+    1.6,
+    3.27,
+    1.27
+   ],
+   [
+    70.0,
+    1.5,
+    2.6,
+    0.91
+   ],
+   [
+    75.0,
+    1.45,
+    2.56,
+    0.87
+   ],
+   [
+    85.0,
+    1.2,
+    2.72,
+    1.03
+   ],
+   [
+    95.0,
+    1.0,
+    1.89,
+    0.73
+   ],
+   [
+    105.0,
+    0.5,
+    1.63,
+    0.47
+   ],
+   [
+    118.0,
+    0.5,
+    1.13,
+    -0.03
+   ],
+   [
+    123.0,
+    1.0,
+    1.21,
+    0.05
+   ],
+   [
+    129.0,
+    0.55,
+    0.77,
+    0.86
+   ],
+   [
+    131.0,
+    0.8,
+    0.82,
+    0.91
+   ],
+   [
+    134.0,
+    1.5,
+    1.0,
+    -0.16
+   ]
+  ]
+ },
+ "ongkharak_bucket": {
+  "peak_27sep": {
+   "sar_km2": 197.2,
+   "fabdem_raw": {
+    "effective_level_m": 2.95,
+    "offset_vs_gauge_2_35_m": 0.6,
+    "iou": 0.318,
+    "area_at_gauge_level_km2": 20.0
+   },
+   "fabdem_corrected": {
+    "effective_level_m": 1.15,
+    "offset_vs_gauge_2_35_m": -1.2,
+    "iou": 0.319,
+    "area_at_gauge_level_km2": 492.6
+   }
+  },
+  "oct2_validated": {
+   "sar_km2": 170.3,
+   "fabdem_raw": {
+    "effective_level_m": 2.9,
+    "offset_vs_gauge_2_35_m": 0.55,
+    "iou": 0.267,
+    "area_at_gauge_level_km2": 20.0
+   },
+   "fabdem_corrected": {
+    "effective_level_m": 1.1,
+    "offset_vs_gauge_2_35_m": -1.25,
+    "iou": 0.246,
+    "area_at_gauge_level_km2": 492.6
+   }
+  }
+ }
+}

@@ -21,12 +21,15 @@ VARIANTS = ("dpi150", "dpi250", "enh", "rot250")   # rot250 = dpi250 หมุ�
 PROMPT = "อ่านหน้านี้ทั้งหมดอย่างละเอียด ถอดข้อความและตัวเลขทุกตัวตามที่เห็นให้ตรงตัวอักษร ตารางให้เขียนเป็นตาราง Markdown ถ้าเป็นรูปให้ระบุตัวเลขและป้ายกำกับทุกอันที่อ่านได้ ห้ามเดาค่าที่มองไม่เห็น"
 # รหัสโมเดล → (repo, วิธีโหลด) — น้ำหนักต้องดาวน์โหลดก่อน (ขออนุมัติผู้ใช้เป็นรายโมเดล)
 MODELS = {
-    "qwen25vl7b": "Qwen/Qwen2.5-VL-7B-Instruct",
-    "qwen25vl32b_awq": "Qwen/Qwen2.5-VL-32B-Instruct-AWQ",
-    "internvl3_14b": "OpenGVLab/InternVL3-14B-hf",
-    "qwen3vl8b": "Qwen/Qwen3-VL-8B-Instruct",
-    "pathumma": "nectec/Pathumma-llm-vision-3.0.0-re",
+    "qwen25vl7b": "Qwen/Qwen2.5-VL-7B-Instruct",          # 16.6 GB — ตัวฐานที่ผู้ใช้เลือก
+    "qwen3vl8b": "Qwen/Qwen3-VL-8B-Instruct",              # 17.5 GB
+    "qwen35_4b": "Qwen/Qwen3.5-4B",                        # 9.3 GB — รุ่นใหม่กว่า (Qwen3.5-9B 19.3 GB เสี่ยงล้น VRAM 24 GB จึงยังไม่ใช้)
+    "internvl35_8b": "OpenGVLab/InternVL3_5-8B-HF",        # 17.1 GB
+    "pathumma": "nectec/Pathumma-llm-vision-3.0.0-re",     # 4.9 GB — ปรับสำหรับ OCR ไทย (ฐาน Qwen3-VL-2B)
+    "minicpmv47_1b": "openbmb/MiniCPM-V-4.7-1B",           # 3.1 GB
 }
+# ไม่ใช้เพราะโมเดล+ข้อมูลไม่พอใน VRAM 24 GB: Qwen2.5-VL-32B-AWQ (20.7) · InternVL3-14B (30.2) · Qwen3.5-27B/35B-A3B · MiniCPM-V-4.7-35B-A3B int4 (22.6)
+HF_HOME = "E:/theera/hf_cache"      # น้ำหนักโมเดลเก็บนอก git และนอกไดรฟ์ C
 # เฉลยที่ตรวจแล้ว: ตัวเลขที่รายงานผลกระทบสิ่งแวดล้อมพิมพ์ไว้ (ดู analysis/goal7/official_geometry.json)
 SAMPLES = [
     {"id": "sec_table", "pdf": "main1.pdf", "page": 144, "kind": "ตารางรูปตัด 3 ช่วง", "rotate": True, "truth": ["605.22", "53.0", "480", "90.3", "5.426", "1.235", "0.025", "604.85", "51.0", "504", "95.27", "5.29", "0.016", "1187", "398.97", "2.925", "0.517"]},
@@ -85,6 +88,8 @@ def render() -> None:
 
 
 def run(model_key: str) -> None:
+    import os
+    os.environ.setdefault("HF_HOME", HF_HOME)
     import torch
     from PIL import Image
     from transformers import AutoModelForImageTextToText, AutoProcessor

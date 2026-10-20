@@ -35,8 +35,10 @@ def init_engine(model_id: str = "scb10x/typhoon-ocr1.5-2b", device: str = "cuda:
 
 SHORT_PROMPT = "Extract text in markdown format."
 _GEN_STATE: dict = {"truncated": False}   # ตัวแปรต่อกระบวนการ: รอบล่าสุดถูกตัดด้วยเวลา/ความยาวหรือไม่ (ใช้บันทึกใน meta)
-MAX_TIME_S = {"scan": 170.0, "figure": 45.0, "text": 170.0}   # หน้าข้อความหนาแน่นต้องใช้ ~2,000–3,500 โทเคน (~25 โทเคน/วินาทีต่อ worker) — เพดาน 70 วินาทีเดิมตัดกลางหน้า (วัดได้ 20 ต.ค. 69: 77/131 หน้าของรายงาน ONWR ถูกตัด)
-ROTATE_RETRY_CAP_S = 40.0   # รอบหมุนหน้าหลัง echo ใช้เพดานสั้น — หน้ารูป/แผนที่วนเปล่าไม่ควรเสีย 3 เท่าเวลา   # เพดานเวลาต่อหน้า (วินาที) — หน้าตารางหนาแน่นเคยวนซ้ำจน 184 วินาที/หน้า
+import os as _os
+_CAP = float(_os.environ.get("TYPHOON_CAP_S", "170"))    # เพดานเวลาต่อหน้าของหน้าข้อความ (วินาที) — ตั้งสูงขึ้นสำหรับเอกสารกฎหมายที่ห้ามตัดกลางหน้า (เช่น TYPHOON_CAP_S=420)
+MAX_TIME_S = {"scan": _CAP, "figure": 45.0, "text": _CAP}   # หน้าข้อความหนาแน่นต้องใช้ ~2,000–3,500 โทเคน (~25 โทเคน/วินาทีต่อ worker) — เพดาน 70 วินาทีเดิมตัดกลางหน้า (วัดได้ 20 ต.ค. 69: 77/131 หน้าของรายงาน ONWR ถูกตัด)
+ROTATE_RETRY_CAP_S = float(_os.environ.get("TYPHOON_ROT_CAP_S", "40"))   # รอบหมุนหน้าหลัง echo ใช้เพดานสั้น — หน้ารูป/แผนที่วนเปล่าไม่ควรเสีย 3 เท่าเวลา   # เพดานเวลาต่อหน้า (วินาที) — หน้าตารางหนาแน่นเคยวนซ้ำจน 184 วินาที/หน้า
 ECHO_MARKERS = ("RAW_TEXT_START", "Below is an image of a document page", "Your task is to return the markdown representation")
 THAI_RX = __import__("re").compile(r"[฀-๿]")
 

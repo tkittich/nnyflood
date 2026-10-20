@@ -39,3 +39,27 @@ def test_round1_rows_cite_existing_letter_items():
                     continue
                 have = {i["no"] for i in secs[sec]["items"]}
                 assert no in have or no.split(".")[0] in have, f"{r['section']}: ไม่พบข้อ {no} ในหัวข้อ {sec} ของต้นฉบับ"
+
+
+def _round_check(n, no, date):
+    rd = ITEMS["rounds"][str(n)]
+    assert rd["letter"]["no"] == no and rd["letter"]["date"] == date
+    assert rd["ocr"]["pages_truncated"] == 0
+    ev = rd["letter"]["date_evidence"]
+    f = ROOT / ev["file"]
+    assert f.exists() and hashlib.sha256(f.read_bytes()).hexdigest() == ev["sha256"]
+    h = OE["eia_rejection_history"][n - 1]
+    assert no in h["official_letter"] and date in h["official_letter"]
+    for r in h["key_objections"]:
+        refs = re.findall(r"หัวข้อ (\d+) ข้อ ([\d.]+)", r["section"])
+        assert refs, r["section"]
+        for sec, a in refs:
+            assert a in {i["no"] for i in rd["sections"][sec]["items"]}, r["section"]
+
+
+def test_round2_letter_and_rows():
+    _round_check(2, "ทส 1010.6/18346", "25 พ.ย. 2564")
+
+
+def test_round3_letter_and_rows():
+    _round_check(3, "ทส 1009.6/6077", "18 มี.ค. 2567")

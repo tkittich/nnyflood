@@ -101,14 +101,14 @@ def run(model_key: str, target: str = "pages") -> None:
     from PIL import Image
     from transformers import AutoModelForImageTextToText, AutoProcessor
     repo = MODELS[model_key]
-    proc = AutoProcessor.from_pretrained(repo)
-    model = AutoModelForImageTextToText.from_pretrained(repo, dtype=torch.bfloat16, device_map="cuda:0")
+    proc = AutoProcessor.from_pretrained(repo, trust_remote_code=True)
+    model = AutoModelForImageTextToText.from_pretrained(repo, dtype=torch.bfloat16, device_map="cuda:0", trust_remote_code=True)
     outdir = PILOT / "outputs" / model_key
     outdir.mkdir(parents=True, exist_ok=True)
     if target == "crops":
         items = [(c["id"], ("crop",)) for c in json.loads((PILOT / "crops.json").read_text(encoding="utf-8"))]
     else:
-        items = [(s["id"], VARIANTS) for s in json.loads((PILOT / "samples.json").read_text(encoding="utf-8"))]
+        items = [(s["id"], ("dpi250",) if s["id"].startswith("nv_") else VARIANTS) for s in json.loads((PILOT / "samples.json").read_text(encoding="utf-8"))]   # หน้าไม่มีเฉลยรันแบบ dpi250 แบบเดียว (ประหยัดเวลา)
     for sid, variants in items:
         s = {"id": sid}
         for var in variants:

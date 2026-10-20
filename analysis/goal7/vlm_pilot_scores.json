@@ -1,0 +1,31 @@
+{
+ "note": "สัดส่วนค่าเฉลยที่ปรากฏในผลถอด · ร่าง ไม่ใช่ค่ายืนยัน",
+ "scores": {
+  "unlimited_ocr": {
+   "long_profile": {
+    "dpi250": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 10.5
+    }
+   },
+   "sec_table": {
+    "dpi250": {
+     "found": 1,
+     "of": 17,
+     "share": 0.06,
+     "sec": 26.5
+    }
+   },
+   "siphon_text": {
+    "dpi250": {
+     "found": 5,
+     "of": 6,
+     "share": 0.83,
+     "sec": 32.7
+    }
+   }
+  }
+ }
+}

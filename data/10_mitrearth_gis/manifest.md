@@ -55,52 +55,55 @@
   8. DEM 30 ม. (`18 DEM30m - mitrearth.tif`) — ต้นทางไม่ระบุ (นัย SRTM/ASTER) ไม่ควรแทน Copernicus/FABDEM
 - **ยังไม่ได้ประมวลผลชั้นใดเพิ่ม** (งานค้าง R7-13 — ดู docs/OFFLINE_DATA_BACKLOG.md §7) · ชุดข้อมูลจังหวัดข้างเคียงที่คลองผ่าน (สระบุรี · ฉะเชิงเทรา · สมุทรปราการ ฯลฯ) ดาวน์โหลดได้จากหมวดเดียวกันถ้าต้องการ — เป็นการดาวน์โหลดไฟล์ใหม่ ต้องให้ผู้ใช้อนุญาตและระบุชื่อ/ขนาดก่อน
 
-## ดาวน์โหลดเพิ่มรายจังหวัด (19 ต.ค. 2569 — ยังไม่สำเร็จ ต้องโหลดเอง · backlog R7-15)
+## ชุดรายจังหวัดลุ่มเจ้าพระยาตอนล่าง (โหลดเอง 19–20 ต.ค. 2569 — ได้ครบ 40 ไฟล์ · backlog R7-15 ปิดแล้ว)
 
-ลุ่มน้ำเจ้าพระยาตอนล่างถึงอ่าวไทย: 10 จังหวัดจากหน้าจังหวัดบน mitrearth.org (ชุดเดียวกับนครนายก · สิทธิ์ใช้งานเหมือนกัน — เพื่อประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์)
-Google Drive จำกัดการดาวน์โหลดของ gdown: ฉะเชิงเทรา ได้เฉพาะโฟลเดอร์ 1 (DEM) · 2 (ขอบเขต/จุด) · 3 (ถนน) · ส่วนที่เหลือล้มเหลว (ข้อความ "Cannot retrieve the public link") · จังหวัดอื่นยังไม่ได้ไฟล์
-**ชั้นที่ต้องการ** (รวม ~45 MB ต่อจังหวัดจากขนาดของนครนายก): `2 Boundary and Point` · `5 Surface and Ground Water` · `6 Valley Ridge and Basin` · `7 Geological Hazard` (มี `Flood GISTDA 0519` น้ำท่วม 2548–2554) — ข้ามโฟลเดอร์ Contour Line (หนัก ~115 MB และติดข้อจำกัดบ่อย)
-วางไฟล์ที่ `data/10_mitrearth_gis/provinces/<จังหวัด>/<ชื่อโฟลเดอร์ย่อย>/` (ไฟล์ใหญ่ไม่เข้า git) แล้วแจ้งเพื่อรันวิเคราะห์ GISTDA/ลุ่มน้ำรายจังหวัดและบันทึก SHA-256
+ผู้ใช้โหลดจาก Google Drive ของมิตรเอิร์ธ (หน้าจังหวัดบน mitrearth.org) ชุดย่อย 4 โฟลเดอร์ต่อจังหวัด: `2 Boundary and Point` · `5 Surface and Ground Water` · `6 Valley Ridge and Basin` · `7 Geological Hazard` — 10 จังหวัด รวม 40 ไฟล์ zip (204 MB) เก็บต้นฉบับที่ `provinces_zips/<จังหวัด>/` (ไม่เข้า git) · แตกไฟล์แล้วที่ `data/10_mitrearth_gis/provinces/<จังหวัด>_<รหัส>/<โฟลเดอร์ย่อย>/` (ไม่เข้า git)
+ตรวจแล้ว: zip สมบูรณ์ทั้ง 40 ไฟล์ (testzip) · สิทธิ์ใช้งานเหมือนนครนายก (ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์)
 
-| จังหวัด | โฟลเดอร์ย่อย | ลิงก์ Google Drive |
+**ข้อควรรู้ (ตรวจแล้วว่าไม่ใช่ไฟล์ที่หายจากการโหลด — จำนวนไฟล์ใน zip เท่ากับในโฟลเดอร์ Drive):**
+- ชั้นน้ำท่วม `Flood GISTDA 0519` ของ **สมุทรปราการ · สมุทรสาคร · สิงห์บุรี · อ่างทอง** ไม่มีไฟล์ `.shp`/`.dbf` บน Drive (มีแต่ `.prj .shx`) → ไม่มีข้อมูลน้ำท่วม 2548–2554 ของ 4 จังหวัดนี้ (อ่างทองไม่มี `Drainage Basin.shp` ด้วย) · จังหวัดที่มีชั้น GISTDA: ฉะเชิงเทรา · ปราจีนบุรี · ปทุมธานี · นนทบุรี · กรุงเทพฯ · อยุธยา (+ นครนายก)
+- ชั้น `bound` และ `pbound` เป็นกรอบแผนที่/จังหวัดข้างเคียง (ใหญ่กว่าจังหวัดราว 2 เท่า) **ห้ามใช้เป็นเส้นเขตจังหวัด** — ใช้การรวมชั้น `Tambon area` (ตรวจพื้นที่: กทม. 1,569 · นนทบุรี 633 · ฉะเชิงเทรา 5,238 ตร.กม.)
+- ผลวิเคราะห์: `analysis/goal7_mitrearth_provinces.py` → `analysis/goal7/mitrearth_provinces_summary.json`
+
+| ไฟล์ | ขนาด (ไบต์) | SHA-256 |
 |---|---|---|
-| ฉะเชิงเทรา | 2 Boundary and Point | https://drive.google.com/drive/folders/1oI22A62ZBNXMcWTJ4EgKIFBckmqxL8d7 |
-| ฉะเชิงเทรา | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1Cr8ZIapPUVCCRztcOH5SjFr-1yeQrn21 |
-| ฉะเชิงเทรา | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1wUaQnxaBjLk1ba-oUInS3gbOZEoY1hGz |
-| ฉะเชิงเทรา | 7 Geological Hazard | https://drive.google.com/drive/folders/1tsnUhYat4S_Uawyhw2fs6yuyOEFS9waI |
-| กรุงเทพมหานคร | 2 Boundary and Point | https://drive.google.com/drive/folders/10AyJvObEJxVOEnv-xUjFzHQp_m58vcCB |
-| กรุงเทพมหานคร | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1kCz4XyfMewRZseYiljZ647byqGY2zWa8 |
-| กรุงเทพมหานคร | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1BhohCp27m81LFSAPhdVxNMM8KcXRlIUZ |
-| กรุงเทพมหานคร | 7 Geological Hazard | https://drive.google.com/drive/folders/13CVcIpRTQPqlJvF_XZpSqEwE3QkxJ2RU |
-| ปทุมธานี | 2 Boundary and Point | https://drive.google.com/drive/folders/1glWStMeEYq4d6RtI3zAKxYaITvakZvAT |
-| ปทุมธานี | 5 Surface and Ground Water | https://drive.google.com/drive/folders/11S9j4SMO0Cn1LbL65AD9rb25VKMH3vIo |
-| ปทุมธานี | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1jtZ16URBCE07OymEk5cnOqwOeNozYAxX |
-| ปทุมธานี | 7 Geological Hazard | https://drive.google.com/drive/folders/1UL6q2tgNBIlJakg5whNiHHIlMJi3sDLZ |
-| ปราจีนบุรี | 2 Boundary and Point | https://drive.google.com/drive/folders/1nw02Of5FJKluJ0DmzJC6NJQOY_BI9EZz |
-| ปราจีนบุรี | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1OcT3WO2a3dxrv6CV5viodhY0t5W6d_qX |
-| ปราจีนบุรี | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1404pX9tbL-rbM4xqu8LhslSA2SpeZWZY |
-| ปราจีนบุรี | 7 Geological Hazard | https://drive.google.com/drive/folders/1z-NrdBpebljIIOxJzQf6fk7SHO8QsOF1 |
-| สมุทรปราการ | 2 Boundary and Point | https://drive.google.com/drive/folders/1-Olf7Lnx_-1kJFqWcIRmoOjjT402hYTC |
-| สมุทรปราการ | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1r_nM5F9CWDJNOSHJRt6Lm7LjiGQmfLlr |
-| สมุทรปราการ | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1-1QSTnlsTdBg90nQyDKZR18uwlYpbzK6 |
-| สมุทรปราการ | 7 Geological Hazard | https://drive.google.com/drive/folders/1aXRL3SU1g9VupB6WQe7tu7B6eumdJz07 |
-| พระนครศรีอยุธยา | 2 Boundary and Point | https://drive.google.com/drive/folders/1O0H_yQgLaUgcyZyFAPmJ118amBwz9BpV |
-| พระนครศรีอยุธยา | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1ovTUgB-kjYFGCXylG-tuUxO2vtD_rzvY |
-| พระนครศรีอยุธยา | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1ZlO6OOKWhCsAaLyBpshpeucG1P8dRnP_ |
-| พระนครศรีอยุธยา | 7 Geological Hazard | https://drive.google.com/drive/folders/1_njaTJCJo-_r7eQ1UVjUXLiBQrzJJTGF |
-| อ่างทอง | 2 Boundary and Point | https://drive.google.com/drive/folders/1T56uRYEliHiOvfla1u_KZfL1HnruNrb5 |
-| อ่างทอง | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1jKCVaob4VT5yDVwNqOiD74PnA40Hdz1N |
-| อ่างทอง | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1r03Ot3iglVx_aTuaw27_vz6d-IwBc_ca |
-| อ่างทอง | 7 Geological Hazard | https://drive.google.com/drive/folders/1l3u5RzVqM4x2NfTYx2byDhcfkbJn20-q |
-| สิงห์บุรี | 2 Boundary and Point | https://drive.google.com/drive/folders/1Wsl25GxzD4WJTYTJGb5Ckj_I7VuidjsO |
-| สิงห์บุรี | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1LSCS8mbIGwkfBDxeP34NqDQjmFWURKwB |
-| สิงห์บุรี | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1fH0WvbaRIqpG5HwOQe63Qb8pmouLi-Zs |
-| สิงห์บุรี | 7 Geological Hazard | https://drive.google.com/drive/folders/1CHxqdOdERqWqa2Iz5GLDAEzl3yUXXU3j |
-| นนทบุรี | 2 Boundary and Point | https://drive.google.com/drive/folders/18RfYG33PsOQBHK1HkGsGvBD9wsLwH0cH |
-| นนทบุรี | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1jZPslmToV7HxT1sesKebGR_os7CToIpA |
-| นนทบุรี | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/11jwIDrbwJU0QLoj0A1Z_McxDKjiVzLnL |
-| นนทบุรี | 7 Geological Hazard | https://drive.google.com/drive/folders/1A5RHvXhxST7K8K8HuhxO3_lqVMyps7Eb |
-| สมุทรสาคร | 2 Boundary and Point | https://drive.google.com/drive/folders/1V9UAECvON8T37gDjYlY8ec79H5v_iJ28 |
-| สมุทรสาคร | 5 Surface and Ground Water | https://drive.google.com/drive/folders/1z807gKdHbMmYbzWTapW2vc9am6n69FfG |
-| สมุทรสาคร | 6 Valley Ridge and Basin | https://drive.google.com/drive/folders/1caYCfcwhZ1xi6G7jSX_Ex2hZwrtxUM-_ |
-| สมุทรสาคร | 7 Geological Hazard | https://drive.google.com/drive/folders/1mR3Uwqa7QvBfLCEGUS42fgboYQSBZbql |
+| `provinces_zips/กรุงเทพมหานคร/2 Boundary and Point-20261019T153755Z-1-001.zip` | 1170320 | `83dc4b6c86669e79faf4953e6eb1d281a0706174991f57f5be52bf28a6a6dba5` |
+| `provinces_zips/กรุงเทพมหานคร/5 Surface and Ground Water-20261019T153800Z-1-001.zip` | 2900855 | `a50d18a56d96bc7b585c7306940455ff591d69953fcd6d2a3f10d7e2054f4676` |
+| `provinces_zips/กรุงเทพมหานคร/6 Valley Ridge and Basin-20261019T153804Z-1-001.zip` | 1367475 | `b2a8f4b275fdc4c082c4a79d7bcc714aba047561daccb95865d48636463894ca` |
+| `provinces_zips/กรุงเทพมหานคร/7 Geological Hazard-20261019T153809Z-1-001.zip` | 8713750 | `71791b052693d70e7f4a75bca998f0a23c59dae08d2d58087350389cb4eb0366` |
+| `provinces_zips/ฉะเชิงเทรา/2 Boundary and Point-20261019T153412Z-1-001.zip` | 1131777 | `dd3f745e180246365ed02859d2e42840227ea3f8894c8239fababf737a87c189` |
+| `provinces_zips/ฉะเชิงเทรา/5 Surface and Ground Water-20261019T153707Z-1-001.zip` | 4590884 | `267293e93f8d65ac440212972d97e878cbd07182908b9cc061367f200baaae9b` |
+| `provinces_zips/ฉะเชิงเทรา/6 Valley Ridge and Basin-20261019T153519Z-1-001.zip` | 5140939 | `f53587d6991b29feca0b00e2dc6936d9fedaad095f6ad8eb41635a8feb400f9d` |
+| `provinces_zips/ฉะเชิงเทรา/7 Geological Hazard-20261019T153534Z-1-001.zip` | 32946364 | `698ea35c71e78d77ce3b8a0cb64e269ac80f3b1a645509ca25c1bae3f133a1d0` |
+| `provinces_zips/นนทบุรี/2 Boundary and Point-20261020T035121Z-1-001.zip` | 288006 | `3cdf2e2a6be623107c7c79bd939f62f08b36d46ae0f7cebbb96ef8372c5b67ea` |
+| `provinces_zips/นนทบุรี/5 Surface and Ground Water-20261020T035124Z-1-001.zip` | 1043132 | `0aba83d4c81d3f252b0642a0a3205b5d66abd1697c7f07d3c7e0590a7e0a25b1` |
+| `provinces_zips/นนทบุรี/6 Valley Ridge and Basin-20261020T035129Z-1-001.zip` | 814931 | `38a16cb5d42ef94329b4fb30986cd0d3d258b49c56e7e8cdd7e86d5990a4a8f9` |
+| `provinces_zips/นนทบุรี/7 Geological Hazard-20261020T035136Z-1-001.zip` | 5560504 | `6beee237aaa07013bdd67331521c4033de5a4cf54f8a21ecd105d483cea274b6` |
+| `provinces_zips/ปทุมธานี/2 Boundary and Point-20261019T153906Z-1-001.zip` | 237440 | `531fe22d65dc2f174fc87e86e9afb0488d217564183816bc43d93a15a8e75bfa` |
+| `provinces_zips/ปทุมธานี/5 Surface and Ground Water-20261019T153909Z-1-001.zip` | 1543503 | `2c78aa26ca4f2c55d93c860e26daf31c60d5b6365756754839fd52e98da0127f` |
+| `provinces_zips/ปทุมธานี/6 Valley Ridge and Basin-20261019T153913Z-1-001.zip` | 1428650 | `bcdee099e699ec744a5838c56e75b0f94141ccf8640a2e0c8a7cf4e52941fbdf` |
+| `provinces_zips/ปทุมธานี/7 Geological Hazard-20261019T153919Z-1-001.zip` | 12315011 | `51f5e6984b19068bcbe638757709b7b62c4fdbde65e1489822cbd8b194fb7722` |
+| `provinces_zips/ปราจีนบุรี/2 Boundary and Point-20261019T154129Z-1-001.zip` | 1626639 | `924be25e1425500a285dfacaeed7731134b5b4948e6bcb88b507f12eefbcf026` |
+| `provinces_zips/ปราจีนบุรี/5 Surface and Ground Water-20261019T154132Z-1-001.zip` | 4788156 | `d3c0c03f50c7d65435e8c05e6b9918630d71e07e78921b68182cd6475cba8ccc` |
+| `provinces_zips/ปราจีนบุรี/6 Valley Ridge and Basin-20261019T154136Z-1-001.zip` | 5272416 | `336b2fcb8f04b87f1fc292181ec79468c437b1e712fd3f80733025ad763da3fd` |
+| `provinces_zips/ปราจีนบุรี/7 Geological Hazard-20261019T154140Z-1-001.zip` | 37500160 | `6ab5539f6f3cddba5af151c41f34b510aa9919e33a80f0cf3126ea0bdcf43bc7` |
+| `provinces_zips/พระนครศรีอยุธยา/2 Boundary and Point-20261020T034553Z-1-001.zip` | 573602 | `06a4b910adceed3724afd76f1e43df3ac5e18ba5142c735d243c7de1c7990a29` |
+| `provinces_zips/พระนครศรีอยุธยา/5 Surface and Ground Water-20261020T034555Z-1-001.zip` | 3547913 | `fa0f77bc714e72455d334b07189fac4cfca9b3e0adffcd04a25295f2be58d8a5` |
+| `provinces_zips/พระนครศรีอยุธยา/6 Valley Ridge and Basin-20261020T034600Z-1-001.zip` | 3298813 | `ab1ffa8e79373da7f21434d1e3348724b6a3944bb95ca0adb90d69b4216e68f0` |
+| `provinces_zips/พระนครศรีอยุธยา/7 Geological Hazard-20261020T034604Z-1-001.zip` | 67609991 | `627f52922e51ce4c110b65509588296e80869d5ba2b0c1213aad9586d0dd8d62` |
+| `provinces_zips/สมุทรปราการ/2 Boundary and Point-20261019T154349Z-1-001.zip` | 520541 | `2a65e1bcfbe4a168b90347643394cf06c812ab759622fc9c80a8cfe6aafa4815` |
+| `provinces_zips/สมุทรปราการ/5 Surface and Ground Water-20261019T154353Z-1-001.zip` | 694007 | `73723f9c252221c0c2403cc0bbde4574987e74525b69eb53395160a8e62ef380` |
+| `provinces_zips/สมุทรปราการ/6 Valley Ridge and Basin-20261019T154358Z-1-001.zip` | 767679 | `4f60daf84f4351f1a4fae928977bde36d987f95ca405616c460d718816935140` |
+| `provinces_zips/สมุทรปราการ/7 Geological Hazard-20261019T154401Z-1-001.zip` | 71626 | `e57365bf39c624bc2be10cde9a08ea7deefd8f2c4a12a628b4000917c7dd3bbc` |
+| `provinces_zips/สมุทรสาคร/2 Boundary and Point-20261020T035322Z-1-001.zip` | 859008 | `5526f02ead46d2315754d582d5df9c679b59643a2fd77903d5f1db029913285c` |
+| `provinces_zips/สมุทรสาคร/5 Surface and Ground Water-20261020T035327Z-1-001.zip` | 558471 | `4818c6596312b4f4f2ffbdd28aa945da75c923357d7554b636b4fb92dd99ea40` |
+| `provinces_zips/สมุทรสาคร/6 Valley Ridge and Basin-20261020T035331Z-1-001.zip` | 748852 | `5aa107508643169e74a87a0a3998b4b39bd46864d15105c15615d702100eeb35` |
+| `provinces_zips/สมุทรสาคร/7 Geological Hazard-20261020T035336Z-1-001.zip` | 23448 | `f9e42ea04a3b04efbf75273e653ff1c2fdb9241307680a19970f8bef21d80820` |
+| `provinces_zips/สิงห์บุรี/2 Boundary and Point-20261020T034913Z-1-001.zip` | 265496 | `3336f7601a79cf5752d0ac9bf5db6ac185cb0d771c5a280c76540c3cc037458e` |
+| `provinces_zips/สิงห์บุรี/5 Surface and Ground Water-20261020T034917Z-1-001.zip` | 797026 | `a9911767c03451c1138e10ee557c63039b6e90754abbec11e657022d934ce7a1` |
+| `provinces_zips/สิงห์บุรี/6 Valley Ridge and Basin-20261020T034921Z-1-001.zip` | 730108 | `f094911b1261c24c6235eab82f6d42416a291a36bf296208c4afc0634d86f2ff` |
+| `provinces_zips/สิงห์บุรี/7 Geological Hazard-20261020T034928Z-1-001.zip` | 161717 | `39c66818ff2a207cc3a2063e02a6056bcb55195993c8aa8c205ecdb9a6c4b3a7` |
+| `provinces_zips/อ่างทอง/2 Boundary and Point-20261020T034730Z-1-001.zip` | 414484 | `6cc4b966ad171bbd96045be83e96a6b4aa5f553a482fd8509893bc82f31996d7` |
+| `provinces_zips/อ่างทอง/5 Surface and Ground Water-20261020T034736Z-1-001.zip` | 889267 | `2a0d2e6ac8f77f84cca2345a1cb2373fbca747039e64f45008f9f5c41f819a11` |
+| `provinces_zips/อ่างทอง/6 Valley Ridge and Basin-20261020T034740Z-1-001.zip` | 663130 | `c2bb0fa37e19bd2f785564d3eaa4fed9af7c955d9352e01b1bb2a438b047ae24` |
+| `provinces_zips/อ่างทอง/7 Geological Hazard-20261020T034745Z-1-001.zip` | 113851 | `9d75464e12329b6dd77893d1092e102adfd21f7c498e602d284076ca90fdb340` |

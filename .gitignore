@@ -131,3 +131,4 @@ data/search_index.db*
 # ชุดมิตรเอิร์ธเต็มจังหวัดที่แตกไฟล์ (disk-only)
 data/10_mitrearth_gis/extracted_full/
 data/10_mitrearth_gis/provinces/
+data/10_mitrearth_gis/provinces_zips/

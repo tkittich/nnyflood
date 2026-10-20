@@ -246,6 +246,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_official_geometry` | `analysis/goal7_official_geometry.py` | `main` | active | รวมมิติทางการของคลองเจ้าพระยา 2 (รูปตัด 3 ช่วง · ระดับตามยาว · อาคาร 99 แถว · แนวจากหมุด กม.) เป็นไฟล์เดียวสำหรับแบบจำลอง 3 มิติ | `python analysis/goal7_official_geometry.py` | `analysis/goal7/official_geometry.json` |
 | `goal7_build_3d_model` | `analysis/goal7_build_3d_model.py` | `main` | active | สร้างแบบจำลอง 3 มิติคลองเจ้าพระยา 2 (สคริปต์ SketchUp .rb + OBJ + ตัวดูเบราว์เซอร์) จากมิติทางการ | `python analysis/goal7_build_3d_model.py` | `report/models/chaophraya2_sketchup.rb`<br>`report/models/chaophraya2.obj`<br>`report/models/chaophraya2_viewer.html` |
 | `goal7_rejection_letter_items` | `analysis/goal7_rejection_letter_items.py` | `main` | active | ถอดโครงหนังสือ สผ. ทส 1010.6/2233 (วันที่ · 21 หัวข้อ · ข้อย่อย) จากผล Typhoon-OCR ใช้ตรวจเลขข้ออ้างอิงในรายงาน | `python analysis/goal7_rejection_letter_items.py` | `analysis/goal7/rejection_letter_items.json` |
+| `goal7_mitrearth_provinces` | `analysis/goal7_mitrearth_provinces.py` | `main` | active | ชั้นมิตรเอิร์ธรายจังหวัดลุ่มเจ้าพระยาตอนล่าง 11 จังหวัด: น้ำท่วม GISTDA 2548–2554 รายปี · ลุ่มน้ำย่อย · เทียบน้ำท่วม 2569 | `python analysis/goal7_mitrearth_provinces.py` | `analysis/goal7/mitrearth_provinces_summary.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -254,7 +255,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 3 สภาพแวดล้อม · 157 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 3 สภาพแวดล้อม · 158 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

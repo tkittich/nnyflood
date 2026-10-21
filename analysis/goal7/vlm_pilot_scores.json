@@ -37,6 +37,48 @@
      "share": 0.0,
      "sec": 86.3
     }
+   },
+   "long_profile (ภาพย่อยรวม)": {
+    "crop": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 93.3
+    },
+    "cropenh": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 93.6
+    }
+   },
+   "sec_table (ภาพย่อยรวม)": {
+    "crop": {
+     "found": 10,
+     "of": 17,
+     "share": 0.59,
+     "sec": 156.6
+    },
+    "cropenh": {
+     "found": 11,
+     "of": 17,
+     "share": 0.65,
+     "sec": 159.5
+    }
+   },
+   "siphon_text (ภาพย่อยรวม)": {
+    "crop": {
+     "found": 0,
+     "of": 6,
+     "share": 0.0,
+     "sec": 111.8
+    },
+    "cropenh": {
+     "found": 0,
+     "of": 6,
+     "share": 0.0,
+     "sec": 110.3
+    }
    }
   },
   "minicpmv47_1b": {
@@ -234,6 +276,48 @@
      "of": 6,
      "share": 0.0,
      "sec": 3.4
+    }
+   },
+   "long_profile (ภาพย่อยรวม)": {
+    "crop": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 5.1
+    },
+    "cropenh": {
+     "found": 0,
+     "of": 3,
+     "share": 0.0,
+     "sec": 6.0
+    }
+   },
+   "sec_table (ภาพย่อยรวม)": {
+    "crop": {
+     "found": 10,
+     "of": 17,
+     "share": 0.59,
+     "sec": 52.3
+    },
+    "cropenh": {
+     "found": 11,
+     "of": 17,
+     "share": 0.65,
+     "sec": 73.2
+    }
+   },
+   "siphon_text (ภาพย่อยรวม)": {
+    "crop": {
+     "found": 0,
+     "of": 6,
+     "share": 0.0,
+     "sec": 19.2
+    },
+    "cropenh": {
+     "found": 0,
+     "of": 6,
+     "share": 0.0,
+     "sec": 19.3
     }
    }
   },

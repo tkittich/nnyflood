@@ -54,15 +54,15 @@
    },
    "sec_table (ภาพย่อยรวม)": {
     "crop": {
-     "found": 10,
+     "found": 16,
      "of": 17,
-     "share": 0.59,
+     "share": 0.94,
      "sec": 156.6
     },
     "cropenh": {
-     "found": 11,
+     "found": 15,
      "of": 17,
-     "share": 0.65,
+     "share": 0.88,
      "sec": 159.5
     }
    },
@@ -104,9 +104,9 @@
      "sec": 70.1
     },
     "rot250": {
-     "found": 3,
+     "found": 2,
      "of": 17,
-     "share": 0.18,
+     "share": 0.12,
      "sec": 69.4
     }
    },
@@ -134,15 +134,15 @@
    },
    "sec_table (ภาพย่อยรวม)": {
     "crop": {
-     "found": 9,
-     "of": 17,
-     "share": 0.53,
-     "sec": 70.3
-    },
-    "cropenh": {
      "found": 12,
      "of": 17,
      "share": 0.71,
+     "sec": 70.3
+    },
+    "cropenh": {
+     "found": 17,
+     "of": 17,
+     "share": 1.0,
      "sec": 143.1
     }
    },
@@ -184,9 +184,9 @@
      "sec": 4.7
     },
     "rot250": {
-     "found": 3,
+     "found": 5,
      "of": 17,
-     "share": 0.18,
+     "share": 0.29,
      "sec": 66.9
     }
    },
@@ -214,15 +214,15 @@
    },
    "sec_table (ภาพย่อยรวม)": {
     "crop": {
-     "found": 8,
+     "found": 11,
      "of": 17,
-     "share": 0.47,
+     "share": 0.65,
      "sec": 134.1
     },
     "cropenh": {
-     "found": 9,
+     "found": 14,
      "of": 17,
-     "share": 0.53,
+     "share": 0.82,
      "sec": 48.4
     }
    },
@@ -258,9 +258,9 @@
    },
    "sec_table": {
     "dpi150": {
-     "found": 0,
+     "found": 1,
      "of": 17,
-     "share": 0.0,
+     "share": 0.06,
      "sec": 21.6
     },
     "rot250": {
@@ -294,15 +294,15 @@
    },
    "sec_table (ภาพย่อยรวม)": {
     "crop": {
-     "found": 10,
+     "found": 15,
      "of": 17,
-     "share": 0.59,
+     "share": 0.88,
      "sec": 52.3
     },
     "cropenh": {
-     "found": 11,
+     "found": 16,
      "of": 17,
-     "share": 0.65,
+     "share": 0.94,
      "sec": 73.2
     }
    },
@@ -360,9 +360,9 @@
    },
    "long_profile (ภาพย่อยรวม)": {
     "crop": {
-     "found": 0,
+     "found": 2,
      "of": 3,
-     "share": 0.0,
+     "share": 0.67,
      "sec": 93.5
     },
     "cropenh": {
@@ -374,15 +374,15 @@
    },
    "sec_table (ภาพย่อยรวม)": {
     "crop": {
-     "found": 11,
+     "found": 16,
      "of": 17,
-     "share": 0.65,
+     "share": 0.94,
      "sec": 281.2
     },
     "cropenh": {
-     "found": 12,
+     "found": 17,
      "of": 17,
-     "share": 0.71,
+     "share": 1.0,
      "sec": 280.4
     }
    },
@@ -418,15 +418,15 @@
    },
    "sec_table": {
     "dpi150": {
-     "found": 3,
+     "found": 2,
      "of": 17,
-     "share": 0.18,
+     "share": 0.12,
      "sec": 95.4
     },
     "rot250": {
-     "found": 7,
+     "found": 9,
      "of": 17,
-     "share": 0.41,
+     "share": 0.53,
      "sec": 93.1
     }
    },
@@ -454,15 +454,15 @@
    },
    "sec_table (ภาพย่อยรวม)": {
     "crop": {
-     "found": 10,
+     "found": 13,
      "of": 17,
-     "share": 0.59,
+     "share": 0.76,
      "sec": 121.0
     },
     "cropenh": {
-     "found": 11,
+     "found": 17,
      "of": 17,
-     "share": 0.65,
+     "share": 1.0,
      "sec": 147.8
     }
    },

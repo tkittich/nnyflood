@@ -17,3 +17,8 @@ def test_parse_blocks_and_bbox_scaling():
 def test_known_answer_samples_have_truth_and_models_listed():
     assert sum(1 for s in m.SAMPLES if s["truth"]) == 3
     assert "unlimited_ocr" in m.MODELS and m.MODELS["unlimited_ocr"] == "baidu/Unlimited-OCR"
+
+
+def test_hit_compares_numbers_not_strings():
+    assert m.hit("504", {"504.00"}) and m.hit("90.3", {"90.30"}) and m.hit("53.0", {"53.00"})
+    assert not m.hit("5.29", {"5.2", "52.9"})

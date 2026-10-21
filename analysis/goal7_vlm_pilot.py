@@ -228,6 +228,21 @@ def crops_from_layout() -> None:
     print(len(crops), "ภาพย่อย")
 
 
+def hit(x: str, nums) -> bool:
+    """ค่าเฉลยปรากฏในผลถอดหรือไม่ — เทียบเป็นตัวเลข (504 = 504.00) ไม่ใช่เทียบตัวอักษร"""
+    try:
+        v = float(x)
+    except ValueError:
+        return x in nums
+    for n in nums:
+        try:
+            if abs(float(n) - v) < 1e-9:
+                return True
+        except ValueError:
+            continue
+    return False
+
+
 def norm(t: str) -> str:
     return re.sub(r"(?<=\d),(?=\d{3}\b)", "", t.translate(TH))
 
@@ -252,10 +267,10 @@ def score() -> None:
             if r["id"] not in truth:
                 continue
             nums = set(re.findall(r"\d+(?:\.\d+)*", norm(r["text"])))
-            found = [x for x in truth[r["id"]] if x in nums or x.rstrip("0").rstrip(".") in nums]
+            found = [x for x in truth[r["id"]] if hit(x, nums)]
             res.setdefault(mdir.name, {}).setdefault(r["id"], {})[r["variant"]] = {"found": len(found), "of": len(truth[r["id"]]), "share": round(len(found) / len(truth[r["id"]]), 2), "sec": r["sec"]}
     for (m, page, var), (nums, sec) in crop_nums.items():     # ภาพย่อย: รวมตัวเลขที่พบจากทุกภาพย่อยของหน้า
-        found = [x for x in truth[page] if x in nums or x.rstrip("0").rstrip(".") in nums]
+        found = [x for x in truth[page] if hit(x, nums)]
         res.setdefault(m, {}).setdefault(page + " (ภาพย่อยรวม)", {})[var] = {"found": len(found), "of": len(truth[page]), "share": round(len(found) / len(truth[page]), 2), "sec": round(sec, 1)}
     SCORES.write_text(json.dumps({"note": "สัดส่วนค่าเฉลยที่ปรากฏในผลถอด · ร่าง ไม่ใช่ค่ายืนยัน", "scores": res}, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(res, ensure_ascii=False, indent=1))

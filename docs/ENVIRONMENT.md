@@ -85,6 +85,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `ocr_env` | RapidOCR (ภาษาไทย · CPU) | deprecated | `E:/theera/ocr_env/Scripts/python.exe` | RapidOCR ไทย (CPU) — เลิกใช้แล้ว · เลิกใช้ (ผู้ใช้ 19 ต.ค. 69): อ่านไทยไม่ดี — OCR ทั้งหมดใช้ Typhoon (typhoon_env) · เก็บไว้เป็นประวัติ ไม่ใช้กับงานใหม่ | Python 3.14.5 · PyMuPDF 1.28.2, numpy 2.5.4, onnxruntime 1.31.0, pillow 12.3.0, rapidocr 3.10.0 |
 | `typhoon_env` | Typhoon-OCR 1.5 2B (แบบจำลองภาพ–ภาษา · GPU) | active | `E:/theera/typhoon_env/Scripts/python.exe` | OCR ไทยที่คงรูปตารางเป็น Markdown และอ่านวรรณยุกต์/สระได้ดีกว่า — ใช้อ่านรูปและตารางใน EIA เมื่อต้องยืนยันตัวเลข | Python 3.12.9 · torch 2.6.0+cu124, transformers 5.20.1 |
 | `unlimited_ocr_env` | Unlimited-OCR (Baidu) แยกส่วนหน้า + ถอดตาราง (GPU · นำร่อง) | experimental | `E:/theera/unlimited_ocr_env/Scripts/python.exe` | นำร่องใช้ Unlimited-OCR แยกบล็อกข้อความ/รูป/ตาราง/แบบแปลนจากหน้าเอกสาร (ให้กรอบ) เพื่อส่งเฉพาะภาพให้โมเดลภาพที่เก่งกว่า — ผู้ใช้อนุมัติ 20 ต.ค. 69 (ข้อยกเว้นของกฎใช้ Typhoon อย่างเดียว) · ภาษาไทยยังไม่ทราบ ต้องวัดในนำร่อง | Python 3.12.9 · pymupdf 1.27.2.2, torch 2.10.0+cu128, torchvision 0.25.0+cu128, transformers 4.57.1 |
+| `indra_env` | Indra OCR (Datalab · CPU · ONNX) — OCR เร็ว + ป้ายบล็อก + กรอบ | experimental | `E:/theera/indra_env/Scripts/python.exe` | ทดลอง Indra OCR (1–7 ล้านพารามิเตอร์ รองรับไทย ราว 0.3 วินาทีต่อหน้าบน CPU) เป็นตัวอ่านข้อความด่านแรกและตัวอ่านป้ายตัวเลขในภาพวาด · ใช้ร่วมกับ GPU ที่ติดคิวอื่นได้ · ใบอนุญาตน้ำหนัก OpenRAIL-M แก้ไข (วิจัยได้ ต้องระบุที่มา) | Python 3.12.9 · indra-ocr 1.1.2, pymupdf 2.0 |
 
 ### เครื่องมือ/สคริปต์ที่ทบทวนแล้ว
 
@@ -259,6 +260,8 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_bangpakong_chachoengsao` | `analysis/goal7_bangpakong_chachoengsao.py` | `main` | active | วิเคราะห์ทั้งลุ่มบางปะกง (ความสูง ลุ่มรับน้ำ ระดับน้ำสถานี น้ำท่วม 30 วัน ความถี่ 14 ปี) และเหตุที่ฉะเชิงเทรา ท่วมหนักและนาน | `python analysis/goal7_bangpakong_chachoengsao.py` | `analysis/goal7/bangpakong_chachoengsao.json` |
 | `goal7_layout_compare` | `analysis/goal7_layout_compare.py` | `typhoon_env` | active | เทียบตัวแยกส่วนหน้าเอกสาร Unlimited-OCR กับ PP-DocLayoutV3 บนเฉลยกรอบรูป/ภาพวาด 4 หน้า (ความครอบคลุม · ส่วนเกิน) | `python analysis/goal7_layout_compare.py detect | compare` | `analysis/goal7/layout_compare.json` |
 | `goal7_ocr_v2` | `analysis/goal7_ocr_v2.py` | `typhoon_env` | experimental | OCR รุ่นที่ 2 สำหรับหน้า needs_visual: แยกส่วนหน้า (Unlimited-OCR) → ภาพย่อยรูป/ตาราง/แบบแปลน → โมเดลภาพอ่านภาพขยายคมชัด (ผลเป็นร่าง · ขั้น layout ใช้ unlimited_ocr_env) | `python analysis/goal7_ocr_v2.py pages | layout <เล่ม> | crops <เล่ม> | read <โมเดล> <เล่ม> | report` | `data/32_goal7_chaophraya2/ocr_v2/`<br>`analysis/goal7/ocr_v2_summary.json` |
+| `goal7_indra_probe` | `analysis/goal7_indra_probe.py` | `indra_env` | experimental | ทดลอง Indra OCR กับหน้าตัวอย่างนำร่อง (ทิศหมุน · ป้ายตัวเลขในภาพวาด · บล็อกข้อความ) | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_probe.py` | `analysis/goal7/indra_probe.json` |
+| `goal7_indra_text_eval` | `analysis/goal7_indra_text_eval.py` | `indra_env` | experimental | วัดความแม่นยำข้อความไทยของ Indra OCR เทียบชั้นข้อความ PDF บนหน้าข้อความ 30 หน้า | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_text_eval.py` | `analysis/goal7/indra_text_eval.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -267,7 +270,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 4 สภาพแวดล้อม · 169 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 5 สภาพแวดล้อม · 171 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

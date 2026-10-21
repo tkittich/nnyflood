@@ -1,0 +1,220 @@
+{
+ "note": "Indra OCR (CPU) เทียบชั้นข้อความ PDF · 30 หน้า EIA เล่ม 1",
+ "pages": [
+  93,
+  98,
+  104,
+  106,
+  121,
+  123,
+  143,
+  147,
+  150,
+  180,
+  211,
+  258,
+  264,
+  276,
+  331,
+  362,
+  377,
+  389,
+  392,
+  397,
+  451,
+  467,
+  481,
+  489,
+  500,
+  542,
+  680,
+  683,
+  727,
+  750
+ ],
+ "rows": [
+  {
+   "page": 93,
+   "char_similarity": 0.647,
+   "number_recall": 1.0,
+   "sec": 0.35
+  },
+  {
+   "page": 98,
+   "char_similarity": 0.983,
+   "number_recall": 1.0,
+   "sec": 0.24
+  },
+  {
+   "page": 104,
+   "char_similarity": 0.987,
+   "number_recall": 1.0,
+   "sec": 0.23
+  },
+  {
+   "page": 106,
+   "char_similarity": 0.98,
+   "number_recall": 1.0,
+   "sec": 0.22
+  },
+  {
+   "page": 121,
+   "char_similarity": 0.894,
+   "number_recall": 0.957,
+   "sec": 0.35
+  },
+  {
+   "page": 123,
+   "char_similarity": 0.988,
+   "number_recall": 1.0,
+   "sec": 0.35
+  },
+  {
+   "page": 143,
+   "char_similarity": 0.981,
+   "number_recall": 1.0,
+   "sec": 0.29
+  },
+  {
+   "page": 147,
+   "char_similarity": 0.984,
+   "number_recall": 1.0,
+   "sec": 0.25
+  },
+  {
+   "page": 150,
+   "char_similarity": 0.984,
+   "number_recall": 1.0,
+   "sec": 0.36
+  },
+  {
+   "page": 180,
+   "char_similarity": 0.954,
+   "number_recall": 1.0,
+   "sec": 0.74
+  },
+  {
+   "page": 211,
+   "char_similarity": 0.95,
+   "number_recall": 0.778,
+   "sec": 0.24
+  },
+  {
+   "page": 258,
+   "char_similarity": 0.968,
+   "number_recall": 1.0,
+   "sec": 0.21
+  },
+  {
+   "page": 264,
+   "char_similarity": 0.984,
+   "number_recall": 1.0,
+   "sec": 0.25
+  },
+  {
+   "page": 276,
+   "char_similarity": 0.982,
+   "number_recall": 1.0,
+   "sec": 0.29
+  },
+  {
+   "page": 331,
+   "char_similarity": 0.98,
+   "number_recall": 1.0,
+   "sec": 0.32
+  },
+  {
+   "page": 362,
+   "char_similarity": 0.897,
+   "number_recall": 1.0,
+   "sec": 0.31
+  },
+  {
+   "page": 377,
+   "char_similarity": 0.876,
+   "number_recall": 1.0,
+   "sec": 0.44
+  },
+  {
+   "page": 389,
+   "char_similarity": 0.971,
+   "number_recall": 1.0,
+   "sec": 0.31
+  },
+  {
+   "page": 392,
+   "char_similarity": 0.869,
+   "number_recall": 0.727,
+   "sec": 0.26
+  },
+  {
+   "page": 397,
+   "char_similarity": 0.968,
+   "number_recall": 1.0,
+   "sec": 0.33
+  },
+  {
+   "page": 451,
+   "char_similarity": 0.921,
+   "number_recall": 0.974,
+   "sec": 0.29
+  },
+  {
+   "page": 467,
+   "char_similarity": 0.896,
+   "number_recall": 1.0,
+   "sec": 0.33
+  },
+  {
+   "page": 481,
+   "char_similarity": 0.929,
+   "number_recall": 0.99,
+   "sec": 0.65
+  },
+  {
+   "page": 489,
+   "char_similarity": 0.885,
+   "number_recall": 0.99,
+   "sec": 0.45
+  },
+  {
+   "page": 500,
+   "char_similarity": 0.903,
+   "number_recall": 0.973,
+   "sec": 0.27
+  },
+  {
+   "page": 542,
+   "char_similarity": 0.941,
+   "number_recall": 0.941,
+   "sec": 0.24
+  },
+  {
+   "page": 680,
+   "char_similarity": 0.988,
+   "number_recall": 1.0,
+   "sec": 0.28
+  },
+  {
+   "page": 683,
+   "char_similarity": 0.986,
+   "number_recall": 1.0,
+   "sec": 0.25
+  },
+  {
+   "page": 727,
+   "char_similarity": 0.982,
+   "number_recall": 1.0,
+   "sec": 0.19
+  },
+  {
+   "page": 750,
+   "char_similarity": 0.978,
+   "number_recall": 1.0,
+   "sec": 0.21
+  }
+ ],
+ "mean_char_similarity": 0.941,
+ "mean_number_recall": 0.978,
+ "mean_sec": 0.32
+}

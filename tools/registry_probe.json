@@ -1,4 +1,12 @@
 {
+ "indra_env": {
+  "available": true,
+  "packages": {
+   "indra-ocr": "1.1.2",
+   "pymupdf": "2.0"
+  },
+  "python": "3.12.9"
+ },
  "main": {
   "available": true,
   "packages": {

@@ -1,0 +1,150 @@
+{
+ "note": "Indra OCR บน CPU 4 เธรด · เฉลยตรวจแล้ว 3 หน้า",
+ "results": {
+  "sec_table": {
+   "dpi150": {
+    "sec": 0.2,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 26,
+    "blocks": 5,
+    "labels": [
+     "Page-Footer",
+     "Page-Header",
+     "Text"
+    ],
+    "found": 0,
+    "of": 17
+   },
+   "dpi250": {
+    "sec": 0.1,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 26,
+    "blocks": 5,
+    "labels": [
+     "Page-Footer",
+     "Page-Header",
+     "Text"
+    ],
+    "found": 0,
+    "of": 17
+   },
+   "rot250": {
+    "sec": 0.6,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 176,
+    "blocks": 49,
+    "labels": [
+     "Page-Footer",
+     "Table",
+     "Text"
+    ],
+    "found": 12,
+    "of": 17
+   }
+  },
+  "long_profile": {
+   "dpi150": {
+    "sec": 0.3,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 87,
+    "blocks": 6,
+    "labels": [
+     "Page-Footer",
+     "Page-Header",
+     "Text"
+    ],
+    "found": 0,
+    "of": 3
+   },
+   "dpi250": {
+    "sec": 0.4,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 92,
+    "blocks": 6,
+    "labels": [
+     "Page-Footer",
+     "Page-Header",
+     "Text"
+    ],
+    "found": 0,
+    "of": 3
+   },
+   "rot250": {
+    "sec": 0.9,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 240,
+    "blocks": 12,
+    "labels": [
+     "Page-Footer",
+     "Table"
+    ],
+    "found": 1,
+    "of": 3
+   }
+  },
+  "control_text": {
+   "dpi150": {
+    "sec": 0.1,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 8,
+    "blocks": 4,
+    "labels": [
+     "Caption",
+     "Page-Footer",
+     "Page-Header"
+    ]
+   },
+   "dpi250": {
+    "sec": 0.1,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 7,
+    "blocks": 4,
+    "labels": [
+     "Caption",
+     "Page-Footer",
+     "Page-Header"
+    ]
+   }
+  },
+  "siphon_text": {
+   "dpi150": {
+    "sec": 0.2,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 20,
+    "blocks": 9,
+    "labels": [
+     "Page-Footer",
+     "Page-Header",
+     "Section-Header",
+     "Text"
+    ],
+    "found": 5,
+    "of": 6
+   },
+   "dpi250": {
+    "sec": 0.2,
+    "rotation": 0,
+    "skew": 0.0,
+    "lines": 20,
+    "blocks": 8,
+    "labels": [
+     "Page-Footer",
+     "Page-Header",
+     "Section-Header",
+     "Text"
+    ],
+    "found": 5,
+    "of": 6
+   }
+  }
+ }
+}

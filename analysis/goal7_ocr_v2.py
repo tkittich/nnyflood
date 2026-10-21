@@ -218,6 +218,35 @@ def cmd_read(a) -> None:
         print("read", a.model, a.vol, p, c["id"], "rot", rot, round(time.time() - t0, 1), "s", flush=True)
 
 
+def cmd_indra(a) -> None:
+    """รันด้วย indra_env (CPU): อ่านภาพย่อยที่ผ่านการคัดกรอง ลองสองทิศ (0 / -90) แล้วเลือกทิศที่ได้ทศนิยมมากกว่า — แหล่งที่สามเทียบกับตัวอ่านภาพ"""
+    import cv2
+    import indra_ocr
+    conv = indra_ocr.load(threads=4)
+    n = 0
+    for p in needs_visual_pages(a.vol):
+        d = pdir(a.vol, p)
+        if not (d / "crops.json").exists():
+            continue
+        for c in json.loads((d / "crops.json").read_text(encoding="utf-8")):
+            out = d / "reads" / f"{c['id']}__indra.json"
+            tf = d / "reads" / f"{c['id']}__{READ_TRIAGE}.json"
+            if c["skip_reason"] or out.exists() or not tf.exists() or digit_score(json.loads(tf.read_text(encoding="utf-8"))["text"]) < GATE:
+                continue
+            (d / "reads").mkdir(exist_ok=True)
+            img = cv2.imread(str(d / "crops" / f"{c['id']}.png"))
+            best = None
+            for rot, code in ((0, None), (-90, cv2.ROTATE_90_CLOCKWISE)):
+                im = img if code is None else cv2.rotate(img, code)
+                page = conv.ocr(cv2.cvtColor(im, cv2.COLOR_BGR2GRAY))
+                sc = len(re.findall(r"\d+\.\d+|\d{3,}", pilot.norm(page.text)))
+                if best is None or sc > best[0]:
+                    best = (sc, rot, page.text, len(page.lines))
+            out.write_text(json.dumps({"vol": a.vol, "page": p, "crop": c["id"], "model": "datalab-to/indra-ocr", "rotation": best[1], "decimals": best[0], "lines": best[3], "text": best[2]}, ensure_ascii=False), encoding="utf-8")
+            n += 1
+    print("indra", a.vol, n, "ภาพย่อย")
+
+
 def numbers_of(text: str) -> set[float]:
     out = set()
     for t in re.findall(r"(?<![\d+])-?\d+(?:[.,]\d+)*(?![\d+])", re.sub(r"\d+\+\d+", "", pilot.norm(text))):
@@ -232,8 +261,8 @@ def cmd_report(_a) -> None:
     summ = {"note": "ผลทั้งหมดเป็นร่าง — เทียบตัวเลขกับข้อความรายงานก่อนใช้", "volumes": {}}
     for vol in VOLS:
         pages = needs_visual_pages(vol)
-        row = {"needs_visual_pages": len(pages), "layout_done": 0, "crops": 0, "crops_skipped_colorful": 0, "read_main": 0, "read_second": 0, "pairs": 0, "mean_agreement": None}
-        agree = []
+        row = {"needs_visual_pages": len(pages), "layout_done": 0, "crops": 0, "crops_skipped_colorful": 0, "read_main": 0, "read_second": 0, "read_indra": 0, "pairs": 0, "mean_agreement": None, "pairs_main_indra": 0, "mean_agreement_main_indra": None, "crops_with_2plus_readers": 0, "tier_high": 0, "tier_low": 0}
+        agree, agree_i = [], []
         for p in pages:
             d = V2 / vol / f"p{p:04d}"
             if (d / "layout.json").exists():
@@ -248,8 +277,23 @@ def cmd_report(_a) -> None:
                 fa, fb = d / "reads" / f"{c['id']}__{READ_MAIN}.json", d / "reads" / f"{c['id']}__{READ_SECOND}.json"
                 ta = json.loads(fa.read_text(encoding="utf-8"))["text"] if fa.exists() else None
                 tb = json.loads(fb.read_text(encoding="utf-8"))["text"] if fb.exists() else None
+                fi = d / "reads" / f"{c['id']}__indra.json"
+                ti = json.loads(fi.read_text(encoding="utf-8"))["text"] if fi.exists() else None
                 row["read_main"] += ta is not None
                 row["read_second"] += tb is not None
+                row["read_indra"] += ti is not None
+                sets = [numbers_of(x) for x in (ta, tb, ti) if x]
+                if len(sets) >= 2:                      # ฉันทามติ: ตัวเลขที่ปรากฏในตัวอ่านอย่างน้อย 2 ตัว · ขัดแย้ง: ปรากฏในตัวเดียว
+                    allv = set().union(*sets)
+                    cons = {v for v in allv if sum(v in s for s in sets) >= 2}
+                    if len(cons) + len(allv - cons) >= 5:
+                        row["crops_with_2plus_readers"] += 1
+                        row["tier_high" if len(cons) >= 5 and (len(allv) - len(cons)) <= 0.25 * len(allv) else "tier_low"] += 1
+                if ta and ti:
+                    na, ni = numbers_of(ta), numbers_of(ti)
+                    if na | ni:
+                        agree_i.append(len(na & ni) / len(na | ni))
+                        row["pairs_main_indra"] += 1
                 if ta and tb:
                     na, nb = numbers_of(ta), numbers_of(tb)
                     if na | nb:
@@ -257,6 +301,8 @@ def cmd_report(_a) -> None:
                         row["pairs"] += 1
         if agree:
             row["mean_agreement"] = round(sum(agree) / len(agree), 3)
+        if agree_i:
+            row["mean_agreement_main_indra"] = round(sum(agree_i) / len(agree_i), 3)
         summ["volumes"][vol] = row
     SUMMARY.write_text(json.dumps(summ, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(summ, ensure_ascii=False, indent=1))
@@ -272,6 +318,9 @@ def main() -> None:
         q.add_argument("vol", choices=list(VOLS))
         q.add_argument("--limit", type=int, default=0)
         q.set_defaults(fn=fn)
+    q = sp.add_parser("indra")
+    q.add_argument("vol", choices=list(VOLS))
+    q.set_defaults(fn=cmd_indra)
     q = sp.add_parser("read")
     q.add_argument("model")
     q.add_argument("vol", choices=list(VOLS))

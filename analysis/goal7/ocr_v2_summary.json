@@ -3,13 +3,19 @@
  "volumes": {
   "eia2569_main1": {
    "needs_visual_pages": 142,
-   "layout_done": 12,
-   "crops": 32,
-   "crops_skipped_colorful": 11,
-   "read_main": 6,
-   "read_second": 0,
-   "pairs": 0,
-   "mean_agreement": null
+   "layout_done": 142,
+   "crops": 314,
+   "crops_skipped_colorful": 87,
+   "read_main": 102,
+   "read_second": 61,
+   "read_indra": 99,
+   "pairs": 56,
+   "mean_agreement": 0.068,
+   "pairs_main_indra": 98,
+   "mean_agreement_main_indra": 0.292,
+   "crops_with_2plus_readers": 90,
+   "tier_high": 6,
+   "tier_low": 84
   },
   "eia2569_main2": {
    "needs_visual_pages": 68,
@@ -18,8 +24,14 @@
    "crops_skipped_colorful": 0,
    "read_main": 0,
    "read_second": 0,
+   "read_indra": 0,
    "pairs": 0,
-   "mean_agreement": null
+   "mean_agreement": null,
+   "pairs_main_indra": 0,
+   "mean_agreement_main_indra": null,
+   "crops_with_2plus_readers": 0,
+   "tier_high": 0,
+   "tier_low": 0
   },
   "eia2569_app1": {
    "needs_visual_pages": 59,
@@ -28,8 +40,14 @@
    "crops_skipped_colorful": 0,
    "read_main": 0,
    "read_second": 0,
+   "read_indra": 0,
    "pairs": 0,
-   "mean_agreement": null
+   "mean_agreement": null,
+   "pairs_main_indra": 0,
+   "mean_agreement_main_indra": null,
+   "crops_with_2plus_readers": 0,
+   "tier_high": 0,
+   "tier_low": 0
   },
   "eia2569_app2": {
    "needs_visual_pages": 9,
@@ -38,8 +56,14 @@
    "crops_skipped_colorful": 0,
    "read_main": 0,
    "read_second": 0,
+   "read_indra": 0,
    "pairs": 0,
-   "mean_agreement": null
+   "mean_agreement": null,
+   "pairs_main_indra": 0,
+   "mean_agreement_main_indra": null,
+   "crops_with_2plus_readers": 0,
+   "tier_high": 0,
+   "tier_low": 0
   }
  }
 }

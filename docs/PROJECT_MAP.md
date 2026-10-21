@@ -136,6 +136,7 @@ graph TD
 - `goal7_layout_compare.py`: เทียบตัวแยกส่วนหน้าเอกสาร (Unlimited-OCR · PP-DocLayoutV3) กับเฉลยกรอบรูป/ภาพวาด — ผลใน `analysis/goal7/layout_compare.json`
 - `goal7_ocr_v2.py`: OCR รุ่นที่ 2 สำหรับหน้า needs_visual ของ EIA (แยกส่วนหน้า → ภาพย่อย → โมเดลภาพอ่านแบบขยายคมชัด) — ผลเป็นร่างใน `data/32_goal7_chaophraya2/ocr_v2/` และสรุปใน `analysis/goal7/ocr_v2_summary.json`
 - `goal7_indra_probe.py` + `goal7_indra_text_eval.py`: ทดลอง Indra OCR (CPU) กับหน้าตัวอย่างนำร่องและวัดความแม่นยำไทยเทียบชั้นข้อความ PDF — ผลใน `analysis/goal7/indra_probe.json` และ `indra_text_eval.json`
+- `goal7_indra_vs_typhoon.py`: เทียบตัวเลขที่ Typhoon กับ Indra OCR ถอดได้บนทุกหน้าที่ Typhoon เคยอ่าน เพื่อชี้หน้าที่ควรตรวจด้วยตา — ผลใน `analysis/goal7/indra_vs_typhoon.json`
 - `goal7_batch_ocr_queue.py`: ตัวขับเคลื่อนคิวถอดความเอกสารภาพสแกน EIA และเอกสารรับฟังความคิดเห็นอัตโนมัติบน GPU RTX 4090
 
 ### กลุ่ม ฉ: ผู้สร้างตัวเลขทางการและการตรวจสอบระบบ (Canonical Builders & QA)

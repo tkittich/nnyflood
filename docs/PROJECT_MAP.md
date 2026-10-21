@@ -134,6 +134,7 @@ graph TD
 - `goal7_vlm_pilot.py`: นำร่องเทียบแบบจำลองภาพ-ภาษาอ่านตาราง ภาพวาด และหน้าผสม พร้อมเฉลยที่ตรวจแล้ว (ผลเป็นร่าง ห้ามนำไปใช้ก่อนเทียบภาพหน้า)
 - `goal7_bangpakong_fetch.py` + `goal7_bangpakong_chachoengsao.py`: ดึงระดับน้ำสถานีลุ่มบางปะกงเทียบตลิ่ง และวิเคราะห์ทั้งลุ่ม (ความสูง ลุ่มรับน้ำ น้ำท่วม 30 วัน ความถี่ 14 ปี) เพื่ออธิบายว่าทำไมฉะเชิงเทรา ท่วมหนักและนาน — ผลใน `analysis/goal7/bangpakong_chachoengsao.json`
 - `goal7_layout_compare.py`: เทียบตัวแยกส่วนหน้าเอกสาร (Unlimited-OCR · PP-DocLayoutV3) กับเฉลยกรอบรูป/ภาพวาด — ผลใน `analysis/goal7/layout_compare.json`
+- `goal7_ocr_v2.py`: OCR รุ่นที่ 2 สำหรับหน้า needs_visual ของ EIA (แยกส่วนหน้า → ภาพย่อย → โมเดลภาพอ่านแบบขยายคมชัด) — ผลเป็นร่างใน `data/32_goal7_chaophraya2/ocr_v2/` และสรุปใน `analysis/goal7/ocr_v2_summary.json`
 - `goal7_batch_ocr_queue.py`: ตัวขับเคลื่อนคิวถอดความเอกสารภาพสแกน EIA และเอกสารรับฟังความคิดเห็นอัตโนมัติบน GPU RTX 4090
 
 ### กลุ่ม ฉ: ผู้สร้างตัวเลขทางการและการตรวจสอบระบบ (Canonical Builders & QA)

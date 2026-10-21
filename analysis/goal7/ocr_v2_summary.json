@@ -1,0 +1,45 @@
+{
+ "note": "ผลทั้งหมดเป็นร่าง — เทียบตัวเลขกับข้อความรายงานก่อนใช้",
+ "volumes": {
+  "eia2569_main1": {
+   "needs_visual_pages": 142,
+   "layout_done": 12,
+   "crops": 32,
+   "crops_skipped_colorful": 11,
+   "read_main": 6,
+   "read_second": 0,
+   "pairs": 0,
+   "mean_agreement": null
+  },
+  "eia2569_main2": {
+   "needs_visual_pages": 68,
+   "layout_done": 0,
+   "crops": 0,
+   "crops_skipped_colorful": 0,
+   "read_main": 0,
+   "read_second": 0,
+   "pairs": 0,
+   "mean_agreement": null
+  },
+  "eia2569_app1": {
+   "needs_visual_pages": 59,
+   "layout_done": 0,
+   "crops": 0,
+   "crops_skipped_colorful": 0,
+   "read_main": 0,
+   "read_second": 0,
+   "pairs": 0,
+   "mean_agreement": null
+  },
+  "eia2569_app2": {
+   "needs_visual_pages": 9,
+   "layout_done": 0,
+   "crops": 0,
+   "crops_skipped_colorful": 0,
+   "read_main": 0,
+   "read_second": 0,
+   "pairs": 0,
+   "mean_agreement": null
+  }
+ }
+}

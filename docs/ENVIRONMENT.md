@@ -258,6 +258,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_bangpakong_fetch` | `analysis/goal7_bangpakong_fetch.py` | `main` | active | ดึงระดับน้ำสถานีโทรมาตรลุ่มบางปะกง (ล่าสุด + 30 วัน) เทียบตลิ่ง | `python analysis/goal7_bangpakong_fetch.py [--days 30]` | `data/34_goal7_bangpakong/raw/` |
 | `goal7_bangpakong_chachoengsao` | `analysis/goal7_bangpakong_chachoengsao.py` | `main` | active | วิเคราะห์ทั้งลุ่มบางปะกง (ความสูง ลุ่มรับน้ำ ระดับน้ำสถานี น้ำท่วม 30 วัน ความถี่ 14 ปี) และเหตุที่ฉะเชิงเทรา ท่วมหนักและนาน | `python analysis/goal7_bangpakong_chachoengsao.py` | `analysis/goal7/bangpakong_chachoengsao.json` |
 | `goal7_layout_compare` | `analysis/goal7_layout_compare.py` | `typhoon_env` | active | เทียบตัวแยกส่วนหน้าเอกสาร Unlimited-OCR กับ PP-DocLayoutV3 บนเฉลยกรอบรูป/ภาพวาด 4 หน้า (ความครอบคลุม · ส่วนเกิน) | `python analysis/goal7_layout_compare.py detect | compare` | `analysis/goal7/layout_compare.json` |
+| `goal7_ocr_v2` | `analysis/goal7_ocr_v2.py` | `typhoon_env` | experimental | OCR รุ่นที่ 2 สำหรับหน้า needs_visual: แยกส่วนหน้า (Unlimited-OCR) → ภาพย่อยรูป/ตาราง/แบบแปลน → โมเดลภาพอ่านภาพขยายคมชัด (ผลเป็นร่าง · ขั้น layout ใช้ unlimited_ocr_env) | `python analysis/goal7_ocr_v2.py pages | layout <เล่ม> | crops <เล่ม> | read <โมเดล> <เล่ม> | report` | `data/32_goal7_chaophraya2/ocr_v2/`<br>`analysis/goal7/ocr_v2_summary.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -266,7 +267,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 4 สภาพแวดล้อม · 168 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 4 สภาพแวดล้อม · 169 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

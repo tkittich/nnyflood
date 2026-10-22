@@ -119,6 +119,24 @@ def index_all(verbose: bool = True) -> int:
                 (f"{jl.parent.relative_to(ROOT).as_posix()}#p{r['page']}", "ocr_typhoon", f"Typhoon OCR {label} หน้า {r['page']}", txt + " " + TONE.sub("", txt) + (" " + txt.translate(THDIG) if txt.translate(THDIG) != txt else "")),
             )
             indexed_count += 1
+    # Indra OCR (ทดลอง 21 ต.ค. 69) — ชุดผลถอดคู่ขนานบน CPU เทียบกับ Typhoon · ทำดัชนีเป็นหมวด ocr_indra
+    for jl in sorted(D32.glob("indra_ocr/*/pages.jsonl")):
+        label = jl.parent.name
+        for ln in jl.read_text(encoding="utf-8", errors="ignore").splitlines():
+            if not ln.strip():
+                continue
+            try:
+                r = json.loads(ln)
+            except Exception:
+                continue
+            txt = (r.get("text") or "").strip()
+            if not txt or r.get("error"):
+                continue
+            conn.execute(
+                "INSERT INTO docs_fts(path, category, title, body) VALUES (?, ?, ?, ?)",
+                (f"{jl.parent.relative_to(ROOT).as_posix()}#p{r['page']}", "ocr_indra", f"Indra OCR {label} หน้า {r['page']}", txt + " " + TONE.sub("", txt)),
+            )
+            indexed_count += 1
     # RapidOCR เลิกใช้ (ผู้ใช้ 19 ต.ค. 69) — ไม่ทำดัชนีผลเดิมใน data/32_goal7_chaophraya2/ocr/
 
     # 5. ชั้นข้อความของเล่ม EIA 2569 รายหน้า (ค้นหาค่าที่รายงานระบุตรงได้ทันที — เช่น "ก้นคลองกว้าง 51 เมตร")

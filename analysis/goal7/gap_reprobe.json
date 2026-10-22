@@ -1,0 +1,357 @@
+{
+ "note": "จำนวนหน้าที่พบคำค้น แยกตามแหล่ง — เบาะแสเท่านั้น ต้องเปิดภาพหน้าตรวจก่อนอ้าง",
+ "topics": {
+  "gate_rules": {
+   "การเปิดประตู": {
+    "typhoon": 5,
+    "indra": 6,
+    "text_layer": 7,
+    "pages_indra_not_typhoon": 3,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p118",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p657",
+     "data/32_goal7_chaophraya2/indra_ocr/ph2_public_board2#p2"
+    ]
+   },
+   "ปิดประตู": {
+    "typhoon": 13,
+    "indra": 11,
+    "text_layer": 13,
+    "pages_indra_not_typhoon": 5,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p118",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p416",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p656",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p657",
+     "data/32_goal7_chaophraya2/indra_ocr/ph2_public_board2#p2"
+    ]
+   },
+   "คณะกรรมการบริหารจัดการโครงการ": {
+    "typhoon": 7,
+    "indra": 8,
+    "text_layer": 7,
+    "pages_indra_not_typhoon": 2,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p101",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p656"
+    ]
+   },
+   "แผนการบริหารจัดการน้ำ": {
+    "typhoon": 21,
+    "indra": 11,
+    "text_layer": 12,
+    "pages_indra_not_typhoon": 4,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p101",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p172",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p656",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p657"
+    ]
+   },
+   "เปิด-ปิดประตู": {
+    "typhoon": 2,
+    "indra": 2,
+    "text_layer": 2,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   }
+  },
+  "fault_boreholes": {
+   "เจาะสำรวจ": {
+    "typhoon": 8,
+    "indra": 8,
+    "text_layer": 4,
+    "pages_indra_not_typhoon": 3,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main1#p247",
+     "data/32_goal7_chaophraya2/indra_ocr/knowledge_exchange_93p#p70",
+     "data/32_goal7_chaophraya2/indra_ocr/ph2_subgroup1_board#p4"
+    ]
+   },
+   "รอยเลื่อน": {
+    "typhoon": 2,
+    "indra": 3,
+    "text_layer": 6,
+    "pages_indra_not_typhoon": 2,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main1#p242",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main1#p243"
+    ]
+   },
+   "หลุมเจาะ": {
+    "typhoon": 0,
+    "indra": 1,
+    "text_layer": 2,
+    "pages_indra_not_typhoon": 1,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main1#p247"
+    ]
+   },
+   "ผลการเจาะ": {
+    "typhoon": 0,
+    "indra": 0,
+    "text_layer": 1,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   }
+  },
+  "culvert_invert": {
+   "ระดับท้องคลอง": {
+    "typhoon": 0,
+    "indra": 3,
+    "text_layer": 1,
+    "pages_indra_not_typhoon": 3,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main1#p108",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p433",
+     "data/32_goal7_chaophraya2/indra_ocr/ph2_public_doc2#p7"
+    ]
+   },
+   "ท้องท่อ": {
+    "typhoon": 0,
+    "indra": 0,
+    "text_layer": 1,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   }
+  },
+  "telemetry_locations": {
+   "สถานีวัดระดับน้ำ": {
+    "typhoon": 4,
+    "indra": 1,
+    "text_layer": 2,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   },
+   "โทรมาตร": {
+    "typhoon": 5,
+    "indra": 3,
+    "text_layer": 9,
+    "pages_indra_not_typhoon": 2,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p94",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main1#p192"
+    ]
+   },
+   "ระบบเตือนภัย": {
+    "typhoon": 1,
+    "indra": 0,
+    "text_layer": 1,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   }
+  },
+  "lateral_flood_model": {
+   "น้ำท่วมซ้ำซาก": {
+    "typhoon": 9,
+    "indra": 9,
+    "text_layer": 0,
+    "pages_indra_not_typhoon": 3,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p603",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p607",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p608"
+    ]
+   },
+   "น้ำท่วมขัง": {
+    "typhoon": 21,
+    "indra": 15,
+    "text_layer": 18,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   },
+   "MIKE": {
+    "typhoon": 3,
+    "indra": 1,
+    "text_layer": 6,
+    "pages_indra_not_typhoon": 1,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/onwr_bangpakong_final#p13"
+    ]
+   }
+  },
+  "khlong29": {
+   "ยี่สิบเก้า": {
+    "typhoon": 1,
+    "indra": 1,
+    "text_layer": 2,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   },
+   "คลองยี่สิบเก้า": {
+    "typhoon": 1,
+    "indra": 1,
+    "text_layer": 2,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   }
+  },
+  "mussel_notification": {
+   "ก่อนการระบายน้ำ": {
+    "typhoon": 7,
+    "indra": 8,
+    "text_layer": 3,
+    "pages_indra_not_typhoon": 3,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p172",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p42",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p657"
+    ]
+   },
+   "หอยแมลงภู่": {
+    "typhoon": 8,
+    "indra": 11,
+    "text_layer": 20,
+    "pages_indra_not_typhoon": 3,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p159",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p172",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p656"
+    ]
+   },
+   "แจ้งเตือนล่วงหน้า": {
+    "typhoon": 4,
+    "indra": 2,
+    "text_layer": 4,
+    "pages_indra_not_typhoon": 1,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p657"
+    ]
+   },
+   "ผู้เลี้ยง": {
+    "typhoon": 3,
+    "indra": 3,
+    "text_layer": 5,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   }
+  },
+  "ground_level_table": {
+   "ระดับพื้นดินเดิม": {
+    "typhoon": 8,
+    "indra": 11,
+    "text_layer": 4,
+    "pages_indra_not_typhoon": 4,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p181",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p88",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main2#p312",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p432"
+    ]
+   },
+   "ระดับพื้นดิน": {
+    "typhoon": 9,
+    "indra": 12,
+    "text_layer": 6,
+    "pages_indra_not_typhoon": 4,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p181",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p88",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main2#p312",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p432"
+    ]
+   },
+   "ระดับดินเดิม": {
+    "typhoon": 10,
+    "indra": 13,
+    "text_layer": 9,
+    "pages_indra_not_typhoon": 7,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p116",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p88",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main1#p88",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p417",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p420"
+    ]
+   }
+  },
+  "nn_benefit": {
+   "นครนายก": {
+    "typhoon": 511,
+    "indra": 627,
+    "text_layer": 544,
+    "pages_indra_not_typhoon": 260,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app1#p152",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app1#p177",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app1#p187",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app1#p542",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app1#p558"
+    ]
+   }
+  },
+  "diversion_duration": {
+   "1-2 เดือน": {
+    "typhoon": 12,
+    "indra": 10,
+    "text_layer": 15,
+    "pages_indra_not_typhoon": 5,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main1#p343",
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p657",
+     "data/32_goal7_chaophraya2/indra_ocr/onwr_bangpakong_final#p12",
+     "data/32_goal7_chaophraya2/indra_ocr/onwr_bangpakong_final#p15",
+     "data/32_goal7_chaophraya2/indra_ocr/ph2_subgroup1_doc#p6"
+    ]
+   }
+  },
+  "tourism": {
+   "ท่องเที่ยว": {
+    "typhoon": 86,
+    "indra": 80,
+    "text_layer": 69,
+    "pages_indra_not_typhoon": 24,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p117",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p144",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p147",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p150",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p153"
+    ]
+   },
+   "พักผ่อนหย่อนใจ": {
+    "typhoon": 5,
+    "indra": 6,
+    "text_layer": 12,
+    "pages_indra_not_typhoon": 3,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_app2#p102",
+     "data/32_goal7_chaophraya2/indra_ocr/eia2569_main2#p352",
+     "data/32_goal7_chaophraya2/indra_ocr/ph1_closing#p42"
+    ]
+   },
+   "กิจกรรมทางน้ำ": {
+    "typhoon": 0,
+    "indra": 1,
+    "text_layer": 2,
+    "pages_indra_not_typhoon": 1,
+    "sample": [
+     "data/32_goal7_chaophraya2/indra_ocr/eia_clarify2_att2#p550"
+    ]
+   }
+  },
+  "subsidence": {
+   "ทรุดตัว": {
+    "typhoon": 3,
+    "indra": 3,
+    "text_layer": 12,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   },
+   "การทรุด": {
+    "typhoon": 1,
+    "indra": 1,
+    "text_layer": 9,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   },
+   "ดินเหนียวอ่อน": {
+    "typhoon": 0,
+    "indra": 0,
+    "text_layer": 2,
+    "pages_indra_not_typhoon": 0,
+    "sample": []
+   }
+  }
+ }
+}

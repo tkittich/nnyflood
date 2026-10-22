@@ -139,6 +139,7 @@ graph TD
 - `goal7_indra_vs_typhoon.py`: เทียบตัวเลขที่ Typhoon กับ Indra OCR ถอดได้บนทุกหน้าที่ Typhoon เคยอ่าน เพื่อชี้หน้าที่ควรตรวจด้วยตา — ผลใน `analysis/goal7/indra_vs_typhoon.json`
 - `goal7_ocr_accuracy_vs_textlayer.py`: เทียบ Typhoon กับ Indra OCR บนหน้าที่มีชั้นข้อความ PDF (เฉลยแน่นอน) — ผลใน `analysis/goal7/ocr_accuracy_vs_textlayer.json`
 - `goal7_indra_ocr_all.py`: Indra OCR (CPU) อ่านทุกหน้าที่ Typhoon เคยอ่าน เก็บเป็นชุดผลถอดคู่ขนานใน `data/32_goal7_chaophraya2/indra_ocr/`
+- `goal7_gap_reprobe.py`: ค้นคำสำคัญของช่องว่างที่ยังเปิดซ้ำบนผลถอด Typhoon/Indra/ชั้นข้อความ PDF — ผลใน `analysis/goal7/gap_reprobe.json`
 - `goal7_batch_ocr_queue.py`: ตัวขับเคลื่อนคิวถอดความเอกสารภาพสแกน EIA และเอกสารรับฟังความคิดเห็นอัตโนมัติบน GPU RTX 4090
 
 ### กลุ่ม ฉ: ผู้สร้างตัวเลขทางการและการตรวจสอบระบบ (Canonical Builders & QA)

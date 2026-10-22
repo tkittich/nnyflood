@@ -148,8 +148,10 @@ def cmd_read(a) -> None:
             for c in json.loads((d / "crops.json").read_text(encoding="utf-8")):
                 if c["skip_reason"] or (d / "reads" / f"{c['id']}__{a.model}.json").exists():
                     continue
-                if not triage:       # ตัวอ่านหลัก/ตัวที่สอง: ต้องผ่านการคัดกรองก่อน
-                    tf = d / "reads" / f"{c['id']}__{READ_TRIAGE}.json"
+                if not triage:       # ตัวอ่านหลัก/ตัวที่สอง: ต้องผ่านการคัดกรองก่อน (Indra บน CPU เป็นหลัก · ไม่มีก็ใช้ MiniCPM)
+                    tf = d / "reads" / f"{c['id']}__indra.json"
+                    if not tf.exists():
+                        tf = d / "reads" / f"{c['id']}__{READ_TRIAGE}.json"
                     if not tf.exists() or digit_score(json.loads(tf.read_text(encoding="utf-8"))["text"]) < GATE:
                         continue
                     if a.model == READ_SECOND and not (c["big"] or "table" in c["type"]):
@@ -230,8 +232,7 @@ def cmd_indra(a) -> None:
             continue
         for c in json.loads((d / "crops.json").read_text(encoding="utf-8")):
             out = d / "reads" / f"{c['id']}__indra.json"
-            tf = d / "reads" / f"{c['id']}__{READ_TRIAGE}.json"
-            if c["skip_reason"] or out.exists() or not tf.exists() or digit_score(json.loads(tf.read_text(encoding="utf-8"))["text"]) < GATE:
+            if c["skip_reason"] or out.exists():
                 continue
             (d / "reads").mkdir(exist_ok=True)
             img = cv2.imread(str(d / "crops" / f"{c['id']}.png"))
@@ -243,6 +244,12 @@ def cmd_indra(a) -> None:
                 if best is None or sc > best[0]:
                     best = (sc, rot, page.text, len(page.lines))
             out.write_text(json.dumps({"vol": a.vol, "page": p, "crop": c["id"], "model": "datalab-to/indra-ocr", "rotation": best[1], "decimals": best[0], "lines": best[3], "text": best[2]}, ensure_ascii=False), encoding="utf-8")
+            if c["big"] and c.get("rotation") is None:        # ทิศหมุนของบล็อกใหญ่ให้ตัวอ่านภาพใช้ต่อ (แทนการลองด้วยโมเดลภาพ)
+                cs = json.loads((d / "crops.json").read_text(encoding="utf-8"))
+                for x in cs:
+                    if x["id"] == c["id"]:
+                        x["rotation"], x["rotation_source"] = best[1], "indra"
+                (d / "crops.json").write_text(json.dumps(cs, ensure_ascii=False, indent=1), encoding="utf-8")
             n += 1
     print("indra", a.vol, n, "ภาพย่อย")
 

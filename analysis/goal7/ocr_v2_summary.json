@@ -20,18 +20,18 @@
   "eia2569_main2": {
    "needs_visual_pages": 68,
    "layout_done": 68,
-   "crops": 0,
-   "crops_skipped_colorful": 0,
-   "read_main": 0,
-   "read_second": 0,
+   "crops": 336,
+   "crops_skipped_colorful": 109,
+   "read_main": 30,
+   "read_second": 19,
    "read_indra": 0,
-   "pairs": 0,
-   "mean_agreement": null,
+   "pairs": 18,
+   "mean_agreement": 0.453,
    "pairs_main_indra": 0,
    "mean_agreement_main_indra": null,
-   "crops_with_2plus_readers": 0,
-   "tier_high": 0,
-   "tier_low": 0
+   "crops_with_2plus_readers": 16,
+   "tier_high": 7,
+   "tier_low": 9
   },
   "eia2569_app1": {
    "needs_visual_pages": 59,

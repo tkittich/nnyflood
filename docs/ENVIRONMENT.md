@@ -265,6 +265,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_indra_vs_typhoon` | `analysis/goal7_indra_vs_typhoon.py` | `indra_env` | experimental | เทียบตัวเลขที่ Typhoon กับ Indra OCR (CPU) ถอดได้ ทุกหน้าที่ Typhoon เคยอ่าน — ชี้หน้าที่ขัดแย้งมากไปตรวจด้วยตา (ไม่มีเฉลยที่แน่นอน) | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_vs_typhoon.py [--labels a,b]` | `data/32_goal7_chaophraya2/indra_vs_typhoon/`<br>`analysis/goal7/indra_vs_typhoon.json` |
 | `goal7_ocr_accuracy_vs_textlayer` | `analysis/goal7_ocr_accuracy_vs_textlayer.py` | `indra_env` | experimental | เทียบ Typhoon กับ Indra OCR บนหน้าที่มีชั้นข้อความ PDF (เฉลยแน่นอน) — ความคล้ายตัวอักษร · การพบตัวเลข | `ดูหัวไฟล์ (รัน Typhoon บนหน้าชุดเดียวกันก่อน แล้วรันสคริปต์นี้ด้วย indra_env)` | `analysis/goal7/ocr_accuracy_vs_textlayer.json` |
 | `goal7_indra_ocr_all` | `analysis/goal7_indra_ocr_all.py` | `indra_env` | experimental | Indra OCR (CPU) อ่านทุกหน้าที่ Typhoon เคยอ่าน เก็บเป็นชุดผลถอดคู่ขนาน (ข้อความ · บล็อก · ความมั่นใจ) ใช้เป็นด่านแรก/ตัวเทียบ | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_ocr_all.py [--labels a,b]` | `data/32_goal7_chaophraya2/indra_ocr/` |
+| `goal7_gap_reprobe` | `analysis/goal7_gap_reprobe.py` | `main` | experimental | ค้นคำสำคัญของช่องว่างที่ยังเปิดซ้ำบนผลถอด Typhoon · Indra · ชั้นข้อความ PDF — ดูว่ามีหน้าที่ Indra พบแต่ Typhoon ไม่พบ | `python analysis/goal7_gap_reprobe.py` | `analysis/goal7/gap_reprobe.json` |
 
 ### ลงทะเบียนอัตโนมัติ รอทบทวน (0 รายการ · สถานะ `unreviewed`)
 
@@ -273,7 +274,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 5 สภาพแวดล้อม · 174 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 5 สภาพแวดล้อม · 175 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

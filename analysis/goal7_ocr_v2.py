@@ -31,6 +31,8 @@ READ_TRIAGE = "minicpmv47_1b"      # คัดกรองเร็ว + เล�
 READ_MAIN = "qwen3vl8b"
 READ_SECOND = "qwen25vl7b"
 PROBE_TOKENS = 350
+BATCH_PIX = 6_600_000                  # งบพิกเซลรวมต่อชุด (ภาพใหญ่ 3 ภาพ หรือภาพเล็กได้ถึง BATCH ภาพ) — ชุด 4 ภาพใหญ่ทำหน่วยความจำ 24 GB ล้นในการทดสอบ
+BATCH = int(os.environ.get("OCR_V2_BATCH", "1"))     # จำนวนภาพย่อยต่อการสร้างข้อความหนึ่งครั้ง (ตัวอ่านหลัก/ตัวที่สอง) — เพิ่มการใช้ GPU · 1 = ทีละภาพ
 TRIAGE_TOKENS = 400
 GATE = 6                    # ตัวอ่านหลัก/ตัวที่สองอ่านเฉพาะภาพย่อยที่การคัดกรองพบตัวเลขอย่างน้อยเท่านี้ (แผนที่/ภาพที่ไม่มีตัวเลขไม่เสียเวลา)
 
@@ -195,6 +197,70 @@ def cmd_read(a) -> None:
         except torch.OutOfMemoryError:
             torch.cuda.empty_cache()
             return "[OOM]"
+
+    def prep(d, c):
+        base = Image.open(d / "crops" / f"{c['id']}.png")
+        rot = c.get("rotation")
+        im = base.rotate(rot, expand=True) if rot else base
+        img = pilot.enhance(im)
+        if img.width * img.height > pilot.MAX_PIX:
+            k = (pilot.MAX_PIX / (img.width * img.height)) ** 0.5
+            img = img.resize((int(img.width * k), int(img.height * k)), Image.LANCZOS)
+        return img, rot or 0
+
+    class StopEmptyRowsBatch(StoppingCriteria):
+        """รุ่นหลายลำดับ: ลำดับไหนวนเขียนแถวว่างก็หยุดเฉพาะลำดับนั้น"""
+        def __init__(self, n0, b):
+            self.n0, self.tick, self.done = n0, 0, [False] * b
+
+        def __call__(self, input_ids, scores, **kw):
+            import torch as _t
+            self.tick += 1
+            if self.tick % 48 == 0:
+                tails = proc.batch_decode(input_ids[:, max(self.n0, input_ids.shape[1] - 160):], skip_special_tokens=True)
+                for i, tl in enumerate(tails):
+                    if empty_rows.search(tl):
+                        self.done[i] = True
+            return _t.tensor(self.done, dtype=_t.bool, device=input_ids.device)
+
+    def ask_batch(imgs):
+        msgs = [[{"role": "user", "content": [{"type": "image", "image": im}, {"type": "text", "text": pilot.PROMPT}]}] for im in imgs]
+        proc.tokenizer.padding_side = "left"
+        inp = proc.apply_chat_template(msgs, add_generation_prompt=True, tokenize=True, return_dict=True, return_tensors="pt", padding=True).to(model.device)
+        with torch.no_grad():
+            ids = model.generate(**inp, max_new_tokens=1800, do_sample=False, stopping_criteria=StoppingCriteriaList([StopEmptyRowsBatch(inp["input_ids"].shape[1], len(imgs))]))
+        outs = proc.batch_decode(ids[:, inp["input_ids"].shape[1]:], skip_special_tokens=True)
+        return [empty_rows.split(o)[0] if empty_rows.search(o) else o for o in outs]
+
+    if not triage and BATCH > 1:
+        prepared = [(p, d, c, *prep(d, c)) for p, d, c in jobs]
+        prepared.sort(key=lambda x: x[3].width * x[3].height)         # จัดกลุ่มขนาดใกล้กัน ลดช่องว่างจากการเติม
+        groups, cur, cur_px = [], [], 0
+        for g in prepared:
+            px = g[3].width * g[3].height
+            if cur and (len(cur) >= BATCH or cur_px + px > BATCH_PIX):
+                groups.append(cur)
+                cur, cur_px = [], 0
+            cur.append(g)
+            cur_px += px
+        if cur:
+            groups.append(cur)
+        done_n = 0
+        for grp in groups:
+            done_n += len(grp)
+            i = done_n - len(grp)
+            t0 = time.time()
+            try:
+                outs = ask_batch([g[3] for g in grp])
+            except torch.OutOfMemoryError:
+                torch.cuda.empty_cache()
+                outs = [ask(g[3], 1800) for g in grp]                 # หน่วยความจำไม่พอ: ถอยกลับไปทีละภาพ
+            for g, txt in zip(grp, outs):
+                p, d, c, _, rot = g
+                (d / "reads").mkdir(exist_ok=True)
+                (d / "reads" / f"{c['id']}__{a.model}.json").write_text(json.dumps({"vol": a.vol, "page": p, "crop": c["id"], "model": repo, "rotation": rot, "probe": None, "sec": round((time.time() - t0) / len(grp), 1), "batch": len(grp), "text": txt}, ensure_ascii=False), encoding="utf-8")
+            print("read-batch", a.model, a.vol, done_n, "/", len(prepared), "ชุดละ", len(grp), round(time.time() - t0, 1), "s", flush=True)
+        return
 
     for p, d, c in jobs:
         t0 = time.time()

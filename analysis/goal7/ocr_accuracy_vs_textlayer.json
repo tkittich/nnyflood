@@ -1,0 +1,254 @@
+{
+ "note": "เทียบชั้นข้อความ PDF (เฉลยแน่นอน) · 30 หน้า EIA เล่ม 1 · Typhoon โหมด text 150 dpi · Indra 200 dpi",
+ "pages_compared": 30,
+ "rows": [
+  {
+   "page": 93,
+   "typhoon_sim": 0.885,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.647,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 98,
+   "typhoon_sim": 0.953,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.983,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 104,
+   "typhoon_sim": 0.978,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.987,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 106,
+   "typhoon_sim": 0.958,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.98,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 121,
+   "typhoon_sim": 0.892,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.894,
+   "indra_numrecall": 0.957,
+   "has_table_tags": false
+  },
+  {
+   "page": 123,
+   "typhoon_sim": 0.0,
+   "typhoon_numrecall": 0.0,
+   "indra_sim": 0.988,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 143,
+   "typhoon_sim": 0.917,
+   "typhoon_numrecall": 0.905,
+   "indra_sim": 0.981,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 147,
+   "typhoon_sim": 0.958,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.984,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 150,
+   "typhoon_sim": 0.964,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.984,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 180,
+   "typhoon_sim": 0.787,
+   "typhoon_numrecall": 0.946,
+   "indra_sim": 0.954,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 211,
+   "typhoon_sim": 0.914,
+   "typhoon_numrecall": 0.778,
+   "indra_sim": 0.95,
+   "indra_numrecall": 0.778,
+   "has_table_tags": false
+  },
+  {
+   "page": 258,
+   "typhoon_sim": 0.936,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.968,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 264,
+   "typhoon_sim": 0.956,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.984,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 276,
+   "typhoon_sim": 0.969,
+   "typhoon_numrecall": 0.897,
+   "indra_sim": 0.982,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 331,
+   "typhoon_sim": 0.98,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.98,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 362,
+   "typhoon_sim": 0.714,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.897,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 377,
+   "typhoon_sim": 0.743,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.876,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 389,
+   "typhoon_sim": 0.927,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.971,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 392,
+   "typhoon_sim": 0.511,
+   "typhoon_numrecall": 0.909,
+   "indra_sim": 0.869,
+   "indra_numrecall": 0.727,
+   "has_table_tags": true
+  },
+  {
+   "page": 397,
+   "typhoon_sim": 0.909,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.968,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 451,
+   "typhoon_sim": 0.895,
+   "typhoon_numrecall": 0.974,
+   "indra_sim": 0.921,
+   "indra_numrecall": 0.974,
+   "has_table_tags": false
+  },
+  {
+   "page": 467,
+   "typhoon_sim": 0.878,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.896,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 481,
+   "typhoon_sim": 0.247,
+   "typhoon_numrecall": 0.952,
+   "indra_sim": 0.929,
+   "indra_numrecall": 0.99,
+   "has_table_tags": false
+  },
+  {
+   "page": 489,
+   "typhoon_sim": 0.869,
+   "typhoon_numrecall": 0.99,
+   "indra_sim": 0.885,
+   "indra_numrecall": 0.99,
+   "has_table_tags": false
+  },
+  {
+   "page": 500,
+   "typhoon_sim": 0.923,
+   "typhoon_numrecall": 0.973,
+   "indra_sim": 0.903,
+   "indra_numrecall": 0.973,
+   "has_table_tags": true
+  },
+  {
+   "page": 542,
+   "typhoon_sim": 0.892,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.941,
+   "indra_numrecall": 0.941,
+   "has_table_tags": false
+  },
+  {
+   "page": 680,
+   "typhoon_sim": 0.989,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.988,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 683,
+   "typhoon_sim": 0.959,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.986,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 727,
+   "typhoon_sim": 0.977,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.982,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  },
+  {
+   "page": 750,
+   "typhoon_sim": 0.954,
+   "typhoon_numrecall": 1.0,
+   "indra_sim": 0.978,
+   "indra_numrecall": 1.0,
+   "has_table_tags": false
+  }
+ ],
+ "mean": {
+  "typhoon_sim": 0.848,
+  "typhoon_numrecall": 0.944,
+  "indra_sim": 0.941,
+  "indra_numrecall": 0.978
+ },
+ "pages_indra_better": 19,
+ "pages_typhoon_better": 1
+}

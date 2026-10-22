@@ -1,1 +1,382 @@
-{"note": "รันอยู่ — ผลจริงเขียนเมื่อสคริปต์จบ", "labels": {}}
+{
+ "note": "ความตรงกันของตัวเลข Typhoon vs Indra OCR (ไม่มีเฉลย — ใช้ชี้หน้าที่ควรตรวจด้วยตา)",
+ "labels": {
+  "eia2569_app1": {
+   "pages": 304,
+   "pages_compared": 294,
+   "mean_jaccard": 0.643,
+   "pages_low_agreement": 63,
+   "low_pages_sample": [
+    6,
+    7,
+    13,
+    23,
+    25,
+    35,
+    39,
+    42,
+    51,
+    89,
+    90,
+    94,
+    130,
+    134,
+    136
+   ],
+   "errors": 0
+  },
+  "eia2569_app2": {
+   "pages": 193,
+   "pages_compared": 174,
+   "mean_jaccard": 0.543,
+   "pages_low_agreement": 69,
+   "low_pages_sample": [
+    9,
+    10,
+    11,
+    15,
+    21,
+    25,
+    29,
+    30,
+    31,
+    33,
+    35,
+    37,
+    40,
+    42,
+    45
+   ],
+   "errors": 0
+  },
+  "eia2569_main1": {
+   "pages": 204,
+   "pages_compared": 195,
+   "mean_jaccard": 0.328,
+   "pages_low_agreement": 124,
+   "low_pages_sample": [
+    88,
+    91,
+    99,
+    107,
+    108,
+    113,
+    116,
+    117,
+    120,
+    126,
+    128,
+    129,
+    132,
+    133,
+    134
+   ],
+   "errors": 0
+  },
+  "eia2569_main2": {
+   "pages": 68,
+   "pages_compared": 59,
+   "mean_jaccard": 0.17,
+   "pages_low_agreement": 49,
+   "low_pages_sample": [
+    21,
+    22,
+    34,
+    35,
+    41,
+    42,
+    43,
+    48,
+    49,
+    54,
+    55,
+    56,
+    61,
+    62,
+    63
+   ],
+   "errors": 0
+  },
+  "eia_clarify2_att1": {
+   "pages": 542,
+   "pages_compared": 471,
+   "mean_jaccard": 0.489,
+   "pages_low_agreement": 254,
+   "low_pages_sample": [
+    9,
+    13,
+    14,
+    15,
+    18,
+    19,
+    20,
+    21,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   "errors": 0
+  },
+  "eia_clarify2_att2": {
+   "pages": 689,
+   "pages_compared": 596,
+   "mean_jaccard": 0.43,
+   "pages_low_agreement": 317,
+   "low_pages_sample": [
+    2,
+    23,
+    37,
+    38,
+    40,
+    56,
+    60,
+    61,
+    63,
+    66,
+    74,
+    76,
+    77,
+    78,
+    79
+   ],
+   "errors": 0
+  },
+  "eia_rejection_letter": {
+   "pages": 11,
+   "pages_compared": 11,
+   "mean_jaccard": 0.93,
+   "pages_low_agreement": 0,
+   "low_pages_sample": [],
+   "errors": 0
+  },
+  "knowledge_exchange_93p": {
+   "pages": 93,
+   "pages_compared": 55,
+   "mean_jaccard": 0.453,
+   "pages_low_agreement": 32,
+   "low_pages_sample": [
+    4,
+    6,
+    7,
+    15,
+    16,
+    18,
+    20,
+    21,
+    23,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   "errors": 0
+  },
+  "lowereast_group2_1520": {
+   "pages": 13,
+   "pages_compared": 12,
+   "mean_jaccard": 0.807,
+   "pages_low_agreement": 1,
+   "low_pages_sample": [
+    4
+   ],
+   "errors": 0
+  },
+  "onwr_bangpakong_final": {
+   "pages": 33,
+   "pages_compared": 29,
+   "mean_jaccard": 0.377,
+   "pages_low_agreement": 18,
+   "low_pages_sample": [
+    3,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    23,
+    24
+   ],
+   "errors": 0
+  },
+  "ph1_closing": {
+   "pages": 57,
+   "pages_compared": 57,
+   "mean_jaccard": 0.437,
+   "pages_low_agreement": 30,
+   "low_pages_sample": [
+    4,
+    9,
+    10,
+    11,
+    12,
+    14,
+    16,
+    18,
+    23,
+    24,
+    25,
+    26,
+    27,
+    29,
+    30
+   ],
+   "errors": 0
+  },
+  "ph1_group1_draft": {
+   "pages": 12,
+   "pages_compared": 10,
+   "mean_jaccard": 0.698,
+   "pages_low_agreement": 2,
+   "low_pages_sample": [
+    4,
+    7
+   ],
+   "errors": 0
+  },
+  "ph1_group1_floodway": {
+   "pages": 2,
+   "pages_compared": 2,
+   "mean_jaccard": 0.772,
+   "pages_low_agreement": 0,
+   "low_pages_sample": [],
+   "errors": 0
+  },
+  "ph1_group2_doc": {
+   "pages": 12,
+   "pages_compared": 11,
+   "mean_jaccard": 0.717,
+   "pages_low_agreement": 3,
+   "low_pages_sample": [
+    4,
+    6,
+    9
+   ],
+   "errors": 0
+  },
+  "ph1_news1": {
+   "pages": 2,
+   "pages_compared": 2,
+   "mean_jaccard": 0.294,
+   "pages_low_agreement": 1,
+   "low_pages_sample": [
+    1
+   ],
+   "errors": 0
+  },
+  "ph1_news2": {
+   "pages": 2,
+   "pages_compared": 2,
+   "mean_jaccard": 0.556,
+   "pages_low_agreement": 0,
+   "low_pages_sample": [],
+   "errors": 0
+  },
+  "ph1_public_brochure1": {
+   "pages": 4,
+   "pages_compared": 4,
+   "mean_jaccard": 0.917,
+   "pages_low_agreement": 0,
+   "low_pages_sample": [],
+   "errors": 0
+  },
+  "ph2_orientation_board": {
+   "pages": 7,
+   "pages_compared": 7,
+   "mean_jaccard": 0.561,
+   "pages_low_agreement": 3,
+   "low_pages_sample": [
+    4,
+    5,
+    7
+   ],
+   "errors": 0
+  },
+  "ph2_orientation_doc": {
+   "pages": 11,
+   "pages_compared": 10,
+   "mean_jaccard": 0.624,
+   "pages_low_agreement": 4,
+   "low_pages_sample": [
+    6,
+    8,
+    9,
+    11
+   ],
+   "errors": 0
+  },
+  "ph2_orientation_summary": {
+   "pages": 11,
+   "pages_compared": 11,
+   "mean_jaccard": 0.95,
+   "pages_low_agreement": 0,
+   "low_pages_sample": [],
+   "errors": 0
+  },
+  "ph2_public_board2": {
+   "pages": 7,
+   "pages_compared": 5,
+   "mean_jaccard": 0.0,
+   "pages_low_agreement": 5,
+   "low_pages_sample": [
+    1,
+    2,
+    3,
+    5,
+    7
+   ],
+   "errors": 0
+  },
+  "ph2_public_doc2": {
+   "pages": 21,
+   "pages_compared": 21,
+   "mean_jaccard": 0.562,
+   "pages_low_agreement": 9,
+   "low_pages_sample": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    7,
+    9,
+    16,
+    21
+   ],
+   "errors": 0
+  },
+  "ph2_subgroup1_board": {
+   "pages": 4,
+   "pages_compared": 1,
+   "mean_jaccard": 0.0,
+   "pages_low_agreement": 1,
+   "low_pages_sample": [
+    4
+   ],
+   "errors": 3
+  },
+  "ph2_subgroup1_doc": {
+   "pages": 6,
+   "pages_compared": 6,
+   "mean_jaccard": 0.584,
+   "pages_low_agreement": 2,
+   "low_pages_sample": [
+    4,
+    6
+   ],
+   "errors": 0
+  }
+ }
+}

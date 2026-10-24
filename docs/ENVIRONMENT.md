@@ -260,6 +260,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_bangpakong_chachoengsao` | `analysis/goal7_bangpakong_chachoengsao.py` | `main` | active | วิเคราะห์ทั้งลุ่มบางปะกง (ความสูง ลุ่มรับน้ำ ระดับน้ำสถานี น้ำท่วม 30 วัน ความถี่ 14 ปี) และเหตุที่ฉะเชิงเทรา ท่วมหนักและนาน | `python analysis/goal7_bangpakong_chachoengsao.py` | `analysis/goal7/bangpakong_chachoengsao.json` |
 | `goal7_layout_compare` | `analysis/goal7_layout_compare.py` | `typhoon_env` | active | เทียบตัวแยกส่วนหน้าเอกสาร Unlimited-OCR กับ PP-DocLayoutV3 บนเฉลยกรอบรูป/ภาพวาด 4 หน้า (ความครอบคลุม · ส่วนเกิน) | `python analysis/goal7_layout_compare.py detect | compare` | `analysis/goal7/layout_compare.json` |
 | `goal7_ocr_v2` | `analysis/goal7_ocr_v2.py` | `typhoon_env` | experimental | OCR รุ่นที่ 2 สำหรับหน้า needs_visual: แยกส่วนหน้า (Unlimited-OCR) → ภาพย่อยรูป/ตาราง/แบบแปลน → โมเดลภาพอ่านภาพขยายคมชัด (ผลเป็นร่าง · ขั้น layout ใช้ unlimited_ocr_env) | `python analysis/goal7_ocr_v2.py pages | layout <เล่ม> | crops <เล่ม> | read <โมเดล> <เล่ม> | report` | `data/32_goal7_chaophraya2/ocr_v2/`<br>`analysis/goal7/ocr_v2_summary.json` |
+| `goal7_ocr_v2_tiers` | `analysis/goal7_ocr_v2_tiers.py` | `main` | experimental | สรุปภาพย่อยที่ตัวอ่านหลายตัวอ่านตัวเลขตรงกัน (ระดับสูง) จาก OCR รุ่นที่ 2 พร้อมคำบรรยายรูปใกล้สุด | `python analysis/goal7_ocr_v2_tiers.py` | `analysis/goal7/ocr_v2_high_tier.json` |
 | `goal7_indra_probe` | `analysis/goal7_indra_probe.py` | `indra_env` | experimental | ทดลอง Indra OCR กับหน้าตัวอย่างนำร่อง (ทิศหมุน · ป้ายตัวเลขในภาพวาด · บล็อกข้อความ) | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_probe.py` | `analysis/goal7/indra_probe.json` |
 | `goal7_indra_text_eval` | `analysis/goal7_indra_text_eval.py` | `indra_env` | experimental | วัดความแม่นยำข้อความไทยของ Indra OCR เทียบชั้นข้อความ PDF บนหน้าข้อความ 30 หน้า | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_text_eval.py` | `analysis/goal7/indra_text_eval.json` |
 | `goal7_indra_vs_typhoon` | `analysis/goal7_indra_vs_typhoon.py` | `indra_env` | experimental | เทียบตัวเลขที่ Typhoon กับ Indra OCR (CPU) ถอดได้ ทุกหน้าที่ Typhoon เคยอ่าน — ชี้หน้าที่ขัดแย้งมากไปตรวจด้วยตา (ไม่มีเฉลยที่แน่นอน) | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_vs_typhoon.py [--labels a,b]` | `data/32_goal7_chaophraya2/indra_vs_typhoon/`<br>`analysis/goal7/indra_vs_typhoon.json` |
@@ -274,7 +275,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 5 สภาพแวดล้อม · 175 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 5 สภาพแวดล้อม · 176 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

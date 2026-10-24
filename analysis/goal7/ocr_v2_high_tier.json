@@ -1,0 +1,257 @@
+{
+ "note": "ภาพย่อยที่ตัวอ่านอย่างน้อย 2 ตัวอ่านตัวเลขตรงกัน — ฉันทามติไม่ใช่ความถูกต้อง ต้องเทียบภาพหน้า",
+ "high_tier": 18,
+ "low_tier_with_5plus_numbers": 171,
+ "items": [
+  {
+   "vol": "eia2569_main1",
+   "page": 199,
+   "crop": "c7_image",
+   "type": "image",
+   "readers": [
+    "indra",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 8,
+   "contested_numbers": 0,
+   "caption": "รูปที่ 2.5.3-3 แนวทางการระบายน้ำหลากในกรณีต่าง ๆ"
+  },
+  {
+   "vol": "eia2569_main1",
+   "page": 200,
+   "crop": "c6_image",
+   "type": "image",
+   "readers": [
+    "indra",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 10,
+   "contested_numbers": 0,
+   "caption": "รูปที่ 2.5.3-3 แนวทางการระบายน้ำหลากในกรณีต่าง ๆ (ต่อ)"
+  },
+  {
+   "vol": "eia2569_main1",
+   "page": 336,
+   "crop": "c7_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 43,
+   "contested_numbers": 0,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main1",
+   "page": 337,
+   "crop": "c6_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 40,
+   "contested_numbers": 8,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main1",
+   "page": 339,
+   "crop": "c7_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 30,
+   "contested_numbers": 3,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main1",
+   "page": 341,
+   "crop": "c6_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 42,
+   "contested_numbers": 0,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 36,
+   "crop": "c6_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 54,
+   "contested_numbers": 1,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 36,
+   "crop": "c8_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 54,
+   "contested_numbers": 1,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 42,
+   "crop": "c6_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 126,
+   "contested_numbers": 2,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 43,
+   "crop": "c6_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 55,
+   "contested_numbers": 0,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 49,
+   "crop": "c16_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 115,
+   "contested_numbers": 0,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 50,
+   "crop": "c6_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 43,
+   "contested_numbers": 8,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 50,
+   "crop": "c8_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 43,
+   "contested_numbers": 0,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 56,
+   "crop": "c6_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 52,
+   "contested_numbers": 1,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 63,
+   "crop": "c6_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 57,
+   "contested_numbers": 0,
+   "caption": null
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 138,
+   "crop": "c6_table",
+   "type": "table",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 5,
+   "contested_numbers": 0,
+   "caption": "ชี้แจงรายละเอียดเล่นแนวคลองระบายน้ำหลาก"
+  },
+  {
+   "vol": "eia2569_main2",
+   "page": 194,
+   "crop": "c6_image",
+   "type": "image",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 16,
+   "contested_numbers": 2,
+   "caption": "รูปที่ 9.4-1 การดำเนินงานด้านการประจําสัมพันธ์และการมีส่วนร่วมของประชาชน"
+  },
+  {
+   "vol": "eia2569_app1",
+   "page": 7,
+   "crop": "c5_image",
+   "type": "image",
+   "readers": [
+    "indra",
+    "qwen25vl7b",
+    "qwen3vl8b"
+   ],
+   "consensus_numbers": 25,
+   "contested_numbers": 2,
+   "caption": "รูปที่ 1.3-2 แนผนังการบริหารจัดการน้ำระบบจบสําหนังที่เจ้าระวยาผังตะวันออกตอนล่าง\nทั้งการนับจบจบและจําเย็น"
+  }
+ ]
+}

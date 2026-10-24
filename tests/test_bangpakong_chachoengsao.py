@@ -44,3 +44,11 @@ def test_gistda_recent_windows_present_and_7day_is_substantial():
     assert rc["ฉะเชิงเทรา"]["7days_2026-10-20"]["area_km2"] > 100          # ชั้น 7 วันที่ดึง 20 ต.ค. (ฉากเรดาร์ 14–16 ต.ค. ยังอยู่ในหน้าต่าง)
     assert any(int(x.split("_")[1]) >= 20261014 for x in rc["ฉะเชิงเทรา"]["7days_2026-10-20"]["scenes"])
     assert R["gistda_snapshot_tags"][:2] == ["2026-10-16", "2026-10-20"]       # สแนปช็อตเก่าเก็บถาวร ไม่ถูกเขียนทับ
+
+
+def test_gistda_daily_series_shape():
+    d = R["gistda_daily"]["days"]
+    assert d and d[0]["date"] >= "2026-09-20"
+    ch = [x for x in d if x["chachoengsao_km2"] > 0]
+    assert ch and all(x["date"] <= "2026-10-17" for x in d)            # คลังรายวันมีถึง 17 ต.ค. (ตรวจ 25 ต.ค. 69)
+    assert max(x["chachoengsao_km2"] for x in ch) > 300

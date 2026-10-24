@@ -557,6 +557,123 @@
   "2026-10-20",
   "2026-10-25"
  ],
+ "gistda_daily": {
+  "days": [
+   {
+    "date": "2026-10-02",
+    "features": 83626,
+    "scenes": [
+     "S1D_20261002_0609",
+     "S2B_20261002_1035"
+    ],
+    "chachoengsao_km2": 439.0,
+    "prachinburi_km2": 373.7,
+    "nakhonnayok_km2": 305.1
+   },
+   {
+    "date": "2026-10-03",
+    "features": 133048,
+    "scenes": [
+     "S1C_20261003_0558",
+     "rd2_20261003_0608"
+    ],
+    "chachoengsao_km2": 404.5,
+    "prachinburi_km2": 512.0,
+    "nakhonnayok_km2": 318.7
+   },
+   {
+    "date": "2026-10-04",
+    "features": 134300,
+    "scenes": [
+     "S1D_20261004_1819",
+     "TH2_20261004_1022",
+     "rd2_20261004_1823"
+    ],
+    "chachoengsao_km2": 500.9,
+    "prachinburi_km2": 563.2,
+    "nakhonnayok_km2": 394.4
+   },
+   {
+    "date": "2026-10-05",
+    "features": 2178,
+    "scenes": [
+     "S1C_20261005_1811"
+    ],
+    "chachoengsao_km2": 0.0,
+    "prachinburi_km2": 0.0,
+    "nakhonnayok_km2": 0.0
+   },
+   {
+    "date": "2026-10-07",
+    "features": 66746,
+    "scenes": [
+     "S2C_20261007_1033",
+     "cm2_20261007_0603"
+    ],
+    "chachoengsao_km2": 626.7,
+    "prachinburi_km2": 618.9,
+    "nakhonnayok_km2": 217.8
+   },
+   {
+    "date": "2026-10-09",
+    "features": 60840,
+    "scenes": [
+     "S1D_20261009_0559",
+     "S1D_20261009_1828"
+    ],
+    "chachoengsao_km2": 407.7,
+    "prachinburi_km2": 371.2,
+    "nakhonnayok_km2": 143.1
+   },
+   {
+    "date": "2026-10-10",
+    "features": 71959,
+    "scenes": [
+     "S1C_20261010_0550",
+     "S1C_20261010_1819",
+     "rd2_20261010_0604"
+    ],
+    "chachoengsao_km2": 340.7,
+    "prachinburi_km2": 309.6,
+    "nakhonnayok_km2": 188.0
+   },
+   {
+    "date": "2026-10-11",
+    "features": 30810,
+    "scenes": [
+     "S1D_20261011_1812",
+     "cm4_20261011_1759",
+     "rd2_20261011_1819"
+    ],
+    "chachoengsao_km2": 0.0,
+    "prachinburi_km2": 0.0,
+    "nakhonnayok_km2": 0.0
+   },
+   {
+    "date": "2026-10-16",
+    "features": 9425,
+    "scenes": [
+     "S1D_20261016_0551",
+     "S1D_20261016_1819",
+     "cm4_20261016_1854"
+    ],
+    "chachoengsao_km2": 0.0,
+    "prachinburi_km2": 72.2,
+    "nakhonnayok_km2": 0.0
+   },
+   {
+    "date": "2026-10-17",
+    "features": 13523,
+    "scenes": [
+     "cm2_20261017_1710"
+    ],
+    "chachoengsao_km2": 203.9,
+    "prachinburi_km2": 280.1,
+    "nakhonnayok_km2": 47.6
+   }
+  ],
+  "note": "พื้นที่รวมของฉากที่ GISTDA เผยแพร่ในวันนั้น (ขนาดแนวครอบคลุมต่างกันตามดาวเทียม) · 0 = ไม่มีฉากคลุมจังหวัด ไม่ได้แปลว่าไม่ท่วม · คลังไม่มีคอลเลกชันช่วง 16 ก.ย.–1 ต.ค. และวันที่ 6 8 12–15 ต.ค."
+ },
  "gistda_recent": {
   "ฉะเชิงเทรา": {
    "1day": {

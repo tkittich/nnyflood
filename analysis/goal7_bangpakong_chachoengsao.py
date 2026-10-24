@@ -217,6 +217,23 @@ def gistda_recent():
     return out
 
 
+def gistda_daily():
+    """ผลิตภัณฑ์น้ำท่วมรายวันของ GISTDA (STAC) ต่อวัน: พื้นที่ f_area ต่อจังหวัด (รวมทุกฉากของวันนั้น) — ดู goal7_gistda_stac_daily.py"""
+    f = ROOT / "analysis/goal7/gistda_stac_daily.json"
+    if not f.exists():
+        return {}
+    d = json.loads(f.read_text(encoding="utf-8"))["days"]
+    out = []
+    for day in sorted(d):
+        if day < "20260920":
+            continue
+        row = {"date": f"{day[:4]}-{day[4:6]}-{day[6:]}", "features": d[day]["features"], "scenes": sorted({s for k in d[day]["scenes"] for s in k.split("+")})}
+        for pv, key in (("จ.ฉะเชิงเทรา", "chachoengsao"), ("จ.ปราจีนบุรี", "prachinburi"), ("จ.นครนายก", "nakhonnayok")):
+            row[key + "_km2"] = round(sum(s.get(pv, {}).get("km2", 0.0) for s in d[day]["scenes"].values()), 1)
+        out.append(row)
+    return {"days": out, "note": "พื้นที่รวมของฉากที่ GISTDA เผยแพร่ในวันนั้น (ขนาดแนวครอบคลุมต่างกันตามดาวเทียม) · 0 = ไม่มีฉากคลุมจังหวัด ไม่ได้แปลว่าไม่ท่วม · คลังไม่มีคอลเลกชันช่วง 16 ก.ย.–1 ต.ค. และวันที่ 6 8 12–15 ต.ค."}
+
+
 def flood_freq():
     out = {}
     for pv in ("ฉะเชิงเทรา", "นครนายก", "ปราจีนบุรี"):
@@ -361,7 +378,7 @@ def main() -> None:
     basin = basin_frame(outlines)
     res = {"generated": dt.date.today().isoformat(), "terrain": {"cell_m": 90, "dem": "FABDEM ปรับด้วยตารางส่วนต่าง DEM 5 ม.", "provinces": terr, "all_three_by_elevation": zone_all,
                                                               "variance_explained_flooded_cells": ve, "sampled_cells": int(sub.size)},
-           "basin": basin, "gistda_30d": gistda_30d(), "gistda_snapshot_tags": [x[0] for x in snapshot_files("ฉะเชิงเทรา")], "gistda_recent": (gr := gistda_recent()), "flood_freq": flood_freq(), "gauges": (gs := gauges())}
+           "basin": basin, "gistda_30d": gistda_30d(), "gistda_snapshot_tags": [x[0] for x in snapshot_files("ฉะเชิงเทรา")], "gistda_daily": gistda_daily(), "gistda_recent": (gr := gistda_recent()), "flood_freq": flood_freq(), "gauges": (gs := gauges())}
     res["story"] = bpk_story(gs)
     for pv, v in gr.items():
         if "7days" in v:

@@ -516,6 +516,7 @@ S.append(figure(fig_flood_frequency(), "ร้อยละของแถบส�
 S.append(blk.tbl_flood_frequency_corridor())
 S.append(prose(blk.prose_bpk()))
 S.append(blk.tbl_bpk_gauges())
+S.append(blk.tbl_gistda_daily())
 S.append(blk.tbl_bpk_elevation())
 
 EB = C["embankment"]

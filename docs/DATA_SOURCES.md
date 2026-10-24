@@ -60,6 +60,10 @@
 | **Landsat 8/9 C2 L2SP** (EarthExplorer) | ✅ 2 ฉาก (24 ก.ย. T2 · 2 ต.ค. T1) — path 128 **ไม่ครอบจังหวัด** (path 129 คือที่ครอบ — ดู manifest data/21) | บันทึกไว้เป็นบทเรียน |
 | **Copernicus DEM GLO-30** (AWS) | ✅ 4 ไทล์ | 30 ม. · ความสูงแนวตั้งแม่น ~2–4 ม. |
 | **GISTDA ผลิตภัณฑ์น้ำท่วม** (disaster.gistda.or.th) | ✅ shapefile ราย pass + rasterized | `data/12_gistda_flood/` |
+| **DEMPro 5 ม. (มิตรเอิร์ธ)** + ชุดจังหวัด/ประเทศ | ✅ 77 จังหวัด + ชุดประเทศ แฮชครบ (`data/10_mitrearth_gis/`) | DEM 5 ม. เป็นหน้าต่างราว 400 ตร.กม. · ที่มาวิธีสร้างไม่ระบุ (gap `dempro_source`) · ไม่เชิงพาณิชย์ |
+| **GISTDA น้ำท่วม 30/7/3/1 วัน + ความถี่ 14 ปี** (API, ใช้คีย์) | ✅ สแนปช็อตเก็บตามวัน (16·20·25 ต.ค. 69) ที่ `data/12_gistda_flood/raw/provinces/` | ชั้นผสมหลายฉาก แยกวันท่วมต่อแปลงไม่ได้ · ดู `docs/REMOTE_SENSING_APIS.md` |
+| **ระดับน้ำสถานีโทรมาตรลุ่มบางปะกง** (thaiwater) | ✅ 34 สถานี 30 วัน + ล่าสุด (`data/34_goal7_bangpakong/`) | ตลิ่ง = min_bank ของระบบ · ศูนย์สถานีต่างกันได้ |
+| **ฝนรายวันสถานีรอบองครักษ์** (thaiwater `rain3d_graph`) | ✅ 48 สถานี 20 ก.ย.–4 ต.ค. 69 (`data/35_goal7_event_rain/`) | รายวันเท่านั้น · เวลา 07:00–07:00 (สมมติ) |
 | **NASA GIBS MODIS** | ✅ 3 วัน (ใช้ภาพรวม — เมฆเยอะช่วงเหตุการณ์) | ไม่ใช้เชิงปริมาณ |
 | OpenStreetMap (Nominatim/Overpass) | ✅ ขอบเขต + ถนน + น้ำ | `data/13_.../derived/` |
 

@@ -8940,6 +8940,171 @@
    }
   }
  },
+ "ongkharak_hydraulic_2d": {
+  "q_only_max_iou": {
+   "fabdem_corrected": {
+    "iou_27sep": 0.005,
+    "iou_2oct": 0.155,
+    "runs": 6
+   },
+   "fabdem_raw": {
+    "iou_27sep": 0.004,
+    "iou_2oct": 0.125,
+    "runs": 6
+   },
+   "copernicus_raw": {
+    "iou_27sep": 0.007,
+    "iou_2oct": 0.043,
+    "runs": 6
+   }
+  },
+  "rain_best": {
+   "fabdem_corrected": {
+    "D_m": 1.0,
+    "n_fp": 0.06,
+    "f_mmh": 1.0,
+    "k_per_day": 0.05,
+    "iou_27sep": 0.403,
+    "iou_2oct_not_refit": 0.284,
+    "peak_27sep": {
+     "iou": 0.403,
+     "precision": 0.433,
+     "recall": 0.854,
+     "area_km2": 249.4
+    },
+    "oct2_validated": {
+     "iou": 0.284,
+     "precision": 0.32,
+     "recall": 0.719,
+     "area_km2": 216.7
+    },
+    "final_stored_mcm": 274.9,
+    "runs": 10
+   },
+   "fabdem_raw": {
+    "D_m": 1.0,
+    "n_fp": 0.06,
+    "f_mmh": 1.0,
+    "k_per_day": 0.05,
+    "iou_27sep": 0.4,
+    "iou_2oct_not_refit": 0.28,
+    "peak_27sep": {
+     "iou": 0.4,
+     "precision": 0.444,
+     "recall": 0.8,
+     "area_km2": 227.8
+    },
+    "oct2_validated": {
+     "iou": 0.28,
+     "precision": 0.329,
+     "recall": 0.651,
+     "area_km2": 191.1
+    },
+    "final_stored_mcm": 276.1,
+    "runs": 10
+   },
+   "copernicus_raw": {
+    "D_m": 1.0,
+    "n_fp": 0.06,
+    "f_mmh": 1.0,
+    "k_per_day": 0.05,
+    "iou_27sep": 0.43,
+    "iou_2oct_not_refit": 0.324,
+    "peak_27sep": {
+     "iou": 0.43,
+     "precision": 0.48,
+     "recall": 0.805,
+     "area_km2": 211.5
+    },
+    "oct2_validated": {
+     "iou": 0.324,
+     "precision": 0.357,
+     "recall": 0.779,
+     "area_km2": 210.6
+    },
+    "final_stored_mcm": 479.1,
+    "runs": 10
+   }
+  },
+  "rain_grid": {
+   "round1": {
+    "f_mmh": [
+     2.0,
+     6.0
+    ],
+    "k_per_day": [
+     0.2,
+     0.5,
+     1.0
+    ],
+    "D": [
+     1.0
+    ],
+    "n_fp": [
+     0.06
+    ]
+   },
+   "round2_extension": {
+    "f_mmh": [
+     1.0,
+     2.0
+    ],
+    "k_per_day": [
+     0.05,
+     0.1
+    ],
+    "D": [
+     1.0
+    ],
+    "n_fp": [
+     0.06
+    ]
+   }
+  },
+  "sar_area_in_window_km2": {
+   "peak_27sep": 129.3,
+   "oct2_validated": 98.7
+  },
+  "window_note": "พื้นที่เรดาร์เฉพาะในหน้าต่างแบบจำลอง (ไม่ใช่ทั้งอำเภอ)",
+  "event_rain": {
+   "domain_total_mm": 736.0,
+   "heaviest_days": [
+    [
+     "2026-09-26",
+     158.1
+    ],
+    [
+     "2026-09-27",
+     148.7
+    ],
+    [
+     "2026-09-25",
+     97.5
+    ],
+    [
+     "2026-09-28",
+     89.0
+    ]
+   ],
+   "stations": 55,
+   "stations_with_data": 48,
+   "station_total_mm": {
+    "min": 0.0,
+    "median": 573.0,
+    "max": 1142.0
+   }
+  },
+  "bucket_baseline": {
+   "fabdem_corrected": {
+    "peak_27sep": 0.31,
+    "oct2_validated": 0.25
+   },
+   "connected_fill_copernicus_s0": {
+    "peak_27sep": 0.367,
+    "oct2_validated": 0.321
+   }
+  }
+ },
  "bangpakong_chachoengsao": {
   "generated": "2026-10-20",
   "terrain": {

@@ -142,6 +142,7 @@ graph TD
 - `goal7_gap_reprobe.py`: ค้นคำสำคัญของช่องว่างที่ยังเปิดซ้ำบนผลถอด Typhoon/Indra/ชั้นข้อความ PDF — ผลใน `analysis/goal7/gap_reprobe.json`
 - `goal7_ocr_v2_tiers.py`: สรุปภาพย่อยที่ตัวอ่านหลายตัวอ่านตัวเลขตรงกันจาก OCR รุ่นที่ 2 — ผลใน `analysis/goal7/ocr_v2_high_tier.json`
 - `goal7_ongkharak_hydraulic_2d.py`: แบบจำลองชลศาสตร์ 2 มิติของที่ราบองครักษ์ (น้ำเข้าที่ Ny.7) — ผลใน `analysis/goal7/ongkharak_hydraulic_2d.json` · ผลรอบแรกไม่สามารถทำซ้ำพื้นที่น้ำท่วมที่ดาวเทียมเห็น
+- `goal7_event_rain.py`: ฝนรายวันสถานีรอบที่ราบองครักษ์ช่วงเหตุการณ์ 20 ก.ย.–4 ต.ค. 2569 → สนามฝนรายวันบนกริดแบบจำลอง (IDW) — ผลใน `analysis/goal7/event_rain_summary.json`
 - `goal7_batch_ocr_queue.py`: ตัวขับเคลื่อนคิวถอดความเอกสารภาพสแกน EIA และเอกสารรับฟังความคิดเห็นอัตโนมัติบน GPU RTX 4090
 
 ### กลุ่ม ฉ: ผู้สร้างตัวเลขทางการและการตรวจสอบระบบ (Canonical Builders & QA)

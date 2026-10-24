@@ -1575,6 +1575,16 @@ def main():
         c["dem_waterline_test"] = json.loads((OUT / "dem_waterline_test.json").read_text(encoding="utf-8"))
     if (OUT / "dem_gistda_waterline_test.json").exists():
         c["dem_gistda_waterline_test"] = json.loads((OUT / "dem_gistda_waterline_test.json").read_text(encoding="utf-8"))
+    if (OUT / "ongkharak_hydraulic_2d_rain_all.json").exists() and (OUT / "ongkharak_hydraulic_2d.json").exists():
+        qo = json.loads((OUT / "ongkharak_hydraulic_2d.json").read_text(encoding="utf-8"))
+        ra = json.loads((OUT / "ongkharak_hydraulic_2d_rain_all.json").read_text(encoding="utf-8"))
+        er = json.loads((OUT / "event_rain_summary.json").read_text(encoding="utf-8"))
+        c["ongkharak_hydraulic_2d"] = {
+            "q_only_max_iou": {d: {"iou_27sep": max(r["peak_27sep"]["iou"] for r in v["runs"]), "iou_2oct": max(r["oct2_validated"]["iou"] for r in v["runs"]), "runs": len(v["runs"])} for d, v in qo["dems"].items()},
+            "rain_best": {d: {**v["best_by_27sep"], **{k: next(r for r in v["runs"] if r["f_mmh"] == v["best_by_27sep"]["f_mmh"] and r["k_per_day"] == v["best_by_27sep"]["k_per_day"])[k] for k in ("peak_27sep", "oct2_validated", "final_stored_mcm")}, "runs": len(v["runs"])} for d, v in ra["dems"].items()},
+            "rain_grid": ra["setup"]["grid"], "sar_area_in_window_km2": ra["setup"]["sar_area_km2"], "window_note": "พื้นที่เรดาร์เฉพาะในหน้าต่างแบบจำลอง (ไม่ใช่ทั้งอำเภอ)",
+            "event_rain": {"domain_total_mm": er["domain_total_mm_20sep_to_4oct"], "heaviest_days": er["heaviest_days"], "stations": er["n_stations"], "stations_with_data": er["stations_with_data"], "station_total_mm": er["stations_total_mm"]},
+            "bucket_baseline": ra["bucket_baseline"]}
     if (OUT / "bangpakong_chachoengsao.json").exists():
         c["bangpakong_chachoengsao"] = json.loads((OUT / "bangpakong_chachoengsao.json").read_text(encoding="utf-8"))
     if (OUT / "mitrearth_national_summary.json").exists():

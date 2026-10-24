@@ -13,6 +13,7 @@ import csv
 import datetime as dt
 import json
 import math
+import os
 import sys
 import time
 from pathlib import Path
@@ -23,18 +24,23 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "analysis"))
 DER = ROOT / "data/13_sentinel1_copernicus/derived"
 NPZ = DER / "hydraulic2d_inputs.npz"
-OUT = ROOT / "analysis/goal7/ongkharak_hydraulic_2d.json"
+EXT = os.environ.get("H2D_EXT", "") == "1"                      # รอบขยายกริด: ค่าที่ดีที่สุดรอบแรกอยู่ขอบกริด (ซึมน้อยสุด ระบายช้าสุด)
+OUT = ROOT / ("analysis/goal7/ongkharak_hydraulic_2d_rain_ext.json" if (os.environ.get("H2D_MODE", "") == "rain" and EXT) else "analysis/goal7/ongkharak_hydraulic_2d_rain.json" if os.environ.get("H2D_MODE", "") == "rain" else "analysis/goal7/ongkharak_hydraulic_2d.json")
+RAIN_NPZ = ROOT / "data/35_goal7_event_rain/rain_fields.npz"
 Q_CSV = ROOT / "analysis/ny7_flow_series_2025_2026.csv"
 NY7 = (14.20048, 101.219307)
 LAT0, LAT1, LON0, LON1 = 13.98, 14.28, 100.97, 101.33      # หน้าต่างแบบจำลอง
 K = 3                                                      # 30 ม. → ~90 ม.
-T0 = dt.datetime(2026, 9, 24, 0, 0)
+MODE_RAIN = os.environ.get("H2D_MODE", "") == "rain"       # โหมดฝน: เริ่ม 20 ก.ย. 00:00 ใช้ฝนรายวัน + แก้ท้องร่อง
+T0 = dt.datetime(2026, 9, 20, 0, 0) if MODE_RAIN else dt.datetime(2026, 9, 24, 0, 0)
 T_END = dt.datetime(2026, 10, 3, 6, 30)
 REC = {"peak_27sep": dt.datetime(2026, 9, 27, 18, 28), "oct2_validated": dt.datetime(2026, 10, 2, 6, 9)}
 G = 9.81
 HMIN = 1e-3
 THRESH = 0.10
-GRID = {"D": [0.5, 1.0, 2.0], "n_fp": [0.04, 0.08]}      # รอบแรก D=3,5 ม. (ร่องลึก) ไม่มีน้ำล้นเลย (IoU≈0) จึงเปลี่ยนไปช่วงตื้นกว่า — บันทึกไว้ว่าเปลี่ยนหลังเห็นผล D=3 ม. n=0.04
+GRID_RAIN = {"f_mmh": [2.0, 6.0], "k_per_day": [0.2, 0.5, 1.0], "D": [1.0], "n_fp": [0.06]}      # กริดโหมดฝน: อัตราซึมลงดิน · อัตราระบายน้ำขังออก (ต่อวัน)
+GRID_RAIN_EXT = {"f_mmh": [1.0, 2.0], "k_per_day": [0.05, 0.1], "D": [1.0], "n_fp": [0.06]}      # ขยายกริดลงทางค่าซึมต่ำ/ระบายช้า (รอบแรก f=2 · k=0.2 ดีสุดที่ขอบ)
+GRID = (GRID_RAIN_EXT if EXT else GRID_RAIN) if MODE_RAIN else {"D": [0.5, 1.0, 2.0], "n_fp": [0.04, 0.08]}      # รอบแรก D=3,5 ม. (ร่องลึก) ไม่มีน้ำล้นเลย (IoU≈0) จึงเปลี่ยนไปช่วงตื้นกว่า — บันทึกไว้ว่าเปลี่ยนหลังเห็นผล D=3 ม. n=0.04
 N_CH = 0.03
 
 
@@ -89,11 +95,51 @@ def prep() -> None:
     print("เตรียมข้อมูล", {k: v.shape for k, v in out.items() if hasattr(v, "shape")}, "snap km", float(out["ny7_snap_km"][0]), "Q n", len(q), "peak", max(q))
 
 
-def simulate(z0, river, q_hours, q_cms, rc, dx, dy, D, n_fp):
+def condition_bed(z0, river):
+    """ปรับท้องลำน้ำให้ไม่สูงขึ้นตามทิศน้ำไหล: เซลล์ลำน้ำแต่ละเซลล์ชี้ไปเพื่อนบ้านลำน้ำที่ต่ำสุด แล้วส่งค่าต่ำสุดตามทิศปลายน้ำซ้ำจนนิ่ง (ขุดสันที่กั้นหลุม)"""
+    z = np.where(np.isnan(z0), 60.0, z0).astype("float64")
+    ny, nx = z.shape
+    rr, cc = np.nonzero(river)
+    idx = -np.ones(z.shape, dtype=np.int64)
+    idx[rr, cc] = np.arange(len(rr))
+    down = np.arange(len(rr))
+    zr = z[rr, cc]
+    for k, (r, c) in enumerate(zip(rr, cc)):
+        best, bz = k, zr[k]
+        for dr in (-1, 0, 1):
+            for dc in (-1, 0, 1):
+                if dr == 0 and dc == 0:
+                    continue
+                r2, c2 = r + dr, c + dc
+                if 0 <= r2 < ny and 0 <= c2 < nx and idx[r2, c2] >= 0 and z[r2, c2] < bz:
+                    best, bz = int(idx[r2, c2]), z[r2, c2]
+        if best == k:                      # หลุม: ชี้ไปเพื่อนบ้านลำน้ำที่ต่ำสุด (แม้สูงกว่า) เพื่อให้ส่งค่าต่ำสุดไปข้างหน้าได้
+            alt = [(z[r + dr, c + dc], int(idx[r + dr, c + dc])) for dr in (-1, 0, 1) for dc in (-1, 0, 1) if (dr or dc) and 0 <= r + dr < ny and 0 <= c + dc < nx and idx[r + dr, c + dc] >= 0]
+            if alt:
+                best = min(alt)[1]
+        down[k] = best
+    bed = zr.copy()
+    for _ in range(len(rr)):
+        new = bed.copy()
+        np.minimum.at(new, down, bed)      # ส่งค่าที่ต่ำที่สุดต้นน้ำลงปลายน้ำ
+        if np.array_equal(new, bed):
+            break
+        bed = new
+    out = z.copy()
+    out[rr, cc] = bed
+    out[np.isnan(z0)] = np.nan
+    return out.astype("float32")
+
+
+def simulate(z0, river, q_hours, q_cms, rc, dx, dy, D, n_fp, rain=None, f_mmh=0.0, k_day=0.0):
     import torch
     dev = "cuda"
+    if rain is not None:
+        z0 = condition_bed(z0, river)
     z = torch.tensor(np.where(np.isnan(z0), 60.0, z0), dtype=torch.float32, device=dev)
     rv = torch.tensor(river, device=dev)
+    rain_t = torch.tensor(rain, dtype=torch.float32, device=dev) if rain is not None else None
+    rain_in = 0.0
     z = torch.where(rv, z - D, z)
     ny, nx = z.shape
     n = torch.full_like(z, n_fp)
@@ -136,12 +182,19 @@ def simulate(z0, river, q_hours, q_cms, rc, dx, dy, D, n_fp):
         h = (h + dt_s * (dh - hq)).clamp(min=0)
         q_now = float(np.interp(t, qh_np, qc_np))
         h[rc[0], rc[1]] += dt_s * q_now / cell
+        if rain_t is not None:
+            j = min(rain_t.shape[0] - 1, max(0, int(math.floor((t - 7 * 3600.0) / 86400.0)) + 1))
+            eff = (rain_t[j] / 24.0 - f_mmh).clamp(min=0.0)                  # มม./ชม. หลังหักการซึมลงดิน
+            h += dt_s * eff / 3.6e6
+            rain_in += float(eff.sum()) * dt_s / 3.6e6 * cell / 1e6 if step % 50 == 0 else 0.0
+            if k_day > 0:
+                h = torch.where(rv, h, h * (1 - dt_s * k_day / 86400.0))     # ระบายน้ำขังออกตามลำคลอง/ท่อ (ไม่ใช้กับเซลล์ลำน้ำ)
         inflow_vol += dt_s * q_now
         t += dt_s
         step += 1
     for k in rec:
         snaps.setdefault(k, (h >= THRESH).cpu().numpy())
-    return snaps, {"steps": step, "inflow_mcm": round(inflow_vol / 1e6, 1), "final_stored_mcm": round(float(h.sum()) * cell / 1e6, 1)}
+    return snaps, {"steps": step, "inflow_mcm": round(inflow_vol / 1e6, 1), "final_stored_mcm": round(float(h.sum()) * cell / 1e6, 1), "rain_effective_mcm_est": round(rain_in * 50, 1) if rain_t is not None else None}
 
 
 def iou(pred, sar, mask, valid):
@@ -156,36 +209,51 @@ def run(limit_runs: int = 0, only_dem: str = "") -> None:
     dx, dy = (float(v) for v in Z["dxdy"])
     rc = (int(Z["ny7_rc"][0]), int(Z["ny7_rc"][1]))
     mask = Z["mask"]
-    res = {"setup": {"cell_m": [round(dx, 1), round(dy, 1)], "window": [LAT0, LAT1, LON0, LON1], "thresh_m": THRESH, "grid": GRID, "n_channel": N_CH, "t0": str(T0), "t_end": str(T_END),
+    res = {"setup": {"cell_m": [round(dx, 1), round(dy, 1)], "window": [LAT0, LAT1, LON0, LON1], "thresh_m": THRESH, "grid": GRID, "mode": "rain" if MODE_RAIN else "q_only", "n_channel": N_CH, "t0": str(T0), "t_end": str(T_END),
                      "ny7_snap_km": round(float(Z["ny7_snap_km"][0]), 2), "sar_area_km2": {k: round(float((Z[k] & mask).sum()) * dx * dy / 1e6, 1) for k in REC}}, "dems": {}}
     n_run = 0
     for dem in [d for d in ("fabdem_corrected", "fabdem_raw", "copernicus_raw") if not only_dem or d == only_dem]:
         z0 = Z[dem]
         valid = ~np.isnan(z0)
         rows = []
-        for D in GRID["D"]:
-            for nf in GRID["n_fp"]:
+        rain = np.load(RAIN_NPZ)["fields"] if MODE_RAIN else None
+        combos = [(D, nf, f, k) for D in GRID["D"] for nf in GRID["n_fp"] for f in GRID.get("f_mmh", [0.0]) for k in GRID.get("k_per_day", [0.0])]
+        if True:
+            for D, nf, f_mmh, k_day in combos:
                 if limit_runs and n_run >= limit_runs:
                     break
                 t0 = time.time()
-                snaps, info = simulate(z0, Z["river"], Z["q_hours"], Z["q_cms"], rc, dx, dy, D, nf)
-                row = {"D_m": D, "n_fp": nf, **info, "sec": round(time.time() - t0)}
+                snaps, info = simulate(z0, Z["river"], Z["q_hours"], Z["q_cms"], rc, dx, dy, D, nf, rain, f_mmh, k_day)
+                row = {"D_m": D, "n_fp": nf, "f_mmh": f_mmh, "k_per_day": k_day, **info, "sec": round(time.time() - t0)}
                 for k in REC:
                     row[k] = iou(snaps[k], Z[k], mask, valid)
                 rows.append(row)
                 n_run += 1
-                print(dem, D, nf, row["sec"], "s", {k: row[k]["iou"] for k in REC}, "inflow", info["inflow_mcm"], "stored", info["final_stored_mcm"], flush=True)
+                print(dem, D, nf, f_mmh, k_day, row["sec"], "s", {k: row[k]["iou"] for k in REC}, "inflow", info["inflow_mcm"], "stored", info["final_stored_mcm"], flush=True)
         if rows:
             best = max(rows, key=lambda r: r["peak_27sep"]["iou"] or 0)
-            res["dems"][dem] = {"runs": rows, "best_by_27sep": {"D_m": best["D_m"], "n_fp": best["n_fp"], "iou_27sep": best["peak_27sep"]["iou"], "iou_2oct_not_refit": best["oct2_validated"]["iou"]}}
+            res["dems"][dem] = {"runs": rows, "best_by_27sep": {"D_m": best["D_m"], "n_fp": best["n_fp"], "f_mmh": best["f_mmh"], "k_per_day": best["k_per_day"], "iou_27sep": best["peak_27sep"]["iou"], "iou_2oct_not_refit": best["oct2_validated"]["iou"]}}
     res["bucket_baseline"] = {"fabdem_corrected": {"peak_27sep": 0.31, "oct2_validated": 0.25}, "connected_fill_copernicus_s0": {"peak_27sep": 0.367, "oct2_validated": 0.321}}
-    (OUT.with_name(f"ongkharak_hydraulic_2d_{only_dem}.json") if only_dem else OUT).write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
+    (OUT.with_name(f"{OUT.stem}_{only_dem}.json") if only_dem else OUT).write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: v["best_by_27sep"] for k, v in res["dems"].items()}, ensure_ascii=False))
+
+
+def combine() -> None:
+    """รวมผลโหมดฝนรอบแรกกับรอบขยายกริด แล้วเลือกค่าที่ดีที่สุดด้วย IoU วันที่ 27 ก.ย. จากทุกชุดค่า (กติกาเดิม)"""
+    a = json.loads((ROOT / "analysis/goal7/ongkharak_hydraulic_2d_rain.json").read_text(encoding="utf-8"))
+    b = json.loads((ROOT / "analysis/goal7/ongkharak_hydraulic_2d_rain_ext.json").read_text(encoding="utf-8"))
+    for dem, v in a["dems"].items():
+        v["runs"] += b["dems"][dem]["runs"]
+        best = max(v["runs"], key=lambda r: r["peak_27sep"]["iou"] or 0)
+        v["best_by_27sep"] = {"D_m": best["D_m"], "n_fp": best["n_fp"], "f_mmh": best["f_mmh"], "k_per_day": best["k_per_day"], "iou_27sep": best["peak_27sep"]["iou"], "iou_2oct_not_refit": best["oct2_validated"]["iou"]}
+    a["setup"]["grid"] = {"round1": a["setup"]["grid"], "round2_extension": b["setup"]["grid"]}
+    (ROOT / "analysis/goal7/ongkharak_hydraulic_2d_rain_all.json").write_text(json.dumps(a, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(json.dumps({k: v["best_by_27sep"] for k, v in a["dems"].items()}, ensure_ascii=False))
 
 
 def merge() -> None:
     """รวมผลที่รันขนานแยกตาม DEM (แต่ละ DEM รันเป็นกระบวนการของตัวเอง)"""
-    parts = [json.loads(OUT.with_name(f"ongkharak_hydraulic_2d_{d}.json").read_text(encoding="utf-8")) for d in ("fabdem_corrected", "fabdem_raw", "copernicus_raw")]
+    parts = [json.loads(OUT.with_name(f"{OUT.stem}_{d}.json").read_text(encoding="utf-8")) for d in ("fabdem_corrected", "fabdem_raw", "copernicus_raw")]
     res = parts[0]
     for x in parts[1:]:
         res["dems"].update(x["dems"])
@@ -199,5 +267,7 @@ if __name__ == "__main__":
         prep()
     elif cmd == "merge":
         merge()
+    elif cmd == "combine":
+        combine()
     else:
         run(int(sys.argv[2]) if len(sys.argv) > 2 else 0, sys.argv[3] if len(sys.argv) > 3 else "")

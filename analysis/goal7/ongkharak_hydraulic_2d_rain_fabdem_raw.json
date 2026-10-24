@@ -1,0 +1,203 @@
+{
+ "setup": {
+  "cell_m": [
+   90.0,
+   92.1
+  ],
+  "window": [
+   13.98,
+   14.28,
+   100.97,
+   101.33
+  ],
+  "thresh_m": 0.1,
+  "grid": {
+   "f_mmh": [
+    2.0,
+    6.0
+   ],
+   "k_per_day": [
+    0.2,
+    0.5,
+    1.0
+   ],
+   "D": [
+    1.0
+   ],
+   "n_fp": [
+    0.06
+   ]
+  },
+  "mode": "rain",
+  "n_channel": 0.03,
+  "t0": "2026-09-20 00:00:00",
+  "t_end": "2026-10-03 06:30:00",
+  "ny7_snap_km": 0.03,
+  "sar_area_km2": {
+   "peak_27sep": 129.3,
+   "oct2_validated": 98.7
+  }
+ },
+ "dems": {
+  "fabdem_raw": {
+   "runs": [
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 2.0,
+     "k_per_day": 0.2,
+     "steps": 287272,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 170.2,
+     "rain_effective_mcm_est": 419.2,
+     "sec": 675,
+     "peak_27sep": {
+      "iou": 0.344,
+      "precision": 0.459,
+      "recall": 0.578,
+      "area_km2": 159.0
+     },
+     "oct2_validated": {
+      "iou": 0.182,
+      "precision": 0.298,
+      "recall": 0.318,
+      "area_km2": 103.1
+     }
+    },
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 2.0,
+     "k_per_day": 0.5,
+     "steps": 260033,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 65.8,
+     "rain_effective_mcm_est": 419.4,
+     "sec": 603,
+     "peak_27sep": {
+      "iou": 0.288,
+      "precision": 0.459,
+      "recall": 0.436,
+      "area_km2": 120.0
+     },
+     "oct2_validated": {
+      "iou": 0.047,
+      "precision": 0.211,
+      "recall": 0.056,
+      "area_km2": 25.8
+     }
+    },
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 2.0,
+     "k_per_day": 1.0,
+     "steps": 228151,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 28.0,
+     "rain_effective_mcm_est": 419.2,
+     "sec": 536,
+     "peak_27sep": {
+      "iou": 0.207,
+      "precision": 0.445,
+      "recall": 0.278,
+      "area_km2": 78.9
+     },
+     "oct2_validated": {
+      "iou": 0.003,
+      "precision": 0.044,
+      "recall": 0.003,
+      "area_km2": 7.4
+     }
+    },
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 6.0,
+     "k_per_day": 0.2,
+     "steps": 211736,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 119.4,
+     "rain_effective_mcm_est": 62.0,
+     "sec": 495,
+     "peak_27sep": {
+      "iou": 0.12,
+      "precision": 0.444,
+      "recall": 0.141,
+      "area_km2": 40.1
+     },
+     "oct2_validated": {
+      "iou": 0.048,
+      "precision": 0.202,
+      "recall": 0.059,
+      "area_km2": 28.1
+     }
+    },
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 6.0,
+     "k_per_day": 0.5,
+     "steps": 209183,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 51.0,
+     "rain_effective_mcm_est": 62.0,
+     "sec": 533,
+     "peak_27sep": {
+      "iou": 0.082,
+      "precision": 0.422,
+      "recall": 0.093,
+      "area_km2": 27.8
+     },
+     "oct2_validated": {
+      "iou": 0.005,
+      "precision": 0.073,
+      "recall": 0.005,
+      "area_km2": 7.2
+     }
+    },
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 6.0,
+     "k_per_day": 1.0,
+     "steps": 208900,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 24.8,
+     "rain_effective_mcm_est": 62.0,
+     "sec": 516,
+     "peak_27sep": {
+      "iou": 0.043,
+      "precision": 0.357,
+      "recall": 0.047,
+      "area_km2": 16.5
+     },
+     "oct2_validated": {
+      "iou": 0.001,
+      "precision": 0.012,
+      "recall": 0.001,
+      "area_km2": 5.6
+     }
+    }
+   ],
+   "best_by_27sep": {
+    "D_m": 1.0,
+    "n_fp": 0.06,
+    "f_mmh": 2.0,
+    "k_per_day": 0.2,
+    "iou_27sep": 0.344,
+    "iou_2oct_not_refit": 0.182
+   }
+  }
+ },
+ "bucket_baseline": {
+  "fabdem_corrected": {
+   "peak_27sep": 0.31,
+   "oct2_validated": 0.25
+  },
+  "connected_fill_copernicus_s0": {
+   "peak_27sep": 0.367,
+   "oct2_validated": 0.321
+  }
+ }
+}

@@ -1,0 +1,156 @@
+{
+ "setup": {
+  "cell_m": [
+   90.0,
+   92.1
+  ],
+  "window": [
+   13.98,
+   14.28,
+   100.97,
+   101.33
+  ],
+  "thresh_m": 0.1,
+  "grid": {
+   "f_mmh": [
+    1.0,
+    2.0
+   ],
+   "k_per_day": [
+    0.05,
+    0.1
+   ],
+   "D": [
+    1.0
+   ],
+   "n_fp": [
+    0.06
+   ]
+  },
+  "mode": "rain",
+  "n_channel": 0.03,
+  "t0": "2026-09-20 00:00:00",
+  "t_end": "2026-10-03 06:30:00",
+  "ny7_snap_km": 0.03,
+  "sar_area_km2": {
+   "peak_27sep": 129.3,
+   "oct2_validated": 98.7
+  }
+ },
+ "dems": {
+  "copernicus_raw": {
+   "runs": [
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 1.0,
+     "k_per_day": 0.05,
+     "steps": 324317,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 479.1,
+     "rain_effective_mcm_est": 631.5,
+     "sec": 565,
+     "peak_27sep": {
+      "iou": 0.43,
+      "precision": 0.48,
+      "recall": 0.805,
+      "area_km2": 211.5
+     },
+     "oct2_validated": {
+      "iou": 0.324,
+      "precision": 0.357,
+      "recall": 0.779,
+      "area_km2": 210.6
+     }
+    },
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 1.0,
+     "k_per_day": 0.1,
+     "steps": 320588,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 384.4,
+     "rain_effective_mcm_est": 631.3,
+     "sec": 463,
+     "peak_27sep": {
+      "iou": 0.429,
+      "precision": 0.486,
+      "recall": 0.785,
+      "area_km2": 204.1
+     },
+     "oct2_validated": {
+      "iou": 0.318,
+      "precision": 0.368,
+      "recall": 0.7,
+      "area_km2": 183.4
+     }
+    },
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 2.0,
+     "k_per_day": 0.05,
+     "steps": 310154,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 413.4,
+     "rain_effective_mcm_est": 419.4,
+     "sec": 429,
+     "peak_27sep": {
+      "iou": 0.413,
+      "precision": 0.495,
+      "recall": 0.715,
+      "area_km2": 182.6
+     },
+     "oct2_validated": {
+      "iou": 0.316,
+      "precision": 0.367,
+      "recall": 0.693,
+      "area_km2": 182.3
+     }
+    },
+    {
+     "D_m": 1.0,
+     "n_fp": 0.06,
+     "f_mmh": 2.0,
+     "k_per_day": 0.1,
+     "steps": 307284,
+     "inflow_mcm": 220.0,
+     "final_stored_mcm": 328.6,
+     "rain_effective_mcm_est": 419.3,
+     "sec": 389,
+     "peak_27sep": {
+      "iou": 0.405,
+      "precision": 0.495,
+      "recall": 0.69,
+      "area_km2": 175.9
+     },
+     "oct2_validated": {
+      "iou": 0.296,
+      "precision": 0.373,
+      "recall": 0.589,
+      "area_km2": 152.3
+     }
+    }
+   ],
+   "best_by_27sep": {
+    "D_m": 1.0,
+    "n_fp": 0.06,
+    "f_mmh": 1.0,
+    "k_per_day": 0.05,
+    "iou_27sep": 0.43,
+    "iou_2oct_not_refit": 0.324
+   }
+  }
+ },
+ "bucket_baseline": {
+  "fabdem_corrected": {
+   "peak_27sep": 0.31,
+   "oct2_validated": 0.25
+  },
+  "connected_fill_copernicus_s0": {
+   "peak_27sep": 0.367,
+   "oct2_validated": 0.321
+  }
+ }
+}

@@ -129,6 +129,8 @@ data/32_goal7_chaophraya2/ocr_v2/
 data/32_goal7_chaophraya2/indra_vs_typhoon/
 data/32_goal7_chaophraya2/indra_ocr/
 data/34_goal7_bangpakong/raw/
+data/35_goal7_event_rain/raw/
+data/35_goal7_event_rain/*.npz
 data/search_index.db*
 
 

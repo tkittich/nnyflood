@@ -264,6 +264,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_ongkharak_hydraulic_2d` | `analysis/goal7_ongkharak_hydraulic_2d.py` | `typhoon_env` | experimental | แบบจำลองชลศาสตร์ 2 มิติ (local-inertial · GPU) ของที่ราบองครักษ์ น้ำเข้าที่ Ny.7 — ทดสอบว่าน้ำล้นตลิ่งจากลำน้ำสายหลักอธิบายพื้นที่น้ำท่วมที่ดาวเทียมเห็นได้หรือไม่ (รอบไม่มีฝน: ไม่ได้ · รอบมีฝน: ดู GOAL7_PLAN §28) | `python analysis/goal7_ongkharak_hydraulic_2d.py prep | E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_ongkharak_hydraulic_2d.py run 0 <dem> | merge` | `analysis/goal7/ongkharak_hydraulic_2d.json`<br>`analysis/goal7/ongkharak_hydraulic_2d_rain_all.json` |
 | `goal7_event_rain` | `analysis/goal7_event_rain.py` | `main` | experimental | ดึงฝนรายวันสถานีในกรอบรอบที่ราบองครักษ์ ช่วง 20 ก.ย.–4 ต.ค. 2569 และประมาณสนามฝนรายวันบนกริดแบบจำลองด้วย IDW | `python analysis/goal7_event_rain.py` | `data/35_goal7_event_rain/`<br>`analysis/goal7/event_rain_summary.json` |
 | `goal7_gistda_stac_daily` | `analysis/goal7_gistda_stac_daily.py` | `main` | experimental | ดึงผลิตภัณฑ์น้ำท่วมรายวัน/รายฉากของ GISTDA จากคลัง STAC (ใช้คีย์ api_key · ปิดบังคีย์) แล้วสรุปพื้นที่ต่อวัน ต่อจังหวัด | `python analysis/goal7_gistda_stac_daily.py` | `data/12_gistda_flood/stac_daily/`<br>`analysis/goal7/gistda_stac_daily.json` |
+| `goal6_bp_downstream` | `report/goal6_bp_downstream.py` | `main` | experimental | ส่วนเพิ่ม 4.7 ของรายงานเป้าหมาย 6 ฉบับ 3: ท้ายน้ำบางปะกง/ฉะเชิงเทรา (เรนเดอร์จาก canonical.bp_downstream · ป้ายวิเคราะห์เพิ่มเติม) | `(โมดูล — เรียกจาก report/goal6_build_report3_draft.py)` | — |
 | `goal7_indra_probe` | `analysis/goal7_indra_probe.py` | `indra_env` | experimental | ทดลอง Indra OCR กับหน้าตัวอย่างนำร่อง (ทิศหมุน · ป้ายตัวเลขในภาพวาด · บล็อกข้อความ) | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_probe.py` | `analysis/goal7/indra_probe.json` |
 | `goal7_indra_text_eval` | `analysis/goal7_indra_text_eval.py` | `indra_env` | experimental | วัดความแม่นยำข้อความไทยของ Indra OCR เทียบชั้นข้อความ PDF บนหน้าข้อความ 30 หน้า | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_text_eval.py` | `analysis/goal7/indra_text_eval.json` |
 | `goal7_indra_vs_typhoon` | `analysis/goal7_indra_vs_typhoon.py` | `indra_env` | experimental | เทียบตัวเลขที่ Typhoon กับ Indra OCR (CPU) ถอดได้ ทุกหน้าที่ Typhoon เคยอ่าน — ชี้หน้าที่ขัดแย้งมากไปตรวจด้วยตา (ไม่มีเฉลยที่แน่นอน) | `E:/theera/indra_env/Scripts/python.exe analysis/goal7_indra_vs_typhoon.py [--labels a,b]` | `data/32_goal7_chaophraya2/indra_vs_typhoon/`<br>`analysis/goal7/indra_vs_typhoon.json` |
@@ -278,7 +279,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 5 สภาพแวดล้อม · 179 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 5 สภาพแวดล้อม · 180 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

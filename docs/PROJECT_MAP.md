@@ -144,6 +144,7 @@ graph TD
 - `goal7_ongkharak_hydraulic_2d.py`: แบบจำลองชลศาสตร์ 2 มิติของที่ราบองครักษ์ (น้ำเข้าที่ Ny.7) — ผลใน `analysis/goal7/ongkharak_hydraulic_2d.json` · ผลรอบแรกไม่สามารถทำซ้ำพื้นที่น้ำท่วมที่ดาวเทียมเห็น
 - `goal7_event_rain.py`: ฝนรายวันสถานีรอบที่ราบองครักษ์ช่วงเหตุการณ์ 20 ก.ย.–4 ต.ค. 2569 → สนามฝนรายวันบนกริดแบบจำลอง (IDW) — ผลใน `analysis/goal7/event_rain_summary.json`
 - `goal7_gistda_stac_daily.py`: ดึงผลิตภัณฑ์น้ำท่วมรายวัน/รายฉากของ GISTDA จากคลัง STAC แล้วสรุปพื้นที่ต่อวัน ต่อจังหวัด — ผลใน `analysis/goal7/gistda_stac_daily.json`
+- `report/goal6_bp_downstream.py`: ส่วนเพิ่ม 4.7 ของรายงานเป้าหมาย 6 ฉบับ 3 (ท้ายน้ำบางปะกง/ฉะเชิงเทรา) เรนเดอร์จาก canonical.bp_downstream — ติดป้ายวิเคราะห์เพิ่มเติม
 - `goal7_batch_ocr_queue.py`: ตัวขับเคลื่อนคิวถอดความเอกสารภาพสแกน EIA และเอกสารรับฟังความคิดเห็นอัตโนมัติบน GPU RTX 4090
 
 ### กลุ่ม ฉ: ผู้สร้างตัวเลขทางการและการตรวจสอบระบบ (Canonical Builders & QA)

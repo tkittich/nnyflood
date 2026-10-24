@@ -2631,6 +2631,341 @@
    }
   }
  },
+ "bp_downstream": {
+  "source": "analysis/goal7/bangpakong_chachoengsao.json (+ event_rain_summary.json)",
+  "basin": {
+   "area_km2": 21946.0,
+   "n_subbasins": 39,
+   "overlap": {
+    "ฉะเชิงเทรา": {
+     "province_km2": 5238.0,
+     "in_basin_km2": 5109.0,
+     "share_of_province_in_basin_pct": 97.5,
+     "share_of_basin_pct": 23.3
+    },
+    "นครนายก": {
+     "province_km2": 2143.0,
+     "in_basin_km2": 2090.0,
+     "share_of_province_in_basin_pct": 97.5,
+     "share_of_basin_pct": 9.5
+    },
+    "ปราจีนบุรี": {
+     "province_km2": 4983.0,
+     "in_basin_km2": 4932.0,
+     "share_of_province_in_basin_pct": 99.0,
+     "share_of_basin_pct": 22.5
+    }
+   },
+   "upstream_of_bpk003_km2": 13894.0
+  },
+  "terrain": {
+   "provinces": {
+    "ฉะเชิงเทรา": {
+     "land_km2": 5265.0,
+     "median_elev_m": 34.9,
+     "flooded_km2_grid": 416.0,
+     "flooded_pct": 7.9,
+     "low2m": {
+      "land_pct": 36.2,
+      "land_km2": 1908.0,
+      "flooded_km2": 378.0,
+      "flooded_pct_of_zone": 19.8,
+      "flooded_7d_km2": 351.0,
+      "still_flooded_7d_share_of_30d_pct": 93.0
+     }
+    },
+    "นครนายก": {
+     "land_km2": 2155.0,
+     "median_elev_m": 4.1,
+     "flooded_km2_grid": 260.0,
+     "flooded_pct": 12.0,
+     "low2m": {
+      "land_pct": 40.0,
+      "land_km2": 862.0,
+      "flooded_km2": 224.0,
+      "flooded_pct_of_zone": 26.0,
+      "flooded_7d_km2": 145.0,
+      "still_flooded_7d_share_of_30d_pct": 64.0
+     }
+    },
+    "ปราจีนบุรี": {
+     "land_km2": 4863.0,
+     "median_elev_m": 29.1,
+     "flooded_km2_grid": 381.0,
+     "flooded_pct": 7.8,
+     "low2m": {
+      "land_pct": 12.3,
+      "land_km2": 598.0,
+      "flooded_km2": 241.0,
+      "flooded_pct_of_zone": 40.4,
+      "flooded_7d_km2": 249.0,
+      "still_flooded_7d_share_of_30d_pct": 103.0
+     }
+    }
+   },
+   "variance_explained": {
+    "by_province": 0.005,
+    "by_elevation_zone": 0.221,
+    "by_both": 0.255
+   }
+  },
+  "gauges": {
+   "BPK001": {
+    "name": "บางปะกง",
+    "province": "ฉะเชิงเทรา",
+    "bank_m": 1.67,
+    "latest_m": -0.75,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -2.42,
+    "peak_m": 1.45,
+    "peak_time": "2026-09-26 18:20",
+    "hours_above_bank_30d": 0.0,
+    "run_above_bank_days_to_latest": 0.0
+   },
+   "BPK003": {
+    "name": "บางน้ำเปรี้ยว",
+    "province": "ฉะเชิงเทรา",
+    "bank_m": 1.47,
+    "latest_m": 2.08,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": 0.61,
+    "peak_m": 3.08,
+    "peak_time": "2026-10-07 00:50",
+    "hours_above_bank_30d": 688.0,
+    "run_above_bank_days_to_latest": 29.2
+   },
+   "BPK004": {
+    "name": "พนมสารคาม",
+    "province": "ฉะเชิงเทรา",
+    "bank_m": 5.39,
+    "latest_m": 3.46,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -1.94,
+    "peak_m": 6.76,
+    "peak_time": "2026-09-27 11:00",
+    "hours_above_bank_30d": 404.0,
+    "run_above_bank_days_to_latest": 0.0
+   },
+   "Kgt.1": {
+    "name": "สะพานณรงค์ดำริ",
+    "province": "ปราจีนบุรี",
+    "bank_m": 4.13,
+    "latest_m": 3.27,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -0.86,
+    "peak_m": 4.93,
+    "peak_time": "2026-09-30 17:00",
+    "hours_above_bank_30d": 445.0,
+    "run_above_bank_days_to_latest": 0.0
+   },
+   "Kgt.3": {
+    "name": "สะพานต้นน้ำบางปะกง",
+    "province": "ปราจีนบุรี",
+    "bank_m": 8.79,
+    "latest_m": 4.72,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -4.07,
+    "peak_m": 12.16,
+    "peak_time": "2026-09-27 09:00",
+    "hours_above_bank_30d": 251.0,
+    "run_above_bank_days_to_latest": 0.0
+   },
+   "Kgt.6": {
+    "name": "บ้านทาม",
+    "province": "ปราจีนบุรี",
+    "bank_m": 6.61,
+    "latest_m": 4.23,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -2.38,
+    "peak_m": 8.22,
+    "peak_time": "2026-09-28 08:00",
+    "hours_above_bank_30d": 412.0,
+    "run_above_bank_days_to_latest": 0.0
+   },
+   "PRC004": {
+    "name": "ประจันตคาม (KGT7A)",
+    "province": "ปราจีนบุรี",
+    "bank_m": 6.66,
+    "latest_m": 5.07,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -1.59,
+    "peak_m": 7.62,
+    "peak_time": "2026-09-30 03:00",
+    "hours_above_bank_30d": 331.0,
+    "run_above_bank_days_to_latest": 0.0
+   }
+  },
+  "story": {
+   "lag_first_upstream_to_bpk003_days": 9.7,
+   "bpk003_recession_m_per_day_last7d": 0.068,
+   "bpk003_days_to_bank_if_same_rate": 9.0,
+   "slope_m_per_km_upper_bound": 0.073
+  },
+  "flood_freq": {
+   "ฉะเชิงเทรา": {
+    "ever_flooded_km2": 1710.8,
+    "ge3_years_km2": 482.0,
+    "ge5_years_km2": 155.5
+   },
+   "นครนายก": {
+    "ever_flooded_km2": 1041.1,
+    "ge3_years_km2": 359.8,
+    "ge5_years_km2": 60.0
+   },
+   "ปราจีนบุรี": {
+    "ever_flooded_km2": 1214.5,
+    "ge3_years_km2": 652.1,
+    "ge5_years_km2": 397.0
+   }
+  },
+  "gistda_30d_chachoengsao": {
+   "2026-10-16": 578.8,
+   "2026-10-20": 429.6,
+   "2026-10-25": 418.5
+  },
+  "gistda_daily": [
+   {
+    "date": "2026-10-02",
+    "features": 83626,
+    "scenes": [
+     "S1D_20261002_0609",
+     "S2B_20261002_1035"
+    ],
+    "chachoengsao_km2": 439.0,
+    "prachinburi_km2": 373.7,
+    "nakhonnayok_km2": 305.1
+   },
+   {
+    "date": "2026-10-03",
+    "features": 133048,
+    "scenes": [
+     "S1C_20261003_0558",
+     "rd2_20261003_0608"
+    ],
+    "chachoengsao_km2": 404.5,
+    "prachinburi_km2": 512.0,
+    "nakhonnayok_km2": 318.7
+   },
+   {
+    "date": "2026-10-04",
+    "features": 134300,
+    "scenes": [
+     "S1D_20261004_1819",
+     "TH2_20261004_1022",
+     "rd2_20261004_1823"
+    ],
+    "chachoengsao_km2": 500.9,
+    "prachinburi_km2": 563.2,
+    "nakhonnayok_km2": 394.4
+   },
+   {
+    "date": "2026-10-05",
+    "features": 2178,
+    "scenes": [
+     "S1C_20261005_1811"
+    ],
+    "chachoengsao_km2": 0.0,
+    "prachinburi_km2": 0.0,
+    "nakhonnayok_km2": 0.0
+   },
+   {
+    "date": "2026-10-07",
+    "features": 66746,
+    "scenes": [
+     "S2C_20261007_1033",
+     "cm2_20261007_0603"
+    ],
+    "chachoengsao_km2": 626.7,
+    "prachinburi_km2": 618.9,
+    "nakhonnayok_km2": 217.8
+   },
+   {
+    "date": "2026-10-09",
+    "features": 60840,
+    "scenes": [
+     "S1D_20261009_0559",
+     "S1D_20261009_1828"
+    ],
+    "chachoengsao_km2": 407.7,
+    "prachinburi_km2": 371.2,
+    "nakhonnayok_km2": 143.1
+   },
+   {
+    "date": "2026-10-10",
+    "features": 71959,
+    "scenes": [
+     "S1C_20261010_0550",
+     "S1C_20261010_1819",
+     "rd2_20261010_0604"
+    ],
+    "chachoengsao_km2": 340.7,
+    "prachinburi_km2": 309.6,
+    "nakhonnayok_km2": 188.0
+   },
+   {
+    "date": "2026-10-11",
+    "features": 30810,
+    "scenes": [
+     "S1D_20261011_1812",
+     "cm4_20261011_1759",
+     "rd2_20261011_1819"
+    ],
+    "chachoengsao_km2": 0.0,
+    "prachinburi_km2": 0.0,
+    "nakhonnayok_km2": 0.0
+   },
+   {
+    "date": "2026-10-16",
+    "features": 9425,
+    "scenes": [
+     "S1D_20261016_0551",
+     "S1D_20261016_1819",
+     "cm4_20261016_1854"
+    ],
+    "chachoengsao_km2": 0.0,
+    "prachinburi_km2": 72.2,
+    "nakhonnayok_km2": 0.0
+   },
+   {
+    "date": "2026-10-17",
+    "features": 13523,
+    "scenes": [
+     "cm2_20261017_1710"
+    ],
+    "chachoengsao_km2": 203.9,
+    "prachinburi_km2": 280.1,
+    "nakhonnayok_km2": 47.6
+   }
+  ],
+  "event_rain": {
+   "stations": 55,
+   "with_data": 48,
+   "domain_total_mm": 736.0,
+   "station_total_mm": {
+    "min": 0.0,
+    "median": 573.0,
+    "max": 1142.0
+   },
+   "heaviest_days": [
+    [
+     "2026-09-26",
+     158.1
+    ],
+    [
+     "2026-09-27",
+     148.7
+    ],
+    [
+     "2026-09-25",
+     97.5
+    ],
+    [
+     "2026-09-28",
+     89.0
+    ]
+   ]
+  }
+ },
  "definitions": {
   "national_medium_reservoirs": "สถิติอ่างเก็บน้ำขนาดกลาง 461 แห่งทั่วประเทศ (ความจุ 5,493.7 ล้าน ลบ.ม.) จากศูนย์ปฏิบัติการน้ำอัจฉริยะ กรมชลประทาน",
   "pasak_24y_baseline": "สถิติพฤติกรรมการเก็บกักและระบายน้ำเขื่อนป่าสักชลสิทธิ์ 24 ปี (2546–2569 รวม 8,425 วัน) · ปี 2569 เป็นปีบางส่วน (ข้อมูลถึง 15 ต.ค. 2569)",

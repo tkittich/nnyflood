@@ -475,6 +475,32 @@ def main() -> None:
     if harmonics_file.exists():
         out["l3_coastal_harmonics"] = json.loads(harmonics_file.read_text(encoding="utf-8"))
 
+    # ---- ท้ายน้ำบางปะกง/ฉะเชิงเทรา (ส่วนเพิ่ม 25 ต.ค. 69 — ผลิตโดย analysis/goal7_bangpakong_chachoengsao.py · อ่านต่อเพื่อให้รายงาน 3 มีแหล่งตัวเลขเดียว) ----
+    bpd_p = A / "goal7/bangpakong_chachoengsao.json"
+    rain_p = A / "goal7/event_rain_summary.json"
+    if bpd_p.exists() and rain_p.exists():
+        bpd = json.loads(bpd_p.read_text(encoding="utf-8"))
+        er = json.loads(rain_p.read_text(encoding="utf-8"))
+        keep = ("Kgt.3", "Kgt.6", "PRC004", "Kgt.1", "BPK003", "BPK004", "BPK001")
+        st = {s["code"]: s for s in bpd["gauges"]["stations"] if s["code"] in keep}
+        tags = bpd["gistda_snapshot_tags"]
+        out["bp_downstream"] = {
+            "source": "analysis/goal7/bangpakong_chachoengsao.json (+ event_rain_summary.json)",
+            "basin": {"area_km2": bpd["basin"]["basin_area_km2"], "n_subbasins": bpd["basin"]["n_subbasins"], "overlap": bpd["basin"]["overlap_with_provinces"],
+                      "upstream_of_bpk003_km2": bpd["basin"]["upstream_of_gauges"]["BPK003 บางน้ำเปรี้ยว"]["area_union_km2"]},
+            "terrain": {"provinces": {pv: {k: v[k] for k in ("land_km2", "median_elev_m", "flooded_km2_grid", "flooded_pct")} | {"low2m": v["by_elevation"]["ต่ำกว่า 2 ม."]} for pv, v in bpd["terrain"]["provinces"].items()},
+                        "variance_explained": bpd["terrain"]["variance_explained_flooded_cells"]},
+            "gauges": {c: {k: s[k] for k in ("name", "province", "bank_m", "latest_m", "latest_time", "latest_minus_bank_m", "peak_m", "peak_time", "hours_above_bank_30d", "run_above_bank_days_to_latest")} for c, s in st.items()},
+            "story": {k: bpd["story"][k] for k in ("lag_first_upstream_to_bpk003_days", "bpk003_recession_m_per_day_last7d", "bpk003_days_to_bank_if_same_rate")} | {"slope_m_per_km_upper_bound": bpd["story"]["surface_slopes"]["BPK003→BPK001"]["slope_m_per_km_upper_bound"]},
+            "flood_freq": {pv: {k: v[k] for k in ("ever_flooded_km2", "ge3_years_km2", "ge5_years_km2")} for pv, v in bpd["flood_freq"].items()},
+            "gistda_30d_chachoengsao": {tg: bpd["gistda_30d"]["ฉะเชิงเทรา"][tg]["total_km2"] for tg in tags},
+            "gistda_daily": bpd["gistda_daily"]["days"] if bpd.get("gistda_daily") else [],
+            "event_rain": {"stations": er["n_stations"], "with_data": er["stations_with_data"], "domain_total_mm": er["domain_total_mm_20sep_to_4oct"], "station_total_mm": er["stations_total_mm"], "heaviest_days": er["heaviest_days"]},
+        }
+        bd = out["bp_downstream"]
+        assert bd["terrain"]["variance_explained"]["by_elevation_zone"] > bd["terrain"]["variance_explained"]["by_province"], "ความสูงควรอธิบายน้ำท่วมได้มากกว่าเส้นจังหวัด"
+        assert all(v["share_of_province_in_basin_pct"] > 90 for v in bd["basin"]["overlap"].values())
+
     # ---- ตัวเลขที่ปลดประจำการ (retired ledger) — เทสสแกนว่าห้ามปรากฏใน HTML/เอกสาร ----
     # ---- นิยามหน้าต่าง/เกณฑ์ของตัวเลขหลัก (รากเหตุ M2: ตัวเลขเดียวกัน 2–3 นิยาม) ----
     # กติกา: อ้างตัวเลขในรายงานต้องใช้นิยามตามที่จดที่นี่ — ถ้านิยามต่างจากนี้ ต้องเป็น field ใหม่ ไม่ใช่แทนที่

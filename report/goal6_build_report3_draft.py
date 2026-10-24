@@ -406,6 +406,10 @@ for bid, rec in cfg["basins"].items():
                         f"แผนที่น้ำท่วมจากดาวเทียมเรดาร์ ฉากที่ใหญ่สุด ({ict_label(_fm[bid]['scene'])} เวลาไทย · ครอบ {_fm[bid]['coverage']:.0%} ของลุ่ม) — {rec['label']}"))
 
 # ---- 5. ข้อจำกัด ----
+# ส่วนเพิ่ม 4.7 (ฉะเชิงเทรา · วิเคราะห์เพิ่มหลังกำหนดคำถามล่วงหน้า) — เรนเดอร์จาก canonical.bp_downstream
+from goal6_bp_downstream import section as _bp_downstream_section  # noqa: E402
+_bp_downstream_section(S, _can, h3, note, prose, table)
+
 S.append(h2("5. ถาม–ตอบ คำถามที่คนทั่วไปถามบ่อย", "qa"))
 S.append(prose("<b>ถาม: น้ำท่วมครั้งนี้เขื่อนผิดหรือฝนผิด?</b>"))
 S.append(prose(

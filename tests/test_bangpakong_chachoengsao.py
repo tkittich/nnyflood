@@ -9,7 +9,7 @@ def test_flood_area_consistent_with_gistda_attribute_area():
     """พื้นที่น้ำท่วมบนตาราง (ถ่วง f_area) ต้องใกล้ผลรวม f_area ของ GISTDA (ไม่ใช่พื้นที่รูปทรง ซึ่งใหญ่กว่าราว 2 เท่า)"""
     for pv in ("ฉะเชิงเทรา", "นครนายก", "ปราจีนบุรี"):
         grid = R["terrain"]["provinces"][pv]["flooded_km2_grid"]
-        att = R["gistda_30d"][pv]["2026-10-20"]["total_km2"]
+        att = R["gistda_30d"][pv][R["gistda_snapshot_tags"][-1]]["total_km2"]
         assert abs(grid - att) / att < 0.12, (pv, grid, att)
 
 
@@ -41,5 +41,6 @@ def test_snapshots_archived_not_overwritten():
 
 def test_gistda_recent_windows_present_and_7day_is_substantial():
     rc = R["gistda_recent"]
-    assert rc["ฉะเชิงเทรา"]["7days"]["area_km2"] > 100
-    assert any("_202610" in x and int(x.split("_")[1]) >= 20261014 for x in rc["ฉะเชิงเทรา"]["7days"]["scenes"])
+    assert rc["ฉะเชิงเทรา"]["7days_2026-10-20"]["area_km2"] > 100          # ชั้น 7 วันที่ดึง 20 ต.ค. (ฉากเรดาร์ 14–16 ต.ค. ยังอยู่ในหน้าต่าง)
+    assert any(int(x.split("_")[1]) >= 20261014 for x in rc["ฉะเชิงเทรา"]["7days_2026-10-20"]["scenes"])
+    assert R["gistda_snapshot_tags"][:2] == ["2026-10-16", "2026-10-20"]       # สแนปช็อตเก่าเก็บถาวร ไม่ถูกเขียนทับ

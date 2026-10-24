@@ -158,11 +158,21 @@ def gauges():
             "note": "ตลิ่ง = min_bank ของระบบ thaiwater (ตลิ่งฝั่งต่ำ) · ระดับสูงกว่าตลิ่งหมายถึงน้ำล้นตลิ่งที่จุดนั้น ไม่ได้หมายความว่าท่วมทั้งตำบล"}
 
 
+def snapshot_files(pv: str):
+    """สแนปช็อตชั้น 30 วันที่เก็บไว้ (ไฟล์ที่ลงท้ายวันที่ = ที่เก็บถาวร) เรียงตามวัน + ไฟล์ล่าสุด (ไม่มีวันที่ในชื่อ ใช้วันที่แก้ไขไฟล์)"""
+    import datetime as _d
+    snaps = sorted((m.group(1), f.name) for f in GIST.glob(f"{pv}_30days_*.json") if (m := re.search(r"_30days_(\d{4}-\d{2}-\d{2})\.json$", f.name)))
+    latest = GIST / f"{pv}_30days.json"
+    if latest.exists():
+        snaps.append((_d.date.fromtimestamp(latest.stat().st_mtime).isoformat(), latest.name))
+    return snaps
+
+
 def gistda_30d():
     out = {}
     for pv in ("ฉะเชิงเทรา", "ปราจีนบุรี", "นครนายก"):
         row = {}
-        for tag, fn in (("2026-10-16", f"{pv}_30days_2026-10-16.json"), ("2026-10-20", f"{pv}_30days.json")):
+        for tag, fn in snapshot_files(pv):
             fs = json.loads((GIST / fn).read_text(encoding="utf-8"))
             am = {}
             for ft in fs:
@@ -193,6 +203,15 @@ def gistda_recent():
                 q = ft["properties"]
                 am[q["ap_tn"]] = am.get(q["ap_tn"], 0.0) + (q.get("f_area") or 0) / 1e6
             row[ep] = {"area_km2": round(sum(am.values()), 1), "scenes": sc, "by_amphoe": {k: round(v, 1) for k, v in sorted(am.items(), key=lambda kv: -kv[1])}}
+        f20 = GIST / f"{pv}_7days_2026-10-20.json"
+        if f20.exists():             # ชั้น 7 วันที่ดึง 20 ต.ค. (ฉากเรดาร์ Sentinel-1 14–16 ต.ค. ยังอยู่ในหน้าต่าง คลุมกว้างกว่าชั้นล่าสุด)
+            fs = json.loads(f20.read_text(encoding="utf-8"))
+            sc = sorted(set(re.findall(r"([A-Za-z0-9]+_2026\d{4}_\d{4})", " ".join(x["properties"]["file_name"] for x in fs[:200]))))
+            am = {}
+            for ft in fs:
+                q = ft["properties"]
+                am[q["ap_tn"]] = am.get(q["ap_tn"], 0.0) + (q.get("f_area") or 0) / 1e6
+            row["7days_2026-10-20"] = {"area_km2": round(sum(am.values()), 1), "scenes": sc, "by_amphoe": {k: round(v, 1) for k, v in sorted(am.items(), key=lambda kv: -kv[1])}}
         row["share_of_30d_still_in_7d_pct"] = None
         out[pv] = row
     return out
@@ -314,7 +333,7 @@ def main() -> None:
         masks[n] = m
         pid[m] = i
     flood = flood_raster([GIST / f"{n}_30days.json" for n in PROV], z.shape, tr, pid > 0)
-    flood7 = flood_raster([GIST / f"{n}_7days.json" for n in PROV], z.shape, tr, pid > 0)
+    flood7 = flood_raster([GIST / f"{n}_7days_2026-10-20.json" for n in PROV], z.shape, tr, pid > 0)       # ชั้น 7 วันที่ดึง 20 ต.ค. (คลุมฉาก S1 14–16 ต.ค.) — ชั้นล่าสุดมีฉากน้อยกว่า เทียบพื้นที่ไม่ได้
     terr = {}
     for n, m in masks.items():
         zz = z[m]
@@ -342,11 +361,11 @@ def main() -> None:
     basin = basin_frame(outlines)
     res = {"generated": dt.date.today().isoformat(), "terrain": {"cell_m": 90, "dem": "FABDEM ปรับด้วยตารางส่วนต่าง DEM 5 ม.", "provinces": terr, "all_three_by_elevation": zone_all,
                                                               "variance_explained_flooded_cells": ve, "sampled_cells": int(sub.size)},
-           "basin": basin, "gistda_30d": gistda_30d(), "gistda_recent": (gr := gistda_recent()), "flood_freq": flood_freq(), "gauges": (gs := gauges())}
+           "basin": basin, "gistda_30d": gistda_30d(), "gistda_snapshot_tags": [x[0] for x in snapshot_files("ฉะเชิงเทรา")], "gistda_recent": (gr := gistda_recent()), "flood_freq": flood_freq(), "gauges": (gs := gauges())}
     res["story"] = bpk_story(gs)
     for pv, v in gr.items():
         if "7days" in v:
-            v["share_of_30d_still_in_7d_pct"] = round(100 * v["7days"]["area_km2"] / res["gistda_30d"][pv]["2026-10-20"]["total_km2"], 0)
+            v["share_of_30d_still_in_7d_pct"] = round(100 * v["7days_2026-10-20"]["area_km2"] / res["gistda_30d"][pv]["2026-10-20"]["total_km2"], 0) if "7days_2026-10-20" in v and "2026-10-20" in res["gistda_30d"][pv] else None            # 7 วัน (ดึง 20 ต.ค.) ÷ 30 วัน (ดึง 20 ต.ค.)
     res["story"]["bpk003_upstream_area_km2"] = basin["upstream_of_gauges"]["BPK003 บางน้ำเปรี้ยว"]["area_union_km2"]
     OUT.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: res[k] for k in ("basin",)}, ensure_ascii=False, indent=1)[:1500])

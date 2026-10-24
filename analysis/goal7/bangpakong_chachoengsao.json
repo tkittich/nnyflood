@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-20",
+ "generated": "2026-10-25",
  "terrain": {
   "cell_m": 90,
   "dem": "FABDEM ปรับด้วยตารางส่วนต่าง DEM 5 ม.",
@@ -7,16 +7,16 @@
    "ฉะเชิงเทรา": {
     "land_km2": 5265.0,
     "median_elev_m": 34.9,
-    "flooded_km2_grid": 427.0,
-    "flooded_pct": 8.1,
+    "flooded_km2_grid": 416.0,
+    "flooded_pct": 7.9,
     "by_elevation": {
      "ต่ำกว่า 2 ม.": {
       "land_pct": 36.2,
       "land_km2": 1908.0,
-      "flooded_km2": 389.0,
-      "flooded_pct_of_zone": 20.4,
+      "flooded_km2": 378.0,
+      "flooded_pct_of_zone": 19.8,
       "flooded_7d_km2": 351.0,
-      "still_flooded_7d_share_of_30d_pct": 90.0
+      "still_flooded_7d_share_of_30d_pct": 93.0
      },
      "2–5 ม.": {
       "land_pct": 2.3,
@@ -30,7 +30,7 @@
       "land_pct": 1.8,
       "land_km2": 97.0,
       "flooded_km2": 7.0,
-      "flooded_pct_of_zone": 7.3,
+      "flooded_pct_of_zone": 7.6,
       "flooded_7d_km2": 0.0,
       "still_flooded_7d_share_of_30d_pct": 1.0
      },
@@ -56,7 +56,7 @@
     "land_km2": 2155.0,
     "median_elev_m": 4.1,
     "flooded_km2_grid": 260.0,
-    "flooded_pct": 12.1,
+    "flooded_pct": 12.0,
     "by_elevation": {
      "ต่ำกว่า 2 ม.": {
       "land_pct": 40.0,
@@ -103,32 +103,32 @@
    "ปราจีนบุรี": {
     "land_km2": 4863.0,
     "median_elev_m": 29.1,
-    "flooded_km2_grid": 400.0,
-    "flooded_pct": 8.2,
+    "flooded_km2_grid": 381.0,
+    "flooded_pct": 7.8,
     "by_elevation": {
      "ต่ำกว่า 2 ม.": {
       "land_pct": 12.3,
       "land_km2": 598.0,
-      "flooded_km2": 255.0,
-      "flooded_pct_of_zone": 42.6,
+      "flooded_km2": 241.0,
+      "flooded_pct_of_zone": 40.4,
       "flooded_7d_km2": 249.0,
-      "still_flooded_7d_share_of_30d_pct": 98.0
+      "still_flooded_7d_share_of_30d_pct": 103.0
      },
      "2–5 ม.": {
       "land_pct": 5.8,
       "land_km2": 283.0,
-      "flooded_km2": 72.0,
-      "flooded_pct_of_zone": 25.6,
+      "flooded_km2": 71.0,
+      "flooded_pct_of_zone": 24.9,
       "flooded_7d_km2": 44.0,
-      "still_flooded_7d_share_of_30d_pct": 60.0
+      "still_flooded_7d_share_of_30d_pct": 62.0
      },
      "5–10 ม.": {
       "land_pct": 6.3,
       "land_km2": 307.0,
-      "flooded_km2": 31.0,
-      "flooded_pct_of_zone": 10.1,
+      "flooded_km2": 28.0,
+      "flooded_pct_of_zone": 9.1,
       "flooded_7d_km2": 8.0,
-      "still_flooded_7d_share_of_30d_pct": 24.0
+      "still_flooded_7d_share_of_30d_pct": 27.0
      },
      "10–25 ม.": {
       "land_pct": 20.6,
@@ -152,34 +152,34 @@
   "all_three_by_elevation": {
    "ต่ำกว่า 2 ม.": {
     "land_km2": 3368.0,
-    "flooded_km2": 868.0,
-    "flooded_pct_of_zone": 25.8
+    "flooded_km2": 844.0,
+    "flooded_pct_of_zone": 25.1
    },
    "2–5 ม.": {
     "land_km2": 661.0,
-    "flooded_km2": 114.0,
-    "flooded_pct_of_zone": 17.3
+    "flooded_km2": 112.0,
+    "flooded_pct_of_zone": 17.0
    },
    "5–10 ม.": {
     "land_km2": 568.0,
-    "flooded_km2": 46.0,
-    "flooded_pct_of_zone": 8.1
+    "flooded_km2": 43.0,
+    "flooded_pct_of_zone": 7.6
    },
    "10–25 ม.": {
     "land_km2": 1416.0,
     "flooded_km2": 49.0,
-    "flooded_pct_of_zone": 3.5
+    "flooded_pct_of_zone": 3.4
    },
    "สูงกว่า 25 ม.": {
     "land_km2": 6224.0,
-    "flooded_km2": 9.0,
+    "flooded_km2": 8.0,
     "flooded_pct_of_zone": 0.1
    }
   },
   "variance_explained_flooded_cells": {
    "by_province": 0.005,
-   "by_elevation_zone": 0.23,
-   "by_both": 0.269
+   "by_elevation_zone": 0.221,
+   "by_both": 0.255
   },
   "sampled_cells": 400000
  },
@@ -327,6 +327,56 @@
       "rice_km2": 0.1
      }
     }
+   },
+   "2026-10-25": {
+    "total_km2": 418.5,
+    "rice_km2": 145.6,
+    "by_amphoe": {
+     "อ.บางน้ำเปรี้ยว": {
+      "area_km2": 126.5,
+      "rice_km2": 62.7
+     },
+     "อ.บางคล้า": {
+      "area_km2": 65.9,
+      "rice_km2": 7.9
+     },
+     "อ.เมืองฉะเชิงเทรา": {
+      "area_km2": 62.5,
+      "rice_km2": 26.1
+     },
+     "อ.พนมสารคาม": {
+      "area_km2": 49.2,
+      "rice_km2": 19.3
+     },
+     "อ.ราชสาส์น": {
+      "area_km2": 46.7,
+      "rice_km2": 23.0
+     },
+     "อ.บ้านโพธิ์": {
+      "area_km2": 24.8,
+      "rice_km2": 2.0
+     },
+     "อ.คลองเขื่อน": {
+      "area_km2": 17.8,
+      "rice_km2": 3.4
+     },
+     "อ.แปลงยาว": {
+      "area_km2": 8.4,
+      "rice_km2": 0.5
+     },
+     "อ.ท่าตะเกียบ": {
+      "area_km2": 6.5,
+      "rice_km2": 0.0
+     },
+     "อ.สนามชัยเขต": {
+      "area_km2": 5.2,
+      "rice_km2": 0.6
+     },
+     "อ.บางปะกง": {
+      "area_km2": 5.1,
+      "rice_km2": 0.1
+     }
+    }
    }
   },
   "ปราจีนบุรี": {
@@ -397,6 +447,40 @@
       "rice_km2": 0.6
      }
     }
+   },
+   "2026-10-25": {
+    "total_km2": 383.0,
+    "rice_km2": 129.5,
+    "by_amphoe": {
+     "อ.บ้านสร้าง": {
+      "area_km2": 145.1,
+      "rice_km2": 66.0
+     },
+     "อ.เมืองปราจีนบุรี": {
+      "area_km2": 70.6,
+      "rice_km2": 21.8
+     },
+     "อ.กบินทร์บุรี": {
+      "area_km2": 51.9,
+      "rice_km2": 0.1
+     },
+     "อ.ศรีมหาโพธิ": {
+      "area_km2": 44.7,
+      "rice_km2": 20.0
+     },
+     "อ.ศรีมโหสถ": {
+      "area_km2": 32.7,
+      "rice_km2": 19.8
+     },
+     "อ.ประจันตคาม": {
+      "area_km2": 27.2,
+      "rice_km2": 1.3
+     },
+     "อ.นาดี": {
+      "area_km2": 10.7,
+      "rice_km2": 0.6
+     }
+    }
    }
   },
   "นครนายก": {
@@ -443,34 +527,69 @@
       "rice_km2": 7.5
      }
     }
+   },
+   "2026-10-25": {
+    "total_km2": 258.4,
+    "rice_km2": 54.5,
+    "by_amphoe": {
+     "อ.องครักษ์": {
+      "area_km2": 120.1,
+      "rice_km2": 35.4
+     },
+     "อ.เมืองนครนายก": {
+      "area_km2": 51.7,
+      "rice_km2": 2.4
+     },
+     "อ.ปากพลี": {
+      "area_km2": 49.5,
+      "rice_km2": 9.3
+     },
+     "อ.บ้านนา": {
+      "area_km2": 37.2,
+      "rice_km2": 7.5
+     }
+    }
    }
   }
  },
+ "gistda_snapshot_tags": [
+  "2026-10-16",
+  "2026-10-20",
+  "2026-10-25"
+ ],
  "gistda_recent": {
   "ฉะเชิงเทรา": {
    "1day": {
-    "area_km2": 9.6,
-    "scenes": [
-     "rd2_20261020_0613"
-    ],
-    "by_amphoe": {
-     "อ.บางน้ำเปรี้ยว": 8.6,
-     "อ.เมืองฉะเชิงเทรา": 1.0
-    }
+    "area_km2": 0,
+    "scenes": [],
+    "by_amphoe": {}
    },
    "3days": {
-    "area_km2": 9.6,
+    "area_km2": 0,
+    "scenes": [],
+    "by_amphoe": {}
+   },
+   "7days": {
+    "area_km2": 123.9,
     "scenes": [
+     "S1D_20261019_0615",
+     "S1D_20261021_0600",
      "cm2_20261018_0607",
      "cm4_20261019_0627",
      "rd2_20261020_0613"
     ],
     "by_amphoe": {
+     "อ.ราชสาส์น": 44.3,
+     "อ.พนมสารคาม": 37.8,
+     "อ.บางคล้า": 23.9,
      "อ.บางน้ำเปรี้ยว": 8.6,
+     "อ.คลองเขื่อน": 4.1,
+     "อ.บ้านโพธิ์": 2.5,
+     "อ.แปลงยาว": 1.6,
      "อ.เมืองฉะเชิงเทรา": 1.0
     }
    },
-   "7days": {
+   "7days_2026-10-20": {
     "area_km2": 357.1,
     "scenes": [
      "S1D_20261014_0607",
@@ -508,6 +627,24 @@
     "by_amphoe": {}
    },
    "7days": {
+    "area_km2": 200.5,
+    "scenes": [
+     "S1D_20261019_0615",
+     "S1D_20261021_0600",
+     "cm2_20261018_0607",
+     "cm4_20261019_0627",
+     "rd2_20261020_0613"
+    ],
+    "by_amphoe": {
+     "อ.บ้านสร้าง": 79.0,
+     "อ.เมืองปราจีนบุรี": 46.6,
+     "อ.ศรีมโหสถ": 30.7,
+     "อ.ศรีมหาโพธิ": 28.9,
+     "อ.ประจันตคาม": 9.5,
+     "อ.กบินทร์บุรี": 5.7
+    }
+   },
+   "7days_2026-10-20": {
     "area_km2": 302.6,
     "scenes": [
      "S1D_20261014_0607",
@@ -532,18 +669,20 @@
   },
   "นครนายก": {
    "1day": {
-    "area_km2": 39.6,
-    "scenes": [
-     "rd2_20261020_0613"
-    ],
-    "by_amphoe": {
-     "อ.องครักษ์": 33.4,
-     "อ.บ้านนา": 6.2
-    }
+    "area_km2": 0,
+    "scenes": [],
+    "by_amphoe": {}
    },
    "3days": {
+    "area_km2": 0,
+    "scenes": [],
+    "by_amphoe": {}
+   },
+   "7days": {
     "area_km2": 39.6,
     "scenes": [
+     "S1D_20261019_0615",
+     "S1D_20261021_0600",
      "cm2_20261018_0607",
      "cm4_20261019_0627",
      "rd2_20261020_0613"
@@ -553,7 +692,7 @@
      "อ.บ้านนา": 6.2
     }
    },
-   "7days": {
+   "7days_2026-10-20": {
     "area_km2": 147.9,
     "scenes": [
      "S1D_20261014_0607",
@@ -760,7 +899,7 @@
   }
  },
  "gauges": {
-  "snapshot": "2026-10-20_waterlevel_load.json",
+  "snapshot": "2026-10-25_waterlevel_load.json",
   "window_days": 30,
   "stations": [
    {
@@ -770,14 +909,14 @@
     "lat": 13.83819,
     "lon": 100.9666,
     "bank_m": 1.24,
-    "latest_m": 0.74,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -0.49,
+    "latest_m": 0.62,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -0.62,
     "peak_m": 1.07,
     "peak_time": "2026-10-08 14:20",
     "hours_above_bank_30d": 0.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.04,
+    "change_last_7d_m": -0.17,
     "situation_level": 4
    },
    {
@@ -787,14 +926,14 @@
     "lat": 13.54901,
     "lon": 101.00111,
     "bank_m": 1.67,
-    "latest_m": 0.53,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -1.14,
+    "latest_m": -0.75,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -2.42,
     "peak_m": 1.45,
     "peak_time": "2026-09-26 18:20",
     "hours_above_bank_30d": 0.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.09,
+    "change_last_7d_m": -0.12,
     "situation_level": 4
    },
    {
@@ -804,14 +943,14 @@
     "lat": 13.87032,
     "lon": 101.14574,
     "bank_m": 1.47,
-    "latest_m": 2.35,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": 0.88,
+    "latest_m": 2.08,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": 0.61,
     "peak_m": 3.08,
     "peak_time": "2026-10-07 00:50",
-    "hours_above_bank_30d": 597.0,
-    "run_above_bank_days_to_latest": 25.1,
-    "change_last_7d_m": -0.44,
+    "hours_above_bank_30d": 688.0,
+    "run_above_bank_days_to_latest": 29.2,
+    "change_last_7d_m": -0.47,
     "situation_level": 5
    },
    {
@@ -821,15 +960,15 @@
     "lat": 13.72662,
     "lon": 101.35298,
     "bank_m": 5.39,
-    "latest_m": 3.03,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -2.36,
+    "latest_m": 3.46,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -1.94,
     "peak_m": 6.76,
     "peak_time": "2026-09-27 11:00",
     "hours_above_bank_30d": 404.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -2.18,
-    "situation_level": 3
+    "change_last_7d_m": -0.35,
+    "situation_level": 4
    },
    {
     "code": "MOU461",
@@ -838,14 +977,14 @@
     "lat": 14.315195,
     "lon": 101.312836,
     "bank_m": 26.49,
-    "latest_m": 23.5,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -2.99,
+    "latest_m": 23.52,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -2.97,
     "peak_m": 26.17,
     "peak_time": "2026-09-26 16:30",
     "hours_above_bank_30d": 0.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.02,
+    "change_last_7d_m": -0.06,
     "situation_level": 2
    },
    {
@@ -855,15 +994,15 @@
     "lat": 14.321305,
     "lon": 101.30604,
     "bank_m": 29.49,
-    "latest_m": 27.2,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -2.29,
+    "latest_m": 26.86,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -2.63,
     "peak_m": 29.69,
     "peak_time": "2026-09-26 17:30",
     "hours_above_bank_30d": 2.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": 0.05,
-    "situation_level": 3
+    "change_last_7d_m": 0.04,
+    "situation_level": 2
    },
    {
     "code": "NYK000",
@@ -872,13 +1011,13 @@
     "lat": 14.113633,
     "lon": 101.01952,
     "bank_m": 2.58,
-    "latest_m": 3.06,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": 0.48,
+    "latest_m": 2.96,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": 0.38,
     "peak_m": 3.1,
     "peak_time": "2026-09-26 16:20",
-    "hours_above_bank_30d": 104.0,
-    "run_above_bank_days_to_latest": 1.6,
+    "hours_above_bank_30d": 178.0,
+    "run_above_bank_days_to_latest": 5.7,
     "change_last_7d_m": NaN,
     "situation_level": 5
    },
@@ -889,14 +1028,14 @@
     "lat": 14.245718,
     "lon": 101.27481,
     "bank_m": 8.91,
-    "latest_m": 5.23,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -3.68,
+    "latest_m": 4.58,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -4.33,
     "peak_m": 13.78,
     "peak_time": "2026-09-27 00:50",
     "hours_above_bank_30d": 92.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": 0.26,
+    "change_last_7d_m": -0.18,
     "situation_level": 3
    },
    {
@@ -906,14 +1045,14 @@
     "lat": 14.24582,
     "lon": 101.274246,
     "bank_m": 8.81,
-    "latest_m": 4.85,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -3.96,
+    "latest_m": 4.65,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -4.16,
     "peak_m": 11.07,
     "peak_time": "2026-09-27 01:00",
     "hours_above_bank_30d": 72.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": 0.2,
+    "change_last_7d_m": -0.14,
     "situation_level": 3
    },
    {
@@ -923,14 +1062,14 @@
     "lat": 14.28644,
     "lon": 101.070473,
     "bank_m": 11.36,
-    "latest_m": 9.22,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -2.14,
+    "latest_m": 9.33,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -2.03,
     "peak_m": 11.77,
     "peak_time": "2026-09-26 21:00",
     "hours_above_bank_30d": 37.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": 0.01,
+    "change_last_7d_m": 0.05,
     "situation_level": null
    },
    {
@@ -940,14 +1079,14 @@
     "lat": 14.20048,
     "lon": 101.219307,
     "bank_m": 8.2,
-    "latest_m": 6.07,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -2.13,
+    "latest_m": 6.08,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -2.12,
     "peak_m": 9.23,
     "peak_time": "2026-09-27 10:00",
     "hours_above_bank_30d": 70.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.03,
+    "change_last_7d_m": -0.14,
     "situation_level": 4
    },
    {
@@ -957,14 +1096,14 @@
     "lat": 14.136408,
     "lon": 101.857475,
     "bank_m": 37.39,
-    "latest_m": 31.52,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -5.87,
+    "latest_m": 31.53,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -5.86,
     "peak_m": 34.83,
     "peak_time": "2026-09-26 21:40",
     "hours_above_bank_30d": 0.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": 0.0,
+    "change_last_7d_m": -0.05,
     "situation_level": 3
    },
    {
@@ -974,14 +1113,14 @@
     "lat": 14.05144,
     "lon": 101.367378,
     "bank_m": 4.13,
-    "latest_m": 3.63,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -0.5,
+    "latest_m": 3.27,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -0.86,
     "peak_m": 4.93,
     "peak_time": "2026-09-30 17:00",
     "hours_above_bank_30d": 445.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.71,
+    "change_last_7d_m": -0.68,
     "situation_level": 4
    },
    {
@@ -991,14 +1130,14 @@
     "lat": 13.91009,
     "lon": 101.838211,
     "bank_m": 16.17,
-    "latest_m": 8.52,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -7.65,
+    "latest_m": 9.12,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -7.05,
     "peak_m": 18.17,
     "peak_time": "2026-09-27 22:00",
     "hours_above_bank_30d": 224.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -1.62,
+    "change_last_7d_m": 0.31,
     "situation_level": 3
    },
    {
@@ -1008,14 +1147,14 @@
     "lat": 14.16131,
     "lon": 101.883057,
     "bank_m": 39.41,
-    "latest_m": 36.2,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -3.21,
+    "latest_m": 36.21,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -3.2,
     "peak_m": 41.53,
     "peak_time": "2026-09-26 20:00",
     "hours_above_bank_30d": 40.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.01,
+    "change_last_7d_m": -0.11,
     "situation_level": 3
    },
    {
@@ -1025,14 +1164,14 @@
     "lat": 14.06587,
     "lon": 101.922638,
     "bank_m": 20.21,
-    "latest_m": 15.93,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -4.28,
+    "latest_m": 15.77,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -4.44,
     "peak_m": 19.75,
     "peak_time": "2026-09-26 06:00",
     "hours_above_bank_30d": 0.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": 0.33,
+    "change_last_7d_m": -0.09,
     "situation_level": 3
    },
    {
@@ -1042,14 +1181,14 @@
     "lat": 13.98666,
     "lon": 101.705406,
     "bank_m": 8.79,
-    "latest_m": 4.98,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -3.81,
+    "latest_m": 4.72,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -4.07,
     "peak_m": 12.16,
     "peak_time": "2026-09-27 09:00",
-    "hours_above_bank_30d": 314.0,
+    "hours_above_bank_30d": 251.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -2.8,
+    "change_last_7d_m": -1.01,
     "situation_level": 3
    },
    {
@@ -1059,14 +1198,14 @@
     "lat": 14.10461,
     "lon": 101.744179,
     "bank_m": 11.12,
-    "latest_m": 5.77,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -5.35,
+    "latest_m": 5.72,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -5.4,
     "peak_m": 13.33,
     "peak_time": "2026-09-26 21:00",
     "hours_above_bank_30d": 91.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.24,
+    "change_last_7d_m": -0.33,
     "situation_level": 3
    },
    {
@@ -1076,14 +1215,14 @@
     "lat": 14.02174,
     "lon": 101.750664,
     "bank_m": 12.22,
-    "latest_m": 6.3,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -5.92,
+    "latest_m": 5.94,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -6.28,
     "peak_m": 14.07,
     "peak_time": "2026-09-28 08:00",
     "hours_above_bank_30d": 182.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -2.58,
+    "change_last_7d_m": -1.01,
     "situation_level": 3
    },
    {
@@ -1093,14 +1232,14 @@
     "lat": 13.97341,
     "lon": 101.517448,
     "bank_m": 6.61,
-    "latest_m": 4.64,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -1.97,
+    "latest_m": 4.23,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -2.38,
     "peak_m": 8.22,
     "peak_time": "2026-09-28 08:00",
     "hours_above_bank_30d": 412.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -1.77,
+    "change_last_7d_m": -1.07,
     "situation_level": 4
    },
    {
@@ -1110,14 +1249,14 @@
     "lat": 14.26568,
     "lon": 101.89133,
     "bank_m": 84.09,
-    "latest_m": 79.38,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -4.71,
+    "latest_m": 79.26,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -4.83,
     "peak_m": 84.26,
     "peak_time": "2026-09-26 13:00",
     "hours_above_bank_30d": 3.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": 0.02,
+    "change_last_7d_m": -0.1,
     "situation_level": 2
    },
    {
@@ -1127,14 +1266,14 @@
     "lat": 14.133605,
     "lon": 101.72767,
     "bank_m": 16.78,
-    "latest_m": 9.83,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -6.95,
+    "latest_m": 9.72,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -7.06,
     "peak_m": 19.37,
     "peak_time": "2026-09-26 21:00",
     "hours_above_bank_30d": 64.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.25,
+    "change_last_7d_m": -0.45,
     "situation_level": 2
    },
    {
@@ -1144,14 +1283,14 @@
     "lat": 14.070941,
     "lon": 101.51893,
     "bank_m": 6.66,
-    "latest_m": 5.51,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -1.15,
+    "latest_m": 5.07,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -1.59,
     "peak_m": 7.62,
     "peak_time": "2026-09-30 03:00",
     "hours_above_bank_30d": 331.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.91,
+    "change_last_7d_m": -0.88,
     "situation_level": 4
    },
    {
@@ -1161,14 +1300,14 @@
     "lat": 13.97348,
     "lon": 101.51751,
     "bank_m": 7.58,
-    "latest_m": 5.53,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -2.05,
+    "latest_m": 5.12,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -2.46,
     "peak_m": 9.11,
     "peak_time": "2026-09-28 05:50",
     "hours_above_bank_30d": 383.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -1.73,
+    "change_last_7d_m": -1.02,
     "situation_level": 4
    },
    {
@@ -1178,14 +1317,14 @@
     "lat": 13.937376,
     "lon": 101.922035,
     "bank_m": 19.61,
-    "latest_m": 13.26,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -6.35,
+    "latest_m": 13.96,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -5.65,
     "peak_m": 21.94,
     "peak_time": "2026-09-27 15:20",
     "hours_above_bank_30d": 252.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.19,
+    "change_last_7d_m": 1.03,
     "situation_level": 3
    },
    {
@@ -1195,14 +1334,14 @@
     "lat": 13.7407,
     "lon": 100.79468,
     "bank_m": 0.62,
-    "latest_m": 0.25,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -0.37,
+    "latest_m": 0.19,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -0.44,
     "peak_m": 0.73,
     "peak_time": "2026-09-30 10:40",
     "hours_above_bank_30d": 207.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.12,
+    "change_last_7d_m": -0.08,
     "situation_level": 4
    },
    {
@@ -1212,14 +1351,14 @@
     "lat": 13.9416,
     "lon": 100.77499,
     "bank_m": 2.71,
-    "latest_m": 1.45,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -1.25,
+    "latest_m": 2.45,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -0.25,
     "peak_m": 2.65,
     "peak_time": "2026-09-25 14:50",
     "hours_above_bank_30d": 0.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.21,
+    "change_last_7d_m": -0.11,
     "situation_level": 4
    },
    {
@@ -1229,14 +1368,14 @@
     "lat": 13.66949,
     "lon": 100.80058,
     "bank_m": 0.43,
-    "latest_m": 0.09,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -0.34,
+    "latest_m": 0.06,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -0.37,
     "peak_m": 1.05,
     "peak_time": "2026-09-28 04:10",
     "hours_above_bank_30d": 314.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.08,
+    "change_last_7d_m": -0.05,
     "situation_level": 4
    },
    {
@@ -1247,13 +1386,13 @@
     "lon": 100.63952,
     "bank_m": 1.97,
     "latest_m": 1.27,
-    "latest_time": "2026-10-20 20:40",
+    "latest_time": "2026-10-24 23:50",
     "latest_minus_bank_m": -0.7,
     "peak_m": 2.19,
     "peak_time": "2026-09-28 12:30",
     "hours_above_bank_30d": 281.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.34,
+    "change_last_7d_m": 0.01,
     "situation_level": 4
    },
    {
@@ -1263,14 +1402,14 @@
     "lat": 13.8096,
     "lon": 102.054382,
     "bank_m": 35.0,
-    "latest_m": 29.84,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -5.16,
+    "latest_m": 29.89,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -5.11,
     "peak_m": 36.82,
     "peak_time": "2026-09-26 17:00",
     "hours_above_bank_30d": 51.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.1,
+    "change_last_7d_m": -0.06,
     "situation_level": 3
    },
    {
@@ -1280,14 +1419,14 @@
     "lat": 13.93635,
     "lon": 101.972321,
     "bank_m": 21.0,
-    "latest_m": 17.11,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -3.89,
+    "latest_m": 17.45,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -3.55,
     "peak_m": 25.19,
     "peak_time": "2026-09-27 10:00",
-    "hours_above_bank_30d": 380.0,
+    "hours_above_bank_30d": 305.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": 0.16,
+    "change_last_7d_m": 0.67,
     "situation_level": 3
    },
    {
@@ -1297,14 +1436,14 @@
     "lat": 13.40472,
     "lon": 101.281776,
     "bank_m": 18.37,
-    "latest_m": 16.16,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -2.21,
+    "latest_m": 16.17,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -2.2,
     "peak_m": 17.03,
     "peak_time": "2026-09-26 15:00",
     "hours_above_bank_30d": 0.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": 0.49,
+    "change_last_7d_m": 0.53,
     "situation_level": 3
    },
    {
@@ -1314,14 +1453,14 @@
     "lat": 13.66804,
     "lon": 102.0756,
     "bank_m": 49.57,
-    "latest_m": 43.31,
-    "latest_time": "2026-10-20 20:00",
-    "latest_minus_bank_m": -6.26,
+    "latest_m": 43.35,
+    "latest_time": "2026-10-24 23:00",
+    "latest_minus_bank_m": -6.22,
     "peak_m": 51.66,
     "peak_time": "2026-09-26 02:00",
     "hours_above_bank_30d": 132.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.12,
+    "change_last_7d_m": -0.01,
     "situation_level": 3
    },
    {
@@ -1331,14 +1470,14 @@
     "lat": 13.809611,
     "lon": 102.05431,
     "bank_m": 34.76,
-    "latest_m": 30.19,
-    "latest_time": "2026-10-20 20:40",
-    "latest_minus_bank_m": -4.57,
+    "latest_m": 30.23,
+    "latest_time": "2026-10-24 23:50",
+    "latest_minus_bank_m": -4.53,
     "peak_m": 37.21,
     "peak_time": "2026-09-27 07:00",
     "hours_above_bank_30d": 117.0,
     "run_above_bank_days_to_latest": 0.0,
-    "change_last_7d_m": -0.1,
+    "change_last_7d_m": -0.0,
     "situation_level": 3
    }
   ],
@@ -1359,19 +1498,19 @@
   "first_upstream_peak": "2026-09-27 09:00",
   "bpk003_peak_time": "2026-10-07 00:50",
   "lag_first_upstream_to_bpk003_days": 9.7,
-  "bpk003_recession_m_per_day_last7d": 0.063,
-  "bpk003_days_to_bank_if_same_rate": 14.0,
+  "bpk003_recession_m_per_day_last7d": 0.068,
+  "bpk003_days_to_bank_if_same_rate": 9.0,
   "note_extrapolation": "ประมาณจากอัตราลดระดับ 7 วันล่าสุดคงที่ — ไม่ได้พยากรณ์ (ฝนใหม่ น้ำทะเลหนุน และการระบายตามประตูทำให้เปลี่ยนได้)",
   "surface_slopes": {
    "Kgt.1→BPK003": {
     "straight_km": 31.3,
-    "level_drop_m": 1.28,
-    "slope_m_per_km_upper_bound": 0.041
+    "level_drop_m": 1.19,
+    "slope_m_per_km_upper_bound": 0.038
    },
    "BPK003→BPK001": {
     "straight_km": 39.0,
-    "level_drop_m": 1.82,
-    "slope_m_per_km_upper_bound": 0.047
+    "level_drop_m": 2.83,
+    "slope_m_per_km_upper_bound": 0.073
    }
   },
   "bpk003_upstream_area_km2": 13894.0

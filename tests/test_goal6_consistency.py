@@ -295,3 +295,12 @@ def test_gross_and_strict_shown_and_exposure_wired():
         assert r["strict"]["major_km"] <= r["gross"]["major_km"] + 0.05, t
         assert r["pop_lowland_covered"] > r["gross"]["pop_areal"], t
     assert "ถามนี้" not in h3 and "ในพื้นที่ที่ตรวจพบน้ำท่วม มีประชากรและถนนอยู่เท่าไร" in h3
+
+
+def test_tide_loader_uses_exact_hour_records_only():
+    """รีวิวรอบ 7 B2: ซีรีส์ CPY015 ทุก 10 นาที ต้องใช้บันทึกนาทีที่ 00 เท่านั้น (เดิมเก็บนาทีที่ 50 → คลาด 50 นาที)"""
+    import sys
+    sys.path.insert(0, str(ROOT / "analysis"))
+    import goal6_l3_coastal_model as m
+    s = m.load_series(ROOT / "data/22_goal6_network/raw/estuary_tides/4_CPY015_2026_hourly.json")
+    assert s["2026-09-27 19:00"] == 1.88          # ค่านาทีที่ 00 (ค่านาทีที่ 50 คือ 1.65)

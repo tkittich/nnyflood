@@ -6,94 +6,94 @@
   "test_window": "2026-09-20 00:00 เป็นต้นไป",
   "purge_note": "ตัดแถวฝึกที่เป้าหมายทับช่วงทดสอบ (purge รายระยะ) ก่อนฟิตโมเดลทุกระยะ แบบเดียวกับแบบจำลองปากอ่าว — กันข้อมูลอนาคตรั่วเข้าชุดฝึก (รีวิวรอบ 5: Claude F-11 · DeepSeek F6(b) · Gemini F-12)",
   "astronomical_harmonics_calibrated": {
-    "S0": 0.2015,
+    "S0": 0.2071,
     "constituents": {
       "M2": {
         "name": "ดวงจันทร์กึ่งรายวันหลัก (Principal lunar semidiurnal)",
         "period_hours": 12.4206012,
-        "amplitude_m": 0.4299,
-        "phase_degrees": 200.64,
-        "a_cos": -0.4023,
-        "b_sin": 0.1516
+        "amplitude_m": 0.4273,
+        "phase_degrees": 176.42,
+        "a_cos": -0.4265,
+        "b_sin": -0.0267
       },
       "S2": {
         "name": "ดวงอาทิตย์กึ่งรายวันหลัก (Principal solar semidiurnal)",
         "period_hours": 12.0,
-        "amplitude_m": 0.2948,
-        "phase_degrees": 154.48,
-        "a_cos": -0.266,
-        "b_sin": -0.127
+        "amplitude_m": 0.291,
+        "phase_degrees": 130.03,
+        "a_cos": -0.1871,
+        "b_sin": -0.2228
       },
       "K1": {
         "name": "ดวงจันทร์-ดวงอาทิตย์รายวัน (Lunar diurnal)",
         "period_hours": 23.9344721,
-        "amplitude_m": 0.6031,
-        "phase_degrees": 23.98,
-        "a_cos": 0.5511,
-        "b_sin": -0.2452
+        "amplitude_m": 0.607,
+        "phase_degrees": 12.24,
+        "a_cos": 0.5932,
+        "b_sin": -0.1286
       },
       "O1": {
         "name": "ดวงจันทร์รายวันหลัก (Principal lunar diurnal)",
         "period_hours": 25.8193417,
-        "amplitude_m": 0.4125,
-        "phase_degrees": 27.11,
-        "a_cos": 0.3672,
-        "b_sin": -0.188
+        "amplitude_m": 0.4132,
+        "phase_degrees": 15.72,
+        "a_cos": 0.3978,
+        "b_sin": -0.112
       }
     }
   },
   "lead_skill_evaluations": {
     "lead_6h": {
       "lead_hours": 6,
-      "n_train": 1145,
-      "n_purged": 5,
-      "n_test": 262,
-      "rmse_model_m": 0.611,
-      "mae_model_m": 0.532,
-      "r2_model": -0.341,
-      "rmse_persistence_m": 0.618,
-      "rmse_astro_baseline_m": 0.563,
-      "skill_gain_vs_persistence_pct": 1.1,
-      "skill_gain_vs_astro_baseline_pct": -8.6
+      "n_train": 1123,
+      "n_purged": 4,
+      "n_test": 245,
+      "rmse_model_m": 0.412,
+      "mae_model_m": 0.346,
+      "r2_model": 0.391,
+      "rmse_persistence_m": 0.621,
+      "rmse_astro_baseline_m": 0.481,
+      "skill_gain_vs_persistence_pct": 33.6,
+      "skill_gain_vs_astro_baseline_pct": 14.2
     },
     "lead_12h": {
       "lead_hours": 12,
-      "n_train": 1067,
-      "n_purged": 11,
-      "n_test": 261,
-      "rmse_model_m": 0.616,
-      "mae_model_m": 0.551,
-      "r2_model": -0.381,
+      "n_train": 1044,
+      "n_purged": 10,
+      "n_test": 244,
+      "rmse_model_m": 0.56,
+      "mae_model_m": 0.484,
+      "r2_model": -0.108,
       "rmse_persistence_m": 0.577,
-      "rmse_astro_baseline_m": 0.536,
-      "skill_gain_vs_persistence_pct": -6.8,
-      "skill_gain_vs_astro_baseline_pct": -15.0
+      "rmse_astro_baseline_m": 0.504,
+      "skill_gain_vs_persistence_pct": 2.9,
+      "skill_gain_vs_astro_baseline_pct": -11.1
     },
     "lead_24h": {
       "lead_hours": 24,
-      "n_train": 1481,
-      "n_purged": 18,
-      "n_test": 274,
-      "rmse_model_m": 0.224,
-      "mae_model_m": 0.171,
-      "r2_model": 0.817,
-      "rmse_persistence_m": 0.212,
-      "rmse_astro_baseline_m": 0.205,
-      "skill_gain_vs_persistence_pct": -5.3,
-      "skill_gain_vs_astro_baseline_pct": -9.0
+      "n_train": 1456,
+      "n_purged": 14,
+      "n_test": 257,
+      "rmse_model_m": 0.236,
+      "mae_model_m": 0.181,
+      "r2_model": 0.797,
+      "rmse_persistence_m": 0.213,
+      "rmse_astro_baseline_m": 0.199,
+      "skill_gain_vs_persistence_pct": -11.0,
+      "skill_gain_vs_astro_baseline_pct": -18.6
     },
     "lead_48h": {
       "lead_hours": 48,
-      "n_train": 1452,
-      "n_purged": 41,
-      "n_test": 274,
-      "rmse_model_m": 0.414,
-      "mae_model_m": 0.34,
-      "r2_model": 0.304,
-      "rmse_persistence_m": 0.376,
-      "rmse_astro_baseline_m": 0.361,
-      "skill_gain_vs_persistence_pct": -10.0,
-      "skill_gain_vs_astro_baseline_pct": -14.6
+      "n_train": 1427,
+      "n_purged": 37,
+      "n_test": 257,
+      "rmse_model_m": 0.436,
+      "mae_model_m": 0.359,
+      "r2_model": 0.23,
+      "rmse_persistence_m": 0.379,
+      "rmse_astro_baseline_m": 0.345,
+      "skill_gain_vs_persistence_pct": -15.0,
+      "skill_gain_vs_astro_baseline_pct": -26.5
     }
   }
 }

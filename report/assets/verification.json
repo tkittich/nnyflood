@@ -1,6 +1,6 @@
 {
- "git_rev": "8b0fb86",
- "checked_at": "2026-10-25T18:40+07:00",
+ "git_rev": "fbcff7f",
+ "checked_at": "2026-10-25T18:57+07:00",
  "gates": {
   "thai": "pass",
   "contrast": "pass",

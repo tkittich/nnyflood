@@ -187,6 +187,7 @@ graph TD
 | [OFFLINE_DATA_BACKLOG.md](file:///e:/theera/code/flood/docs/OFFLINE_DATA_BACKLOG.md) | บันทึกข้อมูลขนาดใหญ่บนดิสก์ที่ไม่ถูกจัดเก็บใน git |
 | [OCR_WORKFLOW_V2.md](file:///e:/theera/code/flood/docs/OCR_WORKFLOW_V2.md) | **ขั้นตอน OCR รุ่นที่ 2** — แยกส่วนหน้าก่อน อ่านข้อความด้วย Typhoon และอ่านภาพย่อยด้วยโมเดลภาพ (บันทึกการตัดสินใจ 21 ต.ค. 69 · ยังไม่ใช้กับคิวที่ค้าง) |
 | [DEM_CORRECTION_PREREG.md](file:///e:/theera/code/flood/docs/DEM_CORRECTION_PREREG.md) | **กติกาปรับความสูง DEM แบบต่อเนื่อง (ตั้งก่อนดูผล)** — แทนตารางขั้นบันไดเดิม · ชุดพื้นผิวที่รายงานเป็นช่วง · ขอบเขตการรันซ้ำ (B1 รีวิวรอบ 7 · 25 ต.ค. 69) |
+| [HARMONICS_REFIT_PREREG.md](file:///e:/theera/code/flood/docs/HARMONICS_REFIT_PREREG.md) | **กติกาปรับฮาร์มอนิกน้ำขึ้นน้ำลงด้วยข้อมูลหลายปี (ตั้งก่อนดูผล)** — 10 องค์ประกอบ + ตัวแก้ปมจันทร์ · เทียบกับแบบ 4 องค์ประกอบเดิม · ชุดตัวอย่างร่วมทุกระยะ (R7-27 · 25 ต.ค. 69) |
 
 ---
 

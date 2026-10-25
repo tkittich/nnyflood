@@ -15,6 +15,7 @@
 | `docs/DEM_CORRECTION_PREREG.md` | current | plan | กติกาปรับความสูง DEM แบบต่อเนื่อง — กำหนดไว้ก่อนดูผล (B1 รีวิวรอบ 7) | กำหนด 25 ต.ค. 69 ก่อนรันโค้ดใหม่ |
 | `docs/ESTUARY_AND_WEATHER_GUIDE.md` | current | reference | คู่มือข้อมูลคุณภาพน้ำปากแม่น้ำ ทะเลอ่าวไทย ฝนโทรมาตร และการพยากรณ์น้ำท่า |  |
 | `docs/GOAL7_FOI_REQUESTS.md` | current | backlog | รายการขอข้อมูลจากหน่วยงาน — เป้าหมาย 7 (คลองเจ้าพระยา2) · ร่าง 16 ต.ค. 2569 |  |
+| `docs/HARMONICS_REFIT_PREREG.md` | current | plan | กติกาปรับฮาร์มอนิกน้ำขึ้นน้ำลงใหม่ด้วยข้อมูลหลายปี — กำหนดไว้ก่อนดูผล (R7-27) | กำหนด 25 ต.ค. 69 ก่อนรันโค้ดใหม่ |
 | `docs/LEGAL_REVIEW.md` | current | rules | การตรวจทานกฎหมายก่อนเผยแพร่: หมิ่นประมาท + PDPA | หลักหมิ่นประมาท + PDPA |
 | `docs/METHODS.md` | current | guide | วิธีการและมาตรฐานการทำงานของโครงการ (METHODS) |  |
 | `docs/OCR_WORKFLOW_V2.md` | current | plan | ขั้นตอน OCR รุ่นที่ 2 — แยกส่วนหน้าก่อน แล้วอ่านข้อความกับภาพแยกกัน (บันทึกการตัดสินใจ) | ตัดสินใจ 21 ต.ค. 69 · ยังไม่ใช้กับคิวที่ค้าง |
@@ -41,4 +42,4 @@
 | `docs/REVIEW_PROMPT.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Prompt สำหรับให้ AI ตัวอื่นรีวิว/ตรวจสอบโปรเจกต์ (เน้นเป้าหมาย 7 — คลองเจ้าพระยา2) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 | `docs/REVIEW_PROMPT_COMPREHENSIVE.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Comprehensive System Audit Prompt (Superseded) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 
-รวม 36 เอกสาร
+รวม 37 เอกสาร

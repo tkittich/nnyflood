@@ -113,25 +113,69 @@
   },
   "grid_convergence": {
     "note": "RMSE ไม่ลดลงเมื่อแบ่งช่วงย่อยละเอียดขึ้น → ผลที่ n_sub=12 เป็นค่าที่ 'พอดี' ไม่ใช่ค่าที่ลู่เข้า · ห้ามอ้างว่าเป็นคำตอบเชิงกายภาพ",
+    "diagnostics_note": "แถว 1–3 และตัวชี้วัดวินิจฉัยเพิ่ม 25 ต.ค. 69 ตามกติกา docs/ROUTING1D_SUBREACH_PREREG.md (ตั้งก่อนดูผล) · ค่าหลักคงที่ที่ 12 ช่วงย่อย · x_raw_negative_share = สัดส่วนจุดตรวจอัตราไหลที่ X ดิบติดลบ · kernel_nonneg_share = สัดส่วนครั้งคำนวณที่ c1 c2 c3 ไม่ติดลบ",
+    "n_sub_1": {
+      "q_peak_cms": 578.7,
+      "rmse_q_cms": 126.1,
+      "rmse_h_cm": 107.1,
+      "sub_reach_km": 18.3,
+      "travel_time_peak_h": 2.0,
+      "x_raw_negative_share": 0.0,
+      "kernel_nonneg_share": 0.0
+    },
+    "n_sub_2": {
+      "q_peak_cms": 558.5,
+      "rmse_q_cms": 124.2,
+      "rmse_h_cm": 103.7,
+      "sub_reach_km": 9.15,
+      "travel_time_peak_h": 3.0,
+      "x_raw_negative_share": 0.367,
+      "kernel_nonneg_share": 0.0
+    },
+    "n_sub_3": {
+      "q_peak_cms": 560.9,
+      "rmse_q_cms": 124.2,
+      "rmse_h_cm": 103.1,
+      "sub_reach_km": 6.1,
+      "travel_time_peak_h": 3.25,
+      "x_raw_negative_share": 0.667,
+      "kernel_nonneg_share": 0.359
+    },
     "n_sub_6": {
       "q_peak_cms": 591.7,
       "rmse_q_cms": 126.4,
-      "rmse_h_cm": 103.8
+      "rmse_h_cm": 103.8,
+      "sub_reach_km": 3.05,
+      "travel_time_peak_h": 3.25,
+      "x_raw_negative_share": 0.9,
+      "kernel_nonneg_share": 0.768
     },
     "n_sub_12": {
       "q_peak_cms": 613.0,
       "rmse_q_cms": 128.8,
-      "rmse_h_cm": 106.0
+      "rmse_h_cm": 106.0,
+      "sub_reach_km": 1.52,
+      "travel_time_peak_h": 3.25,
+      "x_raw_negative_share": 0.967,
+      "kernel_nonneg_share": 1.0
     },
     "n_sub_24": {
       "q_peak_cms": 627.5,
       "rmse_q_cms": 130.2,
-      "rmse_h_cm": 107.3
+      "rmse_h_cm": 107.3,
+      "sub_reach_km": 0.76,
+      "travel_time_peak_h": 3.25,
+      "x_raw_negative_share": 1.0,
+      "kernel_nonneg_share": 0.972
     },
     "n_sub_48": {
       "q_peak_cms": 638.9,
       "rmse_q_cms": 131.1,
-      "rmse_h_cm": 108.0
+      "rmse_h_cm": 108.0,
+      "sub_reach_km": 0.38,
+      "travel_time_peak_h": 3.25,
+      "x_raw_negative_share": 1.0,
+      "kernel_nonneg_share": 0.232
     }
   }
 }

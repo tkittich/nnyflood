@@ -128,6 +128,7 @@ def run_muskingum_cunge_reach(
     manning_n: float,
     b_avg: float,
     n_sub: int = 12,
+    diag: dict | None = None,
 ) -> np.ndarray:
     """จำลองการเคลื่อนตัวของมวลน้ำหลากแบบ Muskingum-Cunge 1D Unsteady
     
@@ -159,6 +160,9 @@ def run_muskingum_cunge_reach(
             c3 = (2.0 * k_sec * (1.0 - x_param) - dt_sec) / denom
 
             q_next = c1 * curr_inflow[t + 1] + c2 * curr_inflow[t] + c3 * outflow_q[t]
+            if diag is not None:         # วินิจฉัยอย่างเดียว ไม่กระทบการคำนวณ (R7-24)
+                diag["n"] = diag.get("n", 0) + 1
+                diag["pos"] = diag.get("pos", 0) + (1 if (c1 >= 0 and c2 >= 0 and c3 >= 0) else 0)
             outflow_q[t + 1] = max(0.0, q_next)
 
         curr_inflow = outflow_q
@@ -285,13 +289,25 @@ def main() -> None:
 
     # 4c. ตารางลู่เข้า (grid convergence) — RMSE ต้องไม่แย่ลงเมื่อแบ่งช่วงย่อยละเอียดขึ้น
     convergence = {}
-    for ns in (6, 12, 24, 48):
-        qs = run_muskingum_cunge_reach(q_obs_ny1b, dt_sec, dx_m, slope_reach2, n_channel, b_avg, n_sub=ns)
+    idx_pk_in = int(np.argmax(q_obs_ny1b))
+    for ns in (1, 2, 3, 6, 12, 24, 48):
+        dg = {}
+        qs = run_muskingum_cunge_reach(q_obs_ny1b, dt_sec, dx_m, slope_reach2, n_channel, b_avg, n_sub=ns, diag=dg)
         hs = np.interp(qs, q_env, h_test_levels[order])
+        xr = []
+        for _q in np.linspace(10.0, 1500.0, 30):
+            _q = float(_q)
+            _y = max(0.5, ((n_channel * _q) / (b_avg * math.sqrt(slope_reach2))) ** 0.6)
+            _c = (5.0 / 3.0) * (_q / (b_avg * _y))
+            xr.append(0.5 * (1.0 - _q / (b_avg * slope_reach2 * _c * (dx_m / ns))))
         convergence[str(ns)] = {
             "q_peak_cms": round(float(np.max(qs)), 1),
             "rmse_q_cms": round(float(np.sqrt(np.mean((qs[mask_event] - q_obs_ny7[mask_event]) ** 2))), 1),
             "rmse_h_cm": round(float(np.sqrt(np.mean((hs[mask_event] - h_obs_ny7[mask_event]) ** 2))) * 100.0, 1),
+            "sub_reach_km": round(dx_m / ns / 1000.0, 2),
+            "travel_time_peak_h": round((int(np.argmax(qs)) - idx_pk_in) * 0.25, 2),
+            "x_raw_negative_share": round(sum(1 for v in xr if v < 0) / len(xr), 3),
+            "kernel_nonneg_share": round(dg["pos"] / dg["n"], 3) if dg.get("n") else None,
         }
 
     # เวลาเดินทางของยอดคลื่นน้ำ (Peak Wave Travel Time: ร่องน้ำ Ny.1B สู่ Ny.7 18.3 กม.)
@@ -389,6 +405,10 @@ def main() -> None:
         },
         "grid_convergence": {
             "note": "RMSE ไม่ลดลงเมื่อแบ่งช่วงย่อยละเอียดขึ้น → ผลที่ n_sub=12 เป็นค่าที่ 'พอดี' ไม่ใช่ค่าที่ลู่เข้า · ห้ามอ้างว่าเป็นคำตอบเชิงกายภาพ",
+            "diagnostics_note": "แถว 1–3 และตัวชี้วัดวินิจฉัยเพิ่ม 25 ต.ค. 69 ตามกติกา docs/ROUTING1D_SUBREACH_PREREG.md (ตั้งก่อนดูผล) · ค่าหลักคงที่ที่ 12 ช่วงย่อย · x_raw_negative_share = สัดส่วนจุดตรวจอัตราไหลที่ X ดิบติดลบ · kernel_nonneg_share = สัดส่วนครั้งคำนวณที่ c1 c2 c3 ไม่ติดลบ",
+            "n_sub_1": convergence["1"],
+            "n_sub_2": convergence["2"],
+            "n_sub_3": convergence["3"],
             "n_sub_6": convergence["6"],
             "n_sub_12": convergence["12"],
             "n_sub_24": convergence["24"],

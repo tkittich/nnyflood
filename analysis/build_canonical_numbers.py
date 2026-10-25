@@ -272,6 +272,15 @@ render = {
     "r1d_ny7_pk_q": f"{r1d['ny7_hydraulics']['peak_q_cms']:.1f}",
     "r1d_ny7_pk_msl": f"{r1d['ny7_hydraulics']['peak_stage_msl_m']:.2f}",
     "r1d_rmse_h_cm": f"{r1d['routing_performance']['rmse_stage_cm']:.1f}",
+    # R7-24: ความไวต่อการแบ่งช่วงย่อย (กติกา docs/ROUTING1D_SUBREACH_PREREG.md) — ช่วงข้ามแถว 1–48 ช่วงย่อย
+    "r1d_conv_peak_lo": f"{min(v['q_peak_cms'] for k, v in r1d['grid_convergence'].items() if k.startswith('n_sub_')):.0f}",
+    "r1d_conv_peak_hi": f"{max(v['q_peak_cms'] for k, v in r1d['grid_convergence'].items() if k.startswith('n_sub_')):.0f}",
+    "r1d_conv_rmse_lo": f"{min(v['rmse_q_cms'] for k, v in r1d['grid_convergence'].items() if k.startswith('n_sub_')):.0f}",
+    "r1d_conv_rmse_hi": f"{max(v['rmse_q_cms'] for k, v in r1d['grid_convergence'].items() if k.startswith('n_sub_')):.0f}",
+    "r1d_conv_travel_lo": f"{min(v['travel_time_peak_h'] for k, v in r1d['grid_convergence'].items() if k.startswith('n_sub_')):.2g}",
+    "r1d_conv_travel_hi": f"{max(v['travel_time_peak_h'] for k, v in r1d['grid_convergence'].items() if k.startswith('n_sub_')):.2f}",
+    "r1d_conv_kernel12": f"{100 * r1d['grid_convergence']['n_sub_12']['kernel_nonneg_share']:.0f}",
+    "r1d_conv_kernel48": f"{100 * r1d['grid_convergence']['n_sub_48']['kernel_nonneg_share']:.0f}",
     "r1d_bias_cm": f"{r1d['routing_performance']['stage_bias_cm']:.1f}",
     "r1d_resid_cm": f"{r1d['routing_performance']['stage_residual_cm']:.1f}",
 }

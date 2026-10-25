@@ -156,7 +156,7 @@ RETIRED = [
     "48.0 ม. (ลาดข้าง",
 ]
 ALL_REPORTS = [PUBLIC, ACADEMIC]
-BUILDERS = [ROOT / f"report/goal7_build_{n}.py" for n in ("public", "academic")]
+BUILDERS = [ROOT / f"report/goal7_build_{n}.py" for n in ("public", "academic", "policy_brief")]      # เอกสารนโยบายอยู่ในขอบเขตสแกนแล้ว (รีวิวรอบ 7)
 
 # โมดูลกลางที่ประกอบข้อความเข้าไปในรายงานจริง — ต้องอยู่ในขอบเขตการสแกนด้วย
 # (เดิมสแกนเฉพาะไฟล์ไบล์เดอร์ ทำให้ข้อความที่สร้างในโมดูลกลาง เช่น ป้าย # gap: ในตาราง

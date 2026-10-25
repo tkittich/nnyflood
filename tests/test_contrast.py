@@ -94,6 +94,9 @@ def test_goal7_mark_colours_meet_wcag_data_floor():
         ROOT / "report/report_assets.py",
         ROOT / "report/goal7_blocks.py",
         ROOT / "report/goal7_build_policy_brief.py",
+        ROOT / "report/goal7_engine.py",
+        ROOT / "report/goal7_build_public.py",
+        ROOT / "report/goal7_build_academic.py",
     ]
     # สีที่ไม่ใช่องค์แสดงข้อมูล — พื้นหลัง/เส้นขอบ/ข้อความกำกับ พร้อมเหตุผลที่ยกเว้น:
     # · พื้นผืนผ้าและเส้นหนา/ข้อความกำกับของธีม ไม่ใช่ข้อมูลที่ต้องอ่านค่า
@@ -110,7 +113,9 @@ def test_goal7_mark_colours_meet_wcag_data_floor():
     # · #fffbeb / #fcd34d — พื้นหลังและเส้นขอบของกรอบเตือนเรื่องข้อขัดแย้งของตัวเลข
     #   ไม่ใช่องค์แสดงข้อมูล ข้อความในกรอบสืบทอดสีตัวอักษรธีม (เข้ม) บนพื้นอ่อน
     #   จึงอ่านได้ — ยกเว้นคู่เดียวกับกรอบข้อมูลสีฟ้า #f0f9ff/#bae6fd ข้างบน
+    # · #b9c6d2 / #dbe3ea — เส้นขอบกล่องพับ (details.qd) ในเอ็นจินรายงาน 7–8 ไม่ใช่องค์แสดงข้อมูล (เพิ่มเมื่อขยายขอบเขตตรวจรอบ 7)
     NON_DATA = {
+        "#b9c6d2", "#dbe3ea", "#f6f9fc",      # #f6f9fc = พื้นกล่องถาม–ตอบของรายงาน 7 (ข้อความในกล่องใช้สีธีม · .src #5a6b7b บนพื้นนี้ ≈ 5.2:1)
         "#ffffff", "#000000", "#f8fafc", "#f6f9fb", "#eef2f5", "#eef2f6", "#e2e8f0",
         "#888888", "#dddddd", "#cccccc", "#0f2233", "#153a5e", "#28425c", "#2a4d73",
         "#c9d3dc", "#efe7d8", "#dbe9f6", "#f0f9ff", "#bae6fd", "#cbd5e1",

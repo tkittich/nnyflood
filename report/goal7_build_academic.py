@@ -203,6 +203,7 @@ S.append(prose(
     "<b>การตีความ:</b> ตัวแปรชุดใหม่ (ท้อง 85 ม. ลึก 6 ม.) ใหญ่กว่าชุดปี 2565 (ท้อง 70 ม. ลึก 6 ม.) ที่ความลึกเท่ากัน — ตัวเลขทั้งสองชุดนี้ไม่ระบุสันคัน (ค่าสันคันมาจากรายงานผลกระทบสิ่งแวดล้อมฉบับเต็ม ดู⟦design_eia⟧)"  # gap: n/a
 ))
 S.append(blk.box_canal_active_storage_reality())
+S.append(blk.box_same_number_different_source())
 S.append(OL.h3("design_eia", "ตัวแปรออกแบบตามรายงานผลกระทบสิ่งแวดล้อมฉบับเต็ม (ชั้น A)"))
 S.append(prose(
     f"แหล่ง: {_clean(EXC['source'])} · ระเบียน <code>{EXC['record']}</code> · {_clean(EXC['note']).replace('PDF', 'ไฟล์')} · "

@@ -86,13 +86,13 @@ class Mesh:
 
 
 def terrain_sampler():
-    """ความสูงพื้นจาก FABDEM ที่ปรับด้วย DEM 5 ม. (ตาราง dem_bias_correction.json) — ใช้เฉพาะ "ความต่างระดับด้านข้าง" เทียบแนวกลาง ส่วนระดับตามแนวคลองยึดเส้นดินใน EIA
+    """ความสูงพื้นจาก FABDEM ที่ปรับแบบต่อเนื่องด้วย DEM 5 ม. (จุดผูก monotone_correction ใน dem_bias_correction.json · เดิมใช้ตารางขั้นบันได — รีวิวรอบ 7 B1/R7-34) — ใช้เฉพาะ "ความต่างระดับด้านข้าง" เทียบแนวกลาง ส่วนระดับตามแนวคลองยึดเส้นดินใน EIA
     คืน None ถ้าไม่มีไฟล์ DEM บนเครื่อง (แบบจำลองจะใช้พื้นราบด้านข้างแทน)"""
     try:
         from pyproj import Transformer
         import goal7_dem_bias_correction as bc
         from goal7_fabdem_compare import FAB, sampler
-        tbl = json.loads(BIAS_JSON.read_text(encoding="utf-8"))["bias_table_by_fabdem_height"]
+        kn = json.loads(BIAS_JSON.read_text(encoding="utf-8"))["monotone_correction"]["knots"]
         fab = sampler(FAB, "N{lat}E{lon}_FABDEM_V1-2.tif")
         to_wgs = Transformer.from_crs(32647, 4326, always_xy=True).transform
     except Exception:  # noqa: BLE001
@@ -103,7 +103,7 @@ def terrain_sampler():
         f = fab(lo, la)
         if f is None:
             return None
-        return float(bc.correct(np.array([f], dtype=float), tbl)[0])
+        return float(bc.correct_monotone(np.array([f], dtype=float), kn)[0])
     return at
 
 

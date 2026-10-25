@@ -153,6 +153,7 @@ graph TD
 - `goal6_build_all.py`: รันวิเคราะห์ $\rightarrow$ สร้าง canonical $\rightarrow$ build รายงาน 3, 4 $\rightarrow$ รันเทสต์เป้าหมาย 6
 - `verify_data_integrity.py`: ตรวจสอบค่าแฮช SHA-256 ของไฟล์ข้อมูลดิบทั้งหมด 3,348 รายการ
 - `tools/verify_all.py`: ตัวตรวจความสมบูรณ์และมาตรฐานแบบครบวงจร 4 ขั้นตอน (สารบัญ, SHA-256, pytest lint, pytest ทั้งหมด)
+- `tools/write_verification.py`: ประทับผลตรวจจริง 4 ด่าน (ภาษา · สี · กฎหมาย/ข้อมูลส่วนบุคคล · ตัวเลขกลาง) ลง `report/assets/verification.json` ให้ป้ายท้ายรายงานอ่าน — `verify_all.py` เรียกให้อัตโนมัติ (รีวิวรอบ 7)
 
 ---
 
@@ -175,6 +176,7 @@ graph TD
 | [REVIEW_PROMPT_EN.md](file:///e:/theera/code/flood/docs/REVIEW_PROMPT_EN.md) | **English Red-Team Review Prompt (ชุดคำสั่งหลัก)**: Comprehensive independent audit prompt for external LLMs / peer-reviewers (3 Pillars & Models) |
 | [AUDIT_REDTEAM_2026-10-17.md](file:///e:/theera/code/flood/docs/reviews/AUDIT_REDTEAM_2026-10-17.md) | **รายงานผลการตรวจทานทางชลศาสตร์และวิทยาศาสตร์ข้อมูล (`docs/reviews/AUDIT_REDTEAM_2026-10-17.md`)**: ผลการตรวจสอบ 10 ประเด็น พร้อมการแก้ไขเสถียรภาพ 1D Routing, แก้ไข Feature รั่วไหล L3 ML, และการปรับปรุงกราฟจำลอง CP2 |
 | [AUDIT_ROUND2_2026-10-17.md](file:///e:/theera/code/flood/docs/reviews/AUDIT_ROUND2_2026-10-17.md) | **ผลการตรวจสอบอิสระรอบที่ 2 (Delta Review)**: ตรวจซ้ำประเด็นรอบที่ 1 ว่าปิดจริงหรือไม่ พร้อมประเด็นใหม่ N-01 ถึง N-04 (canonical ledger drift, ไฟล์ตรวจสอบที่ยังไม่ลงทะเบียน) |
+| [TRIAGE_ROUND7_2026-10-25.md](file:///e:/theera/code/flood/docs/reviews/TRIAGE_ROUND7_2026-10-25.md) | **การกลั่นกรองรีวิวอิสระรอบที่ 7**: ข้อที่ตรวจซ้ำแล้ว/งานแก้/คลังงานค้าง R7-23…35/ข้อที่ไม่รับ พร้อมสถานะความคืบหน้า (25 ต.ค. 69) |
 | [DATA_DICTIONARY.md](file:///e:/theera/code/flood/docs/DATA_DICTIONARY.md) | **พจนานุกรมข้อมูล (เป้าหมาย 1–5)**: นิยามตัวแปร ค่าอ้างอิงความสูง (datum) ตัวเลขน้ำสูงสุด และพื้นที่น้ำท่วม |
 | [METHODS.md](file:///e:/theera/code/flood/docs/METHODS.md) | **วิธีวิทยา (เป้าหมาย 1–5)**: ชั้นหลักฐาน `[F]/[I]/[O]`, การปรับเทียบระดับน้ำ, การกำกับความถูกต้อง |
 | [ANALYSIS_PLAN.md](file:///e:/theera/code/flood/docs/ANALYSIS_PLAN.md) | **แผนการวิเคราะห์ดั้งเดิม**: กรอบการทำงานเป้าหมาย 1–5 |

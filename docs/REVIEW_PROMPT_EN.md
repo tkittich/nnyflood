@@ -55,7 +55,7 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
 
 1. **Strictly Read-Only**: Do not modify files, do not commit or push to git, and never execute destructive commands (`git reset`, `git clean`, `rm -rf`).
 2. **No Hallucinations or Phantom References**: Every identified finding must cite a verified `path/to/file:line`, a specific PDF page, or the exact output of a command you executed.
-3. **Read first**: `HANDOFF.md` (25 Oct section), `docs/GOAL7_PLAN.md` §27–28.1, `docs/OCR_WORKFLOW_V2.md`, `docs/REMOTE_SENSING_APIS.md`, `docs/OFFLINE_DATA_BACKLOG.md` (R7-17..R7-22), `analysis/goal7/gaps.json`.
+3. **Read first**: `HANDOFF.md` (25 Oct section), `docs/GOAL7_PLAN.md` §32–34 and the pre-registration documents (`docs/*_PREREG.md`), `docs/OCR_WORKFLOW_V2.md`, `docs/REMOTE_SENSING_APIS.md`, `docs/OFFLINE_DATA_BACKLOG.md` (R7-17..R7-22), `analysis/goal7/gaps.json`.
 3a. **Validate Using Concrete Commands**:
    - Run the unified 4-step verification runner: `python tools/verify_all.py` (all steps must pass).
    - Check the project knowledge catalog: `python catalog.py check` and `python catalog.py audit`.

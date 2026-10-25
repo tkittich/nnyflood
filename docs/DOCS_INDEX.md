@@ -9,6 +9,7 @@
 | `START_HERE.md` | current | guide | START HERE — โครงการน้ำท่วมนครนายก 2569 และการขยายผลระดับชาติ | จุดเริ่มต้นสำหรับ session ใหม่ · ตัวเลขนับ (สารบัญ/เทสต์) ต้องตรงของจริง — number_inventory ตรวจข้อ E |
 | `THIRD_PARTY_NOTICES.md` | current | legal | Third-party notices — ข้อมูลบุคคลที่สามที่ใช้/อ้างอิงในโปรเจกต์ |  |
 | `docs/BANGBAN_BANGSAI_COMPARISON.md` | current | analysis | บทเรียนเชิงวิศวกรรมและเศรษฐศาสตร์: คลองระบายน้ำหลากบางบาล–บางไทร สู่โครงการเจ้าพระยา 2 | เทียบบางบาล–บางไทรกับเจ้าพระยา 2 — ตรวจตัวเลขกับ analysis/goal7/bangban_bangsai_comparison.json ด้วย number_inventory |
+| `docs/COMPOUND_ANCHORED_PREREG.md` | current | plan | กติกาเมทริกซ์น้ำท่วมซ้อนแบบยึดค่าที่วัดและอัตราส่งผ่านน้ำหนุนที่วัดได้ — กำหนดไว้ก่อนดูผล (R7-26) | กำหนด 26 ต.ค. 69 ก่อนรันโค้ดใหม่ |
 | `docs/DATA_CONSISTENCY_WORKFLOW.md` | current | rules | ระบบการจัดการความสอดคล้องของข้อมูลและการระงับข้อขัดแย้งหลายแหล่ง (Data Consistency & Multi-Source Reconciliati | ระบบระงับข้อขัดแย้ง 5 ชั้น — เพิ่มส่วนเครื่องมือเสริม (inventory/registry/doctor) 19 ต.ค. 69 |
 | `docs/DATA_DICTIONARY.md` | current | reference | พจนานุกรมข้อมูล (DATA_DICTIONARY) |  |
 | `docs/DATA_SOURCES.md` | current | reference | แหล่งข้อมูลทั้งหมดของโครงการ (DATA_SOURCES) | วิธีดึงข้อมูลจากแต่ละแหล่ง — มีตัวแทนพาธย่อ (data/13_, data/22_) ไม่ใช่พาธจริง |
@@ -44,4 +45,4 @@
 | `docs/REVIEW_PROMPT.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Prompt สำหรับให้ AI ตัวอื่นรีวิว/ตรวจสอบโปรเจกต์ (เน้นเป้าหมาย 7 — คลองเจ้าพระยา2) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 | `docs/REVIEW_PROMPT_COMPREHENSIVE.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Comprehensive System Audit Prompt (Superseded) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 
-รวม 39 เอกสาร
+รวม 40 เอกสาร

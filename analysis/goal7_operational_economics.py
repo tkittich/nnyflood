@@ -90,11 +90,22 @@ def build_operational_economics_data() -> dict:
     total_annual_cost_12 = round(annualized_capital_12 + opex_annual_mb, 1)
     cost_per_m3_12 = round(total_annual_cost_12 * 1e6 / (diverted_volume_mcm * 1e6), 2)
 
+    # R6-09: ความไวต่ออายุเศรษฐกิจ (30 ปีตามแหล่งเทียบ 50 ปี) — พารามิเตอร์ความไวของผู้จัดทำ ไม่ใช่ค่าจากแหล่ง
+    alt_life = 50
+    life_sens = []
+    for _r, _pct in ((r7, 7.0), (r9, 9.0), (r12, 12.0)):
+        _crf = _r * (1 + _r) ** alt_life / ((1 + _r) ** alt_life - 1)
+        _ann = round(capex_mb * _crf, 1)
+        _tot = round(_ann + opex_annual_mb, 1)
+        life_sens.append({"discount_rate_pct": _pct, "crf": round(_crf, 6), "annualized_capital_mb": _ann, "total_annual_cost_mb": _tot,
+                          "cost_per_m3_diverted_baht": round(_tot * 1e6 / (diverted_volume_mcm * 1e6), 2)})
+
     lifecycle_economics = {
         "capex_mb": capex_mb,
         "opex_annual_mb": opex_annual_mb,
         "lifespan_years": lifespan_years,
         "annual_diverted_mcm": diverted_volume_mcm,
+        "life_sensitivity": {"alt_lifespan_years": alt_life, "note": "ความไวต่ออายุเศรษฐกิจ: พารามิเตอร์ของผู้จัดทำ ไม่ใช่ค่าจากแหล่ง · ตัวหารปริมาณน้ำผันและค่าบำรุงรักษาคงเดิม", "scenarios": life_sens},
         "discount_scenarios": [
             {
                 "discount_rate_pct": 7.0,

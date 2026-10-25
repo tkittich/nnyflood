@@ -24,6 +24,33 @@
     "opex_annual_mb": 264.8,
     "lifespan_years": 30,
     "annual_diverted_mcm": 1970.0,
+    "life_sensitivity": {
+      "alt_lifespan_years": 50,
+      "note": "ความไวต่ออายุเศรษฐกิจ: พารามิเตอร์ของผู้จัดทำ ไม่ใช่ค่าจากแหล่ง · ตัวหารปริมาณน้ำผันและค่าบำรุงรักษาคงเดิม",
+      "scenarios": [
+        {
+          "discount_rate_pct": 7.0,
+          "crf": 0.07246,
+          "annualized_capital_mb": 11596.9,
+          "total_annual_cost_mb": 11861.7,
+          "cost_per_m3_diverted_baht": 6.02
+        },
+        {
+          "discount_rate_pct": 9.0,
+          "crf": 0.091227,
+          "annualized_capital_mb": 14600.5,
+          "total_annual_cost_mb": 14865.3,
+          "cost_per_m3_diverted_baht": 7.55
+        },
+        {
+          "discount_rate_pct": 12.0,
+          "crf": 0.120417,
+          "annualized_capital_mb": 19272.2,
+          "total_annual_cost_mb": 19537.0,
+          "cost_per_m3_diverted_baht": 9.92
+        }
+      ]
+    },
     "discount_scenarios": [
       {
         "discount_rate_pct": 7.0,

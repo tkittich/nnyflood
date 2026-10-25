@@ -311,6 +311,16 @@ RECONCILED_PARAMETERS = {
             "civic_petition": {"rai": 16305, "tier": "C", "source": "สมาคมพลเมืองนครนายก (อ้างอิงเอกสารปี 2565)"}
         }
     },
+    "structure_count": {
+        "canonical_value": 87,
+        "unit": "แห่ง",
+        "resolution": "รายงานใช้ 87 แห่งเป็นจำนวนจุดตัด/อาคารตลอดแนวตามบัญชีของผู้จัดทำ (แยกจังหวัด 22/31/24/10) แต่แยกตามประเภทได้เพียง 57 แห่ง (ไซฟอนและท่อ 34 + สะพานรถ 15 + สะพานรถไฟ 1 + ประตูเรือ 5 + ประตูกลางคลอง 2) และยอด 87 ทำซ้ำจากบัญชีโครงการ 130 รายการไม่ได้ (ไม่มีชุดประเภทใดรวมได้ 87 พร้อมการแบ่งจังหวัดเดียวกัน) จึงถือ 87 เป็นค่าประมาณของผู้จัดทำ ไม่ใช่ค่าจากแหล่งทางการ — อย่าเทียบกับ 99 ของ EIA หรือ 130 ของบัญชีโครงการตรง ๆ เพราะนับต่างขอบเขต (R6-12)",
+        "variants": {
+            "analyst_compilation": {"count": 87, "tier": "C", "source": "บัญชีของผู้จัดทำ — แยกประเภทได้ 57"},
+            "eia_component_buildings": {"count": 99, "tier": "A", "source": "EIA ตาราง 2.3.2-3 อาคารประกอบ"},
+            "project_catalogue_rows": {"count": sum(1 for _ in open(Path(__file__).resolve().parent / "goal7/structures_all.csv", encoding="utf-8")) - 1, "tier": "B", "source": "บัญชีรายการอาคารของโครงการ (รวมสะพานรถยนต์ทุกแห่ง)"},
+        },
+    },
     "project_budget": {
         "canonical_eia_capex_mb": 160046,
         "canonical_cabinet_ceiling_mb": 165000,
@@ -1588,6 +1598,11 @@ def main():
             "qsens": {d: [{"q_scale": r["q_scale"], "iou_27sep": r["peak_27sep"]["iou"], "iou_2oct": r["oct2_validated"]["iou"], "area_27sep_km2": r["peak_27sep"]["area_km2"], "final_stored_mcm": r["final_stored_mcm"],
                            "closure_error_pct": r["budget"]["closure_error_pct_of_input"]} for r in rows]
                       for d, rows in json.loads((OUT / "ongkharak_hydraulic_2d_qsens.json").read_text(encoding="utf-8")).items()} if (OUT / "ongkharak_hydraulic_2d_qsens.json").exists() else {}}
+    if (OUT / "mitrearth_layers_summary.json").exists():
+        _ml = json.loads((OUT / "mitrearth_layers_summary.json").read_text(encoding="utf-8"))
+        c["mitrearth_layers"] = {"a_gistda_flood_footprints": _ml["a_gistda_flood_footprints"], "c_contour_1m_vs_dem": {"window_set_gis_file": {k: v for k, v in _ml["c_contour_1m_vs_dem"]["window_set_gis_file"].items() if k in ("n_points_sampled_in_province", "dem_minus_contour", "closest_dem")}, "conclusion": _ml["c_contour_1m_vs_dem"]["conclusion"]}}
+    if (OUT / "mitrearth_road_valley.json").exists():
+        c["mitrearth_road_valley"] = json.loads((OUT / "mitrearth_road_valley.json").read_text(encoding="utf-8"))
     if (OUT / "bangpakong_chachoengsao.json").exists():
         c["bangpakong_chachoengsao"] = json.loads((OUT / "bangpakong_chachoengsao.json").read_text(encoding="utf-8"))
     if (OUT / "mitrearth_national_summary.json").exists():

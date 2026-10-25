@@ -1,0 +1,67 @@
+{
+ "source": "ชั้น Valley_X_Road_Point และ 'จุดเสี่ยงน้ำตัดถนน' ของมิตรเอิร์ธ (ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์)",
+ "observed_stage_msl_m": 2.35,
+ "province_valley_x_road_points": 254,
+ "in_ongkharak": {
+  "n": 53,
+  "fabdem_raw": {
+   "n": 53,
+   "min_m": 2.24,
+   "median_m": 3.37,
+   "max_m": 5.01
+  },
+  "fabdem_corrected": {
+   "n": 53,
+   "min_m": 0.65,
+   "median_m": 1.46,
+   "max_m": 3.11
+  },
+  "below_observed_stage_raw": 4,
+  "below_observed_stage_corrected": 47
+ },
+ "in_ongkharak_highway_305": {
+  "n": 4,
+  "fabdem_raw": {
+   "n": 4,
+   "min_m": 4.24,
+   "median_m": 4.3,
+   "max_m": 4.36
+  },
+  "fabdem_corrected": {
+   "n": 4,
+   "min_m": 2.29,
+   "median_m": 2.35,
+   "max_m": 2.42
+  },
+  "below_observed_stage_raw": 0,
+  "below_observed_stage_corrected": 2
+ },
+ "top_roads_in_ongkharak": [
+  [
+   "",
+   18
+  ],
+  [
+   "ทางหลวงแผ่นดินหมายเลข 305",
+   4
+  ],
+  [
+   "ทางหลวงชนบท นย. 3007",
+   3
+  ],
+  [
+   "ทางหลวงชนบท นย. 3012",
+   3
+  ],
+  [
+   "ทางหลวงชนบท นย. 3001",
+   3
+  ]
+ ],
+ "water_cut_road_risk_points": {
+  "n_province": 254,
+  "n_in_district": 53,
+  "same_layer_as_valley_x_road": true
+ },
+ "caveat": "ความสูงคือพื้นดินเปล่า (FABDEM) ไม่ใช่ระดับผิวถนน — ไม่ใช้ยืนยันระดับที่น้ำล้นถนน · ช่องว่าง route305_crown_elevation ยังเปิด"
+}

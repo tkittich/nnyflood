@@ -353,6 +353,28 @@
     }
    }
   },
+  "structure_count": {
+   "canonical_value": 87,
+   "unit": "แห่ง",
+   "resolution": "รายงานใช้ 87 แห่งเป็นจำนวนจุดตัด/อาคารตลอดแนวตามบัญชีของผู้จัดทำ (แยกจังหวัด 22/31/24/10) แต่แยกตามประเภทได้เพียง 57 แห่ง (ไซฟอนและท่อ 34 + สะพานรถ 15 + สะพานรถไฟ 1 + ประตูเรือ 5 + ประตูกลางคลอง 2) และยอด 87 ทำซ้ำจากบัญชีโครงการ 130 รายการไม่ได้ (ไม่มีชุดประเภทใดรวมได้ 87 พร้อมการแบ่งจังหวัดเดียวกัน) จึงถือ 87 เป็นค่าประมาณของผู้จัดทำ ไม่ใช่ค่าจากแหล่งทางการ — อย่าเทียบกับ 99 ของ EIA หรือ 130 ของบัญชีโครงการตรง ๆ เพราะนับต่างขอบเขต (R6-12)",
+   "variants": {
+    "analyst_compilation": {
+     "count": 87,
+     "tier": "C",
+     "source": "บัญชีของผู้จัดทำ — แยกประเภทได้ 57"
+    },
+    "eia_component_buildings": {
+     "count": 99,
+     "tier": "A",
+     "source": "EIA ตาราง 2.3.2-3 อาคารประกอบ"
+    },
+    "project_catalogue_rows": {
+     "count": 130,
+     "tier": "B",
+     "source": "บัญชีรายการอาคารของโครงการ (รวมสะพานรถยนต์ทุกแห่ง)"
+    }
+   }
+  },
   "project_budget": {
    "canonical_eia_capex_mb": 160046,
    "canonical_cabinet_ceiling_mb": 165000,
@@ -7798,6 +7820,33 @@
    "opex_annual_mb": 264.8,
    "lifespan_years": 30,
    "annual_diverted_mcm": 1970.0,
+   "life_sensitivity": {
+    "alt_lifespan_years": 50,
+    "note": "ความไวต่ออายุเศรษฐกิจ: พารามิเตอร์ของผู้จัดทำ ไม่ใช่ค่าจากแหล่ง · ตัวหารปริมาณน้ำผันและค่าบำรุงรักษาคงเดิม",
+    "scenarios": [
+     {
+      "discount_rate_pct": 7.0,
+      "crf": 0.07246,
+      "annualized_capital_mb": 11596.9,
+      "total_annual_cost_mb": 11861.7,
+      "cost_per_m3_diverted_baht": 6.02
+     },
+     {
+      "discount_rate_pct": 9.0,
+      "crf": 0.091227,
+      "annualized_capital_mb": 14600.5,
+      "total_annual_cost_mb": 14865.3,
+      "cost_per_m3_diverted_baht": 7.55
+     },
+     {
+      "discount_rate_pct": 12.0,
+      "crf": 0.120417,
+      "annualized_capital_mb": 19272.2,
+      "total_annual_cost_mb": 19537.0,
+      "cost_per_m3_diverted_baht": 9.92
+     }
+    ]
+   },
    "discount_scenarios": [
     {
      "discount_rate_pct": 7.0,
@@ -9506,6 +9555,249 @@
     }
    ]
   }
+ },
+ "mitrearth_layers": {
+  "a_gistda_flood_footprints": {
+   "years_in_layer": [
+    0,
+    2005,
+    2006,
+    2008,
+    2010,
+    2011
+   ],
+   "per_year": {
+    "2005": {
+     "polygons": 2,
+     "area_km2_net_in_province": 1.3,
+     "share_of_province_pct": 0.1,
+     "vs_2026_peak_27sep": {
+      "intersection_km2": 1.1,
+      "iou": 0.002,
+      "share_of_2026_also_flooded_that_year_pct": 0.2,
+      "share_of_that_year_also_flooded_2026_pct": 84.3
+     },
+     "vs_2026_oct2_validated": {
+      "intersection_km2": 0.9,
+      "iou": 0.003,
+      "share_of_2026_also_flooded_that_year_pct": 0.3,
+      "share_of_that_year_also_flooded_2026_pct": 75.4
+     }
+    },
+    "2006": {
+     "polygons": 1074,
+     "area_km2_net_in_province": 612.6,
+     "share_of_province_pct": 29.2,
+     "vs_2026_peak_27sep": {
+      "intersection_km2": 267.5,
+      "iou": 0.341,
+      "share_of_2026_also_flooded_that_year_pct": 60.9,
+      "share_of_that_year_also_flooded_2026_pct": 43.7
+     },
+     "vs_2026_oct2_validated": {
+      "intersection_km2": 235.2,
+      "iou": 0.322,
+      "share_of_2026_also_flooded_that_year_pct": 66.6,
+      "share_of_that_year_also_flooded_2026_pct": 38.4
+     }
+    },
+    "2008": {
+     "polygons": 154,
+     "area_km2_net_in_province": 56.4,
+     "share_of_province_pct": 2.7,
+     "vs_2026_peak_27sep": {
+      "intersection_km2": 31.7,
+      "iou": 0.068,
+      "share_of_2026_also_flooded_that_year_pct": 7.2,
+      "share_of_that_year_also_flooded_2026_pct": 56.1
+     },
+     "vs_2026_oct2_validated": {
+      "intersection_km2": 35.2,
+      "iou": 0.094,
+      "share_of_2026_also_flooded_that_year_pct": 10.0,
+      "share_of_that_year_also_flooded_2026_pct": 62.5
+     }
+    },
+    "2010": {
+     "polygons": 1130,
+     "area_km2_net_in_province": 702.4,
+     "share_of_province_pct": 33.5,
+     "vs_2026_peak_27sep": {
+      "intersection_km2": 329.2,
+      "iou": 0.405,
+      "share_of_2026_also_flooded_that_year_pct": 75.0,
+      "share_of_that_year_also_flooded_2026_pct": 46.9
+     },
+     "vs_2026_oct2_validated": {
+      "intersection_km2": 293.8,
+      "iou": 0.386,
+      "share_of_2026_also_flooded_that_year_pct": 83.2,
+      "share_of_that_year_also_flooded_2026_pct": 41.8
+     }
+    },
+    "2011": {
+     "polygons": 4,
+     "area_km2_net_in_province": 992.7,
+     "share_of_province_pct": 47.4,
+     "vs_2026_peak_27sep": {
+      "intersection_km2": 400.2,
+      "iou": 0.388,
+      "share_of_2026_also_flooded_that_year_pct": 91.2,
+      "share_of_that_year_also_flooded_2026_pct": 40.3
+     },
+     "vs_2026_oct2_validated": {
+      "intersection_km2": 342.2,
+      "iou": 0.341,
+      "share_of_2026_also_flooded_that_year_pct": 96.9,
+      "share_of_that_year_also_flooded_2026_pct": 34.5
+     }
+    }
+   },
+   "recurrence_of_2026_footprint_pct": {
+    "peak_27sep": {
+     "area_2026_km2": 438.9,
+     "by_number_of_past_flood_years": {
+      "0": 6.8,
+      "1": 11.3,
+      "2": 28.7,
+      "3": 46.8,
+      "4": 6.4,
+      "5": 0.0
+     }
+    },
+    "oct2_validated": {
+     "area_2026_km2": 353.0,
+     "by_number_of_past_flood_years": {
+      "0": 1.3,
+      "1": 8.6,
+      "2": 30.7,
+      "3": 50.5,
+      "4": 8.8,
+      "5": 0.0
+     }
+    }
+   },
+   "ever_flooded_2548_2554_km2": 1034.2,
+   "unknown_year_polygons": {
+    "polygons": 365,
+    "area_km2_in_province": 576.3,
+    "note": "ไม่ระบุปี — ไม่นับในตารางรายปี"
+   },
+   "crs_note": ".prj ว่างเปล่า — สมมติ WGS84",
+   "reading_note": "ต่างชุดข้อมูลกัน (GISTDA ภาพออปติคัล/เรดาร์ต่างปี vs เรดาร์ Sentinel-1 ของโครงการ) เกณฑ์ตรวจน้ำต่างกัน เทียบพื้นที่ได้เชิงขนาด ไม่ใช่การตรวจความถูกต้องรายพิกเซล"
+  },
+  "c_contour_1m_vs_dem": {
+   "window_set_gis_file": {
+    "n_points_sampled_in_province": 19045,
+    "dem_minus_contour": {
+     "dempro_5m": {
+      "n": 19045,
+      "bias_m": 0.03,
+      "mae_m": 0.12,
+      "rmse_m": 0.24,
+      "p05_m": -0.23,
+      "p95_m": 0.3
+     },
+     "mitrearth_dem30m": {
+      "n": 18955,
+      "bias_m": 3.98,
+      "mae_m": 4.02,
+      "rmse_m": 4.7,
+      "p05_m": 0.56,
+      "p95_m": 8.23
+     },
+     "fabdem": {
+      "n": 19045,
+      "bias_m": 1.93,
+      "mae_m": 1.96,
+      "rmse_m": 2.32,
+      "p05_m": 0.19,
+      "p95_m": 3.78
+     },
+     "copernicus_glo30": {
+      "n": 19045,
+      "bias_m": 3.06,
+      "mae_m": 3.08,
+      "rmse_m": 3.64,
+      "p05_m": 0.9,
+      "p95_m": 6.53
+     }
+    },
+    "closest_dem": "dempro_5m"
+   },
+   "conclusion": {
+    "window_set_derived_from": "dempro_5m",
+    "province_set_derived_from": "mitrearth_dem30m",
+    "reading_note": "เส้นชั้น 1 ม. ชุดหน้าต่าง (10,592 เส้น) ตรงกับ DEMPro 5 ม. (ส่วนต่างเฉลี่ย ~0.0 ม.) · ชุดทั้งจังหวัด (111,298 เส้น) ตรงกับ DEM 30 ม. ของมิตรเอิร์ธ — ทั้งสองจึงสร้างจาก DEM ของมิตรเอิร์ธเอง ไม่ใช่การสำรวจอิสระ · ส่วนต่างเทียบ FABDEM/Copernicus (~2 ม. และ ~3 ม. ในหน้าต่าง) คือความต่างเชิงดิ่งระหว่างชุด DEM เอง (DEMPro ต่ำกว่า DEM 30 ม. ของมิตรเอิร์ธ ~4 ม.) — ยังไม่ทราบว่าชุดใดใกล้พื้นจริงที่สุด (EIA 2.3.2-9 ต่ำกว่า FABDEM เฉลี่ย 1.3 ม.)"
+   }
+  }
+ },
+ "mitrearth_road_valley": {
+  "source": "ชั้น Valley_X_Road_Point และ 'จุดเสี่ยงน้ำตัดถนน' ของมิตรเอิร์ธ (ประโยชน์สาธารณะ/การศึกษา ห้ามใช้เชิงพาณิชย์)",
+  "observed_stage_msl_m": 2.35,
+  "province_valley_x_road_points": 254,
+  "in_ongkharak": {
+   "n": 53,
+   "fabdem_raw": {
+    "n": 53,
+    "min_m": 2.24,
+    "median_m": 3.37,
+    "max_m": 5.01
+   },
+   "fabdem_corrected": {
+    "n": 53,
+    "min_m": 0.65,
+    "median_m": 1.46,
+    "max_m": 3.11
+   },
+   "below_observed_stage_raw": 4,
+   "below_observed_stage_corrected": 47
+  },
+  "in_ongkharak_highway_305": {
+   "n": 4,
+   "fabdem_raw": {
+    "n": 4,
+    "min_m": 4.24,
+    "median_m": 4.3,
+    "max_m": 4.36
+   },
+   "fabdem_corrected": {
+    "n": 4,
+    "min_m": 2.29,
+    "median_m": 2.35,
+    "max_m": 2.42
+   },
+   "below_observed_stage_raw": 0,
+   "below_observed_stage_corrected": 2
+  },
+  "top_roads_in_ongkharak": [
+   [
+    "",
+    18
+   ],
+   [
+    "ทางหลวงแผ่นดินหมายเลข 305",
+    4
+   ],
+   [
+    "ทางหลวงชนบท นย. 3007",
+    3
+   ],
+   [
+    "ทางหลวงชนบท นย. 3012",
+    3
+   ],
+   [
+    "ทางหลวงชนบท นย. 3001",
+    3
+   ]
+  ],
+  "water_cut_road_risk_points": {
+   "n_province": 254,
+   "n_in_district": 53,
+   "same_layer_as_valley_x_road": true
+  },
+  "caveat": "ความสูงคือพื้นดินเปล่า (FABDEM) ไม่ใช่ระดับผิวถนน — ไม่ใช้ยืนยันระดับที่น้ำล้นถนน · ช่องว่าง route305_crown_elevation ยังเปิด"
  },
  "bangpakong_chachoengsao": {
   "generated": "2026-10-25",

@@ -455,6 +455,16 @@ def tbl_lifecycle_economics() -> str:
             f"เคยมีค่า {alt:,.0f} ล้านบาท อ้างฉบับชี้แจงครั้งที่ 2 หน้า 121 ซึ่งเป็นค่าคนละขอบเขตและราคาคงที่ปี 2566 (ตรวจพบในชั้นข้อความของฉบับชี้แจงแล้ว ไม่ใช่ค่าผิด) จึงไม่ใช้ — ถ้าใช้ค่านั้น ต้นทุนที่คิดลดร้อยละ 7 จะเป็น {alt_cost:.2f} บาท/ลบ.ม. "
             f"แทน {le['discount_scenarios'][0]['cost_per_m3_diverted_baht']:.2f} (ตัวหารปริมาณน้ำผันเฉลี่ยยังเป็นข้อสมมติ)</p>"
         )
+    ls = le.get("life_sensitivity")
+    if ls:
+        sc = ls["scenarios"]
+        base = le["discount_scenarios"]
+        note_html += (
+            f"<p class='cap'>ความไวต่ออายุเศรษฐกิจ: ถ้าใช้อายุ {ls['alt_lifespan_years']} ปีแทน {le['lifespan_years']} ปี ต้นทุนต่อลูกบาศก์เมตรที่คิดลดร้อยละ 7/9/12 เป็น "
+            f"{sc[0]['cost_per_m3_diverted_baht']:.2f}/{sc[1]['cost_per_m3_diverted_baht']:.2f}/{sc[2]['cost_per_m3_diverted_baht']:.2f} บาท/ลบ.ม. "
+            f"(ลดลงร้อยละ {100 * (1 - sc[0]['cost_per_m3_diverted_baht'] / base[0]['cost_per_m3_diverted_baht']):.0f} ที่ร้อยละ 7) — อายุยาวขึ้นลดภาระรายปีได้บ้าง แต่ไม่เปลี่ยนข้อสรุปว่าต้นทุนต่อน้ำผันสูงกว่าทางเลือกอื่นหลายเท่า "
+            f"(อายุ {ls['alt_lifespan_years']} ปีเป็นพารามิเตอร์ความไวของผู้จัดทำ ไม่ใช่ค่าจากแหล่ง)</p>"
+        )
     return t1 + note_html + "\n\n" + t2
 
 
@@ -578,6 +588,55 @@ def tbl_ongkharak_dem_sensitivity() -> str:
            f"เครื่องหมายของส่วนต่างพลิกตามชุด DEM (ชุดดิบสูงกว่าเส้นดินของรายงานผลกระทบสิ่งแวดล้อมเฉลี่ย {C['dem_bias_correction']['eia_ground_check']['fabdem_raw']['bias_m']:.1f}–{C['dem_bias_correction']['eia_ground_check']['copernicus_raw']['bias_m']:.1f} ม. ใน {C['dem_bias_correction']['eia_ground_check']['n_lowland_fabdem_lt_15m']} จุดตลอดแนวคลอง) — "
            f"จึงไม่ควรตีความส่วนต่างระดับ {sens['copernicus_raw']['sar_fit']['oct2_validated']['offset_vs_gauge_m']:+.1f} ม. ของชุดดิบเป็นผลของแบบจำลอง")
     return table(["ชุดแบบจำลองความสูง", "มัธยฐานความสูงอำเภอ (ม.รทก.)", "พื้นที่ที่ระดับเกจ (ตร.กม.)", "ระดับที่มีผล 27 ก.ย. / 2 ต.ค. (ม.รทก.)", "ต่างจากเกจ (ม.)", "ดัชนีทับซ้อนกับเรดาร์"], rows, cap)
+
+
+def tbl_mitrearth_gistda_history() -> str:
+    """น้ำท่วมในอดีต (GISTDA 2548–2554 ที่มิตรเอิร์ธรวบรวม) เทียบรูปน้ำท่วม 27 ก.ย. 2569 ในจังหวัดนครนายก (R7-14)"""
+    m = C.get("mitrearth_layers", {}).get("a_gistda_flood_footprints", {})
+    py = m.get("per_year", {})
+    if not py:
+        return ""
+    rows = []
+    for y in sorted(py):
+        v = py[y]
+        rows.append([f"พ.ศ. {int(y) + 543}", f"{v['area_km2_net_in_province']:.0f} ({v['share_of_province_pct']:.0f}%)", f"{v['vs_2026_peak_27sep']['share_of_2026_also_flooded_that_year_pct']:.0f}%", f"{v['vs_2026_peak_27sep']['share_of_that_year_also_flooded_2026_pct']:.0f}%"])
+    rc = m["recurrence_of_2026_footprint_pct"]["peak_27sep"]["by_number_of_past_flood_years"]
+    ge3 = sum(v for k, v in rc.items() if int(k) >= 3)
+    cap = (f"พื้นที่น้ำท่วมรายปีของ GISTDA ในจังหวัดนครนายก (ตร.กม. สุทธิ และร้อยละของจังหวัด) และการซ้อนกับรูปน้ำท่วมของโครงการ 27 ก.ย. 2569 · "
+           f"ในรูป 27 ก.ย. 2569 ({m['recurrence_of_2026_footprint_pct']['peak_27sep']['area_2026_km2']:.0f} ตร.กม.) ร้อยละ {ge3:.0f} เคยท่วมอย่างน้อย 3 ปีจาก {len(py)} ปีที่มีข้อมูล และร้อยละ {rc['0']:.0f} ไม่เคยท่วมในปีเหล่านั้น · "
+           f"ชั้นข้อมูลมีรูปหลายเหลี่ยมที่ไม่มีปีกำกับอีก {m['unknown_year_polygons']['area_km2_in_province']:.0f} ตร.กม. ไม่นับในตารางนี้ · {m['reading_note']}")
+    return table(["ปีที่ท่วม", "พื้นที่ท่วม GISTDA (ตร.กม. · % จังหวัด)", "ส่วนของรูป 2569 ที่ปีนั้นก็ท่วม", "ส่วนของปีนั้นที่ปี 2569 ท่วมอีก"], rows, cap)
+
+
+def tbl_mitrearth_dem_vs_contour() -> str:
+    """ความต่างระหว่างแบบจำลองความสูงต่าง ๆ กับเส้นชั้นความสูง 1 ม. ของมิตรเอิร์ธในหน้าต่าง DEM 5 ม. (R7-14)"""
+    c = C.get("mitrearth_layers", {}).get("c_contour_1m_vs_dem", {}).get("window_set_gis_file", {})
+    d = c.get("dem_minus_contour", {})
+    if not d:
+        return ""
+    names = {"dempro_5m": "DEM 5 ม. ของมิตรเอิร์ธ", "mitrearth_dem30m": "DEM 30 ม. ของมิตรเอิร์ธ", "fabdem": "FABDEM ดิบ", "copernicus_glo30": "Copernicus GLO-30 ดิบ"}
+    rows = [[names.get(k, k), f"{v['n']:,}", f"{v['bias_m']:+.2f}", f"{v['mae_m']:.2f}", f"{v['rmse_m']:.2f}"] for k, v in d.items()]
+    cap = (f"ความสูงของแบบจำลองลบความสูงเส้นชั้น 1 ม. ที่จุดสุ่มในหน้าต่าง DEM 5 ม. ({c['n_points_sampled_in_province']:,} จุด) · "
+           f"เส้นชั้นชุดนี้สร้างจาก DEM 5 ม. ของมิตรเอิร์ธเอง ไม่ใช่การสำรวจอิสระ จึงตรงกับ DEM 5 ม. โดยโครงสร้าง ส่วนต่างของชุดอื่นสะท้อนความต่างระหว่างแบบจำลองความสูง ไม่ใช่ความคลาดจากพื้นจริง · "
+           f"FABDEM สูงกว่าเส้นชั้นเฉลี่ย {d['fabdem']['bias_m']:+.2f} ม. และ Copernicus {d['copernicus_glo30']['bias_m']:+.2f} ม. ในหน้าต่างนี้ — ตรงกับที่พบว่าชุดความสูงดิบสูงกว่าเส้นดินของรายงานผลกระทบสิ่งแวดล้อมในที่ราบต่ำ")
+    return table(["แบบจำลองความสูง", "จำนวนจุด", "ความเอนเอียงเฉลี่ย (ม.)", "คลาดสัมบูรณ์เฉลี่ย (ม.)", "รากกำลังสองของความคลาด (ม.)"], rows, cap)
+
+
+def prose_road_valley() -> str:
+    """จุดที่ถนนตัดร่องน้ำในอำเภอองครักษ์ (ชั้นมิตรเอิร์ธ) เทียบระดับน้ำจริง — ความสูงพื้นดินเปล่า ไม่ใช่ระดับผิวถนน (R7-14)"""
+    r = C.get("mitrearth_road_valley", {})
+    if not r or not r.get("in_ongkharak", {}).get("n"):
+        return ""
+    o, h = r["in_ongkharak"], r.get("in_ongkharak_highway_305", {})
+    s = (f"<b>ข้อเท็จจริง:</b> ชั้นข้อมูลมิตรเอิร์ธระบุจุดที่ถนนตัดร่องน้ำในอำเภอองครักษ์ {o['n']} จุด (ทั้งจังหวัด {r['province_valley_x_road_points']} จุด) · "
+         f"ความสูงพื้นดินเปล่าที่จุดเหล่านี้ตาม FABDEM ดิบ {o['fabdem_raw']['min_m']:.2f}–{o['fabdem_raw']['max_m']:.2f} ม.รทก. (มัธยฐาน {o['fabdem_raw']['median_m']:.2f}) "
+         f"และตาม FABDEM ที่ปรับแบบต่อเนื่อง {o['fabdem_corrected']['min_m']:.2f}–{o['fabdem_corrected']['max_m']:.2f} (มัธยฐาน {o['fabdem_corrected']['median_m']:.2f}) · "
+         f"ต่ำกว่าระดับน้ำจริงในคลอง (+{r['observed_stage_msl_m']:.2f} ม.รทก.) {o['below_observed_stage_raw']} จุดตามชุดดิบ และ {o['below_observed_stage_corrected']} จุดตามชุดปรับแล้ว ")
+    if h.get("n"):
+        s += (f"· ทางหลวงหมายเลข 305 มี {h['n']} จุด สูง {h['fabdem_raw']['min_m']:.2f}–{h['fabdem_raw']['max_m']:.2f} ม.รทก. (ชุดดิบ) และ {h['fabdem_corrected']['min_m']:.2f}–{h['fabdem_corrected']['max_m']:.2f} (ชุดปรับแล้ว) ")
+    s += ("· <b>การตีความ:</b> ผลต่างระหว่างสองชุดความสูงมากกว่าระยะห่างจากระดับน้ำจริง จึงบอกไม่ได้ว่าน้ำถึงถนนหรือไม่ · "
+          "ความสูงนี้คือพื้นดินเปล่า ไม่ใช่ระดับผิวถนน (ถนนมีคันสูงกว่าพื้น) ระดับสันถนนทางหลวง 305 จึงยังไม่ทราบ ใช้ยืนยันจุดบ่าล้นไม่ได้ ")  # gap: route305_crown_elevation
+    return s
 
 
 def tbl_dem_waterline() -> str:
@@ -921,6 +980,10 @@ def box_same_number_different_source() -> str:
         rows.append(["งบประมาณ (ล้านบาท)",
                      f"{pb['canonical_eia_capex_mb']:,} (งบลงทุนตาม รายงานผลกระทบสิ่งแวดล้อม) · {pb['canonical_cabinet_ceiling_mb']:,} (กรอบเพดานที่ กนช./ครม. เห็นชอบ)",
                      pb["resolution"]])
+    sc = rp.get("structure_count", {})
+    if sc:
+        rows.append(["จำนวนอาคารตัดขวาง/อาคารประกอบ (แห่ง)",
+                     " · ".join(f"{v['count']} ({v['source']})" for v in sc["variants"].values()), sc["resolution"]])
     segs = C.get("design_segments", {}).get("segments", [])
     cs = rp.get("canal_storage", {})
     if segs and cs:

@@ -129,6 +129,10 @@ def main():
         if not step4:
             success = False
 
+    # ประทับผลตรวจจริงของแต่ละด่านลงไฟล์ให้ป้ายในรายงานอ่าน (รีวิวรอบ 7 B3) — เฉพาะการตรวจเต็ม
+    if not args.quick:
+        subprocess.run([sys.executable, "tools/write_verification.py"], cwd=str(ROOT), stdin=subprocess.DEVNULL)
+
     print("=" * 72)
     if success:
         if WARNINGS:

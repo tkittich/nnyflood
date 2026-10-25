@@ -93,6 +93,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | สภาพแวดล้อม | สถานะ | ทำอะไร | รันอย่างไร | ผลิต |
 |---|---|---|---|---|---|---|
 | `verify_all` | `tools/verify_all.py` | `main` | active | ตรวจครบวงจร: สารบัญ · แฮชข้อมูลดิบ · ภาษา/มาตรฐาน · ทะเบียนเครื่องมือ · pytest ทั้งชุด | `python tools/verify_all.py` | — |
+| `write_verification` | `tools/write_verification.py` | `main` | active | ประทับผลตรวจจริง 4 ด่าน (ภาษา · สี · กฎหมาย/ข้อมูลส่วนบุคคล · ตัวเลขกลาง) ลงไฟล์ให้ป้ายในรายงานอ่าน | `python tools/write_verification.py` | `report/assets/verification.json` |
 | `doctor` | `tools/doctor.py` | `main` | active | ตรวจทะเบียนนี้: สภาพแวดล้อมพร้อมใช้ · ไฟล์มีจริง · เอกสารตรงกับทะเบียน · สคริปต์ที่ยังไม่ลงทะเบียน | `python tools/doctor.py [--deep] [--write-docs] [--list-unregistered]` | `docs/ENVIRONMENT.md (ส่วนเครื่องมือ)` |
 | `number_inventory` | `tools/number_inventory.py` | `main` | active | บัญชีตัวเลขทั้งคลัง: ปริมาณเดียวกันค่าต่างกัน · ตัวเลขกำพร้า · คีย์ JSON ขัด · literal ใน builder · เอกสารล้าสมัย | `python tools/number_inventory.py --out docs/reviews/INVENTORY_<วันที่>.md` | `docs/reviews/INVENTORY_*.md` |
 | `mini_fts` | `tools/mini_fts.py` | `main` | active | ดัชนีค้นข้อความเต็ม (SQLite FTS) ของเอกสารและผล OCR | `python tools/mini_fts.py` | `data/search_index.db` |
@@ -280,7 +281,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 5 สภาพแวดล้อม · 180 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 5 สภาพแวดล้อม · 181 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

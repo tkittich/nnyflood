@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import base64
 import html as _html
+import json
 import re
 from pathlib import Path
 
@@ -405,17 +406,48 @@ def git_revision() -> str:
     return "main"
 
 
-def provenance_box(canonical_ref: str = "canonical.json") -> str:
+_GATE_LABELS = {
+    "thai": "การตรวจภาษาไทย (คำพิมพ์ผิด/คำชน)",
+    "contrast": "ความเปรียบต่างสี (WCAG AA)",
+    "legal_privacy": "การตรวจกฎหมายและข้อมูลส่วนบุคคล",
+    "canonical": "ความสอดคล้องกับฐานตัวเลขกลาง",
+}
+
+
+def _gate_badges(vp: Path, rev: str, canonical_ref: str) -> str:
+    """ป้ายผลตรวจ — อ่านจากไฟล์ผลตรวจจริง (tools/write_verification.py) เท่านั้น
+    เครื่องหมายถูกขึ้นเฉพาะด่านที่ผ่านจริง · ไม่มีไฟล์/ไม่ผ่าน = ป้ายกลางไม่มีเครื่องหมายถูก (รีวิวรอบ 7 B3)"""
+    try:
+        v = json.loads(Path(vp).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        v = None
+    out = []
+    for k, label in _GATE_LABELS.items():
+        st = (v or {}).get("gates", {}).get(k)
+        if st == "pass":
+            out.append(f'    <span class="prov-badge prov-badge-ok">&#10003; ผ่าน{label}</span>')
+        elif st == "fail":
+            out.append(f'    <span class="prov-badge prov-badge-code">ไม่ผ่าน{label} ในการตรวจล่าสุด</span>')
+        else:
+            out.append(f'    <span class="prov-badge prov-badge-code">ยังไม่ได้ตรวจ{label}ในรอบนี้</span>')
+    if v:
+        vrev = v.get("git_rev", "?")
+        note = f"ผลตรวจล่าสุดที่รหัสรุ่น {vrev} เมื่อ {str(v.get('checked_at', '?'))[:16].replace('T', ' ')}"
+        if vrev != rev:
+            note += " (ไม่ตรงกับรหัสรุ่นของรายงานนี้)"
+        out.append(f'    <span class="prov-badge prov-badge-code">{note}</span>')
+    return "\n".join(out) + "\n"
+
+
+def provenance_box(canonical_ref: str = "canonical.json", verification_path: Path | None = None) -> str:
     """กล่องประทับประวัติ ความโปร่งใส และการตรวจสอบย้อนกลับ (Report Revision & Provenance Footnote)"""
     rev = git_revision()
+    vp = verification_path or (Path(__file__).resolve().parent / "assets/verification.json")
     return (
         f'<div class="provenance-box">\n'
         f'  <div class="provenance-badges">\n'
         f'    <span class="prov-badge prov-badge-code">รหัสรุ่น Git: {rev}</span>\n'
-        f'    <span class="prov-badge prov-badge-ok">&#10003; ผ่านการตรวจภาษาไทย (Typo &amp; Collision Guard)</span>\n'
-        f'    <span class="prov-badge prov-badge-ok">&#10003; ความเปรียบต่างสีผ่านเกณฑ์ WCAG AA</span>\n'
-        f'    <span class="prov-badge prov-badge-ok">&#10003; ผ่านการตรวจกฎหมายและความเป็นส่วนตัว (Legal &amp; PDPA Guard)</span>\n'
-        f'    <span class="prov-badge prov-badge-ok">&#10003; ข้อมูลผูกกับฐานตัวเลขทางการ ({esc(canonical_ref)})</span>\n'
+        f'{_gate_badges(vp, rev, canonical_ref)}'
         f'  </div>\n'
         f'  <div>\n'
         f'    <b>บันทึกประวัติและความโปร่งใส (Provenance &amp; Traceability):</b> '

@@ -1,0 +1,30 @@
+{
+ "git_rev": "9db4627",
+ "checked_at": "2026-10-25T11:28+07:00",
+ "gates": {
+  "thai": "pass",
+  "contrast": "pass",
+  "legal_privacy": "pass",
+  "canonical": "pass"
+ },
+ "tests": {
+  "thai": [
+   "tests/test_thai_language_lint.py",
+   "tests/test_report3_language.py"
+  ],
+  "contrast": [
+   "tests/test_contrast.py"
+  ],
+  "legal_privacy": [
+   "tests/test_legal_compliance.py",
+   "tests/test_privacy.py"
+  ],
+  "canonical": [
+   "tests/test_data_consistency.py",
+   "tests/test_goal6_consistency.py",
+   "tests/test_goal7_report.py",
+   "tests/test_reports12.py",
+   "tests/test_number_inventory.py"
+  ]
+ }
+}

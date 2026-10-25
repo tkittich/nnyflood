@@ -29,7 +29,7 @@ def test_canonical_exists_and_generated():
     # canonical ต้องผลิตสดเทียบไฟล์ต้นทาง — ถ้าไม่รัน script แล้ว stale ให้ fail
     import subprocess, sys
     r = subprocess.run([sys.executable, str(ROOT / "analysis/goal6_canonical.py")],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, stdin=subprocess.DEVNULL)
     assert r.returncode == 0, r.stderr
     fresh = _load()
     assert fresh["rain_national"] == d["rain_national"], "canonical.json ล้าสมณี — รัน analysis/goal6_canonical.py ใหม่"

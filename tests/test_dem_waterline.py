@@ -13,9 +13,11 @@ def test_three_dems_two_dates_with_edges():
             assert r["edge_pixels"] > 10000 and 0 < r["edge_iqr_over_district_iqr"] < 1.5
 
 
-def test_corrected_dem_has_tightest_edge_both_dates():
+def test_edge_ratios_are_reported_not_prejudged():
+    """รีวิวรอบ 7: ไม่ยืนยันว่าชุดไหนชนะ (ห้ามให้เทสต์เป็นแรงกดดันให้ผลออกทางใดทางหนึ่ง) — ตรวจเพียงว่าค่าอัตราส่วนครบ จำกัดค่า และไม่เป็นค่าซ้ำกันทั้งหมด"""
     for d in R["results"].values():
-        assert d["fabdem_corrected"]["edge_iqr_over_district_iqr"] == min(r["edge_iqr_over_district_iqr"] for r in d.values())
+        vals = [r["edge_iqr_over_district_iqr"] for r in d.values()]
+        assert len(vals) == 3 and all(isinstance(v, float) for v in vals) and len(set(vals)) > 1
 
 
 def test_gistda_yearly_waterline_summary():
@@ -24,4 +26,4 @@ def test_gistda_yearly_waterline_summary():
     n = {v["years_tested"] for v in G["summary"].values()}
     assert len(n) == 1 and n.pop() >= 5
     assert all(v["flood_km2_in_district"] >= G["min_flood_km2"] for v in G["years"].values())
-    assert G["summary"]["copernicus_raw"]["median_edge_level_m"] - G["summary"]["fabdem_corrected"]["median_edge_level_m"] > 1.0
+    assert all(isinstance(v["median_edge_level_m"], float) for v in G["summary"].values())

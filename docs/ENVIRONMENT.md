@@ -20,6 +20,7 @@
 | numpy | 2.5.1 | คำนวณอนุกรมเวลา/Manning/พื้นที่ |
 | scipy | 1.18.1 | สถิติเสริม |
 | rasterio | 1.5.2 | อ่าน GeoTIFF/DEM + reproject Sentinel-1 |
+| pyproj | 3.8.0 | แปลงพิกัด (ชั้นข้อมูล mitrearth · ปรับค่าความสูง DEM) |
 | shapely | 2.1.2 | เรขาคณิตโซนน้ำท่วม |
 | matplotlib | 3.11.2 | กราฟทั้งหมด (ต้องมีฟอนต์ไทย — ดูด้านล่าง) |
 | pyshp | 3.1.6 | อ่าน shapefile GISTDA |

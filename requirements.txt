@@ -13,6 +13,7 @@ rasterio==1.5.2
 shapely==2.1.2
 matplotlib==3.11.2
 pyshp==3.1.6
+pyproj==3.8.0       # แปลงพิกัด (goal7_mitrearth_layers · goal7_dem_bias_correction) — เดิมไม่ได้ประกาศ ทำให้ติดตั้งสะอาดแล้วเก็บเทสต์ไม่ได้
 scikit-learn==1.9.1
 openpyxl==3.1.5      # อ่านไฟล์สำรวจรูปตัดขวาง .xlsx ของกรมชลประทาน (rid_cross_section_extract)
 pytest==9.1.1        # รันชุดทดสอบ: python -m pytest tests/ -q

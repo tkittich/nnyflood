@@ -94,12 +94,23 @@ def one_round(n: int) -> dict:
             "counts": {"sections_detected": len(secs), "items_detected_total": n_items}, "sections": {str(k): v for k, v in sorted(secs.items())}}
 
 
+_NAME_RX = re.compile(r"(?:นางสาว|นาง|นาย)(?!ก\s)\s*[ก-๙]+\s+[ก-๙]+")
+_GARBLED_NAMES = ("ประวี ชุมมาลา", "ปรเนร ชุมมาเกิด")      # ลายเซ็นผู้ลงนามที่โปรแกรมอ่านเพี้ยนจนไม่มีคำนำหน้า
+
+
+def redact_names(s: str) -> str:
+    """ปกปิดชื่อบุคคลธรรมดา (ผู้ลงนามในหนังสือ) — เก็บตำแหน่งไว้ · รีวิวรอบ 7 (ข้อมูลส่วนบุคคลเกินจำเป็นในไฟล์ที่ติดตามใน git)"""
+    for g in _GARBLED_NAMES:
+        s = s.replace(g, "[ชื่อผู้ลงนามถูกปกปิด]")
+    return _NAME_RX.sub("[ชื่อผู้ลงนามถูกปกปิด]", s)
+
+
 def main() -> None:
     r1 = one_round(1)
     r1["counts"].update({"section_1_items_detected": len(r1["sections"].get("1", {}).get("items", [])), "section_1_items_in_letter": 16,
                          "note": "หัวข้อใหญ่มีเลข 1–21 · ข้อย่อยนับด้วยโปรแกรมจากข้อความถอด (ประมาณ)"})
     r1["rounds"] = {"2": one_round(2), "3": one_round(3)}
-    OUT.write_text(json.dumps(r1, ensure_ascii=False, indent=1), encoding="utf-8")
+    OUT.write_text(redact_names(json.dumps(r1, ensure_ascii=False, indent=1)), encoding="utf-8")
     print("round1", r1["counts"], "trunc", r1["ocr"])
     for k, v in r1["rounds"].items():
         print("round" + k, v["letter"]["no"], v["letter"]["date"], v["counts"], v["ocr"])

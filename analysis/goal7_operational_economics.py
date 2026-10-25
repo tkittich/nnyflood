@@ -173,7 +173,7 @@ def build_operational_economics_data() -> dict:
                 {
                     "section": "หัวข้อ 1 ข้อ 12",
                     "issue": "ระยะเวลาก่อสร้าง 3 ปีไม่สมเหตุสมผล",
-                    "detail": "การกำหนดเวลาก่อสร้าง 3 ปีสำหรับโครงการขุดคลอง 135.9 กม. เป็นไปไม่ได้ในทางปฏิบัติ ส่งผลให้การคิดลดผลตอบแทนทางเศรษฐศาสตร์ (<code>EIRR</code> 14.52% ตามรายงานผลกระทบสิ่งแวดล้อมเดิม) สูงเกินจริงอย่างมีนัยสำคัญ",
+                    "detail": "การกำหนดเวลาก่อสร้าง 3 ปีไม่สมเหตุสมผลกับขนาดโครงการ ความสลับซับซ้อนทางวิศวกรรมและสิ่งแวดล้อม และปริมาณงานโดยรวม ส่งผลให้การวิเคราะห์ด้านเศรษฐศาสตร์คลาดเคลื่อนและได้ผลตอบแทนของโครงการสูงเกินจริง",
                 },
                 {
                     "section": "หัวข้อ 1 ข้อ 16",
@@ -198,7 +198,7 @@ def build_operational_economics_data() -> dict:
                 {
                     "section": "หัวข้อ 5 ข้อ 4.1–4.3",
                     "issue": "รอยเลื่อนองครักษ์",
-                    "detail": "สั่งให้ตัดคำว่า 'เป็นรอยเลื่อนไม่มีพลัง' ออก เนื่องจากยังไม่มีการศึกษาในรายละเอียด และให้เจาะสำรวจลึกถึงชั้นหินแข็งอย่างน้อย 5 หลุมตามแนวคลอง",
+                    "detail": "สั่งให้ตัดคำว่า 'เป็นรอยเลื่อนไม่มีพลัง' ออก เนื่องจากยังไม่มีการศึกษาในรายละเอียด และให้เจาะดินสำรวจอย่างน้อย 5 หลุมตามแนวคลองที่พาดผ่านรอยเลื่อน โดยเจาะถึงชั้นดินแข็ง",
                 },
                 {
                     "section": "หัวข้อ 5 ข้อ 9",
@@ -373,11 +373,11 @@ def build_operational_economics_data() -> dict:
         return b * h + z * h * h
 
     total_storage = round(EIA_A_M2 * CANAL_L_M / 1e6, 1)  # 68.5 ล้าน ลบ.ม.
-    dead_storage = round(_area(DEAD_DEPTH_M, eia_z_mean, eia_bed_width) * CANAL_L_M / 1e6, 1)  # 16.2 ล้าน ลบ.ม.
-    active_storage = round(total_storage - dead_storage, 1)  # 52.3 ล้าน ลบ.ม.
+    dead_storage = round(_area(DEAD_DEPTH_M, eia_z_mean, eia_bed_width) * CANAL_L_M / 1e6, 1)  # 15.5 ล้าน ลบ.ม.
+    active_storage = round(total_storage - dead_storage, 1)  # 53.0 ล้าน ลบ.ม.
 
     cap_day_mcm = DESIGN_Q_M3S * 86400.0 / 1e6  # 51.84 ล้าน ลบ.ม./วัน
-    buffer_hours = round(active_storage / cap_day_mcm * 24.0, 1)  # 24.2 ชม.
+    buffer_hours = round(active_storage / cap_day_mcm * 24.0, 1)  # 24.5 ชม.
 
     canal_storage_reality = {
         "canal_length_km": CANAL_L_M / 1000.0,

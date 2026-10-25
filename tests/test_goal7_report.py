@@ -487,3 +487,19 @@ def test_illustrative_outputs_not_used_by_builders():
         code = b.read_text(encoding="utf-8")
         assert "illustrative_only" not in code, f"{b.name}: อ้างผลเชิงอธิบาย (illustrative_only) ในรายงาน"
         assert "cp2_bypass_counterfactual" not in code, f"{b.name}: อ้างผลจำลองสังเคราะห์"
+
+
+def test_ongkharak_raw_median_literal_matches_sensitivity_and_is_labelled():
+    """รีวิวรอบ 7: มัธยฐาน 3.2 ม. ใน ongkharak_flood คือ DEM ดิบ — ต้องตรงชุดดิบในตารางเทียบ DEM และห้ามถูกพิมพ์ว่าเป็นค่าหลัก"""
+    import json as _j
+    c = _j.loads((Path(__file__).resolve().parent.parent / "analysis/goal7/canonical.json").read_text(encoding="utf-8"))
+    assert c["ongkharak_flood"]["dem_median_m"]["องครักษ์"] == c["ongkharak_2d_depression"]["dem_sensitivity"]["copernicus_raw"]["median_m"]
+    assert c["ongkharak_2d_depression"]["elevation_stats_m"]["median"] != c["ongkharak_flood"]["dem_median_m"]["องครักษ์"]
+
+
+def test_text_layer_claims_do_not_cite_image_only_letter():
+    """รีวิวรอบ 7: PDF หนังสือ สผ. เป็นภาพล้วน (0 ตัวอักษรทุกหน้า) — ข้อเท็จจริงที่อ้างหนังสือนี้ห้ามติดป้าย 'ชั้นข้อความ'"""
+    import json as _j
+    c = _j.loads((Path(__file__).resolve().parent.parent / "analysis/goal7/canonical.json").read_text(encoding="utf-8"))
+    bad = [f["id"] for f in c["ocr_facts"]["facts"] if f["check"] == "ชั้นข้อความ" and "หนังสือ สผ." in f["src"]]
+    assert not bad, bad

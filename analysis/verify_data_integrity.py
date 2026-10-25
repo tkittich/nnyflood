@@ -186,6 +186,11 @@ def resolve(d, relpath, index):
         if cand.is_file():
             return cand
 
+    # เส้นทางจากรากโครงการ (data/...) หรือ absolute path ของเครื่องเก่า (X:/.../flood/data/...) -> ตัดให้เหลือส่วนใต้รากโครงการ
+    root_rel = rel.split("/flood/", 1)[1] if re.match(r"^[A-Za-z]:/", rel) and "/flood/" in rel else rel
+    if root_rel.startswith("data/") and (DATA.parent / root_rel).is_file():
+        return DATA.parent / root_rel
+
     p_rel = Path(rel)
     parts = p_rel.parts
     has_subdirs = len(parts) > 1

@@ -61,3 +61,39 @@ def test_round2_letter_and_rows():
 
 def test_round3_letter_and_rows():
     _round_check(3, "ทส 1009.6/6077", "18 มี.ค. 2567")
+
+
+def _round_text(n):
+    """ข้อความถอดทั้งรอบ (ใช้ตรวจว่าตัวเลขในแถวมาจากหนังสือจริง)"""
+    src = ITEMS["sections"] if n == 1 else ITEMS["rounds"][str(n)]["sections"]
+    return " ".join(i["text"] for s in src.values() for i in s["items"])
+
+
+def _nums(s):
+    s = re.sub(r"<[^>]+>", " ", s)
+    return {x.replace(",", "") for x in re.findall(r"\d[\d,]*\.?\d*", s)}
+
+
+def test_rows_quote_only_numbers_found_in_the_letter():
+    """แถวที่อ้างหนังสือ คชก. ต้องไม่ใส่ตัวเลขที่ไม่อยู่ในหนังสือรอบนั้น (กันเติมถ้อยคำ — รีวิวรอบ 7 พบ EIRR 14.52 และ 135.9 กม.)"""
+    for n, h in enumerate(OE["eia_rejection_history"], start=1):
+        text = _round_text(n).replace(",", "")
+        for r in h["key_objections"]:
+            ref = {x for x in _nums(r["section"])}
+            for num in _nums(r["detail"]) - ref:
+                assert num in text, f"รอบ {n} {r['section']}: ตัวเลข {num} ไม่อยู่ในหนังสือรอบนี้"
+
+
+def test_known_altered_phrases_absent():
+    """ถ้อยคำที่เคยถูกเปลี่ยนจากหนังสือจริง (หนังสือเขียน 'ชั้นดินแข็ง' และ 'ไม่สมเหตุสมผล')"""
+    bad = ["ชั้นหินแข็ง", "เป็นไปไม่ได้ในทางปฏิบัติ"]
+    for f in ["analysis/goal7_operational_economics.py", "report/goal7_build_policy_brief.py", "report/goal7_build_public.py", "report/goal7_build_academic.py", "report/goal7_blocks.py"]:
+        t = (ROOT / f).read_text(encoding="utf-8")
+        for b in bad:
+            assert b not in t, f"{f}: พบถ้อยคำที่ไม่ตรงหนังสือ '{b}'"
+
+
+def test_no_signatory_personal_names_in_tracked_json():
+    """รีวิวรอบ 7: ชื่อผู้ลงนามในหนังสือเป็นข้อมูลส่วนบุคคลเกินจำเป็น — ปกปิดชื่อ เหลือตำแหน่ง"""
+    s = (ROOT / "analysis/goal7/rejection_letter_items.json").read_text(encoding="utf-8")
+    assert not re.search(r"(?:นางสาว|นาง|นาย)(?!ก\s)\s*[ก-๙]+\s+[ก-๙]+", s)

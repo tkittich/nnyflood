@@ -21,7 +21,7 @@ ALLOW_PREFIX = ("docs/reviews/",)
 
 
 def _tracked() -> list[str]:
-    out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8")
+    out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", stdin=subprocess.DEVNULL)
     return [p for p in out.stdout.splitlines() if p]
 
 

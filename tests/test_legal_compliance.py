@@ -67,7 +67,7 @@ def _is_valid_thai_citizen_id(s: str) -> bool:
 
 
 def _get_tracked_text_files() -> list[str]:
-    out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8")
+    out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", stdin=subprocess.DEVNULL)
     valid_exts = {".md", ".html", ".py", ".csv", ".txt", ".json"}
     files = []
     for line in out.stdout.splitlines():

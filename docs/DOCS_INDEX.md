@@ -12,6 +12,7 @@
 | `docs/DATA_CONSISTENCY_WORKFLOW.md` | current | rules | ระบบการจัดการความสอดคล้องของข้อมูลและการระงับข้อขัดแย้งหลายแหล่ง (Data Consistency & Multi-Source Reconciliati | ระบบระงับข้อขัดแย้ง 5 ชั้น — เพิ่มส่วนเครื่องมือเสริม (inventory/registry/doctor) 19 ต.ค. 69 |
 | `docs/DATA_DICTIONARY.md` | current | reference | พจนานุกรมข้อมูล (DATA_DICTIONARY) |  |
 | `docs/DATA_SOURCES.md` | current | reference | แหล่งข้อมูลทั้งหมดของโครงการ (DATA_SOURCES) | วิธีดึงข้อมูลจากแต่ละแหล่ง — มีตัวแทนพาธย่อ (data/13_, data/22_) ไม่ใช่พาธจริง |
+| `docs/DEM_CORRECTION_PREREG.md` | current | plan | กติกาปรับความสูง DEM แบบต่อเนื่อง — กำหนดไว้ก่อนดูผล (B1 รีวิวรอบ 7) | กำหนด 25 ต.ค. 69 ก่อนรันโค้ดใหม่ |
 | `docs/ESTUARY_AND_WEATHER_GUIDE.md` | current | reference | คู่มือข้อมูลคุณภาพน้ำปากแม่น้ำ ทะเลอ่าวไทย ฝนโทรมาตร และการพยากรณ์น้ำท่า |  |
 | `docs/GOAL7_FOI_REQUESTS.md` | current | backlog | รายการขอข้อมูลจากหน่วยงาน — เป้าหมาย 7 (คลองเจ้าพระยา2) · ร่าง 16 ต.ค. 2569 |  |
 | `docs/LEGAL_REVIEW.md` | current | rules | การตรวจทานกฎหมายก่อนเผยแพร่: หมิ่นประมาท + PDPA | หลักหมิ่นประมาท + PDPA |
@@ -40,4 +41,4 @@
 | `docs/REVIEW_PROMPT.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Prompt สำหรับให้ AI ตัวอื่นรีวิว/ตรวจสอบโปรเจกต์ (เน้นเป้าหมาย 7 — คลองเจ้าพระยา2) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 | `docs/REVIEW_PROMPT_COMPREHENSIVE.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Comprehensive System Audit Prompt (Superseded) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 
-รวม 35 เอกสาร
+รวม 36 เอกสาร

@@ -23,6 +23,9 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 OUT_JSON = ROOT / "analysis" / "compound_flood_risk_summary.json"
 OUT_PNG = ROOT / "report" / "assets" / "compound_flood_risk_matrix.png"
+OUT_PNG_ANCH = ROOT / "report" / "assets" / "compound_flood_risk_matrix_anchored.png"
+C1 = 0.132       # สัมประสิทธิ์เดิม ไม่แตะต้อง (ยังไม่สอบเทียบหลายปี)
+EXP = 1.28
 
 # ตั้งค่าฟอนต์ภาษาไทยตามกติกาของโปรเจกต์
 plt.rcParams["font.family"] = ["Leelawadee UI", "Tahoma"]
@@ -43,10 +46,14 @@ def calculate_c12_stage(q_bangsai: float, tide_msl: float, wave_setup_m: float =
     # จุดตรวจความเป็นไปได้ (ไม่ใช่ชุดสอบเทียบ):
     # เมื่อ Q=2,500 และ Tide=+2.00 ม. -> H_C12 ≈ +2.51 ม.
     # เมื่อ Q=3,500 และ Tide=+2.30 ม. -> H_C12 ≈ +3.04 ม. (เข้าสู่ระดับวิกฤต)
-    c1 = 0.132
-    head_loss = c1 * ((q_bangsai / 1000.0) ** 1.28)
+    head_loss = C1 * ((q_bangsai / 1000.0) ** EXP)
     stage = tide_msl + wave_setup_m + head_loss
     return round(float(stage), 2)
+
+
+def risk_of(st: float) -> str:
+    """เกณฑ์ระดับความเสี่ยงที่ C.12 (เท่ากับที่ใช้ในเมทริกซ์เดิม)"""
+    return "normal" if st < 2.00 else "watch" if st < 2.40 else "warning" if st < 2.70 else "critical"
 
 
 def main():
@@ -146,6 +153,43 @@ def main():
             "note": "ยึดระดับที่วัดจริง 2.24 ม. แล้วเพิ่มตามส่วนต่างน้ำหนุน × อัตราส่งผ่านที่วัดได้ — เป็นความไว ไม่ใช่การพยากรณ์ · ฤดูเดียว",
         }
 
+    # R7-26 (กติกา docs/COMPOUND_ANCHORED_PREREG.md ตั้งก่อนดูผล): แบบยึดค่าที่วัด + อัตราส่งผ่านน้ำหนุนที่วัดได้ — วางเทียบแบบเดิม ไม่แทน
+    matrix_anchored = None
+    if tide_gain_evidence:
+        g_c = tide_gain_evidence["gain_headline"]
+        g_lo, g_hi = tide_gain_evidence["gain_range_across_periods"]
+        bm0 = historical_benchmarks[1]
+        h0, t0, q0 = tide_gain_evidence["anchor_observed_stage_m"], bm0["tide_msl_m"], bm0["q_bangsai_m3s"]
+        r0 = (q0 / 1000.0) ** EXP
+
+        def anch(q, tt, g):
+            return round(h0 + g * (tt - t0) + C1 * (((q / 1000.0) ** EXP) - r0), 2)
+        grid, counts = [], {"original": {}, "anchored_central": {}, "anchored_gain_low": {}, "anchored_gain_high": {}}
+        changed, diffs = 0, []
+        for i, tt in enumerate(tide_range):
+            row = []
+            for j, q in enumerate(q_range):
+                sc, sl, sh = anch(q, tt, g_c), anch(q, tt, g_lo), anch(q, tt, g_hi)
+                orig = matrix[i][j]
+                rk = risk_of(sc)
+                row.append({"q_bangsai_m3s": int(q), "tide_msl_m": round(float(tt), 2), "c12_stage_msl_m": sc, "stage_gain_low_m": sl, "stage_gain_high_m": sh, "risk_level": rk})
+                for key, lv in (("original", orig["risk_level"]), ("anchored_central", rk), ("anchored_gain_low", risk_of(sl)), ("anchored_gain_high", risk_of(sh))):
+                    counts[key][lv] = counts[key].get(lv, 0) + 1
+                changed += int(rk != orig["risk_level"])
+                diffs.append(round(sc - orig["c12_stage_msl_m"], 2))
+            grid.append(row)
+        matrix_anchored = {
+            "rule": "docs/COMPOUND_ANCHORED_PREREG.md (ตั้งก่อนดูผล 26 ต.ค. 69)",
+            "formula": "H = H_วัด + g × (น้ำหนุน − น้ำหนุน_วัด) + c1 × [(Q/1000)^1.28 − (Q_วัด/1000)^1.28]",
+            "anchor": {"stage_msl_m": h0, "tide_msl_m": t0, "q_bangsai_m3s": q0},
+            "gain": {"central": g_c, "low": g_lo, "high": g_hi},
+            "n_cells": len(q_range) * len(tide_range),
+            "band_counts": counts,
+            "cells_changed_band_vs_original": changed,
+            "stage_diff_vs_original_m": {"min": min(diffs), "max": max(diffs)},
+            "grid": grid,
+        }
+
     summary_data = {
         "metadata": {
             "title": "เมทริกซ์ประเมินความเสี่ยงน้ำเหนือหลากปะทะน้ำทะเลหนุน (Compound Flood Risk Matrix)",
@@ -165,6 +209,7 @@ def main():
         },
         "historical_benchmarks": historical_benchmarks,
         "tide_gain_evidence": tide_gain_evidence,
+        "matrix_anchored": matrix_anchored,
         "risk_levels_definition": {
             "normal": "ระดับน้ำปลอดภัย (< 2.00 ม.รทก.) การระบายน้ำในท่อเป็นปกติ",
             "watch": "ระดับเฝ้าระวัง (2.00–2.40 ม.รทก.) น้ำเริ่มดันปากท่อระบายน้ำ กทม. ต้องเดินเครื่องสูบ",
@@ -234,6 +279,26 @@ def main():
     fig.savefig(OUT_PNG)
     plt.close(fig)
     print(f"✅ บันทึกแผนภาพเมทริกซ์ความเสี่ยงเรียบร้อยแล้ว: {OUT_PNG}")
+
+    if matrix_anchored:
+        ag = np.array([[c["c12_stage_msl_m"] for c in row] for row in matrix_anchored["grid"]])
+        fig2, ax2 = plt.subplots(figsize=(10, 7), dpi=200)
+        ax2.contourf(q_range, tide_range, ag, levels=[1.0, 2.0, 2.4, 2.7, 3.4], colors=colors, alpha=1.0)
+        ln2 = ax2.contour(q_range, tide_range, ag, levels=[2.0, 2.4, 2.7, 2.8], colors="black", linewidths=1.2)
+        ax2.clabel(ln2, inline=True, fontsize=10, fmt="%.2f ม.")
+        a = matrix_anchored["anchor"]
+        ax2.scatter(a["q_bangsai_m3s"], a["tide_msl_m"], color="blue", marker="o", s=120, edgecolors="white", linewidths=1.5, zorder=5)
+        ax2.annotate(f"จุดยึด 2569 (วัดจริง {a['stage_msl_m']:.2f} ม.)", (a["q_bangsai_m3s"] + 50, a["tide_msl_m"] - 0.02), fontsize=9, fontweight="bold",
+                     color="black", bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="blue", alpha=0.9))
+        ax2.set_title("เมทริกซ์แบบยึดค่าที่วัดจริงและอัตราส่งผ่านน้ำหนุนที่วัดได้ (สถานี C.12 สามเสน กทม.)", fontsize=12, fontweight="bold", pad=12)
+        ax2.set_xlabel("อัตราการไหลของน้ำเหนือหลากที่จุดบรรจบบางไทร (ลบ.ม./วินาที)", fontsize=11, labelpad=8)
+        ax2.set_ylabel("ระดับน้ำทะเลหนุนปากแม่น้ำเจ้าพระยา (ม.รทก.)", fontsize=11, labelpad=8)
+        ax2.legend(custom_handles, risk_labels, loc="upper left", framealpha=0.95, title="ระดับความเสี่ยงที่ C.12", fontsize=9)
+        ax2.grid(True, linestyle="--", alpha=0.4)
+        fig2.tight_layout()
+        fig2.savefig(OUT_PNG_ANCH)
+        plt.close(fig2)
+        print(f"✅ บันทึกแผนภาพเมทริกซ์แบบยึดค่าที่วัด: {OUT_PNG_ANCH}")
 
 
 if __name__ == "__main__":

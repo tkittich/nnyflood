@@ -51,3 +51,28 @@ def test_builder_literal_gate_catches_injected_error(tmp_path):
     assert ("fake_builder.py", "1777 ตร.กม.") in new
     ok, _ = ni.gate_violations([b], ni.known_set([1777.0]), allow={})
     assert not ok   # ตรงค่าใน JSON = มีที่มา
+
+
+def test_ratio_phrase_is_extracted_once():
+    """R7-29: 'ร้อยละ N' (ไม่มี %) ต้องถูกสแกน และ 'ร้อยละ N%' ต้องไม่นับซ้ำ"""
+    got = [(v, raw) for _, v, _, _, raw in ni.extract("ร้อยละ 20.6 และ ร้อยละ 7.5% และ 5%")]
+    assert (20.6, "ร้อยละ 20.6") in got and sum(1 for v, _ in got if v == 7.5) == 1 and (5.0, "5%") in got
+
+
+def test_traced_by_value_gate_no_new_hardcoded_canonical_numbers():
+    """R7-29 ประตูชั้นที่ 2: ตัวเลขที่พิมพ์ตรงใน builder แม้ค่าไปตรงกับ JSON ก็เพิ่มใหม่ไม่ได้ (ใช้โทเคน/อ่านจาก canonical)"""
+    _, _, builders = ni.sources()
+    _, values = ni.json_leaves()
+    new, stale = ni.gate_traced_violations(builders, ni.known_set(values))
+    assert not new, f"ตัวเลขพิมพ์ตรงใหม่ใน builder (ให้อ่านจาก canonical): {sorted(new)[:5]}"
+    assert not stale, f"ถอดตัวเลขพิมพ์ตรงแล้ว — รัน tools/number_inventory.py --write-allowlist: {sorted(stale)[:5]}"
+
+
+def test_traced_gate_catches_coincidental_match(tmp_path):
+    """ตัวเลขที่ค่าพ้องกับ JSON (ผ่านประตูชั้นแรก) ต้องถูกประตูชั้นที่สองจับ เช่น '22.4 กม.' ที่พิมพ์เอง"""
+    b = tmp_path / "fake_builder.py"
+    b.write_text('X = "ยาว 22.4 กม. ใช้เวลา 9.5 ปี"\n', encoding="utf-8")
+    ks = ni.known_set([22.4])
+    first, _ = ni.gate_violations([b], ks, allow={})
+    second, _ = ni.gate_traced_violations([b], ks, allow={})
+    assert not first and ("fake_builder.py", "22.4 กม.") in second

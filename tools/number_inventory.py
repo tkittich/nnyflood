@@ -11,6 +11,7 @@
      = พิมพ์ตรงจาก builder / คำนวณต่อโดยไม่มีที่มาใน JSON → รายการงานตรวจที่มา
   C. คีย์ JSON ชื่อเดียวกัน ค่าต่างกันข้ามไฟล์ (เฉพาะคีย์ที่มีหน่วยต่อท้าย)
   D. ตัวเลขที่ฝังในสตริงของ builder (AST) — ตัวเลข ≥ 3 หลักที่มีหน่วย อยู่ใน literal ไม่ใช่ f-string ช่อง {...}
+  ประตูชั้นที่ 2 (R7-29 รีวิวรอบ 7): ตัวเลขฝังใน builder ที่ค่าไปตรงกับ JSON ก็ตรึงจำนวนแบบ ratchet ด้วย (analysis/goal7/literal_allowlist_traced.json) · และสแกน 'ร้อยละ N'
   E. ตัวเลขนับในเอกสารสถานะที่ล้าสมัย (จำนวนรายการสารบัญ ฯลฯ เทียบค่าจริง)
 
 ใช้: python tools/number_inventory.py [--out docs/reviews/INVENTORY_YYYY-MM-DD.md] [--json out.json]
@@ -101,11 +102,18 @@ def py_string_literals(path: Path):
             yield n.lineno, n.value, False
 
 
+# "ร้อยละ N" (ไม่มี % ตามหลัง) — รีวิวรอบ 7 พบว่าตัวเลขแบบนี้ (เช่น "ร้อยละ 20.6") หลุดตัวสแกนเดิมที่ต้องมีหน่วยตามหลังตัวเลข
+RATIO_RE = re.compile(r"ร้อยละ\s{0,2}(\d{1,3}(?:,\d{3})+|\d+)(?:\.(\d+))?(?!\.?\d)(?!\s{0,2}%)")
+
+
 def extract(line: str):
     for m in NUM_RE.finditer(line):
         ip, fp, unit = m.group(1), m.group(2), m.group(3)
         val = float(ip.replace(",", "") + ("." + fp if fp else ""))
         yield m.start(), val, (len(fp) if fp else 0), UNIT_MAP[unit], m.group(0)
+    for m in RATIO_RE.finditer(line):
+        ip, fp = m.group(1), m.group(2)
+        yield m.start(), float(ip.replace(",", "") + ("." + fp if fp else "")), (len(fp) if fp else 0), "pct", m.group(0)
 
 
 def sources():
@@ -254,6 +262,34 @@ def untraced_literals(builders, ks):
     return dict(cnt)
 
 
+# ---------- ประตูชั้นที่ 2: ตัวเลขฝังที่ "ตรงค่าใน JSON โดยบังเอิญหรือโดยตั้งใจ" (รีวิวรอบ 7 R7-29) ----------
+# ประตูชั้นแรกปล่อยผ่านทุกตัวเลขที่ค่าไปตรงกับ JSON ไฟล์ใดก็ได้ — จึงไม่จับตัวเลขที่พิมพ์ตรงใน builder แล้วค่าไปพ้องกับคนละความหมาย
+# (เจอจริง: เอกสารนโยบายพิมพ์ "22.4 กม." และ "ช่วง 1.0–3.3 ม." เองแล้วลอยจาก canonical) · ชั้นนี้ตรึงจำนวนแบบ ratchet: เพิ่มใหม่ไม่ได้
+ALLOWLIST_TRACED = ROOT / "analysis/goal7/literal_allowlist_traced.json"
+
+
+def traced_literals(builders, ks):
+    cnt: dict[tuple[str, str], int] = defaultdict(int)
+    for x in builder_literals(builders):
+        _, val, dec, _unit, _raw = next(iter(extract(x["text"])))
+        if round(val, dec) in ks[min(dec, 4)] and not (dec == 0 and val < 1000):
+            cnt[(x["file"], x["text"])] += 1
+    return dict(cnt)
+
+
+def load_allowlist_traced() -> dict[tuple[str, str], int]:
+    d = json.loads(ALLOWLIST_TRACED.read_text(encoding="utf-8"))
+    return {(e["file"], e["text"]): e["count"] for e in d["entries"]}
+
+
+def gate_traced_violations(builders, ks, allow=None):
+    allow = load_allowlist_traced() if allow is None else allow
+    cur = traced_literals(builders, ks)
+    new = {k: v for k, v in cur.items() if v > allow.get(k, 0)}
+    stale = {k: v for k, v in allow.items() if cur.get(k, 0) < v}
+    return new, stale
+
+
 def load_allowlist() -> dict[tuple[str, str], int]:
     d = json.loads(ALLOWLIST.read_text(encoding="utf-8"))
     return {(e["file"], e["text"]): e["count"] for e in d["entries"]}
@@ -275,6 +311,10 @@ def write_allowlist() -> int:
     entries = [{"file": f, "text": s, "count": n, "status": "legacy_unreviewed"} for (f, s), n in sorted(cur.items())]
     ALLOWLIST.write_text(json.dumps({"note": "ตัวเลขฝังใน builder ที่ยังไม่มีที่มาใน JSON — baseline ของประตู ratchet: เพิ่มใหม่ไม่ได้ มีแต่ลดลง · เมื่อย้ายไปอ่านจาก JSON/โทเคนแล้วให้รัน tools/number_inventory.py --write-allowlist (ตรวจ git diff ทุกครั้ง — ต้องมีแต่การลบ)",
                                     "entries": entries}, ensure_ascii=False, indent=1), encoding="utf-8")
+    traced = traced_literals(builders, known_set(values))
+    t_entries = [{"file": f, "text": s, "count": n, "status": "traced_by_value_unreviewed"} for (f, s), n in sorted(traced.items())]
+    ALLOWLIST_TRACED.write_text(json.dumps({"note": "ตัวเลขฝังใน builder ที่ค่าไปตรงกับ JSON (อาจพ้องโดยบังเอิญ) — baseline ประตูชั้นที่ 2 แบบ ratchet: เพิ่มใหม่ไม่ได้ มีแต่ลดลง · ย้ายไปอ่านจาก JSON/โทเคนแล้วให้รัน tools/number_inventory.py --write-allowlist (ตรวจ git diff — ต้องมีแต่การลบ)",
+                                            "entries": t_entries}, ensure_ascii=False, indent=1), encoding="utf-8")
     return len(entries)
 
 

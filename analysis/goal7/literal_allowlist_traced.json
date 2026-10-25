@@ -1,0 +1,1031 @@
+{
+ "note": "ตัวเลขฝังใน builder ที่ค่าไปตรงกับ JSON (อาจพ้องโดยบังเอิญ) — baseline ประตูชั้นที่ 2 แบบ ratchet: เพิ่มใหม่ไม่ได้ มีแต่ลดลง · ย้ายไปอ่านจาก JSON/โทเคนแล้วให้รัน tools/number_inventory.py --write-allowlist (ตรวจ git diff — ต้องมีแต่การลบ)",
+ "entries": [
+  {
+   "file": "build_expert_report.py",
+   "text": "1,600 หลัง",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "1.49 ซม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "1.59 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "119.1 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "12.86 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "13.7%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "145.7 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "159.8 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "17.75 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "18.3 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "21.6 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "224.34 ลลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "266.9 ม³/วิ",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "308.7 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "31.7 ลลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "36,576 ชม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "37.4 ลลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "38.8 ลลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "41.4 ลลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "5,025 วัน",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "6.86 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "68.9 ลลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "7.68 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "8.07 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "8.45 ม.",
+   "count": 3,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "9.13 ม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "9.94 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "99.5%",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "99.9%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "1,034 ตร.กม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "1,600 หลัง",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "1.03 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "1.27 ล้าน ลบ.ม./วัน",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "1.50 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "105,700 ไร่",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "11.07 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "11.8 ตร.กม.",
+   "count": 4,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "13.7%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "14,000 ชั่วโมง",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "224.34 ล้าน ลบ.ม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "24.0 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "25.5 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "26.4 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "3.84 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "31.66 ล้าน ลบ.ม./วัน",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "36.4%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "37.4 ล้าน ลบ.ม./วัน",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "4.79 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "48.8%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "5.82 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "54.5%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "6.12 ล้าน ลบ.ม./วัน",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "6.86 ม.รทก.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "64.3 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "69.8 ซม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "8.45 ม.",
+   "count": 7,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "8.75 ม.",
+   "count": 3,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "9.13 ม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "9.15 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "9.80 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_report_html.py",
+   "text": "9.94 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report3_draft.py",
+   "text": "1,000 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report3_draft.py",
+   "text": "1,443 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report3_draft.py",
+   "text": "135.1%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report3_draft.py",
+   "text": "15,000 ล้าน ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report3_draft.py",
+   "text": "2,879 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report3_draft.py",
+   "text": "2.09 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report3_draft.py",
+   "text": "27.9 ล้าน ลบ.ม./วัน",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report4_draft.py",
+   "text": "1,000 ล้าน ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report4_draft.py",
+   "text": "135.1%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report4_draft.py",
+   "text": "871.5 ล้าน ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_blocks.py",
+   "text": "1,378 หลัง",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_blocks.py",
+   "text": "100.0%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_blocks.py",
+   "text": "135.7 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_blocks.py",
+   "text": "135.9 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_blocks.py",
+   "text": "18.0 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_blocks.py",
+   "text": "22.5 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_blocks.py",
+   "text": "5.78 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1,000 ลบ.ม./วินาที",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1,200 ลบ.ม./วินาที",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1,378 หลัง",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1,563 หลัง",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1,600 ตร.ม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1.02 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1.18 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1.20 บาท/ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1.43 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "1.80 บาท/ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "135.7 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "14.52%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "15.83%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "178,479 ไร่",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2,710 ไร่",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2.18 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2.32 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2.32 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2.38 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2.50 บาท/ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2.50 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2.56 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2.92 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "2.93 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "20.95%",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "206,224 ไร่",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "21,000 ล้านบาท",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "22.5 กม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "25,400 ล้านบาท",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "28.0 ลบ.ม./วินาที",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "3.00 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "4,400 ล้านบาท",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "4.59 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "5.78 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "51.0 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "553,570 ไร่",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "6.09 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "6.28 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "73.5 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_academic.py",
+   "text": "8.45 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_policy_brief.py",
+   "text": "1,378 หลัง",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_policy_brief.py",
+   "text": "1,988 ล้าน ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_policy_brief.py",
+   "text": "135.655 กม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_policy_brief.py",
+   "text": "135.7 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_policy_brief.py",
+   "text": "2,720 ล้าน ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_policy_brief.py",
+   "text": "40,000 ล้านบาท",
+   "count": 3,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_policy_brief.py",
+   "text": "51.84 ล้าน ลบ.ม./วัน",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "1,200 ลบ.ม./วินาที",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "1,378 หลัง",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "1.18 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "1.20 บาท/ลบ.ม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "1.43 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "1.49 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "1.50 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "1.80 บาท/ลบ.ม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "135.7 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "16,000 ไร่",
+   "count": 3,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "16.1 ล้าน ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "17.00 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "176.9 ลบ.ม./วินาที",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "178,479 ไร่",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "2.00 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "2.00 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "2.18 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "2.32 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "2.50 บาท/ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "2.56 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "2.92 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "2.93 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "206,224 ไร่",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "21,000 ล้านบาท",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "22.5 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "25,400 ล้านบาท",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "28.0 ลบ.ม./วินาที",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "3.00 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "4,400 ล้านบาท",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "4.00 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "553,570 ไร่",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "6.28 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "72.5 ล้าน ลบ.ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "73.5 กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "74.0 ลบ.ม./วินาที",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "8.45 ม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "ร้อยละ 55.3",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "make_x_charts_thai.py",
+   "text": "6.86 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "make_x_charts_thai.py",
+   "text": "7.68 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "report_assets.py",
+   "text": "11.8 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "report_assets.py",
+   "text": "306.9 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "report_assets.py",
+   "text": "363.6 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "report_assets.py",
+   "text": "452.1 ตร.กม.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "report_assets.py",
+   "text": "51.5 ตร.กม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "report_assets.py",
+   "text": "8.75 ม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "report_assets.py",
+   "text": "9.23 ม.",
+   "count": 2,
+   "status": "traced_by_value_unreviewed"
+  }
+ ]
+}

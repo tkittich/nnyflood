@@ -41,16 +41,20 @@ SAR_MASKS = {
 OBSERVED_STAGE_MSL_M = 2.35  # TNy10 17 ต.ค. 2569 — ค่าเดียวที่ทุกรายงานต้องอ้าง
 CELL_KM2 = 900.0 / 1e6
 PRIMARY = "fabdem_corrected"
-LABELS = {"copernicus_raw": "Copernicus GLO-30 ดิบ (ผิวสูงสุด)", "fabdem_raw": "FABDEM ดิบ (ดินเปล่า)", "fabdem_corrected": "FABDEM ปรับด้วย DEM 5 ม. (ชุดหลัก)"}
+LABELS = {"copernicus_raw": "Copernicus GLO-30 ดิบ (ผิวสูงสุด)", "fabdem_raw": "FABDEM ดิบ (ดินเปล่า)", "fabdem_stepped": "FABDEM ปรับแบบขั้นบันไดเดิม (ชุดความไว)", "fabdem_corrected": "FABDEM ปรับแบบต่อเนื่อง (ชุดอ้างอิงเชิงวิธี)"}
 STAGES = np.arange(0.0, 4.6, 0.1)
 
 
 def load_dems(mask: np.ndarray) -> dict[str, np.ndarray]:
-    table = json.loads(BIAS_JSON.read_text(encoding="utf-8"))["bias_table_by_fabdem_height"]
+    bj = json.loads(BIAS_JSON.read_text(encoding="utf-8"))
+    table, knots = bj["bias_table_by_fabdem_height"], bj["monotone_correction"]["knots"]
     fab = cf.fabdem_on_grid()
-    cor = bc.correct(np.where(np.isnan(fab), 99.0, fab), table)
+    filled = np.where(np.isnan(fab), 99.0, fab)
+    stp = bc.correct(filled, table)                      # ตารางขั้นบันไดเดิม — คงไว้เป็นชุดความไว (B1 รีวิวรอบ 7)
+    stp[np.isnan(fab)] = np.nan
+    cor = bc.correct_monotone(filled, knots)             # กติกาต่อเนื่อง docs/DEM_CORRECTION_PREREG.md
     cor[np.isnan(fab)] = np.nan
-    return {"copernicus_raw": np.load(DEM_PATH), "fabdem_raw": fab, "fabdem_corrected": cor}
+    return {"copernicus_raw": np.load(DEM_PATH), "fabdem_raw": fab, "fabdem_stepped": stp, "fabdem_corrected": cor}
 
 
 def analyze(dem: np.ndarray, mask: np.ndarray) -> dict:
@@ -107,11 +111,25 @@ def analyze_depression():
         sens[k] = {"label": LABELS[k], "median_m": r["elevation_stats_m"]["median"], "area_at_gauge_km2": round(r["row_at"](OBSERVED_STAGE_MSL_M)["inundated_area_km2"], 1),
                    "area_at_gauge_share_pct": round(r["row_at"](OBSERVED_STAGE_MSL_M)["inundated_share_pct"], 1),
                    "sar_fit": {kk: {x: v[x] for x in ("sar_area_km2", "effective_stage_msl_m", "offset_vs_gauge_m", "iou")} for kk, v in r["sar_calibration"].items()}}
+    def _rng(vals):
+        return [round(min(vals), 2), round(max(vals), 2)]
+    rng = {
+        "note": "ช่วงต่ำสุด–สูงสุดข้ามพื้นผิวความสูงทั้ง 4 ชุด (ไม่เลือกชุดที่แม่นที่สุด — docs/DEM_CORRECTION_PREREG.md §2)",
+        "median_m": _rng([v["median_m"] for v in sens.values()]),
+        "area_at_gauge_km2": _rng([v["area_at_gauge_km2"] for v in sens.values()]),
+        "effective_stage_27sep_msl_m": _rng([v["sar_fit"]["peak_27sep"]["effective_stage_msl_m"] for v in sens.values()]),
+        "effective_stage_2oct_msl_m": _rng([v["sar_fit"]["oct2_validated"]["effective_stage_msl_m"] for v in sens.values()]),
+        "iou_27sep": _rng([v["sar_fit"]["peak_27sep"]["iou"] for v in sens.values()]),
+        "iou_2oct": _rng([v["sar_fit"]["oct2_validated"]["iou"] for v in sens.values()]),
+        "n_surfaces": len(sens),
+    }
+    _loo = json.loads(BIAS_JSON.read_text(encoding="utf-8"))["leave_one_window_out"]
     summary = {
+        "range_across_dems": rng,
         "sar_calibration": prim["sar_calibration"],
         "title": "เส้นความสัมพันธ์ระดับ–พื้นที่–ปริมาตร 2 มิติของแอ่ง อ.องครักษ์ (ชุดหลัก: FABDEM ปรับด้วย DEM 5 ม.) พร้อมความไวต่อชุด DEM",
         "district": "อำเภอองครักษ์ จังหวัดนครนายก",
-        "dem_source": {"primary": PRIMARY, "label": LABELS[PRIMARY], "note": "ตารางปรับเรียนจากหน้าต่าง DEMPro 18 จังหวัด (analysis/goal7_dem_bias_correction.py) — องครักษ์อยู่นอกหน้าต่าง จึงมีความไม่แน่นอน ~±0.7–1.0 ม. · เทียบชุดดิบใน dem_sensitivity"},
+        "dem_source": {"primary": PRIMARY, "label": LABELS[PRIMARY], "note": f"ฟังก์ชันปรับแบบต่อเนื่องเรียนจากหน้าต่าง DEMPro (analysis/goal7_dem_bias_correction.py) — องครักษ์อยู่นอกหน้าต่าง จึงมีความไม่แน่นอนจากการถ่ายทอด: ค่าคลาดเฉลี่ยสัมบูรณ์รายหน้าต่าง {_loo['corrected_mae_range_m'][0]:.1f}–{_loo['corrected_mae_range_m'][1]:.1f} ม. (ส่วนเบี่ยงเบนมาตรฐานรายหน้าต่างสูงสุด {_loo['corrected_sd_range_m'][1]:.1f} ม.) · เทียบชุดอื่นใน dem_sensitivity"},
         "dem_sensitivity": sens,
         "observed_stage_msl_m": OBSERVED_STAGE_MSL_M,
         "total_area_km2": prim["total_area_km2"],

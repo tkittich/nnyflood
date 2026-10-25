@@ -269,116 +269,182 @@
   "per_window": {
    "10 ฉะเชิงเทรา (CHACHOENGSAO)": {
     "raw_mae_m": 1.2,
-    "corrected_mae_m": 0.56,
+    "stepped_mae_m": 0.56,
+    "corrected_mae_m": 0.57,
     "raw_bias_m": 1.18,
-    "corrected_bias_m": -0.35
+    "stepped_bias_m": -0.35,
+    "corrected_bias_m": -0.39,
+    "corrected_sd_m": 0.63
    },
    "11 ชลบุรี (CHON BURI)": {
     "raw_mae_m": 2.17,
-    "corrected_mae_m": 0.93,
+    "stepped_mae_m": 0.93,
+    "corrected_mae_m": 0.94,
     "raw_bias_m": 1.6,
-    "corrected_bias_m": 0.28
+    "stepped_bias_m": 0.28,
+    "corrected_bias_m": 0.3,
+    "corrected_sd_m": 3.08
    },
    "18 นครนายก (NAKHON NAYOK)": {
     "raw_mae_m": 2.17,
+    "stepped_mae_m": 0.57,
     "corrected_mae_m": 0.57,
     "raw_bias_m": 2.17,
-    "corrected_bias_m": 0.28
+    "stepped_bias_m": 0.28,
+    "corrected_bias_m": 0.33,
+    "corrected_sd_m": 0.81
    },
    "19 นครปฐม (NAKHON PATHOM)": {
     "raw_mae_m": 1.65,
-    "corrected_mae_m": 0.64,
+    "stepped_mae_m": 0.64,
+    "corrected_mae_m": 0.62,
     "raw_bias_m": 1.61,
-    "corrected_bias_m": -0.31
+    "stepped_bias_m": -0.31,
+    "corrected_bias_m": -0.26,
+    "corrected_sd_m": 0.86
    },
    "2 กรุงเทพมหานคร (BANGKOK)": {
     "raw_mae_m": 2.25,
-    "corrected_mae_m": 0.8,
+    "stepped_mae_m": 0.8,
+    "corrected_mae_m": 0.81,
     "raw_bias_m": 2.25,
-    "corrected_bias_m": 0.55
+    "stepped_bias_m": 0.55,
+    "corrected_bias_m": 0.57,
+    "corrected_sd_m": 0.96
    },
    "24 นนทบุรี (NONTHABURI)": {
     "raw_mae_m": 2.21,
+    "stepped_mae_m": 0.73,
     "corrected_mae_m": 0.73,
     "raw_bias_m": 2.21,
-    "corrected_bias_m": 0.5
+    "stepped_bias_m": 0.5,
+    "corrected_bias_m": 0.52,
+    "corrected_sd_m": 0.81
    },
    "29 ปทุมธานี (PATHUM THANI)": {
     "raw_mae_m": 1.73,
-    "corrected_mae_m": 0.62,
+    "stepped_mae_m": 0.62,
+    "corrected_mae_m": 0.61,
     "raw_bias_m": 1.72,
-    "corrected_bias_m": 0.09
+    "stepped_bias_m": 0.09,
+    "corrected_bias_m": 0.08,
+    "corrected_sd_m": 0.8
    },
    "31 ปราจีนบุรี (PRACHIN BURI)": {
     "raw_mae_m": 2.51,
-    "corrected_mae_m": 0.81,
+    "stepped_mae_m": 0.81,
+    "corrected_mae_m": 0.84,
     "raw_bias_m": 2.5,
-    "corrected_bias_m": 0.63
+    "stepped_bias_m": 0.63,
+    "corrected_bias_m": 0.67,
+    "corrected_sd_m": 1.04
    },
    "33 พระนครศรีอยุธยา (PHRA NAKHON SI AYUTTHAYA)": {
     "raw_mae_m": 1.51,
-    "corrected_mae_m": 0.82,
+    "stepped_mae_m": 0.82,
+    "corrected_mae_m": 0.8,
     "raw_bias_m": 1.47,
-    "corrected_bias_m": -0.53
+    "stepped_bias_m": -0.53,
+    "corrected_bias_m": -0.5,
+    "corrected_sd_m": 0.93
    },
    "39 เพชรบุรี (PHETCHABURI)": {
     "raw_mae_m": 0.8,
-    "corrected_mae_m": 1.04,
+    "stepped_mae_m": 1.04,
+    "corrected_mae_m": 1.0,
     "raw_bias_m": 0.67,
-    "corrected_bias_m": -0.97
+    "stepped_bias_m": -0.97,
+    "corrected_bias_m": -0.93,
+    "corrected_sd_m": 0.58
    },
    "52 ลพบุรี (LOP BURI)": {
     "raw_mae_m": 1.24,
-    "corrected_mae_m": 0.92,
+    "stepped_mae_m": 0.92,
+    "corrected_mae_m": 0.87,
     "raw_bias_m": 1.19,
-    "corrected_bias_m": -0.75
+    "stepped_bias_m": -0.75,
+    "corrected_bias_m": -0.68,
+    "corrected_sd_m": 0.83
    },
    "60 สมุทรปราการ (SAMUT PRAKAN)": {
     "raw_mae_m": 1.59,
-    "corrected_mae_m": 0.57,
+    "stepped_mae_m": 0.57,
+    "corrected_mae_m": 0.54,
     "raw_bias_m": 1.53,
-    "corrected_bias_m": 0.25
+    "stepped_bias_m": 0.25,
+    "corrected_bias_m": 0.31,
+    "corrected_sd_m": 0.89
    },
    "61 สมุทรสงคราม (SAMUT SONGKHRAM)": {
     "raw_mae_m": 2.02,
-    "corrected_mae_m": 0.82,
+    "stepped_mae_m": 0.82,
+    "corrected_mae_m": 0.83,
     "raw_bias_m": 2.0,
-    "corrected_bias_m": 0.71
+    "stepped_bias_m": 0.71,
+    "corrected_bias_m": 0.74,
+    "corrected_sd_m": 0.97
    },
    "62 สมุทรสาคร (SAMUT SAKHON)": {
     "raw_mae_m": 1.66,
-    "corrected_mae_m": 0.65,
+    "stepped_mae_m": 0.65,
+    "corrected_mae_m": 0.62,
     "raw_bias_m": 1.54,
-    "corrected_bias_m": 0.36
+    "stepped_bias_m": 0.36,
+    "corrected_bias_m": 0.36,
+    "corrected_sd_m": 1.11
    },
    "64 สระบุรี (SARABURI)": {
     "raw_mae_m": 1.66,
-    "corrected_mae_m": 0.63,
+    "stepped_mae_m": 0.63,
+    "corrected_mae_m": 0.6,
     "raw_bias_m": 1.65,
-    "corrected_bias_m": -0.19
+    "stepped_bias_m": -0.19,
+    "corrected_bias_m": 0.04,
+    "corrected_sd_m": 0.84
    },
    "65 สิงห์บุรี (SING BURI)": {
     "raw_mae_m": 1.82,
-    "corrected_mae_m": 0.74,
+    "stepped_mae_m": 0.74,
+    "corrected_mae_m": 0.83,
     "raw_bias_m": 1.81,
-    "corrected_bias_m": -0.13
+    "stepped_bias_m": -0.13,
+    "corrected_bias_m": -0.33,
+    "corrected_sd_m": 1.12
    },
    "67 สุพรรณบุรี (SUPHAN BURI)": {
     "raw_mae_m": 1.84,
-    "corrected_mae_m": 0.66,
+    "stepped_mae_m": 0.66,
+    "corrected_mae_m": 0.65,
     "raw_bias_m": 1.83,
-    "corrected_bias_m": -0.1
+    "stepped_bias_m": -0.1,
+    "corrected_bias_m": -0.06,
+    "corrected_sd_m": 0.82
    },
    "72 อ่างทอง (ANG THONG)": {
     "raw_mae_m": 1.63,
-    "corrected_mae_m": 1.04,
+    "stepped_mae_m": 1.04,
+    "corrected_mae_m": 1.06,
     "raw_bias_m": 1.54,
-    "corrected_bias_m": -0.46
+    "stepped_bias_m": -0.46,
+    "corrected_bias_m": -0.55,
+    "corrected_sd_m": 1.27
    }
   },
   "mean_mae_gain_m": 1.01,
   "windows_improved": 17,
-  "windows_total": 18
+  "windows_total": 18,
+  "stepped": {
+   "mean_mae_gain_m": 1.01,
+   "windows_improved": 17
+  },
+  "corrected_mae_range_m": [
+   0.54,
+   1.06
+  ],
+  "corrected_sd_range_m": [
+   0.58,
+   3.08
+  ]
  },
  "eia_ground_check": {
   "n_points": 24,
@@ -387,9 +453,13 @@
    "bias_m": 1.18,
    "mae_m": 1.22
   },
-  "fabdem_corrected": {
+  "fabdem_stepped": {
    "bias_m": -0.37,
    "mae_m": 0.65
+  },
+  "fabdem_corrected": {
+   "bias_m": -0.39,
+   "mae_m": 0.64
   },
   "copernicus_raw": {
    "bias_m": 1.32,
@@ -406,141 +476,173 @@
     6.5,
     10.0,
     11.99,
-    10.21
+    10.26
    ],
    [
     9.8,
     11.4,
     11.76,
-    9.98
+    10.0
    ],
    [
     12.8,
     8.0,
     10.87,
-    9.09
+    9.03
    ],
    [
     15.3,
     8.0,
     9.77,
-    7.99
+    7.89
    ],
    [
     22.0,
     8.0,
     8.93,
-    7.15
+    7.06
    ],
    [
     24.5,
     4.0,
     7.55,
-    5.67
+    5.7
    ],
    [
     28.0,
     4.0,
     5.43,
-    3.55
+    3.56
    ],
    [
     36.9,
     2.0,
     3.93,
-    1.93
+    1.96
    ],
    [
     50.0,
     1.95,
     3.55,
-    1.55
+    1.6
    ],
    [
     56.7,
     2.9,
     3.34,
-    1.34
+    1.44
    ],
    [
     57.8,
     2.5,
     3.27,
-    1.27
+    1.39
    ],
    [
     60.0,
     1.93,
     3.17,
-    1.17
+    1.31
    ],
    [
     65.0,
     1.6,
     3.27,
-    1.27
+    1.39
    ],
    [
     70.0,
     1.5,
     2.6,
-    0.91
+    0.88
    ],
    [
     75.0,
     1.45,
     2.56,
-    0.87
+    0.85
    ],
    [
     85.0,
     1.2,
     2.72,
-    1.03
+    0.97
    ],
    [
     95.0,
     1.0,
     1.89,
-    0.73
+    0.45
    ],
    [
     105.0,
     0.5,
     1.63,
-    0.47
+    0.31
    ],
    [
     118.0,
     0.5,
     1.13,
-    -0.03
+    0.25
    ],
    [
     123.0,
     1.0,
     1.21,
-    0.05
+    0.26
    ],
    [
     129.0,
     0.55,
     0.77,
-    0.86
+    0.2
    ],
    [
     131.0,
     0.8,
     0.82,
-    0.91
+    0.21
    ],
    [
     134.0,
     1.5,
     1.0,
-    -0.16
+    0.23
    ]
   ]
+ },
+ "monotone_correction": {
+  "rule": "docs/DEM_CORRECTION_PREREG.md (ตั้งก่อนดูผล 25 ต.ค. 69)",
+  "knots": {
+   "x": [
+    0.0,
+    1.64,
+    2.46,
+    3.68,
+    6.12,
+    10.37
+   ],
+   "y": [
+    0.1,
+    0.314,
+    0.776,
+    1.694,
+    4.292,
+    8.479
+   ],
+   "n": [
+    5225,
+    16983,
+    33361,
+    42319,
+    24073,
+    22701
+   ]
+  },
+  "taper_end_m": 30.0,
+  "max_step_m": 0.011,
+  "max_step_stepped_table_m": 1.79
  },
  "ongkharak_bucket": {
   "peak_27sep": {
@@ -551,11 +653,17 @@
     "iou": 0.318,
     "area_at_gauge_level_km2": 20.0
    },
-   "fabdem_corrected": {
+   "fabdem_stepped": {
     "effective_level_m": 1.15,
     "offset_vs_gauge_2_35_m": -1.2,
     "iou": 0.319,
     "area_at_gauge_level_km2": 492.6
+   },
+   "fabdem_corrected": {
+    "effective_level_m": 1.15,
+    "offset_vs_gauge_2_35_m": -1.2,
+    "iou": 0.32,
+    "area_at_gauge_level_km2": 490.5
    }
   },
   "oct2_validated": {
@@ -566,11 +674,17 @@
     "iou": 0.267,
     "area_at_gauge_level_km2": 20.0
    },
-   "fabdem_corrected": {
+   "fabdem_stepped": {
     "effective_level_m": 1.1,
     "offset_vs_gauge_2_35_m": -1.25,
     "iou": 0.246,
     "area_at_gauge_level_km2": 492.6
+   },
+   "fabdem_corrected": {
+    "effective_level_m": 1.1,
+    "offset_vs_gauge_2_35_m": -1.25,
+    "iou": 0.262,
+    "area_at_gauge_level_km2": 490.5
    }
   }
  }

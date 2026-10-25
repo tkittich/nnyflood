@@ -16,11 +16,17 @@
      "edge_iqr_m": 0.57,
      "edge_iqr_over_district_iqr": 0.847
     },
-    "fabdem_corrected": {
+    "fabdem_stepped": {
      "edge_pixels": 39123,
      "edge_median_m": 1.2,
      "edge_iqr_m": 0.33,
      "edge_iqr_over_district_iqr": 0.769
+    },
+    "fabdem_corrected": {
+     "edge_pixels": 39123,
+     "edge_median_m": 1.21,
+     "edge_iqr_m": 0.43,
+     "edge_iqr_over_district_iqr": 0.847
     }
    }
   },
@@ -39,11 +45,17 @@
      "edge_iqr_m": 0.57,
      "edge_iqr_over_district_iqr": 0.85
     },
-    "fabdem_corrected": {
+    "fabdem_stepped": {
      "edge_pixels": 1258,
      "edge_median_m": 1.3,
      "edge_iqr_m": 0.38,
      "edge_iqr_over_district_iqr": 0.873
+    },
+    "fabdem_corrected": {
+     "edge_pixels": 1258,
+     "edge_median_m": 1.4,
+     "edge_iqr_m": 0.43,
+     "edge_iqr_over_district_iqr": 0.85
     }
    }
   },
@@ -62,11 +74,17 @@
      "edge_iqr_m": 0.69,
      "edge_iqr_over_district_iqr": 1.022
     },
-    "fabdem_corrected": {
+    "fabdem_stepped": {
      "edge_pixels": 47099,
      "edge_median_m": 1.23,
      "edge_iqr_m": 0.46,
      "edge_iqr_over_district_iqr": 1.058
+    },
+    "fabdem_corrected": {
+     "edge_pixels": 47099,
+     "edge_median_m": 1.29,
+     "edge_iqr_m": 0.52,
+     "edge_iqr_over_district_iqr": 1.022
     }
    }
   },
@@ -85,11 +103,17 @@
      "edge_iqr_m": 0.85,
      "edge_iqr_over_district_iqr": 1.261
     },
-    "fabdem_corrected": {
+    "fabdem_stepped": {
      "edge_pixels": 28198,
      "edge_median_m": 1.22,
      "edge_iqr_m": 0.56,
      "edge_iqr_over_district_iqr": 1.289
+    },
+    "fabdem_corrected": {
+     "edge_pixels": 28198,
+     "edge_median_m": 1.29,
+     "edge_iqr_m": 0.64,
+     "edge_iqr_over_district_iqr": 1.261
     }
    }
   },
@@ -108,11 +132,17 @@
      "edge_iqr_m": 0.56,
      "edge_iqr_over_district_iqr": 0.84
     },
-    "fabdem_corrected": {
+    "fabdem_stepped": {
      "edge_pixels": 37963,
      "edge_median_m": 1.17,
      "edge_iqr_m": 0.29,
      "edge_iqr_over_district_iqr": 0.665
+    },
+    "fabdem_corrected": {
+     "edge_pixels": 37963,
+     "edge_median_m": 1.17,
+     "edge_iqr_m": 0.42,
+     "edge_iqr_over_district_iqr": 0.84
     }
    }
   },
@@ -131,11 +161,17 @@
      "edge_iqr_m": 0.65,
      "edge_iqr_over_district_iqr": 0.97
     },
-    "fabdem_corrected": {
+    "fabdem_stepped": {
      "edge_pixels": 55410,
      "edge_median_m": 1.22,
      "edge_iqr_m": 0.41,
      "edge_iqr_over_district_iqr": 0.948
+    },
+    "fabdem_corrected": {
+     "edge_pixels": 55410,
+     "edge_median_m": 1.26,
+     "edge_iqr_m": 0.49,
+     "edge_iqr_over_district_iqr": 0.97
     }
    }
   },
@@ -154,11 +190,17 @@
      "edge_iqr_m": 0.72,
      "edge_iqr_over_district_iqr": 1.078
     },
-    "fabdem_corrected": {
+    "fabdem_stepped": {
      "edge_pixels": 2607,
      "edge_median_m": 1.05,
      "edge_iqr_m": 0.44,
      "edge_iqr_over_district_iqr": 1.026
+    },
+    "fabdem_corrected": {
+     "edge_pixels": 2607,
+     "edge_median_m": 1.18,
+     "edge_iqr_m": 0.54,
+     "edge_iqr_over_district_iqr": 1.078
     }
    }
   },
@@ -177,11 +219,17 @@
      "edge_iqr_m": 0.72,
      "edge_iqr_over_district_iqr": 1.078
     },
-    "fabdem_corrected": {
+    "fabdem_stepped": {
      "edge_pixels": 5779,
      "edge_median_m": 1.08,
      "edge_iqr_m": 0.45,
      "edge_iqr_over_district_iqr": 1.038
+    },
+    "fabdem_corrected": {
+     "edge_pixels": 5779,
+     "edge_median_m": 1.15,
+     "edge_iqr_m": 0.54,
+     "edge_iqr_over_district_iqr": 1.078
     }
    }
   },
@@ -200,11 +248,17 @@
      "edge_iqr_m": 0.59,
      "edge_iqr_over_district_iqr": 0.873
     },
-    "fabdem_corrected": {
+    "fabdem_stepped": {
      "edge_pixels": 43803,
      "edge_median_m": 1.17,
      "edge_iqr_m": 0.31,
      "edge_iqr_over_district_iqr": 0.723
+    },
+    "fabdem_corrected": {
+     "edge_pixels": 43803,
+     "edge_median_m": 1.18,
+     "edge_iqr_m": 0.44,
+     "edge_iqr_over_district_iqr": 0.873
     }
    }
   }
@@ -224,12 +278,19 @@
    "median_edge_level_m": 3.04,
    "years_best": 2
   },
-  "fabdem_corrected": {
-   "label": "FABDEM ปรับด้วย DEM 5 ม. (ชุดหลัก)",
+  "fabdem_stepped": {
+   "label": "FABDEM ปรับแบบขั้นบันไดเดิม (ชุดความไว)",
    "years_tested": 9,
    "median_ratio": 0.948,
    "median_edge_level_m": 1.2,
    "years_best": 4
+  },
+  "fabdem_corrected": {
+   "label": "FABDEM ปรับแบบต่อเนื่อง (ชุดอ้างอิงเชิงวิธี)",
+   "years_tested": 9,
+   "median_ratio": 0.97,
+   "median_edge_level_m": 1.21,
+   "years_best": 2
   }
  }
 }

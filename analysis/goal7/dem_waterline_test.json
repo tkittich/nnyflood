@@ -27,8 +27,8 @@
     "district_iqr_m": 0.67,
     "edge_iqr_over_district_iqr": 0.832
    },
-   "fabdem_corrected": {
-    "label": "FABDEM ปรับด้วย DEM 5 ม. (ชุดหลัก)",
+   "fabdem_stepped": {
+    "label": "FABDEM ปรับแบบขั้นบันไดเดิม (ชุดความไว)",
     "edge_pixels": 46259,
     "edge_median_m": 1.18,
     "edge_iqr_m": 0.31,
@@ -38,6 +38,18 @@
     ],
     "district_iqr_m": 0.43,
     "edge_iqr_over_district_iqr": 0.711
+   },
+   "fabdem_corrected": {
+    "label": "FABDEM ปรับแบบต่อเนื่อง (ชุดอ้างอิงเชิงวิธี)",
+    "edge_pixels": 46259,
+    "edge_median_m": 1.19,
+    "edge_iqr_m": 0.42,
+    "edge_p10_p90_m": [
+     0.82,
+     1.64
+    ],
+    "district_iqr_m": 0.5,
+    "edge_iqr_over_district_iqr": 0.832
    }
   },
   "oct2_validated": {
@@ -65,8 +77,8 @@
     "district_iqr_m": 0.67,
     "edge_iqr_over_district_iqr": 0.813
    },
-   "fabdem_corrected": {
-    "label": "FABDEM ปรับด้วย DEM 5 ม. (ชุดหลัก)",
+   "fabdem_stepped": {
+    "label": "FABDEM ปรับแบบขั้นบันไดเดิม (ชุดความไว)",
     "edge_pixels": 39866,
     "edge_median_m": 1.18,
     "edge_iqr_m": 0.3,
@@ -76,6 +88,18 @@
     ],
     "district_iqr_m": 0.43,
     "edge_iqr_over_district_iqr": 0.694
+   },
+   "fabdem_corrected": {
+    "label": "FABDEM ปรับแบบต่อเนื่อง (ชุดอ้างอิงเชิงวิธี)",
+    "edge_pixels": 39866,
+    "edge_median_m": 1.19,
+    "edge_iqr_m": 0.41,
+    "edge_p10_p90_m": [
+     0.86,
+     1.65
+    ],
+    "district_iqr_m": 0.5,
+    "edge_iqr_over_district_iqr": 0.813
    }
   }
  },

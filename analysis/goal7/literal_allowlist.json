@@ -243,12 +243,6 @@
   },
   {
    "file": "build_report_html.py",
-   "text": "6.12 ล้าน ลบ.ม./วัน",
-   "count": 1,
-   "status": "legacy_unreviewed"
-  },
-  {
-   "file": "build_report_html.py",
    "text": "630 ลบ.ม./วินาที",
    "count": 1,
    "status": "legacy_unreviewed"

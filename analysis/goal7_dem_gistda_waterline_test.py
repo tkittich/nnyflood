@@ -47,7 +47,7 @@ def main() -> None:
             h, allv = dem[e], dem[valid]
             rec["dems"][dk] = {"edge_pixels": int(e.sum()), "edge_median_m": round(float(np.median(h)), 2), "edge_iqr_m": round(pct(h, 75) - pct(h, 25), 2),
                                "edge_iqr_over_district_iqr": round((pct(h, 75) - pct(h, 25)) / (pct(allv, 75) - pct(allv, 25)), 3)}
-        if len(rec["dems"]) == 3:
+        if len(rec["dems"]) == len(dems):
             out["years"][str(y)] = rec
     for dk in dems:
         r = [v["dems"][dk]["edge_iqr_over_district_iqr"] for v in out["years"].values()]

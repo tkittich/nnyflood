@@ -2,7 +2,7 @@
 คำถามที่ตั้งก่อนดูผล: (1) พื้นที่น้ำท่วมสัมพันธ์กับ "ระดับความสูงพื้นดิน" มากกว่าเส้นเขตจังหวัดหรือไม่ · (2) ฉะเชิงเทรา อยู่ปลายลุ่มรับน้ำจากพื้นที่เหนือน้ำเท่าใด และพื้นราบต่ำเพียงใดเมื่อเทียบจังหวัดเหนือน้ำ ·
 (3) ณ ปัจจุบัน ระดับน้ำสถานีในลุ่มยังสูงกว่าตลิ่งหรือไม่ และนานกี่วัน · (4) ท่วมซ้ำซากหรือไม่ (ความถี่น้ำท่วม 14 ปีของ GISTDA)
 ข้อจำกัด: ชั้นน้ำท่วม 30 วันของ GISTDA เป็นชั้นผสมหลายภาพ (ทุกรูปทรงมีรายชื่อฉากเดียวกัน) แยกวันท่วมต่อแปลงไม่ได้ จึงใช้ "พื้นที่ ณ วันดึงข้อมูล" เท่านั้น ·
-ความสูงใช้ FABDEM ที่ปรับด้วยตารางส่วนต่างจาก DEM 5 ม. (ความไม่แน่นอน ±0.7–1.0 ม. นอกหน้าต่าง DEM 5 ม.) · ครอบคลุมเฉพาะจังหวัดที่อยู่ในแผ่น FABDEM ที่มี (ไม่รวมสระแก้ว/ชลบุรีตอนล่าง)
+ความสูงใช้ FABDEM ที่ปรับแบบต่อเนื่องจาก DEM 5 ม. (ความไม่แน่นอนนอกหน้าต่าง DEM 5 ม. ดู leave_one_window_out ใน dem_bias_correction.json) · ครอบคลุมเฉพาะจังหวัดที่อยู่ในแผ่น FABDEM ที่มี (ไม่รวมสระแก้ว/ชลบุรีตอนล่าง)
 รัน: python analysis/goal7_bangpakong_chachoengsao.py
 ผลลัพธ์: analysis/goal7/bangpakong_chachoengsao.json
 """
@@ -60,7 +60,7 @@ def province_outline(name: str):
 
 def terrain():
     """FABDEM (ปรับแล้ว) ตาราง ~90 ม. คลุมลองจิจูด 100.3–102.0 ละติจูด 13.0–14.7 — คืน (ความสูง, transform)"""
-    tbl = json.loads(BIAS.read_text(encoding="utf-8"))["bias_table_by_fabdem_height"]
+    kn = json.loads(BIAS.read_text(encoding="utf-8"))["monotone_correction"]["knots"]
     res = STEP / 3600.0
     nx, ny = int(round((LON1 - LON0) / res)), int(round((LAT1 - LAT0) / res))
     arr = np.full((ny, nx), np.nan, dtype="float32")
@@ -79,7 +79,7 @@ def terrain():
         sub = sub[: ny - r1, : nx - c1]
         arr[r1:r1 + sub.shape[0], c1:c1 + sub.shape[1]] = sub
     ok = ~np.isnan(arr)
-    arr[ok] = bc.correct(arr[ok], tbl)
+    arr[ok] = bc.correct_monotone(arr[ok], kn)       # ปรับแบบต่อเนื่อง (B1 รีวิวรอบ 7)
     return arr, tr
 
 

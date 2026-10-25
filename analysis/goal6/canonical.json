@@ -2667,7 +2667,7 @@
      "flooded_pct": 7.9,
      "low2m": {
       "land_pct": 36.2,
-      "land_km2": 1908.0,
+      "land_km2": 1903.0,
       "flooded_km2": 378.0,
       "flooded_pct_of_zone": 19.8,
       "flooded_7d_km2": 351.0,
@@ -2680,25 +2680,25 @@
      "flooded_km2_grid": 260.0,
      "flooded_pct": 12.0,
      "low2m": {
-      "land_pct": 40.0,
-      "land_km2": 862.0,
-      "flooded_km2": 224.0,
-      "flooded_pct_of_zone": 26.0,
-      "flooded_7d_km2": 145.0,
-      "still_flooded_7d_share_of_30d_pct": 64.0
+      "land_pct": 39.5,
+      "land_km2": 852.0,
+      "flooded_km2": 222.0,
+      "flooded_pct_of_zone": 26.1,
+      "flooded_7d_km2": 144.0,
+      "still_flooded_7d_share_of_30d_pct": 65.0
      }
     },
     "ปราจีนบุรี": {
      "land_km2": 4863.0,
-     "median_elev_m": 29.1,
+     "median_elev_m": 29.0,
      "flooded_km2_grid": 381.0,
      "flooded_pct": 7.8,
      "low2m": {
-      "land_pct": 12.3,
-      "land_km2": 598.0,
-      "flooded_km2": 241.0,
+      "land_pct": 12.2,
+      "land_km2": 593.0,
+      "flooded_km2": 239.0,
       "flooded_pct_of_zone": 40.4,
-      "flooded_7d_km2": 249.0,
+      "flooded_7d_km2": 247.0,
       "still_flooded_7d_share_of_30d_pct": 103.0
      }
     }
@@ -2706,7 +2706,7 @@
    "variance_explained": {
     "by_province": 0.005,
     "by_elevation_zone": 0.221,
-    "by_both": 0.255
+    "by_both": 0.256
    }
   },
   "gauges": {

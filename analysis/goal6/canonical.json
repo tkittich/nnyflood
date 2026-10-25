@@ -2540,94 +2540,319 @@
   "test_window": "2026-09-20 00:00 เป็นต้นไป",
   "purge_note": "ตัดแถวฝึกที่เป้าหมายทับช่วงทดสอบ (purge รายระยะ) ก่อนฟิตโมเดลทุกระยะ แบบเดียวกับแบบจำลองปากอ่าว — กันข้อมูลอนาคตรั่วเข้าชุดฝึก (รีวิวรอบ 5: Claude F-11 · DeepSeek F6(b) · Gemini F-12)",
   "astronomical_harmonics_calibrated": {
-   "S0": 0.2071,
+   "S0": 0.4119,
    "constituents": {
     "M2": {
-     "name": "ดวงจันทร์กึ่งรายวันหลัก (Principal lunar semidiurnal)",
-     "period_hours": 12.4206012,
-     "amplitude_m": 0.4273,
-     "phase_degrees": 176.42,
-     "a_cos": -0.4265,
-     "b_sin": -0.0267
+     "name": "ดวงจันทร์กึ่งรายวันหลัก",
+     "period_hours": 12.4206,
+     "amplitude_m": 0.4836,
+     "phase_degrees": 320.55,
+     "a_cos": 0.3734,
+     "b_sin": 0.3073
     },
     "S2": {
-     "name": "ดวงอาทิตย์กึ่งรายวันหลัก (Principal solar semidiurnal)",
+     "name": "ดวงอาทิตย์กึ่งรายวันหลัก",
      "period_hours": 12.0,
-     "amplitude_m": 0.291,
-     "phase_degrees": 130.03,
-     "a_cos": -0.1871,
-     "b_sin": -0.2228
+     "amplitude_m": 0.238,
+     "phase_degrees": 112.49,
+     "a_cos": -0.091,
+     "b_sin": -0.2199
+    },
+    "N2": {
+     "name": "ดวงจันทร์วงรีกึ่งรายวัน",
+     "period_hours": 12.6583,
+     "amplitude_m": 0.0754,
+     "phase_degrees": 220.4,
+     "a_cos": -0.0574,
+     "b_sin": 0.0489
+    },
+    "K2": {
+     "name": "จันทร์-อาทิตย์กึ่งรายวัน",
+     "period_hours": 11.9672,
+     "amplitude_m": 0.0922,
+     "phase_degrees": 346.58,
+     "a_cos": 0.0896,
+     "b_sin": 0.0214
     },
     "K1": {
-     "name": "ดวงจันทร์-ดวงอาทิตย์รายวัน (Lunar diurnal)",
-     "period_hours": 23.9344721,
-     "amplitude_m": 0.607,
-     "phase_degrees": 12.24,
-     "a_cos": 0.5932,
-     "b_sin": -0.1286
+     "name": "จันทร์-อาทิตย์รายวัน",
+     "period_hours": 23.9345,
+     "amplitude_m": 0.5432,
+     "phase_degrees": 184.4,
+     "a_cos": -0.5416,
+     "b_sin": 0.0416
     },
     "O1": {
-     "name": "ดวงจันทร์รายวันหลัก (Principal lunar diurnal)",
-     "period_hours": 25.8193417,
-     "amplitude_m": 0.4132,
-     "phase_degrees": 15.72,
-     "a_cos": 0.3978,
-     "b_sin": -0.112
+     "name": "ดวงจันทร์รายวันหลัก",
+     "period_hours": 25.8193,
+     "amplitude_m": 0.3338,
+     "phase_degrees": 351.51,
+     "a_cos": 0.3301,
+     "b_sin": 0.0493
+    },
+    "P1": {
+     "name": "ดวงอาทิตย์รายวัน",
+     "period_hours": 24.0659,
+     "amplitude_m": 0.1571,
+     "phase_degrees": 168.19,
+     "a_cos": -0.1537,
+     "b_sin": -0.0321
+    },
+    "Q1": {
+     "name": "ดวงจันทร์วงรีรายวัน",
+     "period_hours": 26.8684,
+     "amplitude_m": 0.0593,
+     "phase_degrees": 242.57,
+     "a_cos": -0.0273,
+     "b_sin": 0.0527
+    },
+    "Sa": {
+     "name": "ฤดูกาลรายปี",
+     "period_hours": 8765.8128,
+     "amplitude_m": 0.179,
+     "phase_degrees": 29.0,
+     "a_cos": 0.1565,
+     "b_sin": -0.0868
+    },
+    "Ssa": {
+     "name": "ฤดูกาลครึ่งปี",
+     "period_hours": 4382.9064,
+     "amplitude_m": 0.0908,
+     "phase_degrees": 145.49,
+     "a_cos": -0.0748,
+     "b_sin": -0.0514
     }
-   }
+   },
+   "s2_over_m2": 0.492
   },
   "lead_skill_evaluations": {
    "lead_6h": {
     "lead_hours": 6,
-    "n_train": 1123,
+    "n_train": 767,
     "n_purged": 4,
-    "n_test": 245,
-    "rmse_model_m": 0.412,
-    "mae_model_m": 0.346,
-    "r2_model": 0.391,
-    "rmse_persistence_m": 0.621,
-    "rmse_astro_baseline_m": 0.481,
-    "skill_gain_vs_persistence_pct": 33.6,
-    "skill_gain_vs_astro_baseline_pct": 14.2
+    "n_test": 232,
+    "rmse_model_m": 0.472,
+    "mae_model_m": 0.377,
+    "r2_model": 0.208,
+    "rmse_persistence_m": 0.608,
+    "rmse_astro_baseline_m": 0.519,
+    "skill_gain_vs_persistence_pct": 22.5,
+    "skill_gain_vs_astro_baseline_pct": 9.1
    },
    "lead_12h": {
     "lead_hours": 12,
-    "n_train": 1044,
-    "n_purged": 10,
-    "n_test": 244,
-    "rmse_model_m": 0.56,
-    "mae_model_m": 0.484,
-    "r2_model": -0.108,
-    "rmse_persistence_m": 0.577,
-    "rmse_astro_baseline_m": 0.504,
-    "skill_gain_vs_persistence_pct": 2.9,
-    "skill_gain_vs_astro_baseline_pct": -11.1
+    "n_train": 762,
+    "n_purged": 9,
+    "n_test": 232,
+    "rmse_model_m": 0.401,
+    "mae_model_m": 0.335,
+    "r2_model": 0.425,
+    "rmse_persistence_m": 0.572,
+    "rmse_astro_baseline_m": 0.366,
+    "skill_gain_vs_persistence_pct": 29.9,
+    "skill_gain_vs_astro_baseline_pct": -9.4
    },
    "lead_24h": {
     "lead_hours": 24,
-    "n_train": 1456,
-    "n_purged": 14,
-    "n_test": 257,
-    "rmse_model_m": 0.236,
-    "mae_model_m": 0.181,
-    "r2_model": 0.797,
+    "n_train": 759,
+    "n_purged": 12,
+    "n_test": 232,
+    "rmse_model_m": 0.241,
+    "mae_model_m": 0.189,
+    "r2_model": 0.783,
     "rmse_persistence_m": 0.213,
-    "rmse_astro_baseline_m": 0.199,
-    "skill_gain_vs_persistence_pct": -11.0,
-    "skill_gain_vs_astro_baseline_pct": -18.6
+    "rmse_astro_baseline_m": 0.204,
+    "skill_gain_vs_persistence_pct": -13.2,
+    "skill_gain_vs_astro_baseline_pct": -18.5
    },
    "lead_48h": {
     "lead_hours": 48,
-    "n_train": 1427,
-    "n_purged": 37,
-    "n_test": 257,
-    "rmse_model_m": 0.436,
-    "mae_model_m": 0.359,
-    "r2_model": 0.23,
-    "rmse_persistence_m": 0.379,
-    "rmse_astro_baseline_m": 0.345,
-    "skill_gain_vs_persistence_pct": -15.0,
-    "skill_gain_vs_astro_baseline_pct": -26.5
+    "n_train": 738,
+    "n_purged": 33,
+    "n_test": 232,
+    "rmse_model_m": 0.416,
+    "mae_model_m": 0.341,
+    "r2_model": 0.281,
+    "rmse_persistence_m": 0.381,
+    "rmse_astro_baseline_m": 0.358,
+    "skill_gain_vs_persistence_pct": -9.0,
+    "skill_gain_vs_astro_baseline_pct": -16.2
+   }
+  },
+  "fit_basis": {
+   "rule": "docs/HARMONICS_REFIT_PREREG.md (ตั้งก่อนดูผล 25 ต.ค. 69)",
+   "model": "ฮาร์มอนิกหลายปี 10 องค์ประกอบพร้อมตัวแก้ปมจันทร์ (ข)",
+   "n_hours_fit": 96514,
+   "fit_end": "2026-09-19 23:00",
+   "years": "2555–2569",
+   "common_sample_all_leads": true,
+   "yearly_means": {
+    "2012": {
+     "mean_m": 0.598,
+     "n_hours": 1309
+    },
+    "2013": {
+     "mean_m": 0.504,
+     "n_hours": 7594
+    },
+    "2014": {
+     "mean_m": 0.392,
+     "n_hours": 7497
+    },
+    "2015": {
+     "mean_m": 0.354,
+     "n_hours": 8410
+    },
+    "2016": {
+     "mean_m": 0.488,
+     "n_hours": 6775
+    },
+    "2017": {
+     "mean_m": 0.474,
+     "n_hours": 5128
+    },
+    "2018": {
+     "mean_m": 0.743,
+     "n_hours": 1906
+    },
+    "2019": {
+     "mean_m": 0.629,
+     "n_hours": 7473
+    },
+    "2020": {
+     "mean_m": 0.501,
+     "n_hours": 8465
+    },
+    "2021": {
+     "mean_m": 0.235,
+     "n_hours": 7938
+    },
+    "2022": {
+     "mean_m": 0.363,
+     "n_hours": 6353
+    },
+    "2023": {
+     "mean_m": 0.269,
+     "n_hours": 8359
+    },
+    "2024": {
+     "mean_m": 0.333,
+     "n_hours": 8729
+    },
+    "2025": {
+     "mean_m": 0.452,
+     "n_hours": 8684
+    },
+    "2026": {
+     "mean_m": 0.204,
+     "n_hours": 1894
+    }
+   }
+  },
+  "comparison_short_window_4_constituents": {
+   "note": "ฮาร์มอนิกเดิม 4 องค์ประกอบจากข้อมูลปี 2569 ก่อนช่วงทดสอบ (ก) ผ่านขั้นตอนประเมินเดียวกัน",
+   "astronomical_harmonics_calibrated": {
+    "S0": 0.2071,
+    "constituents": {
+     "M2": {
+      "name": "ดวงจันทร์กึ่งรายวันหลัก (Principal lunar semidiurnal)",
+      "period_hours": 12.4206012,
+      "amplitude_m": 0.4273,
+      "phase_degrees": 176.42,
+      "a_cos": -0.4265,
+      "b_sin": -0.0267
+     },
+     "S2": {
+      "name": "ดวงอาทิตย์กึ่งรายวันหลัก (Principal solar semidiurnal)",
+      "period_hours": 12.0,
+      "amplitude_m": 0.291,
+      "phase_degrees": 130.03,
+      "a_cos": -0.1871,
+      "b_sin": -0.2228
+     },
+     "K1": {
+      "name": "ดวงจันทร์-ดวงอาทิตย์รายวัน (Lunar diurnal)",
+      "period_hours": 23.9344721,
+      "amplitude_m": 0.607,
+      "phase_degrees": 12.24,
+      "a_cos": 0.5932,
+      "b_sin": -0.1286
+     },
+     "O1": {
+      "name": "ดวงจันทร์รายวันหลัก (Principal lunar diurnal)",
+      "period_hours": 25.8193417,
+      "amplitude_m": 0.4132,
+      "phase_degrees": 15.72,
+      "a_cos": 0.3978,
+      "b_sin": -0.112
+     }
+    }
+   },
+   "lead_skill_evaluations": {
+    "lead_6h": {
+     "lead_hours": 6,
+     "n_train": 767,
+     "n_purged": 4,
+     "n_test": 232,
+     "rmse_model_m": 0.408,
+     "mae_model_m": 0.342,
+     "r2_model": 0.406,
+     "rmse_persistence_m": 0.608,
+     "rmse_astro_baseline_m": 0.487,
+     "skill_gain_vs_persistence_pct": 32.9,
+     "skill_gain_vs_astro_baseline_pct": 16.3
+    },
+    "lead_12h": {
+     "lead_hours": 12,
+     "n_train": 762,
+     "n_purged": 9,
+     "n_test": 232,
+     "rmse_model_m": 0.464,
+     "mae_model_m": 0.395,
+     "r2_model": 0.23,
+     "rmse_persistence_m": 0.572,
+     "rmse_astro_baseline_m": 0.501,
+     "skill_gain_vs_persistence_pct": 18.9,
+     "skill_gain_vs_astro_baseline_pct": 7.5
+    },
+    "lead_24h": {
+     "lead_hours": 24,
+     "n_train": 759,
+     "n_purged": 12,
+     "n_test": 232,
+     "rmse_model_m": 0.261,
+     "mae_model_m": 0.209,
+     "r2_model": 0.745,
+     "rmse_persistence_m": 0.213,
+     "rmse_astro_baseline_m": 0.199,
+     "skill_gain_vs_persistence_pct": -22.7,
+     "skill_gain_vs_astro_baseline_pct": -31.6
+    },
+    "lead_48h": {
+     "lead_hours": 48,
+     "n_train": 738,
+     "n_purged": 33,
+     "n_test": 232,
+     "rmse_model_m": 0.465,
+     "mae_model_m": 0.391,
+     "r2_model": 0.102,
+     "rmse_persistence_m": 0.381,
+     "rmse_astro_baseline_m": 0.344,
+     "skill_gain_vs_persistence_pct": -21.9,
+     "skill_gain_vs_astro_baseline_pct": -35.3
+    }
+   }
+  },
+  "tide_prediction_vs_observed_test_window": {
+   "short_window_4": {
+    "n": 257,
+    "rmse_m": 0.617,
+    "bias_m": -0.505
+   },
+   "multiyear_10": {
+    "n": 257,
+    "rmse_m": 0.333,
+    "bias_m": -0.152
    }
   }
  },
@@ -2986,7 +3211,7 @@
   "glofas_streamflow": "อัตราการไหลของน้ำท่าจำลองรายวัน (ลบ.ม./วินาที) ต่อเนื่อง 17 ปี (2553–2569 รวม 6,134 วัน) จาก Copernicus GloFAS",
   "l3_coastal_coupled": "การประเมินแบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่าง (C.12 สามเสน) แบบผสานขอบเขตทะเลหนุน (CPY015 สะพานกรุงเทพ) — ผสานน้ำขึ้นน้ำลงเท่านั้น ไม่รวมคลื่น SWAN (ข้อมูลคลื่นที่มีเป็น snapshot เดียวหลังช่วงทดสอบ จึงไม่ใช้เป็นตัวแปร) · ฐานเทียบ 2 แบบ: ค่าเดิมคงที่ธรรมดา และค่าเดิมคงที่แบบรู้ทะเล h0+(tide(t+h)−tide(t)) · รายงานช่วงความเชื่อมั่น 95% (bootstrap) ของส่วนต่าง · ถอดตัวแปรซ้ำเชิงเส้น (tide_head) ออกแล้ว — ตรวจอันดับเมทริกซ์เต็ม",
   "compound_flood_risk": "เมทริกซ์ความเสี่ยงร่วม 2 มิติ น้ำหลากปะทะน้ำหนุน 7 ระดับน้ำ × 8 ช่วงเวลาน้ำหนุน ที่ C.12 สามเสน — โมดูลสำรวจสาธิต แสดงในรายงาน 4",
-  "l3_coastal_harmonics": "แบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่างผสานฮาร์มอนิกดาราศาสตร์ 4 ส่วนหลัก (M2, S2, K1, O1) ที่สถานี C.12 สามเสน และการประเมินทักษะเทียบกับ persistence และ astro baseline · ตัดตัวอย่างฝึกที่เป้าหมายตกในช่วงทดสอบทุกระยะ (purge รายระยะ) — ดู n_purged ในไฟล์สรุป — ฝึกฤดูเดียวเช่นกัน"
+  "l3_coastal_harmonics": "แบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่างผสานฮาร์มอนิกดาราศาสตร์ 10 องค์ประกอบพร้อมตัวแก้ปมจันทร์ (ฟิตจากข้อมูล CPY015 หลายปี) ที่สถานี C.12 สามเสน และการประเมินทักษะเทียบกับ persistence และ astro baseline · ตัดตัวอย่างฝึกที่เป้าหมายตกในช่วงทดสอบทุกระยะ (purge รายระยะ) — ดู n_purged ในไฟล์สรุป — ฮาร์มอนิกฟิตหลายปี แต่ตัวถดถอยของ C.12 ฝึกฤดูเดียว"
  },
  "retired": {
   "note": "ตัวเลขเก่าที่ถูกแทน — ห้ามปรากฏในรายงาน/HANDOFF/GOAL6_PLAN/START_HERE (เทสตกถ้าเจอ)",

@@ -129,6 +129,130 @@ def fit_astronomical_harmonics(times: list[dt.datetime], values: list[float]):
     return harmonic_results, predict_harmonics
 
 
+# ---------- ฮาร์มอนิกหลายปี + ตัวแก้ปมจันทร์ (R7-27 · กติกา docs/HARMONICS_REFIT_PREREG.md ตั้งก่อนดูผล) ----------
+EPOCH_FIT = dt.datetime(2000, 1, 1, 0, 0)       # จุดอ้างอิงเฟส (ชั่วโมงนับจากนี้)
+EPOCH_J2000_NOON = dt.datetime(2000, 1, 1, 12, 0)
+MULTI = {
+    "M2": 12.4206012, "S2": 12.0, "N2": 12.65834751, "K2": 11.96723606,
+    "K1": 23.9344721, "O1": 25.8193417, "P1": 24.06588766, "Q1": 26.8683566,
+    "Sa": 365.2422 * 24.0, "Ssa": 182.6211 * 24.0,
+}
+MULTI_NAMES = {
+    "M2": "ดวงจันทร์กึ่งรายวันหลัก", "S2": "ดวงอาทิตย์กึ่งรายวันหลัก", "N2": "ดวงจันทร์วงรีกึ่งรายวัน", "K2": "จันทร์-อาทิตย์กึ่งรายวัน",
+    "K1": "จันทร์-อาทิตย์รายวัน", "O1": "ดวงจันทร์รายวันหลัก", "P1": "ดวงอาทิตย์รายวัน", "Q1": "ดวงจันทร์วงรีรายวัน",
+    "Sa": "ฤดูกาลรายปี", "Ssa": "ฤดูกาลครึ่งปี",
+}
+
+
+def nodal_fu(name: str, n_deg: np.ndarray):
+    """ตัวคูณแอมพลิจูด f และการเลื่อนเฟส u (องศา) ตามสูตรประมาณของ Schureman — ตรงตามเอกสารกติกา §2"""
+    n = np.radians(n_deg)
+    c1, c2, s1, s2 = np.cos(n), np.cos(2 * n), np.sin(n), np.sin(2 * n)
+    if name in ("M2", "N2"):
+        return 1.0004 - 0.0373 * c1 + 0.0002 * c2, -2.14 * s1
+    if name == "K1":
+        return 1.006 + 0.115 * c1 - 0.0088 * c2, -8.86 * s1 + 0.68 * s2
+    if name in ("O1", "Q1"):
+        return 1.0089 + 0.1871 * c1 - 0.0147 * c2, 10.80 * s1 - 1.34 * s2
+    if name == "K2":
+        return 1.0241 + 0.2863 * c1 + 0.0083 * c2, -17.74 * s1 + 0.68 * s2
+    one = np.ones_like(n_deg)
+    return one, 0.0 * one
+
+
+def _design(times: list):
+    th = np.array([(x - EPOCH_FIT).total_seconds() / 3600.0 for x in times])
+    dd = np.array([(x - EPOCH_J2000_NOON).total_seconds() / 86400.0 for x in times])
+    n_deg = 125.0445 - 0.0529539 * dd
+    cols = [np.ones(len(times))]
+    for k, per in MULTI.items():
+        f, u = nodal_fu(k, n_deg)
+        arg = 2.0 * np.pi / per * th + np.radians(u)
+        cols += [f * np.cos(arg), f * np.sin(arg)]
+    return np.column_stack(cols)
+
+
+def load_multiyear_cpy015() -> dict:
+    """CPY015 หลายปี (2555–2568) ใช้เฉพาะบันทึกนาทีที่ 00 — กติกา §1"""
+    out = {}
+    for f in sorted(RAW_TIDES.glob("*_4_CPY015_annual.json")):
+        out.update(load_hourly(f))
+    return out
+
+
+def fit_multiyear_harmonics(times: list, values: list):
+    X = _design(times)
+    y = np.array(values)
+    coefs, *_ = np.linalg.lstsq(X, y, rcond=None)
+    res = {"S0": round(float(coefs[0]), 4), "constituents": {}}
+    for i, k in enumerate(MULTI):
+        a, b = float(coefs[1 + 2 * i]), float(coefs[2 + 2 * i])
+        res["constituents"][k] = {"name": MULTI_NAMES[k], "period_hours": round(MULTI[k], 4), "amplitude_m": round(math.hypot(a, b), 4),
+                                  "phase_degrees": round(math.degrees(math.atan2(-b, a)) % 360.0, 2), "a_cos": round(a, 4), "b_sin": round(b, 4)}
+    res["s2_over_m2"] = round(res["constituents"]["S2"]["amplitude_m"] / res["constituents"]["M2"]["amplitude_m"], 3)
+
+    def predict(query: list) -> np.ndarray:
+        return _design(query) @ coefs
+    return res, predict
+
+
+def evaluate_leads(dt_objs, c12_data, bkk001_data, astro_fn, common):
+    """ขั้นตอนประเมินเดิม (คุณลักษณะ/ริดจ์/ตัดแถวฝึกที่ทับช่วงทดสอบ) บนชุดตัวอย่างร่วมทุกระยะ"""
+    all_tide = astro_fn(dt_objs)
+    astro_dict = {d.strftime("%Y-%m-%d %H:00"): float(v) for d, v in zip(dt_objs, all_tide)}
+    out = {}
+    for lead in LEADS:
+        X_train, y_train, X_test, y_test, y_persist, y_base = [], [], [], [], [], []
+        lead_delta = dt.timedelta(hours=lead)
+        n_purged = 0
+        for d in dt_objs:
+            if d not in common:
+                continue
+            target_dt = d + lead_delta
+            target_str = target_dt.strftime("%Y-%m-%d %H:00")
+            d_str = d.strftime("%Y-%m-%d %H:00")
+            c12_curr, bkk_curr, c12_target = c12_data[d_str], bkk001_data[d_str], c12_data[target_str]
+            astro_target = astro_dict.get(target_str)
+            if astro_target is None:
+                astro_target = float(astro_fn([target_dt])[0])
+            astro_curr = astro_dict[d_str]
+            feats = [c12_curr, bkk_curr, astro_target, astro_curr]
+            if d < TEST_START_DT:
+                if target_dt >= TEST_START_DT:
+                    n_purged += 1
+                    continue
+                X_train.append(feats)
+                y_train.append(c12_target)
+            else:
+                X_test.append(feats)
+                y_test.append(c12_target)
+                y_persist.append(c12_curr)
+                y_base.append(c12_curr + (astro_target - astro_curr))
+        if len(X_train) > 10 and len(X_test) > 5:
+            reg = Ridge(alpha=1.0)
+            reg.fit(X_train, y_train)
+            y_t, y_p = np.array(y_test), np.array(reg.predict(X_test))
+            rm = float(np.sqrt(np.mean((y_t - y_p) ** 2)))
+            ss_tot = np.sum((y_t - np.mean(y_t)) ** 2)
+            rp = float(np.sqrt(np.mean((y_t - np.array(y_persist)) ** 2)))
+            rb = float(np.sqrt(np.mean((y_t - np.array(y_base)) ** 2)))
+            out[f"lead_{lead}h"] = {
+                "lead_hours": lead, "n_train": len(X_train), "n_purged": n_purged, "n_test": len(X_test),
+                "rmse_model_m": round(rm, 3), "mae_model_m": round(float(np.mean(np.abs(y_t - y_p))), 3),
+                "r2_model": round(float(1.0 - np.sum((y_t - y_p) ** 2) / ss_tot) if ss_tot > 0 else 0.0, 3),
+                "rmse_persistence_m": round(rp, 3), "rmse_astro_baseline_m": round(rb, 3),
+                "skill_gain_vs_persistence_pct": round((1.0 - rm / rp) * 100.0, 1), "skill_gain_vs_astro_baseline_pct": round((1.0 - rm / rb) * 100.0, 1),
+            }
+    return out
+
+
+def tide_prediction_rmse(astro_fn, cpy015_data, test_times):
+    ts = [d for d in test_times if d.strftime("%Y-%m-%d %H:00") in cpy015_data]
+    obs = np.array([cpy015_data[d.strftime("%Y-%m-%d %H:00")] for d in ts])
+    pred = astro_fn(ts)
+    return {"n": len(ts), "rmse_m": round(float(np.sqrt(np.mean((obs - pred) ** 2))), 3), "bias_m": round(float(np.mean(pred - obs)), 3)}
+
+
 def run_coastal_harmonics_analysis():
     # โหลดอนุกรมเป้าหมาย C.12 และขอบเขตท้ายน้ำ CPY015 สะพานกรุงเทพ
     c12_data = load_hourly(RAW_L1 / "2599_C.12_2026_hourly.json")
@@ -148,93 +272,28 @@ def run_coastal_harmonics_analysis():
 
     test_dts = [d for d, m in zip(dt_objs, test_mask) if m]
 
-    # 1. สอบเทียบฮาร์มอนิกดาราศาสตร์บน CPY015 (สะพานกรุงเทพ)
-    harmonics_meta, harmonics_fn = fit_astronomical_harmonics(train_dts, train_cpy015)
+    # ชุดตัวอย่างร่วมทุกระยะ: เวลาที่มีเป้าหมายครบ +6/+12/+24/+48 ชม. (กติกา §3)
+    common = {d for d in dt_objs if all((d + dt.timedelta(hours=h)).strftime("%Y-%m-%d %H:00") in c12_data for h in LEADS)}
 
-    # คำนวณค่าระดับน้ำดาราศาสตร์ทำนายล่วงหน้า
-    all_tide_astro = harmonics_fn(dt_objs)
-    astro_dict = {d.strftime("%Y-%m-%d %H:00"): float(val) for d, val in zip(dt_objs, all_tide_astro)}
+    # (ก) ฮาร์มอนิกเดิม 4 องค์ประกอบ จาก CPY015 ปี 2569 ก่อนช่วงทดสอบ
+    harm_short, fn_short = fit_astronomical_harmonics(train_dts, train_cpy015)
+    # (ข) ฮาร์มอนิกหลายปี 10 องค์ประกอบพร้อมตัวแก้ปมจันทร์ (ใช้เป็นตัวทำนายหลักในรายงาน)
+    multi = {k: v for k, v in load_multiyear_cpy015().items() if dt.datetime.strptime(k, "%Y-%m-%d %H:00") < TEST_START_DT}
+    multi.update({k: v for k, v in cpy015_data.items() if dt.datetime.strptime(k, "%Y-%m-%d %H:00") < TEST_START_DT})
+    m_times = [dt.datetime.strptime(k, "%Y-%m-%d %H:00") for k in sorted(multi)]
+    m_vals = [multi[k] for k in sorted(multi)]
+    harmonics_meta, harmonics_fn = fit_multiyear_harmonics(m_times, m_vals)
+    yearly = {}
+    for k, v in multi.items():
+        yearly.setdefault(k[:4], []).append(v)
+    yearly_means = {y: {"mean_m": round(float(np.mean(v)), 3), "n_hours": len(v)} for y, v in sorted(yearly.items())}
 
-    # 2. ทดสอบแบบจำลองพยากรณ์ที่ระยะต่าง ๆ (LEADS)
-    lead_evaluations = {}
-
-    for lead in LEADS:
-        # เตรียมชุดข้อมูล (tide_astro_lead, bkk001, c12_current) -> c12(t + lead)
-        X_train, y_train = [], []
-        X_test, y_test = [], []
-        y_test_persistence = []
-        y_test_astro_baseline = []
-
-        lead_delta = dt.timedelta(hours=lead)
-        n_purged = 0
-
-        for d in dt_objs:
-            target_dt = d + lead_delta
-            target_str = target_dt.strftime("%Y-%m-%d %H:00")
-            d_str = d.strftime("%Y-%m-%d %H:00")
-
-            if target_str not in c12_data:
-                continue
-
-            c12_curr = c12_data[d_str]
-            bkk_curr = bkk001_data[d_str]
-            c12_target = c12_data[target_str]
-
-            # ค่าดาราศาสตร์ล่วงหน้าที่ระยะ lead
-            astro_target = astro_dict.get(target_str, harmonics_fn([target_dt])[0])
-            astro_curr = astro_dict[d_str]
-
-            features = [c12_curr, bkk_curr, astro_target, astro_curr]
-
-            if d < TEST_START_DT:
-                if target_dt >= TEST_START_DT:
-                    # purge: เป้าหมายทับช่วงทดสอบ — ห้ามใช้ฝึก (แบบเดียวกับ goal6_l3_coastal_model.py)
-                    n_purged += 1
-                    continue
-                X_train.append(features)
-                y_train.append(c12_target)
-            else:
-                X_test.append(features)
-                y_test.append(c12_target)
-                y_test_persistence.append(c12_curr)
-                # ฐานเทียบดาราศาสตร์: h0 + (astro(t+lead) - astro(t))
-                y_test_astro_baseline.append(c12_curr + (astro_target - astro_curr))
-
-        # ฟิตโมเดล
-        if len(X_train) > 10 and len(X_test) > 5:
-            reg = Ridge(alpha=1.0)
-            reg.fit(X_train, y_train)
-            y_pred = reg.predict(X_test)
-
-            y_t = np.array(y_test)
-            y_p = np.array(y_pred)
-            y_persist = np.array(y_test_persistence)
-            y_astro_base = np.array(y_test_astro_baseline)
-
-            rmse_model = float(np.sqrt(np.mean((y_t - y_p) ** 2)))
-            mae_model = float(np.mean(np.abs(y_t - y_p)))
-            ss_tot = np.sum((y_t - np.mean(y_t)) ** 2)
-            r2_model = float(1.0 - np.sum((y_t - y_p) ** 2) / ss_tot) if ss_tot > 0 else 0.0
-
-            rmse_persist = float(np.sqrt(np.mean((y_t - y_persist) ** 2)))
-            rmse_astro_base = float(np.sqrt(np.mean((y_t - y_astro_base) ** 2)))
-
-            skill_vs_persistence_pct = round((1.0 - rmse_model / rmse_persist) * 100.0, 1)
-            skill_vs_astro_base_pct = round((1.0 - rmse_model / rmse_astro_base) * 100.0, 1)
-
-            lead_evaluations[f"lead_{lead}h"] = {
-                "lead_hours": lead,
-                "n_train": len(X_train),
-                "n_purged": n_purged,
-                "n_test": len(X_test),
-                "rmse_model_m": round(rmse_model, 3),
-                "mae_model_m": round(mae_model, 3),
-                "r2_model": round(r2_model, 3),
-                "rmse_persistence_m": round(rmse_persist, 3),
-                "rmse_astro_baseline_m": round(rmse_astro_base, 3),
-                "skill_gain_vs_persistence_pct": skill_vs_persistence_pct,
-                "skill_gain_vs_astro_baseline_pct": skill_vs_astro_base_pct,
-            }
+    lead_evaluations = evaluate_leads(dt_objs, c12_data, bkk001_data, harmonics_fn, common)
+    lead_short = evaluate_leads(dt_objs, c12_data, bkk001_data, fn_short, common)
+    test_times = [d for d in dt_objs if d >= TEST_START_DT]
+    # ตรวจตัวทำนายน้ำขึ้นน้ำลงโดยตรงบน CPY015 ช่วงทดสอบ (ไม่ผ่านแบบจำลองถดถอย)
+    tp_short = tide_prediction_rmse(fn_short, cpy015_data, test_times)
+    tp_multi = tide_prediction_rmse(harmonics_fn, cpy015_data, test_times)
 
     summary = {
         "title": "แบบจำลองพยากรณ์ระดับน้ำเจ้าพระยาตอนล่างผสานฮาร์มอนิกดาราศาสตร์ (Astronomical Harmonics Coupled)",
@@ -245,6 +304,11 @@ def run_coastal_harmonics_analysis():
         "purge_note": "ตัดแถวฝึกที่เป้าหมายทับช่วงทดสอบ (purge รายระยะ) ก่อนฟิตโมเดลทุกระยะ แบบเดียวกับแบบจำลองปากอ่าว — กันข้อมูลอนาคตรั่วเข้าชุดฝึก (รีวิวรอบ 5: Claude F-11 · DeepSeek F6(b) · Gemini F-12)",
         "astronomical_harmonics_calibrated": harmonics_meta,
         "lead_skill_evaluations": lead_evaluations,
+        "fit_basis": {"rule": "docs/HARMONICS_REFIT_PREREG.md (ตั้งก่อนดูผล 25 ต.ค. 69)", "model": "ฮาร์มอนิกหลายปี 10 องค์ประกอบพร้อมตัวแก้ปมจันทร์ (ข)", "n_hours_fit": len(m_vals), "fit_end": m_times[-1].strftime("%Y-%m-%d %H:00"),
+                      "years": f"{m_times[0].year + 543}–{m_times[-1].year + 543}", "common_sample_all_leads": True, "yearly_means": yearly_means},
+        "comparison_short_window_4_constituents": {"note": "ฮาร์มอนิกเดิม 4 องค์ประกอบจากข้อมูลปี 2569 ก่อนช่วงทดสอบ (ก) ผ่านขั้นตอนประเมินเดียวกัน",
+                                                   "astronomical_harmonics_calibrated": harm_short, "lead_skill_evaluations": lead_short},
+        "tide_prediction_vs_observed_test_window": {"short_window_4": tp_short, "multiyear_10": tp_multi},
     }
 
     OUT_JSON.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -254,7 +318,7 @@ def run_coastal_harmonics_analysis():
     md_lines = [
         "# ผลการประเมินแบบจำลองพยากรณ์ชายฝั่งผสานฮาร์มอนิกดาราศาสตร์ (C.12 สามเสน)",
         "",
-        "> นำเข้าคลื่นดาราศาสตร์ 4 องค์ประกอบหลัก (M2, S2, K1, O1) สกัดจากอนุกรมเวลาโทรมาตรสะพานกรุงเทพ (CPY015)",
+        f"> นำเข้าคลื่นดาราศาสตร์ 10 องค์ประกอบพร้อมตัวแก้ปมจันทร์ สกัดจากอนุกรมเวลาโทรมาตรสะพานกรุงเทพ (CPY015) หลายปี ({m_times[0].year + 543}–{m_times[-1].year + 543}) ตามกติกา docs/HARMONICS_REFIT_PREREG.md · ฟิตก่อน 20 ก.ย. 2569 เท่านั้น · เทียบกับแบบ 4 องค์ประกอบเดิมในไฟล์สรุป",
         "",
         "## 1. คุณลักษณะฮาร์มอนิกน้ำขึ้น-น้ำลงดาราศาสตร์ที่สกัดได้",
         "",
@@ -287,7 +351,7 @@ def run_coastal_harmonics_analysis():
         "## 3. สรุปผลและข้อจำกัดของแบบจำลองฮาร์มอนิก",
         "1. **ไม่ต้องพึ่งพาข้อมูลน้ำทะเลหนุนในอนาคต**: การใช้ฮาร์มอนิกดาราศาสตร์ (Astronomical Harmonics) ทำให้โมเดลสามารถพยากรณ์ไปข้างหน้าได้โดยอาศัยเฉพาะข้อมูลดาราศาสตร์",
         f"2. **ประสิทธิภาพเทียบกับฐานเทียบเดิม (Persistence Baseline)**: ทักษะเทียบฐานเทียบเดิมรายระยะ — {_gain_txt} — ระยะที่ค่าติดลบ ({_neg_txt}) เกิดจากยังขาดการรวมพจน์อิทธิพลลมมรสุม/ความกดอากาศ (Surge) และความไม่แน่นอนของอัตราการปล่อยน้ำหลากต้นน้ำ",
-        "3. **ทิศทางการพัฒนา**: ในระยะยาวจำเป็นต้องใช้อนุกรมเวลาระดับน้ำทะเลต่อเนื่องหลายปีเพื่อสกัดองค์ประกอบฮาร์มอนิกที่ครบถ้วน (ตามรายการ ACAD-07) และผสานแบบจำลอง Meteorological Surge เพื่อยกระดับความแม่นยำช่วงน้ำหลากวิกฤต",
+        "3. **ทิศทางการพัฒนา**: ในระยะยาวจำเป็นต้องใช้อนุกรมเวลาระดับน้ำทะเลต่อเนื่องหลายปีเพื่อสกัดองค์ประกอบฮาร์มอนิกที่ครบถ้วน (ตามรายการ ACAD-07 — ฟิตหลายปีทำแล้วในรอบนี้ แต่ CPY015 เป็นสถานีในแม่น้ำ ค่าเฉลี่ยรายปีลอยได้ 0.2–0.7 ม.) และผสานแบบจำลอง Meteorological Surge เพื่อยกระดับความแม่นยำช่วงน้ำหลากวิกฤต",
         "4. **การป้องกันการรั่วไหลของข้อมูล (Purge)**: ตัดแถวฝึกที่เป้าหมายทับช่วงทดสอบทุกระยะก่อนฟิตโมเดล (แบบเดียวกับแบบจำลองปากอ่าว) — จำนวนแถวที่ตัดรายระยะดูได้จากคอลัมน์ 'ตัดออก (purge)' ข้างบนและช่อง `n_purged` ในไฟล์สรุปผล",
     ])
 

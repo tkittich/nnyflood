@@ -1,0 +1,71 @@
+{
+ "dem": "fabdem_raw",
+ "runs": [
+  {
+   "q_scale": 0.8,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 316281,
+   "inflow_mcm": 176.0,
+   "final_stored_mcm": 262.3,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 176.03,
+    "rain_mcm": 631.34,
+    "clamp_gain_mcm": 1.06,
+    "edge_outflow_mcm": 407.84,
+    "drained_mcm": 143.61,
+    "final_mcm": 262.28,
+    "closure_error_mcm": 0.002,
+    "closure_error_pct_of_input": 0.0
+   },
+   "sec": 659,
+   "peak_27sep": {
+    "iou": 0.4,
+    "precision": 0.444,
+    "recall": 0.798,
+    "area_km2": 232.1
+   },
+   "oct2_validated": {
+    "iou": 0.275,
+    "precision": 0.328,
+    "recall": 0.632,
+    "area_km2": 190.2
+   }
+  },
+  {
+   "q_scale": 1.2,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 316558,
+   "inflow_mcm": 264.0,
+   "final_stored_mcm": 289.2,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 264.05,
+    "rain_mcm": 631.34,
+    "clamp_gain_mcm": 1.04,
+    "edge_outflow_mcm": 459.25,
+    "drained_mcm": 153.31,
+    "final_mcm": 289.17,
+    "closure_error_mcm": 0.003,
+    "closure_error_pct_of_input": 0.0
+   },
+   "sec": 638,
+   "peak_27sep": {
+    "iou": 0.4,
+    "precision": 0.443,
+    "recall": 0.804,
+    "area_km2": 234.3
+   },
+   "oct2_validated": {
+    "iou": 0.284,
+    "precision": 0.33,
+    "recall": 0.672,
+    "area_km2": 201.0
+   }
+  }
+ ]
+}

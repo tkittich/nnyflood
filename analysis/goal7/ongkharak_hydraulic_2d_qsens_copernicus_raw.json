@@ -1,0 +1,71 @@
+{
+ "dem": "copernicus_raw",
+ "runs": [
+  {
+   "q_scale": 0.8,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 323573,
+   "inflow_mcm": 176.0,
+   "final_stored_mcm": 452.9,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 176.03,
+    "rain_mcm": 631.34,
+    "clamp_gain_mcm": 8.71,
+    "edge_outflow_mcm": 177.9,
+    "drained_mcm": 190.55,
+    "final_mcm": 452.93,
+    "closure_error_mcm": -0.003,
+    "closure_error_pct_of_input": -0.0
+   },
+   "sec": 667,
+   "peak_27sep": {
+    "iou": 0.43,
+    "precision": 0.481,
+    "recall": 0.804,
+    "area_km2": 216.2
+   },
+   "oct2_validated": {
+    "iou": 0.325,
+    "precision": 0.361,
+    "recall": 0.766,
+    "area_km2": 209.9
+   }
+  },
+  {
+   "q_scale": 1.2,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 324500,
+   "inflow_mcm": 264.0,
+   "final_stored_mcm": 503.2,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 264.05,
+    "rain_mcm": 631.34,
+    "clamp_gain_mcm": 8.48,
+    "edge_outflow_mcm": 201.26,
+    "drained_mcm": 204.7,
+    "final_mcm": 503.21,
+    "closure_error_mcm": -0.004,
+    "closure_error_pct_of_input": -0.0
+   },
+   "sec": 642,
+   "peak_27sep": {
+    "iou": 0.43,
+    "precision": 0.48,
+    "recall": 0.805,
+    "area_km2": 216.7
+   },
+   "oct2_validated": {
+    "iou": 0.324,
+    "precision": 0.354,
+    "recall": 0.794,
+    "area_km2": 221.5
+   }
+  }
+ ]
+}

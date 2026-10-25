@@ -67,7 +67,7 @@ def prep() -> None:
     r0, r1 = int((y1 - LAT1) / res), int((y1 - LAT0) / res)
     c0, c1 = int((LON0 - x0) / res), int((LON1 - x0) / res)
     sl = (slice(r0, r1), slice(c0, c1))
-    out = {name: block(np.asarray(dems[name], dtype="float32")[sl], K, "mean") for name in ("copernicus_raw", "fabdem_raw", "fabdem_corrected")}
+    out = {name: block(np.asarray(dems[name], dtype="float32")[sl], K, "mean") for name in ("copernicus_raw", "fabdem_raw", "fabdem_stepped", "fabdem_corrected")}
     out["river"] = block(river30[sl], K, "any")
     out["mask"] = block(mask30[sl], K, "maj")
     for key, pth in dep.SAR_MASKS.items():
@@ -131,7 +131,7 @@ def condition_bed(z0, river):
     return out.astype("float32")
 
 
-def simulate(z0, river, q_hours, q_cms, rc, dx, dy, D, n_fp, rain=None, f_mmh=0.0, k_day=0.0):
+def simulate(z0, river, q_hours, q_cms, rc, dx, dy, D, n_fp, rain=None, f_mmh=0.0, k_day=0.0, q_scale=1.0):
     import torch
     dev = "cuda"
     if rain is not None:
@@ -159,6 +159,9 @@ def simulate(z0, river, q_hours, q_cms, rc, dx, dy, D, n_fp, rain=None, f_mmh=0.
     t, step, dt_s, snaps = 0.0, 0, 5.0, {}
     inflow_vol = 0.0
     cell = dx * dy
+    # บัญชีน้ำ (R7-28 · กติกา docs/HYDRAULIC2D_RERUN_PREREG.md §2) — บันทึกอย่างเดียว ไม่กระทบการไหล
+    bud = {k: torch.zeros((), dtype=torch.float64, device=dev) for k in ("out", "drain", "clamp_gain", "rain")}
+    init_vol = float(h.sum()) * cell
     while t < t_end:
         if step % 10 == 0:
             hmax = float(h.max())
@@ -179,29 +182,41 @@ def simulate(z0, river, q_hours, q_cms, rc, dx, dy, D, n_fp, rain=None, f_mmh=0.
         dh[:-1, :] -= qy / dy
         dh[1:, :] += qy / dy
         hq = torch.where(edge & (h > HMIN), h * torch.sqrt(G * h.clamp(min=0)) / dx, torch.zeros_like(h))     # ไหลออกตามขอบแบบวิกฤต
-        h = (h + dt_s * (dh - hq)).clamp(min=0)
-        q_now = float(np.interp(t, qh_np, qc_np))
+        bud["out"] += hq.sum().double() * (dt_s * cell)
+        raw = h + dt_s * (dh - hq)
+        bud["clamp_gain"] += (raw.clamp(min=0) - raw).sum().double() * cell
+        h = raw.clamp(min=0)
+        q_now = float(np.interp(t, qh_np, qc_np)) * q_scale
         h[rc[0], rc[1]] += dt_s * q_now / cell
         if rain_t is not None:
             j = min(rain_t.shape[0] - 1, max(0, int(math.floor((t - 7 * 3600.0) / 86400.0)) + 1))
             eff = (rain_t[j] / 24.0 - f_mmh).clamp(min=0.0)                  # มม./ชม. หลังหักการซึมลงดิน
             h += dt_s * eff / 3.6e6
-            rain_in += float(eff.sum()) * dt_s / 3.6e6 * cell / 1e6 if step % 50 == 0 else 0.0
+            bud["rain"] += eff.sum().double() * (dt_s / 3.6e6 * cell)
             if k_day > 0:
-                h = torch.where(rv, h, h * (1 - dt_s * k_day / 86400.0))     # ระบายน้ำขังออกตามลำคลอง/ท่อ (ไม่ใช้กับเซลล์ลำน้ำ)
+                h_old = h
+                h = torch.where(rv, h, h * (1 - dt_s * k_day / 86400.0))
+                bud["drain"] += (h_old - h).sum().double() * cell     # ระบายน้ำขังออกตามลำคลอง/ท่อ (ไม่ใช้กับเซลล์ลำน้ำ)
         inflow_vol += dt_s * q_now
         t += dt_s
         step += 1
     for k in rec:
         snaps.setdefault(k, (h >= THRESH).cpu().numpy())
-    return snaps, {"steps": step, "inflow_mcm": round(inflow_vol / 1e6, 1), "final_stored_mcm": round(float(h.sum()) * cell / 1e6, 1), "rain_effective_mcm_est": round(rain_in * 50, 1) if rain_t is not None else None}
+    final = float(h.sum()) * cell
+    b = {k: float(v) for k, v in bud.items()}
+    total_in = inflow_vol + b["rain"]
+    closure = init_vol + inflow_vol + b["rain"] + b["clamp_gain"] - b["out"] - b["drain"] - final
+    budget = {"initial_mcm": round(init_vol / 1e6, 2), "inflow_mcm": round(inflow_vol / 1e6, 2), "rain_mcm": round(b["rain"] / 1e6, 2), "clamp_gain_mcm": round(b["clamp_gain"] / 1e6, 2),
+              "edge_outflow_mcm": round(b["out"] / 1e6, 2), "drained_mcm": round(b["drain"] / 1e6, 2), "final_mcm": round(final / 1e6, 2),
+              "closure_error_mcm": round(closure / 1e6, 3), "closure_error_pct_of_input": round(100.0 * closure / total_in, 3) if total_in else None}
+    return snaps, {"steps": step, "inflow_mcm": round(inflow_vol / 1e6, 1), "final_stored_mcm": round(final / 1e6, 1), "rain_effective_mcm": round(b["rain"] / 1e6, 1) if rain_t is not None else None, "budget": budget}
 
 
-def iou(pred, sar, mask, valid):
+def iou(pred, sar, mask, valid, cell_km2=0.0081):
     p, s = pred & mask & valid, sar & mask & valid
     u = float((p | s).sum())
     return {"iou": round(float((p & s).sum()) / u, 3) if u else None, "precision": round(float((p & s).sum()) / max(1.0, float(p.sum())), 3),
-            "recall": round(float((p & s).sum()) / max(1.0, float(s.sum())), 3), "area_km2": round(float(p.sum()) * 0.0081, 1)}
+            "recall": round(float((p & s).sum()) / max(1.0, float(s.sum())), 3), "area_km2": round(float(p.sum()) * cell_km2, 1)}
 
 
 def run(limit_runs: int = 0, only_dem: str = "") -> None:
@@ -212,7 +227,7 @@ def run(limit_runs: int = 0, only_dem: str = "") -> None:
     res = {"setup": {"cell_m": [round(dx, 1), round(dy, 1)], "window": [LAT0, LAT1, LON0, LON1], "thresh_m": THRESH, "grid": GRID, "mode": "rain" if MODE_RAIN else "q_only", "n_channel": N_CH, "t0": str(T0), "t_end": str(T_END),
                      "ny7_snap_km": round(float(Z["ny7_snap_km"][0]), 2), "sar_area_km2": {k: round(float((Z[k] & mask).sum()) * dx * dy / 1e6, 1) for k in REC}}, "dems": {}}
     n_run = 0
-    for dem in [d for d in ("fabdem_corrected", "fabdem_raw", "copernicus_raw") if not only_dem or d == only_dem]:
+    for dem in [d for d in ("fabdem_corrected", "fabdem_stepped", "fabdem_raw", "copernicus_raw") if not only_dem or d == only_dem]:
         z0 = Z[dem]
         valid = ~np.isnan(z0)
         rows = []
@@ -226,14 +241,16 @@ def run(limit_runs: int = 0, only_dem: str = "") -> None:
                 snaps, info = simulate(z0, Z["river"], Z["q_hours"], Z["q_cms"], rc, dx, dy, D, nf, rain, f_mmh, k_day)
                 row = {"D_m": D, "n_fp": nf, "f_mmh": f_mmh, "k_per_day": k_day, **info, "sec": round(time.time() - t0)}
                 for k in REC:
-                    row[k] = iou(snaps[k], Z[k], mask, valid)
+                    row[k] = iou(snaps[k], Z[k], mask, valid, dx * dy / 1e6)
                 rows.append(row)
                 n_run += 1
                 print(dem, D, nf, f_mmh, k_day, row["sec"], "s", {k: row[k]["iou"] for k in REC}, "inflow", info["inflow_mcm"], "stored", info["final_stored_mcm"], flush=True)
         if rows:
             best = max(rows, key=lambda r: r["peak_27sep"]["iou"] or 0)
             res["dems"][dem] = {"runs": rows, "best_by_27sep": {"D_m": best["D_m"], "n_fp": best["n_fp"], "f_mmh": best["f_mmh"], "k_per_day": best["k_per_day"], "iou_27sep": best["peak_27sep"]["iou"], "iou_2oct_not_refit": best["oct2_validated"]["iou"]}}
-    res["bucket_baseline"] = {"fabdem_corrected": {"peak_27sep": 0.31, "oct2_validated": 0.25}, "connected_fill_copernicus_s0": {"peak_27sep": 0.367, "oct2_validated": 0.321}}
+    sens = json.loads((ROOT / "analysis/goal7/ongkharak_2d_depression_summary.json").read_text(encoding="utf-8"))["dem_sensitivity"]
+    res["bucket_baseline"] = {k: {"peak_27sep": v["sar_fit"]["peak_27sep"]["iou"], "oct2_validated": v["sar_fit"]["oct2_validated"]["iou"]} for k, v in sens.items()}
+    res["bucket_baseline"]["connected_fill_copernicus_s0"] = {"peak_27sep": 0.367, "oct2_validated": 0.321}
     (OUT.with_name(f"{OUT.stem}_{only_dem}.json") if only_dem else OUT).write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: v["best_by_27sep"] for k, v in res["dems"].items()}, ensure_ascii=False))
 
@@ -251,9 +268,40 @@ def combine() -> None:
     print(json.dumps({k: v["best_by_27sep"] for k, v in a["dems"].items()}, ensure_ascii=False))
 
 
+def qsens(dem: str) -> None:
+    """ความไวต่อน้ำเข้า × 0.8 และ × 1.2 ที่ (f, k) ดีสุดของพื้นผิวนั้น (เลือกไว้แล้วจากผลรอบก่อนหน้า — กติกา §3) · ต้องรันโหมดฝน"""
+    assert MODE_RAIN, "ต้องตั้ง H2D_MODE=rain"
+    Z = np.load(NPZ)
+    dx, dy = (float(v) for v in Z["dxdy"])
+    rc = (int(Z["ny7_rc"][0]), int(Z["ny7_rc"][1]))
+    mask = Z["mask"]
+    z0 = Z[dem]
+    valid = ~np.isnan(z0)
+    best = json.loads((ROOT / "analysis/goal7/ongkharak_hydraulic_2d_rain_all.json").read_text(encoding="utf-8"))["dems"][dem]["best_by_27sep"]
+    rain = np.load(RAIN_NPZ)["fields"]
+    rows = []
+    for s in (0.8, 1.2):
+        t0 = time.time()
+        snaps, info = simulate(z0, Z["river"], Z["q_hours"], Z["q_cms"], rc, dx, dy, best["D_m"], best["n_fp"], rain, best["f_mmh"], best["k_per_day"], q_scale=s)
+        row = {"q_scale": s, "f_mmh": best["f_mmh"], "k_per_day": best["k_per_day"], **info, "sec": round(time.time() - t0)}
+        for k in REC:
+            row[k] = iou(snaps[k], Z[k], mask, valid, dx * dy / 1e6)
+        rows.append(row)
+        print(dem, "q x", s, row["sec"], "s", {k: row[k]["iou"] for k in REC}, flush=True)
+    (ROOT / f"analysis/goal7/ongkharak_hydraulic_2d_qsens_{dem}.json").write_text(json.dumps({"dem": dem, "runs": rows}, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def qsens_merge() -> None:
+    out = {}
+    for d in ("fabdem_corrected", "fabdem_stepped", "fabdem_raw", "copernicus_raw"):
+        out[d] = json.loads((ROOT / f"analysis/goal7/ongkharak_hydraulic_2d_qsens_{d}.json").read_text(encoding="utf-8"))["runs"]
+    (ROOT / "analysis/goal7/ongkharak_hydraulic_2d_qsens.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    print({d: [(r["q_scale"], r["peak_27sep"]["iou"], r["oct2_validated"]["iou"]) for r in v] for d, v in out.items()})
+
+
 def merge() -> None:
     """รวมผลที่รันขนานแยกตาม DEM (แต่ละ DEM รันเป็นกระบวนการของตัวเอง)"""
-    parts = [json.loads(OUT.with_name(f"{OUT.stem}_{d}.json").read_text(encoding="utf-8")) for d in ("fabdem_corrected", "fabdem_raw", "copernicus_raw")]
+    parts = [json.loads(OUT.with_name(f"{OUT.stem}_{d}.json").read_text(encoding="utf-8")) for d in ("fabdem_corrected", "fabdem_stepped", "fabdem_raw", "copernicus_raw")]
     res = parts[0]
     for x in parts[1:]:
         res["dems"].update(x["dems"])
@@ -269,5 +317,9 @@ if __name__ == "__main__":
         merge()
     elif cmd == "combine":
         combine()
+    elif cmd == "qsens":
+        qsens(sys.argv[2])
+    elif cmd == "qsens_merge":
+        qsens_merge()
     else:
         run(int(sys.argv[2]) if len(sys.argv) > 2 else 0, sys.argv[3] if len(sys.argv) > 3 else "")

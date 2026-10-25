@@ -1,0 +1,274 @@
+{
+ "fabdem_corrected": [
+  {
+   "q_scale": 0.8,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 301975,
+   "inflow_mcm": 176.0,
+   "final_stored_mcm": 251.1,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 176.03,
+    "rain_mcm": 631.34,
+    "clamp_gain_mcm": 1.07,
+    "edge_outflow_mcm": 423.21,
+    "drained_mcm": 139.45,
+    "final_mcm": 251.08,
+    "closure_error_mcm": 0.003,
+    "closure_error_pct_of_input": 0.0
+   },
+   "sec": 627,
+   "peak_27sep": {
+    "iou": 0.41,
+    "precision": 0.439,
+    "recall": 0.859,
+    "area_km2": 252.8
+   },
+   "oct2_validated": {
+    "iou": 0.289,
+    "precision": 0.331,
+    "recall": 0.697,
+    "area_km2": 208.3
+   }
+  },
+  {
+   "q_scale": 1.2,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 302254,
+   "inflow_mcm": 264.0,
+   "final_stored_mcm": 278.0,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 264.05,
+    "rain_mcm": 631.33,
+    "clamp_gain_mcm": 1.05,
+    "edge_outflow_mcm": 474.63,
+    "drained_mcm": 149.1,
+    "final_mcm": 278.02,
+    "closure_error_mcm": 0.005,
+    "closure_error_pct_of_input": 0.001
+   },
+   "sec": 626,
+   "peak_27sep": {
+    "iou": 0.41,
+    "precision": 0.438,
+    "recall": 0.864,
+    "area_km2": 255.0
+   },
+   "oct2_validated": {
+    "iou": 0.296,
+    "precision": 0.331,
+    "recall": 0.739,
+    "area_km2": 220.6
+   }
+  }
+ ],
+ "fabdem_stepped": [
+  {
+   "q_scale": 0.8,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 302423,
+   "inflow_mcm": 176.0,
+   "final_stored_mcm": 260.8,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 176.03,
+    "rain_mcm": 631.33,
+    "clamp_gain_mcm": 1.07,
+    "edge_outflow_mcm": 409.85,
+    "drained_mcm": 143.05,
+    "final_mcm": 260.84,
+    "closure_error_mcm": 0.002,
+    "closure_error_pct_of_input": 0.0
+   },
+   "sec": 626,
+   "peak_27sep": {
+    "iou": 0.403,
+    "precision": 0.433,
+    "recall": 0.852,
+    "area_km2": 254.3
+   },
+   "oct2_validated": {
+    "iou": 0.281,
+    "precision": 0.319,
+    "recall": 0.7,
+    "area_km2": 216.6
+   }
+  },
+  {
+   "q_scale": 1.2,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 302731,
+   "inflow_mcm": 264.0,
+   "final_stored_mcm": 288.1,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 264.05,
+    "rain_mcm": 631.33,
+    "clamp_gain_mcm": 1.05,
+    "edge_outflow_mcm": 460.82,
+    "drained_mcm": 152.8,
+    "final_mcm": 288.11,
+    "closure_error_mcm": 0.005,
+    "closure_error_pct_of_input": 0.001
+   },
+   "sec": 625,
+   "peak_27sep": {
+    "iou": 0.403,
+    "precision": 0.432,
+    "recall": 0.858,
+    "area_km2": 256.3
+   },
+   "oct2_validated": {
+    "iou": 0.287,
+    "precision": 0.32,
+    "recall": 0.734,
+    "area_km2": 226.4
+   }
+  }
+ ],
+ "fabdem_raw": [
+  {
+   "q_scale": 0.8,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 316281,
+   "inflow_mcm": 176.0,
+   "final_stored_mcm": 262.3,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 176.03,
+    "rain_mcm": 631.34,
+    "clamp_gain_mcm": 1.06,
+    "edge_outflow_mcm": 407.84,
+    "drained_mcm": 143.61,
+    "final_mcm": 262.28,
+    "closure_error_mcm": 0.002,
+    "closure_error_pct_of_input": 0.0
+   },
+   "sec": 659,
+   "peak_27sep": {
+    "iou": 0.4,
+    "precision": 0.444,
+    "recall": 0.798,
+    "area_km2": 232.1
+   },
+   "oct2_validated": {
+    "iou": 0.275,
+    "precision": 0.328,
+    "recall": 0.632,
+    "area_km2": 190.2
+   }
+  },
+  {
+   "q_scale": 1.2,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 316558,
+   "inflow_mcm": 264.0,
+   "final_stored_mcm": 289.2,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 264.05,
+    "rain_mcm": 631.34,
+    "clamp_gain_mcm": 1.04,
+    "edge_outflow_mcm": 459.25,
+    "drained_mcm": 153.31,
+    "final_mcm": 289.17,
+    "closure_error_mcm": 0.003,
+    "closure_error_pct_of_input": 0.0
+   },
+   "sec": 638,
+   "peak_27sep": {
+    "iou": 0.4,
+    "precision": 0.443,
+    "recall": 0.804,
+    "area_km2": 234.3
+   },
+   "oct2_validated": {
+    "iou": 0.284,
+    "precision": 0.33,
+    "recall": 0.672,
+    "area_km2": 201.0
+   }
+  }
+ ],
+ "copernicus_raw": [
+  {
+   "q_scale": 0.8,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 323573,
+   "inflow_mcm": 176.0,
+   "final_stored_mcm": 452.9,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 176.03,
+    "rain_mcm": 631.34,
+    "clamp_gain_mcm": 8.71,
+    "edge_outflow_mcm": 177.9,
+    "drained_mcm": 190.55,
+    "final_mcm": 452.93,
+    "closure_error_mcm": -0.003,
+    "closure_error_pct_of_input": -0.0
+   },
+   "sec": 667,
+   "peak_27sep": {
+    "iou": 0.43,
+    "precision": 0.481,
+    "recall": 0.804,
+    "area_km2": 216.2
+   },
+   "oct2_validated": {
+    "iou": 0.325,
+    "precision": 0.361,
+    "recall": 0.766,
+    "area_km2": 209.9
+   }
+  },
+  {
+   "q_scale": 1.2,
+   "f_mmh": 1.0,
+   "k_per_day": 0.05,
+   "steps": 324500,
+   "inflow_mcm": 264.0,
+   "final_stored_mcm": 503.2,
+   "rain_effective_mcm": 631.3,
+   "budget": {
+    "initial_mcm": 5.31,
+    "inflow_mcm": 264.05,
+    "rain_mcm": 631.34,
+    "clamp_gain_mcm": 8.48,
+    "edge_outflow_mcm": 201.26,
+    "drained_mcm": 204.7,
+    "final_mcm": 503.21,
+    "closure_error_mcm": -0.004,
+    "closure_error_pct_of_input": -0.0
+   },
+   "sec": 642,
+   "peak_27sep": {
+    "iou": 0.43,
+    "precision": 0.48,
+    "recall": 0.805,
+    "area_km2": 216.7
+   },
+   "oct2_validated": {
+    "iou": 0.324,
+    "precision": 0.354,
+    "recall": 0.794,
+    "area_km2": 221.5
+   }
+  }
+ ]
+}

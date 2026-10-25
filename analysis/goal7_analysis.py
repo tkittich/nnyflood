@@ -1581,10 +1581,13 @@ def main():
         er = json.loads((OUT / "event_rain_summary.json").read_text(encoding="utf-8"))
         c["ongkharak_hydraulic_2d"] = {
             "q_only_max_iou": {d: {"iou_27sep": max(r["peak_27sep"]["iou"] for r in v["runs"]), "iou_2oct": max(r["oct2_validated"]["iou"] for r in v["runs"]), "runs": len(v["runs"])} for d, v in qo["dems"].items()},
-            "rain_best": {d: {**v["best_by_27sep"], **{k: next(r for r in v["runs"] if r["f_mmh"] == v["best_by_27sep"]["f_mmh"] and r["k_per_day"] == v["best_by_27sep"]["k_per_day"])[k] for k in ("peak_27sep", "oct2_validated", "final_stored_mcm")}, "runs": len(v["runs"])} for d, v in ra["dems"].items()},
+            "rain_best": {d: {**v["best_by_27sep"], **{k: next(r for r in v["runs"] if r["f_mmh"] == v["best_by_27sep"]["f_mmh"] and r["k_per_day"] == v["best_by_27sep"]["k_per_day"])[k] for k in ("peak_27sep", "oct2_validated", "final_stored_mcm", "budget")}, "runs": len(v["runs"])} for d, v in ra["dems"].items()},
             "rain_grid": ra["setup"]["grid"], "sar_area_in_window_km2": ra["setup"]["sar_area_km2"], "window_note": "พื้นที่เรดาร์เฉพาะในหน้าต่างแบบจำลอง (ไม่ใช่ทั้งอำเภอ)",
             "event_rain": {"domain_total_mm": er["domain_total_mm_20sep_to_4oct"], "heaviest_days": er["heaviest_days"], "stations": er["n_stations"], "stations_with_data": er["stations_with_data"], "station_total_mm": er["stations_total_mm"]},
-            "bucket_baseline": ra["bucket_baseline"]}
+            "bucket_baseline": ra["bucket_baseline"],
+            "qsens": {d: [{"q_scale": r["q_scale"], "iou_27sep": r["peak_27sep"]["iou"], "iou_2oct": r["oct2_validated"]["iou"], "area_27sep_km2": r["peak_27sep"]["area_km2"], "final_stored_mcm": r["final_stored_mcm"],
+                           "closure_error_pct": r["budget"]["closure_error_pct_of_input"]} for r in rows]
+                      for d, rows in json.loads((OUT / "ongkharak_hydraulic_2d_qsens.json").read_text(encoding="utf-8")).items()} if (OUT / "ongkharak_hydraulic_2d_qsens.json").exists() else {}}
     if (OUT / "bangpakong_chachoengsao.json").exists():
         c["bangpakong_chachoengsao"] = json.loads((OUT / "bangpakong_chachoengsao.json").read_text(encoding="utf-8"))
     if (OUT / "mitrearth_national_summary.json").exists():

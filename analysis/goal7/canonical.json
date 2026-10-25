@@ -9188,6 +9188,11 @@
  "ongkharak_hydraulic_2d": {
   "q_only_max_iou": {
    "fabdem_corrected": {
+    "iou_27sep": 0.003,
+    "iou_2oct": 0.165,
+    "runs": 6
+   },
+   "fabdem_stepped": {
     "iou_27sep": 0.005,
     "iou_2oct": 0.155,
     "runs": 6
@@ -9209,21 +9214,65 @@
     "n_fp": 0.06,
     "f_mmh": 1.0,
     "k_per_day": 0.05,
+    "iou_27sep": 0.41,
+    "iou_2oct_not_refit": 0.293,
+    "peak_27sep": {
+     "iou": 0.41,
+     "precision": 0.439,
+     "recall": 0.862,
+     "area_km2": 253.9
+    },
+    "oct2_validated": {
+     "iou": 0.293,
+     "precision": 0.331,
+     "recall": 0.719,
+     "area_km2": 214.7
+    },
+    "final_stored_mcm": 265.0,
+    "budget": {
+     "initial_mcm": 5.31,
+     "inflow_mcm": 220.04,
+     "rain_mcm": 631.34,
+     "clamp_gain_mcm": 1.06,
+     "edge_outflow_mcm": 448.41,
+     "drained_mcm": 144.35,
+     "final_mcm": 264.97,
+     "closure_error_mcm": 0.004,
+     "closure_error_pct_of_input": 0.0
+    },
+    "runs": 10
+   },
+   "fabdem_stepped": {
+    "D_m": 1.0,
+    "n_fp": 0.06,
+    "f_mmh": 1.0,
+    "k_per_day": 0.05,
     "iou_27sep": 0.403,
     "iou_2oct_not_refit": 0.284,
     "peak_27sep": {
      "iou": 0.403,
      "precision": 0.433,
      "recall": 0.854,
-     "area_km2": 249.4
+     "area_km2": 255.2
     },
     "oct2_validated": {
      "iou": 0.284,
      "precision": 0.32,
      "recall": 0.719,
-     "area_km2": 216.7
+     "area_km2": 221.8
     },
     "final_stored_mcm": 274.9,
+    "budget": {
+     "initial_mcm": 5.31,
+     "inflow_mcm": 220.04,
+     "rain_mcm": 631.34,
+     "clamp_gain_mcm": 1.05,
+     "edge_outflow_mcm": 434.82,
+     "drained_mcm": 148.0,
+     "final_mcm": 274.91,
+     "closure_error_mcm": 0.004,
+     "closure_error_pct_of_input": 0.0
+    },
     "runs": 10
    },
    "fabdem_raw": {
@@ -9237,15 +9286,26 @@
      "iou": 0.4,
      "precision": 0.444,
      "recall": 0.8,
-     "area_km2": 227.8
+     "area_km2": 233.1
     },
     "oct2_validated": {
      "iou": 0.28,
      "precision": 0.329,
      "recall": 0.651,
-     "area_km2": 191.1
+     "area_km2": 195.6
     },
     "final_stored_mcm": 276.1,
+    "budget": {
+     "initial_mcm": 5.31,
+     "inflow_mcm": 220.04,
+     "rain_mcm": 631.33,
+     "clamp_gain_mcm": 1.05,
+     "edge_outflow_mcm": 433.05,
+     "drained_mcm": 148.54,
+     "final_mcm": 276.14,
+     "closure_error_mcm": 0.003,
+     "closure_error_pct_of_input": 0.0
+    },
     "runs": 10
    },
    "copernicus_raw": {
@@ -9259,15 +9319,26 @@
      "iou": 0.43,
      "precision": 0.48,
      "recall": 0.805,
-     "area_km2": 211.5
+     "area_km2": 216.5
     },
     "oct2_validated": {
      "iou": 0.324,
      "precision": 0.357,
      "recall": 0.779,
-     "area_km2": 210.6
+     "area_km2": 215.5
     },
     "final_stored_mcm": 479.1,
+    "budget": {
+     "initial_mcm": 5.31,
+     "inflow_mcm": 220.04,
+     "rain_mcm": 631.33,
+     "clamp_gain_mcm": 8.51,
+     "edge_outflow_mcm": 188.39,
+     "drained_mcm": 197.69,
+     "final_mcm": 479.12,
+     "closure_error_mcm": -0.003,
+     "closure_error_pct_of_input": -0.0
+    },
     "runs": 10
    }
   },
@@ -9340,14 +9411,100 @@
    }
   },
   "bucket_baseline": {
-   "fabdem_corrected": {
+   "copernicus_raw": {
+    "peak_27sep": 0.36,
+    "oct2_validated": 0.3
+   },
+   "fabdem_raw": {
+    "peak_27sep": 0.33,
+    "oct2_validated": 0.27
+   },
+   "fabdem_stepped": {
     "peak_27sep": 0.31,
     "oct2_validated": 0.25
+   },
+   "fabdem_corrected": {
+    "peak_27sep": 0.33,
+    "oct2_validated": 0.27
    },
    "connected_fill_copernicus_s0": {
     "peak_27sep": 0.367,
     "oct2_validated": 0.321
    }
+  },
+  "qsens": {
+   "fabdem_corrected": [
+    {
+     "q_scale": 0.8,
+     "iou_27sep": 0.41,
+     "iou_2oct": 0.289,
+     "area_27sep_km2": 252.8,
+     "final_stored_mcm": 251.1,
+     "closure_error_pct": 0.0
+    },
+    {
+     "q_scale": 1.2,
+     "iou_27sep": 0.41,
+     "iou_2oct": 0.296,
+     "area_27sep_km2": 255.0,
+     "final_stored_mcm": 278.0,
+     "closure_error_pct": 0.001
+    }
+   ],
+   "fabdem_stepped": [
+    {
+     "q_scale": 0.8,
+     "iou_27sep": 0.403,
+     "iou_2oct": 0.281,
+     "area_27sep_km2": 254.3,
+     "final_stored_mcm": 260.8,
+     "closure_error_pct": 0.0
+    },
+    {
+     "q_scale": 1.2,
+     "iou_27sep": 0.403,
+     "iou_2oct": 0.287,
+     "area_27sep_km2": 256.3,
+     "final_stored_mcm": 288.1,
+     "closure_error_pct": 0.001
+    }
+   ],
+   "fabdem_raw": [
+    {
+     "q_scale": 0.8,
+     "iou_27sep": 0.4,
+     "iou_2oct": 0.275,
+     "area_27sep_km2": 232.1,
+     "final_stored_mcm": 262.3,
+     "closure_error_pct": 0.0
+    },
+    {
+     "q_scale": 1.2,
+     "iou_27sep": 0.4,
+     "iou_2oct": 0.284,
+     "area_27sep_km2": 234.3,
+     "final_stored_mcm": 289.2,
+     "closure_error_pct": 0.0
+    }
+   ],
+   "copernicus_raw": [
+    {
+     "q_scale": 0.8,
+     "iou_27sep": 0.43,
+     "iou_2oct": 0.325,
+     "area_27sep_km2": 216.2,
+     "final_stored_mcm": 452.9,
+     "closure_error_pct": -0.0
+    },
+    {
+     "q_scale": 1.2,
+     "iou_27sep": 0.43,
+     "iou_2oct": 0.324,
+     "area_27sep_km2": 216.7,
+     "final_stored_mcm": 503.2,
+     "closure_error_pct": -0.0
+    }
+   ]
   }
  },
  "bangpakong_chachoengsao": {

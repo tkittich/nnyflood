@@ -8,7 +8,7 @@ C = json.loads((ROOT / "analysis/goal7/canonical.json").read_text(encoding="utf-
 
 
 def test_two_rounds_combined_and_best_chosen_by_27sep_only():
-    assert set(A["dems"]) == {"fabdem_corrected", "fabdem_raw", "copernicus_raw"}
+    assert set(A["dems"]) == {"fabdem_corrected", "fabdem_stepped", "fabdem_raw", "copernicus_raw"}
     for v in A["dems"].values():
         assert len(v["runs"]) == 10
         best = max(v["runs"], key=lambda r: r["peak_27sep"]["iou"])
@@ -16,15 +16,20 @@ def test_two_rounds_combined_and_best_chosen_by_27sep_only():
         assert v["best_by_27sep"]["iou_2oct_not_refit"] == best["oct2_validated"]["iou"]
 
 
-def test_rain_beats_no_rain_by_far_and_canonical_matches():
+def test_canonical_matches_results_without_prejudging_conclusions():
+    """รีวิวรอบ 7: ไม่ฝังข้อสรุปในเทสต์ (เช่น ฝนต้องชนะ หรือค่าดีสุดต้องอยู่ขอบกริด) — รายงานคำนวณข้อความเหล่านี้จากข้อมูล"""
     for d, r in C["rain_best"].items():
-        assert r["peak_27sep"]["iou"] > 10 * max(C["q_only_max_iou"][d]["iou_27sep"], 0.01)
         assert r["peak_27sep"]["iou"] == A["dems"][d]["best_by_27sep"]["iou_27sep"]
+        assert abs(r["budget"]["closure_error_pct_of_input"]) < 5.0
+    for d, rows in C["qsens"].items():
+        assert [x["q_scale"] for x in rows] == [0.8, 1.2]
 
 
-def test_best_params_at_grid_edge_is_recorded_honestly():
-    """ค่าดีสุดอยู่ขอบกริด (ซึมต่ำสุด ระบายช้าสุด) — ข้อความในรายงานต้องบอกเรื่องนี้ ไม่อ้างว่าระบุค่าได้"""
-    for v in A["dems"].values():
-        f_all = {r["f_mmh"] for r in v["runs"]}
-        k_all = {r["k_per_day"] for r in v["runs"]}
-        assert v["best_by_27sep"]["f_mmh"] == min(f_all) and v["best_by_27sep"]["k_per_day"] == min(k_all)
+def test_report_edge_statement_follows_data():
+    """ข้อความ 'ขอบกริด' ในรายงานต้องตรงข้อมูล: พิมพ์เมื่อค่าดีสุดของทุกพื้นผิวอยู่ขอบกริดเท่านั้น"""
+    import sys
+    sys.path.insert(0, str(ROOT / "report"))
+    import goal7_blocks as blk
+    edge = all(v["best_by_27sep"]["f_mmh"] == min(r["f_mmh"] for r in v["runs"]) and v["best_by_27sep"]["k_per_day"] == min(r["k_per_day"] for r in v["runs"]) for v in A["dems"].values())
+    txt = blk.prose_hydraulic_2d()
+    assert ("ขอบของกริดที่ลอง" in txt) == edge

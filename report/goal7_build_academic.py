@@ -864,6 +864,7 @@ S.append(blk.tbl_dem_waterline())
 S.append(blk.tbl_dem_gistda_waterline())
 S.append(prose(blk.prose_hydraulic_2d()))
 S.append(blk.tbl_hydraulic_2d())
+S.append(blk.tbl_hydraulic_2d_budget())
 S.append(OL.h3("hydraulics_accuracy_and_boundaries", "การประเมินความแม่นยำและการรวมแหล่งน้ำ (ปริมาณน้ำฝนและแบบจำลองความสูงภูมิประเทศ) ในการวิเคราะห์ชลศาสตร์"))
 S.append(prose(
     "<b>หลักเกณฑ์และความโปร่งใสของการวิเคราะห์ชลศาสตร์และเวกเตอร์การไหล:</b><br>"

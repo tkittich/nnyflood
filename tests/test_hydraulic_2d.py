@@ -6,7 +6,7 @@ R = json.loads((Path(__file__).resolve().parent.parent / "analysis/goal7/ongkhar
 
 
 def test_grid_and_rules_recorded():
-    assert set(R["dems"]) == {"fabdem_corrected", "fabdem_raw", "copernicus_raw"}
+    assert set(R["dems"]) == {"fabdem_corrected", "fabdem_stepped", "fabdem_raw", "copernicus_raw"}
     for v in R["dems"].values():
         assert len(v["runs"]) == 6
         b = v["best_by_27sep"]
@@ -19,3 +19,13 @@ def test_mass_balance_not_absurd():
     for v in R["dems"].values():
         for r in v["runs"]:
             assert 0 < r["final_stored_mcm"] <= r["inflow_mcm"] + 10      # น้ำที่เก็บไม่เกินน้ำเข้ารวมน้ำเริ่มต้นในร่อง
+
+
+def test_water_budget_closes_every_run():
+    """R7-28 (กติกา docs/HYDRAULIC2D_RERUN_PREREG.md §2): บัญชีน้ำปิดรอบทุกการรัน — ถ้าเกินร้อยละ 5 ต้องติดป้ายในรายงาน (ที่นี่ตรวจว่าไม่เกิน)"""
+    for v in R["dems"].values():
+        for r in v["runs"]:
+            b = r["budget"]
+            assert abs(b["closure_error_pct_of_input"]) < 5.0, b
+            assert b["final_mcm"] >= 0 and b["edge_outflow_mcm"] >= 0
+

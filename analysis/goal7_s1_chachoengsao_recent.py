@@ -33,7 +33,7 @@ BOUND = ROOT / "data/10_mitrearth_gis/provinces/chachoengsao_10/2 Boundary and P
 ODATA = "https://catalogue.dataspace.copernicus.eu/odata/v1/Products"
 BASIN = "bp_prach"
 AOI_WKT = "POLYGON((101.0 13.45, 101.6 13.45, 101.6 13.95, 101.0 13.95, 101.0 13.45))"
-NEW_FROM, NEW_TO = "2026-10-04T00:00:00.000Z", "2026-10-27T00:00:00.000Z"
+NEW_FROM, NEW_TO = "2026-10-04T00:00:00.000Z", "2026-10-28T00:00:00.000Z"
 REF_BEFORE = "2026-09-24T00:00:00"          # ฉากอ้างอิง = ถ่ายก่อนเวลานี้ (UTC)
 CELL_KM2 = 0.0009
 OFFSET = {"A": 73, "B": 27, "C": 172, "D": 73}   # ค่าชดเชยเลขวงโคจรสัมบูรณ์ → สัมพัทธ์ (S1C, S1D ใช้วงเดียวกันได้)

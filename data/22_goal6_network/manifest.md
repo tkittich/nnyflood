@@ -278,3 +278,9 @@ bbox ครอบอ่าวไทย (DEM ทะเล = 0 ม. นับเ�
 - ที่มา: CDSE ผ่าน S3 ของผู้ใช้ (กุญแจในไฟล์ gitignored · ไม่บันทึกค่า) · วิธี: `python analysis/goal6_s1_download.py --queue data/22_goal6_network/raw/s1_recent/s1_recent_queue.json --dest data/22_goal6_network/raw/s1_recent` · ดึงเมื่อ 26 ต.ค. 2569
 - คิวและรายการฉากอยู่ใน `raw/s1_recent/s1_recent_queue.json` (13 ฉากใหม่ 4–22 ต.ค. + 4 ฉากอ้างอิงก่อน 24 ก.ย. = 17 ฉาก ราว 21 GB) · ฉาก `.SAFE` เป็น disk-only ไม่เข้า git (ระบุใน `.gitignore`) · SHA-256 รายไฟล์อยู่ใน `raw/s1_recent/_progress.json`
 - ผลขั้นที่ 1 (ลงพิกัด/คาลิเบรต) เก็บแยกที่ `derived/s1_recent_stage1/` ไม่ปนกับผลเป้าหมาย 6 · ผลตัดน้ำ: `analysis/goal7/s1_chachoengsao_recent.json` · กติกา: `docs/S1_CHACHOENGSAO_RECENT_PREREG.md`
+
+## ฉากอ้างอิงก่อนเหตุการณ์สำหรับตรวจขั้นที่ 2 (26–27 ต.ค. 2569)
+
+- ที่มา: CDSE ผ่าน S3 ของผู้ใช้ (ไม่บันทึกกุญแจ) · 9 ฉาก ราว 12 GB ถ่าย 12–16 ก.ย. 2569 · คิวและแผนจับคู่ `raw/s1_audit/s1_audit_queue.json` · SHA-256 รายไฟล์ `raw/s1_audit/_progress.json` · ฉาก `.SAFE` disk-only (ระบุใน `.gitignore`)
+- ผลขั้นที่ 1 แยกที่ `derived/s1_audit_stage1/` · ผลตรวจ `analysis/goal6/s1_reference_audit.json` + `.md` · กติกา `docs/S1_REFERENCE_AUDIT_PREREG.md`
+- หมายเหตุ: การเชื่อมต่อ CDSE หลุดกลางไฟล์ใหญ่หลายครั้ง ต้องลองต่อจากไฟล์ `.part` ซ้ำ (บั๊กเรียก `process_product` แก้แล้วเมื่อ 26 ต.ค.)

@@ -96,6 +96,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `write_verification` | `tools/write_verification.py` | `main` | active | ประทับผลตรวจจริง 4 ด่าน (ภาษา · สี · กฎหมาย/ข้อมูลส่วนบุคคล · ตัวเลขกลาง) ลงไฟล์ให้ป้ายในรายงานอ่าน | `python tools/write_verification.py` | `report/assets/verification.json` |
 | `goal7_ocr_poster_tiles` | `analysis/goal7_ocr_poster_tiles.py` | `typhoon_env` | experimental | ถอดความบอร์ดนิทรรศการขนาดยักษ์ด้วย Typhoon-OCR แบบแบ่งแถบซ้อนเหลื่อม แก้หน้าที่ล้มเพราะหน่วยความจำการ์ดจอไม่พอ (R7-13) | `E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_ocr_poster_tiles.py [--labels ...]` | `data/32_goal7_chaophraya2/typhoon_ocr/<ป้าย>/pages.jsonl` |
 | `goal7_s1_chachoengsao_recent` | `analysis/goal7_s1_chachoengsao_recent.py` | `main` | active | แผนที่น้ำเรดาร์ Sentinel-1 ของฉะเชิงเทรา 4–22 ต.ค. ด้วยกฎตัดน้ำตรึงเดิม ตามกติกา S1_CHACHOENGSAO_RECENT_PREREG (R7-22) | `python analysis/goal7_s1_chachoengsao_recent.py queue | process` | `analysis/goal7/s1_chachoengsao_recent.json` |
+| `goal6_s1_reference_audit` | `analysis/goal6_s1_reference_audit.py` | `main` | active | ตรวจฉากอ้างอิงเรดาร์ขั้นที่ 2 ของเป้าหมาย 6 ที่ถ่ายระหว่างเหตุการณ์ ตัดน้ำซ้ำด้วยฉากก่อนเหตุการณ์ (วินิจฉัยเท่านั้น) | `python analysis/goal6_s1_reference_audit.py queue | process` | `analysis/goal6/s1_reference_audit.json`<br>`analysis/goal6/s1_reference_audit.md` |
 | `goal7_reach_length` | `analysis/goal7_reach_length.py` | `main` | active | วัดระยะตามลำน้ำ Ny.1B ถึง Ny.7 จากชั้นเส้นแม่น้ำนครนายก (มิตรเอิร์ธ) ตามกติกา REACH_LENGTH_PREREG | `python analysis/goal7_reach_length.py` | `analysis/goal7/reach_length.json` |
 | `goal7_mitrearth_road_valley` | `analysis/goal7_mitrearth_road_valley.py` | `main` | active | จุดที่ถนนตัดร่องน้ำ (ชั้นมิตรเอิร์ธ) ในอำเภอองครักษ์ เทียบความสูงพื้นดินกับระดับน้ำจริง — ชั้นสุดท้ายของ R7-14 | `python analysis/goal7_mitrearth_road_valley.py` | `analysis/goal7/mitrearth_road_valley.json` |
 | `doctor` | `tools/doctor.py` | `main` | active | ตรวจทะเบียนนี้: สภาพแวดล้อมพร้อมใช้ · ไฟล์มีจริง · เอกสารตรงกับทะเบียน · สคริปต์ที่ยังไม่ลงทะเบียน | `python tools/doctor.py [--deep] [--write-docs] [--list-unregistered]` | `docs/ENVIRONMENT.md (ส่วนเครื่องมือ)` |
@@ -285,7 +286,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 5 สภาพแวดล้อม · 185 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 5 สภาพแวดล้อม · 186 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

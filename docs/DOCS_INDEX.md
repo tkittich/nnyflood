@@ -24,6 +24,7 @@
 | `docs/OCR_WORKFLOW_V2.md` | current | plan | ขั้นตอน OCR รุ่นที่ 2 — แยกส่วนหน้าก่อน แล้วอ่านข้อความกับภาพแยกกัน (บันทึกการตัดสินใจ) | ตัดสินใจ 21 ต.ค. 69 · ยังไม่ใช้กับคิวที่ค้าง |
 | `docs/OFFLINE_DATA_BACKLOG.md` | current | backlog | คลังรายการข้อมูลที่ไม่มีออนไลน์และต้องรอดำเนินการ (OFFLINE_DATA_BACKLOG) | ทะเบียนงานคงค้าง/FOI (R6-xx, R7-xx) |
 | `docs/PROJECT_MAP.md` | current | guide | แผนที่นำทางและแคตตาล็อกระบบ (Project Map & Knowledge Atlas) | แผนผังระบบ/ตาราง Topic Discovery — ลงทะเบียนสคริปต์ใหม่ที่นี่ |
+| `docs/REACH_LENGTH_PREREG.md` | current | plan | กติกาวัดระยะตามลำน้ำ Ny.1B ถึง Ny.7 — กำหนดไว้ก่อนดูผล (R7-23) | กำหนด 26 ต.ค. 69 ก่อนรัน |
 | `docs/REMOTE_SENSING_APIS.md` | current | reference | คู่มือการเรียกใช้ API ดาวเทียมและข้อมูลกริดระดับชาติ (Remote Sensing & Grid APIs Guide) |  |
 | `docs/REPORT_CONVENTIONS.md` | current | rules | ข้อตกลงการทำรายงาน (Report Conventions) | ธรรมเนียมการทำรายงาน (เอ็นจินโทเคน ธีม กราฟ แผนที่) |
 | `docs/REVIEW_PROMPT_EN.md` | current | review-prompt | Comprehensive System Audit Prompt (English) — Multi-Pillar Red-Team Review | ชุดคำสั่งรีวิวหลัก — แก้ 19 ต.ค. 69 ให้ตรง repo (เดิมมีข้อกล่าวอ้างที่ไม่มีในโค้ด); ควรสร้างจาก canonical (R7-08) |
@@ -46,4 +47,4 @@
 | `docs/REVIEW_PROMPT.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Prompt สำหรับให้ AI ตัวอื่นรีวิว/ตรวจสอบโปรเจกต์ (เน้นเป้าหมาย 7 — คลองเจ้าพระยา2) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 | `docs/REVIEW_PROMPT_COMPREHENSIVE.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Comprehensive System Audit Prompt (Superseded) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 
-รวม 41 เอกสาร
+รวม 42 เอกสาร

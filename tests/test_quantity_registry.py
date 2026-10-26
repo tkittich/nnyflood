@@ -62,3 +62,12 @@ def test_every_reconciled_parameter_registered():
     reg = _reg()
     refs = {q["canonical_ref"].split(".")[1] for q in reg if q.get("canonical_ref")}
     assert set(canon["reconciled_parameters"]) <= refs
+
+
+def test_goal6_quantities_resolve_and_are_integers():
+    """R7-08: ปริมาณของเป้าหมาย 6 ที่มีหลายนิยาม (ป่าสัก 4 นิยามปี) อยู่ในทะเบียนเดียวกัน และชี้ค่า canonical ของ goal6 ได้"""
+    reg = json.loads(qr.REG.read_text(encoding="utf-8"))["quantities"]
+    g6 = [q for q in reg if q.get("canonical_file") == "goal6"]
+    assert len(g6) >= 4
+    errs, _ = qr.check()
+    assert not errs, errs

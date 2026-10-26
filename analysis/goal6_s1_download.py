@@ -185,7 +185,7 @@ def main() -> None:
         prog["products"][name] = {"odata": {"id": meta["id"], "content_length": meta["content_length"]}}
         save_progress(prog, progress_path)
         try:
-            res = process_product(s3, "eodata", name, {"s3_path": meta["s3_path"], "content_length": meta["content_length"]})
+            res = process_product(s3, "eodata", name, {"s3_path": meta["s3_path"], "content_length": meta["content_length"]}, dest, progress_path)
             prog["products"][name].update(res)
             prog["products"][name]["done"] = True
         except Exception as exc:  # noqa: BLE001

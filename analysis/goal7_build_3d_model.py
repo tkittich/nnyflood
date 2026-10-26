@@ -61,7 +61,11 @@ class Mesh:
         self.polys: dict[str, list[list[tuple]]] = defaultdict(list)
 
     def quad(self, mat, a, b, c, d):
-        self.polys[mat].append([a, b, c, d])
+        # จุดมุมซ้ำ (เช่น ลาดที่กว้างเป็นศูนย์) ทำให้หน้าลดรูป — SketchUp ปฏิเสธจุดซ้ำ จึงยุบเป็นสามเหลี่ยมก่อน
+        pts = [a, b, c, d]
+        pts = [p for i, p in enumerate(pts) if p != pts[i - 1]]
+        if len(pts) >= 3:
+            self.polys[mat].append(pts)
 
     def tri(self, mat, a, b, c):
         self.polys[mat].append([a, b, c])

@@ -1,0 +1,266 @@
+{
+ "window": [
+  "2026-10-04T00:00:00.000Z",
+  "2026-10-27T00:00:00.000Z"
+ ],
+ "note": "คิวตามกติกา docs/S1_CHACHOENGSAO_RECENT_PREREG.md",
+ "basins": {
+  "ฉะเชิงเทรา": [
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260914T230017_20260914T230042_004580_00887A_1BF0_COG.SAFE",
+    "start": "2026-09-14T23:00:17",
+    "content_length_mb": 1267
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260914T230042_20260914T230107_004580_00887A_7E15_COG.SAFE",
+    "start": "2026-09-14T23:00:42",
+    "content_length_mb": 1245
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG.SAFE",
+    "start": "2026-09-15T11:28:05",
+    "content_length_mb": 1176
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20260916T111958_20260916T112023_009472_012D77_98B6_COG.SAFE",
+    "start": "2026-09-16T11:19:58",
+    "content_length_mb": 1236
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261004T112005_20261004T112030_004865_009256_2530_COG.SAFE",
+    "start": "2026-10-04T11:20:05",
+    "content_length_mb": 1254
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261008T230018_20261008T230043_004930_0094A6_7DA9_COG.SAFE",
+    "start": "2026-10-08T23:00:18",
+    "content_length_mb": 1257
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261008T230043_20261008T230108_004930_0094A6_2F41_COG.SAFE",
+    "start": "2026-10-08T23:00:43",
+    "content_length_mb": 1232
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261009T112805_20261009T112830_004938_0094E6_98BF_COG.SAFE",
+    "start": "2026-10-09T11:28:05",
+    "content_length_mb": 1170
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20261010T111958_20261010T112023_009822_013917_0480_COG.SAFE",
+    "start": "2026-10-10T11:19:58",
+    "content_length_mb": 1231
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261013T230840_20261013T230905_005003_00973C_BFD7_COG.SAFE",
+    "start": "2026-10-13T23:08:40",
+    "content_length_mb": 1260
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20261014T230012_20261014T230037_009887_013B6C_32AD_COG.SAFE",
+    "start": "2026-10-14T23:00:12",
+    "content_length_mb": 1239
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20261014T230037_20261014T230102_009887_013B6C_2067_COG.SAFE",
+    "start": "2026-10-14T23:00:37",
+    "content_length_mb": 1059
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261016T112005_20261016T112030_005040_00986D_DD9B_COG.SAFE",
+    "start": "2026-10-16T11:20:05",
+    "content_length_mb": 1255
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261020T230017_20261020T230042_005105_009AAE_3C41_COG.SAFE",
+    "start": "2026-10-20T23:00:17",
+    "content_length_mb": 1267
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261020T230042_20261020T230107_005105_009AAE_F2EF_COG.SAFE",
+    "start": "2026-10-20T23:00:42",
+    "content_length_mb": 1244
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20261021T112805_20261021T112830_005113_009AED_F14F_COG.SAFE",
+    "start": "2026-10-21T11:28:05",
+    "content_length_mb": 1172
+   },
+   {
+    "name": "S1C_IW_GRDH_1SDV_20261022T111958_20261022T112023_009997_013F12_779E_COG.SAFE",
+    "start": "2026-10-22T11:19:58",
+    "content_length_mb": 1231
+   }
+  ]
+ },
+ "all_selected": [
+  {
+   "name": "S1D_IW_GRDH_1SDV_20260914T230017_20260914T230042_004580_00887A_1BF0_COG.SAFE",
+   "start": "2026-09-14T23:00:17",
+   "rel_orbit": 133,
+   "role": "reference",
+   "content_length_mb": 1267,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20260914T230042_20260914T230107_004580_00887A_7E15_COG.SAFE",
+   "start": "2026-09-14T23:00:42",
+   "rel_orbit": 133,
+   "role": "reference",
+   "content_length_mb": 1245,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG.SAFE",
+   "start": "2026-09-15T11:28:05",
+   "rel_orbit": 141,
+   "role": "reference",
+   "content_length_mb": 1176,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1C_IW_GRDH_1SDV_20260916T111958_20260916T112023_009472_012D77_98B6_COG.SAFE",
+   "start": "2026-09-16T11:19:58",
+   "rel_orbit": 26,
+   "role": "reference",
+   "content_length_mb": 1236,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG.SAFE",
+   "start": "2026-09-19T23:08:40",
+   "rel_orbit": 31,
+   "role": "reference",
+   "content_length_mb": 1260,
+   "on_disk_already": true
+  },
+  {
+   "name": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG.SAFE",
+   "start": "2026-09-20T23:00:12",
+   "rel_orbit": 91,
+   "role": "reference",
+   "content_length_mb": 1243,
+   "on_disk_already": true
+  },
+  {
+   "name": "S1C_IW_GRDH_1SDV_20260920T230037_20260920T230102_009537_012FAC_79FF_COG.SAFE",
+   "start": "2026-09-20T23:00:37",
+   "rel_orbit": 91,
+   "role": "reference",
+   "content_length_mb": 1065,
+   "on_disk_already": true
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20260922T112005_20260922T112030_004690_008C3D_55A3_COG.SAFE",
+   "start": "2026-09-22T11:20:05",
+   "rel_orbit": 68,
+   "role": "reference",
+   "content_length_mb": 1263,
+   "on_disk_already": true
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20261004T112005_20261004T112030_004865_009256_2530_COG.SAFE",
+   "start": "2026-10-04T11:20:05",
+   "rel_orbit": 68,
+   "role": "new",
+   "content_length_mb": 1254,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20261008T230018_20261008T230043_004930_0094A6_7DA9_COG.SAFE",
+   "start": "2026-10-08T23:00:18",
+   "rel_orbit": 133,
+   "role": "new",
+   "content_length_mb": 1257,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20261008T230043_20261008T230108_004930_0094A6_2F41_COG.SAFE",
+   "start": "2026-10-08T23:00:43",
+   "rel_orbit": 133,
+   "role": "new",
+   "content_length_mb": 1232,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20261009T112805_20261009T112830_004938_0094E6_98BF_COG.SAFE",
+   "start": "2026-10-09T11:28:05",
+   "rel_orbit": 141,
+   "role": "new",
+   "content_length_mb": 1170,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1C_IW_GRDH_1SDV_20261010T111958_20261010T112023_009822_013917_0480_COG.SAFE",
+   "start": "2026-10-10T11:19:58",
+   "rel_orbit": 26,
+   "role": "new",
+   "content_length_mb": 1231,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20261013T230840_20261013T230905_005003_00973C_BFD7_COG.SAFE",
+   "start": "2026-10-13T23:08:40",
+   "rel_orbit": 31,
+   "role": "new",
+   "content_length_mb": 1260,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1C_IW_GRDH_1SDV_20261014T230012_20261014T230037_009887_013B6C_32AD_COG.SAFE",
+   "start": "2026-10-14T23:00:12",
+   "rel_orbit": 91,
+   "role": "new",
+   "content_length_mb": 1239,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1C_IW_GRDH_1SDV_20261014T230037_20261014T230102_009887_013B6C_2067_COG.SAFE",
+   "start": "2026-10-14T23:00:37",
+   "rel_orbit": 91,
+   "role": "new",
+   "content_length_mb": 1059,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20261016T112005_20261016T112030_005040_00986D_DD9B_COG.SAFE",
+   "start": "2026-10-16T11:20:05",
+   "rel_orbit": 68,
+   "role": "new",
+   "content_length_mb": 1255,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20261020T230017_20261020T230042_005105_009AAE_3C41_COG.SAFE",
+   "start": "2026-10-20T23:00:17",
+   "rel_orbit": 133,
+   "role": "new",
+   "content_length_mb": 1267,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20261020T230042_20261020T230107_005105_009AAE_F2EF_COG.SAFE",
+   "start": "2026-10-20T23:00:42",
+   "rel_orbit": 133,
+   "role": "new",
+   "content_length_mb": 1244,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1D_IW_GRDH_1SDV_20261021T112805_20261021T112830_005113_009AED_F14F_COG.SAFE",
+   "start": "2026-10-21T11:28:05",
+   "rel_orbit": 141,
+   "role": "new",
+   "content_length_mb": 1172,
+   "on_disk_already": false
+  },
+  {
+   "name": "S1C_IW_GRDH_1SDV_20261022T111958_20261022T112023_009997_013F12_779E_COG.SAFE",
+   "start": "2026-10-22T11:19:58",
+   "rel_orbit": 26,
+   "role": "new",
+   "content_length_mb": 1231,
+   "on_disk_already": false
+  }
+ ]
+}

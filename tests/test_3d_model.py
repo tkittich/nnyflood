@@ -73,3 +73,30 @@ def test_model_geometry_is_finite_and_complete():
 def test_summary_lists_assumptions():
     s = json.loads(SUMMARY.read_text(encoding="utf-8"))
     assert s["assumptions"] and s["structures_modelled"]["gate"] == 5
+
+
+OBJ = ROOT / "report/models/chaophraya2.obj"
+MTL = ROOT / "report/models/chaophraya2.mtl"
+
+
+@pytest.mark.skipif(not OBJ.exists(), reason="ยังไม่ได้รันสคริปต์")
+def test_obj_file_is_well_formed_and_matches_summary():
+    """ตรวจไฟล์ที่ส่งมอบจริง (ตรวจแทนการเปิด SketchUp): ดัชนีหน้าถูกต้อง ไม่มีหน้าลดรูป วัสดุมีครบ และกรอบเขตตรงสรุป"""
+    verts, faces, mats = [], [], set()
+    for ln in OBJ.read_text(encoding="utf-8").splitlines():
+        if ln.startswith("v "):
+            verts.append(tuple(float(x) for x in ln.split()[1:4]))
+        elif ln.startswith("f "):
+            faces.append([int(tok.split("/")[0]) for tok in ln.split()[1:]])
+        elif ln.startswith("usemtl "):
+            mats.add(ln.split()[1])
+    s = json.loads(SUMMARY.read_text(encoding="utf-8"))
+    assert len(verts) == s["vertices"] and len(faces) == s["faces"]
+    assert all(len(f) >= 3 and all(1 <= i <= len(verts) for i in f) for f in faces)
+    assert all(len(set(f)) == len(f) for f in faces)                       # ไม่มีจุดซ้ำในหน้าเดียว
+    defined = {ln.split()[1] for ln in MTL.read_text(encoding="utf-8").splitlines() if ln.startswith("newmtl ")}
+    assert mats <= defined
+    xs, ys, zs = zip(*verts)
+    lo, hi = s["bbox_m"]
+    for got, want in ((min(xs), lo[0]), (min(ys), lo[1]), (min(zs), lo[2]), (max(xs), hi[0]), (max(ys), hi[1]), (max(zs), hi[2])):
+        assert abs(got - want) <= 0.2                                      # สรุปปัดทศนิยม 1 ตำแหน่ง

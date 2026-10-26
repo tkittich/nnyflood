@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parent.parent
 REG = ROOT / "analysis/goal7/quantities.json"
 CANON = ROOT / "analysis/goal7/canonical.json"
 CONSTS = ROOT / "analysis/goal7/source_constants.json"
+CANON6 = ROOT / "analysis/goal6/canonical.json"      # ปริมาณของเป้าหมาย 6 ระบุด้วย canonical_file: "goal6"
 KINDS = {"stated", "computed", "assumed", "measured", "simulated"}
 REQ = ("id", "name_th", "scope", "definition", "unit", "kind", "status")
 
@@ -56,6 +57,7 @@ def effective_status(quantities: list[dict]) -> dict[str, list[str]]:
 def check(reg: list[dict] | None = None) -> tuple[list[str], dict[str, list[str]]]:
     reg = json.loads(REG.read_text(encoding="utf-8"))["quantities"] if reg is None else reg
     canon = json.loads(CANON.read_text(encoding="utf-8"))
+    canon6 = json.loads(CANON6.read_text(encoding="utf-8"))
     consts = json.loads(CONSTS.read_text(encoding="utf-8"))["constants"]
     errs: list[str] = []
     ids = [q.get("id") for q in reg]
@@ -79,10 +81,12 @@ def check(reg: list[dict] | None = None) -> tuple[list[str], dict[str, list[str]
     covered = set()
     for q in reg:
         ref, cv = q.get("canonical_ref"), None
+        g6 = q.get("canonical_file") == "goal6"
         if ref:
-            covered.add(ref.split(".")[1])
+            if not g6:
+                covered.add(ref.split(".")[1])
             try:
-                cv = _resolve(canon, ref)
+                cv = _resolve(canon6 if g6 else canon, ref)
             except (KeyError, TypeError):
                 errs.append(f"{q['id']}: canonical_ref '{ref}' ไม่พบ")
             else:
@@ -90,7 +94,9 @@ def check(reg: list[dict] | None = None) -> tuple[list[str], dict[str, list[str]
                     errs.append(f"{q['id']}: canonical_ref '{ref}' ไม่ใช่ตัวเลข")
                     cv = None
         sc = q.get("source_constant")
-        if sc:
+        if sc and g6:
+            errs.append(f"{q['id']}: ปริมาณ goal6 ยังไม่รองรับ source_constant")
+        elif sc:
             if sc not in consts:
                 errs.append(f"{q['id']}: source_constant '{sc}' ไม่มีใน source_constants.json")
             elif cv is not None:

@@ -171,6 +171,54 @@
     "แยกตามประเภทได้ 57 จาก 87 · ยอด 87 ทำซ้ำจากบัญชีโครงการไม่ได้ (R6-12)"
    ],
    "note": "ใช้ 87 เป็นค่าประมาณของผู้จัดทำ ห้ามเทียบตรงกับ 99 (EIA) หรือ 130 (บัญชีโครงการ)"
+  },
+  {
+   "id": "g6_pasak_urc_full_year",
+   "name_th": "จำนวนปีที่ป่าสักเก็บน้ำเกินระดับกำกับบน (ตลอดทั้งปี)",
+   "definition": "ปีที่มีวันเก็บน้ำเกินระดับกำกับบน (URC) อย่างน้อย 1 วัน ตลอดทั้งปี ในชุด 22 ปี",
+   "canonical_ref": "pasak_year_counts.urc_days_full_year.count",
+   "scope": "เขื่อนป่าสักชลสิทธิ์ (เป้าหมาย 6 · นิยามใน analysis/goal6/canonical.json → definitions.pasak_year_counts)",
+   "unit": "ปี",
+   "kind": "computed",
+   "canonical_file": "goal6",
+   "depends_on": [],
+   "status": "settled"
+  },
+  {
+   "id": "g6_pasak_urc_aug_sep",
+   "name_th": "จำนวนปีที่ป่าสักเก็บน้ำเกินระดับกำกับบน (เฉพาะ ส.ค.–ก.ย.)",
+   "definition": "ปีที่มีวันเก็บน้ำเกินระดับกำกับบนอย่างน้อย 1 วัน นับเฉพาะ ส.ค.–ก.ย. ในชุด 22 ปีเดียวกัน",
+   "canonical_ref": "pasak_year_counts.urc_days_aug_sep.count",
+   "scope": "เขื่อนป่าสักชลสิทธิ์ (เป้าหมาย 6 · นิยามใน analysis/goal6/canonical.json → definitions.pasak_year_counts)",
+   "unit": "ปี",
+   "kind": "computed",
+   "canonical_file": "goal6",
+   "depends_on": [],
+   "status": "settled"
+  },
+  {
+   "id": "g6_pasak_over_normal_24y",
+   "name_th": "จำนวนปีที่ยอดเก็บสูงสุดไม่ต่ำกว่าความจุกักเก็บปกติ (ชุด 24 ปี)",
+   "definition": "ปีที่ยอดเก็บสูงสุด ≥ ความจุกักเก็บปกติ ในชุด 24 ปี 2546–2569 (คนละชุดปีกับสองรายการแรก)",
+   "canonical_ref": "pasak_year_counts.over_normal_storage_24y.count",
+   "scope": "เขื่อนป่าสักชลสิทธิ์ (เป้าหมาย 6 · นิยามใน analysis/goal6/canonical.json → definitions.pasak_year_counts)",
+   "unit": "ปี",
+   "kind": "computed",
+   "canonical_file": "goal6",
+   "depends_on": [],
+   "status": "settled"
+  },
+  {
+   "id": "g6_pasak_over_1000mcm_24y",
+   "name_th": "จำนวนปีที่ยอดเก็บสูงสุดไม่ต่ำกว่า 1,000 ล้าน ลบ.ม. (ชุด 24 ปี)",
+   "definition": "ปีที่ยอดเก็บสูงสุด ≥ 1,000 ล้าน ลบ.ม. ในชุด 24 ปี (คนละชุดปีกับสองรายการแรก)",
+   "canonical_ref": "pasak_year_counts.over_1000mcm_24y.count",
+   "scope": "เขื่อนป่าสักชลสิทธิ์ (เป้าหมาย 6 · นิยามใน analysis/goal6/canonical.json → definitions.pasak_year_counts)",
+   "unit": "ปี",
+   "kind": "computed",
+   "canonical_file": "goal6",
+   "depends_on": [],
+   "status": "settled"
   }
  ]
 }

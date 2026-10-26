@@ -30,6 +30,7 @@
 | `docs/REVIEW_PROMPT_EN.md` | current | review-prompt | Comprehensive System Audit Prompt (English) — Multi-Pillar Red-Team Review | ชุดคำสั่งรีวิวหลัก — แก้ 19 ต.ค. 69 ให้ตรง repo (เดิมมีข้อกล่าวอ้างที่ไม่มีในโค้ด); ควรสร้างจาก canonical (R7-08) |
 | `docs/RID_SWOC_GUIDE.md` | current | reference | คู่มือระบบฐานข้อมูลน้ำและโทรมาตร SWOC กรมชลประทาน (RID SWOC Guide & API Reference) |  |
 | `docs/ROUTING1D_SUBREACH_PREREG.md` | current | plan | กติกาตรวจความไวต่อการแบ่งช่วงย่อยของแบบจำลองไหล 1 มิติ — กำหนดไว้ก่อนดูผล (R7-24) | กำหนด 25 ต.ค. 69 ก่อนรันโค้ดใหม่ |
+| `docs/S1_CHACHOENGSAO_RECENT_PREREG.md` | current | plan | กติกาแผนที่น้ำเรดาร์ Sentinel-1 ฉะเชิงเทรา 4–22 ต.ค. 2569 — กำหนดไว้ก่อนดูผล (R7-22) | กำหนด 26 ต.ค. 69 ก่อนดาวน์โหลดและรัน |
 | `docs/THAIWATER_API_GUIDE.md` | current | reference | คู่มือสถาปัตยกรรมและการเรียกใช้ API คลังข้อมูลน้ำแห่งชาติ (ThaiWater & Khun Dan Telemetry Guide) |  |
 | `docs/DOCS_INDEX.md` | generated | guide | ดัชนีเอกสาร (สร้างอัตโนมัติจาก tools/registry.json) | สร้างด้วย python tools/doctor.py --write-docs |
 | `docs/ENVIRONMENT.md` | generated | guide | สภาพแวดล้อมที่ใช้รัน (Environment record) | ส่วนทะเบียนเครื่องมือสร้างอัตโนมัติจาก tools/registry.json; ส่วนอื่นเป็นบันทึกมือ |
@@ -47,4 +48,4 @@
 | `docs/REVIEW_PROMPT.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Prompt สำหรับให้ AI ตัวอื่นรีวิว/ตรวจสอบโปรเจกต์ (เน้นเป้าหมาย 7 — คลองเจ้าพระยา2) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 | `docs/REVIEW_PROMPT_COMPREHENSIVE.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Comprehensive System Audit Prompt (Superseded) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 
-รวม 42 เอกสาร
+รวม 43 เอกสาร

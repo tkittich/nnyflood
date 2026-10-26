@@ -1,8 +1,8 @@
 {
- "verified_on": "2026-10-20",
- "constants_sha256": "e889e6348b792e0c913438b980f2ac391d342d783b3f5fc91191cb1988ed99ea",
+ "verified_on": "2026-10-26",
+ "constants_sha256": "fe8de0a1af037f68307f30c99ed4111092747a6aad2501e1f840dde6bbe33a30",
  "summary": {
-  "verified_text": 15,
+  "verified_text": 18,
   "verified_image": 15,
   "failed": 1,
   "assumption": 3
@@ -495,6 +495,57 @@
      "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
      "reading": "อ่านทุกคอลัมน์จากภาพ 3 แถว (ผู้ใช้ยืนยัน B=51 ที่ กม.23–134)",
      "sha256_ok": true,
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "intake_max_cms": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 196,
+     "printed_page": "2-91",
+     "page_text_chars": 2492,
+     "needles": {
+      "ไม่เกิน 650 ลบ.ม./วินาที": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "telemetry_scada_budget_mb": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 191,
+     "printed_page": "2-86",
+     "page_text_chars": 998,
+     "needles": {
+      "723 ล้านบาท": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "rapipat_target_cms": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 93,
+     "printed_page": null,
+     "page_text_chars": 1491,
+     "needles": {
+      "เป็น 400 ลบ.ม./วินาที": true
+     },
      "ok": true
     }
    ],

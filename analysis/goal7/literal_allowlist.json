@@ -383,7 +383,8 @@
    "file": "goal7_blocks.py",
    "text": "600 ลบ.ม./วินาที",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "design_discharge_cms"
   },
   {
    "file": "goal7_build_academic.py",
@@ -431,7 +432,8 @@
    "file": "goal7_build_academic.py",
    "text": "400 ลบ.ม./วินาที",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "rapipat_target_cms"
   },
   {
    "file": "goal7_build_academic.py",
@@ -443,7 +445,8 @@
    "file": "goal7_build_academic.py",
    "text": "600 ลบ.ม./วินาที",
    "count": 6,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "design_discharge_cms"
   },
   {
    "file": "goal7_build_academic.py",
@@ -479,7 +482,8 @@
    "file": "goal7_build_policy_brief.py",
    "text": "600 ลบ.ม./วินาที",
    "count": 4,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "design_discharge_cms"
   },
   {
    "file": "goal7_build_public.py",
@@ -539,19 +543,22 @@
    "file": "goal7_build_public.py",
    "text": "600 ลบ.ม./วินาที",
    "count": 4,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "design_discharge_cms"
   },
   {
    "file": "goal7_build_public.py",
    "text": "650 ลบ.ม./วินาที",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "intake_max_cms"
   },
   {
    "file": "goal7_build_public.py",
    "text": "723 ล้านบาท",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "telemetry_scada_budget_mb"
   },
   {
    "file": "goal7_build_public.py",
@@ -587,7 +594,8 @@
    "file": "goal7_common.py",
    "text": "600 ลบ.ม./วินาที",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "design_discharge_cms"
   },
   {
    "file": "report_assets.py",

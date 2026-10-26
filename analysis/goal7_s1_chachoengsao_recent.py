@@ -50,15 +50,20 @@ def start_of(name: str) -> str:
     return f"{d[:4]}-{d[4:6]}-{d[6:]}T{t[:2]}:{t[2:4]}:{t[4:]}"
 
 
-def query(a: str, b: str) -> list[dict]:
+def query_aoi(wkt: str, a: str, b: str) -> list[dict]:
+    """ค้นคลัง CDSE (ไม่ต้องใช้กุญแจ): ฉาก IW GRDH แบบ COG ที่ทับรูปหลายเหลี่ยม wkt และเริ่มถ่ายระหว่าง a ถึง b"""
     filt = ("Collection/Name eq 'SENTINEL-1' and "
-            f"OData.CSC.Intersects(area=geography'SRID=4326;{AOI_WKT}') and "
+            f"OData.CSC.Intersects(area=geography'SRID=4326;{wkt}') and "
             f"ContentDate/Start gt {a} and ContentDate/Start lt {b}")
     url = ODATA + "?$filter=" + urllib.parse.quote(filt, safe="'(),=") + "&$top=200"
     req = urllib.request.Request(url, headers={"User-Agent": "nnyflood-goal7/1.0"})
     with urllib.request.urlopen(req, timeout=120) as r:
         v = json.load(r)["value"]
     return [p for p in v if "_COG" in p["Name"] and "GRDH" in p["Name"]]
+
+
+def query(a: str, b: str) -> list[dict]:
+    return query_aoi(AOI_WKT, a, b)
 
 
 def build_queue() -> None:

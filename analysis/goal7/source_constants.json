@@ -8,39 +8,869 @@
   "user_stated": "บันทึกจากเอกสารที่ไม่อยู่ใน repo — ตรวจไม่ได้"
  },
  "constants": {
-  "eia_bed_width_m": {"value": 51.0, "unit": "ม.", "label": "ความกว้างท้องคลอง (B) กม.23–134", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ B"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "แถว 23+000–134+000: B = 51.00"}, {"type": "text_layer", "corpus": "text:eia2569_main1", "page": 146, "needles": ["51 เมตร"]}], "note": "ยืนยันซ้ำโดยผู้ใช้ (รูปที่ 2.3.2-11) · ข้อความหน้า 146: ก้นคลองกว้าง 51 เมตรที่ กม.134+000 · ค่า 54.5 ที่เคยใช้เป็นการอ่านลาดข้างผิด (เพิกถอน 19 ต.ค. 69)"},
-  "eia_area_m2": {"value": 504.0, "unit": "ตร.ม.", "label": "พื้นที่หน้าตัดน้ำ (A)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ A"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "A = 504.00"}], "note": ""},
-  "eia_wetted_perimeter_m": {"value": 95.27, "unit": "ม.", "label": "เส้นรอบรูปเปียก (P)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ P"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "P = 95.27"}], "note": "ตรวจไขว้: P = B + 2·D·√(1+Z1²) = 51 + 14·√10 = 95.27"},
-  "eia_depth_m": {"value": 7.0, "unit": "ม.", "label": "ความลึกน้ำออกแบบ (D)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ D"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "D = 7.00"}], "note": ""},
-  "eia_velocity_ms": {"value": 1.2, "unit": "ม./วินาที", "label": "ความเร็วออกแบบ (V)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ V"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "V = 1.200"}], "note": ""},
-  "eia_manning_n": {"value": 0.016, "unit": "", "label": "ค่าความขรุขระแมนนิง (n) ช่วงดาดคอนกรีต", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ n"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "n = 0.016"}], "note": ""},
-  "eia_slope_1_n": {"value": 25000, "unit": "", "label": "ความลาดท้องคลอง 1:n", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ Slope"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "Slope 1: 25,000"}], "note": ""},
-  "eia_z_inner": {"value": 3.0, "unit": "", "label": "ลาดด้านใน (Z1) — ล้อมพื้นที่น้ำทั้งสองฝั่ง", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ Z1"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "Z1 = 3.0"}], "note": ""},
-  "eia_z_outer": {"value": 2.0, "unit": "", "label": "ลาดด้านนอก (Z2) — ฝั่งดินคัน ไม่เกี่ยวกับพื้นที่น้ำ", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ Z2"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "Z2 = 2.0"}], "note": ""},
-  "eia_road_each_side_m": {"value": 10.0, "unit": "ม.", "label": "ถนนบนสันคันกว้างข้างละ (TL/TR)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ TL, TR"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "TL = TR = 10.00"}], "note": ""},
-  "eia_table_q_m3s": {"value": 604.85, "unit": "ลบ.ม./วินาที", "label": "อัตราไหลในตารางรูปตัด (Q) กม.23–134", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ Q"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "Q = 604.85"}], "note": ""},
-  "design_discharge_cms": {"value": 600.0, "unit": "ลบ.ม./วินาที", "label": "อัตราระบายออกแบบของคลอง", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 146, "locator": "ข้อความ 'ระบายน้ำได้ 600 ลูกบาศก์เมตร/วินาที ความกว้างของก้นคลอง… 51 เมตร'"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 146, "needles": ["600 ลูกบาศก์เมตร/วินาที"]}], "note": ""},
-  "canal_length_km": {"value": 135.9, "unit": "กม.", "label": "ความยาวคลองที่ใช้คำนวณปริมาตร (ตามแบบ/เอกสารรายงาน)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 87, "locator": "'คลองระบายน้ำ 600 ลบ.ม./วินาที ยาว 135.9 กม. ลึก 7 ม.'"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 87, "needles": ["135.9 กม."]}], "note": "รายงานยังมี 135.963 กม. (หน้า 119 แนวร่วมถนนวงแหวนรอบ 3) · ดู reconciled_parameters.canal_length"},
-  "s26_record_years": {"value": "2528–2566 (39 ปี)", "unit": "", "label": "ช่วงบันทึกสถานี S.26", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 196, "locator": "ตารางที่ 2.5.3-2 หัวข้อ 'สถิติข้อมูลของสถานี S.26 ตั้งแต่ปี 2528-2566'"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 196, "needles": ["2528-2566"]}], "note": ""},
-  "s26_annual_mean_mcm": {"value": 2720.0, "unit": "ล้าน ลบ.ม.", "label": "น้ำท่าเฉลี่ยรายปี S.26", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 197, "locator": "ตารางที่ 2.5.3-2 แถวเฉลี่ย คอลัมน์รวม"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 197, "needles": ["2,720"]}], "note": ""},
-  "s26_annual_min_mcm": {"value": 453.0, "unit": "ล้าน ลบ.ม.", "label": "น้ำท่ารายปีต่ำสุด S.26", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 197, "locator": "ตารางที่ 2.5.3-2 แถวต่ำสุด คอลัมน์รวม"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 197, "needles": ["453"]}], "note": ""},
-  "s26_annual_max_mcm": {"value": 6741.0, "unit": "ล้าน ลบ.ม.", "label": "น้ำท่ารายปีสูงสุด S.26 (ปี 2554)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 197, "locator": "ตารางที่ 2.5.3-2 แถวสูงสุด คอลัมน์รวม"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 197, "needles": ["6,741"]}], "note": ""},
-  "s26_flood_season_mean_mcm": {"value": 1988.0, "unit": "ล้าน ลบ.ม.", "label": "น้ำท่าเฉลี่ยช่วง ส.ค.–พ.ย. S.26", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 197, "locator": "ข้อความ 'เฉลี่ย 1,988 ล้าน ลบ.ม. หรือมากกว่าร้อยละ 70'"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 197, "needles": ["1,988"]}], "note": ""},
-  "s26_flood_season_min_mcm": {"value": 134.0, "unit": "ล้าน ลบ.ม.", "label": "น้ำท่าต่ำสุดช่วง ส.ค.–พ.ย. S.26", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 197, "locator": "ข้อความ 'ปริมาณ 134 ล้าน ลบ.ม. ดังแสดงในตารางที่ 2.5.3-2'"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 197, "needles": ["134 ล้าน"]}], "note": ""},
-  "s26_flood_season_max_mcm": {"value": 5830.0, "unit": "ล้าน ลบ.ม.", "label": "น้ำท่าสูงสุดช่วง ส.ค.–พ.ย. S.26", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 197, "locator": "ไม่พบในชั้นข้อความ"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 197, "needles": ["5,830"]}], "note": "ไม่พบ 5,830 ในหน้า 196–197 — ยังไม่ยืนยัน (ค่านี้ไม่ถูกใช้ในรายงานใด)"},
-  "capex_mb": {"value": 160046.0, "unit": "ล้านบาท", "label": "งบลงทุนก่อสร้างรวม", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 175, "locator": "ตารางงบลงทุนรายปี แถว 'งบลงทุน 160,046,879,000'"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main1", "page": 175, "needles": ["160,046,879,000"]}], "note": "ค่าในแหล่ง 160,046.879 ล้านบาท — โครงการตัดเป็น 160,046 ตลอดชุด (ต่าง 0.0005%)", "value_in_source": 160046.879},
-  "opex_annual_mb": {"value": 264.8, "unit": "ล้านบาท/ปี", "label": "ค่าดำเนินการและบำรุงรักษา (O&M) เฉลี่ยรายปี", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 2 (EIA 2569)", "pdf_page": 159, "locator": "ข้อความ 'ค่าใช้จ่ายในการดำเนินการและบำรุงรักษา (O&M) เฉลี่ยปีละ 264.80 ล้านบาท (ร้อยละ 0.25 ของงานโยธา…)'"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main2", "page": 159, "needles": ["264.80", "230.37"]}], "note": "สลับมาใช้ค่านี้ 19 ต.ค. 69 (ตรวจกับชั้นข้อความ PDF แล้ว) แทน 519 (ของรายงานชี้แจงครั้งที่ 2 ปี 2566 ฐานงานใหญ่กว่า ~2 เท่า — ตรวจแล้ว 20 ต.ค. 69) · มูลค่าทางเศรษฐกิจ 230.37 ล้านบาท/ปี · ร้อยละ 0.25 ของงานโยธา ร้อยละ 1 ของงานชลศาสตร์ ร้อยละ 1.5 ของระบบ SCADA/โทรมาตร"},
-  "discount_rate_low_pct": {"value": 7.0, "unit": "%", "label": "อัตราคิดลด (ฐาน)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 2 (EIA 2569)", "pdf_page": 155, "locator": "'อัตราคิดลด… ร้อยละ 7.00 ร้อยละ 9.00 และร้อยละ 12.00'"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main2", "page": 155, "needles": ["7.00", "คิดลด"]}], "note": ""},
-  "discount_rate_mid_pct": {"value": 9.0, "unit": "%", "label": "อัตราคิดลด (กลาง)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 2 (EIA 2569)", "pdf_page": 155, "locator": "เช่นเดียวกัน"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main2", "page": 155, "needles": ["9.00"]}], "note": ""},
-  "discount_rate_high_pct": {"value": 12.0, "unit": "%", "label": "อัตราคิดลด (สูง)", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 2 (EIA 2569)", "pdf_page": 155, "locator": "เช่นเดียวกัน"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia2569_main2", "page": 155, "needles": ["12.00"]}], "note": ""},
-  "project_lifespan_years": {"value": 30, "unit": "ปี", "label": "อายุโครงการสำหรับ CRF", "source": {"doc": "ข้อสมมติของผู้จัดทำ"}, "method": "assumption", "verify": [], "note": "ไม่ได้ยืนยันกับ EIA — ความไวต่อ 30 เทียบ 50 ปี อยู่ที่ R6-09"},
-  "annual_diverted_mcm": {"value": 1970.0, "unit": "ล้าน ลบ.ม./ปี", "label": "ปริมาณน้ำผันเฉลี่ยต่อปีที่ใช้เป็นตัวหารต้นทุน", "source": {"doc": "ไม่มีที่มา"}, "method": "assumption", "verify": [], "note": "≈ 99% ของน้ำท่าฤดูน้ำหลากเฉลี่ย S.26 (1,988) — สมมติว่าผันทั้งหมด · ผูก R6-01/R7-02 · EIA หน้า 197 ระบุว่า 'สามารถผันน้ำทุกปี' แต่ไม่ระบุปริมาตร"},
-  "dead_storage_depth_m": {"value": 2.0, "unit": "ม.", "label": "ระดับน้ำก้นคลองที่คงไว้ (น้ำที่ไม่นับเป็นความจุใช้การ)", "source": {"doc": "ข้อสมมติของผู้จัดทำ"}, "method": "assumption", "verify": [], "note": "ไม่มีรายงานเสถียรภาพลาดตลิ่งรองรับ — gap cp2_dead_storage_depth"},
-  "clarify2_opex_annual_mb": {"value": 519.0, "unit": "ล้านบาท/ปี", "label": "ค่า O&M รายปีตามรายงานชี้แจงเพิ่มเติมครั้งที่ 2 (ธ.ค. 2566) — ขอบเขตโครงการและราคาคงที่ปี 2566 คนละฐานกับ EIA 2569", "source": {"doc": "รายงานชี้แจงเพิ่มเติม ครั้งที่ 2 (ธ.ค. 2566) เล่มหลัก", "pdf_page": 121, "printed_page": "3-3 (ประเด็นที่ 3)", "locator": "ข้อความ 'O&M เฉลี่ยปีละ 519 ล้านบาท (ร้อยละ 0.25 ของค่างานโยธา ร้อยละ 1 ของงานชลศาสตร์ และร้อยละ 1.5 ของงาน SCADA) ณ ราคาคงที่ปี 2566 · มูลค่าทางเศรษฐกิจ 477 ล้านบาทต่อปี'"}, "method": "text_layer", "verify": [{"type": "text_layer", "corpus": "text:eia_clarify2_main", "page": 121, "needles": ["519 ล้านบาท", "477 ล้านบาท"]}], "note": "ตรวจแล้ว 20 ต.ค. 69: พบจริงในไฟล์ data/manual/…/รายงานชี้แจงเพิ่มเติมครั้งที่ 2/1. รายงานชี้แจงเพิ่มเติม.pdf หน้า 121 (บันทึกเดิมว่า 'ไม่อยู่ใน repo' ผิด — ผมค้นผิดไฟล์: ไฟล์เอกสารแนบ 689 หน้าเป็นภาพ ส่วนข้อความอยู่ในเล่มหลัก) · สูตรเดียวกับ EIA 2569 (0.25% งานโยธา · 1% งานชลศาสตร์ · 1.5% SCADA) แต่ฐานงานต่างกัน: ค่าอุปกรณ์ทดแทนรอบ 15/25 ปีฉบับ 2566 = 982/2,947 ล้านบาท เทียบ 2569 = 487.50/1,462.49 (อัตราส่วน ~2.0 เท่ากับ 519/264.8 ≈ 1.96) ⇒ ตีความ: ขอบเขต/มูลค่างานฉบับ 2566 ใหญ่กว่าประมาณ 2 เท่า (การตีความ ไม่ใช่ข้อความในรายงาน) · ใช้ 264.80 กับขอบเขต EIA 2569 · 519 เก็บเป็นตัวแปรทางการต่างฉบับ ไม่ใช้คำนวณ"},
-  "eia_area_reach1_m2": {"value": 480.0, "unit": "ตร.ม.", "label": "พื้นที่หน้าตัดน้ำ (A) กม.0–23", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.0+000–23+000 คอลัมน์ A"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "A = 480.00"}], "note": ""},
-  "eia_area_end_m2": {"value": 1187.0, "unit": "ตร.ม.", "label": "พื้นที่หน้าตัดน้ำ (A) ปลายคลอง ณ กม.135+900", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.134+000–135+900 คอลัมน์ A (หมายเหตุ: ค่า A,P,R,V เป็นค่า กม.135+900)"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "A = 1187.00"}], "note": ""},
-  "eia_reach_break_1_km": {"value": 23.0, "unit": "กม.", "label": "จุดเปลี่ยนรูปตัดที่ 1", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 คอลัมน์ กม. ถึง กม."}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "0+000–23+000 / 23+000–134+000"}], "note": ""},
-  "eia_reach_break_2_km": {"value": 134.0, "unit": "กม.", "label": "จุดเปลี่ยนรูปตัดที่ 2", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 คอลัมน์ กม. ถึง กม."}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "23+000–134+000 / 134+000–135+900"}], "note": ""},
-  "eia_section_table": {"value": {"columns": "Q ลบ.ม./วินาที · B ท้องคลอง ม. · Y1 Y2 ม. · D ความลึก ม. · A ตร.ม. · P ม. · R ม. · V ม./วินาที · n · Slope 1:n · Z1 ลาดใน · Z2 ลาดนอก · BmL BmR ทางเดินเลียบ(เบิร์ม) ม. · TL TR ถนนบนสัน ม. · RL RR ความกว้างเขตทางแต่ละฝั่ง ม.", "reaches": [{"km": [0.0, 23.0], "Q": 605.22, "B": 53.0, "Y1": 3.5, "Y2": 3.5, "D": 7.0, "A": 480.0, "P": 90.3, "R": 5.426, "V": 1.235, "n": 0.025, "slope_1_n": 10000, "Z1": 2.0, "Z2": 2.0, "BmL": 3.0, "BmR": 3.0, "TL": 10.0, "TR": 10.0, "RL": 85.0, "RR": 85.0}, {"km": [23.0, 134.0], "Q": 604.85, "B": 51.0, "Y1": 7.0, "Y2": 0.0, "D": 7.0, "A": 504.0, "P": 95.27, "R": 5.29, "V": 1.2, "n": 0.016, "slope_1_n": 25000, "Z1": 3.0, "Z2": 2.0, "BmL": 0.0, "BmR": 0.0, "TL": 10.0, "TR": 10.0, "RL": 60.0, "RR": 60.0}, {"km": [134.0, 135.9], "Q": 603.83, "B": [51.0, 380.0], "Y1": null, "Y2": null, "D": [7.0, 3.0], "A": 1187.0, "P": 398.97, "R": 2.925, "V": 0.517, "n": 0.025, "slope_1_n": -342.857, "Z1": 3.0, "Z2": 2.0, "BmL": 3.0, "BmR": 3.0, "TL": 10.0, "TR": 10.0, "RL": 310.0, "RR": 310.0, "note": "A,P,R,V เป็นค่า กม.135+900"}]}, "unit": "ตารางรูปตัดมาตรฐาน 3 ช่วง", "label": "ตารางสมบัติรูปตัดคลองทางการ (รูปที่ 2.3.2-11) ครบทุกคอลัมน์", "source": {"doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)", "pdf_page": 144, "printed_page": "2-39", "locator": "ตารางใต้รูปที่ 2.3.2-11 ทั้ง 3 แถว"}, "method": "visual_reading", "verify": [{"type": "image_evidence", "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png", "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697", "reading": "อ่านทุกคอลัมน์จากภาพ 3 แถว (ผู้ใช้ยืนยัน B=51 ที่ กม.23–134)"}], "note": "Y1/Y2 ความหมายตามหัวตารางรูป ไม่ได้ใช้คำนวณพื้นที่ — A และ P ที่ระบุเป็นค่าทางการ (แถวแรกคำนวณจาก B,D,Z ไม่ตรงพอดี จึงใช้ค่า A ที่ตารางพิมพ์)"}
+  "eia_bed_width_m": {
+   "value": 51.0,
+   "unit": "ม.",
+   "label": "ความกว้างท้องคลอง (B) กม.23–134",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ B"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "แถว 23+000–134+000: B = 51.00"
+    },
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 146,
+     "needles": [
+      "51 เมตร"
+     ]
+    }
+   ],
+   "note": "ยืนยันซ้ำโดยผู้ใช้ (รูปที่ 2.3.2-11) · ข้อความหน้า 146: ก้นคลองกว้าง 51 เมตรที่ กม.134+000 · ค่า 54.5 ที่เคยใช้เป็นการอ่านลาดข้างผิด (เพิกถอน 19 ต.ค. 69)"
+  },
+  "eia_area_m2": {
+   "value": 504.0,
+   "unit": "ตร.ม.",
+   "label": "พื้นที่หน้าตัดน้ำ (A)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ A"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "A = 504.00"
+    }
+   ],
+   "note": ""
+  },
+  "eia_wetted_perimeter_m": {
+   "value": 95.27,
+   "unit": "ม.",
+   "label": "เส้นรอบรูปเปียก (P)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ P"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "P = 95.27"
+    }
+   ],
+   "note": "ตรวจไขว้: P = B + 2·D·√(1+Z1²) = 51 + 14·√10 = 95.27"
+  },
+  "eia_depth_m": {
+   "value": 7.0,
+   "unit": "ม.",
+   "label": "ความลึกน้ำออกแบบ (D)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ D"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "D = 7.00"
+    }
+   ],
+   "note": ""
+  },
+  "eia_velocity_ms": {
+   "value": 1.2,
+   "unit": "ม./วินาที",
+   "label": "ความเร็วออกแบบ (V)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ V"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "V = 1.200"
+    }
+   ],
+   "note": ""
+  },
+  "eia_manning_n": {
+   "value": 0.016,
+   "unit": "",
+   "label": "ค่าความขรุขระแมนนิง (n) ช่วงดาดคอนกรีต",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ n"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "n = 0.016"
+    }
+   ],
+   "note": ""
+  },
+  "eia_slope_1_n": {
+   "value": 25000,
+   "unit": "",
+   "label": "ความลาดท้องคลอง 1:n",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ Slope"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "Slope 1: 25,000"
+    }
+   ],
+   "note": ""
+  },
+  "eia_z_inner": {
+   "value": 3.0,
+   "unit": "",
+   "label": "ลาดด้านใน (Z1) — ล้อมพื้นที่น้ำทั้งสองฝั่ง",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ Z1"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "Z1 = 3.0"
+    }
+   ],
+   "note": ""
+  },
+  "eia_z_outer": {
+   "value": 2.0,
+   "unit": "",
+   "label": "ลาดด้านนอก (Z2) — ฝั่งดินคัน ไม่เกี่ยวกับพื้นที่น้ำ",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ Z2"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "Z2 = 2.0"
+    }
+   ],
+   "note": ""
+  },
+  "eia_road_each_side_m": {
+   "value": 10.0,
+   "unit": "ม.",
+   "label": "ถนนบนสันคันกว้างข้างละ (TL/TR)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ TL, TR"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "TL = TR = 10.00"
+    }
+   ],
+   "note": ""
+  },
+  "eia_table_q_m3s": {
+   "value": 604.85,
+   "unit": "ลบ.ม./วินาที",
+   "label": "อัตราไหลในตารางรูปตัด (Q) กม.23–134",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.23+000–134+000 คอลัมน์ Q"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "Q = 604.85"
+    }
+   ],
+   "note": ""
+  },
+  "design_discharge_cms": {
+   "value": 600.0,
+   "unit": "ลบ.ม./วินาที",
+   "label": "อัตราระบายออกแบบของคลอง",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 146,
+    "locator": "ข้อความ 'ระบายน้ำได้ 600 ลูกบาศก์เมตร/วินาที ความกว้างของก้นคลอง… 51 เมตร'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 146,
+     "needles": [
+      "600 ลูกบาศก์เมตร/วินาที"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "canal_length_km": {
+   "value": 135.9,
+   "unit": "กม.",
+   "label": "ความยาวคลองที่ใช้คำนวณปริมาตร (ตามแบบ/เอกสารรายงาน)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 87,
+    "locator": "'คลองระบายน้ำ 600 ลบ.ม./วินาที ยาว 135.9 กม. ลึก 7 ม.'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 87,
+     "needles": [
+      "135.9 กม."
+     ]
+    }
+   ],
+   "note": "รายงานยังมี 135.963 กม. (หน้า 119 แนวร่วมถนนวงแหวนรอบ 3) · ดู reconciled_parameters.canal_length"
+  },
+  "s26_record_years": {
+   "value": "2528–2566 (39 ปี)",
+   "unit": "",
+   "label": "ช่วงบันทึกสถานี S.26",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 196,
+    "locator": "ตารางที่ 2.5.3-2 หัวข้อ 'สถิติข้อมูลของสถานี S.26 ตั้งแต่ปี 2528-2566'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 196,
+     "needles": [
+      "2528-2566"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "s26_annual_mean_mcm": {
+   "value": 2720.0,
+   "unit": "ล้าน ลบ.ม.",
+   "label": "น้ำท่าเฉลี่ยรายปี S.26",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 197,
+    "locator": "ตารางที่ 2.5.3-2 แถวเฉลี่ย คอลัมน์รวม"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 197,
+     "needles": [
+      "2,720"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "s26_annual_min_mcm": {
+   "value": 453.0,
+   "unit": "ล้าน ลบ.ม.",
+   "label": "น้ำท่ารายปีต่ำสุด S.26",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 197,
+    "locator": "ตารางที่ 2.5.3-2 แถวต่ำสุด คอลัมน์รวม"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 197,
+     "needles": [
+      "453"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "s26_annual_max_mcm": {
+   "value": 6741.0,
+   "unit": "ล้าน ลบ.ม.",
+   "label": "น้ำท่ารายปีสูงสุด S.26 (ปี 2554)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 197,
+    "locator": "ตารางที่ 2.5.3-2 แถวสูงสุด คอลัมน์รวม"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 197,
+     "needles": [
+      "6,741"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "s26_flood_season_mean_mcm": {
+   "value": 1988.0,
+   "unit": "ล้าน ลบ.ม.",
+   "label": "น้ำท่าเฉลี่ยช่วง ส.ค.–พ.ย. S.26",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 197,
+    "locator": "ข้อความ 'เฉลี่ย 1,988 ล้าน ลบ.ม. หรือมากกว่าร้อยละ 70'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 197,
+     "needles": [
+      "1,988"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "s26_flood_season_min_mcm": {
+   "value": 134.0,
+   "unit": "ล้าน ลบ.ม.",
+   "label": "น้ำท่าต่ำสุดช่วง ส.ค.–พ.ย. S.26",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 197,
+    "locator": "ข้อความ 'ปริมาณ 134 ล้าน ลบ.ม. ดังแสดงในตารางที่ 2.5.3-2'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 197,
+     "needles": [
+      "134 ล้าน"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "s26_flood_season_max_mcm": {
+   "value": 5830.0,
+   "unit": "ล้าน ลบ.ม.",
+   "label": "น้ำท่าสูงสุดช่วง ส.ค.–พ.ย. S.26",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 197,
+    "locator": "ไม่พบในชั้นข้อความ"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 197,
+     "needles": [
+      "5,830"
+     ]
+    }
+   ],
+   "note": "ไม่พบ 5,830 ในหน้า 196–197 — ยังไม่ยืนยัน (ค่านี้ไม่ถูกใช้ในรายงานใด)"
+  },
+  "capex_mb": {
+   "value": 160046.0,
+   "unit": "ล้านบาท",
+   "label": "งบลงทุนก่อสร้างรวม",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 175,
+    "locator": "ตารางงบลงทุนรายปี แถว 'งบลงทุน 160,046,879,000'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 175,
+     "needles": [
+      "160,046,879,000"
+     ]
+    }
+   ],
+   "note": "ค่าในแหล่ง 160,046.879 ล้านบาท — โครงการตัดเป็น 160,046 ตลอดชุด (ต่าง 0.0005%)",
+   "value_in_source": 160046.879
+  },
+  "opex_annual_mb": {
+   "value": 264.8,
+   "unit": "ล้านบาท/ปี",
+   "label": "ค่าดำเนินการและบำรุงรักษา (O&M) เฉลี่ยรายปี",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 2 (EIA 2569)",
+    "pdf_page": 159,
+    "locator": "ข้อความ 'ค่าใช้จ่ายในการดำเนินการและบำรุงรักษา (O&M) เฉลี่ยปีละ 264.80 ล้านบาท (ร้อยละ 0.25 ของงานโยธา…)'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main2",
+     "page": 159,
+     "needles": [
+      "264.80",
+      "230.37"
+     ]
+    }
+   ],
+   "note": "สลับมาใช้ค่านี้ 19 ต.ค. 69 (ตรวจกับชั้นข้อความ PDF แล้ว) แทน 519 (ของรายงานชี้แจงครั้งที่ 2 ปี 2566 ฐานงานใหญ่กว่า ~2 เท่า — ตรวจแล้ว 20 ต.ค. 69) · มูลค่าทางเศรษฐกิจ 230.37 ล้านบาท/ปี · ร้อยละ 0.25 ของงานโยธา ร้อยละ 1 ของงานชลศาสตร์ ร้อยละ 1.5 ของระบบ SCADA/โทรมาตร"
+  },
+  "discount_rate_low_pct": {
+   "value": 7.0,
+   "unit": "%",
+   "label": "อัตราคิดลด (ฐาน)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 2 (EIA 2569)",
+    "pdf_page": 155,
+    "locator": "'อัตราคิดลด… ร้อยละ 7.00 ร้อยละ 9.00 และร้อยละ 12.00'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main2",
+     "page": 155,
+     "needles": [
+      "7.00",
+      "คิดลด"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "discount_rate_mid_pct": {
+   "value": 9.0,
+   "unit": "%",
+   "label": "อัตราคิดลด (กลาง)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 2 (EIA 2569)",
+    "pdf_page": 155,
+    "locator": "เช่นเดียวกัน"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main2",
+     "page": 155,
+     "needles": [
+      "9.00"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "discount_rate_high_pct": {
+   "value": 12.0,
+   "unit": "%",
+   "label": "อัตราคิดลด (สูง)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 2 (EIA 2569)",
+    "pdf_page": 155,
+    "locator": "เช่นเดียวกัน"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main2",
+     "page": 155,
+     "needles": [
+      "12.00"
+     ]
+    }
+   ],
+   "note": ""
+  },
+  "project_lifespan_years": {
+   "value": 30,
+   "unit": "ปี",
+   "label": "อายุโครงการสำหรับ CRF",
+   "source": {
+    "doc": "ข้อสมมติของผู้จัดทำ"
+   },
+   "method": "assumption",
+   "verify": [],
+   "note": "ไม่ได้ยืนยันกับ EIA — ความไวต่อ 30 เทียบ 50 ปี อยู่ที่ R6-09"
+  },
+  "annual_diverted_mcm": {
+   "value": 1970.0,
+   "unit": "ล้าน ลบ.ม./ปี",
+   "label": "ปริมาณน้ำผันเฉลี่ยต่อปีที่ใช้เป็นตัวหารต้นทุน",
+   "source": {
+    "doc": "ไม่มีที่มา"
+   },
+   "method": "assumption",
+   "verify": [],
+   "note": "≈ 99% ของน้ำท่าฤดูน้ำหลากเฉลี่ย S.26 (1,988) — สมมติว่าผันทั้งหมด · ผูก R6-01/R7-02 · EIA หน้า 197 ระบุว่า 'สามารถผันน้ำทุกปี' แต่ไม่ระบุปริมาตร"
+  },
+  "dead_storage_depth_m": {
+   "value": 2.0,
+   "unit": "ม.",
+   "label": "ระดับน้ำก้นคลองที่คงไว้ (น้ำที่ไม่นับเป็นความจุใช้การ)",
+   "source": {
+    "doc": "ข้อสมมติของผู้จัดทำ"
+   },
+   "method": "assumption",
+   "verify": [],
+   "note": "ไม่มีรายงานเสถียรภาพลาดตลิ่งรองรับ — gap cp2_dead_storage_depth"
+  },
+  "clarify2_opex_annual_mb": {
+   "value": 519.0,
+   "unit": "ล้านบาท/ปี",
+   "label": "ค่า O&M รายปีตามรายงานชี้แจงเพิ่มเติมครั้งที่ 2 (ธ.ค. 2566) — ขอบเขตโครงการและราคาคงที่ปี 2566 คนละฐานกับ EIA 2569",
+   "source": {
+    "doc": "รายงานชี้แจงเพิ่มเติม ครั้งที่ 2 (ธ.ค. 2566) เล่มหลัก",
+    "pdf_page": 121,
+    "printed_page": "3-3 (ประเด็นที่ 3)",
+    "locator": "ข้อความ 'O&M เฉลี่ยปีละ 519 ล้านบาท (ร้อยละ 0.25 ของค่างานโยธา ร้อยละ 1 ของงานชลศาสตร์ และร้อยละ 1.5 ของงาน SCADA) ณ ราคาคงที่ปี 2566 · มูลค่าทางเศรษฐกิจ 477 ล้านบาทต่อปี'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia_clarify2_main",
+     "page": 121,
+     "needles": [
+      "519 ล้านบาท",
+      "477 ล้านบาท"
+     ]
+    }
+   ],
+   "note": "ตรวจแล้ว 20 ต.ค. 69: พบจริงในไฟล์ data/manual/…/รายงานชี้แจงเพิ่มเติมครั้งที่ 2/1. รายงานชี้แจงเพิ่มเติม.pdf หน้า 121 (บันทึกเดิมว่า 'ไม่อยู่ใน repo' ผิด — ผมค้นผิดไฟล์: ไฟล์เอกสารแนบ 689 หน้าเป็นภาพ ส่วนข้อความอยู่ในเล่มหลัก) · สูตรเดียวกับ EIA 2569 (0.25% งานโยธา · 1% งานชลศาสตร์ · 1.5% SCADA) แต่ฐานงานต่างกัน: ค่าอุปกรณ์ทดแทนรอบ 15/25 ปีฉบับ 2566 = 982/2,947 ล้านบาท เทียบ 2569 = 487.50/1,462.49 (อัตราส่วน ~2.0 เท่ากับ 519/264.8 ≈ 1.96) ⇒ ตีความ: ขอบเขต/มูลค่างานฉบับ 2566 ใหญ่กว่าประมาณ 2 เท่า (การตีความ ไม่ใช่ข้อความในรายงาน) · ใช้ 264.80 กับขอบเขต EIA 2569 · 519 เก็บเป็นตัวแปรทางการต่างฉบับ ไม่ใช้คำนวณ"
+  },
+  "eia_area_reach1_m2": {
+   "value": 480.0,
+   "unit": "ตร.ม.",
+   "label": "พื้นที่หน้าตัดน้ำ (A) กม.0–23",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.0+000–23+000 คอลัมน์ A"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "A = 480.00"
+    }
+   ],
+   "note": ""
+  },
+  "eia_area_end_m2": {
+   "value": 1187.0,
+   "unit": "ตร.ม.",
+   "label": "พื้นที่หน้าตัดน้ำ (A) ปลายคลอง ณ กม.135+900",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 แถว กม.134+000–135+900 คอลัมน์ A (หมายเหตุ: ค่า A,P,R,V เป็นค่า กม.135+900)"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "A = 1187.00"
+    }
+   ],
+   "note": ""
+  },
+  "eia_reach_break_1_km": {
+   "value": 23.0,
+   "unit": "กม.",
+   "label": "จุดเปลี่ยนรูปตัดที่ 1",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 คอลัมน์ กม. ถึง กม."
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "0+000–23+000 / 23+000–134+000"
+    }
+   ],
+   "note": ""
+  },
+  "eia_reach_break_2_km": {
+   "value": 134.0,
+   "unit": "กม.",
+   "label": "จุดเปลี่ยนรูปตัดที่ 2",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 คอลัมน์ กม. ถึง กม."
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "23+000–134+000 / 134+000–135+900"
+    }
+   ],
+   "note": ""
+  },
+  "eia_section_table": {
+   "value": {
+    "columns": "Q ลบ.ม./วินาที · B ท้องคลอง ม. · Y1 Y2 ม. · D ความลึก ม. · A ตร.ม. · P ม. · R ม. · V ม./วินาที · n · Slope 1:n · Z1 ลาดใน · Z2 ลาดนอก · BmL BmR ทางเดินเลียบ(เบิร์ม) ม. · TL TR ถนนบนสัน ม. · RL RR ความกว้างเขตทางแต่ละฝั่ง ม.",
+    "reaches": [
+     {
+      "km": [
+       0.0,
+       23.0
+      ],
+      "Q": 605.22,
+      "B": 53.0,
+      "Y1": 3.5,
+      "Y2": 3.5,
+      "D": 7.0,
+      "A": 480.0,
+      "P": 90.3,
+      "R": 5.426,
+      "V": 1.235,
+      "n": 0.025,
+      "slope_1_n": 10000,
+      "Z1": 2.0,
+      "Z2": 2.0,
+      "BmL": 3.0,
+      "BmR": 3.0,
+      "TL": 10.0,
+      "TR": 10.0,
+      "RL": 85.0,
+      "RR": 85.0
+     },
+     {
+      "km": [
+       23.0,
+       134.0
+      ],
+      "Q": 604.85,
+      "B": 51.0,
+      "Y1": 7.0,
+      "Y2": 0.0,
+      "D": 7.0,
+      "A": 504.0,
+      "P": 95.27,
+      "R": 5.29,
+      "V": 1.2,
+      "n": 0.016,
+      "slope_1_n": 25000,
+      "Z1": 3.0,
+      "Z2": 2.0,
+      "BmL": 0.0,
+      "BmR": 0.0,
+      "TL": 10.0,
+      "TR": 10.0,
+      "RL": 60.0,
+      "RR": 60.0
+     },
+     {
+      "km": [
+       134.0,
+       135.9
+      ],
+      "Q": 603.83,
+      "B": [
+       51.0,
+       380.0
+      ],
+      "Y1": null,
+      "Y2": null,
+      "D": [
+       7.0,
+       3.0
+      ],
+      "A": 1187.0,
+      "P": 398.97,
+      "R": 2.925,
+      "V": 0.517,
+      "n": 0.025,
+      "slope_1_n": -342.857,
+      "Z1": 3.0,
+      "Z2": 2.0,
+      "BmL": 3.0,
+      "BmR": 3.0,
+      "TL": 10.0,
+      "TR": 10.0,
+      "RL": 310.0,
+      "RR": 310.0,
+      "note": "A,P,R,V เป็นค่า กม.135+900"
+     }
+    ]
+   },
+   "unit": "ตารางรูปตัดมาตรฐาน 3 ช่วง",
+   "label": "ตารางสมบัติรูปตัดคลองทางการ (รูปที่ 2.3.2-11) ครบทุกคอลัมน์",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 144,
+    "printed_page": "2-39",
+    "locator": "ตารางใต้รูปที่ 2.3.2-11 ทั้ง 3 แถว"
+   },
+   "method": "visual_reading",
+   "verify": [
+    {
+     "type": "image_evidence",
+     "file": "data/32_goal7_chaophraya2/evidence/eia2569_main1_pdf144_section_table.png",
+     "sha256": "2e8f8fe360b2c364a90c304e4d364e83884a3c564334bd816c0ae94201a79697",
+     "reading": "อ่านทุกคอลัมน์จากภาพ 3 แถว (ผู้ใช้ยืนยัน B=51 ที่ กม.23–134)"
+    }
+   ],
+   "note": "Y1/Y2 ความหมายตามหัวตารางรูป ไม่ได้ใช้คำนวณพื้นที่ — A และ P ที่ระบุเป็นค่าทางการ (แถวแรกคำนวณจาก B,D,Z ไม่ตรงพอดี จึงใช้ค่า A ที่ตารางพิมพ์)"
+  },
+  "intake_max_cms": {
+   "value": 650.0,
+   "unit": "ลบ.ม./วินาที",
+   "label": "อัตรารับน้ำสูงสุดเข้าคลองที่ ปตร.ปากคลอง (ความลึกน้ำในคลองไม่เกิน 7.0 ม.)",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 196,
+    "locator": "ข้อความ 'ควบคุม ปตร.ปากคลองระบายให้รับน้ำจากแม่น้ำเจ้าพระยาไม่เกิน 650 ลบ.ม./วินาที'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 196,
+     "needles": [
+      "ไม่เกิน 650 ลบ.ม./วินาที"
+     ]
+    }
+   ],
+   "note": "ข้อความเดียวกันอยู่ในรายงานชี้แจงครั้งที่ 2 หน้า 107"
+  },
+  "telemetry_scada_budget_mb": {
+   "value": 723.0,
+   "unit": "ล้านบาท",
+   "label": "งบระบบโทรมาตรและ SCADA ของโครงการ",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 191,
+    "locator": "ข้อความ 'ติดตั้งระบบ SCADA และระบบโทรมาตรในโครงการ รวมเป็นเงินทั้งสิน 723 ล้านบาท'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 191,
+     "needles": [
+      "723 ล้านบาท"
+     ]
+    }
+   ],
+   "note": "ข้อความเดียวกันอยู่ในรายงานชี้แจงครั้งที่ 2 หน้า 104"
+  },
+  "rapipat_target_cms": {
+   "value": 400.0,
+   "unit": "ลบ.ม./วินาที",
+   "label": "ความสามารถระบายของคลองระพีพัฒน์ที่รายงานเสนอเพิ่มจาก 210",
+   "source": {
+    "doc": "รายงานผลกระทบสิ่งแวดล้อม ฉบับสมบูรณ์ เล่ม 1 (EIA 2569)",
+    "pdf_page": 93,
+    "locator": "ข้อความ 'จาก 210 ลบ.ม./วินาที เป็น 400 ลบ.ม./วินาที'"
+   },
+   "method": "text_layer",
+   "verify": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "page": 93,
+     "needles": [
+      "เป็น 400 ลบ.ม./วินาที"
+     ]
+    }
+   ],
+   "note": ""
+  }
  }
 }

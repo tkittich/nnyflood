@@ -304,15 +304,25 @@ def gate_violations(builders, ks, allow=None):
     return new, stale
 
 
+def _keep_status(path, default: str) -> dict:
+    """คงสถานะที่คนจัดประเภทไว้แล้ว (เช่น method_parameter) เมื่อเขียนรายการใหม่ — ไม่ล้างกลับเป็นค่าตั้งต้น"""
+    if not path.exists():
+        return {}
+    return {(e["file"], e["text"]): e["status"] for e in json.loads(path.read_text(encoding="utf-8")).get("entries", [])
+            if e.get("status") != default}
+
+
 def write_allowlist() -> int:
     _, _, builders = sources()
     _, values = json_leaves()
     cur = untraced_literals(builders, known_set(values))
-    entries = [{"file": f, "text": s, "count": n, "status": "legacy_unreviewed"} for (f, s), n in sorted(cur.items())]
+    kept = _keep_status(ALLOWLIST, "legacy_unreviewed")
+    entries = [{"file": f, "text": s, "count": n, "status": kept.get((f, s), "legacy_unreviewed")} for (f, s), n in sorted(cur.items())]
     ALLOWLIST.write_text(json.dumps({"note": "ตัวเลขฝังใน builder ที่ยังไม่มีที่มาใน JSON — baseline ของประตู ratchet: เพิ่มใหม่ไม่ได้ มีแต่ลดลง · เมื่อย้ายไปอ่านจาก JSON/โทเคนแล้วให้รัน tools/number_inventory.py --write-allowlist (ตรวจ git diff ทุกครั้ง — ต้องมีแต่การลบ)",
                                     "entries": entries}, ensure_ascii=False, indent=1), encoding="utf-8")
     traced = traced_literals(builders, known_set(values))
-    t_entries = [{"file": f, "text": s, "count": n, "status": "traced_by_value_unreviewed"} for (f, s), n in sorted(traced.items())]
+    kept_t = _keep_status(ALLOWLIST_TRACED, "traced_by_value_unreviewed")
+    t_entries = [{"file": f, "text": s, "count": n, "status": kept_t.get((f, s), "traced_by_value_unreviewed")} for (f, s), n in sorted(traced.items())]
     ALLOWLIST_TRACED.write_text(json.dumps({"note": "ตัวเลขฝังใน builder ที่ค่าไปตรงกับ JSON (อาจพ้องโดยบังเอิญ) — baseline ประตูชั้นที่ 2 แบบ ratchet: เพิ่มใหม่ไม่ได้ มีแต่ลดลง · ย้ายไปอ่านจาก JSON/โทเคนแล้วให้รัน tools/number_inventory.py --write-allowlist (ตรวจ git diff — ต้องมีแต่การลบ)",
                                             "entries": t_entries}, ensure_ascii=False, indent=1), encoding="utf-8")
     return len(entries)

@@ -187,6 +187,7 @@ graph TD
 | [GOAL6_PUBLIC_RELEASE_REVIEW.md](file:///e:/theera/code/flood/docs/GOAL6_PUBLIC_RELEASE_REVIEW.md) | บันทึกการรีวิวและการเตรียมเผยแพร่เป้าหมาย 6 สู่สาธารณะ |
 | [GOAL7_PLAN.md](file:///e:/theera/code/flood/docs/GOAL7_PLAN.md) | **แผนการวิเคราะห์เป้าหมาย 7**: โครงการคลองระบายน้ำหลากเจ้าพระยา 2, กรอบการสอบทาน EIA 4 ฉบับ |
 | [GOAL7_FOI_REQUESTS.md](file:///e:/theera/code/flood/docs/GOAL7_FOI_REQUESTS.md) | รายการประเด็นที่ต้องยื่นขอข้อมูลข่าวสารราชการ (FOI) จากกรมชลประทานและ สทนช. |
+| [DATA_REQUEST_PACK.md](file:///e:/theera/code/flood/docs/DATA_REQUEST_PACK.md) | ชุดคำขอข้อมูลรวมศูนย์ เรียงตามสิ่งที่ปลดล็อกได้มากที่สุด (เป้าหมาย 6–7) |
 | [ENVIRONMENT.md](file:///e:/theera/code/flood/docs/ENVIRONMENT.md) | สภาพแวดล้อมระบบ เวอร์ชัน Python (3.11–3.14) และไลบรารีที่ปักหมุด |
 | [OFFLINE_DATA_BACKLOG.md](file:///e:/theera/code/flood/docs/OFFLINE_DATA_BACKLOG.md) | บันทึกข้อมูลขนาดใหญ่บนดิสก์ที่ไม่ถูกจัดเก็บใน git |
 | [OCR_WORKFLOW_V2.md](file:///e:/theera/code/flood/docs/OCR_WORKFLOW_V2.md) | **ขั้นตอน OCR รุ่นที่ 2** — แยกส่วนหน้าก่อน อ่านข้อความด้วย Typhoon และอ่านภาพย่อยด้วยโมเดลภาพ (บันทึกการตัดสินใจ 21 ต.ค. 69 · ยังไม่ใช้กับคิวที่ค้าง) |

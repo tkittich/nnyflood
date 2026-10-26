@@ -29,7 +29,7 @@ QUEUE = RAW_NEW / "s1_recent_queue.json"
 ST1_OLD = ROOT / "data/22_goal6_network/derived/s1_stage1"
 ST1_NEW = ROOT / "data/22_goal6_network/derived/s1_recent_stage1"
 OUT = ROOT / "analysis/goal7/s1_chachoengsao_recent.json"
-BOUND = ROOT / "data/10_mitrearth_gis/provinces/chachoengsao_10/2 Boundary and Point/10 bound.shp"
+BOUND = ROOT / "data/10_mitrearth_gis/provinces/chachoengsao_10/2 Boundary and Point/10 pbound.shp"   # ชั้น bound เป็นเขตรวมเพื่อนบ้าน 12,900 ตร.กม. ไม่ใช่จังหวัด — ใช้ pbound เลือก CHACHOENGSAO
 ODATA = "https://catalogue.dataspace.copernicus.eu/odata/v1/Products"
 BASIN = "bp_prach"
 AOI_WKT = "POLYGON((101.0 13.45, 101.6 13.45, 101.6 13.95, 101.0 13.95, 101.0 13.45))"
@@ -93,6 +93,8 @@ def province_mask(g: dict) -> np.ndarray:
     from rasterio.features import rasterize
     from rasterio.transform import from_bounds
     b = gpd.read_file(BOUND).to_crs(4326)
+    b = b[b["PROV_NAME"] == "CHACHOENGSAO"]
+    assert len(b) == 1
     tr = from_bounds(g["x0"], g["y0"], g["x1"], g["y1"], g["nx"], g["ny"])
     return rasterize([(geom, 1) for geom in b.geometry], out_shape=(g["ny"], g["nx"]), transform=tr, fill=0, dtype="uint8").astype(bool)
 

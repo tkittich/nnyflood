@@ -779,7 +779,58 @@ def prose_bpk(public: bool = False) -> str:
         "ชั้น 7 วันและ 30 วันของ GISTDA รวมหลายฉากถึง " + last_scene + " จึงบอกขนาดน้ำที่ยังเห็นได้ แต่แยกวันที่ท่วมต่อแปลงและวันที่น้ำลดไม่ได้ (พื้นที่ระดับอำเภอของสองชั้นไม่ซ้อนกันเป็นชุดย่อยพอดี) ยังไม่มีแผนที่น้ำรายฉากที่แยกวันได้ · "  # gap: chachoengsao_recent_sar
         f"ชั้นน้ำท่วมของ GISTDA เป็นชั้นผสมหลายภาพ แยกวันท่วมต่อแปลงไม่ได้ · ความสูงพื้นดินนอกหน้าต่างแบบจำลอง 5 ม. มีความไม่แน่นอน: {dem_band_txt()}"
     )
-    return facts + interp + assess
+    return facts + _s1_recent_txt() + interp + assess
+
+
+_S1R_COVER_MIN = 0.70      # วงโคจรที่ครอบคลุมจังหวัดไม่ถึงสัดส่วนนี้ ไม่นำมาสรุปแนวโน้ม (แสดงในตารางเต็มเท่านั้น)
+
+
+def _s1_recent_tracks():
+    """จัดฉากเรดาร์ของเราเองเป็นรายวงโคจร (เฉพาะวงที่ครอบคลุมจังหวัดพอและมีอย่างน้อย 2 วัน)"""
+    r = C.get("s1_chachoengsao_recent", {})
+    by = {}
+    for s in r.get("scenes", []):
+        if s.get("status") == "ok":
+            by.setdefault(s["rel_orbit"], []).append(s)
+    return r, {k: sorted(v, key=lambda s: s["date"]) for k, v in by.items()
+               if len(v) >= 2 and min(s["province_coverage_frac"] for s in v) >= _S1R_COVER_MIN}
+
+
+def _dthai_iso(d: str) -> str:
+    mon = {"09": "ก.ย.", "10": "ต.ค."}
+    return f"{int(d[8:10])} {mon.get(d[5:7], d[5:7])}"
+
+
+def _s1_recent_txt() -> str:
+    """ข้อเท็จจริงจากแผนที่น้ำเรดาร์ที่ทำเอง (ฉะเชิงเทรา 26 ก.ย.–22 ต.ค.) · ตัวเลขอ่านจาก canonical ทั้งหมด"""
+    r, tr = _s1_recent_tracks()
+    if not tr:
+        return ""
+    parts, down = [], 0
+    for k, v in sorted(tr.items()):
+        a, z = v[0], v[-1]
+        down += int(z["water_km2_in_province"] < a["water_km2_in_province"])
+        parts.append(f"วงโคจรที่ {k}: {_dthai_iso(a['date'])} {a['water_km2_in_province']:.0f} → {_dthai_iso(z['date'])} {z['water_km2_in_province']:.0f} ตร.กม.")
+    last = max(s["date"] for v in tr.values() for s in v)
+    return ("(6) แผนที่น้ำจากเรดาร์ดาวเทียมที่ทำเอง (กฎตัดน้ำที่ตรึงไว้เดิม จับคู่ฉากตามวงโคจรเทียบฉากก่อนเหตุการณ์ ตามกติกาที่ตั้งก่อนดูผลใน <code>docs/S1_CHACHOENGSAO_RECENT_PREREG.md</code>) "
+            f"ในวงโคจรที่ฉากครอบคลุมจังหวัดเกินร้อยละ {100 * _S1R_COVER_MIN:.0f} พื้นที่ \"น้ำใหม่\" ในจังหวัดฉะเชิงเทรา ({'; '.join(parts)}) · "
+            f"{down} จาก {len(tr)} วงโคจรลดลงจากฉากแรกถึงฉากล่าสุด ({_dthai_iso(last)}) แต่น้ำยังเหลืออยู่ · เทียบพื้นที่ข้ามวงโคจรไม่ได้เพราะเวลาและพื้นที่ครอบคลุมต่างกัน · "
+            "\"น้ำใหม่\" รวมนาข้าวที่ขังน้ำตามฤดูและพื้นที่ที่ควบคุมน้ำ และกฎถูกปรับเทียบเฉพาะที่นครนายก ที่ฉะเชิงเทรา เป็นการนำกฎเดิมมาใช้ ไม่ใช่ผลที่ตรวจกับความจริงภาคสนาม · ")
+
+
+def tbl_s1_chachoengsao_recent() -> str:
+    """ตารางแผนที่น้ำเรดาร์ที่ทำเองของฉะเชิงเทรา ครบทุกฉาก (รวมวงโคจรที่ครอบคลุมน้อย) พร้อมสัดส่วนครอบคลุม"""
+    r = C.get("s1_chachoengsao_recent", {})
+    sc = [s for s in r.get("scenes", []) if s.get("status") == "ok"]
+    if not sc:
+        return ""
+    rows = [[_dthai_iso(s["date"]), str(s["rel_orbit"]), "/".join(s["satellite"]), f"{s['water_km2_in_province']:.0f}",
+             f"{100 * s['province_coverage_frac']:.0f}", f"{100 * s['water_frac_of_covered_province']:.1f}",
+             "ช่วงเหตุการณ์ (มีบนดิสก์เดิม)" if s["role"] == "event_on_disk" else "ฉากใหม่"]
+            for s in sorted(sc, key=lambda s: (s["rel_orbit"], s["date"]))]
+    cap = (f"น้ำใหม่จากเรดาร์ดาวเทียมในจังหวัดฉะเชิงเทรา (พื้นที่จังหวัดบนกริด {r['province_km2_on_grid']:,.0f} ตร.กม.) รายฉาก เรียงตามวงโคจร · เทียบข้ามวงโคจรไม่ได้ เทียบได้เฉพาะภายในวงเดียวกันที่ครอบคลุมเท่ากัน · "
+           "ฉากอ้างอิงคือฉากล่าสุดของวงเดียวกันก่อน 24 ก.ย. · ไม่มีเกณฑ์ผ่าน/ตก ผลพิมพ์ตามจริง (กติกา <code>docs/S1_CHACHOENGSAO_RECENT_PREREG.md</code>)")
+    return table(["วันที่", "วงโคจรสัมพัทธ์", "ดาวเทียม", "น้ำใหม่ในจังหวัด (ตร.กม.)", "ฉากครอบคลุมจังหวัด (%)", "น้ำใหม่ต่อส่วนที่ครอบคลุม (%)", "ที่มาของฉาก"], rows, cap)
 
 
 def _miss_txt(days) -> str:

@@ -9799,6 +9799,274 @@
   },
   "caveat": "ความสูงคือพื้นดินเปล่า (FABDEM) ไม่ใช่ระดับผิวถนน — ไม่ใช้ยืนยันระดับที่น้ำล้นถนน · ช่องว่าง route305_crown_elevation ยังเปิด"
  },
+ "s1_chachoengsao_recent": {
+  "rule": "docs/S1_CHACHOENGSAO_RECENT_PREREG.md",
+  "detect_rule": "s1_change_detect.detect (ตรึงเดิม)",
+  "province_km2_on_grid": 4947.9,
+  "scenes": [
+   {
+    "date": "2026-09-26",
+    "rel_orbit": 133,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 2,
+    "role": "event_on_disk",
+    "reference": [
+     "20260914T230017",
+     "20260914T230042"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 671.6,
+    "water_km2_in_province": 138.2,
+    "province_coverage_frac": 0.769,
+    "water_frac_of_covered_province": 0.0363
+   },
+   {
+    "date": "2026-09-27",
+    "rel_orbit": 141,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 2,
+    "role": "event_on_disk",
+    "reference": [
+     "20260915T112805"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 1032.7,
+    "water_km2_in_province": 420.2,
+    "province_coverage_frac": 0.968,
+    "water_frac_of_covered_province": 0.0878
+   },
+   {
+    "date": "2026-09-28",
+    "rel_orbit": 26,
+    "satellite": [
+     "S1C"
+    ],
+    "n_slices": 2,
+    "role": "event_on_disk",
+    "reference": [
+     "20260916T111958"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 259.8,
+    "water_km2_in_province": 13.5,
+    "province_coverage_frac": 0.29,
+    "water_frac_of_covered_province": 0.0094
+   },
+   {
+    "date": "2026-10-01",
+    "rel_orbit": 31,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 1,
+    "role": "event_on_disk",
+    "reference": [
+     "20260919T230840"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 1281.6,
+    "water_km2_in_province": 432.8,
+    "province_coverage_frac": 0.481,
+    "water_frac_of_covered_province": 0.1819
+   },
+   {
+    "date": "2026-10-02",
+    "rel_orbit": 91,
+    "satellite": [
+     "S1C"
+    ],
+    "n_slices": 2,
+    "role": "event_on_disk",
+    "reference": [
+     "20260920T230012",
+     "20260920T230037"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 1058.0,
+    "water_km2_in_province": 309.1,
+    "province_coverage_frac": 0.758,
+    "water_frac_of_covered_province": 0.0824
+   },
+   {
+    "date": "2026-10-04",
+    "rel_orbit": 68,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 1,
+    "role": "new",
+    "reference": [
+     "20260922T112005"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 172.1,
+    "water_km2_in_province": 9.3,
+    "province_coverage_frac": 0.435,
+    "water_frac_of_covered_province": 0.0043
+   },
+   {
+    "date": "2026-10-08",
+    "rel_orbit": 133,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 2,
+    "role": "new",
+    "reference": [
+     "20260914T230017",
+     "20260914T230042"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 883.5,
+    "water_km2_in_province": 287.2,
+    "province_coverage_frac": 0.769,
+    "water_frac_of_covered_province": 0.0755
+   },
+   {
+    "date": "2026-10-09",
+    "rel_orbit": 141,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 1,
+    "role": "new",
+    "reference": [
+     "20260915T112805"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 1387.7,
+    "water_km2_in_province": 623.9,
+    "province_coverage_frac": 0.968,
+    "water_frac_of_covered_province": 0.1303
+   },
+   {
+    "date": "2026-10-10",
+    "rel_orbit": 26,
+    "satellite": [
+     "S1C"
+    ],
+    "n_slices": 1,
+    "role": "new",
+    "reference": [
+     "20260916T111958"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 121.0,
+    "water_km2_in_province": 5.6,
+    "province_coverage_frac": 0.29,
+    "water_frac_of_covered_province": 0.0039
+   },
+   {
+    "date": "2026-10-13",
+    "rel_orbit": 31,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 1,
+    "role": "new",
+    "reference": [
+     "20260919T230840"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 831.2,
+    "water_km2_in_province": 395.6,
+    "province_coverage_frac": 0.481,
+    "water_frac_of_covered_province": 0.1662
+   },
+   {
+    "date": "2026-10-14",
+    "rel_orbit": 91,
+    "satellite": [
+     "S1C"
+    ],
+    "n_slices": 2,
+    "role": "new",
+    "reference": [
+     "20260920T230012",
+     "20260920T230037"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 666.6,
+    "water_km2_in_province": 240.3,
+    "province_coverage_frac": 0.758,
+    "water_frac_of_covered_province": 0.0641
+   },
+   {
+    "date": "2026-10-16",
+    "rel_orbit": 68,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 1,
+    "role": "new",
+    "reference": [
+     "20260922T112005"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 65.8,
+    "water_km2_in_province": 7.5,
+    "province_coverage_frac": 0.435,
+    "water_frac_of_covered_province": 0.0035
+   },
+   {
+    "date": "2026-10-20",
+    "rel_orbit": 133,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 2,
+    "role": "new",
+    "reference": [
+     "20260914T230017",
+     "20260914T230042"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 549.4,
+    "water_km2_in_province": 201.9,
+    "province_coverage_frac": 0.769,
+    "water_frac_of_covered_province": 0.053
+   },
+   {
+    "date": "2026-10-21",
+    "rel_orbit": 141,
+    "satellite": [
+     "S1D"
+    ],
+    "n_slices": 1,
+    "role": "new",
+    "reference": [
+     "20260915T112805"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 1116.3,
+    "water_km2_in_province": 556.1,
+    "province_coverage_frac": 0.959,
+    "water_frac_of_covered_province": 0.1171
+   },
+   {
+    "date": "2026-10-22",
+    "rel_orbit": 26,
+    "satellite": [
+     "S1C"
+    ],
+    "n_slices": 1,
+    "role": "new",
+    "reference": [
+     "20260916T111958"
+    ],
+    "status": "ok",
+    "water_km2_lowland_grid": 61.0,
+    "water_km2_in_province": 8.9,
+    "province_coverage_frac": 0.29,
+    "water_frac_of_covered_province": 0.0062
+   }
+  ],
+  "generated_utc": "2026-10-26 05:26"
+ },
  "bangpakong_chachoengsao": {
   "generated": "2026-10-25",
   "terrain": {

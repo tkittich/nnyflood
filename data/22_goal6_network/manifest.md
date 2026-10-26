@@ -272,3 +272,9 @@ bbox ครอบอ่าวไทย (DEM ทะเล = 0 ม. นับเ�
 ## น้ำเข้า–ปล่อย–เก็บ รายวันรายเขื่อน 2548–2569 (12 ต.ค. 2569 — รีวิว Sonnet H4)
 
 - ดึง 24 เขื่อน × (dam_storage · dam_inflow · dam_released) × ปี 2005–2026 ด้วย GET `analyst/dam_yearly_graph` (ไม่ต้อง auth) → `raw/dam_flows/dam_<id>.json` · ใช้โดย `analysis/goal6_dam_inflow.py` · disk-only (SHA-256 ใน `_hashes.txt`)
+
+## ฉากเรดาร์ Sentinel-1 เพิ่ม 4–22 ต.ค. 2569 สำหรับฉะเชิงเทรา (26 ต.ค. 2569 — R7-22)
+
+- ที่มา: CDSE ผ่าน S3 ของผู้ใช้ (กุญแจในไฟล์ gitignored · ไม่บันทึกค่า) · วิธี: `python analysis/goal6_s1_download.py --queue data/22_goal6_network/raw/s1_recent/s1_recent_queue.json --dest data/22_goal6_network/raw/s1_recent` · ดึงเมื่อ 26 ต.ค. 2569
+- คิวและรายการฉากอยู่ใน `raw/s1_recent/s1_recent_queue.json` (13 ฉากใหม่ 4–22 ต.ค. + 4 ฉากอ้างอิงก่อน 24 ก.ย. = 17 ฉาก ราว 21 GB) · ฉาก `.SAFE` เป็น disk-only ไม่เข้า git (ระบุใน `.gitignore`) · SHA-256 รายไฟล์อยู่ใน `raw/s1_recent/_progress.json`
+- ผลขั้นที่ 1 (ลงพิกัด/คาลิเบรต) เก็บแยกที่ `derived/s1_recent_stage1/` ไม่ปนกับผลเป้าหมาย 6 · ผลตัดน้ำ: `analysis/goal7/s1_chachoengsao_recent.json` · กติกา: `docs/S1_CHACHOENGSAO_RECENT_PREREG.md`

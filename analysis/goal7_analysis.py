@@ -1603,6 +1603,8 @@ def main():
         c["mitrearth_layers"] = {"a_gistda_flood_footprints": _ml["a_gistda_flood_footprints"], "c_contour_1m_vs_dem": {"window_set_gis_file": {k: v for k, v in _ml["c_contour_1m_vs_dem"]["window_set_gis_file"].items() if k in ("n_points_sampled_in_province", "dem_minus_contour", "closest_dem")}, "conclusion": _ml["c_contour_1m_vs_dem"]["conclusion"]}}
     if (OUT / "mitrearth_road_valley.json").exists():
         c["mitrearth_road_valley"] = json.loads((OUT / "mitrearth_road_valley.json").read_text(encoding="utf-8"))
+    if (OUT / "s1_chachoengsao_recent.json").exists():     # R7-22 (กติกา docs/S1_CHACHOENGSAO_RECENT_PREREG.md)
+        c["s1_chachoengsao_recent"] = json.loads((OUT / "s1_chachoengsao_recent.json").read_text(encoding="utf-8"))
     if (OUT / "bangpakong_chachoengsao.json").exists():
         c["bangpakong_chachoengsao"] = json.loads((OUT / "bangpakong_chachoengsao.json").read_text(encoding="utf-8"))
     if (OUT / "mitrearth_national_summary.json").exists():

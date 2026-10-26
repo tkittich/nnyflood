@@ -1,0 +1,85 @@
+{
+ "rule": "docs/REACH_LENGTH_PREREG.md",
+ "source": "ชั้น 18 Major River (มิตรเอิร์ธ) · ชื่อ แม่น้ำนครนายก",
+ "cases": [
+  {
+   "hy_use_only_1": false,
+   "tol_m": 10.0,
+   "n_segments": 19,
+   "snap_ny1b_m": 1,
+   "snap_ny7_m": 18,
+   "path_km": 15.11,
+   "straight_km": 7.77,
+   "sinuosity": 1.94
+  },
+  {
+   "hy_use_only_1": false,
+   "tol_m": 30.0,
+   "n_segments": 19,
+   "snap_ny1b_m": 1,
+   "snap_ny7_m": 18,
+   "path_km": 15.11,
+   "straight_km": 7.77,
+   "sinuosity": 1.94
+  },
+  {
+   "hy_use_only_1": false,
+   "tol_m": 100.0,
+   "n_segments": 19,
+   "snap_ny1b_m": 1,
+   "snap_ny7_m": 18,
+   "path_km": 15.11,
+   "straight_km": 7.77,
+   "sinuosity": 1.94
+  },
+  {
+   "hy_use_only_1": true,
+   "tol_m": 10.0,
+   "n_segments": 17,
+   "snap_ny1b_m": 1,
+   "snap_ny7_m": 18,
+   "path_km": 15.11,
+   "straight_km": 7.77,
+   "sinuosity": 1.94
+  },
+  {
+   "hy_use_only_1": true,
+   "tol_m": 30.0,
+   "n_segments": 17,
+   "snap_ny1b_m": 1,
+   "snap_ny7_m": 18,
+   "path_km": 15.11,
+   "straight_km": 7.77,
+   "sinuosity": 1.94
+  },
+  {
+   "hy_use_only_1": true,
+   "tol_m": 100.0,
+   "n_segments": 17,
+   "snap_ny1b_m": 1,
+   "snap_ny7_m": 18,
+   "path_km": 15.11,
+   "straight_km": 7.77,
+   "sinuosity": 1.94
+  }
+ ],
+ "used_reach_km": 18.3,
+ "measurable": true,
+ "range_km": [
+  15.11,
+  15.11
+ ],
+ "central_km": 15.11,
+ "headline_case": {
+  "hy_use_only_1": false,
+  "tol_m": 30.0,
+  "n_segments": 19,
+  "snap_ny1b_m": 1,
+  "snap_ny7_m": 18,
+  "path_km": 15.11,
+  "straight_km": 7.77,
+  "sinuosity": 1.94
+ },
+ "diff_vs_used_pct": -17.4,
+ "consistent_within_20pct": true
+}

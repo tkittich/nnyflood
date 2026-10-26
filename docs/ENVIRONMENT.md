@@ -95,6 +95,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `verify_all` | `tools/verify_all.py` | `main` | active | ตรวจครบวงจร: สารบัญ · แฮชข้อมูลดิบ · ภาษา/มาตรฐาน · ทะเบียนเครื่องมือ · pytest ทั้งชุด | `python tools/verify_all.py` | — |
 | `write_verification` | `tools/write_verification.py` | `main` | active | ประทับผลตรวจจริง 4 ด่าน (ภาษา · สี · กฎหมาย/ข้อมูลส่วนบุคคล · ตัวเลขกลาง) ลงไฟล์ให้ป้ายในรายงานอ่าน | `python tools/write_verification.py` | `report/assets/verification.json` |
 | `goal7_ocr_poster_tiles` | `analysis/goal7_ocr_poster_tiles.py` | `typhoon_env` | experimental | ถอดความบอร์ดนิทรรศการขนาดยักษ์ด้วย Typhoon-OCR แบบแบ่งแถบซ้อนเหลื่อม แก้หน้าที่ล้มเพราะหน่วยความจำการ์ดจอไม่พอ (R7-13) | `E:/theera/typhoon_env/Scripts/python.exe analysis/goal7_ocr_poster_tiles.py [--labels ...]` | `data/32_goal7_chaophraya2/typhoon_ocr/<ป้าย>/pages.jsonl` |
+| `goal7_reach_length` | `analysis/goal7_reach_length.py` | `main` | active | วัดระยะตามลำน้ำ Ny.1B ถึง Ny.7 จากชั้นเส้นแม่น้ำนครนายก (มิตรเอิร์ธ) ตามกติกา REACH_LENGTH_PREREG | `python analysis/goal7_reach_length.py` | `analysis/goal7/reach_length.json` |
 | `goal7_mitrearth_road_valley` | `analysis/goal7_mitrearth_road_valley.py` | `main` | active | จุดที่ถนนตัดร่องน้ำ (ชั้นมิตรเอิร์ธ) ในอำเภอองครักษ์ เทียบความสูงพื้นดินกับระดับน้ำจริง — ชั้นสุดท้ายของ R7-14 | `python analysis/goal7_mitrearth_road_valley.py` | `analysis/goal7/mitrearth_road_valley.json` |
 | `doctor` | `tools/doctor.py` | `main` | active | ตรวจทะเบียนนี้: สภาพแวดล้อมพร้อมใช้ · ไฟล์มีจริง · เอกสารตรงกับทะเบียน · สคริปต์ที่ยังไม่ลงทะเบียน | `python tools/doctor.py [--deep] [--write-docs] [--list-unregistered]` | `docs/ENVIRONMENT.md (ส่วนเครื่องมือ)` |
 | `number_inventory` | `tools/number_inventory.py` | `main` | active | บัญชีตัวเลขทั้งคลัง: ปริมาณเดียวกันค่าต่างกัน · ตัวเลขกำพร้า · คีย์ JSON ขัด · literal ใน builder · เอกสารล้าสมัย | `python tools/number_inventory.py --out docs/reviews/INVENTORY_<วันที่>.md` | `docs/reviews/INVENTORY_*.md` |
@@ -283,7 +284,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 5 สภาพแวดล้อม · 183 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 5 สภาพแวดล้อม · 184 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

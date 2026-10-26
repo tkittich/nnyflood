@@ -133,7 +133,12 @@
   "r1d_conv_kernel12": "100",
   "r1d_conv_kernel48": "23",
   "r1d_bias_cm": "-80.1",
-  "r1d_resid_cm": "69.4"
+  "r1d_resid_cm": "69.4",
+  "reach_used_km": "18.3",
+  "reach_meas_km": "15.1",
+  "reach_straight_km": "7.8",
+  "reach_sinuosity": "1.9",
+  "reach_diff_pct": "17"
  },
  "meta": {
   "generated_by": "analysis/build_canonical_numbers.py",

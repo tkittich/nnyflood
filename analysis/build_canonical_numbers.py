@@ -123,6 +123,8 @@ kd22 = jload(ANA / "goal2_khundan_22y_summary.json")
 # ---------- แบบจำลองชลศาสตร์ 1 มิติ (1D Hydrodynamic Routing) ----------
 r1d_file = ANA / "hydraulic_1d_routing_summary.json"
 r1d = jload(r1d_file) if r1d_file.exists() else {}
+reach_file = ANA / "goal7" / "reach_length.json"   # R7-23 (กติกา docs/REACH_LENGTH_PREREG.md)
+reach = jload(reach_file) if reach_file.exists() else {}
 
 # ---------- ภาคตัดขวางสำรวจจริง Ny.1B (RID SWOC Hydro App) ----------
 # รีวิวรอบ 4 (Tier-2): ตัวเลขหลัก = ผลสมการ Manning บนภาคตัดขวางสำรวจ 61 จุด (ค่ากลางวิธีรวมหน้าตัด 666.3)
@@ -283,6 +285,12 @@ render = {
     "r1d_conv_kernel48": f"{100 * r1d['grid_convergence']['n_sub_48']['kernel_nonneg_share']:.0f}",
     "r1d_bias_cm": f"{r1d['routing_performance']['stage_bias_cm']:.1f}",
     "r1d_resid_cm": f"{r1d['routing_performance']['stage_residual_cm']:.1f}",
+    # R7-23: ระยะตามลำน้ำที่วัดจากชั้นเส้นลำน้ำเทียบระยะที่ใช้เดิม
+    "reach_used_km": f"{reach['used_reach_km']:.1f}",
+    "reach_meas_km": f"{reach['central_km']:.1f}",
+    "reach_straight_km": f"{reach['headline_case']['straight_km']:.1f}",
+    "reach_sinuosity": f"{reach['headline_case']['sinuosity']:.1f}",
+    "reach_diff_pct": f"{abs(reach['diff_vs_used_pct']):.0f}",
 }
 
 def assert_pillar1_inward_contracts(values: dict) -> None:

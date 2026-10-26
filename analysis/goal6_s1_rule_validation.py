@@ -21,6 +21,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import cell_km2  # noqa: E402
 from s1_change_detect import detect, load_gistda_mask, prf  # noqa: E402
+from goal6_s1_stage2_water import mosaic_db  # noqa: E402 — ภาพอ้างอิงรวมชิ้นส่วนของวันอ้างอิง (จับคู่ตามวงโคจรสัมพัทธ์)
 
 ROOT = Path(__file__).resolve().parent.parent
 DER = ROOT / "data/13_sentinel1_copernicus/derived"
@@ -144,11 +145,10 @@ def main() -> None:
         for r in scenes:
             water_p = ST2 / bid / f"{r['scene']}_water.npy"
             vh_post = ST1 / bid / f"{r['scene']}_vh_db.npy"
-            vh_pre = ST1 / bid / f"{r['reference']}_vh_db.npy"
-            if not (water_p.exists() and vh_post.exists() and vh_pre.exists()):
+            if not (water_p.exists() and vh_post.exists()):
                 continue
             w = np.load(water_p)
-            post, pre = np.load(vh_post), np.load(vh_pre)
+            post, pre = np.load(vh_post), mosaic_db(bid, r["reference_all"], "vh")
             cov_low = float((np.isfinite(post) & np.isfinite(pre) & lowb).sum() * 0.0009)
             entry = {"scene": r["scene"][12:40], "water_km2": round(float(w.sum() * 0.0009), 1),
                      "covered_lowland_km2": round(cov_low, 1),

@@ -4,7 +4,7 @@
   queue   ค้นคลัง CDSE หาฉากอ้างอิงก่อน 24 ก.ย. ของวงโคจรเดียวกัน เขียนคิวฉากที่ยังไม่มีบนดิสก์
   process ลงพิกัดฉากอ้างอิงใหม่ (ฟังก์ชันขั้นที่ 1) แล้วตัดน้ำซ้ำด้วยกฎตรึงเดิม เทียบผลเดิม
 ดาวน์โหลดด้วย: python analysis/goal6_s1_download.py --queue data/22_goal6_network/raw/s1_audit/s1_audit_queue.json --dest data/22_goal6_network/raw/s1_audit
-รัน: python analysis/goal6_s1_reference_audit.py queue | process
+รัน: python analysis/goal6_s1_reference_audit.py queue | process | queue_unpaired | process_unpaired
 ผลลัพธ์: data/22_goal6_network/raw/s1_audit/s1_audit_queue.json · analysis/goal6/s1_reference_audit.json
 """
 from __future__ import annotations
@@ -19,7 +19,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from goal7_s1_chachoengsao_recent import query_aoi, rel_orbit, start_of  # noqa: E402  (ฟังก์ชันร่วม: เลขวงโคจรสัมพัทธ์/เวลาจากชื่อฉาก)
+from goal7_s1_chachoengsao_recent import query_aoi  # noqa: E402
+from s1_orbit import rel_orbit, start_of  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SUMMARY = ROOT / "data/22_goal6_network/derived/s1_stage2/summary.json"
@@ -163,5 +164,49 @@ def process() -> None:
     print("เขียน", OUT)
 
 
+QUEUE_UNPAIRED = RAW_NEW / "s1_audit_queue_unpaired.json"
+
+
+def queue_unpaired() -> None:
+    """หลังเปลี่ยนขั้นที่ 2 เป็นจับตามวงโคจรสัมพัทธ์: ฉากที่วงโคจรยังไม่มีฉากอ้างอิงในลุ่มนั้น (unpaired ใน summary.json) — หาฉากอ้างอิงก่อนเหตุการณ์ให้"""
+    summ = json.loads(SUMMARY.read_text(encoding="utf-8"))
+    have = {p.name for d in RAWS if d.exists() for p in d.glob("*.SAFE")}
+    need, plan = {}, []
+    for b, v in summ.items():
+        rels = sorted({rel_orbit(s) for s in v.get("unpaired", [])})
+        pre = basin_pre_scenes(b) if rels else []
+        for r in rels:
+            ps = [p for p in pre if rel_orbit(p["Name"]) == r]
+            if not ps:
+                plan.append({"basin": b, "rel": r, "new_ref": None})
+                continue
+            day = max(start_of(p["Name"])[:10] for p in ps)
+            pick = [p for p in ps if start_of(p["Name"])[:10] == day]
+            plan.append({"basin": b, "rel": r, "new_ref": [p["Name"] for p in pick], "new_ref_day": day})
+            for p in pick:
+                if p["Name"] not in have:
+                    need[p["Name"]] = {"name": p["Name"], "start": start_of(p["Name"]), "content_length_mb": round(p.get("ContentLength", 0) / 1e6)}
+    QUEUE_UNPAIRED.write_text(json.dumps({"note": "ฉากอ้างอิงของวงที่ยังไม่มีอ้างอิงในลุ่ม (ผลของการจับตามวงโคจรสัมพัทธ์)", "basins": {"ไม่มีอ้างอิง": sorted(need.values(), key=lambda x: x["name"][17:])}, "plan": plan},
+                                          ensure_ascii=False, indent=1), encoding="utf-8")
+    print("ต้องโหลด", len(need), "ฉาก", sum(x["content_length_mb"] for x in need.values()) / 1e3, "GB")
+    for p in plan:
+        print(p["basin"], "rel", p["rel"], "->", p.get("new_ref_day"), p["new_ref"] and len(p["new_ref"]))
+
+
+def process_unpaired() -> None:
+    import goal6_s1_stage1 as s1
+    plan = json.loads(QUEUE_UNPAIRED.read_text(encoding="utf-8"))["plan"]
+    s1.OUT = ST1_NEW
+    for p in plan:
+        (ST1_NEW / p["basin"]).mkdir(parents=True, exist_ok=True)
+        if not (ST1_NEW / f"grid_{p['basin']}.json").exists():
+            shutil.copy(ST1_OLD / f"grid_{p['basin']}.json", ST1_NEW / f"grid_{p['basin']}.json")
+        for name in p["new_ref"] or []:
+            tag = name.replace(".SAFE", "")
+            if load_db(p["basin"], tag, "vh") is None:
+                s1.RAW_S1 = scene_dir(name)
+                print(s1.process_job(p["basin"], name), flush=True)
+
+
 if __name__ == "__main__":
-    {"queue": build_queue, "process": process}[sys.argv[1]]()
+    {"queue": build_queue, "process": process, "queue_unpaired": queue_unpaired, "process_unpaired": process_unpaired}[sys.argv[1]]()

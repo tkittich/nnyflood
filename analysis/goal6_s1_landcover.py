@@ -23,6 +23,7 @@ from rasterio.merge import merge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from s1_change_detect import load_gistda_mask  # noqa: E402
+from goal6_s1_stage2_water import mosaic_db  # noqa: E402 — ภาพอ้างอิงรวมชิ้นส่วนของวันอ้างอิง (จับคู่ตามวงโคจรสัมพัทธ์)
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data/31_external_landcover/raw"
@@ -173,7 +174,7 @@ def main() -> None:
         pk = max(scenes, key=lambda r: r["water_km2_lowland"])
         grid = json.loads((ST1 / f"grid_{bid}.json").read_text(encoding="utf-8"))
         res["scenes"][bid] = analyse(bid, np.load(ST2 / bid / f"{pk['scene']}_water.npy"),
-                                     np.load(ST1 / bid / f"{pk['reference']}_vh_db.npy"),
+                                     mosaic_db(bid, pk["reference_all"], "vh"),
                                      np.load(ST1 / bid / f"{pk['scene']}_vh_db.npy"),
                                      np.load(ST1 / f"mask_lowland_{bid}.npy"), grid)
         res["scenes"][bid]["peak_scene"] = pk["scene"][12:40]

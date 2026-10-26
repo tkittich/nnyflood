@@ -23,7 +23,7 @@ CORE_MODULES = frozenset({
     "attribution_share.py", "rain_window.py", "all_stations_network.py",
     "archive_forecasts_daily.py", "thachang_leadtime.py",
     # --- ดาวเทียม S1 / S2 / Landsat ---
-    "s1_change_detect.py", "s1_masks.py", "s1_merge_scenes.py", "s1_pairs_animation.py",
+    "s1_change_detect.py", "s1_orbit.py", "s1_masks.py", "s1_merge_scenes.py", "s1_pairs_animation.py",
     "s1_peak_flood_map.py", "s1_process.py", "s2_truecolor_process.py", "s2_water.py",
     "landsat_water.py", "calibrate_s1_thresholds.py",
     # --- geo-referencing / GISTDA ---

@@ -49,32 +49,32 @@
   }
  },
  "flood_peak_km2": {
-  "pasak": 521.0,
-  "maeklong": 73.0,
+  "pasak": 1136.4,
+  "maeklong": 336.9,
   "bp_prach": 1281.6,
-  "thachin": 160.4,
+  "thachin": 1525.5,
   "ping_cp": 2263.6,
   "bkk_lower": 1320.8,
   "bkk_lower_after_sea": 1104.0
  },
  "flood_peak_meta": {
   "pasak": {
-   "scene": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
-   "coverage": 0.53,
-   "utc": "2026-10-01 23:08",
-   "ict": "2026-10-02 06:08",
+   "scene": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
+   "coverage": 0.47,
+   "utc": "2026-09-27 11:28",
+   "ict": "2026-09-27 18:28",
    "same_pass_frames": 2,
-   "same_pass_sum_km2": 521.0,
-   "same_pass_coverage_sum": 0.69
+   "same_pass_sum_km2": 1576.6,
+   "same_pass_coverage_sum": 0.91
   },
   "maeklong": {
-   "scene": "S1D_IW_GRDH_1SDV_20261002T113615_20261002T113640_004836_009162_E9D4_COG",
-   "coverage": 0.43,
-   "utc": "2026-10-02 11:36",
-   "ict": "2026-10-02 18:36",
-   "same_pass_frames": 2,
-   "same_pass_sum_km2": 73.0,
-   "same_pass_coverage_sum": 0.83
+   "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+   "coverage": 0.4,
+   "utc": "2026-10-01 23:08",
+   "ict": "2026-10-02 06:08",
+   "same_pass_frames": 3,
+   "same_pass_sum_km2": 380.3,
+   "same_pass_coverage_sum": 0.6
   },
   "bp_prach": {
    "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
@@ -86,12 +86,12 @@
    "same_pass_coverage_sum": 0.42
   },
   "thachin": {
-   "scene": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
-   "coverage": 0.13,
-   "utc": "2026-10-01 23:08",
-   "ict": "2026-10-02 06:08",
+   "scene": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
+   "coverage": 0.82,
+   "utc": "2026-09-27 11:28",
+   "ict": "2026-09-27 18:28",
    "same_pass_frames": 2,
-   "same_pass_sum_km2": 160.4,
+   "same_pass_sum_km2": 1549.8,
    "same_pass_coverage_sum": 1.0
   },
   "ping_cp": {
@@ -99,9 +99,9 @@
    "coverage": 0.18,
    "utc": "2026-10-01 23:08",
    "ict": "2026-10-02 06:08",
-   "same_pass_frames": 1,
-   "same_pass_sum_km2": 2263.6,
-   "same_pass_coverage_sum": 0.18
+   "same_pass_frames": 2,
+   "same_pass_sum_km2": 2656.6,
+   "same_pass_coverage_sum": 0.32
   },
   "bkk_lower": {
    "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
@@ -755,41 +755,41 @@
   },
   "pasak": {
    "gross": {
-    "pop_areal": 58100,
-    "pop_cells_ge10pct": 126100,
-    "major_km": 110.8,
-    "minor_km": 774.2,
-    "rail_km": 43.6
+    "pop_areal": 183700,
+    "pop_cells_ge10pct": 504100,
+    "major_km": 173.4,
+    "minor_km": 1985.5,
+    "rail_km": 39.0
    },
    "lowland_major_km": 7948.6,
    "lowland_minor_km": 48867.8,
    "lowland_rail_km": 824.9,
    "strict": {
-    "pop_areal": 50400,
-    "pop_cells_ge10pct": 109000,
-    "major_km": 96.2,
-    "minor_km": 684.5,
-    "rail_km": 28.2
+    "pop_areal": 158600,
+    "pop_cells_ge10pct": 444100,
+    "major_km": 157.1,
+    "minor_km": 1807.9,
+    "rail_km": 29.1
    },
    "pop_lowland_covered": 2512000
   },
   "maeklong": {
    "gross": {
-    "pop_areal": 1200,
-    "pop_cells_ge10pct": 3000,
-    "major_km": 0.4,
-    "minor_km": 22.4,
-    "rail_km": 0.0
+    "pop_areal": 55300,
+    "pop_cells_ge10pct": 136400,
+    "major_km": 84.9,
+    "minor_km": 900.6,
+    "rail_km": 7.2
    },
    "lowland_major_km": 6989.6,
    "lowland_minor_km": 47390.6,
    "lowland_rail_km": 534.3,
    "strict": {
-    "pop_areal": 900,
-    "pop_cells_ge10pct": 2000,
-    "major_km": 0.4,
-    "minor_km": 18.1,
-    "rail_km": 0.0
+    "pop_areal": 36300,
+    "pop_cells_ge10pct": 109300,
+    "major_km": 61.9,
+    "minor_km": 628.0,
+    "rail_km": 5.9
    },
    "pop_lowland_covered": 2274000
   },
@@ -815,21 +815,21 @@
   },
   "thachin": {
    "gross": {
-    "pop_areal": 16100,
-    "pop_cells_ge10pct": 46900,
-    "major_km": 12.5,
-    "minor_km": 309.3,
-    "rail_km": 0.0
+    "pop_areal": 241000,
+    "pop_cells_ge10pct": 642600,
+    "major_km": 331.1,
+    "minor_km": 3642.5,
+    "rail_km": 4.8
    },
    "lowland_major_km": 10142.2,
    "lowland_minor_km": 82271.6,
    "lowland_rail_km": 365.7,
    "strict": {
-    "pop_areal": 13600,
-    "pop_cells_ge10pct": 40200,
-    "major_km": 11.7,
-    "minor_km": 282.8,
-    "rail_km": 0.0
+    "pop_areal": 217400,
+    "pop_cells_ge10pct": 584400,
+    "major_km": 303.4,
+    "minor_km": 3298.9,
+    "rail_km": 4.5
    },
    "pop_lowland_covered": 4685000
   },
@@ -943,35 +943,35 @@
   },
   "pasak": {
    "steps_km2": {
-    "gross": 521.0,
-    "minus_worldcover_water": 505.7,
-    "minus_jrc_occ50": 485.1,
-    "minus_already_dark": 442.0
+    "gross": 1136.4,
+    "minus_worldcover_water": 1094.4,
+    "minus_jrc_occ50": 1053.1,
+    "minus_already_dark": 934.2
    },
-   "strict_new_km2": 442.0,
-   "share_on_worldcover_water": 0.029,
-   "share_on_jrc_occ50": 0.063,
-   "share_det_crop": 0.885,
-   "share_base_crop": 0.801,
-   "share_det_built": 0.006,
-   "share_base_built": 0.035,
+   "strict_new_km2": 934.2,
+   "share_on_worldcover_water": 0.037,
+   "share_on_jrc_occ50": 0.064,
+   "share_det_crop": 0.867,
+   "share_base_crop": 0.608,
+   "share_det_built": 0.003,
+   "share_base_built": 0.065,
    "precision_by_class": {},
    "fp_km2_by_class": {}
   },
   "maeklong": {
    "steps_km2": {
-    "gross": 73.0,
-    "minus_worldcover_water": 9.1,
-    "minus_jrc_occ50": 9.1,
-    "minus_already_dark": 6.8
+    "gross": 336.9,
+    "minus_worldcover_water": 323.3,
+    "minus_jrc_occ50": 322.7,
+    "minus_already_dark": 214.6
    },
-   "strict_new_km2": 6.8,
-   "share_on_worldcover_water": 0.875,
-   "share_on_jrc_occ50": 0.872,
-   "share_det_crop": 0.092,
-   "share_base_crop": 0.284,
-   "share_det_built": 0.001,
-   "share_base_built": 0.032,
+   "strict_new_km2": 214.6,
+   "share_on_worldcover_water": 0.04,
+   "share_on_jrc_occ50": 0.028,
+   "share_det_crop": 0.837,
+   "share_base_crop": 0.534,
+   "share_det_built": 0.011,
+   "share_base_built": 0.069,
    "precision_by_class": {},
    "fp_km2_by_class": {}
   },
@@ -994,18 +994,18 @@
   },
   "thachin": {
    "steps_km2": {
-    "gross": 160.4,
-    "minus_worldcover_water": 158.9,
-    "minus_jrc_occ50": 158.6,
-    "minus_already_dark": 139.3
+    "gross": 1525.5,
+    "minus_worldcover_water": 1515.3,
+    "minus_jrc_occ50": 1513.7,
+    "minus_already_dark": 1359.3
    },
-   "strict_new_km2": 139.3,
-   "share_on_worldcover_water": 0.01,
-   "share_on_jrc_occ50": 0.007,
-   "share_det_crop": 0.955,
-   "share_base_crop": 0.797,
-   "share_det_built": 0.002,
-   "share_base_built": 0.04,
+   "strict_new_km2": 1359.3,
+   "share_on_worldcover_water": 0.007,
+   "share_on_jrc_occ50": 0.002,
+   "share_det_crop": 0.94,
+   "share_base_crop": 0.68,
+   "share_det_built": 0.005,
+   "share_base_built": 0.062,
    "precision_by_class": {},
    "fp_km2_by_class": {}
   },
@@ -1084,18 +1084,18 @@
   "control_covered_km2": 293.2,
   "control_per_1000_km2": 14.09,
   "basin_dark_share": {
-   "pasak": 0.136,
-   "maeklong": 0.903,
+   "pasak": 0.164,
+   "maeklong": 0.351,
    "bp_prach": 0.202,
-   "thachin": 0.128,
+   "thachin": 0.102,
    "ping_cp": 0.157,
    "bkk_lower": 0.189
   },
   "basin_net_new_km2": {
-   "pasak": 450.1,
-   "maeklong": 7.1,
+   "pasak": 950.0,
+   "maeklong": 218.6,
    "bp_prach": 1022.7,
-   "thachin": 139.9,
+   "thachin": 1369.9,
    "ping_cp": 1908.2,
    "bkk_lower": 1071.2
   },
@@ -3199,7 +3199,7 @@
   "grid_cell": "ช่องกริด POWER MERRA-2 0.5° lat × 0.625° lon — จุดวัดในช่องเดียวกันได้ค่าเดียวกัน (dedup ตามนี้)",
   "event_over_crit": "จุดวัดที่มีชั่วโมงเกินระดับวิกฤต (ตาม API) ในหน้าต่าง 1 ก.ค.–9 ต.ค. 2569 · นับ 'พีคในระลอก' จาก max_dt ≥ 23 ก.ย.",
   "usable_datum": "จุดที่เกณฑ์วิกฤตใช้ได้ = ไม่เกินวิกฤตทั้งอนุกรม และ max ไม่ต่ำกว่าตลิ่งต่ำสุดของตัวเอง (SUSPECT ทั้งที่เหลือ)",
-  "flood_peak_km2": "พื้นที่น้ำใหม่ (กฎ canonical เทียบฉากก่อนเหตุการณ์) ในที่ราบ <60 ม. · สูงสุดต่อลุ่ม · bkk_after_sea = หลังตัดน้ำถาวรสถิติ",
+  "flood_peak_km2": "พื้นที่น้ำใหม่ (กฎ canonical เทียบฉากก่อนเหตุการณ์) ในที่ราบ <60 ม. · สูงสุดต่อลุ่ม (ฉากอ้างอิง = ฉากล่าสุดของวงโคจรสัมพัทธ์เดียวกันก่อน 24 ก.ย. ตั้งแต่ 27 ต.ค. 69 · เดิมจับตามเวลา HH:MM ซึ่งบางวงได้ฉากระหว่างเหตุการณ์ ค่าเก่าเลิกใช้) · bkk_after_sea = หลังตัดน้ำถาวรสถิติ",
   "days_over_urc": "วันที่น้ำเก็บเกินระดับกำกับบน · 'ทั้งปี' (days_over_urc) ต่างจาก 'ก.ย.–ต.ค.' (days_over_urc_sep_oct) และ 'กลางหน้าฝน' (days_over_urc_aug_sep) — ห้ามสลับ",
   "l3_test_window": "โมเดลทดสอบกลางเหตุการณ์ 20 ก.ย.–9 ต.ค. 2569 (กริดถึง 9 ต.ค. 23:00) · เหตุการณ์ = 25 ก.ย.–9 ต.ค. · ฝึก = ฤดูฝน 2020–2026 ตัดตัวอย่างที่เป้าหมาย +48 ชม. ทับช่วงทดสอบ · เลือกโมเดลด้วยชุดตรวจสอบฤดูปลายฝน 2568 ไม่ใช่ชุดทดสอบ (เฉพาะโมเดล 6 ลุ่ม — ดู l3_coastal_window สำหรับโมเดลปากอ่าว)",
   "l3_coastal_window": "โมเดลปากอ่าว (C.12) ฝึกด้วยข้อมูลปี 2569 เดียว 1 ก.ค.–19 ก.ย. (~47 วัน) · ทดสอบ 20 ก.ย.–2 ต.ค. 13:00 = ครอบคลุม 36.9% ของช่วงที่ประกาศ · สาเหตุที่สิ้นสุด: อนุกรม BKK001 (ต้นน้ำ) สิ้นสุดก่อน C.12/CPY015 (SB F-18) · ทุกระยะใช้ชุดตัวอย่างร่วมกัน · ตัดตัวอย่างฝึกที่เป้าหมายตกในช่วงทดสอบ (purge รายระยะ) · ฐานเทียบมีทั้งค่าเดิมคงที่ธรรมดาและแบบรู้ทะเล h0+Δtide · ฝึกฤดูเดียว — ยังไม่สรุปกำลังสถิติ",
@@ -3216,6 +3216,11 @@
  "retired": {
   "note": "ตัวเลขเก่าที่ถูกแทน — ห้ามปรากฏในรายงาน/HANDOFF/GOAL6_PLAN/START_HERE (เทสตกถ้าเจอ)",
   "retired_values": {
+   "ป่าสัก 521": "27 ต.ค. 69 — ฉากอ้างอิงขั้นที่ 2 เดิมถ่ายระหว่างเหตุการณ์ (จับ HH:MM) น้ำใหม่ต่ำกว่าจริง → จับตามวงโคจรสัมพัทธ์ (docs/S1_REFERENCE_AUDIT_PREREG.md §6)",
+   "ท่าจีน 160": "เดียวกัน (27 ต.ค. 69)",
+   "แม่กลอง 73 ตร.กม.": "เดียวกัน (27 ต.ค. 69)",
+   "แม่กลองส่วนใหญ่เป็นแหล่งน้ำถาวร": "ข้อสรุปจากฉากอ้างอิงผิด — จากการจับตามวงโคจรสัมพัทธ์ แม่กลองมีน้ำใหม่เข้มงวดหลายร้อย ตร.กม. (ดู canonical s1_landcover)",
+   "เกือบทั้งหมดเป็นแหล่งน้ำถาวร": "เดียวกัน",
    "R² = 0.826": "แก้ข้อมูลรั่วเข้าแถวฝึก (purge · รีวิวรอบที่ 5: Claude F-11/DeepSeek F6/Gemini F-12) → ค่าใหม่ที่ +24 ชม. = R² 0.817 · RMSE 0.224 ม.",
    "RMSE = 0.218": "ตัวเลขคู่ในประโยคพาดหัวรายงาน 4 (เดียวกัน — purge) → RMSE ใหม่ที่ +24 ชม. = 0.224 ม.",
    "1.7–7.4 ม.": "บั๊กหน่วยสถานการณ์ปล่อยล่วงหน้า (H5) → ถอน → เพดาน ≤ 0.24 ม. (Sonnet H1)",

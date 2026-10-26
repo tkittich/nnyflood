@@ -43,41 +43,41 @@
   },
   "pasak": {
    "gross": {
-    "pop_areal": 58100,
-    "pop_cells_ge10pct": 126100,
-    "major_km": 110.8,
-    "minor_km": 774.2,
-    "rail_km": 43.6
+    "pop_areal": 183700,
+    "pop_cells_ge10pct": 504100,
+    "major_km": 173.4,
+    "minor_km": 1985.5,
+    "rail_km": 39.0
    },
    "lowland_major_km": 7948.6,
    "lowland_minor_km": 48867.8,
    "lowland_rail_km": 824.9,
    "strict": {
-    "pop_areal": 50400,
-    "pop_cells_ge10pct": 109000,
-    "major_km": 96.2,
-    "minor_km": 684.5,
-    "rail_km": 28.2
+    "pop_areal": 158600,
+    "pop_cells_ge10pct": 444100,
+    "major_km": 157.1,
+    "minor_km": 1807.9,
+    "rail_km": 29.1
    },
    "pop_lowland_covered": 2512000
   },
   "maeklong": {
    "gross": {
-    "pop_areal": 1200,
-    "pop_cells_ge10pct": 3000,
-    "major_km": 0.4,
-    "minor_km": 22.4,
-    "rail_km": 0.0
+    "pop_areal": 55300,
+    "pop_cells_ge10pct": 136400,
+    "major_km": 84.9,
+    "minor_km": 900.6,
+    "rail_km": 7.2
    },
    "lowland_major_km": 6989.6,
    "lowland_minor_km": 47390.6,
    "lowland_rail_km": 534.3,
    "strict": {
-    "pop_areal": 900,
-    "pop_cells_ge10pct": 2000,
-    "major_km": 0.4,
-    "minor_km": 18.1,
-    "rail_km": 0.0
+    "pop_areal": 36300,
+    "pop_cells_ge10pct": 109300,
+    "major_km": 61.9,
+    "minor_km": 628.0,
+    "rail_km": 5.9
    },
    "pop_lowland_covered": 2274000
   },
@@ -103,21 +103,21 @@
   },
   "thachin": {
    "gross": {
-    "pop_areal": 16100,
-    "pop_cells_ge10pct": 46900,
-    "major_km": 12.5,
-    "minor_km": 309.3,
-    "rail_km": 0.0
+    "pop_areal": 241000,
+    "pop_cells_ge10pct": 642600,
+    "major_km": 331.1,
+    "minor_km": 3642.5,
+    "rail_km": 4.8
    },
    "lowland_major_km": 10142.2,
    "lowland_minor_km": 82271.6,
    "lowland_rail_km": 365.7,
    "strict": {
-    "pop_areal": 13600,
-    "pop_cells_ge10pct": 40200,
-    "major_km": 11.7,
-    "minor_km": 282.8,
-    "rail_km": 0.0
+    "pop_areal": 217400,
+    "pop_cells_ge10pct": 584400,
+    "major_km": 303.4,
+    "minor_km": 3298.9,
+    "rail_km": 4.5
    },
    "pop_lowland_covered": 4685000
   },

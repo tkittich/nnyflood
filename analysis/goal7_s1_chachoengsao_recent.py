@@ -22,6 +22,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from s1_orbit import rel_orbit, start_of  # noqa: E402,F401
 ROOT = Path(__file__).resolve().parent.parent
 RAW_OLD = ROOT / "data/22_goal6_network/raw/s1_2026"
 RAW_NEW = ROOT / "data/22_goal6_network/raw/s1_recent"
@@ -36,20 +37,6 @@ AOI_WKT = "POLYGON((101.0 13.45, 101.6 13.45, 101.6 13.95, 101.0 13.95, 101.0 13
 NEW_FROM, NEW_TO = "2026-10-04T00:00:00.000Z", "2026-10-28T00:00:00.000Z"
 REF_BEFORE = "2026-09-24T00:00:00"          # ฉากอ้างอิง = ถ่ายก่อนเวลานี้ (UTC)
 CELL_KM2 = 0.0009
-OFFSET = {"A": 73, "B": 27, "C": 172, "D": 73}   # ค่าชดเชยเลขวงโคจรสัมบูรณ์ → สัมพัทธ์ (S1C, S1D ใช้วงเดียวกันได้)
-
-
-def rel_orbit(name: str) -> int:
-    ab = int(re.search(r"_(\d{6})_[0-9A-F]{6}_", name).group(1))
-    return (ab - OFFSET[name[2]]) % 175 + 1
-
-
-def start_of(name: str) -> str:
-    m = re.search(r"_(\d{8})T(\d{6})_", name)
-    d, t = m.group(1), m.group(2)
-    return f"{d[:4]}-{d[4:6]}-{d[6:]}T{t[:2]}:{t[2:4]}:{t[4:]}"
-
-
 def query_aoi(wkt: str, a: str, b: str) -> list[dict]:
     """ค้นคลัง CDSE (ไม่ต้องใช้กุญแจ): ฉาก IW GRDH แบบ COG ที่ทับรูปหลายเหลี่ยม wkt และเริ่มถ่ายระหว่าง a ถึง b"""
     filt = ("Collection/Name eq 'SENTINEL-1' and "

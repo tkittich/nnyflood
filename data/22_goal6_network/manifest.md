@@ -81,8 +81,8 @@
   (~26 GB — derived ทำซ้ำได้ ไม่แฮชรายไฟล์) · รันเชิงขนาน: 8 workers เกิด memory thrashing
   (CPU 17% · 3.8 job/ชม.) → **5 workers** แก้แล้ว (บทเรียน memory-bound)
 - **stage-2** (`analysis/goal6_s1_stage2_water.py`): ตัดน้ำกฎ canonical (`s1_change_detect.detect` —
-  ΔVH≤−0.5/ΔVV≤−1.5/VH≤−20 + opening 3×3 ใน lowland) · จับคู่วงโคจรด้วยเวลาสัมผัส HH:MM ·
-  อ้างอิง = ฉากเร็วสุดของแต่ละวง (19–20 ก.ย. ทุกวงที่มีงาน) · output `derived/s1_stage2/<basin>/`
+  ΔVH≤−0.5/ΔVV≤−1.5/VH≤−20 + opening 3×3 ใน lowland) · จับคู่ตามเลขวงโคจรสัมพัทธ์ (ปรับ 27 ต.ค. 69; เดิมใช้เวลา HH:MM) ·
+  อ้างอิง = ฉากล่าสุดของวงนั้นก่อน 24 ก.ย. (รวมฉากเสริมที่ถ่าย 12–16 ก.ย. ใน `derived/s1_audit_stage1`) · output `derived/s1_stage2/<basin>/`
   (~3.2 GB) + `summary.json` + MD รายลุ่ม
 
 **พื้นที่น้ำท่วมสูงสุดรายลุ่ม (ฉากพีค 1 ต.ค. 69 ตรงกันทั้งประเทศ — ตามหลังฝนพีค 26–27 ก.ย.):**

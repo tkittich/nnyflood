@@ -370,138 +370,128 @@
    "gsw_tiles": [
     "occurrence_100E_20Nv1_4_2021.tif"
    ],
-   "covered_lowland_km2": 5801.9,
+   "covered_lowland_km2": 7669.8,
    "steps_km2": {
-    "gross": 521.0,
-    "minus_worldcover_water": 505.7,
-    "minus_jrc_occ50": 485.1,
-    "minus_already_dark": 442.0
+    "gross": 1136.4,
+    "minus_worldcover_water": 1094.4,
+    "minus_jrc_occ50": 1053.1,
+    "minus_already_dark": 934.2
    },
-   "share_on_worldcover_water": 0.029,
-   "share_on_jrc_occ50": 0.063,
-   "share_already_dark": 0.136,
+   "share_on_worldcover_water": 0.037,
+   "share_on_jrc_occ50": 0.064,
+   "share_already_dark": 0.164,
    "baseline_composition": {
     "10": {
      "name": "ป่า/ไม้ยืนต้น",
-     "km2": 641.1,
-     "share": 0.111
+     "km2": 1663.1,
+     "share": 0.217
     },
     "20": {
      "name": "ไม้พุ่ม",
-     "km2": 0.5,
+     "km2": 0.7,
      "share": 0.0
     },
     "30": {
      "name": "ทุ่งหญ้า",
-     "km2": 195.5,
-     "share": 0.034
+     "km2": 573.8,
+     "share": 0.075
     },
     "40": {
      "name": "พื้นที่เพาะปลูก (นา/ไร่)",
-     "km2": 4644.8,
-     "share": 0.801
+     "km2": 4661.2,
+     "share": 0.608
     },
     "50": {
      "name": "พื้นที่ก่อสร้าง",
-     "km2": 205.7,
-     "share": 0.035
+     "km2": 497.7,
+     "share": 0.065
     },
     "60": {
      "name": "ดินเปล่า",
-     "km2": 13.5,
-     "share": 0.002
+     "km2": 47.9,
+     "share": 0.006
     },
     "80": {
      "name": "แหล่งน้ำถาวร",
-     "km2": 95.0,
-     "share": 0.016
+     "km2": 197.2,
+     "share": 0.026
     },
     "90": {
      "name": "พื้นที่ชุ่มน้ำ",
-     "km2": 5.8,
-     "share": 0.001
+     "km2": 28.2,
+     "share": 0.004
     }
    },
    "detected_composition": {
     "10": {
      "name": "ป่า/ไม้ยืนต้น",
-     "km2": 19.4,
-     "share": 0.037
-    },
-    "20": {
-     "name": "ไม้พุ่ม",
-     "km2": 0.0,
-     "share": 0.0
+     "km2": 33.1,
+     "share": 0.029
     },
     "30": {
      "name": "ทุ่งหญ้า",
-     "km2": 19.5,
-     "share": 0.037
+     "km2": 59.6,
+     "share": 0.052
     },
     "40": {
      "name": "พื้นที่เพาะปลูก (นา/ไร่)",
-     "km2": 460.9,
-     "share": 0.885
+     "km2": 985.4,
+     "share": 0.867
     },
     "50": {
      "name": "พื้นที่ก่อสร้าง",
-     "km2": 3.3,
-     "share": 0.006
+     "km2": 2.9,
+     "share": 0.003
     },
     "60": {
      "name": "ดินเปล่า",
-     "km2": 0.5,
-     "share": 0.001
+     "km2": 2.5,
+     "share": 0.002
     },
     "80": {
      "name": "แหล่งน้ำถาวร",
-     "km2": 15.3,
-     "share": 0.029
+     "km2": 42.0,
+     "share": 0.037
     },
     "90": {
      "name": "พื้นที่ชุ่มน้ำ",
-     "km2": 2.0,
-     "share": 0.004
+     "km2": 10.9,
+     "share": 0.01
     }
    },
    "strict_new_composition": {
     "10": {
      "name": "ป่า/ไม้ยืนต้น",
-     "km2": 15.9,
-     "share": 0.036
-    },
-    "20": {
-     "name": "ไม้พุ่ม",
-     "km2": 0.0,
-     "share": 0.0
+     "km2": 30.1,
+     "share": 0.032
     },
     "30": {
      "name": "ทุ่งหญ้า",
-     "km2": 9.6,
-     "share": 0.022
+     "km2": 33.3,
+     "share": 0.036
     },
     "40": {
      "name": "พื้นที่เพาะปลูก (นา/ไร่)",
-     "km2": 412.3,
-     "share": 0.933
+     "km2": 860.1,
+     "share": 0.921
     },
     "50": {
      "name": "พื้นที่ก่อสร้าง",
      "km2": 2.7,
-     "share": 0.006
+     "share": 0.003
     },
     "60": {
      "name": "ดินเปล่า",
-     "km2": 0.4,
-     "share": 0.001
+     "km2": 1.6,
+     "share": 0.002
     },
     "90": {
      "name": "พื้นที่ชุ่มน้ำ",
-     "km2": 1.1,
-     "share": 0.002
+     "km2": 6.5,
+     "share": 0.007
     }
    },
-   "peak_scene": "1SDV_20261001T230815_2026100"
+   "peak_scene": "1SDV_20260927T112830_2026092"
   },
   "maeklong": {
    "scene": "maeklong",
@@ -513,138 +503,143 @@
     "occurrence_100E_20Nv1_4_2021.tif",
     "occurrence_90E_20Nv1_4_2021.tif"
    ],
-   "covered_lowland_km2": 4215.1,
+   "covered_lowland_km2": 7517.6,
    "steps_km2": {
-    "gross": 73.0,
-    "minus_worldcover_water": 9.1,
-    "minus_jrc_occ50": 9.1,
-    "minus_already_dark": 6.8
+    "gross": 336.9,
+    "minus_worldcover_water": 323.3,
+    "minus_jrc_occ50": 322.7,
+    "minus_already_dark": 214.6
    },
-   "share_on_worldcover_water": 0.875,
-   "share_on_jrc_occ50": 0.872,
-   "share_already_dark": 0.903,
+   "share_on_worldcover_water": 0.04,
+   "share_on_jrc_occ50": 0.028,
+   "share_already_dark": 0.351,
    "baseline_composition": {
     "10": {
      "name": "ป่า/ไม้ยืนต้น",
-     "km2": 1406.7,
-     "share": 0.334
+     "km2": 1834.4,
+     "share": 0.244
     },
     "20": {
      "name": "ไม้พุ่ม",
-     "km2": 0.0,
+     "km2": 0.8,
      "share": 0.0
     },
     "30": {
      "name": "ทุ่งหญ้า",
-     "km2": 452.5,
+     "km2": 806.1,
      "share": 0.107
     },
     "40": {
      "name": "พื้นที่เพาะปลูก (นา/ไร่)",
-     "km2": 1199.0,
-     "share": 0.284
+     "km2": 4013.5,
+     "share": 0.534
     },
     "50": {
      "name": "พื้นที่ก่อสร้าง",
-     "km2": 136.7,
-     "share": 0.032
+     "km2": 515.3,
+     "share": 0.069
     },
     "60": {
      "name": "ดินเปล่า",
-     "km2": 23.8,
-     "share": 0.006
+     "km2": 58.6,
+     "share": 0.008
     },
     "80": {
      "name": "แหล่งน้ำถาวร",
-     "km2": 842.5,
-     "share": 0.2
+     "km2": 239.2,
+     "share": 0.032
     },
     "90": {
      "name": "พื้นที่ชุ่มน้ำ",
-     "km2": 4.2,
-     "share": 0.001
+     "km2": 20.5,
+     "share": 0.003
     },
     "95": {
      "name": "ป่าชายเลน",
-     "km2": 149.8,
-     "share": 0.036
+     "km2": 24.2,
+     "share": 0.003
     }
    },
    "detected_composition": {
     "10": {
      "name": "ป่า/ไม้ยืนต้น",
-     "km2": 1.2,
-     "share": 0.016
+     "km2": 15.6,
+     "share": 0.046
     },
     "30": {
      "name": "ทุ่งหญ้า",
-     "km2": 0.9,
-     "share": 0.013
+     "km2": 13.3,
+     "share": 0.039
     },
     "40": {
      "name": "พื้นที่เพาะปลูก (นา/ไร่)",
-     "km2": 6.7,
-     "share": 0.092
+     "km2": 281.9,
+     "share": 0.837
     },
     "50": {
      "name": "พื้นที่ก่อสร้าง",
-     "km2": 0.0,
-     "share": 0.001
+     "km2": 3.8,
+     "share": 0.011
     },
     "60": {
      "name": "ดินเปล่า",
-     "km2": 0.2,
-     "share": 0.002
+     "km2": 2.8,
+     "share": 0.008
     },
     "80": {
      "name": "แหล่งน้ำถาวร",
-     "km2": 63.8,
-     "share": 0.875
+     "km2": 13.6,
+     "share": 0.04
     },
     "90": {
      "name": "พื้นที่ชุ่มน้ำ",
-     "km2": 0.0,
-     "share": 0.0
+     "km2": 5.3,
+     "share": 0.016
     },
     "95": {
      "name": "ป่าชายเลน",
-     "km2": 0.0,
-     "share": 0.001
+     "km2": 0.1,
+     "share": 0.0
     }
    },
    "strict_new_composition": {
     "10": {
      "name": "ป่า/ไม้ยืนต้น",
-     "km2": 0.9,
-     "share": 0.129
+     "km2": 12.3,
+     "share": 0.057
     },
     "30": {
      "name": "ทุ่งหญ้า",
-     "km2": 0.6,
-     "share": 0.093
+     "km2": 10.3,
+     "share": 0.048
     },
     "40": {
      "name": "พื้นที่เพาะปลูก (นา/ไร่)",
-     "km2": 5.1,
-     "share": 0.755
+     "km2": 184.1,
+     "share": 0.858
     },
     "50": {
      "name": "พื้นที่ก่อสร้าง",
-     "km2": 0.0,
-     "share": 0.004
+     "km2": 3.0,
+     "share": 0.014
     },
     "60": {
      "name": "ดินเปล่า",
-     "km2": 0.1,
-     "share": 0.018
+     "km2": 1.5,
+     "share": 0.007
+    },
+    "90": {
+     "name": "พื้นที่ชุ่มน้ำ",
+     "km2": 2.8,
+     "share": 0.013
     },
     "95": {
      "name": "ป่าชายเลน",
      "km2": 0.0,
-     "share": 0.001
+     "share": 0.0
     }
    },
-   "peak_scene": "1SDV_20261002T113615_2026100"
+   "peak_scene": "1SDV_20261001T230840_2026100"
   },
   "bp_prach": {
    "scene": "bp_prach",
@@ -803,128 +798,138 @@
     "occurrence_100E_20Nv1_4_2021.tif",
     "occurrence_90E_20Nv1_4_2021.tif"
    ],
-   "covered_lowland_km2": 1458.0,
+   "covered_lowland_km2": 9891.7,
    "steps_km2": {
-    "gross": 160.4,
-    "minus_worldcover_water": 158.9,
-    "minus_jrc_occ50": 158.6,
-    "minus_already_dark": 139.3
+    "gross": 1525.5,
+    "minus_worldcover_water": 1515.3,
+    "minus_jrc_occ50": 1513.7,
+    "minus_already_dark": 1359.3
    },
-   "share_on_worldcover_water": 0.01,
-   "share_on_jrc_occ50": 0.007,
-   "share_already_dark": 0.128,
+   "share_on_worldcover_water": 0.007,
+   "share_on_jrc_occ50": 0.002,
+   "share_already_dark": 0.102,
    "baseline_composition": {
     "10": {
      "name": "ป่า/ไม้ยืนต้น",
-     "km2": 165.0,
-     "share": 0.113
+     "km2": 1304.7,
+     "share": 0.132
     },
     "20": {
      "name": "ไม้พุ่ม",
-     "km2": 0.1,
+     "km2": 0.5,
      "share": 0.0
     },
     "30": {
      "name": "ทุ่งหญ้า",
-     "km2": 52.0,
-     "share": 0.036
+     "km2": 903.8,
+     "share": 0.091
     },
     "40": {
      "name": "พื้นที่เพาะปลูก (นา/ไร่)",
-     "km2": 1162.0,
-     "share": 0.797
+     "km2": 6726.7,
+     "share": 0.68
     },
     "50": {
      "name": "พื้นที่ก่อสร้าง",
-     "km2": 58.1,
-     "share": 0.04
+     "km2": 611.6,
+     "share": 0.062
     },
     "60": {
      "name": "ดินเปล่า",
-     "km2": 5.1,
-     "share": 0.003
+     "km2": 117.2,
+     "share": 0.012
     },
     "80": {
      "name": "แหล่งน้ำถาวร",
-     "km2": 10.4,
-     "share": 0.007
+     "km2": 197.3,
+     "share": 0.02
     },
     "90": {
      "name": "พื้นที่ชุ่มน้ำ",
-     "km2": 5.2,
-     "share": 0.004
+     "km2": 29.9,
+     "share": 0.003
     }
    },
    "detected_composition": {
     "10": {
      "name": "ป่า/ไม้ยืนต้น",
-     "km2": 1.8,
-     "share": 0.011
+     "km2": 21.2,
+     "share": 0.014
+    },
+    "20": {
+     "name": "ไม้พุ่ม",
+     "km2": 0.0,
+     "share": 0.0
     },
     "30": {
      "name": "ทุ่งหญ้า",
-     "km2": 1.9,
-     "share": 0.012
+     "km2": 36.3,
+     "share": 0.024
     },
     "40": {
      "name": "พื้นที่เพาะปลูก (นา/ไร่)",
-     "km2": 153.2,
-     "share": 0.955
+     "km2": 1433.7,
+     "share": 0.94
     },
     "50": {
      "name": "พื้นที่ก่อสร้าง",
-     "km2": 0.4,
-     "share": 0.002
+     "km2": 8.0,
+     "share": 0.005
     },
     "60": {
      "name": "ดินเปล่า",
-     "km2": 0.3,
-     "share": 0.002
+     "km2": 6.4,
+     "share": 0.004
     },
     "80": {
      "name": "แหล่งน้ำถาวร",
-     "km2": 1.6,
-     "share": 0.01
+     "km2": 10.1,
+     "share": 0.007
     },
     "90": {
      "name": "พื้นที่ชุ่มน้ำ",
-     "km2": 1.4,
-     "share": 0.008
+     "km2": 9.8,
+     "share": 0.006
     }
    },
    "strict_new_composition": {
     "10": {
      "name": "ป่า/ไม้ยืนต้น",
-     "km2": 1.6,
-     "share": 0.012
+     "km2": 19.4,
+     "share": 0.014
+    },
+    "20": {
+     "name": "ไม้พุ่ม",
+     "km2": 0.0,
+     "share": 0.0
     },
     "30": {
      "name": "ทุ่งหญ้า",
-     "km2": 1.6,
-     "share": 0.012
+     "km2": 33.4,
+     "share": 0.025
     },
     "40": {
      "name": "พื้นที่เพาะปลูก (นา/ไร่)",
-     "km2": 134.4,
-     "share": 0.965
+     "km2": 1284.9,
+     "share": 0.945
     },
     "50": {
      "name": "พื้นที่ก่อสร้าง",
-     "km2": 0.4,
-     "share": 0.003
+     "km2": 7.5,
+     "share": 0.005
     },
     "60": {
      "name": "ดินเปล่า",
-     "km2": 0.1,
-     "share": 0.001
+     "km2": 5.4,
+     "share": 0.004
     },
     "90": {
      "name": "พื้นที่ชุ่มน้ำ",
-     "km2": 1.1,
-     "share": 0.008
+     "km2": 8.6,
+     "share": 0.006
     }
    },
-   "peak_scene": "1SDV_20261001T230815_2026100"
+   "peak_scene": "1SDV_20260927T112830_2026092"
   },
   "ping_cp": {
    "scene": "ping_cp",

@@ -93,6 +93,8 @@ _l3s = _can["l3_summary"]
 _fm = _can["flood_peak_meta"]
 _rv = _can["s1_rule"]
 _lc = _can["s1_landcover"]
+_TH = {"pasak": "ป่าสัก", "maeklong": "แม่กลอง", "bp_prach": "บางปะกง", "thachin": "ท่าจีน", "ping_cp": "ปิง–เจ้าพระยา", "bkk_lower": "กรุงเทพฯ ตอนล่าง"}
+_bw = max((k for k in _lc if not k.startswith("nn_")), key=lambda k: _lc[k]["share_on_worldcover_water"])   # ลุ่มที่สัดส่วนตกบนน้ำถาวรสูงสุด (อ่านจากข้อมูล ไม่ฝังชื่อ)
 _nmr = _can.get("national_medium_reservoirs", {})
 _ps24 = _can.get("pasak_24y_baseline", {})
 _RULE_SENT = (
@@ -151,7 +153,8 @@ S.insert(1, note(
     f"ทุ่งรับน้ำรอบนอก กทม. {_fl['bkk_lower_after_sea']:,.0f} (หลังตัดน้ำถาวรหลายฉาก) → {_lc['bkk_lower']['strict_new_km2']:,.0f} · "
     f"บางปะกง {_fl['bp_prach']:,.0f} → {_lc['bp_prach']['strict_new_km2']:,.0f} · ป่าสัก {_fl['pasak']:.0f} → {_lc['pasak']['strict_new_km2']:.0f} · "
     f"ท่าจีน {_fl['thachin']:.0f} → {_lc['thachin']['strict_new_km2']:.0f} · แม่กลอง {_fl['maeklong']:.0f} → {_lc['maeklong']['strict_new_km2']:.0f} "
-    f"(แม่กลองเกือบทั้งหมดเป็นแหล่งน้ำถาวร — อย่านำไปเทียบกับลุ่มอื่น) · "
+    + "".join(f"({_TH[k]}ส่วนใหญ่ตกบนแหล่งน้ำถาวร — อย่านำไปเทียบกับลุ่มอื่น) · " for k, v in _lc.items() if not k.startswith("nn_") and v["share_on_worldcover_water"] > 0.5)
+    + "· ฉากอ้างอิงจับตามวงโคจรสัมพัทธ์ (ฉากล่าสุดก่อน 24 ก.ย.) · "
     f"เลื่อนเกณฑ์ความมืดเรดาร์ ±2 หน่วย พื้นที่เปลี่ยน ±25–35% — อ่านเป็นช่วง ไม่ใช่ตัวเลขเดียว"
 ))
 S.insert(2, note(
@@ -804,8 +807,8 @@ S.append(prose(
     "(3.1) หน้าต่างฝนของปี 2569 จบ 9 ต.ค. (ข้อมูลกริดมีถึง 7 ต.ค.) ขณะที่ปีอื่นนับถึง 31 ต.ค. — ทิศเอียง<b>สวน</b>ปี 2569 (ระลอกยังเดินต่อได้อีก ~3 สัปดาห์โดยไม่ถูกนับ) จึงเป็นค่าประมาณต่ำสุด · "
     "ใช้ได้เชิงคุณภาพเท่านั้น (5) ความครอบคลุมข้อมูลรายชั่วโมงรายจุดไม่เท่ากัน (จำนวนชม.มีค่าแสดงในตาราง) (6) <b>การตรวจยืนยันอิสระเชิงพื้นที่</b> — Sentinel-2 ทั้ง 9 ฉากที่โปร่งที่สุดมีเมฆปิดในบริเวณเป้าหมาย (มรสุมปลาย ก.ย.) · ตัวเลขน้ำท่วมรายฉากจึงยืนบน S1 เรดาร์เดี่ยว + ความสอดคล้องเชิงเวลากับระดับน้ำจุดวัด · และได้รับการสอบเทียบยืนยันภาพรวมสะสม 30 วันกับระบบสารสนเทศภัยพิบัติ GISTDA (ผสาน 34 วงโคจร 7 ดาวเทียม: เจ้าพระยา 2,879 ตร.กม. · บางปะกง 1,443 ตร.กม. · นครนายก 350 ตร.กม.) ซึ่งยืนยันว่าการตรวจพบรายฉากเดี่ยวของโครงการทำหน้าที่เป็นขอบล่างของพื้นที่น้ำท่วมสะสมจริง "
     "(7) <b>ความแม่นของกฎตัดน้ำ</b> — " + _RULE_SENT + f" · สัดส่วนน้ำใหม่ที่ภาพก่อนเหตุการณ์มืดอยู่แล้ว: นครนายก {_rv['nn_dark_share']['oct2']:.0%}–{_rv['nn_dark_share']['peak_27sep']:.0%}, "
-    f"รายลุ่ม {min(_rv['basin_dark_share'].values()):.0%}–{max(_rv['basin_dark_share'].values()):.0%} (แม่กลอง {_rv['basin_dark_share']['maeklong']:.0%} → น้ำใหม่เข้มงวดเหลือ ~{_lc['maeklong']['strict_new_km2']:.0f} ตร.กม. เพราะ {_lc['maeklong']['share_on_worldcover_water']:.0%} ตกบนแหล่งน้ำที่แผนที่ผิวดินระบุเป็นน้ำถาวร) · "
-    f"<b>ตามผิวดิน</b>: ที่ตรวจพบอยู่บนพื้นที่เพาะปลูก {min(v['share_det_crop'] for k, v in _lc.items() if not k.startswith('nn_') and k != 'maeklong'):.0%}–{max(v['share_det_crop'] for k, v in _lc.items() if not k.startswith('nn_') and k != 'maeklong'):.0%} "
+    f"รายลุ่ม {min(_rv['basin_dark_share'].values()):.0%}–{max(_rv['basin_dark_share'].values()):.0%} ({_TH[_bw]} {_rv['basin_dark_share'][_bw]:.0%} → น้ำใหม่เข้มงวดเหลือ ~{_lc[_bw]['strict_new_km2']:.0f} ตร.กม. ในลุ่มที่สัดส่วนตกบนแหล่งน้ำที่แผนที่ผิวดินระบุเป็นน้ำถาวรสูงสุด ({_lc[_bw]['share_on_worldcover_water']:.0%})) · "
+    f"<b>ตามผิวดิน</b>: ที่ตรวจพบอยู่บนพื้นที่เพาะปลูก {min(v['share_det_crop'] for k, v in _lc.items() if not k.startswith('nn_')):.0%}–{max(v['share_det_crop'] for k, v in _lc.items() if not k.startswith('nn_')):.0%} "
     "— ระบบแยก \"นาที่ถูกน้ำท่วมจริง\" ออกจาก \"นาที่ขังน้ำตามฤดู/ปล่อยน้ำเข้านา\" ไม่ได้ · พื้นที่ก่อสร้างเป็น "
     f"{min(v['share_base_built'] for k, v in _lc.items() if not k.startswith('nn_')):.0%}–{max(v['share_base_built'] for k, v in _lc.items() if not k.startswith('nn_')):.0%} ของที่ราบ แต่ได้เพียง "
     f"{max(v['share_det_built'] for k, v in _lc.items()):.0%} ของที่ตรวจพบ (น้ำท่วมในเมืองเรดาร์ตรวจไม่เห็นเป็นหลัก — ตัวเลขกรุงเทพฯ จึงต่ำกว่าจริงในส่วนเมือง) · "

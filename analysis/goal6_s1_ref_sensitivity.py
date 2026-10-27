@@ -22,7 +22,8 @@ from s1_orbit import rel_orbit  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 STAGE1 = ROOT / "data/22_goal6_network/derived/s1_stage1"
 SUMMARY = ROOT / "data/22_goal6_network/derived/s1_stage2/summary.json"
-LABELS = {"bp_prach": "บางปะกง–ปราจีนบุรี", "pasak": "ป่าสัก"}
+LABELS = {"bp_prach": "บางปะกง–ปราจีนบุรี", "pasak": "ป่าสัก", "maeklong": "แม่กลอง", "thachin": "ท่าจีน",
+          "ping_cp": "ปิง–เจ้าพระยาตอนบน", "bkk_lower": "เจ้าพระยาตอนล่าง–กทม."}
 CELL_KM2 = 0.0009
 LABEL_PCT = 10.0                           # ป้ายอ่านตารางเท่านั้น
 
@@ -34,7 +35,8 @@ def main(bid: str = SENS_BASIN) -> None:
     plan = {p["rel"]: p for p in json.loads(queue_sens_path(bid).read_text(encoding="utf-8"))["plan"]}
     rec = json.loads(SUMMARY.read_text(encoding="utf-8"))[bid]
     low = np.load(STAGE1 / f"mask_lowland_{bid}.npy")
-    rule = "docs/S1_PASS_MOSAIC_PREREG.md §3" if bid == SENS_BASIN else "docs/S1_REF_SENSITIVITY_PASAK_PREREG.md"
+    rule = ("docs/S1_PASS_MOSAIC_PREREG.md §3" if bid == SENS_BASIN else
+            "docs/S1_REF_SENSITIVITY_PASAK_PREREG.md" if bid == "pasak" else "docs/S1_REF_SENSITIVITY_REST_PREREG.md")
     rows, alt_cache = [], {}
     for r in rec["scenes"]:
         rel = rel_orbit(r["scene"])

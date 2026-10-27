@@ -1,0 +1,88 @@
+{
+ "rule": "docs/S1_REF_SENSITIVITY_REST_PREREG.md",
+ "summary": {
+  "basin": "ping_cp",
+  "n_event_passes": 4,
+  "n_control_passes": 2,
+  "peak_primary_km2": 2656.6,
+  "peak_alt_ref_km2": 2907.2,
+  "peak_change_pct": 9.4,
+  "label_sensitive_to_reference": false,
+  "control_alt_km2_range": [
+   0.0,
+   1070.7
+  ],
+  "per_pass_change_pct_range": [
+   7.4,
+   24.2
+  ]
+ },
+ "passes": [
+  {
+   "scene": "1SDV_20260919T230750_2026091",
+   "date": "20260919",
+   "rel_orbit": 31,
+   "role": "control_primary_reference_pass",
+   "primary_km2": 0.0,
+   "alt_ref_km2": 1070.7,
+   "alt_ref_day": "2026-09-07",
+   "coverage": 0.32,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20261001T230750_2026100",
+   "date": "20261001",
+   "rel_orbit": 31,
+   "role": "event_or_after",
+   "primary_km2": 2656.6,
+   "alt_ref_km2": 2907.2,
+   "alt_ref_day": "2026-09-07",
+   "coverage": 0.32,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20260920T113705_2026092",
+   "date": "20260920",
+   "rel_orbit": 39,
+   "role": "control_primary_reference_pass",
+   "primary_km2": 0.0,
+   "alt_ref_km2": 0.0,
+   "alt_ref_day": "2026-09-08",
+   "coverage": 0.105,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20261002T113705_2026100",
+   "date": "20261002",
+   "rel_orbit": 39,
+   "role": "event_or_after",
+   "primary_km2": 0.0,
+   "alt_ref_km2": 0.0,
+   "alt_ref_day": "2026-09-08",
+   "coverage": 0.105,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20260924T231551_2026092",
+   "date": "20260924",
+   "rel_orbit": 104,
+   "role": "event_or_after",
+   "primary_km2": 256.1,
+   "alt_ref_km2": 318.1,
+   "alt_ref_day": "2026-08-31",
+   "coverage": 0.363,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20260927T112855_2026092",
+   "date": "20260927",
+   "rel_orbit": 141,
+   "role": "event_or_after",
+   "primary_km2": 2383.9,
+   "alt_ref_km2": 2561.0,
+   "alt_ref_day": "2026-09-03",
+   "coverage": 0.527,
+   "status": "ok"
+  }
+ ]
+}

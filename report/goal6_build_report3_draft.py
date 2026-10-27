@@ -115,12 +115,14 @@ def _rs_sent(_rs, rule):
 
 _rs = _can.get("s1_ref_sensitivity")
 _RS_SENT = ("" if not _rs else _rs_sent(_rs, "docs/S1_PASS_MOSAIC_PREREG.md")) + "".join(
-    _rs_sent(v, "docs/S1_REF_SENSITIVITY_PASAK_PREREG.md") for v in _can.get("s1_ref_sensitivity_other", {}).values())
+    _rs_sent(v, "docs/S1_REF_SENSITIVITY_PASAK_PREREG.md" if v["basin"] == "pasak" else "docs/S1_REF_SENSITIVITY_REST_PREREG.md")
+    for v in _can.get("s1_ref_sensitivity_other", {}).values())
 _rs_done = ([_rs["basin"]] if _rs else []) + list(_can.get("s1_ref_sensitivity_other", {}))
 _rs_all = [k for k in _can["flood_peak_km2"] if not k.endswith("_after_sea")]
 if _rs_done:
     _RS_SENT += (f" · <b>ขอบเขตการทดสอบ:</b> ทดสอบความไวต่อวันของฉากอ้างอิงแล้ว {len(_rs_done)} จาก {len(_rs_all)} ลุ่ม ({', '.join(_TH[b] for b in _rs_done)}) — "
-                 f"อีก {len(_rs_all) - len(_rs_done)} ลุ่ม ({', '.join(_TH[b] for b in _rs_all if b not in _rs_done)}) ค่าสูงสุดอ่านจากฉากอ้างอิงหลักเท่านั้น ยังไม่ทราบว่าไวต่อวันอ้างอิงเพียงใด")
+                 + (f"อีก {len(_rs_all) - len(_rs_done)} ลุ่ม ({', '.join(_TH[b] for b in _rs_all if b not in _rs_done)}) ค่าสูงสุดอ่านจากฉากอ้างอิงหลักเท่านั้น ยังไม่ทราบว่าไวต่อวันอ้างอิงเพียงใด"
+                    if len(_rs_done) < len(_rs_all) else "ครบทุกลุ่มแล้ว · ลุ่มที่ป้าย <b>ไวต่อฉากอ้างอิง</b> ให้อ่านค่าสูงสุดเป็นช่วงระหว่างค่าฉากหลักกับค่าฉากทางเลือก"))
 _bw = max((k for k in _lc if not k.startswith("nn_")), key=lambda k: _lc[k]["share_on_worldcover_water"])   # ลุ่มที่สัดส่วนตกบนน้ำถาวรสูงสุด (อ่านจากข้อมูล ไม่ฝังชื่อ)
 _nmr = _can.get("national_medium_reservoirs", {})
 _ps24 = _can.get("pasak_24y_baseline", {})

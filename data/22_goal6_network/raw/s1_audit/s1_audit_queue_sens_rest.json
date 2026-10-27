@@ -1,0 +1,62 @@
+{
+ "note": "รวมฉากอ้างอิงทางเลือกของแม่กลอง ท่าจีน ปิง–เจ้าพระยา (docs/S1_REF_SENSITIVITY_REST_PREREG.md)",
+ "basins": {
+  "ความไว": [
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260831T231550_20260831T231615_004376_00815F_B8D8_COG.SAFE",
+    "start": "2026-08-31T23:15:50",
+    "content_length_mb": 1302
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260831T231615_20260831T231640_004376_00815F_5435_COG.SAFE",
+    "start": "2026-08-31T23:16:15",
+    "content_length_mb": 1282
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260831T231640_20260831T231705_004376_00815F_0D36_COG.SAFE",
+    "start": "2026-08-31T23:16:40",
+    "content_length_mb": 1209
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260831T231705_20260831T231730_004376_00815F_E214_COG.SAFE",
+    "start": "2026-08-31T23:17:05",
+    "content_length_mb": 1070
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260903T112920_20260903T112945_004413_0082B1_E0B2_COG.SAFE",
+    "start": "2026-09-03T11:29:20",
+    "content_length_mb": 1281
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260907T230750_20260907T230815_004478_0084F9_355A_COG.SAFE",
+    "start": "2026-09-07T23:07:50",
+    "content_length_mb": 1285
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260907T230905_20260907T230930_004478_0084F9_72A3_COG.SAFE",
+    "start": "2026-09-07T23:09:05",
+    "content_length_mb": 1135
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260908T113614_20260908T113639_004486_008541_B237_COG.SAFE",
+    "start": "2026-09-08T11:36:14",
+    "content_length_mb": 1174
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260908T113639_20260908T113704_004486_008541_5526_COG.SAFE",
+    "start": "2026-09-08T11:36:39",
+    "content_length_mb": 1205
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260908T113704_20260908T113729_004486_008541_872A_COG.SAFE",
+    "start": "2026-09-08T11:37:04",
+    "content_length_mb": 1217
+   },
+   {
+    "name": "S1D_IW_GRDH_1SDV_20260908T113729_20260908T113754_004486_008541_C400_COG.SAFE",
+    "start": "2026-09-08T11:37:29",
+    "content_length_mb": 1286
+   }
+  ]
+ }
+}

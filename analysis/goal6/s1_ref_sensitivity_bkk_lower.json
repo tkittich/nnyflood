@@ -1,0 +1,55 @@
+{
+ "rule": "docs/S1_REF_SENSITIVITY_REST_PREREG.md",
+ "summary": {
+  "basin": "bkk_lower",
+  "n_event_passes": 2,
+  "n_control_passes": 1,
+  "peak_primary_km2": 1320.8,
+  "peak_alt_ref_km2": 1363.4,
+  "peak_change_pct": 3.2,
+  "label_sensitive_to_reference": false,
+  "control_alt_km2_range": [
+   176.6,
+   176.6
+  ],
+  "per_pass_change_pct_range": [
+   -2.9,
+   3.2
+  ]
+ },
+ "passes": [
+  {
+   "scene": "1SDV_20260919T230840_2026091",
+   "date": "20260919",
+   "rel_orbit": 31,
+   "role": "control_primary_reference_pass",
+   "primary_km2": 0.0,
+   "alt_ref_km2": 176.6,
+   "alt_ref_day": "2026-09-07",
+   "coverage": 1.0,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20261001T230840_2026100",
+   "date": "20261001",
+   "rel_orbit": 31,
+   "role": "event_or_after",
+   "primary_km2": 1320.8,
+   "alt_ref_km2": 1363.4,
+   "alt_ref_day": "2026-09-07",
+   "coverage": 1.0,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20260927T112805_2026092",
+   "date": "20260927",
+   "rel_orbit": 141,
+   "role": "event_or_after",
+   "primary_km2": 1281.8,
+   "alt_ref_km2": 1244.1,
+   "alt_ref_day": "2026-09-03",
+   "coverage": 0.999,
+   "status": "ok"
+  }
+ ]
+}

@@ -184,10 +184,10 @@ html = r"""<!DOCTYPE html>
 <div class="eq">สัดส่วนเขื่อน(t) = Q<sub>ปล่อย</sub>(t−lag) / Q<sub>Ny.7</sub>(t) · Q<sub>ปล่อย</sub> = ปล่อยรายวัน×11.574 ม³/วิ · lag = 12 ชม.</div>
 <table>
 <tr><th>หน้าต่าง</th><th class="num">ปริมาตรผ่าน Ny.7 (Q วัดจริง 15 นาที)</th><th class="num">ปริมาตรที่เขื่อนปล่อย</th><th class="num">สัดส่วนเขื่อน</th></tr>
-<tr><td>เริ่มท่วม 26 ก.ย. 12:00 – 27 ก.ย. 12:00</td><td class="num">38.8 ลลบ.ม.</td><td class="num">4.6 ลลบ.ม.</td><td class="num"><b>~12%</b></td></tr>
-<tr><td>น้ำขัง 27 ก.ย. 12:00 – 29 ก.ย. 00:00</td><td class="num">68.9 ลลบ.ม.</td><td class="num">41.4 ลลบ.ม.</td><td class="num"><b>~60%</b></td></tr>
+<tr><td>เริ่มท่วม 26 ก.ย. 12:00 – 27 ก.ย. 12:00</td><td class="num">@@R:dam_p1_total@@ ลลบ.ม.</td><td class="num">@@R:dam_p1_mcm@@ ลลบ.ม.</td><td class="num"><b>~@@R:dam_p1@@%</b></td></tr>
+<tr><td>น้ำขัง 27 ก.ย. 12:00 – 29 ก.ย. 00:00</td><td class="num">@@R:dam_p2_total@@ ลลบ.ม.</td><td class="num">@@R:dam_p2_mcm@@ ลลบ.ม.</td><td class="num"><b>~@@R:dam_p2@@%</b></td></tr>
 </table>
-<p class="cap">ข้อจำกัด: ปล่อยรายวัน (ค่าเฉลี่ยวัน) · lag ค่าเดียว · rating ±20% — อ่านเป็นการประมาณเชิงปริมาณ ไม่ใช่การแยกเส้นทางน้ำแบบ routing · คำนวณโดย <code>analysis/attribution_share.py</code> → <code>attribution_share.json</code> (อินทิกราล Q วัดจริงที่ความละเอียดข้อมูล 15 นาที · variant Q-rating ให้ 13%/66% · สัดส่วน P1 แกว่ง 10–21% ตาม lag 9–18 ชม. — ตาราง <code>lag_sensitivity</code> ใน <code>attribution_share.json</code>)</p>
+<p class="cap">ข้อจำกัด: ปล่อยรายวัน (ค่าเฉลี่ยวัน) · lag ค่าเดียว · rating ±20% — อ่านเป็นการประมาณเชิงปริมาณ ไม่ใช่การแยกเส้นทางน้ำแบบ routing · คำนวณโดย <code>analysis/attribution_share.py</code> → <code>attribution_share.json</code> (อินทิกราล Q วัดจริงที่ความละเอียดข้อมูล 15 นาที · variant Q-rating ให้ @@R:dam_p1_rating@@%/@@R:dam_p2_rating@@% · สัดส่วน P1 แกว่ง @@R:dam_p1_lo@@–@@R:dam_p1_hi@@% ตาม lag @@R:dam_lag_lo_h@@–@@R:dam_lag_hi_h@@ ชม. — ตาราง <code>lag_sensitivity</code> ใน <code>attribution_share.json</code>)</p>
 <h3>4C. ระดับ/ช่วงเวลาเหนือเส้นตัดสิน</h3>
 <p>จากอนุกรมรายชั่วโมง Ny.7: ≥ 8.45 ม. นาน <b>@@R:cf_ov_h@@ ชม.</b> (26 ก.ย. 23:00 → 29 ก.ย. 16:00) · ≥ 8.0 ม. นาน 79 ชม. (→ 30 ก.ย. 01:00) · ≥ 7.5 ม. นาน 93 ชม. · น้ำสูงสุด @@R:ny7_peak_g@@ ม. (27 ก.ย. 10:00)</p>
 <img class="chart" src="__C2__" alt="ระดับน้ำ vs ปล่อย">

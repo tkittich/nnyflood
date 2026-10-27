@@ -20,6 +20,7 @@
 (เกจ − datum = ม.รทก.) ทุกครั้งที่รัน
 """
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -68,6 +69,25 @@ dam_share = {
     "p1_total_mcm": w["P1_onset"]["total_measured_mcm"],
     "p2_total_mcm": w["P2_sustained"]["total_measured_mcm"],
     "p2_dam_mcm": w["P2_sustained"]["dam_release_mcm"],
+    "p1_dam_mcm": w["P1_onset"]["dam_release_mcm"],
+}
+# นิยามของสัดส่วน (รีวิวรอบ 8 DS F-01): หน้าต่าง · lag ที่ใช้ · ช่วง lag ที่วัดได้ · แถบผลต่อ lag — อ่านจาก attribution_share.json / attribution_share.py ไม่พิมพ์ตรง
+_lag_note = att["lag_sensitivity"]["note"]
+_band = re.search(r"lag วัดจริง (\d+)–(\d+) ชม", _lag_note)
+assert _band, "attribution_share.json lag_sensitivity.note ต้องระบุ 'lag วัดจริง A–B ชม'"
+_lag_lo, _lag_hi = int(_band.group(1)), int(_band.group(2))
+_lag_headline = int(re.search(r"^LAG_H\s*=\s*(\d+)", (ANA / "attribution_share.py").read_text(encoding="utf-8"), re.M).group(1))
+_by_lag = att["lag_sensitivity"]["pct_by_lag_h"]
+_in_band = {k: v for k, v in _by_lag.items() if _lag_lo <= int(k) <= _lag_hi}
+dam_share["definition"] = {
+    "orientation": "สัดส่วนเขื่อน = p_pct · สัดส่วนฝน/น้ำที่ไม่ผ่านเขื่อน = 100 − p_pct · อ่านเป็นฝน:เขื่อน",
+    "p1_window": w["P1_onset"]["window"], "p2_window": w["P2_sustained"]["window"],
+    "lag_h_headline": _lag_headline,
+    "lag_basis": "ค่ากลางที่ผู้วิเคราะห์เลือก (attribution_share.py LAG_H) — ไม่ใช่จุดกึ่งกลางของพิสัย และไม่มีบันทึกที่มาของค่านี้ จึงรายงานแถบผลตามพิสัย lag ที่วัดได้ควบคู่เสมอ",
+    "measured_lag_band_h": [_lag_lo, _lag_hi],
+    "lag_band_p1_pct": [min(v["P1_onset"] for v in _in_band.values()), max(v["P1_onset"] for v in _in_band.values())],
+    "lag_band_p2_pct": [min(v["P2_sustained"] for v in _in_band.values()), max(v["P2_sustained"] for v in _in_band.values())],
+    "rating_variant_pct": {"p1": w["P1_onset"]["dam_share_rating_pct"], "p2": w["P2_sustained"]["dam_share_rating_pct"]},
 }
 
 # ---------- สถานการณ์จำลอง (ลุ่มน้ำนครนายก — ขุนด่านฯ ปล่อยน้ำ/น้ำล้นตลิ่ง) ----------
@@ -215,6 +235,12 @@ def _th_date(iso: str) -> str:
 _kd_full_years = [str(r["year_be"]) for r in kd22["annual_records"] if r["is_full_100pct"]]
 
 render = {
+    "dam_p1": f"{dam_share['p1_pct']:.0f}", "dam_p1_rain": f"{100 - dam_share['p1_pct']:.0f}", "dam_p2": f"{dam_share['p2_pct']:.0f}",
+    "dam_p1_lo": f"{dam_share['definition']['lag_band_p1_pct'][0]:.0f}", "dam_p1_hi": f"{dam_share['definition']['lag_band_p1_pct'][1]:.0f}",
+    "dam_lag_lo_h": f"{dam_share['definition']['measured_lag_band_h'][0]}", "dam_lag_hi_h": f"{dam_share['definition']['measured_lag_band_h'][1]}",
+    "dam_p1_total": f"{dam_share['p1_total_mcm']:.1f}", "dam_p1_mcm": f"{dam_share['p1_dam_mcm']:.1f}",
+    "dam_p2_total": f"{dam_share['p2_total_mcm']:.1f}", "dam_p2_mcm": f"{dam_share['p2_dam_mcm']:.1f}",
+    "dam_p1_rating": f"{dam_share['definition']['rating_variant_pct']['p1']:.0f}", "dam_p2_rating": f"{dam_share['definition']['rating_variant_pct']['p2']:.0f}",
     "s1_pk_lo": f"{min(r['area_km2'] for r in _pk_rows):.0f}", "s1_pk_hi": f"{max(r['area_km2'] for r in _pk_rows):.0f}",
     "s1_pk_f1": f"{_rv['peak_27sep']['f1']:.2f}",
     "s1_pk_f1ci": f"{_rv['peak_27sep']['f1_ci95'][0]:.2f}–{_rv['peak_27sep']['f1_ci95'][1]:.2f}",
@@ -303,10 +329,10 @@ def assert_pillar1_inward_contracts(values: dict) -> None:
     ds = v["dam_share"]
     assert 0 <= ds["p1_pct"] <= 100, f"สัดส่วนเขื่อน P1 ต้องอยู่ในช่วง 0-100%: {ds['p1_pct']}"
     assert 0 <= ds["p2_pct"] <= 100, f"สัดส่วนเขื่อน P2 ต้องอยู่ในช่วง 0-100%: {ds['p2_pct']}"
-    assert round(ds["p1_pct"]) == 12, f"สัดส่วนเขื่อน P1 ต้องปัดเศษได้ 12%: {ds['p1_pct']}"
-    assert round(100.0 - ds["p1_pct"]) == 88, "สัดส่วนฝนตกหนัก P1 ต้องปัดเศษได้ 88% (รวมเขื่อน+ฝน = 100%)"
-    assert round(ds["p2_pct"]) == 60, f"สัดส่วนเขื่อน P2 ต้องปัดเศษได้ 60%: {ds['p2_pct']}"
-    assert round(100.0 - ds["p2_pct"]) == 40, "สัดส่วนฝน P2 ต้องปัดเศษได้ 40% (รวมเขื่อน+ฝน = 100%)"
+    # แถบผลตาม lag ที่วัดได้ (แทนการตรึง == 12 / == 60: ทบทวน lag แล้วเทสต์ไม่ควรล้มเอง ตราบที่ค่าหลักอยู่ในแถบ)
+    _d = ds["definition"]
+    assert _d["lag_band_p1_pct"][0] <= ds["p1_pct"] <= _d["lag_band_p1_pct"][1], f"สัดส่วนเขื่อน P1 {ds['p1_pct']} อยู่นอกแถบตาม lag {_d['lag_band_p1_pct']}"
+    assert _d["lag_band_p2_pct"][0] <= ds["p2_pct"] <= _d["lag_band_p2_pct"][1], f"สัดส่วนเขื่อน P2 {ds['p2_pct']} อยู่นอกแถบตาม lag {_d['lag_band_p2_pct']}"
     assert ds["p1_total_mcm"] > 0 and ds["p2_total_mcm"] >= ds["p2_dam_mcm"], "ปริมาตรน้ำรวมต้องมากกว่าหรือเท่ากับน้ำปล่อยจากเขื่อน"
 
     # 2. สัญญาพื้นที่น้ำท่วมดาวเทียม (Sentinel-1 Flood Bounds)

@@ -99,18 +99,6 @@
   },
   {
    "file": "build_expert_report.py",
-   "text": "38.8 ลลบ.ม.",
-   "count": 1,
-   "status": "traced_by_value_unreviewed"
-  },
-  {
-   "file": "build_expert_report.py",
-   "text": "41.4 ลลบ.ม.",
-   "count": 1,
-   "status": "traced_by_value_unreviewed"
-  },
-  {
-   "file": "build_expert_report.py",
    "text": "5,025 วัน",
    "count": 2,
    "status": "traced_by_value_unreviewed"
@@ -125,12 +113,6 @@
    "file": "build_expert_report.py",
    "text": "668.6 ม³/วิ",
    "count": 2,
-   "status": "traced_by_value_unreviewed"
-  },
-  {
-   "file": "build_expert_report.py",
-   "text": "68.9 ลลบ.ม.",
-   "count": 1,
    "status": "traced_by_value_unreviewed"
   },
   {

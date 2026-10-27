@@ -148,10 +148,10 @@ def test_pillar1_canonical_inward_contracts():
 
     # 1. สัญญาสัดส่วนสาเหตุและสมดุลมวลน้ำ (Attribution Mass Balance)
     ds = data["dam_share"]
-    assert round(ds["p1_pct"]) == 12, "สัดส่วนเขื่อน P1 ต้องเป็น 12%"
-    assert round(100.0 - ds["p1_pct"]) == 88, "สัดส่วนฝน P1 ต้องเป็น 88%"
-    assert round(ds["p2_pct"]) == 60, "สัดส่วนเขื่อน P2 ต้องเป็น 60%"
-    assert round(100.0 - ds["p2_pct"]) == 40, "สัดส่วนฝน P2 ต้องเป็น 40%"
+    d = ds["definition"]          # แถบตาม lag ที่วัดได้ แทนการตรึง == 12 / == 60 (รีวิวรอบ 8 DS F-01)
+    assert d["lag_band_p1_pct"][0] <= ds["p1_pct"] <= d["lag_band_p1_pct"][1]
+    assert d["lag_band_p2_pct"][0] <= ds["p2_pct"] <= d["lag_band_p2_pct"][1]
+    assert d["measured_lag_band_h"][0] <= d["lag_h_headline"] <= d["measured_lag_band_h"][1]
 
     # 2. สัญญาระดับน้ำและค่าอ้างอิงความสูง (Water Level & Datum Consistency)
     lv = data["levels"]

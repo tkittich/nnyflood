@@ -248,6 +248,8 @@ def main() -> None:
     rs_p = A / "goal6/s1_ref_sensitivity.json"
     if rs_p.exists():
         out["s1_ref_sensitivity"] = json.loads(rs_p.read_text(encoding="utf-8"))["summary"]
+    out["s1_ref_sensitivity_other"] = {json.loads(p.read_text(encoding="utf-8"))["summary"]["basin"]: json.loads(p.read_text(encoding="utf-8"))["summary"]
+                                       for p in sorted((A / "goal6").glob("s1_ref_sensitivity_*.json"))}      # ลุ่มอื่น (กติกา docs/S1_REF_SENSITIVITY_PASAK_PREREG.md)
 
     # ---- เหตุการณ์จุดวัด (screen) ----
     sc = json.loads((A / "goal6_screen_2026_summary.json").read_text(encoding="utf-8"))

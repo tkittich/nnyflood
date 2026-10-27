@@ -103,13 +103,18 @@ _XC_SENT = ("" if not _xc else (
     "— GISTDA 30 วันเป็นผลสะสมหลายฉากหลายดาวเทียม ไม่ใช่ความจริงภาคสนาม จึงบอกได้เพียงว่าขอบเขตสอดคล้องกัน"
     + ("" if not _xc["any_low_precision"] else f" · ลุ่ม {', '.join(_TH[b] for b in _xc['any_low_precision'])} ส่วนมากอยู่นอกขอบเขตของ GISTDA")
     + " (กติกา <code>docs/S1_GISTDA_CROSSCHECK_PREREG.md</code>)"))
+def _rs_sent(_rs, rule):
+    return (
+        f" · <b>ความไวต่อวันของฉากอ้างอิง</b> (ลุ่ม{_TH[_rs['basin']]}; ใช้ฉากอ้างอิงทางเลือกที่เก่ากว่าฉากหลักราว 12 วัน ตัดน้ำซ้ำ {_rs['n_event_passes']} รอบถ่าย): "
+        f"ค่าสูงสุดของลุ่มเปลี่ยนจาก {_rs['peak_primary_km2']:,.0f} เป็น {_rs['peak_alt_ref_km2']:,.0f} ตร.กม. ({_rs['peak_change_pct']:+.0f}%) · รายรอบถ่ายเปลี่ยน {_rs['per_pass_change_pct_range'][0]:+.0f}% ถึง {_rs['per_pass_change_pct_range'][1]:+.0f}%"
+        + (f" · รอบถ่ายก่อนเหตุการณ์เทียบฉากทางเลือก (ค่าควบคุม — ไม่ใช่น้ำท่วม) ได้ {_rs['control_alt_km2_range'][0]:,.0f}–{_rs['control_alt_km2_range'][1]:,.0f} ตร.กม. ซึ่งบอกขนาดการเปลี่ยนแปลงตามฤดูก่อนเหตุการณ์" if _rs["n_control_passes"] else "")
+        + (" · <b>ไวต่อฉากอ้างอิง</b>" if _rs["label_sensitive_to_reference"] else "")
+        + f" (กติกา <code>{rule}</code>)")
+
+
 _rs = _can.get("s1_ref_sensitivity")
-_RS_SENT = ("" if not _rs else (
-    f" · <b>ความไวต่อวันของฉากอ้างอิง</b> (ลุ่ม{_TH[_rs['basin']]}; ใช้ฉากอ้างอิงทางเลือกที่เก่ากว่าฉากหลักราว 12 วัน ตัดน้ำซ้ำ {_rs['n_event_passes']} รอบถ่าย): "
-    f"ค่าสูงสุดของลุ่มเปลี่ยนจาก {_rs['peak_primary_km2']:,.0f} เป็น {_rs['peak_alt_ref_km2']:,.0f} ตร.กม. ({_rs['peak_change_pct']:+.0f}%) · รายรอบถ่ายเปลี่ยน {_rs['per_pass_change_pct_range'][0]:+.0f}% ถึง {_rs['per_pass_change_pct_range'][1]:+.0f}%"
-    + (f" · รอบถ่ายก่อนเหตุการณ์เทียบฉากทางเลือก (ค่าควบคุม — ไม่ใช่น้ำท่วม) ได้ {_rs['control_alt_km2_range'][0]:,.0f}–{_rs['control_alt_km2_range'][1]:,.0f} ตร.กม. ซึ่งบอกขนาดการเปลี่ยนแปลงตามฤดูก่อนเหตุการณ์" if _rs["n_control_passes"] else "")
-    + (" · <b>ไวต่อฉากอ้างอิง</b>" if _rs["label_sensitive_to_reference"] else "")
-    + " (กติกา <code>docs/S1_PASS_MOSAIC_PREREG.md</code>)"))
+_RS_SENT = ("" if not _rs else _rs_sent(_rs, "docs/S1_PASS_MOSAIC_PREREG.md")) + "".join(
+    _rs_sent(v, "docs/S1_REF_SENSITIVITY_PASAK_PREREG.md") for v in _can.get("s1_ref_sensitivity_other", {}).values())
 _bw = max((k for k in _lc if not k.startswith("nn_")), key=lambda k: _lc[k]["share_on_worldcover_water"])   # ลุ่มที่สัดส่วนตกบนน้ำถาวรสูงสุด (อ่านจากข้อมูล ไม่ฝังชื่อ)
 _nmr = _can.get("national_medium_reservoirs", {})
 _ps24 = _can.get("pasak_24y_baseline", {})

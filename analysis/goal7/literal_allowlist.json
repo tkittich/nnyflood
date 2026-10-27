@@ -335,7 +335,8 @@
    "file": "goal7_blocks.py",
    "text": "160 ม.",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "u_shape_row_width_m"
   },
   {
    "file": "goal7_blocks.py",
@@ -390,13 +391,14 @@
    "file": "goal7_build_academic.py",
    "text": "100%",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "method_parameter"
   },
   {
    "file": "goal7_build_academic.py",
    "text": "160 ม.",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "u_shape_row_width_m"
   },
   {
    "file": "goal7_build_academic.py",
@@ -483,13 +485,14 @@
    "file": "goal7_build_public.py",
    "text": "100 ซม.",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "jarosite_depth_top_cm"
   },
   {
    "file": "goal7_build_public.py",
    "text": "100 ลบ.ม./วินาที",
    "count": 1,
-   "status": "source_quote_unverified"
+   "status": "method_parameter"
   },
   {
    "file": "goal7_build_public.py",
@@ -513,7 +516,8 @@
    "file": "goal7_build_public.py",
    "text": "150 ซม.",
    "count": 2,
-   "status": "source_quote_unverified"
+   "status": "source_quote_verified",
+   "source_constant": "mud_layer_depth_cm"
   },
   {
    "file": "goal7_build_public.py",

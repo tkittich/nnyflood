@@ -4,7 +4,7 @@
   queue   ค้นคลัง CDSE หาฉากอ้างอิงก่อน 24 ก.ย. ของวงโคจรเดียวกัน เขียนคิวฉากที่ยังไม่มีบนดิสก์
   process ลงพิกัดฉากอ้างอิงใหม่ (ฟังก์ชันขั้นที่ 1) แล้วตัดน้ำซ้ำด้วยกฎตรึงเดิม เทียบผลเดิม
 ดาวน์โหลดด้วย: python analysis/goal6_s1_download.py --queue data/22_goal6_network/raw/s1_audit/s1_audit_queue.json --dest data/22_goal6_network/raw/s1_audit
-รัน: python analysis/goal6_s1_reference_audit.py queue | process | queue_unpaired | process_unpaired | queue_sens | process_sens
+รัน: python analysis/goal6_s1_reference_audit.py queue | process | queue_unpaired | process_unpaired | queue_sens [ลุ่ม] | process_sens [ลุ่ม]
 ผลลัพธ์: data/22_goal6_network/raw/s1_audit/s1_audit_queue.json · analysis/goal6/s1_reference_audit.json
 """
 from __future__ import annotations
@@ -208,17 +208,23 @@ def process_unpaired() -> None:
                 print(s1.process_job(p["basin"], name), flush=True)
 
 
-QUEUE_SENS = RAW_NEW / "s1_audit_queue_sens.json"
-SENS_BASIN = "bp_prach"
+SENS_BASIN = "bp_prach"                    # ลุ่มตั้งต้น · ลุ่มอื่นส่งเป็นอาร์กิวเมนต์ที่สอง (docs/S1_REF_SENSITIVITY_PASAK_PREREG.md)
+
+
+def queue_sens_path(basin: str = SENS_BASIN) -> Path:
+    return RAW_NEW / ("s1_audit_queue_sens.json" if basin == SENS_BASIN else f"s1_audit_queue_sens_{basin}.json")
+
+
+QUEUE_SENS = queue_sens_path()
 SENS_MIN_DAYS = 6          # ฉากอ้างอิงทางเลือกต้องเก่ากว่าฉากอ้างอิงหลักอย่างน้อยกี่วัน (docs/S1_PASS_MOSAIC_PREREG.md §3)
 
 
-def queue_sens() -> None:
+def queue_sens(basin: str = SENS_BASIN) -> None:
     """ฉากอ้างอิงทางเลือกของลุ่มบางปะกง–ปราจีนบุรี: รอบถ่ายก่อนหน้าฉากอ้างอิงหลัก (วงเดียวกัน อย่างน้อย 6 วันก่อน)"""
     import datetime as dt
     summ = json.loads(SUMMARY.read_text(encoding="utf-8"))
-    prim = {int(r): v["reference_all"] for r, v in summ[SENS_BASIN]["tracks"].items()}
-    pre = basin_pre_scenes(SENS_BASIN)
+    prim = {int(r): v["reference_all"] for r, v in summ[basin]["tracks"].items()}
+    pre = basin_pre_scenes(basin)
     have = {p.name for d in RAWS if d.exists() for p in d.glob("*.SAFE")}
     need, plan = {}, []
     for r, ref_tags in sorted(prim.items()):
@@ -233,31 +239,32 @@ def queue_sens() -> None:
         for p in ps:
             if p["Name"] in pick and p["Name"] not in have:
                 need[p["Name"]] = {"name": p["Name"], "start": start_of(p["Name"]), "content_length_mb": round(p.get("ContentLength", 0) / 1e6)}
-    QUEUE_SENS.write_text(json.dumps({"note": "ฉากอ้างอิงทางเลือก (ความไวต่อวันของฉากอ้างอิง) docs/S1_PASS_MOSAIC_PREREG.md §3", "basins": {"ความไว": sorted(need.values(), key=lambda x: x["name"][17:])}, "plan": plan},
+    queue_sens_path(basin).write_text(json.dumps({"note": "ฉากอ้างอิงทางเลือก (ความไวต่อวันของฉากอ้างอิง) docs/S1_PASS_MOSAIC_PREREG.md §3", "basins": {"ความไว": sorted(need.values(), key=lambda x: x["name"][17:])}, "plan": plan},
                                       ensure_ascii=False, indent=1), encoding="utf-8")
     print("ต้องโหลด", len(need), "ฉาก", round(sum(x["content_length_mb"] for x in need.values()) / 1e3, 1), "GB")
     for p in plan:
         print(p["rel"], p.get("alt_day"), p["alt_ref"] and len(p["alt_ref"]))
 
 
-def process_sens() -> None:
+def process_sens(basin: str = SENS_BASIN) -> None:
     import goal6_s1_stage1 as s1
-    plan = json.loads(QUEUE_SENS.read_text(encoding="utf-8"))["plan"]
+    plan = json.loads(queue_sens_path(basin).read_text(encoding="utf-8"))["plan"]
     s1.OUT = ST1_NEW
-    (ST1_NEW / SENS_BASIN).mkdir(parents=True, exist_ok=True)
-    if not (ST1_NEW / f"grid_{SENS_BASIN}.json").exists():
-        shutil.copy(ST1_OLD / f"grid_{SENS_BASIN}.json", ST1_NEW / f"grid_{SENS_BASIN}.json")
+    (ST1_NEW / basin).mkdir(parents=True, exist_ok=True)
+    if not (ST1_NEW / f"grid_{basin}.json").exists():
+        shutil.copy(ST1_OLD / f"grid_{basin}.json", ST1_NEW / f"grid_{basin}.json")
     for p in plan:
         for tag in p.get("alt_ref") or []:
             name = tag + ".SAFE"
-            if load_db(SENS_BASIN, tag, "vh") is None:
+            if load_db(basin, tag, "vh") is None:
                 d = scene_dir(name)
                 if d is None:
                     print("ไม่พบฉาก", name, flush=True)
                     continue
                 s1.RAW_S1 = d
-                print(s1.process_job(SENS_BASIN, name), flush=True)
+                print(s1.process_job(basin, name), flush=True)
 
 
 if __name__ == "__main__":
-    {"queue": build_queue, "process": process, "queue_unpaired": queue_unpaired, "process_unpaired": process_unpaired, "queue_sens": queue_sens, "process_sens": process_sens}[sys.argv[1]]()
+    fn = {"queue": build_queue, "process": process, "queue_unpaired": queue_unpaired, "process_unpaired": process_unpaired, "queue_sens": queue_sens, "process_sens": process_sens}[sys.argv[1]]
+    fn(*sys.argv[2:3]) if sys.argv[1].endswith("_sens") else fn()

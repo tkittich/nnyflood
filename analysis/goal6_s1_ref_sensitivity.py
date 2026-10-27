@@ -2,8 +2,8 @@
 
 ฉากอ้างอิงทางเลือก = รอบถ่ายของวงเดียวกันก่อนฉากอ้างอิงหลักราว 12 วัน (คิวจาก goal6_s1_reference_audit.py queue_sens)
 ตัดน้ำซ้ำทุกรอบถ่ายของลุ่มด้วยกฎตรึงเดิม · รอบถ่ายอ้างอิงหลักเองเทียบกับฉากอ้างอิงทางเลือก = ค่าควบคุม (การเปลี่ยนแปลงก่อนเหตุการณ์ ไม่ใช่น้ำท่วม)
-รัน: python analysis/goal6_s1_ref_sensitivity.py
-ผลลัพธ์: analysis/goal6/s1_ref_sensitivity.json · analysis/goal6/s1_ref_sensitivity.md
+รัน: python analysis/goal6_s1_ref_sensitivity.py [ลุ่ม]
+ผลลัพธ์: analysis/goal6/s1_ref_sensitivity[_ลุ่ม].json · .md (ลุ่มตั้งต้น bp_prach ไม่มีส่วนต่อท้าย)
 """
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from goal6_s1_reference_audit import QUEUE_SENS, SENS_BASIN  # noqa: E402
+from goal6_s1_reference_audit import SENS_BASIN, queue_sens_path  # noqa: E402
 from goal6_s1_stage2_water import mosaic_db  # noqa: E402
 from s1_change_detect import detect  # noqa: E402
 from s1_orbit import rel_orbit  # noqa: E402
@@ -22,17 +22,19 @@ from s1_orbit import rel_orbit  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 STAGE1 = ROOT / "data/22_goal6_network/derived/s1_stage1"
 SUMMARY = ROOT / "data/22_goal6_network/derived/s1_stage2/summary.json"
-OUT_JSON = ROOT / "analysis/goal6/s1_ref_sensitivity.json"
-OUT_MD = ROOT / "analysis/goal6/s1_ref_sensitivity.md"
+LABELS = {"bp_prach": "บางปะกง–ปราจีนบุรี", "pasak": "ป่าสัก"}
 CELL_KM2 = 0.0009
 LABEL_PCT = 10.0                           # ป้ายอ่านตารางเท่านั้น
 
 
-def main() -> None:
-    bid = SENS_BASIN
-    plan = {p["rel"]: p for p in json.loads(QUEUE_SENS.read_text(encoding="utf-8"))["plan"]}
+def main(bid: str = SENS_BASIN) -> None:
+    suffix = "" if bid == SENS_BASIN else f"_{bid}"           # ลุ่มตั้งต้นคงชื่อไฟล์เดิม
+    out_json = ROOT / f"analysis/goal6/s1_ref_sensitivity{suffix}.json"
+    out_md = ROOT / f"analysis/goal6/s1_ref_sensitivity{suffix}.md"
+    plan = {p["rel"]: p for p in json.loads(queue_sens_path(bid).read_text(encoding="utf-8"))["plan"]}
     rec = json.loads(SUMMARY.read_text(encoding="utf-8"))[bid]
     low = np.load(STAGE1 / f"mask_lowland_{bid}.npy")
+    rule = "docs/S1_PASS_MOSAIC_PREREG.md §3" if bid == SENS_BASIN else "docs/S1_REF_SENSITIVITY_PASAK_PREREG.md"
     rows, alt_cache = [], {}
     for r in rec["scenes"]:
         rel = rel_orbit(r["scene"])
@@ -61,17 +63,17 @@ def main() -> None:
                "control_alt_km2_range": [min((c["alt_ref_km2"] for c in ctl), default=None), max((c["alt_ref_km2"] for c in ctl), default=None)],
                "per_pass_change_pct_range": [round(min(100 * (x["alt_ref_km2"] - x["primary_km2"]) / x["primary_km2"] for x in ev if x["primary_km2"]), 1),
                                              round(max(100 * (x["alt_ref_km2"] - x["primary_km2"]) / x["primary_km2"] for x in ev if x["primary_km2"]), 1)]}
-    OUT_JSON.write_text(json.dumps({"rule": "docs/S1_PASS_MOSAIC_PREREG.md §3", "summary": summary, "passes": rows}, ensure_ascii=False, indent=1), encoding="utf-8")
-    L = ["# ความไวต่อวันของฉากอ้างอิง — ลุ่มบางปะกง–ปราจีนบุรี", "",
-         "> กติกา `docs/S1_PASS_MOSAIC_PREREG.md` §3 (ตั้งก่อนคำนวณ) · ฉากอ้างอิงทางเลือกเก่ากว่าฉากหลักราว 12 วัน · ไม่มีเกณฑ์ผ่าน/ตก", "",
+    out_json.write_text(json.dumps({"rule": rule, "summary": summary, "passes": rows}, ensure_ascii=False, indent=1), encoding="utf-8")
+    L = [f"# ความไวต่อวันของฉากอ้างอิง — ลุ่ม{LABELS[bid]}", "",
+         f"> กติกา `{rule}` (ตั้งก่อนคำนวณ) · ฉากอ้างอิงทางเลือกเก่ากว่าฉากหลักราว 12 วัน · ไม่มีเกณฑ์ผ่าน/ตก", "",
          "| รอบถ่าย | วงโคจร | บทบาท | อ้างอิงหลัก (ตร.กม.) | อ้างอิงทางเลือก (ตร.กม.) |", "|---|---|---|---|---|"]
     for x in rows:
         if x["status"] == "ok":
             L.append(f"| {x['scene']} | {x['rel_orbit']} | {x['role']} | {x['primary_km2']} | {x['alt_ref_km2']} |")
     L += ["", f"ค่าสูงสุดต่อลุ่ม: หลัก {summary['peak_primary_km2']} → ทางเลือก {summary['peak_alt_ref_km2']} ตร.กม. ({summary['peak_change_pct']:+.1f}%)", ""]
-    OUT_MD.write_text("\n".join(L), encoding="utf-8")
+    out_md.write_text("\n".join(L), encoding="utf-8")
     print(summary)
 
 
 if __name__ == "__main__":
-    main()
+    main(*sys.argv[1:2])

@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SUM = json.loads((ROOT / "data/22_goal6_network/derived/s1_stage2/summary.json").read_text(encoding="utf-8"))
-RS_P = ROOT / "analysis/goal6/s1_ref_sensitivity.json"
+RS_FILES = sorted((ROOT / "analysis/goal6").glob("s1_ref_sensitivity*.json"))     # ลุ่มตั้งต้น + ลุ่มอื่นที่ทดสอบ
 
 
 def test_stage2_unit_is_pass_with_slices_and_max_extent():
@@ -21,12 +21,12 @@ def test_stage2_unit_is_pass_with_slices_and_max_extent():
 
 
 def test_sensitivity_summary_consistent_if_present():
-    if not RS_P.exists():
-        return
-    d = json.loads(RS_P.read_text(encoding="utf-8"))
-    s = d["summary"]
-    ev = [x for x in d["passes"] if x.get("role") == "event_or_after"]
-    assert s["n_event_passes"] == len(ev)
-    assert s["peak_primary_km2"] == max(x["primary_km2"] for x in ev)
-    assert s["peak_alt_ref_km2"] == max(x["alt_ref_km2"] for x in ev)
-    assert s["label_sensitive_to_reference"] == (abs(s["peak_change_pct"]) > 10.0)
+    for f in RS_FILES:
+        d = json.loads(f.read_text(encoding="utf-8"))
+        s = d["summary"]
+        ev = [x for x in d["passes"] if x.get("role") == "event_or_after"]
+        assert s["n_event_passes"] == len(ev), f.name
+        assert s["peak_primary_km2"] == max(x["primary_km2"] for x in ev), f.name
+        assert s["peak_alt_ref_km2"] == max(x["alt_ref_km2"] for x in ev), f.name
+        assert s["label_sensitive_to_reference"] == (abs(s["peak_change_pct"]) > 10.0), f.name
+        assert s["basin"] in SUM, f.name

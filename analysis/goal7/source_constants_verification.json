@@ -1,8 +1,8 @@
 {
- "verified_on": "2026-10-26",
- "constants_sha256": "fe8de0a1af037f68307f30c99ed4111092747a6aad2501e1f840dde6bbe33a30",
+ "verified_on": "2026-10-27",
+ "constants_sha256": "8ab667330fe5ae053ba11ab8198e802b42c167c5f50c0a53906af34c1d7648f8",
  "summary": {
-  "verified_text": 18,
+  "verified_text": 21,
   "verified_image": 15,
   "failed": 1,
   "assumption": 3
@@ -545,6 +545,57 @@
      "page_text_chars": 1491,
      "needles": {
       "เป็น 400 ลบ.ม./วินาที": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "jarosite_depth_top_cm": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 221,
+     "printed_page": null,
+     "page_text_chars": 1746,
+     "needles": {
+      "ความลึกประมาณ 50-100 ซม.": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "mud_layer_depth_cm": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "text:eia2569_main1",
+     "pdf_page": 221,
+     "printed_page": null,
+     "page_text_chars": 1746,
+     "needles": {
+      "ลึกกว่า 100-150 ซม.": true
+     },
+     "ok": true
+    }
+   ],
+   "conflicts_with": []
+  },
+  "u_shape_row_width_m": {
+   "status": "verified_text",
+   "checks": [
+    {
+     "type": "text_layer",
+     "corpus": "ocr:ph1_closing",
+     "pdf_page": 50,
+     "printed_page": null,
+     "page_text_chars": 311,
+     "needles": {
+      "ลดเหลือ 160 เมตร": true
      },
      "ok": true
     }

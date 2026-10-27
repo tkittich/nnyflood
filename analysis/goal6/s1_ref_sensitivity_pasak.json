@@ -1,0 +1,110 @@
+{
+ "rule": "docs/S1_REF_SENSITIVITY_PASAK_PREREG.md",
+ "summary": {
+  "basin": "pasak",
+  "n_event_passes": 5,
+  "n_control_passes": 3,
+  "peak_primary_km2": 1576.6,
+  "peak_alt_ref_km2": 1431.2,
+  "peak_change_pct": -9.2,
+  "label_sensitive_to_reference": false,
+  "control_alt_km2_range": [
+   0.2,
+   195.0
+  ],
+  "per_pass_change_pct_range": [
+   -9.2,
+   600.0
+  ]
+ },
+ "passes": [
+  {
+   "scene": "1SDV_20260928T111958_2026092",
+   "date": "20260928",
+   "rel_orbit": 26,
+   "role": "event_or_after",
+   "primary_km2": 0.1,
+   "alt_ref_km2": 0.7,
+   "alt_ref_day": "2026-09-04",
+   "coverage": 0.238,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20260919T230815_2026091",
+   "date": "20260919",
+   "rel_orbit": 31,
+   "role": "control_primary_reference_pass",
+   "primary_km2": 0.0,
+   "alt_ref_km2": 195.0,
+   "alt_ref_day": "2026-09-07",
+   "coverage": 0.688,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20261001T230815_2026100",
+   "date": "20261001",
+   "rel_orbit": 31,
+   "role": "event_or_after",
+   "primary_km2": 1160.7,
+   "alt_ref_km2": 1176.4,
+   "alt_ref_day": "2026-09-07",
+   "coverage": 0.688,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20260922T112030_2026092",
+   "date": "20260922",
+   "rel_orbit": 68,
+   "role": "control_primary_reference_pass",
+   "primary_km2": 0.0,
+   "alt_ref_km2": 0.2,
+   "alt_ref_day": "2026-09-10",
+   "coverage": 0.161,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20260920T230012_2026092",
+   "date": "20260920",
+   "rel_orbit": 91,
+   "role": "control_primary_reference_pass",
+   "primary_km2": 0.0,
+   "alt_ref_km2": 0.3,
+   "alt_ref_day": "2026-09-08",
+   "coverage": 0.05,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20261002T230013_2026100",
+   "date": "20261002",
+   "rel_orbit": 91,
+   "role": "event_or_after",
+   "primary_km2": 0.1,
+   "alt_ref_km2": 0.4,
+   "alt_ref_day": "2026-09-08",
+   "coverage": 0.05,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20260926T230018_2026092",
+   "date": "20260926",
+   "rel_orbit": 133,
+   "role": "event_or_after",
+   "primary_km2": 6.1,
+   "alt_ref_km2": 6.1,
+   "alt_ref_day": "2026-09-02",
+   "coverage": 0.066,
+   "status": "ok"
+  },
+  {
+   "scene": "1SDV_20260927T112830_2026092",
+   "date": "20260927",
+   "rel_orbit": 141,
+   "role": "event_or_after",
+   "primary_km2": 1576.6,
+   "alt_ref_km2": 1431.2,
+   "alt_ref_day": "2026-09-03",
+   "coverage": 0.906,
+   "status": "ok"
+  }
+ ]
+}

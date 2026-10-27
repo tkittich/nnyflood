@@ -284,3 +284,8 @@ bbox ครอบอ่าวไทย (DEM ทะเล = 0 ม. นับเ�
 - ที่มา: CDSE ผ่าน S3 ของผู้ใช้ (ไม่บันทึกกุญแจ) · 9 ฉาก ราว 12 GB ถ่าย 12–16 ก.ย. 2569 · คิวและแผนจับคู่ `raw/s1_audit/s1_audit_queue.json` · SHA-256 รายไฟล์ `raw/s1_audit/_progress.json` · ฉาก `.SAFE` disk-only (ระบุใน `.gitignore`)
 - ผลขั้นที่ 1 แยกที่ `derived/s1_audit_stage1/` · ผลตรวจ `analysis/goal6/s1_reference_audit.json` + `.md` · กติกา `docs/S1_REFERENCE_AUDIT_PREREG.md`
 - หมายเหตุ: การเชื่อมต่อ CDSE หลุดกลางไฟล์ใหญ่หลายครั้ง ต้องลองต่อจากไฟล์ `.part` ซ้ำ (บั๊กเรียก `process_product` แก้แล้วเมื่อ 26 ต.ค.)
+
+## ฉากเรดาร์ Sentinel-1 เพิ่ม (27 ต.ค. 2569)
+
+- ต่ออนุกรมฉะเชิงเทรา: 2 ฉากของ 26 ต.ค. 2569 (วงโคจรสัมพัทธ์ 91) ลงใน `raw/s1_recent/` ตามกติกาเดิม (บันทึกต่อท้ายข้อ 7 ของ `docs/S1_CHACHOENGSAO_RECENT_PREREG.md`)
+- ฉากอ้างอิงทางเลือกของลุ่มป่าสัก 4 ฉาก (ราว 5 GB) ลงใน `raw/s1_audit/` ตามกติกา `docs/S1_REF_SENSITIVITY_PASAK_PREREG.md` · คิวและความคืบหน้าอยู่ที่ `s1_audit_queue_sens_pasak.json` และ `_progress_sens_pasak.json` (ไฟล์ฉาก `.SAFE` ไม่เข้า git · แฮช SHA-256 รายไฟล์อยู่ในไฟล์ความคืบหน้า)

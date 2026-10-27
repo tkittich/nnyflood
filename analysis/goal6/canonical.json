@@ -1317,6 +1317,25 @@
    7.2
   ]
  },
+ "s1_ref_sensitivity_other": {
+  "pasak": {
+   "basin": "pasak",
+   "n_event_passes": 5,
+   "n_control_passes": 3,
+   "peak_primary_km2": 1576.6,
+   "peak_alt_ref_km2": 1431.2,
+   "peak_change_pct": -9.2,
+   "label_sensitive_to_reference": false,
+   "control_alt_km2_range": [
+    0.2,
+    195.0
+   ],
+   "per_pass_change_pct_range": [
+    -9.2,
+    600.0
+   ]
+  }
+ },
  "event_stations": {
   "n_over_crit": 25,
   "n_wave_peak": 17,

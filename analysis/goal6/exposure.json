@@ -43,101 +43,101 @@
   },
   "pasak": {
    "gross": {
-    "pop_areal": 183700,
-    "pop_cells_ge10pct": 504100,
-    "major_km": 173.4,
-    "minor_km": 1985.5,
-    "rail_km": 39.0
+    "pop_areal": 216400,
+    "pop_cells_ge10pct": 580400,
+    "major_km": 248.2,
+    "minor_km": 2436.1,
+    "rail_km": 47.4
    },
    "lowland_major_km": 7948.6,
    "lowland_minor_km": 48867.8,
    "lowland_rail_km": 824.9,
    "strict": {
-    "pop_areal": 158600,
-    "pop_cells_ge10pct": 444100,
-    "major_km": 157.1,
-    "minor_km": 1807.9,
-    "rail_km": 29.1
+    "pop_areal": 188200,
+    "pop_cells_ge10pct": 514900,
+    "major_km": 224.5,
+    "minor_km": 2203.2,
+    "rail_km": 33.6
    },
    "pop_lowland_covered": 2512000
   },
   "maeklong": {
    "gross": {
-    "pop_areal": 55300,
-    "pop_cells_ge10pct": 136400,
-    "major_km": 84.9,
-    "minor_km": 900.6,
-    "rail_km": 7.2
+    "pop_areal": 61700,
+    "pop_cells_ge10pct": 155900,
+    "major_km": 90.9,
+    "minor_km": 965.2,
+    "rail_km": 11.1
    },
    "lowland_major_km": 6989.6,
    "lowland_minor_km": 47390.6,
    "lowland_rail_km": 534.3,
    "strict": {
-    "pop_areal": 36300,
-    "pop_cells_ge10pct": 109300,
-    "major_km": 61.9,
-    "minor_km": 628.0,
-    "rail_km": 5.9
+    "pop_areal": 40500,
+    "pop_cells_ge10pct": 120100,
+    "major_km": 66.5,
+    "minor_km": 673.6,
+    "rail_km": 9.3
    },
    "pop_lowland_covered": 2274000
   },
   "bp_prach": {
    "gross": {
-    "pop_areal": 184400,
-    "pop_cells_ge10pct": 434500,
-    "major_km": 265.4,
-    "minor_km": 2575.3,
-    "rail_km": 46.2
+    "pop_areal": 213700,
+    "pop_cells_ge10pct": 524800,
+    "major_km": 199.0,
+    "minor_km": 2775.9,
+    "rail_km": 44.8
    },
    "lowland_major_km": 7280.3,
    "lowland_minor_km": 63785.8,
    "lowland_rail_km": 562.3,
    "strict": {
-    "pop_areal": 141100,
-    "pop_cells_ge10pct": 369900,
-    "major_km": 233.4,
-    "minor_km": 2162.4,
-    "rail_km": 40.6
+    "pop_areal": 160300,
+    "pop_cells_ge10pct": 459000,
+    "major_km": 175.2,
+    "minor_km": 2240.3,
+    "rail_km": 40.0
    },
    "pop_lowland_covered": 2862000
   },
   "thachin": {
    "gross": {
-    "pop_areal": 241000,
-    "pop_cells_ge10pct": 642600,
-    "major_km": 331.1,
-    "minor_km": 3642.5,
-    "rail_km": 4.8
+    "pop_areal": 286000,
+    "pop_cells_ge10pct": 678100,
+    "major_km": 415.2,
+    "minor_km": 4607.8,
+    "rail_km": 14.7
    },
    "lowland_major_km": 10142.2,
    "lowland_minor_km": 82271.6,
    "lowland_rail_km": 365.7,
    "strict": {
-    "pop_areal": 217400,
-    "pop_cells_ge10pct": 584400,
-    "major_km": 303.4,
-    "minor_km": 3298.9,
-    "rail_km": 4.5
+    "pop_areal": 226600,
+    "pop_cells_ge10pct": 580800,
+    "major_km": 362.7,
+    "minor_km": 3790.2,
+    "rail_km": 12.8
    },
    "pop_lowland_covered": 4685000
   },
   "ping_cp": {
    "gross": {
-    "pop_areal": 230400,
-    "pop_cells_ge10pct": 540000,
-    "major_km": 392.5,
-    "minor_km": 3647.9,
-    "rail_km": 43.7
+    "pop_areal": 269300,
+    "pop_cells_ge10pct": 630800,
+    "major_km": 440.1,
+    "minor_km": 4280.8,
+    "rail_km": 46.5
    },
    "lowland_major_km": 31285.7,
    "lowland_minor_km": 225015.3,
    "lowland_rail_km": 1861.6,
    "strict": {
-    "pop_areal": 187600,
-    "pop_cells_ge10pct": 455900,
-    "major_km": 337.8,
-    "minor_km": 3140.6,
-    "rail_km": 25.7
+    "pop_areal": 211600,
+    "pop_cells_ge10pct": 520900,
+    "major_km": 371.7,
+    "minor_km": 3562.5,
+    "rail_km": 27.3
    },
    "pop_lowland_covered": 21577000
   },

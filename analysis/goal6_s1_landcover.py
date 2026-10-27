@@ -175,7 +175,7 @@ def main() -> None:
         grid = json.loads((ST1 / f"grid_{bid}.json").read_text(encoding="utf-8"))
         res["scenes"][bid] = analyse(bid, np.load(ST2 / bid / f"{pk['scene']}_water.npy"),
                                      mosaic_db(bid, pk["reference_all"], "vh"),
-                                     np.load(ST1 / bid / f"{pk['scene']}_vh_db.npy"),
+                                     mosaic_db(bid, pk["slices"], "vh"),
                                      np.load(ST1 / f"mask_lowland_{bid}.npy"), grid)
         res["scenes"][bid]["peak_scene"] = pk["scene"][12:40]
     OUT_JSON.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")

@@ -54,8 +54,11 @@ def test_headline_numbers_present_in_canonical():
     rn = d["rain_national"]
     assert (rn["top3_stations_7d"], rn["n_stations"]) == (67, 199)
     assert rn["top3_cells_7d"] == 32
-    assert d["flood_peak_km2"]["ping_cp"] == 2263.6
-    assert d["flood_peak_km2"]["bkk_lower_after_sea"] == 1104.0
+    # ค่าสูงสุดต่อลุ่ม = รอบถ่ายที่มากสุดของขั้นที่ 2 (ไม่ฝังตัวเลข — ผูกกับ summary จริง)
+    s2 = json.loads((ROOT / "data/22_goal6_network/derived/s1_stage2/summary.json").read_text(encoding="utf-8"))
+    for b, v in s2.items():
+        assert d["flood_peak_km2"][b] == max(r["water_km2_lowland"] for r in v["scenes"] if r["reference"] != r["scene"]), b
+    assert 0 < d["flood_peak_km2"]["bkk_lower_after_sea"] <= d["flood_peak_km2"]["bkk_lower"]
     es = d["event_stations"]
     assert (es["n_over_crit"], es["n_wave_peak"], es["n_pre_wave_peak"]) == (25, 17, 8)
     assert es["n_usable_datum"] == 6
@@ -84,7 +87,7 @@ def test_report_html_matches_canonical_flood_and_rain():
     """ตัวเลขหลักใน HTML ต้องตรง canonical (ไม่ใช่แค่ไม่มีค่าเก่า — ค่าใหม่ต้องมีจริง)"""
     d = _load()
     h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
-    assert f"{d['flood_peak_km2']['ping_cp']:.0f}" in h3 or "2,264" in h3
+    assert f"{d['flood_peak_km2']['ping_cp']:,.0f}" in h3 or f"{d['flood_peak_km2']['ping_cp']:.0f}" in h3
     assert f"{d['flood_peak_km2']['bkk_lower_after_sea']:,.0f}" in h3
     assert str(d["rain_national"]["top3_stations_7d"]) in h3
     assert str(d["rain_national"]["top3_cells_7d"]) in h3

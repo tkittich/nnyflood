@@ -10,17 +10,11 @@
   },
   {
    "scene": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG",
-   "before_km2": 359.2,
-   "after_km2": 279.2,
-   "sea_removed_km2": 80.0
-  },
-  {
-   "scene": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
-   "before_km2": 922.6,
-   "after_km2": 837.4,
-   "sea_removed_km2": 85.2
+   "before_km2": 1281.8,
+   "after_km2": 1116.6,
+   "sea_removed_km2": 165.2
   }
  ],
- "peak_after_km2": 1104.0,
- "peak_scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG"
+ "peak_after_km2": 1116.6,
+ "peak_scene": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG"
 }

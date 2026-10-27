@@ -98,6 +98,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | `goal7_s1_chachoengsao_recent` | `analysis/goal7_s1_chachoengsao_recent.py` | `main` | active | แผนที่น้ำเรดาร์ Sentinel-1 ของฉะเชิงเทรา 4–22 ต.ค. ด้วยกฎตัดน้ำตรึงเดิม ตามกติกา S1_CHACHOENGSAO_RECENT_PREREG (R7-22) | `python analysis/goal7_s1_chachoengsao_recent.py queue | process` | `analysis/goal7/s1_chachoengsao_recent.json` |
 | `goal6_s1_gistda_crosscheck` | `analysis/goal6_s1_gistda_crosscheck.py` | `main` | active | เทียบพื้นที่น้ำเรดาร์ต่อลุ่มกับชั้นน้ำท่วมสะสม 30 วันรายจังหวัดของ GISTDA ตามกติกา S1_GISTDA_CROSSCHECK_PREREG | `python analysis/goal6_s1_gistda_crosscheck.py` | `analysis/goal6/s1_gistda_crosscheck.json`<br>`analysis/goal6/s1_gistda_crosscheck.md` |
 | `s1_orbit` | `analysis/s1_orbit.py` | `main` | active | เลขวงโคจรสัมพัทธ์และเวลาถ่ายจากชื่อฉาก Sentinel-1 (โมดูลกลาง ใช้จับคู่ฉากอ้างอิง) | `python -c "import sys; sys.path.insert(0, 'analysis'); import s1_orbit"` | — |
+| `goal6_s1_ref_sensitivity` | `analysis/goal6_s1_ref_sensitivity.py` | `main` | active | ความไวของพื้นที่น้ำเรดาร์ต่อวันของฉากอ้างอิง (ลุ่มบางปะกง–ปราจีนบุรี) ตามกติกา S1_PASS_MOSAIC_PREREG §3 | `python analysis/goal6_s1_ref_sensitivity.py` | `analysis/goal6/s1_ref_sensitivity.json`<br>`analysis/goal6/s1_ref_sensitivity.md` |
 | `goal6_s1_reference_audit` | `analysis/goal6_s1_reference_audit.py` | `main` | active | ตรวจฉากอ้างอิงเรดาร์ขั้นที่ 2 ของเป้าหมาย 6 ที่ถ่ายระหว่างเหตุการณ์ ตัดน้ำซ้ำด้วยฉากก่อนเหตุการณ์ (วินิจฉัยเท่านั้น) | `python analysis/goal6_s1_reference_audit.py queue | process` | `analysis/goal6/s1_reference_audit.json`<br>`analysis/goal6/s1_reference_audit.md` |
 | `goal7_reach_length` | `analysis/goal7_reach_length.py` | `main` | active | วัดระยะตามลำน้ำ Ny.1B ถึง Ny.7 จากชั้นเส้นแม่น้ำนครนายก (มิตรเอิร์ธ) ตามกติกา REACH_LENGTH_PREREG | `python analysis/goal7_reach_length.py` | `analysis/goal7/reach_length.json` |
 | `goal7_mitrearth_road_valley` | `analysis/goal7_mitrearth_road_valley.py` | `main` | active | จุดที่ถนนตัดร่องน้ำ (ชั้นมิตรเอิร์ธ) ในอำเภอองครักษ์ เทียบความสูงพื้นดินกับระดับน้ำจริง — ชั้นสุดท้ายของ R7-14 | `python analysis/goal7_mitrearth_road_valley.py` | `analysis/goal7/mitrearth_road_valley.json` |
@@ -288,7 +289,7 @@ python -m pytest tests/ -q          # ต้องได้ 31 passed
 | id | ไฟล์ | env | ชนิด | คำอธิบาย (จาก docstring) |
 |---|---|---|---|---|
 
-รวม 5 สภาพแวดล้อม · 188 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
+รวม 5 สภาพแวดล้อม · 189 เครื่องมือที่ลงทะเบียน (สคริปต์อื่นที่ยังไม่ลงทะเบียนดูด้วย `python tools/doctor.py --list-unregistered`)
 
 <!-- END GENERATED: tool-registry -->
 

@@ -48,22 +48,11 @@
     "hhmm": "11:19",
     "reference": "S1C_IW_GRDH_1SDV_20260916T111958_20260916T112023_009472_012D77_98B6_COG",
     "scene": "S1C_IW_GRDH_1SDV_20260928T111958_20260928T112023_009647_01333F_E406_COG",
-    "reference_all": [
-     "S1C_IW_GRDH_1SDV_20260916T111958_20260916T112023_009472_012D77_98B6_COG",
-     "S1C_IW_GRDH_1SDV_20260916T112023_20260916T112048_009472_012D77_0540_COG"
+    "slices": [
+     "S1C_IW_GRDH_1SDV_20260928T111958_20260928T112023_009647_01333F_E406_COG",
+     "S1C_IW_GRDH_1SDV_20260928T112023_20260928T112048_009647_01333F_3FD1_COG"
     ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 11270.0,
-    "water_frac_plain": 0.0,
-    "coverage": 0.041,
-    "satellite": "S1C"
-   },
-   {
-    "basin": "pasak",
-    "track": "26",
-    "hhmm": "11:20",
-    "reference": "S1C_IW_GRDH_1SDV_20260916T111958_20260916T112023_009472_012D77_98B6_COG",
-    "scene": "S1C_IW_GRDH_1SDV_20260928T112023_20260928T112048_009647_01333F_3FD1_COG",
+    "n_slices": 2,
     "reference_all": [
      "S1C_IW_GRDH_1SDV_20260916T111958_20260916T112023_009472_012D77_98B6_COG",
      "S1C_IW_GRDH_1SDV_20260916T112023_20260916T112048_009472_012D77_0540_COG"
@@ -71,7 +60,7 @@
     "water_km2_lowland": 0.1,
     "plain_km2": 11270.0,
     "water_frac_plain": 0.0,
-    "coverage": 0.197,
+    "coverage": 0.238,
     "satellite": "S1C"
    },
    {
@@ -80,6 +69,11 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
+     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
@@ -87,23 +81,7 @@
     "water_km2_lowland": 0.0,
     "plain_km2": 11270.0,
     "water_frac_plain": 0.0,
-    "coverage": 0.531,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "pasak",
-    "track": "31",
-    "hhmm": "23:08",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 11270.0,
-    "water_frac_plain": 0.0,
-    "coverage": 0.157,
+    "coverage": 0.688,
     "satellite": "S1D"
    },
    {
@@ -112,30 +90,19 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
     "scene": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
+     "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
     ],
-    "water_km2_lowland": 521.0,
+    "water_km2_lowland": 1160.7,
     "plain_km2": 11270.0,
-    "water_frac_plain": 0.0462,
-    "coverage": 0.531,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "pasak",
-    "track": "31",
-    "hhmm": "23:08",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
-    ],
-    "water_km2_lowland": 639.7,
-    "plain_km2": 11270.0,
-    "water_frac_plain": 0.0568,
-    "coverage": 0.157,
+    "water_frac_plain": 0.103,
+    "coverage": 0.688,
     "satellite": "S1D"
    },
    {
@@ -144,6 +111,10 @@
     "hhmm": "11:20",
     "reference": "S1D_IW_GRDH_1SDV_20260922T112030_20260922T112055_004690_008C3D_5D24_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260922T112030_20260922T112055_004690_008C3D_5D24_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260922T112030_20260922T112055_004690_008C3D_5D24_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260922T112030_20260922T112055_004690_008C3D_5D24_COG"
     ],
@@ -159,6 +130,10 @@
     "hhmm": "23:00",
     "reference": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
     "scene": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
+    "slices": [
+     "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG"
     ],
@@ -174,6 +149,10 @@
     "hhmm": "23:00",
     "reference": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
     "scene": "S1C_IW_GRDH_1SDV_20261002T230013_20261002T230038_009712_01357D_B485_COG",
+    "slices": [
+     "S1C_IW_GRDH_1SDV_20261002T230013_20261002T230038_009712_01357D_B485_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG"
     ],
@@ -189,6 +168,10 @@
     "hhmm": "23:00",
     "reference": "S1D_IW_GRDH_1SDV_20260914T230017_20260914T230042_004580_00887A_1BF0_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260926T230018_20260926T230043_004755_008E7F_8F9B_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260926T230018_20260926T230043_004755_008E7F_8F9B_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260914T230017_20260914T230042_004580_00887A_1BF0_COG"
     ],
@@ -204,34 +187,28 @@
     "hhmm": "11:28",
     "reference": "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
+     "S1D_IW_GRDH_1SDV_20260927T112855_20260927T112920_004763_008EC4_ECE0_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG",
      "S1D_IW_GRDH_1SDV_20260915T112855_20260915T112920_004588_0088BA_5936_COG"
     ],
-    "water_km2_lowland": 1136.4,
+    "water_km2_lowland": 1576.6,
     "plain_km2": 11270.0,
-    "water_frac_plain": 0.1008,
-    "coverage": 0.47,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "pasak",
-    "track": "141",
-    "hhmm": "11:28",
-    "reference": "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260927T112855_20260927T112920_004763_008EC4_ECE0_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG",
-     "S1D_IW_GRDH_1SDV_20260915T112855_20260915T112920_004588_0088BA_5936_COG"
-    ],
-    "water_km2_lowland": 440.2,
-    "plain_km2": 11270.0,
-    "water_frac_plain": 0.0391,
-    "coverage": 0.437,
+    "water_frac_plain": 0.1399,
+    "coverage": 0.906,
     "satellite": "S1D"
    }
   ],
-  "unpaired": []
+  "unpaired": [],
+  "max_extent": {
+   "km2_lowland": 2035.4,
+   "n_passes": 5,
+   "covered_lowland_frac": 0.999
+  }
  },
  "maeklong": {
   "tracks": {
@@ -272,6 +249,12 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
+     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
+     "S1D_IW_GRDH_1SDV_20260919T230905_20260919T230930_004653_008B05_76B0_COG"
+    ],
+    "n_slices": 3,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
@@ -280,41 +263,7 @@
     "water_km2_lowland": 0.0,
     "plain_km2": 11326.0,
     "water_frac_plain": 0.0,
-    "coverage": 0.009,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "maeklong",
-    "track": "31",
-    "hhmm": "23:08",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230905_20260919T230930_004653_008B05_76B0_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 11326.0,
-    "water_frac_plain": 0.0,
-    "coverage": 0.4,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "maeklong",
-    "track": "31",
-    "hhmm": "23:09",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230905_20260919T230930_004653_008B05_76B0_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260919T230905_20260919T230930_004653_008B05_76B0_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230905_20260919T230930_004653_008B05_76B0_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 11326.0,
-    "water_frac_plain": 0.0,
-    "coverage": 0.195,
+    "coverage": 0.604,
     "satellite": "S1D"
    },
    {
@@ -323,49 +272,21 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
     "scene": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
+     "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+     "S1D_IW_GRDH_1SDV_20261001T230905_20261001T230930_004828_00911A_1BDC_COG"
+    ],
+    "n_slices": 3,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
      "S1D_IW_GRDH_1SDV_20260919T230905_20260919T230930_004653_008B05_76B0_COG"
     ],
-    "water_km2_lowland": 6.6,
+    "water_km2_lowland": 380.3,
     "plain_km2": 11326.0,
-    "water_frac_plain": 0.0006,
-    "coverage": 0.009,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "maeklong",
-    "track": "31",
-    "hhmm": "23:08",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230905_20260919T230930_004653_008B05_76B0_COG"
-    ],
-    "water_km2_lowland": 336.9,
-    "plain_km2": 11326.0,
-    "water_frac_plain": 0.0297,
-    "coverage": 0.4,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "maeklong",
-    "track": "31",
-    "hhmm": "23:09",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20261001T230905_20261001T230930_004828_00911A_1BDC_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230905_20260919T230930_004653_008B05_76B0_COG"
-    ],
-    "water_km2_lowland": 36.8,
-    "plain_km2": 11326.0,
-    "water_frac_plain": 0.0032,
-    "coverage": 0.195,
+    "water_frac_plain": 0.0336,
+    "coverage": 0.603,
     "satellite": "S1D"
    },
    {
@@ -374,6 +295,11 @@
     "hhmm": "11:36",
     "reference": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
+     "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
      "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
@@ -381,23 +307,7 @@
     "water_km2_lowland": 0.0,
     "plain_km2": 11326.0,
     "water_frac_plain": 0.0,
-    "coverage": 0.435,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "maeklong",
-    "track": "39",
-    "hhmm": "11:36",
-    "reference": "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
-     "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 11326.0,
-    "water_frac_plain": 0.0,
-    "coverage": 0.394,
+    "coverage": 0.83,
     "satellite": "S1D"
    },
    {
@@ -406,30 +316,19 @@
     "hhmm": "11:36",
     "reference": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
     "scene": "S1D_IW_GRDH_1SDV_20261002T113615_20261002T113640_004836_009162_E9D4_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20261002T113615_20261002T113640_004836_009162_E9D4_COG",
+     "S1D_IW_GRDH_1SDV_20261002T113640_20261002T113705_004836_009162_8A28_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
      "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
     ],
-    "water_km2_lowland": 73.0,
+    "water_km2_lowland": 87.5,
     "plain_km2": 11326.0,
-    "water_frac_plain": 0.0064,
-    "coverage": 0.435,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "maeklong",
-    "track": "39",
-    "hhmm": "11:36",
-    "reference": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20261002T113640_20261002T113705_004836_009162_8A28_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
-     "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
-    ],
-    "water_km2_lowland": 14.6,
-    "plain_km2": 11326.0,
-    "water_frac_plain": 0.0013,
-    "coverage": 0.395,
+    "water_frac_plain": 0.0077,
+    "coverage": 0.83,
     "satellite": "S1D"
    },
    {
@@ -438,22 +337,11 @@
     "hhmm": "23:16",
     "reference": "S1D_IW_GRDH_1SDV_20260912T231641_20260912T231706_004551_00877B_4991_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260924T231641_20260924T231706_004726_008D7D_21DD_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260912T231641_20260912T231706_004551_00877B_4991_COG",
-     "S1D_IW_GRDH_1SDV_20260912T231706_20260912T231731_004551_00877B_11A3_COG"
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260924T231641_20260924T231706_004726_008D7D_21DD_COG",
+     "S1D_IW_GRDH_1SDV_20260924T231706_20260924T231731_004726_008D7D_B576_COG"
     ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 11326.0,
-    "water_frac_plain": 0.0,
-    "coverage": 0.328,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "maeklong",
-    "track": "104",
-    "hhmm": "23:17",
-    "reference": "S1D_IW_GRDH_1SDV_20260912T231641_20260912T231706_004551_00877B_4991_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260924T231706_20260924T231731_004726_008D7D_B576_COG",
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260912T231641_20260912T231706_004551_00877B_4991_COG",
      "S1D_IW_GRDH_1SDV_20260912T231706_20260912T231731_004551_00877B_11A3_COG"
@@ -461,7 +349,7 @@
     "water_km2_lowland": 15.2,
     "plain_km2": 11326.0,
     "water_frac_plain": 0.0013,
-    "coverage": 0.284,
+    "coverage": 0.611,
     "satellite": "S1D"
    },
    {
@@ -470,34 +358,28 @@
     "hhmm": "11:28",
     "reference": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG",
+     "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
      "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG"
     ],
-    "water_km2_lowland": 36.8,
+    "water_km2_lowland": 332.2,
     "plain_km2": 11326.0,
-    "water_frac_plain": 0.0032,
-    "coverage": 0.148,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "maeklong",
-    "track": "141",
-    "hhmm": "11:28",
-    "reference": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
-     "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG"
-    ],
-    "water_km2_lowland": 295.4,
-    "plain_km2": 11326.0,
-    "water_frac_plain": 0.0261,
-    "coverage": 0.242,
+    "water_frac_plain": 0.0293,
+    "coverage": 0.391,
     "satellite": "S1D"
    }
   ],
-  "unpaired": []
+  "unpaired": [],
+  "max_extent": {
+   "km2_lowland": 670.1,
+   "n_passes": 4,
+   "covered_lowland_frac": 1.0
+  }
  },
  "bp_prach": {
   "tracks": {
@@ -549,30 +431,19 @@
     "hhmm": "11:19",
     "reference": "S1C_IW_GRDH_1SDV_20260916T111933_20260916T111958_009472_012D77_3165_COG",
     "scene": "S1C_IW_GRDH_1SDV_20260928T111933_20260928T111958_009647_01333F_02ED_COG",
+    "slices": [
+     "S1C_IW_GRDH_1SDV_20260928T111933_20260928T111958_009647_01333F_02ED_COG",
+     "S1C_IW_GRDH_1SDV_20260928T111958_20260928T112023_009647_01333F_E406_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1C_IW_GRDH_1SDV_20260916T111933_20260916T111958_009472_012D77_3165_COG",
      "S1C_IW_GRDH_1SDV_20260916T111958_20260916T112023_009472_012D77_98B6_COG"
     ],
-    "water_km2_lowland": 5.8,
+    "water_km2_lowland": 265.6,
     "plain_km2": 10768.9,
-    "water_frac_plain": 0.0005,
-    "coverage": 0.077,
-    "satellite": "S1C"
-   },
-   {
-    "basin": "bp_prach",
-    "track": "26",
-    "hhmm": "11:19",
-    "reference": "S1C_IW_GRDH_1SDV_20260916T111933_20260916T111958_009472_012D77_3165_COG",
-    "scene": "S1C_IW_GRDH_1SDV_20260928T111958_20260928T112023_009647_01333F_E406_COG",
-    "reference_all": [
-     "S1C_IW_GRDH_1SDV_20260916T111933_20260916T111958_009472_012D77_3165_COG",
-     "S1C_IW_GRDH_1SDV_20260916T111958_20260916T112023_009472_012D77_98B6_COG"
-    ],
-    "water_km2_lowland": 259.8,
-    "plain_km2": 10768.9,
-    "water_frac_plain": 0.0241,
-    "coverage": 0.509,
+    "water_frac_plain": 0.0247,
+    "coverage": 0.586,
     "satellite": "S1C"
    },
    {
@@ -581,6 +452,10 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
     ],
@@ -596,6 +471,10 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
     "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
     ],
@@ -611,6 +490,10 @@
     "hhmm": "11:20",
     "reference": "S1D_IW_GRDH_1SDV_20260922T112005_20260922T112030_004690_008C3D_55A3_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260922T112005_20260922T112030_004690_008C3D_55A3_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260922T112005_20260922T112030_004690_008C3D_55A3_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260922T112005_20260922T112030_004690_008C3D_55A3_COG"
     ],
@@ -626,6 +509,11 @@
     "hhmm": "23:00",
     "reference": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
     "scene": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
+    "slices": [
+     "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
+     "S1C_IW_GRDH_1SDV_20260920T230037_20260920T230102_009537_012FAC_79FF_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
      "S1C_IW_GRDH_1SDV_20260920T230037_20260920T230102_009537_012FAC_79FF_COG"
@@ -633,23 +521,7 @@
     "water_km2_lowland": 0.0,
     "plain_km2": 10768.9,
     "water_frac_plain": 0.0,
-    "coverage": 0.705,
-    "satellite": "S1C"
-   },
-   {
-    "basin": "bp_prach",
-    "track": "91",
-    "hhmm": "23:00",
-    "reference": "S1C_IW_GRDH_1SDV_20260920T230037_20260920T230102_009537_012FAC_79FF_COG",
-    "scene": "S1C_IW_GRDH_1SDV_20260920T230037_20260920T230102_009537_012FAC_79FF_COG",
-    "reference_all": [
-     "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
-     "S1C_IW_GRDH_1SDV_20260920T230037_20260920T230102_009537_012FAC_79FF_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 10768.9,
-    "water_frac_plain": 0.0,
-    "coverage": 0.108,
+    "coverage": 0.814,
     "satellite": "S1C"
    },
    {
@@ -658,30 +530,19 @@
     "hhmm": "23:00",
     "reference": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
     "scene": "S1C_IW_GRDH_1SDV_20261002T230013_20261002T230038_009712_01357D_B485_COG",
+    "slices": [
+     "S1C_IW_GRDH_1SDV_20261002T230013_20261002T230038_009712_01357D_B485_COG",
+     "S1C_IW_GRDH_1SDV_20261002T230038_20261002T230103_009712_01357D_80ED_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
      "S1C_IW_GRDH_1SDV_20260920T230037_20260920T230102_009537_012FAC_79FF_COG"
     ],
-    "water_km2_lowland": 1003.8,
+    "water_km2_lowland": 1058.0,
     "plain_km2": 10768.9,
-    "water_frac_plain": 0.0932,
-    "coverage": 0.706,
-    "satellite": "S1C"
-   },
-   {
-    "basin": "bp_prach",
-    "track": "91",
-    "hhmm": "23:00",
-    "reference": "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
-    "scene": "S1C_IW_GRDH_1SDV_20261002T230038_20261002T230103_009712_01357D_80ED_COG",
-    "reference_all": [
-     "S1C_IW_GRDH_1SDV_20260920T230012_20260920T230037_009537_012FAC_7304_COG",
-     "S1C_IW_GRDH_1SDV_20260920T230037_20260920T230102_009537_012FAC_79FF_COG"
-    ],
-    "water_km2_lowland": 54.2,
-    "plain_km2": 10768.9,
-    "water_frac_plain": 0.005,
-    "coverage": 0.108,
+    "water_frac_plain": 0.0982,
+    "coverage": 0.814,
     "satellite": "S1C"
    },
    {
@@ -690,30 +551,19 @@
     "hhmm": "23:00",
     "reference": "S1D_IW_GRDH_1SDV_20260914T230017_20260914T230042_004580_00887A_1BF0_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260926T230018_20260926T230043_004755_008E7F_8F9B_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260926T230018_20260926T230043_004755_008E7F_8F9B_COG",
+     "S1D_IW_GRDH_1SDV_20260926T230043_20260926T230108_004755_008E7F_86E9_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260914T230017_20260914T230042_004580_00887A_1BF0_COG",
      "S1D_IW_GRDH_1SDV_20260914T230042_20260914T230107_004580_00887A_7E15_COG"
     ],
-    "water_km2_lowland": 358.0,
+    "water_km2_lowland": 671.6,
     "plain_km2": 10768.9,
-    "water_frac_plain": 0.0332,
-    "coverage": 0.354,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "bp_prach",
-    "track": "133",
-    "hhmm": "23:00",
-    "reference": "S1D_IW_GRDH_1SDV_20260914T230017_20260914T230042_004580_00887A_1BF0_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260926T230043_20260926T230108_004755_008E7F_86E9_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260914T230017_20260914T230042_004580_00887A_1BF0_COG",
-     "S1D_IW_GRDH_1SDV_20260914T230042_20260914T230107_004580_00887A_7E15_COG"
-    ],
-    "water_km2_lowland": 313.6,
-    "plain_km2": 10768.9,
-    "water_frac_plain": 0.0291,
-    "coverage": 0.47,
+    "water_frac_plain": 0.0624,
+    "coverage": 0.824,
     "satellite": "S1D"
    },
    {
@@ -722,34 +572,28 @@
     "hhmm": "11:28",
     "reference": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG",
+     "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
      "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG"
     ],
-    "water_km2_lowland": 1032.7,
+    "water_km2_lowland": 1379.7,
     "plain_km2": 10768.9,
-    "water_frac_plain": 0.0959,
-    "coverage": 0.492,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "bp_prach",
-    "track": "141",
-    "hhmm": "11:28",
-    "reference": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
-     "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG"
-    ],
-    "water_km2_lowland": 346.9,
-    "plain_km2": 10768.9,
-    "water_frac_plain": 0.0322,
-    "coverage": 0.191,
+    "water_frac_plain": 0.1281,
+    "coverage": 0.683,
     "satellite": "S1D"
    }
   ],
-  "unpaired": []
+  "unpaired": [],
+  "max_extent": {
+   "km2_lowland": 2191.5,
+   "n_passes": 5,
+   "covered_lowland_frac": 1.0
+  }
  },
  "thachin": {
   "tracks": {
@@ -788,6 +632,11 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
+     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
@@ -795,23 +644,7 @@
     "water_km2_lowland": 0.0,
     "plain_km2": 12243.9,
     "water_frac_plain": 0.0,
-    "coverage": 0.13,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "thachin",
-    "track": "31",
-    "hhmm": "23:08",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 12243.9,
-    "water_frac_plain": 0.0,
-    "coverage": 0.87,
+    "coverage": 1.0,
     "satellite": "S1D"
    },
    {
@@ -820,30 +653,19 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
     "scene": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
+     "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
     ],
-    "water_km2_lowland": 160.4,
+    "water_km2_lowland": 1667.2,
     "plain_km2": 12243.9,
-    "water_frac_plain": 0.0131,
-    "coverage": 0.13,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "thachin",
-    "track": "31",
-    "hhmm": "23:08",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
-    ],
-    "water_km2_lowland": 1506.8,
-    "plain_km2": 12243.9,
-    "water_frac_plain": 0.1231,
-    "coverage": 0.869,
+    "water_frac_plain": 0.1362,
+    "coverage": 1.0,
     "satellite": "S1D"
    },
    {
@@ -852,6 +674,11 @@
     "hhmm": "11:36",
     "reference": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
+     "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
      "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
@@ -859,23 +686,7 @@
     "water_km2_lowland": 0.0,
     "plain_km2": 12243.9,
     "water_frac_plain": 0.0,
-    "coverage": 0.073,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "thachin",
-    "track": "39",
-    "hhmm": "11:36",
-    "reference": "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
-     "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 12243.9,
-    "water_frac_plain": 0.0,
-    "coverage": 0.108,
+    "coverage": 0.181,
     "satellite": "S1D"
    },
    {
@@ -884,30 +695,19 @@
     "hhmm": "11:36",
     "reference": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
     "scene": "S1D_IW_GRDH_1SDV_20261002T113615_20261002T113640_004836_009162_E9D4_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20261002T113615_20261002T113640_004836_009162_E9D4_COG",
+     "S1D_IW_GRDH_1SDV_20261002T113640_20261002T113705_004836_009162_8A28_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
      "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
     ],
-    "water_km2_lowland": 1.4,
+    "water_km2_lowland": 8.7,
     "plain_km2": 12243.9,
-    "water_frac_plain": 0.0001,
-    "coverage": 0.073,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "thachin",
-    "track": "39",
-    "hhmm": "11:36",
-    "reference": "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20261002T113640_20261002T113705_004836_009162_8A28_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260920T113615_20260920T113640_004661_008B4A_4519_COG",
-     "S1D_IW_GRDH_1SDV_20260920T113640_20260920T113705_004661_008B4A_5A8D_COG"
-    ],
-    "water_km2_lowland": 7.4,
-    "plain_km2": 12243.9,
-    "water_frac_plain": 0.0006,
-    "coverage": 0.108,
+    "water_frac_plain": 0.0007,
+    "coverage": 0.181,
     "satellite": "S1D"
    },
    {
@@ -916,6 +716,10 @@
     "hhmm": "23:16",
     "reference": "S1D_IW_GRDH_1SDV_20260912T231641_20260912T231706_004551_00877B_4991_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260924T231641_20260924T231706_004726_008D7D_21DD_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260924T231641_20260924T231706_004726_008D7D_21DD_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260912T231641_20260912T231706_004551_00877B_4991_COG"
     ],
@@ -931,34 +735,28 @@
     "hhmm": "11:28",
     "reference": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG",
+     "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
      "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG"
     ],
-    "water_km2_lowland": 24.3,
+    "water_km2_lowland": 1549.8,
     "plain_km2": 12243.9,
-    "water_frac_plain": 0.002,
-    "coverage": 0.176,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "thachin",
-    "track": "141",
-    "hhmm": "11:28",
-    "reference": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
-     "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG"
-    ],
-    "water_km2_lowland": 1525.5,
-    "plain_km2": 12243.9,
-    "water_frac_plain": 0.1246,
-    "coverage": 0.824,
+    "water_frac_plain": 0.1266,
+    "coverage": 1.0,
     "satellite": "S1D"
    }
   ],
-  "unpaired": []
+  "unpaired": [],
+  "max_extent": {
+   "km2_lowland": 2292.8,
+   "n_passes": 4,
+   "covered_lowland_frac": 1.0
+  }
  },
  "ping_cp": {
   "tracks": {
@@ -998,6 +796,11 @@
     "hhmm": "23:07",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG",
+     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG",
      "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG"
@@ -1005,23 +808,7 @@
     "water_km2_lowland": 0.0,
     "plain_km2": 39483.8,
     "water_frac_plain": 0.0,
-    "coverage": 0.138,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "ping_cp",
-    "track": "31",
-    "hhmm": "23:08",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 39483.8,
-    "water_frac_plain": 0.0,
-    "coverage": 0.182,
+    "coverage": 0.32,
     "satellite": "S1D"
    },
    {
@@ -1030,30 +817,19 @@
     "hhmm": "23:07",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG",
     "scene": "S1D_IW_GRDH_1SDV_20261001T230750_20261001T230815_004828_00911A_0DD2_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20261001T230750_20261001T230815_004828_00911A_0DD2_COG",
+     "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG",
      "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG"
     ],
-    "water_km2_lowland": 393.0,
+    "water_km2_lowland": 2656.6,
     "plain_km2": 39483.8,
-    "water_frac_plain": 0.01,
-    "coverage": 0.138,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "ping_cp",
-    "track": "31",
-    "hhmm": "23:08",
-    "reference": "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20261001T230815_20261001T230840_004828_00911A_9853_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260919T230750_20260919T230815_004653_008B05_7269_COG",
-     "S1D_IW_GRDH_1SDV_20260919T230815_20260919T230840_004653_008B05_A514_COG"
-    ],
-    "water_km2_lowland": 2263.6,
-    "plain_km2": 39483.8,
-    "water_frac_plain": 0.0573,
-    "coverage": 0.182,
+    "water_frac_plain": 0.0673,
+    "coverage": 0.32,
     "satellite": "S1D"
    },
    {
@@ -1062,6 +838,11 @@
     "hhmm": "11:37",
     "reference": "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG",
+     "S1D_IW_GRDH_1SDV_20260920T113730_20260920T113755_004661_008B4A_FDA0_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG",
      "S1D_IW_GRDH_1SDV_20260920T113730_20260920T113755_004661_008B4A_FDA0_COG"
@@ -1069,23 +850,7 @@
     "water_km2_lowland": 0.0,
     "plain_km2": 39483.8,
     "water_frac_plain": 0.0,
-    "coverage": 0.074,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "ping_cp",
-    "track": "39",
-    "hhmm": "11:37",
-    "reference": "S1D_IW_GRDH_1SDV_20260920T113730_20260920T113755_004661_008B4A_FDA0_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260920T113730_20260920T113755_004661_008B4A_FDA0_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG",
-     "S1D_IW_GRDH_1SDV_20260920T113730_20260920T113755_004661_008B4A_FDA0_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 39483.8,
-    "water_frac_plain": 0.0,
-    "coverage": 0.031,
+    "coverage": 0.105,
     "satellite": "S1D"
    },
    {
@@ -1094,6 +859,11 @@
     "hhmm": "11:37",
     "reference": "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG",
     "scene": "S1D_IW_GRDH_1SDV_20261002T113705_20261002T113730_004836_009162_EC26_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20261002T113705_20261002T113730_004836_009162_EC26_COG",
+     "S1D_IW_GRDH_1SDV_20261002T113730_20261002T113755_004836_009162_C3D5_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG",
      "S1D_IW_GRDH_1SDV_20260920T113730_20260920T113755_004661_008B4A_FDA0_COG"
@@ -1101,23 +871,7 @@
     "water_km2_lowland": 0.0,
     "plain_km2": 39483.8,
     "water_frac_plain": 0.0,
-    "coverage": 0.074,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "ping_cp",
-    "track": "39",
-    "hhmm": "11:37",
-    "reference": "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20261002T113730_20261002T113755_004836_009162_C3D5_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260920T113705_20260920T113730_004661_008B4A_1836_COG",
-     "S1D_IW_GRDH_1SDV_20260920T113730_20260920T113755_004661_008B4A_FDA0_COG"
-    ],
-    "water_km2_lowland": 0.0,
-    "plain_km2": 39483.8,
-    "water_frac_plain": 0.0,
-    "coverage": 0.031,
+    "coverage": 0.105,
     "satellite": "S1D"
    },
    {
@@ -1126,30 +880,19 @@
     "hhmm": "23:15",
     "reference": "S1D_IW_GRDH_1SDV_20260912T231551_20260912T231616_004551_00877B_0B8C_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260924T231551_20260924T231616_004726_008D7D_A910_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260924T231551_20260924T231616_004726_008D7D_A910_COG",
+     "S1D_IW_GRDH_1SDV_20260924T231616_20260924T231641_004726_008D7D_7E5C_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260912T231551_20260912T231616_004551_00877B_0B8C_COG",
      "S1D_IW_GRDH_1SDV_20260912T231616_20260912T231641_004551_00877B_C4F8_COG"
     ],
-    "water_km2_lowland": 152.1,
+    "water_km2_lowland": 256.1,
     "plain_km2": 39483.8,
-    "water_frac_plain": 0.0039,
-    "coverage": 0.205,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "ping_cp",
-    "track": "104",
-    "hhmm": "23:16",
-    "reference": "S1D_IW_GRDH_1SDV_20260912T231551_20260912T231616_004551_00877B_0B8C_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260924T231616_20260924T231641_004726_008D7D_7E5C_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260912T231551_20260912T231616_004551_00877B_0B8C_COG",
-     "S1D_IW_GRDH_1SDV_20260912T231616_20260912T231641_004551_00877B_C4F8_COG"
-    ],
-    "water_km2_lowland": 103.9,
-    "plain_km2": 39483.8,
-    "water_frac_plain": 0.0026,
-    "coverage": 0.159,
+    "water_frac_plain": 0.0065,
+    "coverage": 0.363,
     "satellite": "S1D"
    },
    {
@@ -1158,34 +901,28 @@
     "hhmm": "11:28",
     "reference": "S1D_IW_GRDH_1SDV_20260915T112855_20260915T112920_004588_0088BA_5936_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260927T112855_20260927T112920_004763_008EC4_ECE0_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260927T112855_20260927T112920_004763_008EC4_ECE0_COG",
+     "S1D_IW_GRDH_1SDV_20260927T112920_20260927T112945_004763_008EC4_7803_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260915T112855_20260915T112920_004588_0088BA_5936_COG",
      "S1D_IW_GRDH_1SDV_20260915T112920_20260915T112945_004588_0088BA_3310_COG"
     ],
-    "water_km2_lowland": 2231.4,
+    "water_km2_lowland": 2383.9,
     "plain_km2": 39483.8,
-    "water_frac_plain": 0.0565,
-    "coverage": 0.251,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "ping_cp",
-    "track": "141",
-    "hhmm": "11:29",
-    "reference": "S1D_IW_GRDH_1SDV_20260915T112855_20260915T112920_004588_0088BA_5936_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260927T112920_20260927T112945_004763_008EC4_7803_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260915T112855_20260915T112920_004588_0088BA_5936_COG",
-     "S1D_IW_GRDH_1SDV_20260915T112920_20260915T112945_004588_0088BA_3310_COG"
-    ],
-    "water_km2_lowland": 152.5,
-    "plain_km2": 39483.8,
-    "water_frac_plain": 0.0039,
-    "coverage": 0.277,
+    "water_frac_plain": 0.0604,
+    "coverage": 0.527,
     "satellite": "S1D"
    }
   ],
-  "unpaired": []
+  "unpaired": [],
+  "max_extent": {
+   "km2_lowland": 4105.0,
+   "n_passes": 4,
+   "covered_lowland_frac": 0.62
+  }
  },
  "bkk_lower": {
   "tracks": {
@@ -1210,6 +947,10 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
     ],
@@ -1225,6 +966,10 @@
     "hhmm": "23:08",
     "reference": "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG",
     "scene": "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20261001T230840_20261001T230905_004828_00911A_91AB_COG"
+    ],
+    "n_slices": 1,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260919T230840_20260919T230905_004653_008B05_587D_COG"
     ],
@@ -1240,33 +985,27 @@
     "hhmm": "11:28",
     "reference": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
     "scene": "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG",
+    "slices": [
+     "S1D_IW_GRDH_1SDV_20260927T112805_20260927T112830_004763_008EC4_2192_COG",
+     "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG"
+    ],
+    "n_slices": 2,
     "reference_all": [
      "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
      "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG"
     ],
-    "water_km2_lowland": 359.2,
+    "water_km2_lowland": 1281.8,
     "plain_km2": 10192.2,
-    "water_frac_plain": 0.0352,
-    "coverage": 0.579,
-    "satellite": "S1D"
-   },
-   {
-    "basin": "bkk_lower",
-    "track": "141",
-    "hhmm": "11:28",
-    "reference": "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
-    "scene": "S1D_IW_GRDH_1SDV_20260927T112830_20260927T112855_004763_008EC4_BFC9_COG",
-    "reference_all": [
-     "S1D_IW_GRDH_1SDV_20260915T112805_20260915T112830_004588_0088BA_9DCC_COG",
-     "S1D_IW_GRDH_1SDV_20260915T112830_20260915T112855_004588_0088BA_0029_COG"
-    ],
-    "water_km2_lowland": 922.6,
-    "plain_km2": 10192.2,
-    "water_frac_plain": 0.0905,
-    "coverage": 0.42,
+    "water_frac_plain": 0.1258,
+    "coverage": 0.999,
     "satellite": "S1D"
    }
   ],
-  "unpaired": []
+  "unpaired": [],
+  "max_extent": {
+   "km2_lowland": 1814.9,
+   "n_passes": 2,
+   "covered_lowland_frac": 1.0
+  }
  }
 }

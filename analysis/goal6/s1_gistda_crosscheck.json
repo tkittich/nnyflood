@@ -27,15 +27,15 @@
    ],
    "peak_scene": "1SDV_20260927T112830_2026092",
    "A_peak_scene": {
-    "precision": 0.647,
-    "recall": 0.601,
-    "f1": 0.623,
-    "radar_km2": 1121.7,
-    "gistda_km2": 1208.2,
-    "ratio_radar_to_gistda": 0.93,
-    "domain_km2": 7507.7,
-    "radar_total_km2_whole_grid": 1136.4,
-    "share_of_radar_in_domain": 0.987,
+    "precision": 0.599,
+    "recall": 0.607,
+    "f1": 0.603,
+    "radar_km2": 1415.7,
+    "gistda_km2": 1397.9,
+    "ratio_radar_to_gistda": 1.01,
+    "domain_km2": 8891.7,
+    "radar_total_km2_whole_grid": 1576.6,
+    "share_of_radar_in_domain": 0.898,
     "label_low_precision": false
    },
    "B_union_all_scenes": {
@@ -61,17 +61,17 @@
     "ชัยนาท_30days.json",
     "สุพรรณบุรี_30days.json"
    ],
-   "peak_scene": "1SDV_20261001T230840_2026100",
+   "peak_scene": "1SDV_20261001T230815_2026100",
    "A_peak_scene": {
-    "precision": 0.779,
-    "recall": 0.606,
-    "f1": 0.682,
-    "radar_km2": 236.0,
-    "gistda_km2": 303.6,
-    "ratio_radar_to_gistda": 0.78,
-    "domain_km2": 2019.9,
-    "radar_total_km2_whole_grid": 336.9,
-    "share_of_radar_in_domain": 0.701,
+    "precision": 0.774,
+    "recall": 0.593,
+    "f1": 0.671,
+    "radar_km2": 242.6,
+    "gistda_km2": 316.9,
+    "ratio_radar_to_gistda": 0.77,
+    "domain_km2": 2247.5,
+    "radar_total_km2_whole_grid": 380.3,
+    "share_of_radar_in_domain": 0.638,
     "label_low_precision": false
    },
    "B_union_all_scenes": {
@@ -107,17 +107,17 @@
     "ปราจีนบุรี_30days_2026-10-20.json",
     "นครนายก_30days_2026-10-20.json"
    ],
-   "peak_scene": "1SDV_20261001T230840_2026100",
+   "peak_scene": "1SDV_20260927T112805_2026092",
    "A_peak_scene": {
-    "precision": 0.858,
-    "recall": 0.548,
-    "f1": 0.669,
-    "radar_km2": 1220.1,
-    "gistda_km2": 1907.9,
+    "precision": 0.8,
+    "recall": 0.513,
+    "f1": 0.625,
+    "radar_km2": 1319.1,
+    "gistda_km2": 2059.8,
     "ratio_radar_to_gistda": 0.64,
-    "domain_km2": 5270.7,
-    "radar_total_km2_whole_grid": 1281.6,
-    "share_of_radar_in_domain": 0.952,
+    "domain_km2": 7539.5,
+    "radar_total_km2_whole_grid": 1379.7,
+    "share_of_radar_in_domain": 0.956,
     "label_low_precision": false
    },
    "B_union_all_scenes": {
@@ -155,17 +155,17 @@
     "ชัยนาท_30days.json",
     "สุพรรณบุรี_30days.json"
    ],
-   "peak_scene": "1SDV_20260927T112830_2026092",
+   "peak_scene": "1SDV_20261001T230815_2026100",
    "A_peak_scene": {
-    "precision": 0.762,
-    "recall": 0.592,
-    "f1": 0.666,
-    "radar_km2": 1350.8,
-    "gistda_km2": 1741.2,
-    "ratio_radar_to_gistda": 0.78,
-    "domain_km2": 6439.6,
-    "radar_total_km2_whole_grid": 1525.5,
-    "share_of_radar_in_domain": 0.885,
+    "precision": 0.827,
+    "recall": 0.667,
+    "f1": 0.738,
+    "radar_km2": 1411.2,
+    "gistda_km2": 1750.5,
+    "ratio_radar_to_gistda": 0.81,
+    "domain_km2": 6576.4,
+    "radar_total_km2_whole_grid": 1667.2,
+    "share_of_radar_in_domain": 0.846,
     "label_low_precision": false
    },
    "B_union_all_scenes": {
@@ -211,7 +211,7 @@
     "นครสวรรค์_30days.json",
     "สุพรรณบุรี_30days.json"
    ],
-   "peak_scene": "1SDV_20261001T230815_2026100",
+   "peak_scene": "1SDV_20261001T230750_2026100",
    "A_peak_scene": {
     "precision": 0.775,
     "recall": 0.631,
@@ -220,8 +220,8 @@
     "gistda_km2": 2104.7,
     "ratio_radar_to_gistda": 0.81,
     "domain_km2": 10342.0,
-    "radar_total_km2_whole_grid": 2263.6,
-    "share_of_radar_in_domain": 0.757,
+    "radar_total_km2_whole_grid": 2656.6,
+    "share_of_radar_in_domain": 0.645,
     "label_low_precision": false
    },
    "B_union_all_scenes": {

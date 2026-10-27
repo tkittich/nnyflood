@@ -142,14 +142,15 @@ def main() -> None:
         pk = max(scenes, key=lambda r: r["water_km2_lowland"])
         m = re.search(r"_(\d{8})T(\d{6})_", pk["scene"])
         utc = datetime.strptime(m.group(1) + m.group(2), "%Y%m%d%H%M%S")
-        same = [r for r in scenes if r["track"] == pk["track"] and
-                re.search(r"_(\d{8})T", r["scene"]).group(1) == m.group(1)]
+        same = [pk]       # หน่วยของขั้นที่ 2 คือรอบถ่าย (รวมชิ้นส่วนแล้ว) — docs/S1_PASS_MOSAIC_PREREG.md §1
         flood_meta[b] = {
             "scene": pk["scene"], "coverage": round(pk["coverage"], 2),
             "utc": utc.strftime("%Y-%m-%d %H:%M"), "ict": (utc + timedelta(hours=7)).strftime("%Y-%m-%d %H:%M"),
-            "same_pass_frames": len(same),
+            "same_pass_frames": pk["n_slices"],
             "same_pass_sum_km2": round(sum(r["water_km2_lowland"] for r in same), 1),
             "same_pass_coverage_sum": round(min(1.0, sum(r["coverage"] for r in same)), 2),
+            "max_extent_km2": st2[b]["max_extent"]["km2_lowland"], "max_extent_covered_lowland_frac": st2[b]["max_extent"]["covered_lowland_frac"],
+            "max_extent_n_passes": st2[b]["max_extent"]["n_passes"],
         }
     sea = json.loads((A / "goal6/bkk_lower/l2_sea_adjust.json").read_text(encoding="utf-8"))
     flood["bkk_lower_after_sea"] = sea["peak_after_km2"]
@@ -242,6 +243,11 @@ def main() -> None:
             "B_share_in_domain_range": [min(v["B_union_all_scenes"]["share_of_radar_in_domain"] for v in ok.values()), max(v["B_union_all_scenes"]["share_of_radar_in_domain"] for v in ok.values())],
             "any_low_precision": [b for b, v in ok.items() if v["B_union_all_scenes"]["label_low_precision"]],
         }
+
+    # ---- ความไวต่อวันของฉากอ้างอิง (goal6_s1_ref_sensitivity.py — กติกา docs/S1_PASS_MOSAIC_PREREG.md §3) ----
+    rs_p = A / "goal6/s1_ref_sensitivity.json"
+    if rs_p.exists():
+        out["s1_ref_sensitivity"] = json.loads(rs_p.read_text(encoding="utf-8"))["summary"]
 
     # ---- เหตุการณ์จุดวัด (screen) ----
     sc = json.loads((A / "goal6_screen_2026_summary.json").read_text(encoding="utf-8"))
@@ -562,6 +568,10 @@ def main() -> None:
         "retired_values": {
             "ป่าสัก 521": "27 ต.ค. 69 — ฉากอ้างอิงขั้นที่ 2 เดิมถ่ายระหว่างเหตุการณ์ (จับ HH:MM) น้ำใหม่ต่ำกว่าจริง → จับตามวงโคจรสัมพัทธ์ (docs/S1_REFERENCE_AUDIT_PREREG.md §6)",
             "ท่าจีน 160": "เดียวกัน (27 ต.ค. 69)",
+            "2,263.6": "27 ต.ค. 69 — หน่วยของขั้นที่ 2 เปลี่ยนจากรายชิ้นส่วนฉากเป็นรอบถ่าย (รวมชิ้นส่วน · docs/S1_PASS_MOSAIC_PREREG.md) ค่าสูงสุดต่อลุ่มเปลี่ยน",
+            "ป่าสัก 1,136": "เดียวกัน",
+            "ท่าจีน 1,526": "เดียวกัน",
+            "แม่กลอง 337": "เดียวกัน",
             "แม่กลอง 73 ตร.กม.": "เดียวกัน (27 ต.ค. 69)",
             "แม่กลองส่วนใหญ่เป็นแหล่งน้ำถาวร": "ข้อสรุปจากฉากอ้างอิงผิด — จากการจับตามวงโคจรสัมพัทธ์ แม่กลองมีน้ำใหม่เข้มงวดหลายร้อย ตร.กม. (ดู canonical s1_landcover)",
             "เกือบทั้งหมดเป็นแหล่งน้ำถาวร": "เดียวกัน",

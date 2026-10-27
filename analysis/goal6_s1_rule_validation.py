@@ -144,11 +144,10 @@ def main() -> None:
         out = {"controls": [], "events": []}
         for r in scenes:
             water_p = ST2 / bid / f"{r['scene']}_water.npy"
-            vh_post = ST1 / bid / f"{r['scene']}_vh_db.npy"
-            if not (water_p.exists() and vh_post.exists()):
+            if not water_p.exists():
                 continue
             w = np.load(water_p)
-            post, pre = np.load(vh_post), mosaic_db(bid, r["reference_all"], "vh")
+            post, pre = mosaic_db(bid, r["slices"], "vh"), mosaic_db(bid, r["reference_all"], "vh")
             cov_low = float((np.isfinite(post) & np.isfinite(pre) & lowb).sum() * 0.0009)
             entry = {"scene": r["scene"][12:40], "water_km2": round(float(w.sum() * 0.0009), 1),
                      "covered_lowland_km2": round(cov_low, 1),

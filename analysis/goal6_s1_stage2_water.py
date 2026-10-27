@@ -107,6 +107,10 @@ def main() -> None:
         for tag, st in tags:
             tracks[rel_orbit(tag)].append((tag, st))
         summary[bid] = {"tracks": {}, "scenes": [], "unpaired": []}
+        union = np.zeros(lowland.shape, bool)
+        foot_union = np.zeros(lowland.shape, bool)
+        for old in list(out_dir.glob("*_water.npy")) + list(out_dir.glob("*_stats.json")):   # ล้างผลรายชิ้นส่วนเดิม หน่วยใหม่คือรอบถ่าย
+            old.unlink()
         plain_km2 = round(float(lowland.sum()) * CELL_KM2, 1)
         for rel, group in sorted(tracks.items()):
             group.sort(key=lambda x: x[0])
@@ -117,23 +121,37 @@ def main() -> None:
             ref_tags = refs[rel]
             pre_vh, pre_vv = mosaic_db(bid, ref_tags, "vh"), mosaic_db(bid, ref_tags, "vv")
             summary[bid]["tracks"][str(rel)] = {"reference": ref_tags[0], "reference_all": ref_tags}
+            # หน่วยวิเคราะห์ = รอบถ่าย (วงโคจรสัมพัทธ์ × วัน) รวมทุกชิ้นส่วนของวัน (docs/S1_PASS_MOSAIC_PREREG.md §1)
+            by_day = defaultdict(list)
             for tag, st in group:
-                is_ref = tag in ref_tags              # ฉากอ้างอิงเอง = ไม่นับเป็นน้ำ (reference == scene ตามข้อตกลงเดิม)
+                by_day[start_of(tag)[:10]].append(tag)
+            for day, slices in sorted(by_day.items()):
+                slices.sort()
+                tag = slices[0]
+                is_ref = any(s in ref_tags for s in slices)   # รอบถ่ายอ้างอิงเอง = ไม่นับเป็นน้ำ (reference == scene ตามข้อตกลงเดิม)
+                post_vh = mosaic_db(bid, slices, "vh")
                 if is_ref:
                     w = np.zeros(lowland.shape, bool)
                 else:
-                    post_vh, post_vv = load_db(bid, tag, "vh"), load_db(bid, tag, "vv")
+                    post_vv = mosaic_db(bid, slices, "vv")
                     w = detect(pre_vh, post_vh, pre_vv, post_vv, lowland)
+                    union |= w
+                    foot_union |= np.isfinite(post_vh) & np.isfinite(pre_vh)
                 km2 = round(float(w.sum()) * CELL_KM2, 1)
                 np.save(out_dir / f"{tag}_water.npy", w)
+                cov = round(float((np.isfinite(post_vh) & np.isfinite(pre_vh)).mean()), 3)
                 rec = {"basin": bid, "track": str(rel), "hhmm": hhmm(tag), "reference": tag if is_ref else ref_tags[0], "scene": tag,
-                       "reference_all": ref_tags, "water_km2_lowland": km2, "plain_km2": plain_km2,
+                       "slices": slices, "n_slices": len(slices), "reference_all": ref_tags, "water_km2_lowland": km2, "plain_km2": plain_km2,
                        "water_frac_plain": round(km2 / plain_km2, 4) if plain_km2 else None,
-                       "coverage": st.get("vh_valid_frac"), "satellite": tag[:3]}
+                       "coverage": cov, "satellite": tag[:3]}
                 summary[bid]["scenes"].append(rec)
                 (out_dir / f"{tag}_stats.json").write_text(json.dumps(rec, ensure_ascii=False), encoding="utf-8")
-                print(f"  {bid} [วง {rel}] {tag[12:26]} ref={ref_tags[0][12:26]} · น้ำ {km2} ตร.กม. "
-                      f"({rec['water_frac_plain']:.1%} ที่ราบ)", flush=True)
+                print(f"  {bid} [วง {rel}] {tag[12:26]} ({len(slices)} ชิ้น) ref={ref_tags[0][12:26]} · น้ำ {km2} ตร.กม. "
+                      f"({rec['water_frac_plain']:.1%} ที่ราบ) ครอบ {cov:.0%}", flush=True)
+        # ขอบเขตน้ำสูงสุดรวมทุกวัน (ไม่ใช่น้ำท่วมพร้อมกัน — docs/S1_PASS_MOSAIC_PREREG.md §2)
+        n_pass = sum(1 for r in summary[bid]["scenes"] if r["reference"] != r["scene"])
+        summary[bid]["max_extent"] = {"km2_lowland": round(float(union.sum()) * CELL_KM2, 1), "n_passes": n_pass,
+                                      "covered_lowland_frac": round(float((foot_union & lowland).sum() / max(lowland.sum(), 1)), 3)}
         # MD สั้น
         lines = [f"# น้ำท่วม S1 — {bid} (กฎ canonical)", "",
                  f"> อ้างอิงต่อวงโคจรสัมพัทธ์ = ฉากล่าสุดก่อน 24 ก.ย. (ไม่ใช้ HH:MM เป็นตัวแทน) · กฎ ΔVH≤−0.5/ΔVV≤−1.5/VH≤−20 + opening 3×3 ใน lowland <60 ม.",

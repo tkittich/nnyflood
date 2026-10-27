@@ -19,7 +19,7 @@ from rasterio.transform import from_bounds
 from shapely.geometry import shape
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from goal6_s1_stage2_water import load_db, mosaic_db  # noqa: E402  (ภาพอ้างอิงรวมชิ้นส่วน · ตัวโหลดฉากเดียวกับขั้นที่ 2)
+from goal6_s1_stage2_water import mosaic_db  # noqa: E402  (ภาพอ้างอิงรวมชิ้นส่วน · ตัวโหลดฉากเดียวกับขั้นที่ 2)
 
 ROOT = Path(__file__).resolve().parent.parent
 STAGE1 = ROOT / "data/22_goal6_network/derived/s1_stage1"
@@ -106,7 +106,7 @@ def main() -> None:
             foot = np.zeros(low.shape, bool)
             for r in sel:
                 w |= np.load(STAGE2 / bid / f"{r['scene']}_water.npy")
-                post = load_db(bid, r["scene"], "vh")
+                post = mosaic_db(bid, r["slices"], "vh")
                 pre = mosaic_db(bid, r["reference_all"], "vh")
                 foot |= np.isfinite(post) & np.isfinite(pre)
             dom = low & foot & dom_prov

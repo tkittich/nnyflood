@@ -1,7 +1,7 @@
 # Comprehensive System Audit Prompt (English) — Multi-Pillar Red-Team Review
 
 > **How to use**: Copy the complete markdown text below this block and provide it to an independent external AI auditor (e.g., Claude 3.5 Sonnet, GPT-4o / OpenAI o1, Gemini 1.5 Pro) or a senior hydraulic/data science peer reviewer with access to this repository.  
-> **Last Updated**: October 26, 2026 | Covers all 3 Pillars (8 Reports + Policy Brief), Astronomical Tidal Harmonics, 2D Compound Risk Matrix, 2D Hypsometric Ongkharak Basin Tipping Point, Active Storage Reality, 39y Operational Economics, ONEP EIA Critiques, **plus the 19–26 Oct additions (second batch: tide timestamp rule, multi-year harmonics, anchored compound matrix, 1-D sub-reach sensitivity, 3-D model rebuilt on the continuous surface, road×valley crossings, verification badges, two-layer literal gate): DEM bias correction + satellite waterline tests, the rain-driven 2-D Ongkharak model, whole-basin Bang Pakong / Chachoengsao analysis (Report 3 §4.7, labelled exploratory), GISTDA daily-product handling, and the OCR toolchain (Typhoon vs Indra OCR, VLM pilot)**.
+> **Last Updated**: October 27, 2026 | Covers all 3 Pillars (8 Reports + Policy Brief), Astronomical Tidal Harmonics, 2D Compound Risk Matrix, 2D Hypsometric Ongkharak Basin Tipping Point, Active Storage Reality, 39y Operational Economics, ONEP EIA Critiques, **plus the 19–27 Oct additions (third batch: goal-6 Sentinel-1 stage-2 reference scenes re-paired by relative orbit with a pre-registered audit and a GISTDA cross-check, along-channel reach length, own radar series for Chachoengsao; second batch: tide timestamp rule, multi-year harmonics, anchored compound matrix, 1-D sub-reach sensitivity, 3-D model rebuilt on the continuous surface, road×valley crossings, verification badges, two-layer literal gate): DEM bias correction + satellite waterline tests, the rain-driven 2-D Ongkharak model, whole-basin Bang Pakong / Chachoengsao analysis (Report 3 §4.7, labelled exploratory), GISTDA daily-product handling, and the OCR toolchain (Typhoon vs Indra OCR, VLM pilot)**.
 
 ---
 
@@ -59,7 +59,7 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
 3a. **Validate Using Concrete Commands**:
    - Run the unified 4-step verification runner: `python tools/verify_all.py` (all steps must pass).
    - Check the project knowledge catalog: `python catalog.py check` and `python catalog.py audit`.
-   - Run full test suite: `pytest` (expected ≈ 305 passed; if Windows subprocess tests fail with `WinError 50`, rerun with stdin detached).
+   - Run full test suite: `pytest` (expected ≈ 320 passed; if Windows subprocess tests fail with `WinError 50`, rerun with stdin detached).
    - Compare all metrics against canonical ledgers: `analysis/canonical_numbers.json`, `analysis/goal6/canonical.json`, and `analysis/goal7/canonical.json`.
 4. **Inspect Generated HTML Reports Directly**:
    - Report 1 (Public): `report/น้ำท่วมนครนายก2569_ประชาชน.html`
@@ -87,7 +87,7 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
    3. Is the simulated travel time ($3.25\text{ h}$ over the 18.3 km modelled reach) physically coherent with the surveyed bed slope ($S_0 \approx 0.00035–0.00065$) and Manning's roughness coefficient ($n \approx 0.0437$)? Assess how overland/floodplain detention accounts for the observed $9.0\text{ h}$ lag at Ny.7.
    4. Evaluate the Gate-Control vs Routing Trap case study at Tha Chang: does the analysis correctly separate gate operation effects from upstream river routing?
    5. Sub-reach sensitivity: do the non-clamped variants (n_sub 1/2/3) and the kernel/X diagnostics change the conclusion, and does the report keep the headline at the pre-registered value rather than the best-looking one?
-   6. The reach length (18.3 km) versus the 7.8 km straight line between stations: is this disclosed wherever a travel time is quoted?
+   6. The reach length (18.3 km) versus the 7.8 km straight line between stations: is this disclosed wherever a travel time is quoted? A pre-registered measurement from the mitrearth river layer (`docs/REACH_LENGTH_PREREG.md`, `analysis/goal7/reach_length.json`) fell inside the ±20% agreement band, so the model was left unchanged — is the 'unsourced 18.3 km' wording present in Report 2 §6.6.4, and is the measured value (a generalised line, probably short) never presented as a surveyed chainage?
 
 ### Dimension 2: Estuarine Machine Learning & Astronomical Tidal Harmonics
 * **Target Files**: `analysis/goal6_l3_coastal_model.py` $\rightarrow$ `analysis/goal6/l3_coastal_summary.json`, `analysis/goal6_l3_coastal_harmonics.py`, `analysis/goal6_canonical.py`
@@ -138,6 +138,7 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
    3. Run `pytest tests/test_legal_compliance.py` and `tests/test_privacy.py` — verify strict compliance with defamation laws (system-level critique, no personal culpability) and PDPA (no personally identifiable citizen information).
    4. Verify that visual charts and maps comply with WCAG AA contrast standards (minimum contrast 4.5:1 for body text, 3.0:1 for graphical data marks).
    5. **Two-layer literal gate** (`tools/number_inventory.py`, allowlists `analysis/goal7/literal_allowlist*.json`): try to defeat it — add a hard-coded number equal to a value in the canonical JSON and see whether the traced layer catches it; try a `ร้อยละ N` phrase. Is any allowlist entry stale or hiding a metric?
+   5a. The literal allowlist now carries reviewed statuses (`method_parameter`, `source_quote_verified` with a `source_constant`, `source_quote_unverified`, `legacy_unreviewed`). Spot-check a `source_quote_verified` entry against the PDF text-layer page cited in `source_constants.json`; count how many entries remain unreviewed.
    6. **Verification badges** (`report/assets/verification.json`, `tools/write_verification.py`): does a badge show a tick only when its gate really passed? Break one gate in a scratch copy and confirm the tick disappears.
 
 ### Dimension 8: Intra-Report & Cross-Report Data Consistency
@@ -174,6 +175,7 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
 * **Audit Checklist**:
    1. The GISTDA 30/7-day layers are multi-scene composites (every feature lists all scenes); polygon geometry area is about 2× `f_area` (permanent water excluded). Are areas taken from `f_area` consistently, and are cross-day comparisons avoided where scene coverage differs (the 7-day layer fell from 357 to 124 km² only because wide Sentinel-1 scenes left the window)?
    2. The daily STAC archive lacks 16 Sep–1 Oct and ends 17 Oct; the "still flooded" conclusion rests on the BPK003 gauge (above bank 29 days up to 24 Oct), not on area numbers. Check the wording in Reports 7/8 and Report 3 §4.7.
+   2a. Own Sentinel-1 water maps for Chachoengsao (26 Sep–25 Oct; `analysis/goal7_s1_chachoengsao_recent.py`, rule `docs/S1_CHACHOENGSAO_RECENT_PREREG.md`): pairing is by relative orbit with a pre-event reference; per-pass coverage must accompany every area and cross-pass areas must not be compared. A wrong boundary file was caught and corrected before results were read (prereg §6) — verify the log is honest and the rule itself did not change.
    3. Report 3 §4.7 is labelled exploratory (post-hoc, outside Q1–Q7). Is the label visible, and do the numbers equal `canonical.bp_downstream` (test: `tests/test_bp_downstream.py`)?
    4. Credential hygiene: GISTDA API responses embed the API key in their links. Search tracked files, reports and logs for key material (`api_key=` values, `.gistda_api.json`, `.cdse_s3.json`). One key exposure occurred in an interactive session transcript on 25 Oct (rotation recommended).
 
@@ -186,6 +188,15 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
    4. The VLM pilot uses a numeric-match scorer (an earlier string-match bug undercounted — fixed); table-strip accuracy is about 93% (4 wrong digits of 57) for the best readers. Are VLM outputs consistently labelled drafts and kept out of reports?
    4a. Poster-board pages that previously failed for GPU memory were re-read in overlapping tiles (`analysis/goal7_ocr_poster_tiles.py`); these outputs are drafts for text search only. Confirm none feeds a canonical number.
    5. Known environment quirk: on Windows the pytest subprocess tests can fail once with `WinError 50` (stdin handle); rerun with input detached before reporting a failure.
+
+### Dimension 13: Goal-6 Sentinel-1 Flood Maps — Reference-Scene Pairing, Audit and GISTDA Cross-Check
+* **Target Files**: `analysis/goal6_s1_stage2_water.py`, `analysis/s1_orbit.py`, `analysis/goal6_s1_reference_audit.py`, `analysis/goal6_s1_gistda_crosscheck.py`, `analysis/goal6/s1_reference_audit.md`, `analysis/goal6/s1_gistda_crosscheck.md`, `docs/S1_REFERENCE_AUDIT_PREREG.md`, `docs/S1_GISTDA_CROSSCHECK_PREREG.md`, Report 3 (limitation 7 and the per-basin peak tables), `analysis/goal6/canonical.json` (`flood_peak_km2`, `s1_landcover`, `s1_gistda_crosscheck`, retired ledger)
+* **Audit Checklist**:
+   1. History: until 27 Oct the change-detection reference was 'the earliest scene of the same HH:MM group', which gave some tracks a reference acquired during the flood (compared with itself, so the published value was 0 by construction) and sometimes paired scenes of *different* relative orbits. The pairing is now by relative orbit with the latest scene before 24 Sep 00:00 UTC. Verify in code that no HH:MM proxy remains, that reference scenes themselves are excluded (`reference == scene`), and that unpaired scenes are listed rather than silently dropped.
+   2. Sequence of decisions: audit prereg committed before any scene was fetched; the audit was diagnostic only; adoption was a separate owner decision recorded in the prereg (§6) before the code change. Check commit order (`git log`) and that the audit did not alter published numbers on its own.
+   3. Consequences: per-basin peaks for three basins rose several-fold and a published conclusion (one basin 'mostly permanent water') was retired. Are the retired values in the ledger, are status documents current, and does any report or document still carry the old values or that conclusion? Are the per-slice figures still described as lower bounds (slices of one pass are not mosaicked)?
+   4. GISTDA cross-check: the domain is lowland ∩ scene footprint ∩ provinces that have a GISTDA 30-day layer. An implementation error (clipped per-province boundary layers) was found from an implausible domain share and fixed before interpreting results (prereg §5). Is the comparable share of radar area shown beside precision/recall? Is the text clear that GISTDA's 30-day layer is a multi-scene composite, not ground truth, and that the rule was calibrated only at Nakhon Nayok?
+   5. Residual risks to probe: a reference acquired 12–16 Sep versus an event two weeks later (seasonal paddy water counted as 'new water'); different acquisition geometry between tracks; no field validation outside Nakhon Nayok.
 
 ---
 

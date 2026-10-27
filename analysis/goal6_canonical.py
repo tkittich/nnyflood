@@ -228,6 +228,21 @@ def main() -> None:
                               "peak_27sep": nn["peak_27sep"]["share_new_water_already_dark_in_reference"]},
         }
 
+    # ---- เทียบพื้นที่น้ำเรดาร์กับ GISTDA 30 วัน (goal6_s1_gistda_crosscheck.py — กติกา docs/S1_GISTDA_CROSSCHECK_PREREG.md) ----
+    xc_p = A / "goal6/s1_gistda_crosscheck.json"
+    if xc_p.exists():
+        xc = json.loads(xc_p.read_text(encoding="utf-8"))["basins"]
+        ok = {b: v for b, v in xc.items() if v["status"] == "ok"}
+        out["s1_gistda_crosscheck"] = {
+            "basins": {b: {k: v[k] for k in ("A_peak_scene", "B_union_all_scenes")} for b, v in ok.items()},
+            "n_basins": len(ok),
+            "B_precision_range": [min(v["B_union_all_scenes"]["precision"] for v in ok.values()), max(v["B_union_all_scenes"]["precision"] for v in ok.values())],
+            "B_recall_range": [min(v["B_union_all_scenes"]["recall"] for v in ok.values()), max(v["B_union_all_scenes"]["recall"] for v in ok.values())],
+            "B_ratio_range": [min(v["B_union_all_scenes"]["ratio_radar_to_gistda"] for v in ok.values()), max(v["B_union_all_scenes"]["ratio_radar_to_gistda"] for v in ok.values())],
+            "B_share_in_domain_range": [min(v["B_union_all_scenes"]["share_of_radar_in_domain"] for v in ok.values()), max(v["B_union_all_scenes"]["share_of_radar_in_domain"] for v in ok.values())],
+            "any_low_precision": [b for b, v in ok.items() if v["B_union_all_scenes"]["label_low_precision"]],
+        }
+
     # ---- เหตุการณ์จุดวัด (screen) ----
     sc = json.loads((A / "goal6_screen_2026_summary.json").read_text(encoding="utf-8"))
     ev = [x for x in sc["stations"] if x.get("crit") is not None and (x.get("hours_over_crit") or 0) > 0]

@@ -1,0 +1,291 @@
+{
+ "rule": "docs/S1_GISTDA_CROSSCHECK_PREREG.md",
+ "basins": {
+  "pasak": {
+   "status": "ok",
+   "provinces": [
+    "ปทุมธานี",
+    "พระนครศรีอยุธยา",
+    "อ่างทอง",
+    "ลพบุรี",
+    "สิงห์บุรี",
+    "สระบุรี",
+    "ปราจีนบุรี",
+    "นครนายก",
+    "นครสวรรค์"
+   ],
+   "gistda_files": [
+    "ปทุมธานี_30days.json",
+    "พระนครศรีอยุธยา_30days.json",
+    "อ่างทอง_30days.json",
+    "ลพบุรี_30days.json",
+    "สิงห์บุรี_30days.json",
+    "สระบุรี_30days.json",
+    "ปราจีนบุรี_30days_2026-10-20.json",
+    "นครนายก_30days_2026-10-20.json",
+    "นครสวรรค์_30days.json"
+   ],
+   "peak_scene": "1SDV_20260927T112830_2026092",
+   "A_peak_scene": {
+    "precision": 0.647,
+    "recall": 0.601,
+    "f1": 0.623,
+    "radar_km2": 1121.7,
+    "gistda_km2": 1208.2,
+    "ratio_radar_to_gistda": 0.93,
+    "domain_km2": 7507.7,
+    "radar_total_km2_whole_grid": 1136.4,
+    "share_of_radar_in_domain": 0.987,
+    "label_low_precision": false
+   },
+   "B_union_all_scenes": {
+    "precision": 0.598,
+    "recall": 0.782,
+    "f1": 0.678,
+    "radar_km2": 1828.9,
+    "gistda_km2": 1398.0,
+    "ratio_radar_to_gistda": 1.31,
+    "domain_km2": 8893.1,
+    "radar_total_km2_whole_grid": 2035.4,
+    "share_of_radar_in_domain": 0.899,
+    "label_low_precision": false
+   }
+  },
+  "maeklong": {
+   "status": "ok",
+   "provinces": [
+    "ชัยนาท",
+    "สุพรรณบุรี"
+   ],
+   "gistda_files": [
+    "ชัยนาท_30days.json",
+    "สุพรรณบุรี_30days.json"
+   ],
+   "peak_scene": "1SDV_20261001T230840_2026100",
+   "A_peak_scene": {
+    "precision": 0.779,
+    "recall": 0.606,
+    "f1": 0.682,
+    "radar_km2": 236.0,
+    "gistda_km2": 303.6,
+    "ratio_radar_to_gistda": 0.78,
+    "domain_km2": 2019.9,
+    "radar_total_km2_whole_grid": 336.9,
+    "share_of_radar_in_domain": 0.701,
+    "label_low_precision": false
+   },
+   "B_union_all_scenes": {
+    "precision": 0.676,
+    "recall": 0.756,
+    "f1": 0.714,
+    "radar_km2": 354.3,
+    "gistda_km2": 317.0,
+    "ratio_radar_to_gistda": 1.12,
+    "domain_km2": 2248.8,
+    "radar_total_km2_whole_grid": 670.1,
+    "share_of_radar_in_domain": 0.529,
+    "label_low_precision": false
+   }
+  },
+  "bp_prach": {
+   "status": "ok",
+   "provinces": [
+    "กรุงเทพมหานคร",
+    "สมุทรปราการ",
+    "ปทุมธานี",
+    "สระบุรี",
+    "ฉะเชิงเทรา",
+    "ปราจีนบุรี",
+    "นครนายก"
+   ],
+   "gistda_files": [
+    "กรุงเทพมหานคร_30days.json",
+    "สมุทรปราการ_30days.json",
+    "ปทุมธานี_30days.json",
+    "สระบุรี_30days.json",
+    "ฉะเชิงเทรา_30days_2026-10-20.json",
+    "ปราจีนบุรี_30days_2026-10-20.json",
+    "นครนายก_30days_2026-10-20.json"
+   ],
+   "peak_scene": "1SDV_20261001T230840_2026100",
+   "A_peak_scene": {
+    "precision": 0.858,
+    "recall": 0.548,
+    "f1": 0.669,
+    "radar_km2": 1220.1,
+    "gistda_km2": 1907.9,
+    "ratio_radar_to_gistda": 0.64,
+    "domain_km2": 5270.7,
+    "radar_total_km2_whole_grid": 1281.6,
+    "share_of_radar_in_domain": 0.952,
+    "label_low_precision": false
+   },
+   "B_union_all_scenes": {
+    "precision": 0.757,
+    "recall": 0.741,
+    "f1": 0.749,
+    "radar_km2": 2045.5,
+    "gistda_km2": 2090.3,
+    "ratio_radar_to_gistda": 0.98,
+    "domain_km2": 8412.7,
+    "radar_total_km2_whole_grid": 2191.5,
+    "share_of_radar_in_domain": 0.933,
+    "label_low_precision": false
+   }
+  },
+  "thachin": {
+   "status": "ok",
+   "provinces": [
+    "กรุงเทพมหานคร",
+    "นนทบุรี",
+    "ปทุมธานี",
+    "พระนครศรีอยุธยา",
+    "อ่างทอง",
+    "สิงห์บุรี",
+    "ชัยนาท",
+    "สุพรรณบุรี"
+   ],
+   "gistda_files": [
+    "กรุงเทพมหานคร_30days.json",
+    "นนทบุรี_30days.json",
+    "ปทุมธานี_30days.json",
+    "พระนครศรีอยุธยา_30days.json",
+    "อ่างทอง_30days.json",
+    "สิงห์บุรี_30days.json",
+    "ชัยนาท_30days.json",
+    "สุพรรณบุรี_30days.json"
+   ],
+   "peak_scene": "1SDV_20260927T112830_2026092",
+   "A_peak_scene": {
+    "precision": 0.762,
+    "recall": 0.592,
+    "f1": 0.666,
+    "radar_km2": 1350.8,
+    "gistda_km2": 1741.2,
+    "ratio_radar_to_gistda": 0.78,
+    "domain_km2": 6439.6,
+    "radar_total_km2_whole_grid": 1525.5,
+    "share_of_radar_in_domain": 0.885,
+    "label_low_precision": false
+   },
+   "B_union_all_scenes": {
+    "precision": 0.735,
+    "recall": 0.805,
+    "f1": 0.769,
+    "radar_km2": 1917.6,
+    "gistda_km2": 1751.0,
+    "ratio_radar_to_gistda": 1.1,
+    "domain_km2": 6579.5,
+    "radar_total_km2_whole_grid": 2292.8,
+    "share_of_radar_in_domain": 0.836,
+    "label_low_precision": false
+   }
+  },
+  "ping_cp": {
+   "status": "ok",
+   "provinces": [
+    "กรุงเทพมหานคร",
+    "สมุทรปราการ",
+    "นนทบุรี",
+    "ปทุมธานี",
+    "พระนครศรีอยุธยา",
+    "อ่างทอง",
+    "ลพบุรี",
+    "สิงห์บุรี",
+    "ชัยนาท",
+    "สระบุรี",
+    "นครสวรรค์",
+    "สุพรรณบุรี"
+   ],
+   "gistda_files": [
+    "กรุงเทพมหานคร_30days.json",
+    "สมุทรปราการ_30days.json",
+    "นนทบุรี_30days.json",
+    "ปทุมธานี_30days.json",
+    "พระนครศรีอยุธยา_30days.json",
+    "อ่างทอง_30days.json",
+    "ลพบุรี_30days.json",
+    "สิงห์บุรี_30days.json",
+    "ชัยนาท_30days.json",
+    "สระบุรี_30days.json",
+    "นครสวรรค์_30days.json",
+    "สุพรรณบุรี_30days.json"
+   ],
+   "peak_scene": "1SDV_20261001T230815_2026100",
+   "A_peak_scene": {
+    "precision": 0.775,
+    "recall": 0.631,
+    "f1": 0.696,
+    "radar_km2": 1712.7,
+    "gistda_km2": 2104.7,
+    "ratio_radar_to_gistda": 0.81,
+    "domain_km2": 10342.0,
+    "radar_total_km2_whole_grid": 2263.6,
+    "share_of_radar_in_domain": 0.757,
+    "label_low_precision": false
+   },
+   "B_union_all_scenes": {
+    "precision": 0.687,
+    "recall": 0.723,
+    "f1": 0.705,
+    "radar_km2": 2216.4,
+    "gistda_km2": 2104.7,
+    "ratio_radar_to_gistda": 1.05,
+    "domain_km2": 10342.0,
+    "radar_total_km2_whole_grid": 4105.0,
+    "share_of_radar_in_domain": 0.54,
+    "label_low_precision": false
+   }
+  },
+  "bkk_lower": {
+   "status": "ok",
+   "provinces": [
+    "กรุงเทพมหานคร",
+    "สมุทรปราการ",
+    "นนทบุรี",
+    "ปทุมธานี",
+    "พระนครศรีอยุธยา",
+    "สระบุรี",
+    "ฉะเชิงเทรา",
+    "นครนายก",
+    "สุพรรณบุรี"
+   ],
+   "gistda_files": [
+    "กรุงเทพมหานคร_30days.json",
+    "สมุทรปราการ_30days.json",
+    "นนทบุรี_30days.json",
+    "ปทุมธานี_30days.json",
+    "พระนครศรีอยุธยา_30days.json",
+    "สระบุรี_30days.json",
+    "ฉะเชิงเทรา_30days_2026-10-20.json",
+    "นครนายก_30days_2026-10-20.json",
+    "สุพรรณบุรี_30days.json"
+   ],
+   "peak_scene": "1SDV_20261001T230840_2026100",
+   "A_peak_scene": {
+    "precision": 0.821,
+    "recall": 0.588,
+    "f1": 0.686,
+    "radar_km2": 1189.4,
+    "gistda_km2": 1660.0,
+    "ratio_radar_to_gistda": 0.72,
+    "domain_km2": 7993.8,
+    "radar_total_km2_whole_grid": 1320.8,
+    "share_of_radar_in_domain": 0.901,
+    "label_low_precision": false
+   },
+   "B_union_all_scenes": {
+    "precision": 0.755,
+    "recall": 0.747,
+    "f1": 0.751,
+    "radar_km2": 1642.8,
+    "gistda_km2": 1660.0,
+    "ratio_radar_to_gistda": 0.99,
+    "domain_km2": 7993.8,
+    "radar_total_km2_whole_grid": 1814.9,
+    "share_of_radar_in_domain": 0.905,
+    "label_low_precision": false
+   }
+  }
+ }
+}

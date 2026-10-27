@@ -1315,6 +1315,10 @@
   "per_pass_change_pct_range": [
    -4.1,
    7.2
+  ],
+  "event_primary_km2_range": [
+   265.6,
+   1379.7
   ]
  },
  "s1_ref_sensitivity_other": {
@@ -1333,6 +1337,10 @@
    "per_pass_change_pct_range": [
     -9.2,
     600.0
+   ],
+   "event_primary_km2_range": [
+    0.1,
+    1576.6
    ]
   }
  },
@@ -2761,6 +2769,1134 @@
    },
    "stage_formula_gain_m": 2.85,
    "note": "ยึดระดับที่วัดจริง 2.24 ม. แล้วเพิ่มตามส่วนต่างน้ำหนุน × อัตราส่งผ่านที่วัดได้ — เป็นความไว ไม่ใช่การพยากรณ์ · ฤดูเดียว"
+  },
+  "matrix_anchored": {
+   "rule": "docs/COMPOUND_ANCHORED_PREREG.md (ตั้งก่อนดูผล 26 ต.ค. 69)",
+   "formula": "H = H_วัด + g × (น้ำหนุน − น้ำหนุน_วัด) + c1 × [(Q/1000)^1.28 − (Q_วัด/1000)^1.28]",
+   "anchor": {
+    "stage_msl_m": 2.24,
+    "tide_msl_m": 1.91,
+    "q_bangsai_m3s": 2250
+   },
+   "gain": {
+    "central": 0.771,
+    "low": 0.718,
+    "high": 0.79
+   },
+   "n_cells": 132,
+   "band_counts": {
+    "original": {
+     "normal": 12,
+     "watch": 39,
+     "warning": 33,
+     "critical": 48
+    },
+    "anchored_central": {
+     "normal": 16,
+     "watch": 51,
+     "warning": 41,
+     "critical": 24
+    },
+    "anchored_gain_low": {
+     "normal": 15,
+     "watch": 52,
+     "warning": 42,
+     "critical": 23
+    },
+    "anchored_gain_high": {
+     "normal": 16,
+     "watch": 50,
+     "warning": 41,
+     "critical": 25
+    }
+   },
+   "cells_changed_band_vs_original": 44,
+   "stage_diff_vs_original_m": {
+    "min": -0.26,
+    "max": 0.0
+   },
+   "grid": [
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 1.7,
+      "stage_gain_low_m": 1.72,
+      "stage_gain_high_m": 1.69,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 1.74,
+      "stage_gain_low_m": 1.77,
+      "stage_gain_high_m": 1.73,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 1.79,
+      "stage_gain_low_m": 1.82,
+      "stage_gain_high_m": 1.78,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 1.85,
+      "stage_gain_low_m": 1.87,
+      "stage_gain_high_m": 1.84,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 1.9,
+      "stage_gain_low_m": 1.93,
+      "stage_gain_high_m": 1.89,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 1.96,
+      "stage_gain_low_m": 1.98,
+      "stage_gain_high_m": 1.95,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 2.01,
+      "stage_gain_low_m": 2.04,
+      "stage_gain_high_m": 2.0,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 2.07,
+      "stage_gain_low_m": 2.1,
+      "stage_gain_high_m": 2.06,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 2.13,
+      "stage_gain_low_m": 2.16,
+      "stage_gain_high_m": 2.12,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 2.19,
+      "stage_gain_low_m": 2.22,
+      "stage_gain_high_m": 2.18,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 1.4,
+      "c12_stage_msl_m": 2.25,
+      "stage_gain_low_m": 2.28,
+      "stage_gain_high_m": 2.24,
+      "risk_level": "watch"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 1.77,
+      "stage_gain_low_m": 1.79,
+      "stage_gain_high_m": 1.77,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 1.82,
+      "stage_gain_low_m": 1.84,
+      "stage_gain_high_m": 1.81,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 1.87,
+      "stage_gain_low_m": 1.89,
+      "stage_gain_high_m": 1.86,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 1.92,
+      "stage_gain_low_m": 1.95,
+      "stage_gain_high_m": 1.92,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 1.98,
+      "stage_gain_low_m": 2.0,
+      "stage_gain_high_m": 1.97,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 2.03,
+      "stage_gain_low_m": 2.05,
+      "stage_gain_high_m": 2.03,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 2.09,
+      "stage_gain_low_m": 2.11,
+      "stage_gain_high_m": 2.08,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 2.15,
+      "stage_gain_low_m": 2.17,
+      "stage_gain_high_m": 2.14,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 2.21,
+      "stage_gain_low_m": 2.23,
+      "stage_gain_high_m": 2.2,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 2.27,
+      "stage_gain_low_m": 2.29,
+      "stage_gain_high_m": 2.26,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 1.5,
+      "c12_stage_msl_m": 2.33,
+      "stage_gain_low_m": 2.35,
+      "stage_gain_high_m": 2.32,
+      "risk_level": "watch"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 1.85,
+      "stage_gain_low_m": 1.87,
+      "stage_gain_high_m": 1.84,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 1.9,
+      "stage_gain_low_m": 1.91,
+      "stage_gain_high_m": 1.89,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 1.95,
+      "stage_gain_low_m": 1.97,
+      "stage_gain_high_m": 1.94,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 2.0,
+      "stage_gain_low_m": 2.02,
+      "stage_gain_high_m": 2.0,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 2.05,
+      "stage_gain_low_m": 2.07,
+      "stage_gain_high_m": 2.05,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 2.11,
+      "stage_gain_low_m": 2.13,
+      "stage_gain_high_m": 2.1,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 2.17,
+      "stage_gain_low_m": 2.18,
+      "stage_gain_high_m": 2.16,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 2.23,
+      "stage_gain_low_m": 2.24,
+      "stage_gain_high_m": 2.22,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 2.28,
+      "stage_gain_low_m": 2.3,
+      "stage_gain_high_m": 2.28,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 2.34,
+      "stage_gain_low_m": 2.36,
+      "stage_gain_high_m": 2.34,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 1.6,
+      "c12_stage_msl_m": 2.41,
+      "stage_gain_low_m": 2.42,
+      "stage_gain_high_m": 2.4,
+      "risk_level": "warning"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 1.93,
+      "stage_gain_low_m": 1.94,
+      "stage_gain_high_m": 1.92,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 1.98,
+      "stage_gain_low_m": 1.99,
+      "stage_gain_high_m": 1.97,
+      "risk_level": "normal"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 2.03,
+      "stage_gain_low_m": 2.04,
+      "stage_gain_high_m": 2.02,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 2.08,
+      "stage_gain_low_m": 2.09,
+      "stage_gain_high_m": 2.07,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 2.13,
+      "stage_gain_low_m": 2.14,
+      "stage_gain_high_m": 2.13,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 2.19,
+      "stage_gain_low_m": 2.2,
+      "stage_gain_high_m": 2.18,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 2.24,
+      "stage_gain_low_m": 2.26,
+      "stage_gain_high_m": 2.24,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 2.3,
+      "stage_gain_low_m": 2.31,
+      "stage_gain_high_m": 2.3,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 2.36,
+      "stage_gain_low_m": 2.37,
+      "stage_gain_high_m": 2.36,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 2.42,
+      "stage_gain_low_m": 2.43,
+      "stage_gain_high_m": 2.42,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 1.7,
+      "c12_stage_msl_m": 2.48,
+      "stage_gain_low_m": 2.49,
+      "stage_gain_high_m": 2.48,
+      "risk_level": "warning"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.0,
+      "stage_gain_low_m": 2.01,
+      "stage_gain_high_m": 2.0,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.05,
+      "stage_gain_low_m": 2.06,
+      "stage_gain_high_m": 2.05,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.1,
+      "stage_gain_low_m": 2.11,
+      "stage_gain_high_m": 2.1,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.16,
+      "stage_gain_low_m": 2.16,
+      "stage_gain_high_m": 2.15,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.21,
+      "stage_gain_low_m": 2.21,
+      "stage_gain_high_m": 2.21,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.26,
+      "stage_gain_low_m": 2.27,
+      "stage_gain_high_m": 2.26,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.32,
+      "stage_gain_low_m": 2.33,
+      "stage_gain_high_m": 2.32,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.38,
+      "stage_gain_low_m": 2.39,
+      "stage_gain_high_m": 2.38,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.44,
+      "stage_gain_low_m": 2.44,
+      "stage_gain_high_m": 2.44,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.5,
+      "stage_gain_low_m": 2.51,
+      "stage_gain_high_m": 2.5,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 1.8,
+      "c12_stage_msl_m": 2.56,
+      "stage_gain_low_m": 2.57,
+      "stage_gain_high_m": 2.56,
+      "risk_level": "warning"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.08,
+      "stage_gain_low_m": 2.08,
+      "stage_gain_high_m": 2.08,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.13,
+      "stage_gain_low_m": 2.13,
+      "stage_gain_high_m": 2.13,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.18,
+      "stage_gain_low_m": 2.18,
+      "stage_gain_high_m": 2.18,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.23,
+      "stage_gain_low_m": 2.23,
+      "stage_gain_high_m": 2.23,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.29,
+      "stage_gain_low_m": 2.29,
+      "stage_gain_high_m": 2.29,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.34,
+      "stage_gain_low_m": 2.34,
+      "stage_gain_high_m": 2.34,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.4,
+      "stage_gain_low_m": 2.4,
+      "stage_gain_high_m": 2.4,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.46,
+      "stage_gain_low_m": 2.46,
+      "stage_gain_high_m": 2.46,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.52,
+      "stage_gain_low_m": 2.52,
+      "stage_gain_high_m": 2.52,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.58,
+      "stage_gain_low_m": 2.58,
+      "stage_gain_high_m": 2.58,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 1.9,
+      "c12_stage_msl_m": 2.64,
+      "stage_gain_low_m": 2.64,
+      "stage_gain_high_m": 2.64,
+      "risk_level": "warning"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.16,
+      "stage_gain_low_m": 2.15,
+      "stage_gain_high_m": 2.16,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.21,
+      "stage_gain_low_m": 2.2,
+      "stage_gain_high_m": 2.21,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.26,
+      "stage_gain_low_m": 2.25,
+      "stage_gain_high_m": 2.26,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.31,
+      "stage_gain_low_m": 2.3,
+      "stage_gain_high_m": 2.31,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.36,
+      "stage_gain_low_m": 2.36,
+      "stage_gain_high_m": 2.36,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.42,
+      "stage_gain_low_m": 2.41,
+      "stage_gain_high_m": 2.42,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.48,
+      "stage_gain_low_m": 2.47,
+      "stage_gain_high_m": 2.48,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.53,
+      "stage_gain_low_m": 2.53,
+      "stage_gain_high_m": 2.54,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.59,
+      "stage_gain_low_m": 2.59,
+      "stage_gain_high_m": 2.59,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.65,
+      "stage_gain_low_m": 2.65,
+      "stage_gain_high_m": 2.66,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 2.0,
+      "c12_stage_msl_m": 2.72,
+      "stage_gain_low_m": 2.71,
+      "stage_gain_high_m": 2.72,
+      "risk_level": "critical"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.24,
+      "stage_gain_low_m": 2.23,
+      "stage_gain_high_m": 2.24,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.28,
+      "stage_gain_low_m": 2.27,
+      "stage_gain_high_m": 2.29,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.33,
+      "stage_gain_low_m": 2.32,
+      "stage_gain_high_m": 2.34,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.39,
+      "stage_gain_low_m": 2.38,
+      "stage_gain_high_m": 2.39,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.44,
+      "stage_gain_low_m": 2.43,
+      "stage_gain_high_m": 2.44,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.5,
+      "stage_gain_low_m": 2.49,
+      "stage_gain_high_m": 2.5,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.55,
+      "stage_gain_low_m": 2.54,
+      "stage_gain_high_m": 2.56,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.61,
+      "stage_gain_low_m": 2.6,
+      "stage_gain_high_m": 2.61,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.67,
+      "stage_gain_low_m": 2.66,
+      "stage_gain_high_m": 2.67,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.73,
+      "stage_gain_low_m": 2.72,
+      "stage_gain_high_m": 2.73,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 2.1,
+      "c12_stage_msl_m": 2.79,
+      "stage_gain_low_m": 2.78,
+      "stage_gain_high_m": 2.8,
+      "risk_level": "critical"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.31,
+      "stage_gain_low_m": 2.3,
+      "stage_gain_high_m": 2.32,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.36,
+      "stage_gain_low_m": 2.35,
+      "stage_gain_high_m": 2.37,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.41,
+      "stage_gain_low_m": 2.4,
+      "stage_gain_high_m": 2.42,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.46,
+      "stage_gain_low_m": 2.45,
+      "stage_gain_high_m": 2.47,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.52,
+      "stage_gain_low_m": 2.5,
+      "stage_gain_high_m": 2.52,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.57,
+      "stage_gain_low_m": 2.56,
+      "stage_gain_high_m": 2.58,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.63,
+      "stage_gain_low_m": 2.61,
+      "stage_gain_high_m": 2.64,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.69,
+      "stage_gain_low_m": 2.67,
+      "stage_gain_high_m": 2.69,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.75,
+      "stage_gain_low_m": 2.73,
+      "stage_gain_high_m": 2.75,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.81,
+      "stage_gain_low_m": 2.79,
+      "stage_gain_high_m": 2.81,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 2.2,
+      "c12_stage_msl_m": 2.87,
+      "stage_gain_low_m": 2.85,
+      "stage_gain_high_m": 2.87,
+      "risk_level": "critical"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.39,
+      "stage_gain_low_m": 2.37,
+      "stage_gain_high_m": 2.4,
+      "risk_level": "watch"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.44,
+      "stage_gain_low_m": 2.42,
+      "stage_gain_high_m": 2.45,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.49,
+      "stage_gain_low_m": 2.47,
+      "stage_gain_high_m": 2.5,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.54,
+      "stage_gain_low_m": 2.52,
+      "stage_gain_high_m": 2.55,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.59,
+      "stage_gain_low_m": 2.57,
+      "stage_gain_high_m": 2.6,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.65,
+      "stage_gain_low_m": 2.63,
+      "stage_gain_high_m": 2.66,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.71,
+      "stage_gain_low_m": 2.69,
+      "stage_gain_high_m": 2.71,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.76,
+      "stage_gain_low_m": 2.74,
+      "stage_gain_high_m": 2.77,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.82,
+      "stage_gain_low_m": 2.8,
+      "stage_gain_high_m": 2.83,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.88,
+      "stage_gain_low_m": 2.86,
+      "stage_gain_high_m": 2.89,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 2.3,
+      "c12_stage_msl_m": 2.95,
+      "stage_gain_low_m": 2.93,
+      "stage_gain_high_m": 2.95,
+      "risk_level": "critical"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.47,
+      "stage_gain_low_m": 2.44,
+      "stage_gain_high_m": 2.48,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.52,
+      "stage_gain_low_m": 2.49,
+      "stage_gain_high_m": 2.52,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.57,
+      "stage_gain_low_m": 2.54,
+      "stage_gain_high_m": 2.57,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.62,
+      "stage_gain_low_m": 2.59,
+      "stage_gain_high_m": 2.63,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.67,
+      "stage_gain_low_m": 2.65,
+      "stage_gain_high_m": 2.68,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.73,
+      "stage_gain_low_m": 2.7,
+      "stage_gain_high_m": 2.74,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.78,
+      "stage_gain_low_m": 2.76,
+      "stage_gain_high_m": 2.79,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.84,
+      "stage_gain_low_m": 2.82,
+      "stage_gain_high_m": 2.85,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.9,
+      "stage_gain_low_m": 2.88,
+      "stage_gain_high_m": 2.91,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 2.96,
+      "stage_gain_low_m": 2.94,
+      "stage_gain_high_m": 2.97,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 2.4,
+      "c12_stage_msl_m": 3.02,
+      "stage_gain_low_m": 3.0,
+      "stage_gain_high_m": 3.03,
+      "risk_level": "critical"
+     }
+    ],
+    [
+     {
+      "q_bangsai_m3s": 1500,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 2.54,
+      "stage_gain_low_m": 2.51,
+      "stage_gain_high_m": 2.56,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 1750,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 2.59,
+      "stage_gain_low_m": 2.56,
+      "stage_gain_high_m": 2.6,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2000,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 2.64,
+      "stage_gain_low_m": 2.61,
+      "stage_gain_high_m": 2.65,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2250,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 2.69,
+      "stage_gain_low_m": 2.66,
+      "stage_gain_high_m": 2.71,
+      "risk_level": "warning"
+     },
+     {
+      "q_bangsai_m3s": 2500,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 2.75,
+      "stage_gain_low_m": 2.72,
+      "stage_gain_high_m": 2.76,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 2750,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 2.8,
+      "stage_gain_low_m": 2.77,
+      "stage_gain_high_m": 2.82,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3000,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 2.86,
+      "stage_gain_low_m": 2.83,
+      "stage_gain_high_m": 2.87,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3250,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 2.92,
+      "stage_gain_low_m": 2.89,
+      "stage_gain_high_m": 2.93,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3500,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 2.98,
+      "stage_gain_low_m": 2.95,
+      "stage_gain_high_m": 2.99,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 3750,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 3.04,
+      "stage_gain_low_m": 3.01,
+      "stage_gain_high_m": 3.05,
+      "risk_level": "critical"
+     },
+     {
+      "q_bangsai_m3s": 4000,
+      "tide_msl_m": 2.5,
+      "c12_stage_msl_m": 3.1,
+      "stage_gain_low_m": 3.07,
+      "stage_gain_high_m": 3.11,
+      "risk_level": "critical"
+     }
+    ]
+   ]
   },
   "publication_status": "ยังไม่เรนเดอร์ในรายงาน 3 (เรนเดอร์ในรายงาน 4) — โมดูลสำรวจสาธิต ยังไม่สอบเทียบกับเหตุการณ์จริง"
  },

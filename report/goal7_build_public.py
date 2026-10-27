@@ -360,8 +360,6 @@ S.append(prose(
     "5. <b>สภาวะคีมหนีบสองด้าน:</b> องครักษ์ตกอยู่ในสภาวะถูกเติมน้ำด้วยเครื่องสูบจากฝั่งรังสิตทางทิศตะวันตกและรับน้ำหลากชะลอตัวจาก อ.เมือง/บ้านนา ขณะที่ทางออกทะเลทางทิศตะวันออกและทิศใต้ถูกบล็อกด้วยระดับน้ำภายนอกและน้ำทะเลหนุน น้ำจึงไม่มีทางระบายออกและต้องขังค้างในแอ่งก้นกระทะเป็นเวลานาน"
 ))
 S.append(blk.tbl_ongkharak_oct2026_status())
-S.append(blk.tbl_reach_hydraulic_vectors())
-S.append(blk.tbl_ongkharak_water_balance())
 S.append(blk.tbl_dam_to_gulf_corridors())
 S.append(blk.tbl_ongkharak_2d_hypsometric())
 S.append(blk.tbl_ongkharak_dem_sensitivity())

@@ -245,10 +245,15 @@ def main() -> None:
         }
 
     # ---- ความไวต่อวันของฉากอ้างอิง (goal6_s1_ref_sensitivity.py — กติกา docs/S1_PASS_MOSAIC_PREREG.md §3) ----
+    def _rs_with_base(p: Path) -> dict:
+        # เพิ่มช่วงพื้นที่ฐานของรอบถ่ายเหตุการณ์ที่ใช้คิดร้อยละ — ร้อยละจากฐานเล็กอ่านเป็นการเปลี่ยนจริงไม่ได้ (รีวิวรอบ 8 CS F-04 / GL F-04)
+        d = json.loads(p.read_text(encoding="utf-8"))
+        base = [x["primary_km2"] for x in d["passes"] if x["role"] == "event_or_after" and x["primary_km2"]]
+        return {**d["summary"], "event_primary_km2_range": [min(base), max(base)] if base else None}
     rs_p = A / "goal6/s1_ref_sensitivity.json"
     if rs_p.exists():
-        out["s1_ref_sensitivity"] = json.loads(rs_p.read_text(encoding="utf-8"))["summary"]
-    out["s1_ref_sensitivity_other"] = {json.loads(p.read_text(encoding="utf-8"))["summary"]["basin"]: json.loads(p.read_text(encoding="utf-8"))["summary"]
+        out["s1_ref_sensitivity"] = _rs_with_base(rs_p)
+    out["s1_ref_sensitivity_other"] = {_rs_with_base(p)["basin"]: _rs_with_base(p)
                                        for p in sorted((A / "goal6").glob("s1_ref_sensitivity_*.json"))}      # ลุ่มอื่น (กติกา docs/S1_REF_SENSITIVITY_PASAK_PREREG.md)
 
     # ---- เหตุการณ์จุดวัด (screen) ----
@@ -490,6 +495,7 @@ def main() -> None:
             "matrix_grid": cpr["matrix_grid"],
             "historical_benchmarks": cpr["historical_benchmarks"],
             "tide_gain_evidence": cpr.get("tide_gain_evidence"),
+            "matrix_anchored": cpr.get("matrix_anchored"),
             "publication_status": "ยังไม่เรนเดอร์ในรายงาน 3 (เรนเดอร์ในรายงาน 4) — โมดูลสำรวจสาธิต ยังไม่สอบเทียบกับเหตุการณ์จริง",
         }
 

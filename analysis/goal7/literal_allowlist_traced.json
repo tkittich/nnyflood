@@ -435,12 +435,6 @@
   },
   {
    "file": "goal7_blocks.py",
-   "text": "100.0%",
-   "count": 1,
-   "status": "traced_by_value_unreviewed"
-  },
-  {
-   "file": "goal7_blocks.py",
    "text": "135.7 กม.",
    "count": 1,
    "status": "traced_by_value_unreviewed"

@@ -106,7 +106,8 @@ _XC_SENT = ("" if not _xc else (
 def _rs_sent(_rs, rule):
     return (
         f" · <b>ความไวต่อวันของฉากอ้างอิง</b> (ลุ่ม{_TH[_rs['basin']]}; ใช้ฉากอ้างอิงทางเลือกที่เก่ากว่าฉากหลักราว 12 วัน ตัดน้ำซ้ำ {_rs['n_event_passes']} รอบถ่าย): "
-        f"ค่าสูงสุดของลุ่มเปลี่ยนจาก {_rs['peak_primary_km2']:,.0f} เป็น {_rs['peak_alt_ref_km2']:,.0f} ตร.กม. ({_rs['peak_change_pct']:+.0f}%) · รายรอบถ่ายเปลี่ยน {_rs['per_pass_change_pct_range'][0]:+.0f}% ถึง {_rs['per_pass_change_pct_range'][1]:+.0f}%"
+        f"ค่าสูงสุดของลุ่มเปลี่ยนจาก {_rs['peak_primary_km2']:,.0f} เป็น {_rs['peak_alt_ref_km2']:,.0f} ตร.กม. ({_rs['peak_change_pct']:+.1f}%) · รายรอบถ่ายเปลี่ยน {_rs['per_pass_change_pct_range'][0]:+.0f}% ถึง {_rs['per_pass_change_pct_range'][1]:+.0f}% "
+        f"(คิดจากพื้นที่ฐานของแต่ละรอบถ่าย {_rs['event_primary_km2_range'][0]:,.1f}–{_rs['event_primary_km2_range'][1]:,.0f} ตร.กม. — ร้อยละจากฐานเล็กไม่ใช่การเปลี่ยนจริง)"
         + (f" · รอบถ่ายก่อนเหตุการณ์เทียบฉากทางเลือก (ค่าควบคุม — ไม่ใช่น้ำท่วม) ได้ {_rs['control_alt_km2_range'][0]:,.0f}–{_rs['control_alt_km2_range'][1]:,.0f} ตร.กม. ซึ่งบอกขนาดการเปลี่ยนแปลงตามฤดูก่อนเหตุการณ์" if _rs["n_control_passes"] else "")
         + (" · <b>ไวต่อฉากอ้างอิง</b>" if _rs["label_sensitive_to_reference"] else "")
         + f" (กติกา <code>{rule}</code>)")
@@ -115,6 +116,11 @@ def _rs_sent(_rs, rule):
 _rs = _can.get("s1_ref_sensitivity")
 _RS_SENT = ("" if not _rs else _rs_sent(_rs, "docs/S1_PASS_MOSAIC_PREREG.md")) + "".join(
     _rs_sent(v, "docs/S1_REF_SENSITIVITY_PASAK_PREREG.md") for v in _can.get("s1_ref_sensitivity_other", {}).values())
+_rs_done = ([_rs["basin"]] if _rs else []) + list(_can.get("s1_ref_sensitivity_other", {}))
+_rs_all = [k for k in _can["flood_peak_km2"] if not k.endswith("_after_sea")]
+if _rs_done:
+    _RS_SENT += (f" · <b>ขอบเขตการทดสอบ:</b> ทดสอบความไวต่อวันของฉากอ้างอิงแล้ว {len(_rs_done)} จาก {len(_rs_all)} ลุ่ม ({', '.join(_TH[b] for b in _rs_done)}) — "
+                 f"อีก {len(_rs_all) - len(_rs_done)} ลุ่ม ({', '.join(_TH[b] for b in _rs_all if b not in _rs_done)}) ค่าสูงสุดอ่านจากฉากอ้างอิงหลักเท่านั้น ยังไม่ทราบว่าไวต่อวันอ้างอิงเพียงใด")
 _bw = max((k for k in _lc if not k.startswith("nn_")), key=lambda k: _lc[k]["share_on_worldcover_water"])   # ลุ่มที่สัดส่วนตกบนน้ำถาวรสูงสุด (อ่านจากข้อมูล ไม่ฝังชื่อ)
 _nmr = _can.get("national_medium_reservoirs", {})
 _ps24 = _can.get("pasak_24y_baseline", {})

@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CANON = ROOT / "analysis/goal6/canonical.json"
 
-DOCS = ["HANDOFF.md", "docs/GOAL6_PLAN.md", "START_HERE.md"]
+DOCS = ["HANDOFF.md", "docs/GOAL6_PLAN.md", "START_HERE.md", "README.md"]
 REPORTS = ["report/ระลอกปลายกย2569.html", "report/ชุดเทียบมาตรฐาน2554.html"]
 
 
@@ -308,3 +308,25 @@ def test_tide_loader_uses_exact_hour_records_only():
     import goal6_l3_coastal_model as m
     s = m.load_series(ROOT / "data/22_goal6_network/raw/estuary_tides/4_CPY015_2026_hourly.json")
     assert s["2026-09-27 19:00"] == 1.88          # ค่านาทีที่ 00 (ค่านาทีที่ 50 คือ 1.65)
+
+
+def test_report4_renders_anchored_matrix_section():
+    """รีวิวรอบ 8 (GL F-01): รายงาน 4 ส่วน 8.1 หายเงียบเพราะ canonical ไม่มีคีย์ matrix_anchored — ต้องออกครบ (หัวข้อ + จำนวนช่องวิกฤตจากข้อมูล)"""
+    cfr = _load()["compound_flood_risk"]
+    ma = cfr.get("matrix_anchored")
+    assert ma and ma.get("band_counts"), "canonical.compound_flood_risk ขาด matrix_anchored — รัน analysis/goal6_canonical.py"
+    h4 = (ROOT / REPORTS[1]).read_text(encoding="utf-8")
+    assert "8.1 เมทริกซ์แบบยึดค่าที่วัดจริง" in h4
+    bc = ma["band_counts"]
+    assert f"{bc['original'].get('critical', 0)} ช่องของสมการเดิม" in h4
+    assert f"{bc['anchored_gain_low'].get('critical', 0)}–{bc['anchored_gain_high'].get('critical', 0)} ช่อง" in h4
+
+
+def test_report3_states_sensitivity_scope_and_bases():
+    """รีวิวรอบ 8 (CS F-04 / GL F-04): รายงาน 3 ต้องบอกว่าทดสอบความไวต่อวันอ้างอิงกี่ลุ่มจากกี่ลุ่ม และพื้นที่ฐานของร้อยละรายรอบถ่าย"""
+    d = _load()
+    done = ([d["s1_ref_sensitivity"]["basin"]] if d.get("s1_ref_sensitivity") else []) + list(d["s1_ref_sensitivity_other"])
+    total = [k for k in d["flood_peak_km2"] if not k.endswith("_after_sea")]
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    assert f"ทดสอบความไวต่อวันของฉากอ้างอิงแล้ว {len(done)} จาก {len(total)} ลุ่ม" in h3
+    assert "ร้อยละจากฐานเล็กไม่ใช่การเปลี่ยนจริง" in h3

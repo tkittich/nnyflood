@@ -1,7 +1,7 @@
 # Comprehensive System Audit Prompt (English) — Multi-Pillar Red-Team Review
 
 > **How to use**: Copy the complete markdown text below this block and provide it to an independent external AI auditor (e.g., Claude 3.5 Sonnet, GPT-4o / OpenAI o1, Gemini 1.5 Pro) or a senior hydraulic/data science peer reviewer with access to this repository.  
-> **Last Updated**: October 27, 2026 | Covers all 3 Pillars (8 Reports + Policy Brief), Astronomical Tidal Harmonics, 2D Compound Risk Matrix, 2D Hypsometric Ongkharak Basin Tipping Point, Active Storage Reality, 39y Operational Economics, ONEP EIA Critiques, **plus the 19–27 Oct additions (third batch: goal-6 Sentinel-1 stage-2 reference scenes re-paired by relative orbit with a pre-registered audit and a GISTDA cross-check, along-channel reach length, own radar series for Chachoengsao; second batch: tide timestamp rule, multi-year harmonics, anchored compound matrix, 1-D sub-reach sensitivity, 3-D model rebuilt on the continuous surface, road×valley crossings, verification badges, two-layer literal gate): DEM bias correction + satellite waterline tests, the rain-driven 2-D Ongkharak model, whole-basin Bang Pakong / Chachoengsao analysis (Report 3 §4.7, labelled exploratory), GISTDA daily-product handling, and the OCR toolchain (Typhoon vs Indra OCR, VLM pilot)**.
+> **Last Updated**: October 27, 2026 | Covers all 3 Pillars (six numbered reports — 1, 2, 3, 4, 7, 8 — plus the Policy Brief), Astronomical Tidal Harmonics, 2D Compound Risk Matrix, 2D Hypsometric Ongkharak Basin Tipping Point, Active Storage Reality, 39y Operational Economics, ONEP EIA Critiques, **plus the 19–27 Oct additions (third batch: goal-6 Sentinel-1 stage-2 reference scenes re-paired by relative orbit with a pre-registered audit and a GISTDA cross-check, along-channel reach length, own radar series for Chachoengsao; second batch: tide timestamp rule, multi-year harmonics, anchored compound matrix, 1-D sub-reach sensitivity, 3-D model rebuilt on the continuous surface, road×valley crossings, verification badges, two-layer literal gate): DEM bias correction + satellite waterline tests, the rain-driven 2-D Ongkharak model, whole-basin Bang Pakong / Chachoengsao analysis (Report 3 §4.7, labelled exploratory), GISTDA daily-product handling, and the OCR toolchain (Typhoon vs Indra OCR, VLM pilot)**.
 
 ---
 
@@ -13,11 +13,11 @@ You are an **Independent Senior Hydraulic Engineer and Lead Data Science Auditor
 
 The project investigates catastrophic flooding in Thailand through empirical data, remote sensing, and physical hydraulic modeling across **3 Core Pillars (7 Goals)**:
 1. **Pillar 1 (Goals 1–5): Nakhon Nayok River Basin (Sep 26–29, 2026 Flash Flood)**  
-   - Attribution of upstream rainfall band vs. Khun Dan Prakan Chon Dam release (88:12 ratio).
+   - Attribution of upstream rainfall band vs. Khun Dan Prakan Chon Dam release (rain : dam share; the headline split and its lag band are in `analysis/canonical_numbers.json` → `values.dam_share` and `analysis/attribution_share.json`).
    - 1D Hydrodynamic Routing model (`analysis/hydraulic_1d_routing.py`) routing flood waves with Muskingum–Cunge (weight X clamped to 0, i.e. a linear-reservoir cascade — not a full Saint-Venant solve) from Ny.1B to Ny.7 (18.3 km key reach, 43 km full basin).
    - Cross-sectional rating curves, levee-crest capacity, and simulated peak travel time along the modelled reach (values are in `analysis/hydraulic_1d_routing_summary.json` and `analysis/canonical_numbers.json`; none is quoted here). The modelled reach length (18.3 km) is **not** a surveyed channel chainage: the straight-line distance between the two station coordinates is about 7.8 km (a sinuosity of 2.35 would be needed) — open item R7-23. The gap between observed peak lag at Ny.7 and the simulated travel time is attributed to overland/floodplain detention, which is an interpretation, not a measurement. Sub-reach sensitivity (n_sub 1/2/3/6/12/24/48; headline kept at 12 by the pre-registered rule `docs/ROUTING1D_SUBREACH_PREREG.md`) is in the grid-convergence block of the summary.
    - Gate-Control vs Routing Trap case study at Tha Chang regulator (`report/build_expert_report.py` Section 6.5.1c).
-   - Khun Dan 22-year operational baseline (36.5 days premature filling ahead of median) and stress analysis of 6 medium reservoirs.
+   - Khun Dan 22-year operational baseline (premature-filling days ahead of the median: see `analysis/canonical_numbers.json` → `values.khundan_22y.headline_metrics.year_2026_anomaly`) and stress analysis of 6 medium reservoirs.
    - Machine learning stage prediction (Model v1: 11 features, Ridge regression; error figures are in `analysis/canonical_numbers.json` → `model_v1` — do not rely on any number quoted in this prompt).
 2. **Pillar 2 (Goal 6): 6 National River Basins & 2011 Mega-Flood Benchmark**  
    - Multi-reservoir comparative operation across 24 major dams (EGAT hydroelectric vs. RID irrigation), including the Pa Sak (RID) vs. Mae Klong (EGAT) 22-year governance benchmark (Pasak: three documented definitions in `goal6/canonical.json → pasak_year_counts` — above upper rule curve on any day 20/22 years, in Aug–Sep 16/22, above normal storage 17/24 years; vs EGAT dams maintaining dedicated flood headroom).
@@ -74,6 +74,7 @@ Do not offer generic compliments or superficial stylistic edits. Report concrete
    - Ensure complete absence of personally identifiable information (PDPA compliance).
 6. **Language & Formatting Integrity**:
    - Official HTML reports are in Thai (`report/*.html`). Quote Thai text verbatim when citing sources; your audit findings should be in English.
+7. **Where to save your report**: write it to `docs/reviews/REVIEW.<model>.<commit>.md` (not the repo root — `tests/test_tool_registry.py` counts root `*.md` files and turns `verify_all.py` red).
 
 ---
 

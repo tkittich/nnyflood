@@ -233,44 +233,6 @@ def tbl_ongkharak_oct2026_status() -> str:
     return table(["จุดสังเกตการณ์ / สถานี", "ระดับน้ำ / ความสูงพื้นดิน", "สถานะน้ำท่วม", "กลไกและการระบาย"], rows, cap)
 
 
-def tbl_ongkharak_water_balance() -> str:
-    H = C.get("ongkharak_hydraulics", {}).get("water_balance", {})
-    if not H:
-        return ""
-    inf = H["inflows_mcm_day"]
-    outf = H["outflows_mcm_day"]
-    rows = [
-        ["1. การสูบและผลักดันน้ำจากทุ่งรังสิต (คลอง 13)", f"{inf['rangsit_pumped_inflow']:.2f} ล้าน ลบ.ม./วัน", f"{H['attribution_shares']['hypothesis_1_rangsit_pumping']}", "สูบข้าม ปตร.พระธรรมราชา มุ่งหน้าทิศตะวันออก"],
-        ["2. น้ำหลากตกค้างจากต้นน้ำ (อ.เมือง/บ้านนา)", f"{inf['upstream_residual_runoff']:.2f} ล้าน ลบ.ม./วัน", f"{H['attribution_shares']['hypothesis_2_upstream_estuary_bottleneck'].split(' ')[0]} (ร่วมกับปากอ่าว)", "น้ำหลากค้างทุ่งไหลหลากลงสู่พื้นที่ลุ่มต่ำ"],
-        ["3. ฝนตกสะสมในพื้นที่ทุ่งองครักษ์", f"{inf['local_rainfall']:.2f} ล้าน ลบ.ม./วัน", "-", "ฝนตกบนพื้นที่รับน้ำ 286 ตร.กม."],
-        ["<b>รวมน้ำไหลเข้าทุ่งทั้งหมด</b>", f"<b>{inf['total_inflow']:.2f} ล้าน ลบ.ม./วัน</b>", "100.0%", "อัตราการเติมน้ำเข้าแอ่งก้นกระทะ"],
-        ["4. อัตราการระบายออกจริงสู่อ่าวไทย", f"<b>{outf['effective_gravity_and_pump']:.2f} ล้าน ลบ.ม./วัน</b>", "-", f"ติดน้ำทะเลหนุน ระบายได้เฉลี่ยวันละ {outf['effective_hours_per_day']} ชม. (สัดส่วน {outf['tide_gate_open_ratio']*100:.0f}%)"],
-        ["<b>สมดุลมวลน้ำสุทธิสะสม</b>", f"<b>+{H['net_balance_mcm_day']:.2f} ล้าน ลบ.ม./วัน</b>", "-", f"น้ำท่วมขังสะสมในแอ่ง {H['total_stored_water_mcm']} ล้าน ลบ.ม. ต้องใช้เวลาระบาย {H['drain_duration_days_estimate']} วัน"],
-    ]
-    cap = (
-        f"การคำนวณสมดุลมวลน้ำทุ่งองครักษ์ (พื้นที่ลุ่มต่ำ {H['basin_area_sqkm']} ตร.กม. น้ำท่วมขัง {H['inundated_area_sqkm']} ตร.กม. ลึกเฉลี่ย {H['avg_depth_m']*100:.0f} ซม.) · "
-        f"ข้อสรุป: {H['conclusion']}"
-    )
-    return table(["องค์ประกอบสมดุลมวลน้ำ", "ปริมาณน้ำต่อวัน", "สัดส่วนสาเหตุ", "รายละเอียดและกลไกชลศาสตร์"], rows, cap)
-
-
-def tbl_reach_hydraulic_vectors() -> str:
-    vecs = C.get("ongkharak_hydraulics", {}).get("reach_vectors", [])
-    if not vecs:
-        return ""
-    rows = []
-    for v in vecs:
-        rows.append([
-            f"{v['reach_id']}: {v['name']}",
-            f"{v['upstream_stage_m']:.2f} vs {v['downstream_stage_m']:.2f} ม.",
-            f"{v['head_diff_m']:+.2f} ม. ({v['slope_cm_per_km']:+.2f} ซม./กม.)",
-            v['net_flow_direction'],
-            f"{v['velocity_ms']:.2f} ม./วิ ({v['discharge_cms']:.1f} ลบ.ม./วิ)",
-        ])
-    cap = "เวกเตอร์ความลาดเทผิวน้ำ ทิศทางการไหล และความเร็วชลศาสตร์ (คำนวณตามสมการแมนนิ่ง สภาพคลองดินมีวัชพืช รัศมีชลศาสตร์ 2.0 ม.)"
-    return table(["ช่วงลำน้ำและคลองระบาย", "ระดับน้ำต้นทาง vs ปลายทาง", "ความต่างระดับ (ความลาดชัน)", "ทิศทางการไหลสุทธิ", "ความเร็วชลศาสตร์ (อัตราการไหล)"], rows, cap)
-
-
 def tbl_dam_to_gulf_corridors() -> str:
     C_data = C.get("dam_to_gulf_corridors", {})
     if not C_data:
@@ -432,7 +394,7 @@ def tbl_lifecycle_economics() -> str:
             f"{s['cost_per_m3_diverted_baht']:.2f} บาท/ลบ.ม.",
         ])
     t1 = table(["อัตราคิดลด", "สัมประสิทธิ์คืนทุน", "ภาระเงินลงทุนรายปี (30 ปี)", "ภาระค่าใช้จ่ายรวมรายปี (รวมค่าบำรุงรักษา)", "ต้นทุนต่อน้ำผันจริง"],
-               rows_disc, f"การคำนวณต้นทุนวงจรชีวิตโครงการ วงเงินลงทุน {le['capex_mb']:,.0f} ล้านบาท ค่าบำรุงรักษา {le['opex_annual_mb']:,.0f} ล้านบาท/ปี ผันน้ำเฉลี่ย {le['annual_diverted_mcm']:,.0f} ล้าน ลบ.ม./ปี")
+               rows_disc, f"การคำนวณต้นทุนวงจรชีวิตโครงการ วงเงินลงทุน {le['capex_mb']:,.0f} ล้านบาท ค่าบำรุงรักษา {le['opex_annual_mb']:,.0f} ล้านบาท/ปี ผันน้ำเฉลี่ย {le['annual_diverted_mcm']:,.0f} ล้าน ลบ.ม./ปี (ตัวหารเป็นข้อสมมติของผู้วิเคราะห์ ราวร้อยละ {100 * le['annual_diverted_mcm'] / OE['s26_operational_profile']['flood_season_mean_mcm']:.0f} ของน้ำท่าฤดูน้ำหลากเฉลี่ย S.26)")  # gap: cp2_diverted_volume_denominator
 
     rows_alt = []
     for a in le["alternatives_benchmark"]:

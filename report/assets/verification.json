@@ -1,6 +1,6 @@
 {
- "git_rev": "78cc138",
- "checked_at": "2026-10-27T20:22+07:00",
+ "git_rev": "5619f03",
+ "checked_at": "2026-10-27T21:16+07:00",
  "gates": {
   "thai": "pass",
   "contrast": "pass",
@@ -24,7 +24,10 @@
    "tests/test_goal6_consistency.py",
    "tests/test_goal7_report.py",
    "tests/test_reports12.py",
-   "tests/test_number_inventory.py"
+   "tests/test_number_inventory.py",
+   "tests/test_tool_registry.py",
+   "tests/test_naming_convention.py",
+   "tests/test_standards_integrity.py"
   ]
  }
 }

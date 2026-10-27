@@ -41,7 +41,8 @@ UNITS = [
 UNITS.sort(key=lambda u: -len(u[0]))
 UNIT_ALT = "|".join(re.escape(u) for u, _ in UNITS)
 UNIT_MAP = dict(UNITS)
-NUM_RE = re.compile(r"(?<![\w.,/\-:])(\d{1,3}(?:,\d{3})+|\d+)(?:\.(\d+))?\s{0,2}(" + UNIT_ALT + r")(?![ก-๙A-Za-z])")
+# เครื่องหมายลบ: "-" นำหน้าได้เฉพาะเมื่ออยู่ต้นข้อความ/หลังช่องว่างหรือวงเล็บ (ไม่ใช่ช่วงอย่าง 10-20 ม.) · "−" (ยูนิโคด) ติดตัวเลขได้เสมอ — รีวิวรอบ 8 DS F-02: เดิม "-1.25 ม." มองไม่เห็น
+NUM_RE = re.compile(r"(?:(?<![^\s(\[“\"'·])[-−]|(?<![\w.,/\-:]))(\d{1,3}(?:,\d{3})+|\d+)(?:\.(\d+))?\s{0,2}(" + UNIT_ALT + r")(?![ก-๙A-Za-z])")
 
 # ---------- แนวคิดที่ตรวจ (ป้ายที่ใกล้ตัวเลข + หน่วย + ช่วงค่าที่สมเหตุสมผล) ----------
 CONCEPTS = [
@@ -110,6 +111,8 @@ def extract(line: str):
     for m in NUM_RE.finditer(line):
         ip, fp, unit = m.group(1), m.group(2), m.group(3)
         val = float(ip.replace(",", "") + ("." + fp if fp else ""))
+        if m.group(0)[0] in "-−":
+            val = -val
         yield m.start(), val, (len(fp) if fp else 0), UNIT_MAP[unit], m.group(0)
     for m in RATIO_RE.finditer(line):
         ip, fp = m.group(1), m.group(2)

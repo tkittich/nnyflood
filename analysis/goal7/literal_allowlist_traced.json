@@ -165,14 +165,20 @@
   },
   {
    "file": "build_expert_report.py",
-   "text": "99.5%",
-   "count": 2,
+   "text": "99.9%",
+   "count": 1,
    "status": "traced_by_value_unreviewed"
   },
   {
    "file": "build_expert_report.py",
-   "text": "99.9%",
+   "text": "−1.3 ม.",
    "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "build_expert_report.py",
+   "text": "−99.5%",
+   "count": 2,
    "status": "traced_by_value_unreviewed"
   },
   {
@@ -406,6 +412,12 @@
   {
    "file": "goal6_build_report3_draft.py",
    "text": "27.9 ล้าน ลบ.ม./วัน",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal6_build_report3_draft.py",
+   "text": "−1.2 ม.รทก.",
    "count": 1,
    "status": "traced_by_value_unreviewed"
   },
@@ -777,12 +789,6 @@
   },
   {
    "file": "goal7_build_public.py",
-   "text": "1.49 ม.รทก.",
-   "count": 1,
-   "status": "traced_by_value_unreviewed"
-  },
-  {
-   "file": "goal7_build_public.py",
    "text": "1.50 ม.",
    "count": 1,
    "status": "traced_by_value_unreviewed"
@@ -964,6 +970,18 @@
   {
    "file": "goal7_build_public.py",
    "text": "ร้อยละ 55.3",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "−1.49 ม.รทก.",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
+   "text": "−5.5 ม.",
    "count": 1,
    "status": "traced_by_value_unreviewed"
   },

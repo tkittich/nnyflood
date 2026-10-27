@@ -76,3 +76,14 @@ def test_traced_gate_catches_coincidental_match(tmp_path):
     first, _ = ni.gate_violations([b], ks, allow={})
     second, _ = ni.gate_traced_violations([b], ks, allow={})
     assert not first and ("fake_builder.py", "22.4 กม.") in second
+
+
+def test_extract_sees_signed_numbers():
+    """รีวิวรอบ 8 (DS F-02): ตัวเลขติดลบ (ASCII '-' และ '−') ต้องถูกจับพร้อมเครื่องหมาย ส่วนช่วง '10-20 ม.' ไม่ถือเป็นเลขลบ"""
+    from tools.number_inventory import extract
+    got = lambda s: [(v, raw) for _, v, _, _, raw in extract(s)]
+    assert got("ต่ำกว่า -1.25 ม.") == [(-1.25, "-1.25 ม.")]
+    assert got("ต่ำกว่า −1.25 ม.") == [(-1.25, "−1.25 ม.")]
+    assert got("ลด -9.2%") == [(-9.2, "-9.2%")]
+    assert got("ต่ำกว่า 1.25 ม.") == [(1.25, "1.25 ม.")]
+    assert got("ช่วง 10-20 ม.") == []

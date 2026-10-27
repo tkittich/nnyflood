@@ -138,7 +138,8 @@
   "reach_meas_km": "15.1",
   "reach_straight_km": "7.8",
   "reach_sinuosity": "1.9",
-  "reach_diff_pct": "17"
+  "reach_diff_pct": "17",
+  "reach_diff_pct_of_meas": "21"
  },
  "meta": {
   "generated_by": "analysis/build_canonical_numbers.py",

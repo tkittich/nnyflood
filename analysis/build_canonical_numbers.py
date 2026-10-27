@@ -291,6 +291,7 @@ render = {
     "reach_straight_km": f"{reach['headline_case']['straight_km']:.1f}",
     "reach_sinuosity": f"{reach['headline_case']['sinuosity']:.1f}",
     "reach_diff_pct": f"{abs(reach['diff_vs_used_pct']):.0f}",
+    "reach_diff_pct_of_meas": f"{100 * abs(reach['used_reach_km'] - reach['central_km']) / reach['central_km']:.0f}",   # ฐานเป็นระยะที่วัดได้ (รีวิวรอบ 8 CS F-03)
 }
 
 def assert_pillar1_inward_contracts(values: dict) -> None:

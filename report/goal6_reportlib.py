@@ -410,7 +410,7 @@ _GATE_LABELS = {
     "thai": "การตรวจภาษาไทย (คำพิมพ์ผิด/คำชน)",
     "contrast": "ความเปรียบต่างสี (WCAG AA)",
     "legal_privacy": "การตรวจกฎหมายและข้อมูลส่วนบุคคล",
-    "canonical": "ความสอดคล้องกับฐานตัวเลขกลาง",
+    "canonical": "ความสอดคล้องกับฐานตัวเลขกลางและทะเบียนเอกสาร/เครื่องมือ",
 }
 
 
@@ -426,6 +426,8 @@ def _gate_badges(vp: Path, rev: str, canonical_ref: str) -> str:
         st = (v or {}).get("gates", {}).get(k)
         if st == "pass":
             out.append(f'    <span class="prov-badge prov-badge-ok">&#10003; ผ่าน{label}</span>')
+        elif st == "not_run":
+            out.append(f'    <span class="prov-badge prov-badge-code">ยังไม่ได้ตรวจ{label}ในสภาพแวดล้อมนี้ (รันไม่ได้)</span>')
         elif st == "fail":
             out.append(f'    <span class="prov-badge prov-badge-code">ไม่ผ่าน{label} ในการตรวจล่าสุด</span>')
         else:

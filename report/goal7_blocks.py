@@ -544,11 +544,15 @@ def tbl_ongkharak_dem_sensitivity() -> str:
         rows.append([s["label"], f"{s['median_m']:+.2f}", f"{s['area_at_gauge_km2']:.0f} ({s['area_at_gauge_share_pct']:.0f}%)",
                      f"{f27['effective_stage_msl_m']:+.2f} / {f2['effective_stage_msl_m']:+.2f}", f"{f27['offset_vs_gauge_m']:+.2f} / {f2['offset_vs_gauge_m']:+.2f}", f"{f27['iou']:.2f} / {f2['iou']:.2f}"])
     rg = dep["range_across_dems"]
+    _kn = C["dem_bias_correction"]["monotone_correction"]["knots"]
     cap = (f"ช่วงข้ามพื้นผิวความสูง {rg['n_surfaces']} ชุด (ต่ำสุด–สูงสุด): มัธยฐาน {rg['median_m'][0]:+.2f} ถึง {rg['median_m'][1]:+.2f} ม.รทก. · พื้นที่ที่ระดับเกจ {rg['area_at_gauge_km2'][0]:.0f}–{rg['area_at_gauge_km2'][1]:.0f} ตร.กม. · ระดับน้ำที่ปรับให้ตรงรูปเรดาร์ 27 ก.ย. {rg['effective_stage_27sep_msl_m'][0]:+.2f} ถึง {rg['effective_stage_27sep_msl_m'][1]:+.2f} ม.รทก. · คะแนนความซ้อนทับ {rg['iou_27sep'][0]:.2f}–{rg['iou_27sep'][1]:.2f} (27 ก.ย.) และ {rg['iou_2oct'][0]:.2f}–{rg['iou_2oct'][1]:.2f} (2 ต.ค.) — ไม่เรียกชุดใดว่าแม่นที่สุด · "
            "ความไวของแบบจำลองถังเติมน้ำ อ.องครักษ์ ต่อชุดแบบจำลองความสูง — พื้นที่ที่เรดาร์เห็น "
            f"{sens['fabdem_corrected']['sar_fit']['peak_27sep']['sar_area_km2']:.0f} / {sens['fabdem_corrected']['sar_fit']['oct2_validated']['sar_area_km2']:.0f} ตร.กม. (27 ก.ย. / 2 ต.ค.) · ระดับเกจ TNy10 +{dep.get('observed_stage_msl_m', 2.35):.2f} ม.รทก. · "
            f"เครื่องหมายของส่วนต่างพลิกตามชุด DEM (ชุดดิบสูงกว่าเส้นดินของรายงานผลกระทบสิ่งแวดล้อมเฉลี่ย {C['dem_bias_correction']['eia_ground_check']['fabdem_raw']['bias_m']:.1f}–{C['dem_bias_correction']['eia_ground_check']['copernicus_raw']['bias_m']:.1f} ม. ใน {C['dem_bias_correction']['eia_ground_check']['n_lowland_fabdem_lt_15m']} จุดตลอดแนวคลอง) — "
-           f"จึงไม่ควรตีความส่วนต่างระดับ {sens['copernicus_raw']['sar_fit']['oct2_validated']['offset_vs_gauge_m']:+.1f} ม. ของชุดดิบเป็นผลของแบบจำลอง")
+           f"จึงไม่ควรตีความส่วนต่างระดับ {sens['copernicus_raw']['sar_fit']['oct2_validated']['offset_vs_gauge_m']:+.1f} ม. ของชุดดิบเป็นผลของแบบจำลอง · "
+           f"<b>อ่านช่วงนี้อย่างไร:</b> ค่าแก้ต่อเนื่องบีบความต่างระดับของพื้นต่ำ — ที่ความสูง FABDEM ต่ำกว่า {_kn['x'][1]:.1f} ม. ความสูงที่ปรับแล้วเปลี่ยนเพียงร้อยละ {100 * (_kn['y'][1] - _kn['y'][0]) / (_kn['x'][1] - _kn['x'][0]):.0f} ของความเปลี่ยนแปลงของ FABDEM "
+           f"(ปมแรกของเส้นแก้) พื้นที่ที่ระดับเกจจึงไวต่อค่าแก้มากกว่าความสูงจริง · ชุดที่ปรับแล้วสองชุด ({sens['fabdem_stepped']['label']} มัธยฐาน {sens['fabdem_stepped']['median_m']:+.2f} และ {sens['fabdem_corrected']['label']} {sens['fabdem_corrected']['median_m']:+.2f} ม.) ใกล้กันเพราะค่าแก้ทั้งสองลบระดับพื้นต่ำลงใกล้เคียงกัน — "
+           "ช่วงข้ามพื้นผิวจึงเป็น 2 กลุ่ม (ชุดดิบ / ชุดที่ปรับแล้ว) ไม่ใช่ค่าอิสระ 4 ค่า · ร้อยละของพื้นที่อำเภอคิดเทียบพื้นที่ของแต่ละชุด ซึ่งตัดความสูงต่ำกว่า −3 ม. ออก จึงต่างกันเล็กน้อยระหว่างชุด")
     return table(["ชุดแบบจำลองความสูง", "มัธยฐานความสูงอำเภอ (ม.รทก.)", "พื้นที่ที่ระดับเกจ (ตร.กม.)", "ระดับที่มีผล 27 ก.ย. / 2 ต.ค. (ม.รทก.)", "ต่างจากเกจ (ม.)", "ดัชนีทับซ้อนกับเรดาร์"], rows, cap)
 
 

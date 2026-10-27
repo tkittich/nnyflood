@@ -199,6 +199,7 @@ graph TD
 | [REACH_LENGTH_PREREG.md](file:///e:/theera/code/flood/docs/REACH_LENGTH_PREREG.md) | **กติกาวัดระยะตามลำน้ำ Ny.1B–Ny.7 (ตั้งก่อนดูผล)** — ชั้นเส้นลำน้ำมิตรเอิร์ธ ช่วงความไม่แน่นอน และข้อตีความที่ตกลงไว้ก่อน |
 | [S1_PASS_MOSAIC_PREREG.md](file:///e:/theera/code/flood/docs/S1_PASS_MOSAIC_PREREG.md) | **กติกาหน่วยรอบถ่าย ขอบเขตสูงสุดรวมทุกวัน และความไวต่อฉากอ้างอิง (ตั้งก่อนดูผล)** |
 | [S1_REF_SENSITIVITY_PASAK_PREREG.md](file:///e:/theera/code/flood/docs/S1_REF_SENSITIVITY_PASAK_PREREG.md) | **กติกาความไวต่อวันของฉากอ้างอิง ลุ่มป่าสัก (ตั้งก่อนดูผล)** |
+| [S1_REF_SENSITIVITY_REST_PREREG.md](file:///e:/theera/code/flood/docs/S1_REF_SENSITIVITY_REST_PREREG.md) | **กติกาความไวต่อวันของฉากอ้างอิง 4 ลุ่มที่เหลือ (ตั้งก่อนค้นคลัง/ดึงฉาก/ดูผล)** |
 | [S1_GISTDA_CROSSCHECK_PREREG.md](file:///e:/theera/code/flood/docs/S1_GISTDA_CROSSCHECK_PREREG.md) | **กติกาเทียบพื้นที่น้ำเรดาร์กับ GISTDA 30 วัน (ตั้งก่อนดูผล)** — ความแม่น/ความครบต่อลุ่ม ไม่มีเกณฑ์ผ่านตก |
 | [S1_REFERENCE_AUDIT_PREREG.md](file:///e:/theera/code/flood/docs/S1_REFERENCE_AUDIT_PREREG.md) | **กติกาตรวจฉากอ้างอิงเรดาร์ขั้นที่ 2 ของเป้าหมาย 6 (ตั้งก่อนดูผล)** — วินิจฉัยเท่านั้น ไม่เปลี่ยนตัวเลขเผยแพร่ |
 | [S1_CHACHOENGSAO_RECENT_PREREG.md](file:///e:/theera/code/flood/docs/S1_CHACHOENGSAO_RECENT_PREREG.md) | **กติกาแผนที่น้ำเรดาร์ฉะเชิงเทรา 4–22 ต.ค. (ตั้งก่อนดูผล)** — จับคู่ตามวงโคจรสัมพัทธ์ ใช้กฎตรึงเดิม |

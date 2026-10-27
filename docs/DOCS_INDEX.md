@@ -35,6 +35,7 @@
 | `docs/S1_PASS_MOSAIC_PREREG.md` | current | plan | กติกาหน่วยวิเคราะห์น้ำเรดาร์เป็นรอบถ่าย ขอบเขตรวมทุกวัน และความไวต่อฉากอ้างอิง — กำหนดไว้ก่อนดูผล | กำหนด 27 ต.ค. 69 ก่อนคำนวณ |
 | `docs/S1_REFERENCE_AUDIT_PREREG.md` | current | plan | กติกาตรวจฉากอ้างอิงของแผนที่น้ำเรดาร์เป้าหมาย 6 ขั้นที่ 2 — กำหนดไว้ก่อนดูผล | กำหนด 26 ต.ค. 69 ก่อนดึงฉากและรัน |
 | `docs/S1_REF_SENSITIVITY_PASAK_PREREG.md` | current | plan | กติกาความไวต่อวันของฉากอ้างอิง ลุ่มป่าสัก — กำหนดไว้ก่อนดูผล | กำหนด 27 ต.ค. 69 ก่อนคำนวณ |
+| `docs/S1_REF_SENSITIVITY_REST_PREREG.md` | current | plan | กติกาความไวต่อวันของฉากอ้างอิง 4 ลุ่มที่เหลือ — กำหนดไว้ก่อนดูผล | กำหนด 27 ต.ค. 69 ก่อนค้นคลังและก่อนดึงฉาก |
 | `docs/THAIWATER_API_GUIDE.md` | current | reference | คู่มือสถาปัตยกรรมและการเรียกใช้ API คลังข้อมูลน้ำแห่งชาติ (ThaiWater & Khun Dan Telemetry Guide) |  |
 | `docs/DOCS_INDEX.md` | generated | guide | ดัชนีเอกสาร (สร้างอัตโนมัติจาก tools/registry.json) | สร้างด้วย python tools/doctor.py --write-docs |
 | `docs/ENVIRONMENT.md` | generated | guide | สภาพแวดล้อมที่ใช้รัน (Environment record) | ส่วนทะเบียนเครื่องมือสร้างอัตโนมัติจาก tools/registry.json; ส่วนอื่นเป็นบันทึกมือ |
@@ -52,4 +53,4 @@
 | `docs/REVIEW_PROMPT.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Prompt สำหรับให้ AI ตัวอื่นรีวิว/ตรวจสอบโปรเจกต์ (เน้นเป้าหมาย 7 — คลองเจ้าพระยา2) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 | `docs/REVIEW_PROMPT_COMPREHENSIVE.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Comprehensive System Audit Prompt (Superseded) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 
-รวม 47 เอกสาร
+รวม 48 เอกสาร

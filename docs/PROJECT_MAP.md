@@ -105,6 +105,7 @@ graph TD
 - `goal6_s1_landcover.py`: จำแนกประเภทผิวดิน (WorldCover) และหักลบน้ำถาวร (JRC) เพื่อหา "น้ำใหม่เข้มงวด"
 - `goal6_s1_rule_validation.py`: สอบเทียบเกณฑ์ความแม่นยำ F1-score และฉากควบคุม
 - `goal6_s1_control_rain.py`: เทียบฝนก่อนเหตุการณ์กับค่าควบคุมของเรดาร์ 13 คู่ (กติกา `docs/S1_CONTROL_RAIN_PREREG.md` · บรรยายเท่านั้น)
+- `goal6_s1_orbit31_check.py`: ตรวจค่าควบคุมวงโคจร 31 ด้วยฉากอ้างอิงที่สาม (กติกา `docs/S1_ORBIT31_CONTROL_PREREG.md` · ขั้นคิวค้นคลังอย่างเดียว)
 - `goal7_waterchart_overlay.py`: ซ้อนทับแนวคลองกับผังน้ำ สทนช. (พื้นที่ทางน้ำหลาก & น้ำท่วม 100 ปี)
 
 ### กลุ่ม ง: ชลศาสตร์และแบบจำลองคณิตศาสตร์ (Hydraulics & Modeling)

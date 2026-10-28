@@ -1,0 +1,145 @@
+{
+ "note": "คิวตามกติกา docs/S1_ORBIT31_CONTROL_PREREG.md §2 — ค้นคลังอย่างเดียว ยังไม่ดาวน์โหลด",
+ "basins": {
+  "bp_prach": {
+   "alt_day_utc": "2026-09-07",
+   "alt2_day_utc": "2026-08-26",
+   "orbit31_days_seen_utc": [
+    "2026-08-26",
+    "2026-09-07",
+    "2026-09-19"
+   ],
+   "scenes": [
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230840_20260826T230905_004303_007EDA_C1C8_COG.SAFE",
+     "start_utc": "2026-08-26T23:08:40",
+     "size_mb": 1244,
+     "on_disk": false
+    }
+   ]
+  },
+  "pasak": {
+   "alt_day_utc": "2026-09-07",
+   "alt2_day_utc": "2026-08-26",
+   "orbit31_days_seen_utc": [
+    "2026-08-26",
+    "2026-09-07",
+    "2026-09-19"
+   ],
+   "scenes": [
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230815_20260826T230840_004303_007EDA_4221_COG.SAFE",
+     "start_utc": "2026-08-26T23:08:15",
+     "size_mb": 1244,
+     "on_disk": false
+    },
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230840_20260826T230905_004303_007EDA_C1C8_COG.SAFE",
+     "start_utc": "2026-08-26T23:08:40",
+     "size_mb": 1244,
+     "on_disk": false
+    }
+   ]
+  },
+  "maeklong": {
+   "alt_day_utc": "2026-09-07",
+   "alt2_day_utc": "2026-08-26",
+   "orbit31_days_seen_utc": [
+    "2026-08-26",
+    "2026-09-07",
+    "2026-09-19"
+   ],
+   "scenes": [
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230815_20260826T230840_004303_007EDA_4221_COG.SAFE",
+     "start_utc": "2026-08-26T23:08:15",
+     "size_mb": 1244,
+     "on_disk": false
+    },
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230840_20260826T230905_004303_007EDA_C1C8_COG.SAFE",
+     "start_utc": "2026-08-26T23:08:40",
+     "size_mb": 1244,
+     "on_disk": false
+    },
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230905_20260826T230930_004303_007EDA_FC83_COG.SAFE",
+     "start_utc": "2026-08-26T23:09:05",
+     "size_mb": 1141,
+     "on_disk": false
+    }
+   ]
+  },
+  "thachin": {
+   "alt_day_utc": "2026-09-07",
+   "alt2_day_utc": "2026-08-26",
+   "orbit31_days_seen_utc": [
+    "2026-08-26",
+    "2026-09-07",
+    "2026-09-19"
+   ],
+   "scenes": [
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230815_20260826T230840_004303_007EDA_4221_COG.SAFE",
+     "start_utc": "2026-08-26T23:08:15",
+     "size_mb": 1244,
+     "on_disk": false
+    },
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230840_20260826T230905_004303_007EDA_C1C8_COG.SAFE",
+     "start_utc": "2026-08-26T23:08:40",
+     "size_mb": 1244,
+     "on_disk": false
+    }
+   ]
+  },
+  "ping_cp": {
+   "alt_day_utc": "2026-09-07",
+   "alt2_day_utc": "2026-08-26",
+   "orbit31_days_seen_utc": [
+    "2026-08-26",
+    "2026-09-07",
+    "2026-09-19"
+   ],
+   "scenes": [
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230750_20260826T230815_004303_007EDA_431F_COG.SAFE",
+     "start_utc": "2026-08-26T23:07:50",
+     "size_mb": 1277,
+     "on_disk": false
+    },
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230815_20260826T230840_004303_007EDA_4221_COG.SAFE",
+     "start_utc": "2026-08-26T23:08:15",
+     "size_mb": 1244,
+     "on_disk": false
+    }
+   ]
+  },
+  "bkk_lower": {
+   "alt_day_utc": "2026-09-07",
+   "alt2_day_utc": "2026-08-26",
+   "orbit31_days_seen_utc": [
+    "2026-08-26",
+    "2026-09-07",
+    "2026-09-19"
+   ],
+   "scenes": [
+    {
+     "name": "S1D_IW_GRDH_1SDV_20260826T230840_20260826T230905_004303_007EDA_C1C8_COG.SAFE",
+     "start_utc": "2026-08-26T23:08:40",
+     "size_mb": 1244,
+     "on_disk": false
+    }
+   ]
+  }
+ },
+ "unique_scenes": 4,
+ "unique_size_mb": 4906,
+ "to_download": [
+  "S1D_IW_GRDH_1SDV_20260826T230750_20260826T230815_004303_007EDA_431F_COG.SAFE",
+  "S1D_IW_GRDH_1SDV_20260826T230815_20260826T230840_004303_007EDA_4221_COG.SAFE",
+  "S1D_IW_GRDH_1SDV_20260826T230840_20260826T230905_004303_007EDA_C1C8_COG.SAFE",
+  "S1D_IW_GRDH_1SDV_20260826T230905_20260826T230930_004303_007EDA_FC83_COG.SAFE"
+ ]
+}

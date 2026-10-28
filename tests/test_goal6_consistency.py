@@ -384,3 +384,16 @@ def test_report3_prints_control_rain_numbers_from_results():
     for w in cr["within_basin"]:
         assert f"วงโคจร {w['orbit_max']} = {w['control_max_km2']:,.1f} เทียบวงโคจร {w['orbit_min']} = {w['control_min_km2']:,.1f} ตร.กม." in h3
     assert "ไม่ใช่ข้อสรุปเรื่องสาเหตุ" in h3
+
+
+def test_report3_prints_orbit31_third_scene_numbers_from_results():
+    """กติกา S1_ORBIT31_CONTROL_PREREG §4–5: รายงาน 3 พิมพ์ M0–M2 ต่อลุ่มและจำนวนลุ่มตามจริง (ค่าตรง canonical) พร้อมข้อจำกัด และไม่ระบุสาเหตุ"""
+    o = _load()["s1_orbit31_check"]
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    assert "ฉากอ้างอิงที่สามของวงโคจร 31" in h3
+    for r in o["rows"]:
+        if r["status"] == "ok":
+            assert f"{r['label']}: M0 {r['M0_km2']:,.1f} · M1 {r['M1_km2']:,.1f} · M2 {r['M2_km2']:,.1f}" in h3
+            assert r["M0_stored_km2"] == r["M0_km2"], r["basin"]      # คำนวณ M0 ซ้ำแล้วต้องตรงค่าควบคุมเดิม (ตรวจความแน่นอนของการคำนวณ)
+    assert f"จำนวนลุ่มที่ M1 มากกว่า M2 {o['M1_gt_M2']} · น้อยกว่า {o['M1_lt_M2']} · เท่ากัน {o['M1_eq_M2']}" in h3
+    assert "จึงไม่ใช่ข้อสรุปเรื่องสาเหตุ" in h3

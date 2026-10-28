@@ -288,6 +288,12 @@ def main() -> None:
                                   "rain_A_range_mm": [min(r["rain_A_mm"] for r in _cr["pairs"]), max(r["rain_A_mm"] for r in _cr["pairs"])],
                                   "rain_source": _cr["rain_source"], "rule": _cr["rule"]}
 
+    # ---- ค่าควบคุมวงโคจร 31 ด้วยฉากที่สาม (goal6_s1_orbit31_check.py — กติกา docs/S1_ORBIT31_CONTROL_PREREG.md · บรรยายเท่านั้น) ----
+    _o31_p = A / "goal6/s1_orbit31_check.json"
+    if _o31_p.exists():
+        _o31 = json.loads(_o31_p.read_text(encoding="utf-8"))
+        out["s1_orbit31_check"] = {k: _o31[k] for k in ("rule", "n_basins", "rows", "M1_gt_M2", "M1_lt_M2", "M1_eq_M2")}
+
     # ---- เหตุการณ์จุดวัด (screen) ----
     sc = json.loads((A / "goal6_screen_2026_summary.json").read_text(encoding="utf-8"))
     ev = [x for x in sc["stations"] if x.get("crit") is not None and (x.get("hours_over_crit") or 0) > 0]

@@ -1,0 +1,123 @@
+{
+ "rule": "docs/S1_ORBIT31_CONTROL_PREREG.md",
+ "n_basins": 6,
+ "rows": [
+  {
+   "basin": "bp_prach",
+   "label": "ลุ่มบางปะกง (นครนายก–ปราจีนบุรี)",
+   "status": "ok",
+   "alt2_day_utc": "2026-08-26",
+   "alt2_ict": "2026-08-27 06:08",
+   "n_slices_alt2": 1,
+   "M0_km2": 175.4,
+   "M0_stored_km2": 175.4,
+   "M1_km2": 214.2,
+   "M2_km2": 58.3,
+   "valid_frac": {
+    "M0": 0.605,
+    "M1": 0.605,
+    "M2": 0.605
+   },
+   "M1_over_M0": 1.22,
+   "M2_over_M0": 0.33
+  },
+  {
+   "basin": "pasak",
+   "label": "ป่าสัก",
+   "status": "ok",
+   "alt2_day_utc": "2026-08-26",
+   "alt2_ict": "2026-08-27 06:08",
+   "n_slices_alt2": 2,
+   "M0_km2": 195.0,
+   "M0_stored_km2": 195.0,
+   "M1_km2": 229.8,
+   "M2_km2": 104.8,
+   "valid_frac": {
+    "M0": 0.901,
+    "M1": 0.9,
+    "M2": 0.9
+   },
+   "M1_over_M0": 1.18,
+   "M2_over_M0": 0.54
+  },
+  {
+   "basin": "maeklong",
+   "label": "แม่กลอง",
+   "status": "ok",
+   "alt2_day_utc": "2026-08-26",
+   "alt2_ict": "2026-08-27 06:08",
+   "n_slices_alt2": 3,
+   "M0_km2": 189.2,
+   "M0_stored_km2": 189.2,
+   "M1_km2": 194.3,
+   "M2_km2": 288.0,
+   "valid_frac": {
+    "M0": 0.832,
+    "M1": 0.832,
+    "M2": 0.832
+   },
+   "M1_over_M0": 1.03,
+   "M2_over_M0": 1.52
+  },
+  {
+   "basin": "thachin",
+   "label": "ท่าจีน",
+   "status": "ok",
+   "alt2_day_utc": "2026-08-26",
+   "alt2_ict": "2026-08-27 06:08",
+   "n_slices_alt2": 2,
+   "M0_km2": 327.8,
+   "M0_stored_km2": 327.8,
+   "M1_km2": 330.0,
+   "M2_km2": 322.8,
+   "valid_frac": {
+    "M0": 1.0,
+    "M1": 1.0,
+    "M2": 1.0
+   },
+   "M1_over_M0": 1.01,
+   "M2_over_M0": 0.98
+  },
+  {
+   "basin": "ping_cp",
+   "label": "ปิง–เจ้าพระยาตอนบน",
+   "status": "ok",
+   "alt2_day_utc": "2026-08-26",
+   "alt2_ict": "2026-08-27 06:07",
+   "n_slices_alt2": 2,
+   "M0_km2": 1070.7,
+   "M0_stored_km2": 1070.7,
+   "M1_km2": 1080.2,
+   "M2_km2": 420.2,
+   "valid_frac": {
+    "M0": 0.618,
+    "M1": 0.618,
+    "M2": 0.618
+   },
+   "M1_over_M0": 1.01,
+   "M2_over_M0": 0.39
+  },
+  {
+   "basin": "bkk_lower",
+   "label": "ลุ่มเจ้าพระยาตอนล่าง–กทม.–สมุทรปราการ",
+   "status": "ok",
+   "alt2_day_utc": "2026-08-26",
+   "alt2_ict": "2026-08-27 06:08",
+   "n_slices_alt2": 1,
+   "M0_km2": 176.6,
+   "M0_stored_km2": 176.6,
+   "M1_km2": 291.3,
+   "M2_km2": 69.0,
+   "valid_frac": {
+    "M0": 1.0,
+    "M1": 1.0,
+    "M2": 1.0
+   },
+   "M1_over_M0": 1.65,
+   "M2_over_M0": 0.39
+  }
+ ],
+ "M1_gt_M2": 5,
+ "M1_lt_M2": 1,
+ "M1_eq_M2": 0
+}

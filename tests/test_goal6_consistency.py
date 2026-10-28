@@ -330,3 +330,15 @@ def test_report3_states_sensitivity_scope_and_bases():
     h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
     assert f"ทดสอบความไวต่อวันของฉากอ้างอิงแล้ว {len(done)} จาก {len(total)} ลุ่ม" in h3
     assert "ร้อยละจากฐานเล็กไม่ใช่การเปลี่ยนจริง" in h3
+
+
+def test_report4_renders_l3_learned_model_against_both_baselines():
+    """รีวิวรอบ 8 (GL F-07): ผลแบบจำลองเรียนรู้ L3 ต้องออกในรายงาน 4 ทั้งสองฐาน (ค่าเดิมคงที่ และฐานรู้ทะเล) พร้อมช่วงความเชื่อมั่น — ตรวจว่าค่าตรง canonical ไม่ฝังข้อสรุป"""
+    hz = _load()["l3_coastal_coupled"]["horizons"]
+    h4 = (ROOT / REPORTS[1]).read_text(encoding="utf-8")
+    assert "เทียบฐานสองแบบ" in h4
+    for h in hz.values():
+        lo, hi = h["linear_improvement_vs_tide_persistence_ci95_pct"]
+        assert f"{h['linear_improvement_vs_tide_persistence_pct']:+.1f}% [{lo:+.1f}, {hi:+.1f}]" in h4
+        assert f"{h['linear_improvement_vs_persistence_pct']:+.1f}%" in h4
+        assert f"{h['linear_coastal_rmse_cm']:.1f}" in h4

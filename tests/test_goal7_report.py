@@ -145,16 +145,7 @@ def test_options_screening_present_and_labeled():
 
 
 # ---- ค่าที่ถูกแทนแล้ว (retired) — ห้ามค้างในรายงาน/builder (เพิ่ม 15 และ 18 ต.ค. 69) ----
-RETIRED = [
-    "2.5–4.8", "เฉพาะแม่น้ำใน 28.05", "น้ำสูงเพิ่ม ~19–39", "ผิวน้ำสูงขึ้นส่วนล้นไซฟอน",
-    "ที่ยังไม่ปรากฏในเอกสารที่พบ:</b> ความสูงสันคัน", "ไม่มีขนาดอาคาร ความสูงคัน หรือระดับน้ำออกแบบ</b> ·",
-    "ความกว้างท้องคลองนี้ยังไม่มีที่มาอ้างอิง",
-    "ปริมาตรรวม 55.4 ล้าน ลบ.ม. ที่ใช้ข้างต้น ไม่มีที่มาอ้างอิง",
-    "ความจุเก็บกัก 55.4",
-    "แผนที่ตำแหน่งอาคารบังคับน้ำ สถานีโทรมาตร และจุดตัดทางน้ำสำคัญตามแนวคลอง",
-    "ท้องคลองกว้าง 48.0",
-    "48.0 ม. (ลาดข้าง",
-]
+RETIRED = [e["text"] for e in json.loads((ROOT / "analysis/goal7/retired.json").read_text(encoding="utf-8"))["retired"]]   # บัญชีเป็นข้อมูล — เพิ่มค่าเลิกใช้ที่ analysis/goal7/retired.json
 ALL_REPORTS = [PUBLIC, ACADEMIC]
 BUILDERS = [ROOT / f"report/goal7_build_{n}.py" for n in ("public", "academic", "policy_brief")]      # เอกสารนโยบายอยู่ในขอบเขตสแกนแล้ว (รีวิวรอบ 7)
 
@@ -503,3 +494,10 @@ def test_text_layer_claims_do_not_cite_image_only_letter():
     c = _j.loads((Path(__file__).resolve().parent.parent / "analysis/goal7/canonical.json").read_text(encoding="utf-8"))
     bad = [f["id"] for f in c["ocr_facts"]["facts"] if f["check"] == "ชั้นข้อความ" and "หนังสือ สผ." in f["src"]]
     assert not bad, bad
+
+
+def test_retired_ledger_is_data_with_reasons():
+    """รีวิวรอบ 8 (GL F-06): บัญชีค่าเลิกใช้ของเป้าหมาย 7 เป็นข้อมูล (ไม่ใช่รายการมือในเทสต์) — ทุกรายการมีเหตุผลและไม่ซ้ำ"""
+    d = json.loads((ROOT / "analysis/goal7/retired.json").read_text(encoding="utf-8"))["retired"]
+    assert d and all(e["text"] and e["reason"] and e["retired_on"] for e in d)
+    assert len({e["text"] for e in d}) == len(d)

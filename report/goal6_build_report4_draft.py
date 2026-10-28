@@ -320,6 +320,36 @@ if _harm:
             f"ประเมินทักษะที่สถานี C.12 (สามเสน กทม.) ในช่วงทดสอบเหตุการณ์น้ำหลาก 2569 · <b>อ่านเทียบฐานก่อน:</b> ผลต่างของ RMSE แบบจำลองเทียบฐานดาราศาสตร์ (ค่าลบ = แพ้ฐาน) รายระยะ: {_beat_txt} · เทียบเคียงแบบ 4 องค์ประกอบเดิมผ่านขั้นตอนเดียวกัน: {_short_txt} · ค่า R² ที่ +24 ชม. = {_skills['lead_24h']['r2_model']:.3f} (RMSE {_skills['lead_24h']['rmse_model_m']:.3f} ม.) สูงเพราะระดับน้ำมีรูปคลื่นขึ้นลงอยู่แล้ว ไม่ได้แปลว่าแม่นกว่าฐาน · สอบเทียบจากสถานีเดียว (CPY015) ไม่ใช่หลายสถานี · ใช้ข้อมูลฤดูฝนฤดูเดียวและชุดตัวอย่างทดสอบของแต่ละระยะมีจำนวนไม่เท่ากัน · ข้อมูล C.12 ที่ใช้ประเมินไม่มีบันทึกเวลาเที่ยงคืนและช่วงค่ำขาดมาก จึงสะท้อนช่วงกลางวันเป็นหลัก"
         ))
 
+# ---- 7ข. แบบจำลองเชิงเส้นผสานข้อมูลทะเล เทียบฐานสองแบบ (อ่านจาก l3_coastal_coupled) ----
+_l3c = _can.get("l3_coastal_coupled", {})
+if _l3c and _l3c.get("horizons"):
+    _l3m, _l3h = _l3c["metadata"], _l3c["horizons"]
+
+    def _ci_txt(v, ci):
+        return f"{v:+.1f}% [{ci[0]:+.1f}, {ci[1]:+.1f}]"
+
+    _l3_rows = [[f"+{h['lead_hours']} ชม.", f"{h['persistence_rmse_cm']:.1f}", f"{h['persistence_tide_rmse_cm']:.1f}", f"{h['linear_coastal_rmse_cm']:.1f}",
+                 _ci_txt(h["linear_improvement_vs_persistence_pct"], h["linear_improvement_vs_persistence_ci95_pct"]),
+                 _ci_txt(h["linear_improvement_vs_tide_persistence_pct"], h["linear_improvement_vs_tide_persistence_ci95_pct"])] for h in _l3h.values()]
+    _l3_cross = [h for h in _l3h.values() if h["linear_improvement_vs_tide_persistence_ci95_pct"][0] <= 0 <= h["linear_improvement_vs_tide_persistence_ci95_pct"][1]]
+    _l3_worse = [h for h in _l3h.values() if h["linear_improvement_vs_tide_persistence_pct"] < 0]
+    S.append(h3("แบบจำลองเชิงเส้นผสานข้อมูลทะเล เทียบฐานสองแบบ"))
+    S.append(table(
+        ["ระยะทำนาย", "RMSE ค่าเดิมคงที่ (ซม.)", "RMSE ค่าเดิมคงที่แบบรู้ทะเล (ซม.)", "RMSE แบบจำลองเชิงเส้นผสานทะเล (ซม.)",
+         "ดีกว่าค่าเดิมคงที่ [ช่วงความเชื่อมั่น]", "ดีกว่าฐานรู้ทะเล [ช่วงความเชื่อมั่น]"],
+        _l3_rows,
+        f"สถานี {esc(_l3m['target_station'])} · ฝึกด้วย {esc(_l3m['train_window_actual'])} ทดสอบ {esc(_l3m['test_window_actual'])} (ใช้ได้ {_l3m['test_coverage_pct']:.1f}% ของช่วงที่ประกาศไว้) · "
+        "<b>อ่านเทียบฐานรู้ทะเลก่อน:</b> ฐานนี้ใช้ข้อมูลน้ำขึ้นน้ำลงชุดเดียวกับแบบจำลอง จึงเป็นฐานที่เป็นธรรม · ค่าติดลบ = แบบจำลองแพ้ฐาน"))
+    S.append(prose(
+        f"<b>อ่านผล</b>: เมื่อเทียบกับค่าเดิมคงที่อย่างเดียว แบบจำลองดีขึ้น {min(h['linear_improvement_vs_persistence_pct'] for h in _l3h.values()):.1f}–{max(h['linear_improvement_vs_persistence_pct'] for h in _l3h.values()):.1f}% "
+        f"แต่เมื่อเทียบกับฐานที่รู้น้ำขึ้นน้ำลงด้วย แบบจำลองแพ้ฐานใน {len(_l3_worse)} จาก {len(_l3h)} ระยะ และช่วงความเชื่อมั่นคร่อมศูนย์ใน {len(_l3_cross)} ระยะ "
+        + ("— จึงยังสรุปไม่ได้ว่าแบบจำลองเพิ่มทักษะเหนือฐานที่รู้น้ำขึ้นน้ำลงอยู่แล้ว · " if len(_l3_cross) == len(_l3h) and len(_l3_worse) == len(_l3h) else "· ")
+        +
+        "ข้อจำกัด: ฝึกด้วยข้อมูลฤดูฝนปีเดียว จึงเป็นการพยากรณ์ในเหตุการณ์เดียว ไม่ใช่การทดสอบที่ใช้สรุปทั่วไปได้ · "
+        "ช่วงความเชื่อมั่นหาจากการสุ่มซ้ำเป็นบล็อกบนชุดทดสอบเดียว เพราะข้อมูลรายชั่วโมงสัมพันธ์กันมาก "
+        f"(จำนวนตัวอย่างอิสระจริงเพียง {min(h['n_effective'] for h in _l3h.values()):.0f}–{max(h['n_effective'] for h in _l3h.values()):.0f} ต่อระยะ) · "
+        "ส่วนต่างที่ช่วงคร่อมศูนย์แปลว่ายังสรุปทิศทางไม่ได้"))
+
 # ---- 8. เมทริกซ์ประเมินความเสี่ยงร่วม น้ำหลากปะทะน้ำหนุน 2 มิติ ----
 _cfr = _can.get("compound_flood_risk", {})
 if _cfr:

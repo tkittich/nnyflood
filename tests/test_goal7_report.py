@@ -444,7 +444,7 @@ def test_acid_soil_regression():
     assert 4.0 <= v["deep"] / v["design"] <= 5.0
     assert a["lime_mt"]["deep"]["0.5"] > 3 * a["lime_mt"]["design"]["0.5"]
     led = {g["id"]: g for g in json.loads((ROOT / "analysis/goal7/gaps.json").read_text(encoding="utf-8"))["gaps"]}
-    assert led["acid_sulfur_content"]["status"] == "closed" and led["acid_measures"]["status"] == "closed"
+    assert {"acid_sulfur_content", "acid_measures"} <= set(led)  # สถานะเปิด/ปิดตามหลักฐานในทะเบียน (28 ต.ค. 69 เปิดคืน: ไม่มีผลวัดกำมะถัน)
 
 
 def test_goal7_builders_have_no_stale_literals():

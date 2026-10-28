@@ -7,7 +7,7 @@
 3. ปริมาณปูนขาว/ปูนมาร์ล (CaCO3) ที่ต้องใช้ปรับสภาพและต้นทุนการบำบัด
 4. มาตรการควบคุมสิ่งแวดล้อมทางวิศวกรรม (Submergence Capping, Neutralization Ponds)
 
-ปิดช่องว่างความรู้:
+ช่องว่างที่เกี่ยวข้อง (ยังเปิด — สคริปต์นี้ให้เพียงสถานการณ์สมมติ ไม่ใช่ผลวัด):
 - acid_sulfur_content: ปริมาณกำมะถัน/ศักย์กรดของชั้นดินที่จะขุด
 - acid_measures: มาตรการจัดการดินกรดกำมะถันระหว่างขุด กองดิน และการใช้ดินถม
 
@@ -83,42 +83,13 @@ def analyze_acid_sulfate_soils():
             },
         }
 
-    # มาตรการทางวิศวกรรมสิ่งแวดล้อม
-    mitigation_measures = {
-        "prevention_capping": (
-            "1. มาตรการปิดคลุมและกักน้ำ (Submergence Capping): ควบคุมระดับน้ำในคลองให้อยู่เหนือชั้นดินไพไรต์ตลอดเวลา "
-            "เพื่อตัดการสัมผัสออกซิเจนในบรรยากาศ ยับยั้งปฏิกิริยาออกซิเดชันของ FeS2 มิให้เกิดกรดกำมะถันอิสระ"
-        ),
-        "spoil_management": (
-            "2. การจัดการดินขุดและคันคลอง: ดินขุดช่วงที่มีชั้นไพไรต์เข้มข้น (>0.5% S) ต้องนำไปวางเป็นแกนในของคันดิน "
-            "และคลุมทับด้วยดินเหนียวไม่เปรี้ยว (Non-acid clay) หนาไม่น้อยกว่า 1.0 เมตร พร้อมผสมปูนมาร์ลในอัตราส่วน 15–20 กก./ตร.ม."
-        ),
-        "runoff_treatment": (
-            "3. บ่อพักและบำบัดน้ำชะล้าง (Retention & Neutralization Ponds): ก่อสร้างบ่อดักตะกอนชั่วคราวตามแนวขุดทุก 2 กม. "
-            "ติดตั้งระบบจ่ายน้ำปูนขาวอัตโนมัติ ควบคุมค่าความเป็นกรด-ด่าง (pH) ของน้ำก่อนระบายออกสู่ลำน้ำสาธารณะไม่ต่ำกว่า 6.5"
-        ),
-        "monitoring": (
-            "4. การเฝ้าระวังคุณภาพน้ำและโลหะหนัก: ติดตั้งสถานีตรวจวัด pH, ซัลเฟต (SO4(2-)), เหล็ก (Fe) และอะลูมิเนียม (Al) "
-            "แบบต่อเนื่องทุก 15 นาที ตลอดแนวคลองช่วง กม.23–110 โดยเฉพาะจุดตัดคลองส่งน้ำชลประทานและพื้นที่ใกล้เคียงทุ่งนาองครักษ์"
-        ),
-    }
-
     summary = {
-        "title": "การประเมินปริมาณดินกรดกำมะถันและมาตรการจัดการทางวิศวกรรม โครงการคลองเจ้าพระยา 2",
+        "title": "ตารางปูนปรับสภาพดินกรดกำมะถันตามสถานการณ์สมมติ โครงการคลองเจ้าพระยา 2 (ซ้ำกับคีย์ acid_soil ที่รายงานใช้อยู่)",
+        "status": "superseded_by_acid_soil",
+        "note": "ค่ากำมะถันร้อยละ 0.2/0.5/1.0 เป็นสถานการณ์สมมติ ไม่ใช่ค่าที่วัด · ราคาปูนไม่มีแหล่งอ้างอิง · ผลที่เผยแพร่ในรายงานอยู่ที่คีย์ acid_soil (blocks.tbl_acid_soil) — ไฟล์นี้เก็บไว้เพื่อตรวจย้อนเท่านั้น",
         "spatial_distribution": distribution,
         "stoichiometric_scenarios": scenarios,
-        "engineering_mitigation_measures": mitigation_measures,
-        "evidence_for_gaps": {
-            "acid_sulfur_content": (
-                "วิเคราะห์ตามฐานข้อมูลชุดดินกรมพัฒนาที่ดิน (LDD): ช่วง กม.23–110 ผ่านชุดดินองครักษ์ (Ok) และรังสิต (Rs) รวม 54.1% ของแนวคลอง "
-                "มีปริมาณดินขุดผ่านชั้นไพไรต์ 16.10 ล้าน ลบ.ม. (แบบปกติ) และ 72.50 ล้าน ลบ.ม. (กรณีขุดลึก) กำหนดช่วงกำมะถันไพไรต์ที่ 0.2–1.0% S "
-                "มีความต้องการปูนขาวปรับสภาพ 0.21–1.06 ล้านตัน (มูลค่า 530–795 ล้านบาท)"
-            ),
-            "acid_measures": (
-                "กำหนดมาตรการทางวิศวกรรม 4 ด้าน: (1) การกักน้ำท่วมคลุมชั้นไพไรต์ตัดออกซิเจน (Submergence) (2) การบดอัดดินเปรี้ยวเป็นแกนในคันดินคลุมทับด้วยดินเหนียว 1 ม. "
-                "(3) บ่อพักตกตะกอนปรับสภาพน้ำด้วยปูนขาวทุก 2 กม. ควบคุม pH ≥ 6.5 ก่อนปล่อย (4) โทรมาตรตรวจวัด pH และโลหะหนักอัตโนมัติ"
-            ),
-        },
+        "analyst_proposals_unpublished": "แนวปฏิบัติทั่วไปที่ผู้วิเคราะห์ร่างไว้ (ปิดคลุมด้วยน้ำ · วางดินเปรี้ยวเป็นแกนคันดิน · บ่อพักปรับสภาพน้ำ · ตรวจวัด pH) ตัวเลขเฉพาะ เช่น ระยะบ่อพักและอัตราปูนมาร์ล ไม่มีแหล่งอ้างอิง จึงไม่ลงรายงานและไม่ถือเป็นมาตรการของโครงการ",
     }
 
     OUT_JSON.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -131,19 +102,16 @@ def analyze_acid_sulfate_soils():
         CANONICAL_FILE.write_text(json.dumps(cdata, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"✅ อัปเดต canonical.json เรียบร้อย")
 
-    # อัปเดตปิดช่องว่างใน gaps.json
+    # ไม่ปิดช่องว่าง acid_sulfur_content / acid_measures: ยังไม่มีผลวัดกำมะถันและไม่มีมาตรการของโครงการ (28 ต.ค. 69)
     if GAPS_FILE.exists():
         gdata = json.loads(GAPS_FILE.read_text(encoding="utf-8"))
         for gap in gdata.get("gaps", []):
-            if gap["id"] == "acid_sulfur_content":
-                gap["status"] = "closed"
-                gap["evidence"] = summary["evidence_for_gaps"]["acid_sulfur_content"]
-            elif gap["id"] == "acid_measures":
-                gap["status"] = "closed"
-                gap["evidence"] = summary["evidence_for_gaps"]["acid_measures"]
-
-        GAPS_FILE.write_text(json.dumps(gdata, ensure_ascii=False, indent=2), encoding="utf-8")
-        print(f"✅ ปิดช่องว่าง acid_sulfur_content และ acid_measures ใน gaps.json เรียบร้อย")
+            if gap["id"] in ("acid_sulfur_content", "acid_measures"):
+                gap["status"] = "open"
+                gap.pop("evidence", None)
+        with open(GAPS_FILE, "w", encoding="utf-8", newline=chr(10)) as f:
+            json.dump(gdata, f, ensure_ascii=False, indent=2)
+        print("✅ คง acid_sulfur_content และ acid_measures เป็นช่องว่างที่เปิดอยู่ ใน gaps.json")
 
     return summary
 

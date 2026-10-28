@@ -795,12 +795,6 @@
   },
   {
    "file": "goal7_build_public.py",
-   "text": "16.1 ล้าน ลบ.ม.",
-   "count": 1,
-   "status": "traced_by_value_unreviewed"
-  },
-  {
-   "file": "goal7_build_public.py",
    "text": "17.00 ม.รทก.",
    "count": 1,
    "status": "traced_by_value_unreviewed"
@@ -928,12 +922,6 @@
   {
    "file": "goal7_build_public.py",
    "text": "6.28 ม.",
-   "count": 1,
-   "status": "traced_by_value_unreviewed"
-  },
-  {
-   "file": "goal7_build_public.py",
-   "text": "72.5 ล้าน ลบ.ม.",
    "count": 1,
    "status": "traced_by_value_unreviewed"
   },

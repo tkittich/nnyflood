@@ -33,6 +33,7 @@
 | `docs/S1_CHACHOENGSAO_RECENT_PREREG.md` | current | plan | กติกาแผนที่น้ำเรดาร์ Sentinel-1 ฉะเชิงเทรา 4–22 ต.ค. 2569 — กำหนดไว้ก่อนดูผล (R7-22) | กำหนด 26 ต.ค. 69 ก่อนดาวน์โหลดและรัน |
 | `docs/S1_CONTROL_RAIN_PREREG.md` | current | plan | กติกาเทียบฝนก่อนเหตุการณ์กับค่าควบคุมของเรดาร์ — กำหนดไว้ก่อนคำนวณฝน | กำหนด 28 ต.ค. 69 ก่อนคำนวณฝนรายหน้าต่าง |
 | `docs/S1_GISTDA_CROSSCHECK_PREREG.md` | current | plan | กติกาเทียบพื้นที่น้ำเรดาร์กับชั้นน้ำท่วมสะสม 30 วันของ GISTDA — กำหนดไว้ก่อนดูผล | กำหนด 27 ต.ค. 69 ก่อนคำนวณ |
+| `docs/S1_ORBIT31_CONTROL_PREREG.md` | current | plan | กติกาตรวจค่าควบคุมวงโคจร 31 ด้วยฉากอ้างอิงที่สาม — กำหนดไว้ก่อนค้นคลัง ดึงฉาก และคำนวณ | กำหนด 28 ต.ค. 69 ก่อนค้นคลังและก่อนดึงฉาก |
 | `docs/S1_PASS_MOSAIC_PREREG.md` | current | plan | กติกาหน่วยวิเคราะห์น้ำเรดาร์เป็นรอบถ่าย ขอบเขตรวมทุกวัน และความไวต่อฉากอ้างอิง — กำหนดไว้ก่อนดูผล | กำหนด 27 ต.ค. 69 ก่อนคำนวณ |
 | `docs/S1_REFERENCE_AUDIT_PREREG.md` | current | plan | กติกาตรวจฉากอ้างอิงของแผนที่น้ำเรดาร์เป้าหมาย 6 ขั้นที่ 2 — กำหนดไว้ก่อนดูผล | กำหนด 26 ต.ค. 69 ก่อนดึงฉากและรัน |
 | `docs/S1_REF_SENSITIVITY_PASAK_PREREG.md` | current | plan | กติกาความไวต่อวันของฉากอ้างอิง ลุ่มป่าสัก — กำหนดไว้ก่อนดูผล | กำหนด 27 ต.ค. 69 ก่อนคำนวณ |
@@ -54,4 +55,4 @@
 | `docs/REVIEW_PROMPT.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Prompt สำหรับให้ AI ตัวอื่นรีวิว/ตรวจสอบโปรเจกต์ (เน้นเป้าหมาย 7 — คลองเจ้าพระยา2) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 | `docs/REVIEW_PROMPT_COMPREHENSIVE.md` | superseded → `docs/REVIEW_PROMPT_EN.md` | review-prompt | Comprehensive System Audit Prompt (Superseded) | ถูกแทนที่ด้วย REVIEW_PROMPT_EN.md |
 
-รวม 49 เอกสาร
+รวม 50 เอกสาร

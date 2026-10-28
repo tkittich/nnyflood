@@ -167,7 +167,7 @@ def main() -> None:
             slim[n] = {"n_years": r["n_years"], "inflow_rank2554": r["inflow_rank2554"], "inflow_rank2569": r["inflow_rank2569"],
                        "inflow2554": (r["y2554"] or {}).get("inflow_season_mcm"), "inflow2569": r["y2569"]["inflow_season_mcm"],
                        "sep1_over_2554": (r["y2554"] or {}).get("sep1_over_urc_mcm"), "sep1_over_2569": r["y2569"]["sep1_over_urc_mcm"],
-                       "days_over_2554": (r["y2554"] or {}).get("days_over_urc_window"), "days_over_2569": r["y2569"]["days_over_urc_window"],
+                       "days_over_sep_oct_2554": (r["y2554"] or {}).get("days_over_urc_window"), "days_over_sep_oct_2569": r["y2569"]["days_over_urc_window"],
                        "retained_2554": (r["y2554"] or {}).get("retained_share"), "retained_2569": r["y2569"]["retained_share"]}
         out["dam_inflow"] = slim
     # ---- ฝนเฉลี่ยทั้งลุ่ม + ฝนรวมฤดู (goal6_basin_rain.py — รีวิว Sonnet A2) ----
@@ -568,6 +568,7 @@ def main() -> None:
     except (ValueError, KeyError, IndexError):
         _cw_end_th = "?"
     out["definitions"] = {
+        "dam_inflow.days_over_sep_oct": "days_over_sep_oct_2554 / days_over_sep_oct_2569 = จำนวนวันที่เก็บน้ำเกินเส้นกำกับบน (URC) ในหน้าต่าง 1 ก.ย.–9 ต.ค. (39 วัน) ของแต่ละปี — ไม่ใช่นับทั้งปี (ทั้งปี 2554 ดู dams_2554_over_urc_days) · ค่า 39 = เกินทุกวันของหน้าต่าง (อิ่มตัว จึงแยกอันดับเขื่อนที่เครียดสุดไม่ได้) · ชื่อเดิม days_over_2554 / days_over_2569 ถูกเปลี่ยนเมื่อ 28 ต.ค. 69 (รีวิวรอบ 9)",
         "national_medium_reservoirs": "สถิติอ่างเก็บน้ำขนาดกลาง 461 แห่งทั่วประเทศ (ความจุ 5,493.7 ล้าน ลบ.ม.) จากศูนย์ปฏิบัติการน้ำอัจฉริยะ กรมชลประทาน",
         "pasak_24y_baseline": "สถิติพฤติกรรมการเก็บกักและระบายน้ำเขื่อนป่าสักชลสิทธิ์ 24 ปี (2546–2569 รวม 8,425 วัน) · ปี 2569 เป็นปีบางส่วน (ข้อมูลถึง 15 ต.ค. 2569)",
         "pasak_year_counts": "สี่นิยาม 'ปีที่น้ำเกิน' ของป่าสักชลสิทธิ์ ห้ามสลับ: urc_days_full_year = ปีที่มีวันเก็บน้ำเกินระดับกำกับบน (URC) อย่างน้อย 1 วัน ตลอดทั้งปี ในชุด 22 ปี (20/22) · urc_days_aug_sep = นับเฉพาะ ส.ค.–ก.ย. ในชุดเดียวกัน (16/22) · over_normal_storage_24y = ปีที่ยอดเก็บสูงสุด ≥ ความจุกักเก็บปกติ 871.5 ล้าน ลบ.ม. ในชุด 24 ปี 2546–2569 (17/24) · over_1000mcm_24y = ปีที่ยอดเก็บ ≥ 1,000 ล้าน ลบ.ม. ในชุด 24 ปี (8/24) — สองรายการหลังเป็นคนละชุดปีกับสองรายการแรก",

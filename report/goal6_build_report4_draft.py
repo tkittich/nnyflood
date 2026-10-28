@@ -22,7 +22,8 @@ A = ROOT / "analysis"
 OUT = ROOT / "report/ชุดเทียบมาตรฐาน2554.html"
 
 dams = json.loads((A / "goal6/dam_history_all.json").read_text(encoding="utf-8"))["dams"]
-days54 = {k: next((r["days_over_urc"] for r in v.get("years", []) if r["year"] == 2011), 0) for k, v in dams.items()}
+_can0 = json.loads((A / "goal6/canonical.json").read_text(encoding="utf-8"))      # วันเกินเส้นกำกับทั้งปี 2554 อ่านจาก canonical (ตัวสร้างอ่านจาก dam_history_all เส้นเดียวกัน) — รีวิวรอบ 9 DS F-02
+days54 = {k: _can0["dams_2554_over_urc_days"].get(k, 0) for k in dams}
 sep54 = {k: next((r["days_over_urc_sep_oct"] for r in v.get("years", []) if r["year"] == 2011), 0) for k, v in dams.items()}
 full_window = {k: next((r["days_over_urc_sep_oct"] for r in v.get("years", []) if r["year"] == 2026), 0) for k, v in dams.items()}
 n_full = sum(1 for v in full_window.values() if v >= 39)
@@ -41,10 +42,10 @@ def _hi(v, y):  # น้ำเข้าฤดูอยู่ในหนึ่�
 
 _top54 = [n for n, v in _di.items() if _hi(v, 2554)]
 _top69 = [n for n, v in _di.items() if _hi(v, 2569)]
-_over69 = [n for n, v in _di.items() if (v["days_over_2569"] or 0) > 0]
+_over69 = [n for n, v in _di.items() if (v["days_over_sep_oct_2569"] or 0) > 0]
 _over69_hi = [n for n in _over69 if _hi(_di[n], 2569)]
 _over69_lo = [n for n in _over69 if not _hi(_di[n], 2569)]
-_over54 = [n for n, v in _di.items() if (v["days_over_2554"] or 0) > 0]
+_over54 = [n for n, v in _di.items() if (v["days_over_sep_oct_2554"] or 0) > 0]
 _over54_hi = [n for n in _over54 if _hi(_di[n], 2554)]
 
 S: list[str] = []
@@ -215,7 +216,7 @@ for _n in sorted(_di, key=lambda x: -(dams[x].get("normal_storage") or 0)):
     _rows.append([_n, f"{_f(_v['inflow2554'])} (อันดับ {_v['inflow_rank2554'] or '—'}/{_v['n_years']})",
                   f"{_f(_v['inflow2569'])} (อันดับ {_v['inflow_rank2569']}/{_v['n_years']})",
                   f"{_f(_v['sep1_over_2554'])} / {_f(_v['sep1_over_2569'])}",
-                  f"{_v['days_over_2554'] if _v['days_over_2554'] is not None else '—'} / {_v['days_over_2569']}",
+                  f"{_v['days_over_sep_oct_2554'] if _v['days_over_sep_oct_2554'] is not None else '—'} / {_v['days_over_sep_oct_2569']}",
                   f"{(_v['retained_2554'] * 100):.0f}% / {(_v['retained_2569'] * 100):.0f}%" if _v['retained_2554'] is not None and _v['retained_2569'] is not None else "—"])
 S.append(table(["เขื่อน", "น้ำเข้าฤดู 2554 (ล้าน ลบ.ม.)", "น้ำเข้าฤดู 2569", "เก็บ ณ 1 ก.ย. เทียบเส้นกำกับบน 2554 / 2569 (+ = เหนือเส้น)",
                 "วันเกินเส้น ก.ย.–ต.ค. 2554 / 2569", "สัดส่วนน้ำเข้าที่อ่างเก็บไว้ 2554 / 2569"], _rows,

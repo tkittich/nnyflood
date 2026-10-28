@@ -271,7 +271,9 @@ def test_dam_inflow_wired_and_consistent():
     for n, v in d.items():
         assert 1 <= v["inflow_rank2569"] <= v["n_years"]
         y26 = next(r for r in hist[n]["years"] if r["year"] == 2026)
-        assert v["days_over_2569"] == y26["days_over_urc_sep_oct"], (n, v["days_over_2569"], y26["days_over_urc_sep_oct"])
+        assert v["days_over_sep_oct_2569"] == y26["days_over_urc_sep_oct"], (n, v["days_over_sep_oct_2569"], y26["days_over_urc_sep_oct"])
+        y11 = next((r for r in hist[n]["years"] if r["year"] == 2011), None)
+        assert v["days_over_sep_oct_2554"] == (y11["days_over_urc_sep_oct"] if y11 else None), n      # ฝั่ง 2554 (รีวิวรอบ 9 DS F-01)
     h4 = (ROOT / REPORTS[1]).read_text(encoding="utf-8")
     assert "น้ำเข้าอ่าง: ปี 2554 เทียบ 2569" in h4
     assert "ฝนลุ่มตะวันตกแล้ง" not in (ROOT / REPORTS[0]).read_text(encoding="utf-8")

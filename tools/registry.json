@@ -36,7 +36,7 @@
         "numpy"
       ],
       "install": "python -m venv E:/theera/ocr_env && pip install rapidocr onnxruntime pymupdf pillow numpy",
-      "note": "เลิกใช้ (ผู้ใช้ 19 ต.ค. 69): อ่านไทยไม่ดี — OCR ทั้งหมดใช้ Typhoon (typhoon_env) · เก็บไว้เป็นประวัติ ไม่ใช้กับงานใหม่",
+      "note": "เลิกใช้ (ผู้ใช้ 19 ต.ค. 69): อ่านไทยไม่ดี — OCR ทั้งหมดใช้ Typhoon (typhoon_env) · เก็บไว้เป็นประวัติ ไม่ใช้กับงานใหม่ · ลบโฟลเดอร์สภาพแวดล้อมแล้ว 28 ต.ค. 69 (ผู้ใช้อนุมัติ) — สร้างใหม่ได้ด้วยคำสั่งติดตั้งด้านบน",
       "doc": "docs/ENVIRONMENT.md"
     },
     {

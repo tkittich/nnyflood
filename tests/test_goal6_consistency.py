@@ -342,3 +342,15 @@ def test_report4_renders_l3_learned_model_against_both_baselines():
         assert f"{h['linear_improvement_vs_tide_persistence_pct']:+.1f}% [{lo:+.1f}, {hi:+.1f}]" in h4
         assert f"{h['linear_improvement_vs_persistence_pct']:+.1f}%" in h4
         assert f"{h['linear_coastal_rmse_cm']:.1f}" in h4
+
+
+def test_report3_prints_reference_dates_per_orbit_against_rain_start():
+    """กติกา S1_REF_SENSITIVITY_REST_PREREG §2: รายงาน 3 พิมพ์วันถ่ายฉากอ้างอิงหลักต่อวงโคจร (เวลาไทย) เทียบวันที่ฝนเริ่ม — ค่าตรง canonical"""
+    rd = _load()["s1_ref_dates"]
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    assert "วันถ่ายของฉากอ้างอิงหลักต่อวงโคจร" in h3
+    orbits = {int(o) for orbs in rd["by_basin"].values() for o in orbs}
+    for o in orbits:
+        assert f"วงโคจร {o}:" in h3
+    ctl = [v["control_alt_km2"] for orbs in rd["by_basin"].values() for v in orbs.values() if v["control_alt_km2"] is not None]
+    assert f"ค่าควบคุมสูงสุด {max(ctl):,.1f} ตร.กม." in h3

@@ -123,6 +123,24 @@ if _rs_done:
     _RS_SENT += (f" · <b>ขอบเขตการทดสอบ:</b> ทดสอบความไวต่อวันของฉากอ้างอิงแล้ว {len(_rs_done)} จาก {len(_rs_all)} ลุ่ม ({', '.join(_TH[b] for b in _rs_done)}) — "
                  + (f"อีก {len(_rs_all) - len(_rs_done)} ลุ่ม ({', '.join(_TH[b] for b in _rs_all if b not in _rs_done)}) ค่าสูงสุดอ่านจากฉากอ้างอิงหลักเท่านั้น ยังไม่ทราบว่าไวต่อวันอ้างอิงเพียงใด"
                     if len(_rs_done) < len(_rs_all) else "ครบทุกลุ่มแล้ว · ลุ่มที่ป้าย <b>ไวต่อฉากอ้างอิง</b> ให้อ่านค่าสูงสุดเป็นช่วงระหว่างค่าฉากหลักกับค่าฉากทางเลือก"))
+_rd = _can.get("s1_ref_dates")
+if _rd:      # วันถ่ายของฉากอ้างอิงหลักต่อวงโคจร เทียบวันที่ฝนเริ่ม (ข้อมูลบรรยาย — กติกา docs/S1_REF_SENSITIVITY_REST_PREREG.md §2)
+    _mon = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+    _thd = lambda s: f"{int(s[8:10])} {_mon[int(s[5:7]) - 1]} {s[11:16]}"
+    _by_orb = {}
+    for _bb, _orbs in _rd["by_basin"].items():
+        for _o, _v in _orbs.items():
+            _by_orb.setdefault(int(_o), []).append((_bb, _v))
+    _parts = []
+    for _o in sorted(_by_orb):
+        _ic = sorted(v["primary_ref_ict"] for _, v in _by_orb[_o])
+        _ctl = [v["control_alt_km2"] for _, v in _by_orb[_o] if v["control_alt_km2"] is not None]
+        _late = _ic[0][:10] >= _rd["rain_start"]
+        _parts.append(f"วงโคจร {_o}: {_thd(_ic[0])}" + (f"–{_ic[-1][11:16]}" if _ic[-1] != _ic[0] else "") + (" (วันที่ฝนเริ่มหรือหลังจากนั้น)" if _late else "")
+                      + (f" ค่าควบคุม {min(_ctl):,.1f}–{max(_ctl):,.1f} ตร.กม." if _ctl else ""))
+    _mx = max(((_o, v["control_alt_km2"]) for _o, vs in _by_orb.items() for _, v in vs if v["control_alt_km2"] is not None), key=lambda t: t[1])
+    _RS_SENT += (f" · <b>วันถ่ายของฉากอ้างอิงหลักต่อวงโคจร (เวลาไทย) เทียบวันที่ฝนเริ่ม {_thd(_rd['rain_start'] + ' 00:00')[:-6]}:</b> " + " · ".join(_parts)
+                 + f" — ค่าควบคุมสูงสุด {_mx[1]:,.1f} ตร.กม. อยู่ที่วงโคจร {_mx[0]} (ถ่าย {_thd(_by_orb[_mx[0]][0][1]['primary_ref_ict'])}) จึงอ่านค่าสูงสุดของลุ่มเป็นช่วงตามวงโคจร ไม่ใช่ตัวเลขเดียว")
 _bw = max((k for k in _lc if not k.startswith("nn_")), key=lambda k: _lc[k]["share_on_worldcover_water"])   # ลุ่มที่สัดส่วนตกบนน้ำถาวรสูงสุด (อ่านจากข้อมูล ไม่ฝังชื่อ)
 _nmr = _can.get("national_medium_reservoirs", {})
 _ps24 = _can.get("pasak_24y_baseline", {})

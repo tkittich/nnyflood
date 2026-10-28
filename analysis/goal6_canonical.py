@@ -256,6 +256,23 @@ def main() -> None:
     out["s1_ref_sensitivity_other"] = {_rs_with_base(p)["basin"]: _rs_with_base(p)
                                        for p in sorted((A / "goal6").glob("s1_ref_sensitivity_*.json"))}      # ลุ่มอื่น (กติกา docs/S1_REF_SENSITIVITY_PASAK_PREREG.md)
 
+    # ---- วันถ่ายของฉากอ้างอิงหลักต่อวงโคจร เทียบวันที่ฝนเริ่ม (กติกา docs/S1_REF_SENSITIVITY_REST_PREREG.md §2 — ข้อมูลบรรยาย ไม่คำนวณใหม่) ----
+    _s2 = json.loads((ROOT / "data/22_goal6_network/derived/s1_stage2/summary.json").read_text(encoding="utf-8"))
+    _rain = json.loads((A / "goal7/event_rain_summary.json").read_text(encoding="utf-8"))
+    _ref_dates = {}
+    for _b, _rec in _s2.items():
+        _sp = A / ("goal6/s1_ref_sensitivity.json" if _b == "bp_prach" else f"goal6/s1_ref_sensitivity_{_b}.json")
+        _ps = json.loads(_sp.read_text(encoding="utf-8"))["passes"] if _sp.exists() else []
+        _ref_dates[_b] = {}
+        for _o, _t in _rec["tracks"].items():
+            _ict = datetime.strptime(re.search(r"(\d{8}T\d{6})", _t["reference"]).group(1), "%Y%m%dT%H%M%S") + timedelta(hours=7)      # เวลาถ่ายเป็น UTC → เวลาไทย
+            _ctl = [x for x in _ps if x.get("rel_orbit") == int(_o) and x.get("role") == "control_primary_reference_pass"]
+            _ev = [x for x in _ps if x.get("rel_orbit") == int(_o) and x.get("status") == "ok"]
+            _ref_dates[_b][_o] = {"primary_ref_ict": _ict.strftime("%Y-%m-%d %H:%M"),
+                                  "alt_ref_day": _ev[0]["alt_ref_day"] if _ev else None,
+                                  "control_alt_km2": _ctl[0]["alt_ref_km2"] if _ctl else None}
+    out["s1_ref_dates"] = {"rain_start": _rain["days"][0], "rain_days": dict(zip(_rain["days"], _rain["domain_mean_mm_per_day"])), "by_basin": _ref_dates}
+
     # ---- เหตุการณ์จุดวัด (screen) ----
     sc = json.loads((A / "goal6_screen_2026_summary.json").read_text(encoding="utf-8"))
     ev = [x for x in sc["stations"] if x.get("crit") is not None and (x.get("hours_over_crit") or 0) > 0]

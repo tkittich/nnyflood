@@ -372,3 +372,15 @@ def test_report3_names_peak_passes_and_control_share():
         if r["n_control_passes"]:
             assert f"คิดเป็นร้อยละ {r['control_share_of_peak_pct']:.0f} ของค่าสูงสุดฉากหลัก" in h3
     assert "ตามฤดูก่อนเหตุการณ์" not in h3       # สาเหตุของค่าควบคุมยังไม่ได้ทดสอบ — ห้ามระบุว่าเป็นตามฤดู
+
+
+def test_report3_prints_control_rain_numbers_from_results():
+    """กติกา S1_CONTROL_RAIN_PREREG §6: รายงาน 3 พิมพ์ผลฝนเทียบค่าควบคุมตามจริง (ค่าตรง canonical) และไม่ระบุสาเหตุ — ตัวเลขไม่ฝัง"""
+    cr = _load()["s1_control_rain"]
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    assert cr["n_pairs"] == 13 and "ฝนก่อนเหตุการณ์เทียบค่าควบคุม" in h3
+    sp = cr["spearman"]
+    assert f"{sp['A']['control']:+.2f} (ไม่รวมวันถ่าย) และ {sp['B']['control']:+.2f} (รวมวันถ่าย)" in h3
+    for w in cr["within_basin"]:
+        assert f"วงโคจร {w['orbit_max']} = {w['control_max_km2']:,.1f} เทียบวงโคจร {w['orbit_min']} = {w['control_min_km2']:,.1f} ตร.กม." in h3
+    assert "ไม่ใช่ข้อสรุปเรื่องสาเหตุ" in h3

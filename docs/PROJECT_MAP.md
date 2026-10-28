@@ -104,6 +104,7 @@ graph TD
 - `goal6_fetch_gistda_flood.py`: ดึงข้อมูลขอบเขตน้ำท่วมสะสม 30 วันและประวัติความถี่ 14 ปี จาก GISTDA Disaster Platform API
 - `goal6_s1_landcover.py`: จำแนกประเภทผิวดิน (WorldCover) และหักลบน้ำถาวร (JRC) เพื่อหา "น้ำใหม่เข้มงวด"
 - `goal6_s1_rule_validation.py`: สอบเทียบเกณฑ์ความแม่นยำ F1-score และฉากควบคุม
+- `goal6_s1_control_rain.py`: เทียบฝนก่อนเหตุการณ์กับค่าควบคุมของเรดาร์ 13 คู่ (กติกา `docs/S1_CONTROL_RAIN_PREREG.md` · บรรยายเท่านั้น)
 - `goal7_waterchart_overlay.py`: ซ้อนทับแนวคลองกับผังน้ำ สทนช. (พื้นที่ทางน้ำหลาก & น้ำท่วม 100 ปี)
 
 ### กลุ่ม ง: ชลศาสตร์และแบบจำลองคณิตศาสตร์ (Hydraulics & Modeling)

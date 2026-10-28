@@ -280,6 +280,14 @@ def main() -> None:
                                   "control_alt_km2": _ctl[0]["alt_ref_km2"] if _ctl else None}
     out["s1_ref_dates"] = {"rain_start": _rain["days"][0], "rain_days": dict(zip(_rain["days"], _rain["domain_mean_mm_per_day"])), "by_basin": _ref_dates}
 
+    # ---- ฝนก่อนเหตุการณ์เทียบค่าควบคุม (goal6_s1_control_rain.py — กติกา docs/S1_CONTROL_RAIN_PREREG.md · บรรยายเท่านั้น) ----
+    _cr_p = A / "goal6/s1_control_rain.json"
+    if _cr_p.exists():
+        _cr = json.loads(_cr_p.read_text(encoding="utf-8"))
+        out["s1_control_rain"] = {"n_pairs": _cr["n_pairs"], "spearman": _cr["spearman"], "within_basin": _cr["within_basin"],
+                                  "rain_A_range_mm": [min(r["rain_A_mm"] for r in _cr["pairs"]), max(r["rain_A_mm"] for r in _cr["pairs"])],
+                                  "rain_source": _cr["rain_source"], "rule": _cr["rule"]}
+
     # ---- เหตุการณ์จุดวัด (screen) ----
     sc = json.loads((A / "goal6_screen_2026_summary.json").read_text(encoding="utf-8"))
     ev = [x for x in sc["stations"] if x.get("crit") is not None and (x.get("hours_over_crit") or 0) > 0]

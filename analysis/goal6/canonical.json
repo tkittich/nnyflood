@@ -1652,6 +1652,96 @@
    }
   }
  },
+ "s1_control_rain": {
+  "n_pairs": 13,
+  "spearman": {
+   "A": {
+    "control": -0.06,
+    "control_per_coverage": -0.17
+   },
+   "B": {
+    "control": 0.05,
+    "control_per_coverage": -0.03
+   },
+   "C": {
+    "control": -0.02,
+    "control_per_coverage": -0.04
+   }
+  },
+  "within_basin": [
+   {
+    "basin": "bp_prach",
+    "orbit_max": 31,
+    "control_max_km2": 175.4,
+    "orbit_min": 68,
+    "control_min_km2": 51.1,
+    "ratio_max_to_min": 3.4,
+    "rain_A_diff_mm": 14.4,
+    "rain_A_range_mm": [
+     132.1,
+     146.5
+    ]
+   },
+   {
+    "basin": "pasak",
+    "orbit_max": 31,
+    "control_max_km2": 195.0,
+    "orbit_min": 68,
+    "control_min_km2": 0.2,
+    "ratio_max_to_min": 975.0,
+    "rain_A_diff_mm": 20.3,
+    "rain_A_range_mm": [
+     151.5,
+     171.8
+    ]
+   },
+   {
+    "basin": "maeklong",
+    "orbit_max": 31,
+    "control_max_km2": 189.2,
+    "orbit_min": 39,
+    "control_min_km2": 7.9,
+    "ratio_max_to_min": 23.9,
+    "rain_A_diff_mm": 0.0,
+    "rain_A_range_mm": [
+     165.7,
+     165.7
+    ]
+   },
+   {
+    "basin": "thachin",
+    "orbit_max": 31,
+    "control_max_km2": 327.8,
+    "orbit_min": 39,
+    "control_min_km2": 1.0,
+    "ratio_max_to_min": 327.8,
+    "rain_A_diff_mm": 0.0,
+    "rain_A_range_mm": [
+     195.9,
+     195.9
+    ]
+   },
+   {
+    "basin": "ping_cp",
+    "orbit_max": 31,
+    "control_max_km2": 1070.7,
+    "orbit_min": 39,
+    "control_min_km2": 0.0,
+    "ratio_max_to_min": null,
+    "rain_A_diff_mm": 0.0,
+    "rain_A_range_mm": [
+     170.5,
+     170.5
+    ]
+   }
+  ],
+  "rain_A_range_mm": [
+   125.7,
+   195.9
+  ],
+  "rain_source": "Open-Meteo/ERA5 รายวัน เวลาไทย (ค่าจุด ไม่ใช่เครื่องวัดฝน)",
+  "rule": "docs/S1_CONTROL_RAIN_PREREG.md"
+ },
  "event_stations": {
   "n_over_crit": 25,
   "n_wave_peak": 17,

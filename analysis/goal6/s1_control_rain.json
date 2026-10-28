@@ -1,0 +1,311 @@
+{
+ "rule": "docs/S1_CONTROL_RAIN_PREREG.md",
+ "n_pairs": 13,
+ "rain_source": "Open-Meteo/ERA5 รายวัน เวลาไทย (ค่าจุด ไม่ใช่เครื่องวัดฝน)",
+ "pairs": [
+  {
+   "basin": "bp_prach",
+   "orbit": 31,
+   "alt_ict": "2026-09-08 06:08",
+   "primary_ict": "2026-09-20 06:08",
+   "rain_A_mm": 132.1,
+   "rain_B_mm": 161.9,
+   "rain_C_mm": 40.6,
+   "rain_A_point_range_mm": [
+    117.1,
+    141.9
+   ],
+   "n_points": 3,
+   "control_km2": 175.4,
+   "coverage": 0.424
+  },
+  {
+   "basin": "bp_prach",
+   "orbit": 68,
+   "alt_ict": "2026-09-10 18:20",
+   "primary_ict": "2026-09-22 18:20",
+   "rain_A_mm": 136.5,
+   "rain_B_mm": 161.3,
+   "rain_C_mm": 44.3,
+   "rain_A_point_range_mm": [
+    133.5,
+    140.1
+   ],
+   "n_points": 3,
+   "control_km2": 51.1,
+   "coverage": 0.586
+  },
+  {
+   "basin": "bp_prach",
+   "orbit": 91,
+   "alt_ict": "2026-09-09 06:00",
+   "primary_ict": "2026-09-21 06:00",
+   "rain_A_mm": 146.5,
+   "rain_B_mm": 159.4,
+   "rain_C_mm": 45.2,
+   "rain_A_point_range_mm": [
+    142.2,
+    151.9
+   ],
+   "n_points": 3,
+   "control_km2": 120.5,
+   "coverage": 0.814
+  },
+  {
+   "basin": "pasak",
+   "orbit": 31,
+   "alt_ict": "2026-09-08 06:08",
+   "primary_ict": "2026-09-20 06:08",
+   "rain_A_mm": 162.3,
+   "rain_B_mm": 181.4,
+   "rain_C_mm": 43.5,
+   "rain_A_point_range_mm": [
+    155.1,
+    169.5
+   ],
+   "n_points": 2,
+   "control_km2": 195.0,
+   "coverage": 0.688
+  },
+  {
+   "basin": "pasak",
+   "orbit": 68,
+   "alt_ict": "2026-09-10 18:20",
+   "primary_ict": "2026-09-22 18:20",
+   "rain_A_mm": 151.5,
+   "rain_B_mm": 180.0,
+   "rain_C_mm": 37.2,
+   "rain_A_point_range_mm": [
+    142.4,
+    160.5
+   ],
+   "n_points": 2,
+   "control_km2": 0.2,
+   "coverage": 0.161
+  },
+  {
+   "basin": "pasak",
+   "orbit": 91,
+   "alt_ict": "2026-09-09 06:00",
+   "primary_ict": "2026-09-21 06:00",
+   "rain_A_mm": 171.8,
+   "rain_B_mm": 183.4,
+   "rain_C_mm": 50.8,
+   "rain_A_point_range_mm": [
+    157.0,
+    186.5
+   ],
+   "n_points": 2,
+   "control_km2": 0.3,
+   "coverage": 0.05
+  },
+  {
+   "basin": "maeklong",
+   "orbit": 31,
+   "alt_ict": "2026-09-08 06:08",
+   "primary_ict": "2026-09-20 06:08",
+   "rain_A_mm": 165.7,
+   "rain_B_mm": 203.5,
+   "rain_C_mm": 51.8,
+   "rain_A_point_range_mm": [
+    146.7,
+    184.7
+   ],
+   "n_points": 2,
+   "control_km2": 189.2,
+   "coverage": 0.604
+  },
+  {
+   "basin": "maeklong",
+   "orbit": 39,
+   "alt_ict": "2026-09-08 18:36",
+   "primary_ict": "2026-09-20 18:36",
+   "rain_A_mm": 165.7,
+   "rain_B_mm": 203.5,
+   "rain_C_mm": 51.8,
+   "rain_A_point_range_mm": [
+    146.7,
+    184.7
+   ],
+   "n_points": 2,
+   "control_km2": 7.9,
+   "coverage": 0.83
+  },
+  {
+   "basin": "thachin",
+   "orbit": 31,
+   "alt_ict": "2026-09-08 06:08",
+   "primary_ict": "2026-09-20 06:08",
+   "rain_A_mm": 195.9,
+   "rain_B_mm": 227.0,
+   "rain_C_mm": 47.4,
+   "rain_A_point_range_mm": [
+    117.1,
+    274.6
+   ],
+   "n_points": 2,
+   "control_km2": 327.8,
+   "coverage": 1.0
+  },
+  {
+   "basin": "thachin",
+   "orbit": 39,
+   "alt_ict": "2026-09-08 18:36",
+   "primary_ict": "2026-09-20 18:36",
+   "rain_A_mm": 195.9,
+   "rain_B_mm": 227.0,
+   "rain_C_mm": 47.4,
+   "rain_A_point_range_mm": [
+    117.1,
+    274.6
+   ],
+   "n_points": 2,
+   "control_km2": 1.0,
+   "coverage": 0.181
+  },
+  {
+   "basin": "ping_cp",
+   "orbit": 31,
+   "alt_ict": "2026-09-08 06:07",
+   "primary_ict": "2026-09-20 06:07",
+   "rain_A_mm": 170.5,
+   "rain_B_mm": 194.2,
+   "rain_C_mm": 57.6,
+   "rain_A_point_range_mm": [
+    165.4,
+    175.6
+   ],
+   "n_points": 2,
+   "control_km2": 1070.7,
+   "coverage": 0.32
+  },
+  {
+   "basin": "ping_cp",
+   "orbit": 39,
+   "alt_ict": "2026-09-08 18:37",
+   "primary_ict": "2026-09-20 18:37",
+   "rain_A_mm": 170.5,
+   "rain_B_mm": 194.2,
+   "rain_C_mm": 57.6,
+   "rain_A_point_range_mm": [
+    165.4,
+    175.6
+   ],
+   "n_points": 2,
+   "control_km2": 0.0,
+   "coverage": 0.105
+  },
+  {
+   "basin": "bkk_lower",
+   "orbit": 31,
+   "alt_ict": "2026-09-08 06:08",
+   "primary_ict": "2026-09-20 06:08",
+   "rain_A_mm": 125.7,
+   "rain_B_mm": 153.4,
+   "rain_C_mm": 37.0,
+   "rain_A_point_range_mm": [
+    108.6,
+    142.8
+   ],
+   "n_points": 2,
+   "control_km2": 176.6,
+   "coverage": 1.0
+  }
+ ],
+ "spearman": {
+  "A": {
+   "control": -0.06,
+   "control_per_coverage": -0.17
+  },
+  "B": {
+   "control": 0.05,
+   "control_per_coverage": -0.03
+  },
+  "C": {
+   "control": -0.02,
+   "control_per_coverage": -0.04
+  }
+ },
+ "within_basin": [
+  {
+   "basin": "bp_prach",
+   "orbit_max": 31,
+   "control_max_km2": 175.4,
+   "orbit_min": 68,
+   "control_min_km2": 51.1,
+   "ratio_max_to_min": 3.4,
+   "rain_A_diff_mm": 14.4,
+   "rain_A_range_mm": [
+    132.1,
+    146.5
+   ]
+  },
+  {
+   "basin": "pasak",
+   "orbit_max": 31,
+   "control_max_km2": 195.0,
+   "orbit_min": 68,
+   "control_min_km2": 0.2,
+   "ratio_max_to_min": 975.0,
+   "rain_A_diff_mm": 20.3,
+   "rain_A_range_mm": [
+    151.5,
+    171.8
+   ]
+  },
+  {
+   "basin": "maeklong",
+   "orbit_max": 31,
+   "control_max_km2": 189.2,
+   "orbit_min": 39,
+   "control_min_km2": 7.9,
+   "ratio_max_to_min": 23.9,
+   "rain_A_diff_mm": 0.0,
+   "rain_A_range_mm": [
+    165.7,
+    165.7
+   ]
+  },
+  {
+   "basin": "thachin",
+   "orbit_max": 31,
+   "control_max_km2": 327.8,
+   "orbit_min": 39,
+   "control_min_km2": 1.0,
+   "ratio_max_to_min": 327.8,
+   "rain_A_diff_mm": 0.0,
+   "rain_A_range_mm": [
+    195.9,
+    195.9
+   ]
+  },
+  {
+   "basin": "ping_cp",
+   "orbit_max": 31,
+   "control_max_km2": 1070.7,
+   "orbit_min": 39,
+   "control_min_km2": 0.0,
+   "ratio_max_to_min": null,
+   "rain_A_diff_mm": 0.0,
+   "rain_A_range_mm": [
+    170.5,
+    170.5
+   ]
+  }
+ ],
+ "rain_files_sha256": {
+  "bkk_lower_กรุงเทพกลาง.json": "bc637eaf362fa6ad0bc86b08b28e15a674cfed14b39b6d3f85c2fcad66daa22c",
+  "bkk_lower_ปากน้ำ.json": "cc0ee821f78175b457a4a816ad70820c266323b112730f6702b69cb46651f193",
+  "bp_prach_นครนายก.json": "86b2159b6efb0a638483cfd396893def0cd0405e85b809059eecbbea4bc32651",
+  "bp_prach_ปราจีนบุรี.json": "e9f0a988d20e2f65f29a4fbf287d6a834cde2c533f6c4fc85c726e066a26b725",
+  "bp_prach_ลุ่มบนปราจีนบุรี-สระแก้ว.json": "0580ad09f38d4efe24679e1d55e2f2ecf91de87d455e31069d2dd65a9f7c449e",
+  "maeklong_กาญจนบุรี.json": "13e18352a71dfb0bf4d1532dcf5f0cfd949772ee2bdbc7d8557c2478d9a33f24",
+  "maeklong_ลุ่มบนแม่กลอง.json": "69b8c661b40e25425f3c1fbb3f1633f57e153487bf6a58ed147157520bfbc66d",
+  "pasak_ลุ่มบนป่าสัก.json": "50943f525fca2b435249eb082acab1f9d5274be100539759e811f36cf8ec695d",
+  "pasak_อยุธยา.json": "9015c6b0c576bf0195fbaa2135ab2ab383a8956c4a9954165c7410b57baf9fe4",
+  "ping_cp_นครสวรรค์_C.2.json": "d579322de75d03129595dd18b88bfdf47d502888424b1ecebe418d34122b0f0a",
+  "ping_cp_ลุ่มบนปิง.json": "32ef30e7cbaf1ab147b9fae915a19ccdfc78f83183ec34f03ab01c3158a1f411",
+  "thachin_นครชัยศรี.json": "4e9133b941ad42ec45314d055b7490d40698803d952609bdaeaf4189c1d09ddd",
+  "thachin_ลุ่มบนท่าจีน.json": "b4ee908d96cc486902ba52f27fb235d64e4104cb0e9a926280c56fee8b742057"
+ }
+}

@@ -16,11 +16,14 @@ import collections
 import json
 import re
 import statistics
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 A = ROOT / "analysis"
+sys.path.insert(0, str(A))
+from common_render_status import attach as _attach_render_status  # noqa: E402
 D = ROOT / "data/22_goal6_network"
 OUT = A / "goal6/canonical.json"
 
@@ -663,6 +666,7 @@ def main() -> None:
         },
     }
 
+    _attach_render_status(out, "goal6")
     assert_inward_data_contracts(out)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"canonical.json: rain {out['rain_national']['top3_stations_7d']}/{n_pts} "

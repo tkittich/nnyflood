@@ -12098,5 +12098,481 @@
     }
    }
   }
+ },
+ "render_status": {
+  "meta": {
+   "status": "metadata"
+  },
+  "facts": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_common.py"
+   ]
+  },
+  "reconciled_parameters": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_policy_brief.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "canal_volume_check": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "design_segments": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "design_2566": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "dwr_plan": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "eia_land": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "eia_econ": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "eia_social": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "concern_checks": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py"
+   ]
+  },
+  "eia_section": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  },
+  "eia_levels": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  },
+  "eia_profile": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_policy_brief.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  },
+  "design_2565": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "design_2565_structs": {
+   "status": "superseded_by",
+   "key": "struct_compare",
+   "reason": "ค่าอาคารตามแบบ 2565 ถูกป้อนเข้า struct_compare (goal7_analysis.py:669–670) ซึ่งตัวสร้างอ่านและพิมพ์แล้ว"
+  },
+  "meeting_20260909": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "struct_compare": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "design_2560": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "participation": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "concerns": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py"
+   ]
+  },
+  "civic_funding": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "design_history": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "eia_versions": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  },
+  "eia_structs": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  },
+  "alignment_qa": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py"
+   ]
+  },
+  "provinces_km": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_common.py"
+   ]
+  },
+  "structures": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  },
+  "dem": {
+   "status": "rendered",
+   "builders": [
+    "goal7_common.py"
+   ]
+  },
+  "manning": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_common.py"
+   ]
+  },
+  "c2": {
+   "status": "rendered",
+   "builders": [
+    "goal7_common.py"
+   ]
+  },
+  "pasak_dam": {
+   "status": "rendered",
+   "builders": [
+    "goal7_common.py"
+   ]
+  },
+  "corridor_area": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_common.py"
+   ]
+  },
+  "flood_band": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_common.py"
+   ]
+  },
+  "embankment": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  },
+  "basins_2569": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_common.py"
+   ]
+  },
+  "reading_coverage": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py"
+   ]
+  },
+  "options": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  },
+  "runoff": {
+   "status": "rendered",
+   "builders": [
+    "goal6_reportlib.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "extra_q": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_public.py"
+   ]
+  },
+  "new_cases": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  },
+  "ocr_facts": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py"
+   ]
+  },
+  "acid_soil": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_policy_brief.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "nn_venues_2566": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "nuclear_site": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "bpk_role": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "golf_case": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_public.py"
+   ]
+  },
+  "concern_short": {
+   "status": "rendered",
+   "builders": [
+    "goal7_build_public.py"
+   ]
+  },
+  "nn_water_users": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "eia_construction": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "ongkharak_flood": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "illustrative_only": {
+   "status": "internal_only",
+   "reason": "ผลจำลองรูปคลื่นสังเคราะห์ (ความจุ 2,600 · dQ/dh 1,100 ไม่มีที่มา) — ตั้งใจไม่ลงรายงาน (รีวิวรอบ 6 A4)"
+  },
+  "ayutthaya_dqdh_rating": {
+   "status": "internal_only",
+   "reason": "ตารางสอบเทียบ dQ/dh อยุธยา–บางไทร (272–417) ยังไม่ถูกตัวสร้างเล่มใดอ่าน และยังไม่ได้ใช้แทนค่าสมมติ 1,100 ในการจำลองสวนข้อเท็จจริง (illustrative_only) — การแทนต้องมี docs/*_PREREG.md ก่อนรัน"
+  },
+  "ongkharak_2d_depression": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "legal_and_nuclear_assessment": {
+   "status": "internal_only",
+   "reason": "บทวิเคราะห์กฎหมายเวนคืนและศูนย์วิจัยนิวเคลียร์ ยังไม่มีตัวสร้างเล่มใดอ่านคีย์นี้ (ข้อความที่เกี่ยวข้องในรายงานมาจากคีย์ nuclear_site และข้อความพิมพ์เองในตัวสร้าง)"
+  },
+  "acid_sulfate_soil_assessment": {
+   "status": "internal_only",
+   "reason": "การประเมินปูนและต้นทุนดินกรดกำมะถัน ยังไม่มีตัวสร้างเล่มใดอ่านคีย์นี้ (รายงานอ่านพื้นที่ดินกรดจากคีย์ acid_soil)"
+  },
+  "interbasin_transfer_vectors": {
+   "status": "internal_only",
+   "reason": "เวกเตอร์ผันน้ำข้ามลุ่มรายประตู (ภาพ ณ 9 ต.ค. 69) ยังไม่มีตัวสร้างเล่มใดอ่านคีย์นี้"
+  },
+  "dam_to_gulf_corridors": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "bangban_bangsai_case": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_policy_brief.py"
+   ]
+  },
+  "operational_economics": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_policy_brief.py",
+    "goal7_build_public.py"
+   ]
+  },
+  "dem_bias_correction": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py"
+   ]
+  },
+  "dem_waterline_test": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "dem_gistda_waterline_test": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "ongkharak_hydraulic_2d": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "mitrearth_layers": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "mitrearth_road_valley": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "s1_chachoengsao_recent": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "bangpakong_chachoengsao": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py"
+   ]
+  },
+  "mitrearth_national": {
+   "status": "rendered",
+   "builders": [
+    "goal7_blocks.py",
+    "goal7_build_academic.py",
+    "goal7_build_public.py",
+    "goal7_common.py"
+   ]
+  }
  }
 }

@@ -5154,5 +5154,222 @@
    "เร็วกว่าปกติถึง 40 วัน": "T1-11 — แทนด้วยค่ามัธยฐานแบบ leave-one-out 38.0 วัน (GLM F-17 · SB F-22 · เทียบกับ goal2_khundan_22y_summary.json)",
    "36.5 วัน": "SB F-22 (รีวิวรอบ 4) — ค่ามัธยฐานแบบรวมปีเหตุการณ์ (22 ปี) ถูกแทนด้วย 38.0 วัน แบบ leave-one-out (21 ปี)"
   }
+ },
+ "render_status": {
+  "rain_national": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "rain_2554_vs_2569": {
+   "status": "cross_check_only",
+   "reason": "report4 คำนวณจำนวนจุดวัดอันดับ 1–3 ของปี 2554 จากไฟล์ดิบเอง (goal6_build_report4_draft.py: _t54) — canonical เก็บสำเนาไว้ให้เทส test_goal6_consistency เทียบกับ HTML"
+  },
+  "flood_peak_km2": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "flood_peak_meta": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "dam_inflow": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py",
+    "goal6_build_report4_draft.py"
+   ]
+  },
+  "basin_rain": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "exposure": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "s1_landcover": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "s1_rule": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "s1_gistda_crosscheck": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "s1_ref_sensitivity": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "s1_ref_sensitivity_other": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "s1_ref_dates": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "s1_control_rain": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "s1_orbit31_check": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "event_stations": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "l3_best": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "l3_summary": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "c2_attribution": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "bhumibol": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "dams_2554_over_urc_days": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report4_draft.py"
+   ]
+  },
+  "pasak_over_years": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "pasak_over_mid_rain_years": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "estuary_tide": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "estuary_salinity": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "gulf_marine_swan": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "glofas_streamflow": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "gistda_disaster_platform": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py"
+   ]
+  },
+  "national_medium_reservoirs": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py",
+    "goal6_build_report4_draft.py"
+   ]
+  },
+  "pasak_24y_baseline": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report3_draft.py",
+    "goal6_build_report4_draft.py"
+   ]
+  },
+  "pasak_year_counts": {
+   "status": "cross_check_only",
+   "reason": "บัญชีนิยามสี่แบบของ 'ปีที่น้ำเกิน' ป่าสักชลสิทธิ์ (ดู definitions) — รายงาน 3–4 พิมพ์จำนวนผ่าน pasak_over_years และ pasak_24y_baseline; เทสเทียบค่ากับบัญชีนี้"
+  },
+  "l3_coastal_coupled": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report4_draft.py"
+   ]
+  },
+  "compound_flood_risk": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report4_draft.py"
+   ]
+  },
+  "l3_coastal_harmonics": {
+   "status": "rendered",
+   "builders": [
+    "goal6_build_report4_draft.py"
+   ]
+  },
+  "bp_downstream": {
+   "status": "rendered",
+   "builders": [
+    "goal6_bp_downstream.py"
+   ]
+  },
+  "definitions": {
+   "status": "metadata"
+  },
+  "retired": {
+   "status": "metadata"
+  }
  }
 }

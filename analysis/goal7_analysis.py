@@ -16,6 +16,7 @@ from pathlib import Path
 import sys as _sys
 _sys.path.insert(0, str(Path(__file__).resolve().parent))
 from goal7_source_constants import value as _K  # noqa: E402  ค่านำเข้าที่มีแหล่งอ้างอิง
+from common_render_status import attach as _attach_render_status  # noqa: E402  ทะเบียนสถานะการเรนเดอร์ต่อคีย์
 
 import numpy as np
 import rasterio
@@ -1610,6 +1611,7 @@ def main():
     if (OUT / "mitrearth_national_summary.json").exists():
         nat = json.loads((OUT / "mitrearth_national_summary.json").read_text(encoding="utf-8"))
         c["mitrearth_national"] = {k: nat[k] for k in ("gistda_corridor_2005_2019", "gistda_vs_2026_nakhon_nayok", "sea_level_rise_vs_canal", "dempro_vs_eia_ground")}
+    _attach_render_status(c, "goal7")
     (OUT / "canonical.json").write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: c[k] for k in ("structures", "c2", "pasak_dam", "corridor_area", "flood_band")}, ensure_ascii=False, indent=1)[:5000])
 

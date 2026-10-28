@@ -228,3 +228,39 @@ def test_canonical_mirrors_artifacts():
                 assert g6_vals.get(key) == src_data, f"goal6/canonical.json['{key}'] ไม่ตรงกับ {src_path.name}"
 
 
+
+
+_HEAD = re.compile(r"<h([1-4])[^>]*>(.*?)</h\1>", re.S)
+_VISUAL = re.compile(r"<(table|img|svg|ul|ol|figure|details|iframe|canvas)\b", re.I)
+
+
+def _built_reports():
+    return sorted((ROOT / "report").glob("*.html"))
+
+
+def test_no_empty_tables_in_built_reports():
+    """รีวิวรอบ 8–9: ตารางที่อ่านคีย์ที่ไม่มีเคยว่างเงียบโดยไม่มีเทสต์ใดล้ม — ทุก <table> ต้องมีหัวตารางกับอย่างน้อย 1 แถวข้อมูล"""
+    bad = []
+    for p in _built_reports():
+        txt = p.read_text(encoding="utf-8")
+        for m in re.finditer(r"<table\b[^>]*>(.*?)</table>", txt, re.S | re.I):
+            if len(re.findall(r"<tr\b", m.group(1), re.I)) < 2:
+                bad.append(f"{p.name}@{m.start()}")
+    assert not bad, f"พบตารางไม่มีแถวข้อมูล: {bad[:5]}"
+
+
+def test_no_empty_leaf_headings_in_built_reports():
+    """หัวข้อที่ตามด้วยหัวข้อระดับเท่ากันหรือสูงกว่าทันที ต้องมีข้อความหรือภาพ/ตารางคั่น (หัวข้อแม่ที่ตามด้วยหัวข้อย่อยไม่นับ)"""
+    bad = []
+    for p in _built_reports():
+        txt = p.read_text(encoding="utf-8")
+        heads = list(_HEAD.finditer(txt))
+        for cur, nxt in zip(heads, heads[1:]):
+            if int(nxt.group(1)) > int(cur.group(1)):
+                continue                       # หัวข้อแม่ → หัวข้อย่อย
+            seg = txt[cur.end():nxt.start()]
+            if _VISUAL.search(seg):
+                continue
+            if len(re.sub(r"\s+", "", re.sub(r"<[^>]+>", "", seg))) < 20:
+                bad.append(f"{p.name}: {re.sub(r'<[^>]+>', '', cur.group(2)).strip()[:40]}")
+    assert not bad, f"พบหัวข้อไม่มีเนื้อหา: {bad[:5]}"

@@ -245,7 +245,7 @@ def builder_literals(builders):
                 continue
             for pos, val, dec, unit, raw in extract(s):
                 digits = len(str(int(val)).lstrip("0")) + dec
-                if digits >= 3 and unit not in ("year",) and not (2400 <= val <= 2600):
+                if digits >= 3 and unit not in ("year",):
                     rows.append({"file": b.name, "line": ln, "text": raw, "ctx": s[max(0, pos - 30): pos + 25].replace("\n", " ")})
     return rows
 

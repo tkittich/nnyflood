@@ -819,6 +819,12 @@
   },
   {
    "file": "goal7_build_public.py",
+   "text": "2,600 หลัง",
+   "count": 1,
+   "status": "traced_by_value_unreviewed"
+  },
+  {
+   "file": "goal7_build_public.py",
    "text": "2.00 ม.",
    "count": 1,
    "status": "traced_by_value_unreviewed"

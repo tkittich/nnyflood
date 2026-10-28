@@ -354,3 +354,19 @@ def test_report3_prints_reference_dates_per_orbit_against_rain_start():
         assert f"วงโคจร {o}:" in h3
     ctl = [v["control_alt_km2"] for orbs in rd["by_basin"].values() for v in orbs.values() if v["control_alt_km2"] is not None]
     assert f"ค่าควบคุมสูงสุด {max(ctl):,.1f} ตร.กม." in h3
+
+
+def test_report3_names_peak_passes_and_control_share():
+    """รีวิวรอบ 9 (4 ผู้ตรวจ): เมื่อค่าสูงสุดฉากหลักกับฉากทางเลือกมาจากคนละรอบถ่าย รายงาน 3 ต้องระบุวงโคจร/วัน และค่าเมื่อดูรอบเดียว · ค่าควบคุมพิมพ์เป็นสัดส่วนของค่าสูงสุด — ตรวจว่าค่าตรง canonical (ไม่ฝังข้อสรุป)"""
+    can = _load()
+    h3 = (ROOT / REPORTS[0]).read_text(encoding="utf-8")
+    recs = [can["s1_ref_sensitivity"], *can["s1_ref_sensitivity_other"].values()]
+    assert len(recs) == 6
+    for r in recs:
+        if r["peak_primary_pass"] != r["peak_alt_pass"]:
+            d = r['peak_alt_pass']['ict']
+            assert f"วงโคจร {r['peak_alt_pass']['orbit']} (ถ่าย {int(d[8:10])} {["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."][int(d[5:7]) - 1]})" in h3
+            assert f"เปลี่ยน {r['same_pass_change_pct']:+.1f}%" in h3
+        if r["n_control_passes"]:
+            assert f"คิดเป็นร้อยละ {r['control_share_of_peak_pct']:.0f} ของค่าสูงสุดฉากหลัก" in h3
+    assert "ตามฤดูก่อนเหตุการณ์" not in h3       # สาเหตุของค่าควบคุมยังไม่ได้ทดสอบ — ห้ามระบุว่าเป็นตามฤดู

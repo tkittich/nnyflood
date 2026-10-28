@@ -249,7 +249,14 @@ def main() -> None:
         # เพิ่มช่วงพื้นที่ฐานของรอบถ่ายเหตุการณ์ที่ใช้คิดร้อยละ — ร้อยละจากฐานเล็กอ่านเป็นการเปลี่ยนจริงไม่ได้ (รีวิวรอบ 8 CS F-04 / GL F-04)
         d = json.loads(p.read_text(encoding="utf-8"))
         base = [x["primary_km2"] for x in d["passes"] if x["role"] == "event_or_after" and x["primary_km2"]]
-        return {**d["summary"], "event_primary_km2_range": [min(base), max(base)] if base else None}
+        ev = [x for x in d["passes"] if x["role"] == "event_or_after"]
+        pp, pa = max(ev, key=lambda x: x["primary_km2"]), max(ev, key=lambda x: x["alt_ref_km2"])      # รอบถ่ายที่ให้ค่าสูงสุดของฉากหลัก / ฉากทางเลือก (รีวิวรอบ 9: อาจเป็นคนละรอบ)
+        _pass = lambda x: {"orbit": x["rel_orbit"], "ict": (datetime.strptime(re.search(r"(\d{8}T\d{6})", x["scene"]).group(1), "%Y%m%dT%H%M%S") + timedelta(hours=7)).strftime("%Y-%m-%d")}
+        ctl = d["summary"]["control_alt_km2_range"]
+        return {**d["summary"], "event_primary_km2_range": [min(base), max(base)] if base else None,
+                "peak_primary_pass": _pass(pp), "peak_alt_pass": _pass(pa),
+                "same_pass_change_pct": round(100 * (pp["alt_ref_km2"] / pp["primary_km2"] - 1), 1),
+                "control_share_of_peak_pct": round(100 * max(ctl) / d["summary"]["peak_primary_km2"], 1) if ctl else None}
     rs_p = A / "goal6/s1_ref_sensitivity.json"
     if rs_p.exists():
         out["s1_ref_sensitivity"] = _rs_with_base(rs_p)

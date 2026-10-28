@@ -103,12 +103,20 @@ _XC_SENT = ("" if not _xc else (
     "— GISTDA 30 วันเป็นผลสะสมหลายฉากหลายดาวเทียม ไม่ใช่ความจริงภาคสนาม จึงบอกได้เพียงว่าขอบเขตสอดคล้องกัน"
     + ("" if not _xc["any_low_precision"] else f" · ลุ่ม {', '.join(_TH[b] for b in _xc['any_low_precision'])} ส่วนมากอยู่นอกขอบเขตของ GISTDA")
     + " (กติกา <code>docs/S1_GISTDA_CROSSCHECK_PREREG.md</code>)"))
+_THM = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+_th_day = lambda iso: f"{int(iso[8:10])} {_THM[int(iso[5:7]) - 1]}"
+
+
 def _rs_sent(_rs, rule):
     return (
         f" · <b>ความไวต่อวันของฉากอ้างอิง</b> (ลุ่ม{_TH[_rs['basin']]}; ใช้ฉากอ้างอิงทางเลือกที่เก่ากว่าฉากหลักราว 12 วัน ตัดน้ำซ้ำ {_rs['n_event_passes']} รอบถ่าย): "
-        f"ค่าสูงสุดของลุ่มเปลี่ยนจาก {_rs['peak_primary_km2']:,.0f} เป็น {_rs['peak_alt_ref_km2']:,.0f} ตร.กม. ({_rs['peak_change_pct']:+.1f}%) · รายรอบถ่ายเปลี่ยน {_rs['per_pass_change_pct_range'][0]:+.0f}% ถึง {_rs['per_pass_change_pct_range'][1]:+.0f}% "
+        f"ค่าสูงสุดของลุ่มเปลี่ยนจาก {_rs['peak_primary_km2']:,.0f} เป็น {_rs['peak_alt_ref_km2']:,.0f} ตร.กม. ({_rs['peak_change_pct']:+.1f}%)"
+        + ("" if _rs["peak_primary_pass"] == _rs["peak_alt_pass"] else
+           f" — สองค่านี้มาจากคนละรอบถ่าย: ค่าฉากหลักจากวงโคจร {_rs['peak_primary_pass']['orbit']} (ถ่าย {_th_day(_rs['peak_primary_pass']['ict'])}) ค่าฉากทางเลือกจากวงโคจร {_rs['peak_alt_pass']['orbit']} (ถ่าย {_th_day(_rs['peak_alt_pass']['ict'])}) "
+           f"รอบถ่ายของค่าสูงสุดฉากหลักเองเปลี่ยน {_rs['same_pass_change_pct']:+.1f}%")
+        + f" · รายรอบถ่ายเปลี่ยน {_rs['per_pass_change_pct_range'][0]:+.0f}% ถึง {_rs['per_pass_change_pct_range'][1]:+.0f}% "
         f"(คิดจากพื้นที่ฐานของแต่ละรอบถ่าย {_rs['event_primary_km2_range'][0]:,.1f}–{_rs['event_primary_km2_range'][1]:,.0f} ตร.กม. — ร้อยละจากฐานเล็กไม่ใช่การเปลี่ยนจริง)"
-        + (f" · รอบถ่ายก่อนเหตุการณ์เทียบฉากทางเลือก (ค่าควบคุม — ไม่ใช่น้ำท่วม) ได้ {_rs['control_alt_km2_range'][0]:,.0f}–{_rs['control_alt_km2_range'][1]:,.0f} ตร.กม. ซึ่งบอกขนาดการเปลี่ยนแปลงตามฤดูก่อนเหตุการณ์" if _rs["n_control_passes"] else "")
+        + (f" · รอบถ่ายก่อนเหตุการณ์เทียบฉากทางเลือก (ค่าควบคุม — ไม่ใช่น้ำท่วม) ได้ {_rs['control_alt_km2_range'][0]:,.0f}–{_rs['control_alt_km2_range'][1]:,.0f} ตร.กม. (สูงสุดคิดเป็นร้อยละ {_rs['control_share_of_peak_pct']:.0f} ของค่าสูงสุดฉากหลัก) — สาเหตุของการเปลี่ยนก่อนเหตุการณ์ (น้ำในนา ฝนก่อนหน้า ความชื้นดิน หรือน้ำขังชั่วคราว) ยังแยกไม่ได้จากข้อมูลที่มี" if _rs["n_control_passes"] else "")
         + (" · <b>ไวต่อฉากอ้างอิง</b>" if _rs["label_sensitive_to_reference"] else "")
         + f" (กติกา <code>{rule}</code>)")
 
@@ -139,7 +147,7 @@ if _rd:      # วันถ่ายของฉากอ้างอิงห�
         _parts.append(f"วงโคจร {_o}: {_thd(_ic[0])}" + (f"–{_ic[-1][11:16]}" if _ic[-1] != _ic[0] else "") + (" (วันที่ฝนเริ่มหรือหลังจากนั้น)" if _late else "")
                       + (f" ค่าควบคุม {min(_ctl):,.1f}–{max(_ctl):,.1f} ตร.กม." if _ctl else ""))
     _mx = max(((_o, v["control_alt_km2"]) for _o, vs in _by_orb.items() for _, v in vs if v["control_alt_km2"] is not None), key=lambda t: t[1])
-    _RS_SENT += (f" · <b>วันถ่ายของฉากอ้างอิงหลักต่อวงโคจร (เวลาไทย) เทียบวันที่ฝนเริ่ม {_thd(_rd['rain_start'] + ' 00:00')[:-6]}:</b> " + " · ".join(_parts)
+    _RS_SENT += (f" · <b>วันถ่ายของฉากอ้างอิงหลักต่อวงโคจร (เวลาไทย) เทียบวันที่ฝนเริ่ม {_thd(_rd['rain_start'] + ' 00:00')[:-6]} (ป้าย “วันที่ฝนเริ่มหรือหลังจากนั้น” นับตามวันที่ ไม่ได้บอกว่าฝนตกก่อนเวลาถ่ายแล้ว; ข้อมูลฝนที่ใช้เริ่มวันที่นั้น จึงไม่แสดงฝนก่อนหน้า):</b> " + " · ".join(_parts)
                  + f" — ค่าควบคุมสูงสุด {_mx[1]:,.1f} ตร.กม. อยู่ที่วงโคจร {_mx[0]} (ถ่าย {_thd(_by_orb[_mx[0]][0][1]['primary_ref_ict'])}) จึงอ่านค่าสูงสุดของลุ่มเป็นช่วงตามวงโคจร ไม่ใช่ตัวเลขเดียว")
 _bw = max((k for k in _lc if not k.startswith("nn_")), key=lambda k: _lc[k]["share_on_worldcover_water"])   # ลุ่มที่สัดส่วนตกบนน้ำถาวรสูงสุด (อ่านจากข้อมูล ไม่ฝังชื่อ)
 _nmr = _can.get("national_medium_reservoirs", {})

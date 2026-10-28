@@ -87,3 +87,12 @@ def test_extract_sees_signed_numbers():
     assert got("ลด -9.2%") == [(-9.2, "-9.2%")]
     assert got("ต่ำกว่า 1.25 ม.") == [(1.25, "1.25 ม.")]
     assert got("ช่วง 10-20 ม.") == []
+
+
+def test_builder_literal_gate_sees_values_in_the_year_band(tmp_path):
+    """รีวิวรอบ 9 (4 ผู้ตรวจ): ช่วง 2,400–2,600 เคยถูกยกเว้นทุกหน่วย ทำให้ '2,512 ตร.กม.' หลุดตัวตรวจ — ยกเว้นเฉพาะหน่วยปี"""
+    b = tmp_path / "fake_builder.py"
+    b.write_text('A = "ค่าสูงสุด 2,512 ตร.กม. ในรอบถ่ายเดียว"\nB = "ปี 2,569 ปี"\n', encoding="utf-8")
+    texts = {r["text"] for r in ni.builder_literals([b])}
+    assert "2,512 ตร.กม." in texts
+    assert not any("ปี" in t for t in texts)

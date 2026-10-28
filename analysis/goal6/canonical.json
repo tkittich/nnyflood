@@ -1319,7 +1319,17 @@
   "event_primary_km2_range": [
    265.6,
    1379.7
-  ]
+  ],
+  "peak_primary_pass": {
+   "orbit": 141,
+   "ict": "2026-09-27"
+  },
+  "peak_alt_pass": {
+   "orbit": 31,
+   "ict": "2026-10-02"
+  },
+  "same_pass_change_pct": -4.1,
+  "control_share_of_peak_pct": 12.7
  },
  "s1_ref_sensitivity_other": {
   "bkk_lower": {
@@ -1341,7 +1351,17 @@
    "event_primary_km2_range": [
     1281.8,
     1320.8
-   ]
+   ],
+   "peak_primary_pass": {
+    "orbit": 31,
+    "ict": "2026-10-02"
+   },
+   "peak_alt_pass": {
+    "orbit": 31,
+    "ict": "2026-10-02"
+   },
+   "same_pass_change_pct": 3.2,
+   "control_share_of_peak_pct": 13.4
   },
   "maeklong": {
    "basin": "maeklong",
@@ -1362,7 +1382,17 @@
    "event_primary_km2_range": [
     15.2,
     380.3
-   ]
+   ],
+   "peak_primary_pass": {
+    "orbit": 31,
+    "ict": "2026-10-02"
+   },
+   "peak_alt_pass": {
+    "orbit": 141,
+    "ict": "2026-09-27"
+   },
+   "same_pass_change_pct": 3.9,
+   "control_share_of_peak_pct": 49.8
   },
   "pasak": {
    "basin": "pasak",
@@ -1383,7 +1413,17 @@
    "event_primary_km2_range": [
     0.1,
     1576.6
-   ]
+   ],
+   "peak_primary_pass": {
+    "orbit": 141,
+    "ict": "2026-09-27"
+   },
+   "peak_alt_pass": {
+    "orbit": 141,
+    "ict": "2026-09-27"
+   },
+   "same_pass_change_pct": -9.2,
+   "control_share_of_peak_pct": 12.4
   },
   "ping_cp": {
    "basin": "ping_cp",
@@ -1404,7 +1444,17 @@
    "event_primary_km2_range": [
     256.1,
     2656.6
-   ]
+   ],
+   "peak_primary_pass": {
+    "orbit": 31,
+    "ict": "2026-10-02"
+   },
+   "peak_alt_pass": {
+    "orbit": 31,
+    "ict": "2026-10-02"
+   },
+   "same_pass_change_pct": 9.4,
+   "control_share_of_peak_pct": 40.3
   },
   "thachin": {
    "basin": "thachin",
@@ -1425,7 +1475,17 @@
    "event_primary_km2_range": [
     8.7,
     1667.2
-   ]
+   ],
+   "peak_primary_pass": {
+    "orbit": 31,
+    "ict": "2026-10-02"
+   },
+   "peak_alt_pass": {
+    "orbit": 31,
+    "ict": "2026-10-02"
+   },
+   "same_pass_change_pct": -2.4,
+   "control_share_of_peak_pct": 19.7
   }
  },
  "s1_ref_dates": {
